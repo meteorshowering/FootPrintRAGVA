@@ -1,0 +1,3461 @@
+{
+  "meta": {
+    "root_goal": "how to visualize the data of air pollution in China",
+    "total_rounds": 7
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 how to visualiz...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_001905",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "内容为通用数据来源说明，缺乏具体研究发现或深挖线索。建议剪除以节省资源。",
+          "insight": "提供数据和脚本获取方式的常规描述，未涉及具体研究发现或数据趋势。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001639",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "定义了核心空气质量指标来源，但未展示分析结论或趋势，适合作为背景信息保留。",
+          "insight": "研究明确采用AQI、PM2.5等六大污染指标，数据源自中国国家环境监测中心实时平台。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004609",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 4,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心成果图直接展示排放热点分布与数据改进方法，且提供公开数据库链接（www.meicmodel.org），含深度分析价值。",
+          "insight": "网格地图揭示2010年亚洲气体和气溶胶排放空间格局，整合CPED等高分辨率数据集显著改善空间精度。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000484",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "明确中国空气质量评估体系框架，但缺乏创新发现，可作为政策背景保留。",
+          "insight": "中国AQI自2013年起采用六项污染标准，数据通过国家平台计算并发布。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004535",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "地理可视化揭示地域排放特性，可链接土地利用与污染关系，含进一步分析潜力。",
+          "insight": "CO₂排放空间分布显示东北林区和三大平原为生物质燃烧热点，天山绿洲呈现特殊农田排放模式。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003461",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 3
+          },
+          "reason": "仅包含论文标题，未提供任何研究数据、方法或结论，无法提取有效信息",
+          "insight": "仅提供文献标题，无实质性内容"
+        }
+      }
+    },
+    {
+      "id": "chunk_004470",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "地理可视化结合定量数据验证政策有效性，包含CNN-LSTM预测模型和空间自相关分析方法，具备深度扩展价值",
+          "insight": "2013-2020年中国31个省会城市AQI空间自相关分析地图显示，政策实施后北方高污染集聚区显著减少，证明清洁煤技术政策(CCTPs)使空气污染平均下降18.82%"
+        }
+      }
+    },
+    {
+      "id": "chunk_004540",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "隧道实验的线图提供直接排放证据，包含电化学法和光散射法具体检测限值，可推导交通污染源贡献率",
+          "insight": "上海延安东路隧道监测显示：出口处NO、NO₂、CO、PM₂.₅浓度显著高于入口，证实机动车尾气是城市空气污染主要来源，PM₂.₅检测分辨率达0.1μg/m³"
+        }
+      }
+    },
+    {
+      "id": "chunk_004160",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 2
+          },
+          "reason": "纯属作者单位说明段落，完全不包含科研内容或数据",
+          "insight": "机构署名信息无研究内容"
+        }
+      }
+    },
+    {
+      "id": "chunk_002620",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "政策时间轴提供背景框架，但未包含具体效应数据，宜作上下文参考",
+          "insight": "图7概览2013-2020年中国核心大气污染防治政策路线图"
+        }
+      }
+    },
+    {
+      "id": "chunk_000485",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 6
+          },
+          "reason": "描述预测模型的数据输入框架，但缺少具体算法或验证结果，作为背景信息保留较合适。",
+          "insight": "空气质量预测模型需要整合气象参数（最高温度、最低温度、风向、风力）和空气质量数据，数据来源为中国气象平台（tianqi.2345.com）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004621",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心政策演变流程图直接展示污染治理历史脉络，包含具体技术（FGD脱硫）和政策节点（五年计划），多篇高相关文献引用可深挖。",
+          "insight": "流程图揭示中国空气污染控制政策演变：1990年代聚焦SO2减排（燃煤控制），2007年后通过脱硫技术实现SO2排放逆转；NOx治理需多部门协同；2013年起PM2.5防控标志从排放控制转向空气质量管理的战略转型。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004623",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键城市PM2.5趋势量化数据直接展示政策效果，地域差异和年度变化提供深入分析线索，需溯源环境监测中心数据。",
+          "insight": "热力图显示2013-2018年中国前20大城市PM2.5年均浓度：三大重点区域降幅突出（京津冀-40%/长三角-34%/珠三角-28%），2017年珠三角达国家标准（34μg/m³），证明生态政策显著成效。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004515",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "聚焦区域性短期政策（WCHP）效应，与核心空气污染治理关联弱，方法学存在时间错位问题。",
+          "insight": "条形图对比东西部地区供暖季前后AQI/PM2.5/SO2/NO2分布，但异常数据模式显示供暖前3天可能已实施污染控制措施导致指标下降。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004537",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "提供污染源细分数据，但CO2排放非PM2.5防控核心参数，可作为背景信息保留。",
+          "insight": "条形图揭示生物质燃烧CO2排放月度分布：林火春冬季主导（1-5月峰值），农业火灾夏季高峰（6月冬麦秸秆燃烧占84%），灌木林贡献微弱（1%）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004469",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 7
+          },
+          "reason": "该证据作为核心方法论图解，展示特定深度学模型架构在空气质预测中的创新应用，提供模型结构细节和实战效能数据，包含指源论文ID利于深挖",
+          "insight": "该图展示了用于空气质量预测的编码器-解码器结构CNN-LSTM网络架构，CNN部分负责特征提取，LSTM部分处理时间序列预测，通过结合两种网络类型有效捕获数据时空关联性，在31个中国城市验证中取得平均22.06的RMSE精度指标"
+        }
+      }
+    },
+    {
+      "id": "chunk_000496",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "阐述CNN-LSTM模型的理论基础和技术优势具有相关性，但作为背景说明性内容缺乏新方法或可追踪的深挖线索",
+          "insight": "CNN在特征提取与降维的优势可缓解全连接网络的过拟合和训练缓慢问题，CNN-LSTM组合模型通过先特征提取后时序分析的流程增强时空依赖捕捉能力"
+        }
+      }
+    },
+    {
+      "id": "chunk_000493",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "泛泛讨论深度学习优势，未提供具体模型细节、验证数据或政策关联信息，信息价值较低",
+          "insight": "深度学习相比传统统计方法更擅长处理空气质量变中的复杂非线性关系，利于识污染热点区域"
+        }
+      }
+    },
+    {
+      "id": "chunk_004695",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "实测污染物分布曲线定量揭示排放物扩散规律，具有明确工程应用价值",
+          "insight": "隧道移动测量数据显示CO2二次增长拐点（600m处），揭示污染物分两阶段累积机制：前段为外部大气混合区（增速27.6 ppm/km），后段为排放积累区（207 ppm/km）"
+        }
+      }
+    },
+    {
+      "id": "chunk_000497",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "增强对证据chunk_004469中图的技背景理解，但未超出其信息范围",
+          "insight": "针对空气质量数的高维、多变量、非及空间关联特征，研究采用Keras/TensorFlow定制CNN-LSTM模型框架"
+        }
+      }
+    },
+    {
+      "id": "chunk_004467",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表直接展示关键技术架构且提供具体模型评估指标（RMSE），含可深挖的模型实现细节和工具（Keras/TensorFlow）。",
+          "insight": "系统架构图展示了采用CNN-LSTM混合模型进行中国省会城市AQI预测的全流程，包括数据收集、预处理、模型训练与结果分析，模型平均RMSE为22.06表明预测精度良好。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000516",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供时空分析基础方法但缺乏具体发现，需结合后续结果判断价值",
+          "insight": "使用ArcGIS 10.6和GeoDa对31个省会城市（2013-2020年）进行空间自相关分析"
+        }
+      }
+    },
+    {
+      "id": "chunk_000540",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键空间分布结论直接关联污染区域特征，含可深挖的地理分异证据（图5）",
+          "insight": "图5显示2013-2020年中国存在显著的高高污染聚集区（主要分布在北方）和低低污染聚集区（主要分布在南方），呈现明确的污染南北分异模式"
+        }
+      }
+    },
+    {
+      "id": "chunk_000538",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "提供量化统计证据（Moran's I>0且显著）支持污染空间关联性结论",
+          "insight": "全局空间自相关分析（基于Table 3）显示所有月均AQI的Moran's I指标均显著为正，验证了中国城市空气污染的区域协同性"
+        }
+      }
+    },
+    {
+      "id": "chunk_000536",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "补充模型数据集构成与验证方案细节，但未提供新方法洞见",
+          "insight": "采用2016-2019年31座城市日尺度数据训练CNN-LSTM模型（60-20-20划分），平均RMSE达22.06"
+        }
+      }
+    },
+    {
+      "id": "chunk_000500",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "展示空气质量预测模型的技术细节，但缺乏具体环境指标关联",
+          "insight": "描述了CNN-LSTM网络对多维输入数据的处理流程：Flatten层降维，Repcatvec层扩展特征，CNN输出向量输入LSTM层进行时间序列预测（含公式(1)-(6)）"
+        }
+      }
+    },
+    {
+      "id": "chunk_000507",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心模型架构图包含完整数据流路径，可直接链接后续Table 2参数表",
+          "insight": "图4展示了定制的CNN-LSTM网络架构，显示数据输入层、卷积块（含Conv+BN+ReLU）、LSTM时间序列处理层和最终预测输出层的连接结构"
+        }
+      }
+    },
+    {
+      "id": "chunk_001486",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "方法学框架具备行业扩展性，但缺乏具体实施细节或验证结果",
+          "insight": "提出基于CEMS排放数据的多部门（火电、水泥、钢铁）排放清单优化框架，支持未来构建日尺度数据集用于清洁空气政策制定"
+        }
+      }
+    },
+    {
+      "id": "chunk_000518",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "直接提供模型量化参数表，可结合图4架构进行技术复现",
+          "insight": "Table 2包含CNN-LSTM模型在北京AQI预测中的关键参数配置（层结构、滤波器尺寸、LSTM单元数等量化指标）"
+        }
+      }
+    },
+    {
+      "id": "chunk_002796",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "仅提供标题无实质内容，且与当前清洁煤技术政策关联度较低",
+          "insight": "论文标题显示研究空间代理因子对排放清单表征的影响，采用卫星数据分析方法"
+        }
+      }
+    },
+    {
+      "id": "chunk_002663",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心揭示了排放清单构建的新方法学及其局限性，包含具体数据产物路径（EDGAR JRC）和评估维度，paper_011论文具有深度挖掘价值。",
+          "insight": "HTAP_v2.2排放清单采用区域化拼贴方法提升点源定位精度，但在多污染物模拟中可能导致化学反应一致性缺失，并通过人均/GDP排放指标进行全球评估。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003034",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "明确量化了排放空间分配方法论，提供关键术语Table S4指向具体代理参数表（paper_013），对建模研究具有直接应用价值。",
+          "insight": "区域排放清单网格化采用双重分配策略：点源基于设施位置，面源利用人口密度/路网/土地利用等空间代理变量。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002808",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "概述卫星验证方法基础框架，但未涉及具体技术细节或案例，适合作为方法学背景补充（paper_022）。",
+          "insight": "卫星遥感反演NO2/SO2/CO/HCHO等痕量气体对流层柱浓度，为验证排放清单提供自上而下的约束手段。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002890",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提出卫星数据驱动空间代理优化的创新框架，并强调跨物种/区域扩展潜力（paper_022），具备重要方法论突破价值。",
+          "insight": "排放清单空间代理选择直接影响模式-观测一致性，需基于卫星数据优化空间代理以减少人为源分配偏差。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000684",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 8
+          },
+          "reason": "仅泛述现有监测系统原理（非具体技术突破），与排放清单核心优化关联较弱，且未提供空间代理新见解。",
+          "insight": "生物质燃烧排放监测依赖火点卫星观测系统，如FRP（火灾辐射功率）和火烧迹地遥感产品。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002829",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "信息为背景性描述，无深度线索；但出自正式论文应保留上下文。",
+          "insight": "该证据仅描述表格内容，注明表格 3 列举了研究中六种排放情景使用的空间代理，未提供具体数据或结论。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003109",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含关键改进方法（数据集名称）和技术局限线索，建议深挖 CPED、JEI-DB 等本地数据集。",
+          "insight": "MIX 清单整合了中日高分辨率本地数据集（CPED/JEI-DB/OPRF），显著改进了排放空间分布精度，但分散源（如居民燃烧）仍有不确定性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003177",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "包含可操作的深挖线索（开放数据库链接），对实证研究具高价值。",
+          "insight": "提供 MIX 月排放网格数据直接访问地址（www.meicmodel.org/dataset-mix）及 0.25×0.25° 分辨率参数。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004590",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "通过图表定量验证空间代理有效性，含明确最优方案(S6)和方法推广线索（可扩展至SO2/CO2验证）。",
+          "insight": "图表对比六种排放清单性能：S6 空间代理最佳（391 县模拟误差<20%），夜间灯光数据（S2）易高估城市排放，背景区需过滤低浓度卫星数据。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002802",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "摘要提供核心结论（夜间灯光数据最优）和方法论框架（GEOS-Chem+卫星约束），是调研的锚点证据。",
+          "insight": "卫星验证表明：夜间灯光数据优于人口密度分配 NOx 排放，精确定位大型点源可显著提升模型精度（R²提高 0.15-0.3）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002810",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "高价值实验设计，明确验证方法且包含论文ID和模型名称（GEOS-Chem），可直接溯源拓展研究。",
+          "insight": "研究利用NOx作为案例，开发六种空间代理的网格排放数据，通过GEOS-Chem模型模拟NO2垂直柱浓度并与卫星观测对比，验证空间代理对排放清单表示的影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002766",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 2
+          },
+          "reason": "内容不完整（仅为3.6节标题），未提供任何分析方法或结论，无法用于决策。",
+          "insight": "仅章节标题，无实质性内容。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002809",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心洞察包含关键文献线索（Lin 2012, Lamsal 2013）和未解决问题的明确描述（网格化过程差异）。",
+          "insight": "卫星数据验证揭示当前NOx排放清单在污染城市区存在低估现象，且排放空间分布存在区域差异性，但校正因子难以跨物种应用。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000564",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "仅泛泛讨论方法论（深度学习）且未关联具体排放数据或验证技术，与排放清单核心议题偏差较大。",
+          "insight": "讨论国家政策有效性需综合视角，单区域研究有局限，COVID-19期间深度学习可提供新方法洞察。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001640",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "提供政策评估方法论参考（如Tan等研究），但未涉及排放清单技术细节，宜作为背景储备。",
+          "insight": "清洁取暖政策评估采用实验组（35个试点城市）与地理相邻非试点城市对照组的准实验设计。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002671",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "仅为章节标题，无实质内容可提取；未提供具体数据或深挖线索。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_002669",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "内容不完整，仅为目录式标题；无具体技术细节或分析。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_002826",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "提供排放清单空间代理的新颖对比方法，但未包含具体图表或可深挖的标识。",
+          "insight": "对比研究发现：基于夜间灯光数据（DMSP-OSL）的空间代理比人口密度数据（LandScan）更能反映城乡经济梯度差异，后者带来的分配不确定性较小。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001795",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "内容被截断且无完整信息；未提及具体政策或数据依据。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004658",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "可视化数据揭示区域工业转型趋势;元数据含BP神经网络创新方法及COVID-19影响对比，且提供明确论文ID(paper_035)。",
+          "insight": "图3显示京津冀工业热源空间分布：唐山/邯郸等四市占总量31.37%，为工业核心区；山东和天津热源数量2015-2020年间分别增长25.72%和86.64%，体现产业升级成效；而河北年降幅超8.06%。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000525",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "方法描述清晰但缺乏具体直观数据结果，适合作为背景方法学参考。",
+          "insight": "该文本提到利用区域空间自相关分析（Moran's I方法）识别政策实施前后高污染与轻度污染区域的空间分布特征。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001635",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "直接关联政策效果评估，提供可追溯的方法论模型（DID）和关键文献引用[17][27][31]，具高深挖价值。",
+          "insight": "研究采用双重差分法（DID）量化评估中国冬季清洁供暖试点政策（WCHP）对空气质量的改善效果，明确引用基准方法论框架。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001664",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含具体政策评估模型的关键参数设计和因果推断逻辑，可直接用于复制分析方法。",
+          "insight": "通过热周期虚拟变量（Heatperiod）和滞后系数（Lₙ/Eₙ）建立空气质量指标（AQI）量化模型，检测试点/非试点城市在供暖政策前后15天的污染物浓度变化。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002652",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 9
+          },
+          "reason": "提供基础数据集但未涉及政策效果分析，适合作为背景参考。",
+          "insight": "HTAP_v2.2作为整合多区域数据的全球排放基准清单，具备高时空分辨率与透明数据源，支持跨国政策减排情景模拟。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002746",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "纯技术性数据处理步骤描述，无政策关联性且信息密度低。",
+          "insight": "描述2010年排放栅格数据按国家与行业层聚合时与EDGARv4.3活动数据的除法计算过程。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000586",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 2
+          },
+          "reason": "内容仅为作者单位信息，与研究主题完全无关",
+          "insight": "无实质性科学内容"
+        }
+      }
+    },
+    {
+      "id": "chunk_004659",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表展示关键政策效果数据，含定量结果与时间趋势；Metadata提供BP神经网络等可扩展算法细节",
+          "insight": "2015-2020年京津冀地区工业热源对象数量下降27.46%，河北年降幅达8.06%，显示区域产业转型成效；唐山等四市占总量31.37%，疫情期武汉热源锐减66.67%"
+        }
+      }
+    },
+    {
+      "id": "chunk_002871",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "提供排放清单空间分配方法，但未展示具体结果图表，需结合其他证据使用",
+          "insight": "模型将城市分为直辖市、城区、郊区三类，对比NO₂柱浓度观测值与模拟值差异"
+        }
+      }
+    },
+    {
+      "id": "chunk_004539",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "示意图揭示关键监测方法，Metadata包含多城市隧道排放对比数据表与文献引用",
+          "insight": "上海延安东路隧道监测点距出入口150米处布置多传感器，实时检测NO/NO₂/CO/PM₂.₅浓度，汽油车占比94.1%，2016年测得PM₂.₅排放因子34.0±23.5 mg·km⁻¹·veh⁻¹"
+        }
+      }
+    },
+    {
+      "id": "chunk_004582",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "多视图图表综合呈现全球排放源解析，直接支持化学传输建模，含EDGAR等数据源引用",
+          "insight": "HTAP_v2.2清单以0.1°分辨率展示2010年SO₂/NOx/PM等污染物部门贡献：能源占NOx排放41%，交通占CO排放58%，居民占BC排放64%"
+        }
+      }
+    },
+    {
+      "id": "chunk_004694",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "实验设置信息完整，但未直接展示污染物数据趋势，作为背景信息保留",
+          "insight": "示意图展示SJT隧道监测点布局，车队组成数据显示汽油车55%、柴油车36%、LPG车8%，平均小时交通量1817±77辆，反映韩国市场偏好高能效车型特征。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004697",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心对比数据展示移动/固定测量的污染差异，明确验证方法有效性，附References可深挖",
+          "insight": "CO₂、NO等气体污染物在固定监测中浓度更高，PM结果相反；两种方法排放因子差异小于10%，验证移动测量可靠性，支撑材料含表S4。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000453",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 5
+          },
+          "reason": "无实质性内容，仅为短语片段缺乏具体数据或发现",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004628",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "揭示高排放者关键影响与空间分布规律，含具体优化路径参考（表2/3）",
+          "insight": "高峰时段空间热力图显示前10%高排放车辆贡献超60%总量，NOx热点强度达非热点区5倍；引用图S5-S7展示清洁替代方案设计。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000202",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "聚焦工业热源遥感监测，与交通排放关联弱",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_001909",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 7
+          },
+          "reason": "仅提供作者机构信息，无实质性研究内容或数据",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004625",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "可视化展示高分辨率交通监测系统的空间部署，直接支持车辆排放与空气质量的关联研究，且包含具体区域特征数据",
+          "insight": "该地图展示了萧山区密集的交通监测网络布局（含高速路/主干道/居民街道分类），覆盖4585个路段，可实现车牌识别、交通流量及车型分类等动态追踪，为研究交通排放对长三角地区空气质量影响提供关键基础设施支持。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004376",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 7
+          },
+          "reason": "仅为作者单位信息，不包含研究内容或结果",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_001985",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 7
+          },
+          "reason": "仅列出研究参与机构，未提供实验数据或发现",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_002011",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供具体实验装置的技术参数和监测方法，具备高可复现性，且关联图2地理信息，对车辆排放研究有直接价值",
+          "insight": "详细描述上海延安东路隧道（长2107m，截面积33.75㎡）的车辆排放监测系统：在距进出口150m处布设监测单元，连续检测NO/NO₂/CO/PM₂.₅（电化学法检测限0.01-0.15mg/m³，光散射法分辨率0.1μg/m³），为研究城市隧道环境车辆排放因子提供标准化实验场景。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004649",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "该图通过误差线和置信区间定量揭示了VOC源解析中光化学作用的差异化影响，且metadata含原始论文ID及详细解释性引用，具备深挖价值。视觉分析确认散点图完整展示了跨源类别的关键趋势对比。",
+          "insight": "Fig.8散点图显示不同VOC来源的测量值-初始值相关性：汽油蒸发(r²=0.99)和溶剂使用(r²=0.85)具强相关，工业源(r²=0.40)与车辆排放存在显著差异，反映光化学过程对排放源谱的关键影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004587",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表直接量化比较不同空间代理与工业排放的关联性，具有高参考价值，且提供工业GDP作为稳健代理的新证据。",
+          "insight": "图3通过散点图展示了省级工业排放量与三种空间代理（总人口、城市人口、工业GDP）的相关系数，数据表明工业GDP与排放量的相关性最强，可作为更可靠的空间分配代理。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004583",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供收入水平与排放模式的宏观关联，但未指定具体机理或深挖线索，适合作为背景数据保留。",
+          "insight": "图3通过箱线图呈现2010年不同收入组国家（低收入至高收入）的人均污染物排放量和单位GDP排放强度，显示高收入国家人均排放更高而低收入国家单位GDP排放强度更高。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004598",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "仅为框架示意图，无定量分析或新发现，与核心问题关联度低。",
+          "insight": "图1展示MIX排放清单覆盖的29个亚洲国家/区域的地理分布及数据集来源（如中国用MEIC、印度用ANL-India），无具体排放数据。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002642",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 0,
+            "credibility": 0
+          },
+          "reason": "纯标题文本，无有效内容可评估。",
+          "insight": "无具体信息，仅为文献标题。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002844",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 0,
+            "credibility": 0
+          },
+          "reason": "信息与chunk_004587完全重复，无新增价值。",
+          "insight": "文本描述与图片内容均与chunk_004587重复，展示同一张相关性分析图。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002837",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供工业排放空间表征的新方法（IGDP代理），但缺乏具体数据趋势或进一步分析的直接路径。",
+          "insight": "工业部门空间表征方法改进：使用工业GDP替代人口密度作为空间代理变量分析标准化工业排放与人口/城市因子的相关性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002649",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 9
+          },
+          "reason": "仅描述基础数据集构建背景，未提供新洞察或具体研究发现，属于常规背景信息。",
+          "insight": "建立2008-2010年全球多污染物排放网格数据集（SO₂、NOx、PM等），用于支持全球和区域尺度建模研究。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004630",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "核心发现具重大政策价值（图6含多视图数据），且Metadata包含高分辨率排放测算方法[paper_002]及交通脑系统（city brain）等深挖线索。",
+          "insight": "复合图表揭示：低速驾驶（0-5km/h）导致车辆CO、HC、NOx排放因子比高速状态高3-9倍；萧山区拥堵路段（占20%）通过时空速度/通量分布图显示为排放热点区。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004256",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "仅提及方法名称，缺乏实证数据或具体结论，信息价值有限。",
+          "insight": "尝试时间分辨方法评估光化学过程对VOC源解析的影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004642",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "量化关键反应活性物种的光化学衰减效应（含置信区间），Metadata提示同论文含源成分谱对比图（Fig.8）等延伸路径。",
+          "insight": "散点图证明高反应活性VOC（异戊二烯、反式-2-戊烯）光化学损失显著：烯烃初始/实测浓度比达7.90±10.3，芳香烃2.58±2.37。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004645",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "该图表量化呈现关键源的VOC成分分布，Metadata包含详细源类型和相关论文引用，具备深挖PMF建模方法及源对比的线索。",
+          "insight": "箱线图展示了PMF建模中五种源（溶剂使用、燃烧源、车辆排放、汽油蒸发和工业源）的成分谱分布，包括中位数和百分位数范围，揭示了VOC来源贡献的显著差异性及大气光化学对源识别的影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004170",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供VOCs衰减的量化方法背景，但未展示具体数据结果或创新点，作为上下文补充有价值但缺乏深挖线索。",
+          "insight": "使用时间分辨法和一级动力学反应建立VOCs与OH自由基的反应模型，用于评估光化学过程对排放后VOCs水平的影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004165",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接揭示领域核心研究空白，包含具体文献引用和实践案例，能指导后续多源协同分析方向。",
+          "insight": "指出当前缺乏多源同步测量数据，导致无法准确识别臭氧和SOA形成的主要贡献源，并列出来源特定的OFP研究案例（汽油蒸发/溶剂使用等）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004113",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_004637",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "可视化呈现工业源VOCs采样方法学核心，Metadata包含排放因子/物种组成数据线索（如SFN排放因子96 g/Mg-coke），具备深挖行业比较的切入点。",
+          "insight": "流程图对比非回收与机械焦化工艺的生产环节，标记VOCs采样点位如烟道气/无组织排放，突出工艺差异导致的排放路径变量。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000596",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "提供了关键术语框架定义，但缺乏具体数据或模型应用线索",
+          "insight": "该段落明确定义了有机化合物分类体系：将非甲烷有机气体(NMOGs)作为囊括所有气相有机化合物(除甲烷外)的综合术语，涵盖不同挥发性(VOC/SVOC/IVOC)和氧化程度(含OVOC)的化合物"
+        }
+      }
+    },
+    {
+      "id": "chunk_004116",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 8
+          },
+          "reason": "属于常规实验方法描述，未提供新发现或关键指标",
+          "insight": "描述使用PAMS标准气体和多点校正法量化47种VOCs的分析方法"
+        }
+      }
+    },
+    {
+      "id": "chunk_004260",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键验证图形附带统计显著性指标(N=100 bootsrap)，提供源解析模型的可靠性证据",
+          "insight": "图8通过散点图与误差条展示实测与初始VOC源特征的统计一致性，线性回归带与1:1线显示模型验证的良好相关性"
+        }
+      }
+    },
+    {
+      "id": "chunk_004644",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "核心成果图量化不同VOC种类对三大大气过程的影响差异，提供关键优先级指标",
+          "insight": "图3通过环形组合图揭示：烷烃主导OH消耗(76%)，烯烃主导臭氧生成潜力(58%)，芳香烃主导二次有机气溶胶潜力(89%)的功能差异"
+        }
+      }
+    },
+    {
+      "id": "chunk_004594",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "6年观测图揭示季节光化学规律及污染控制成效差距，含具体时间跨度和量化结论",
+          "insight": "图4显示湿季OVOC日间峰值较干季高40%（因光化学反应增强），佐证2014-2019年间一次人为源OVOC下降60%而二次源未受控"
+        }
+      }
+    },
+    {
+      "id": "chunk_004474",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "该图表高度相关，可视化模型漏洞与改进潜力，提供具体量化提升数据（49%→72%碳质量；28%→49%反应性），且Metadata包含深挖线索（paper_025 ID、引用Coggon et al.，2019等研究）。",
+          "insight": "图1展示了火灾非甲烷有机气体（NMOGs）的化学寿命和挥发性，基于其在GEOS-Chem模型中的包含情况分类（黑色：已包含模型；蓝色：排放因子可用但未添加；红色：仅限西部美国燃料类型），并依排放因子大小调整符号尺寸；添加新物种使模型的总碳质量代表率从49%提升至72%，反应性代表率从28%提升至49%，但仍存在显著缺陷（缺失物种贡献过半反应性）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001521",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "信息过于模糊和背景化，无核心洞察或深挖路径（缺少表格内容细节），与关键问题弱相关，建议直接剪除以节省资源。",
+          "insight": "内容仅为'表2. 列出当前化学机理分配数据库支持的VOC排放剖面数据库和生物源排放模型'，无实际数据或进一步分析，仅提及一个未详述的表格标题。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000483",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "提供数据处理的合理方法，与清洁煤政策研究直接相关，但未提供具体论文或模型的深挖路径，建议作为背景上下文保留。",
+          "insight": "该文本指出2020年工业停摆导致中国空气污染物显著下降，引入了政策评估不确定性，因此研究限制数据范围为2013-2019年，并利用深度学习预测2020年AQI以支持清洁煤技术政策（CCTPs）的历时分析。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004505",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "框架核心方法论高度关联动态排放追踪，Metadata提供详细paper_029论文ID和流程图路径（如 C:\\路径\\figure_1.jpg），可直接深挖数据融合过程与模型实现。",
+          "insight": "图表展示了一种通过融合实时CEMS监测数据与年度CPED数据库的多源数据框架，结合异常检测和缺失值填补算法，生成中国燃煤电厂每日排放动态估算的方法，验证了排放趋势与电力统计数据的吻合性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002660",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "仅泛述数据集编译原则，缺乏中国针对性、技术细节或评估指标，信息模糊且重复性高，建议剪除。",
+          "insight": "全球网格化空气污染排放数据集综合了国家报告和科学库存，但未具体说明方法或区域适用性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002820",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "强调排放空间分配的改进需求，与污染建模相关并提供替代方法示例，但无具体深挖线索，适宜保留为方法学背景。",
+          "insight": "研究指出中国自下而上排放清单的空间代理方法（如卫星夜间灯光数据）存在不确定性，需结合燃料销售或回归模型优化空间分布。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000473",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接关联核心政策效果分析，Metadata包含paper_031论文ID和社会经济关联机制，建议深挖预测方法及政策建议部分。",
+          "insight": "研究系统性评估清洁煤技术政策（CCTPs）对全国空气质量的影响，运用深度学习排除COVID-19干扰后，发现工业化与环境治理是污染降低的主要机制。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003908",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接指出地方排放量化研究的关键缺陷，并引用了具体研究案例（Zhao 2015等），提供可深挖的文献线索和区域研究方法论。",
+          "insight": "地方尺度排放清单的不确定性研究存在重大空白，当前方法多沿用国家清单模式，缺乏针对个别排放源的精细分析。城市尺度案例（如南京2015）表明本地化数据可显著提升模型准确性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004005",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 8
+          },
+          "reason": "与chunk_003908内容完全重复（相同段落），无新增信息价值。",
+          "insight": "地方尺度排放清单的不确定性研究存在重大空白，当前方法多沿用国家清单模式。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003501",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "提供具体城市污染源的定量分配数据（移动源31%），可作为区域治理优先级的直接依据，引用[42]可追踪原始数据。",
+          "insight": "2013年北京PM2.5污染源解析显示移动源（31%）为首要本地贡献源，印证交通排放控制对雾霾治理的关键影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002659",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "文本片段不完整，仅提及泛概念而未提供实质数据或方法，无具体技术细节或研究线索。",
+          "insight": "跨洲际空气传输影响区域空气质量。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004499",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "图片数据量化交通排放核心参数（排放因子/粒径分布/时空变化），通过Kristensson等研究交叉验证，为模型校准提供实验基准。",
+          "insight": "高速公路下风向颗粒物呈现双峰分布（20nm和80nm），浓度比上风向高5-6倍；车辆排放贡献PM10中23%及PM1中0.6-1.3μg/m³，验证特定排放因子（4.7×10¹⁴ particles/km·veh）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001300",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接影响排放估算的核心方法，包含具体数值偏差和多项可追溯文献（如Cao et al. 2018, Chaliyakunnel et al. 2019），具备深挖价值。",
+          "insight": "研究展示利用HCHO和CHOCHO卫星观测反演NMVOC排放的方法，指出MEGANv2.1模型高估生物源VOC排放30-60%，RETRO清单低估人为源排放13-16%。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000338",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "碎片化技术细节（存档湿气溶胶表面积）未关联核心问题，缺乏上下文和实际价值。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_001291",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供局部排放扩散的关键机制说明，但缺少定量数据或进一步研究线索，宜保留为背景知识。",
+          "insight": "距高速公路100米内车辆湍流导致地表污染物浓度降低而羽流上层浓度升高，需在排放扩散模型中纳入此效应。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004500",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "关键定量图表揭示排放浓度垂直分布与车辆类型关联，包含可直接引用的排放因子（如LDV/HDV数据）且通过ELPI仪器验证。",
+          "insight": "图5展示高速公路顺风侧20米高度内细颗粒物(＜300nm)和粗颗粒物(＞1μm)浓度显著升高，并定量得出轻型车/重型车颗粒物排放因子分别为1.22×10¹⁴/km/veh和7.79×10¹⁴/km/veh。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001059",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "指出现有模型局限并给出解决方案方向（4D-Var），但未提供具体数据支撑，适合保留为方法论参考。",
+          "insight": "臭氧前体物排放反演存在系统性高估，源于未充分处理化学物理过程不确定性及传输效应，建议采用4D-Var方法改进。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001189",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "揭示了臭氧模型的关键局限性（系统偏差和传输问题），但未提供具体数据或可深挖的图表线索。",
+          "insight": "研究发现模型系统地高估地表臭氧浓度，这种偏差源于化学和物理过程的不确定性；反向建模方法未充分考虑传输影响，建议采用四维变分（4D-Var）等高级方法解决。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004486",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心空间参考底图，其区域定义（城市/农村/SE）直接驱动后续污染分析（如Fig.3的NO2/HCHO分布），且关联CMAQ和WRF模型设置。",
+          "insight": "地图精确定义美国本土（CONUS）建模域的空间分布：红色为人口密度≥1000人/平方英里的城市区，灰色为距城市/电厂超20公里的农村区（含Boulder和Huntsville臭氧探测站），蓝框标出闪电NOx排放主导的东南生物源排放区（SE）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001210",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "仅提供交通排放的孤立数值，无臭氧相关机制或模型改进价值，且结论年份老旧(2005)。",
+          "insight": "量化交通排放的颗粒物数量（7.79×10¹⁴ particles km⁻¹ veh⁻¹）和体积（0.41 cm³ km⁻¹ veh⁻¹），并指出交通湍流主导近源废气扩散。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002383",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "展示全球尺度模型框架的技术细节，但未涉及污染机制创新或关键结论。",
+          "insight": "IMAGESv2化学传输模型在4°×5°网格上运行，40垂直层（地表至44hPa），通过日均结合日变化校正因子计算100种痕量气体浓度。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000824",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "指出模型在气溶胶类型划分上的核心假设限制，对理解排放反演的不确定性有价值。",
+          "insight": "气溶胶同化系统受AOD观测约束，但气溶胶类型比例由模型预设机制决定（传输、微物理），分析结果依赖于该结构假设。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000953",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "核心技术方法描述完整，提供具体模型参数（网格尺寸459×299，27层垂直分层）、化学机制名称及关键参考文献，可作为污染反演建模的深度研究入口",
+          "insight": "详细描述了采用CMAQ DDM-3D模型（EPA开发）计算大气污染物浓度和灵敏度系数的技术方法，包含12km网格的美国本土建模区域配置、27层垂直分层结构、CB6r3/AERO6化学机制，以及基于HCMAQ的边界条件处理方案"
+        }
+      }
+    },
+    {
+      "id": "chunk_001083",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 7
+          },
+          "reason": "证据内容与chunk_000953高度重复且无增量信息，属于同一段落的不同记录版本，保留将导致信息冗余",
+          "insight": "内容与chunk_000953完全重复，均描述CMAQ DDM-3D模型的配置参数（12km网格/27层分层）、CB6r3+AERO6化学机制及HCMAQ边界条件实现"
+        }
+      }
+    },
+    {
+      "id": "chunk_001402",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "标题明确研究方向但缺乏具体方法细节，需保留作为背景参考",
+          "insight": "研究主题为中国燃煤电厂的多源数据融合日排放模式构建方法"
+        }
+      }
+    },
+    {
+      "id": "chunk_001419",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "揭示关键数据缺口并提供多篇参考文献（[26,35]等），具备明确深挖价值",
+          "insight": "对比中美CEMS系统应用差距：中国因监测起步晚/质量问题，鲜少将CEMS数据融入排放估算体系"
+        }
+      }
+    },
+    {
+      "id": "chunk_001421",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "明确方法论创新点（多源数据融合+数据清洗），提供可复用的技术框架",
+          "insight": "提出融合单元级年度排放与CEMS日变化系数的创新方法，包含异常值筛查与缺失值填补技术路线"
+        }
+      }
+    },
+    {
+      "id": "chunk_001303",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "提出非线性联合反演新范式解决VOC-NOx-O3耦合难题，含具体算法（EnKF）和验证方案",
+          "insight": "开发RAPAS-EnKF系统实现TROPOMI HCHO与地面NO2观测的NMVOC/NOx协同反演，突破单物种优化局限"
+        }
+      }
+    },
+    {
+      "id": "chunk_003525",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "政策级治理框架具有参考价值，但缺少技术细节支撑，宜保留作宏观背景",
+          "insight": "提出三阶段协同控制框架：精准大气环境再现系统-污染物/GHG协同削减系统-多目标决策平台"
+        }
+      }
+    },
+    {
+      "id": "chunk_003565",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "提供方法论细节但缺乏具体结果数据，可作为建模方法背景参考，建议关键词扩展检索相关模型应用案例",
+          "insight": "描述使用高分辨率自底向上模型结合实时气象与交通数据（车速、车流量、路段长度）量化道路车辆排放的方法，引用Jiang(2021)和Xia(2022)的研究方法。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003688",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 7
+          },
+          "reason": "文本内容与chunk_003565完全一致，属于重复证据无新增价值",
+          "insight": "内容与chunk_003565完全重复，描述相同的排放量化模型及数据源。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004624",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "关键图表证实PM2.5与O3的拮抗效应，包含定量数据(Table S1-S6)和健康影响线索(GBD项目)，需深挖协同控制策略",
+          "insight": "图表显示2013-2017年京津冀及74城PM2.5年均浓度下降而臭氧（O3）90百分位浓度上升20%-24.5%，揭示PM2.5与O3的反向变化趋势及协同控制挑战。"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "0",
+      "target": "chunk_001905",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001639",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004609",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000484",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004535",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003461",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004470",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004540",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004160",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_002620",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000485",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004621",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004623",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004515",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004537",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_004469",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000496",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000493",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_004695",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000497",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_004467",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000516",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000540",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000538",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000536",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000500",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000507",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_001486",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004470",
+      "target": "chunk_000518",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of CNN-LSTM and spatial autocorrelation in visualizing multi-pollutant interactions\nReason: 节点展示了空间自相关地图的有效性，结合CNN-LSTM预测模型。深化此技术在多污染物协同可视化中的应用，相关性9，新颖性8（当前未覆盖多污染物交互分析）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002796",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002663",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003034",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002808",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002890",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_000684",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002829",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003109",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003177",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_004590",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002802",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002810",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002766",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002809",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution gridded emission visualization using satellite-derived datasets\nReason: MIX排放清单成功融合高分辨率代理数据实现空间网格可视化。扩展卫星数据在动态排放热点监测中的方法，相关性10，新颖性9（突破传统地面监测局限）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_000564",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_001640",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_002671",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_002669",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_002826",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_001795",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_004658",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_000525",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_001635",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_001664",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_002652",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_002746",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_000586",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_004659",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004623",
+      "target": "chunk_002871",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Temporal-spatial heatmaps for policy effectiveness evaluation\nReason: 热力图为城市PM2.5变化提供直观政策效果验证。探索时空热力图在减排措施量化评估中的创新应用，相关性9，新颖性7（补充现有区域对比维度）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_004539",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_004582",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_004694",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_004697",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_000453",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_004628",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_000202",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_001909",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_004625",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_004376",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_001985",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_002011",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_004540",
+      "target": "chunk_004649",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time electrochemical sensor networks for urban pollution source visualization\nReason: 隧道实验证实高精度传感器在污染源解析的价值。深化实时传感网络技术应用于城市移动污染源的可视化方法，相关性10，新颖性8（突破实验室局限）。"
+    },
+    {
+      "source": "chunk_000540",
+      "target": "chunk_004587",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-high clustering visualization methods for regional pollution disparity analysis\nReason: 节点明确揭示中国空气污染南北分异模式（评估9/8），需探索聚类分析工具如LISA和Gi*统计的空间可视化实现。相关性10/10，新颖性8/10"
+    },
+    {
+      "source": "chunk_000540",
+      "target": "chunk_004583",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-high clustering visualization methods for regional pollution disparity analysis\nReason: 节点明确揭示中国空气污染南北分异模式（评估9/8），需探索聚类分析工具如LISA和Gi*统计的空间可视化实现。相关性10/10，新颖性8/10"
+    },
+    {
+      "source": "chunk_000540",
+      "target": "chunk_004598",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-high clustering visualization methods for regional pollution disparity analysis\nReason: 节点明确揭示中国空气污染南北分异模式（评估9/8），需探索聚类分析工具如LISA和Gi*统计的空间可视化实现。相关性10/10，新颖性8/10"
+    },
+    {
+      "source": "chunk_000540",
+      "target": "chunk_002642",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-high clustering visualization methods for regional pollution disparity analysis\nReason: 节点明确揭示中国空气污染南北分异模式（评估9/8），需探索聚类分析工具如LISA和Gi*统计的空间可视化实现。相关性10/10，新颖性8/10"
+    },
+    {
+      "source": "chunk_000540",
+      "target": "chunk_002844",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-high clustering visualization methods for regional pollution disparity analysis\nReason: 节点明确揭示中国空气污染南北分异模式（评估9/8），需探索聚类分析工具如LISA和Gi*统计的空间可视化实现。相关性10/10，新颖性8/10"
+    },
+    {
+      "source": "chunk_000540",
+      "target": "chunk_002837",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-high clustering visualization methods for regional pollution disparity analysis\nReason: 节点明确揭示中国空气污染南北分异模式（评估9/8），需探索聚类分析工具如LISA和Gi*统计的空间可视化实现。相关性10/10，新颖性8/10"
+    },
+    {
+      "source": "chunk_000540",
+      "target": "chunk_002649",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-high clustering visualization methods for regional pollution disparity analysis\nReason: 节点明确揭示中国空气污染南北分异模式（评估9/8），需探索聚类分析工具如LISA和Gi*统计的空间可视化实现。相关性10/10，新颖性8/10"
+    },
+    {
+      "source": "chunk_000540",
+      "target": "chunk_004630",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-high clustering visualization methods for regional pollution disparity analysis\nReason: 节点明确揭示中国空气污染南北分异模式（评估9/8），需探索聚类分析工具如LISA和Gi*统计的空间可视化实现。相关性10/10，新颖性8/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004256",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004642",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004645",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004170",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004165",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004113",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004637",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_000596",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004116",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004260",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004644",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004594",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_004474",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "chunk_004649",
+      "target": "chunk_001521",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Bootstrap source profile visualization for VOC photochemical process characterization\nReason: 推荐关键词'VOC photochemical processing'揭示光化学作用（评估9/9），应拓展VOC源谱可视化技术解决测量-初始值偏差。相关性9/10，新颖性9/10"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000483",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004505",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_002660",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_002820",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000473",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003908",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004005",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003501",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_002659",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Generative adversarial networks for imputing sparse pollution monitoring data in China\nReason: 现有节点未覆盖缺失数据填补技术，GAN生成式模型可提升可视化完整性。相关性9/10，新颖性9/10（全新维度）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004499",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001300",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000338",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001291",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004500",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001059",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001189",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004486",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001210",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_002383",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000824",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000953",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001083",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 3D atmospheric transport visualization using Lagrangian particle dispersion models\nReason: 现有可视化侧重2D平面，需补充三维污染传输动态可视化技术。相关性9/10，新颖性8/10（突破当前空间分析局限）"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001402",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: multisource sensor fusion for real-time pollution mapping in China\nReason: 现有证据含CEMS和卫星数据但缺乏多源集成方案。检索传感器融合技术（如物联网+遥感），解决稀疏监测站数据的实时可视化瓶颈且新颖性达标（相关性9/新颖性8）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001419",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: multisource sensor fusion for real-time pollution mapping in China\nReason: 现有证据含CEMS和卫星数据但缺乏多源集成方案。检索传感器融合技术（如物联网+遥感），解决稀疏监测站数据的实时可视化瓶颈且新颖性达标（相关性9/新颖性8）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001421",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: multisource sensor fusion for real-time pollution mapping in China\nReason: 现有证据含CEMS和卫星数据但缺乏多源集成方案。检索传感器融合技术（如物联网+遥感），解决稀疏监测站数据的实时可视化瓶颈且新颖性达标（相关性9/新颖性8）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001303",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: multisource sensor fusion for real-time pollution mapping in China\nReason: 现有证据含CEMS和卫星数据但缺乏多源集成方案。检索传感器融合技术（如物联网+遥感），解决稀疏监测站数据的实时可视化瓶颈且新颖性达标（相关性9/新颖性8）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003525",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: multisource sensor fusion for real-time pollution mapping in China\nReason: 现有证据含CEMS和卫星数据但缺乏多源集成方案。检索传感器融合技术（如物联网+遥感），解决稀疏监测站数据的实时可视化瓶颈且新颖性达标（相关性9/新颖性8）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003565",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: multisource sensor fusion for real-time pollution mapping in China\nReason: 现有证据含CEMS和卫星数据但缺乏多源集成方案。检索传感器融合技术（如物联网+遥感），解决稀疏监测站数据的实时可视化瓶颈且新颖性达标（相关性9/新颖性8）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003688",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: multisource sensor fusion for real-time pollution mapping in China\nReason: 现有证据含CEMS和卫星数据但缺乏多源集成方案。检索传感器融合技术（如物联网+遥感），解决稀疏监测站数据的实时可视化瓶颈且新颖性达标（相关性9/新颖性8）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004624",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: multisource sensor fusion for real-time pollution mapping in China\nReason: 现有证据含CEMS和卫星数据但缺乏多源集成方案。检索传感器融合技术（如物联网+遥感），解决稀疏监测站数据的实时可视化瓶颈且新颖性达标（相关性9/新颖性8）。"
+    }
+  ]
+}

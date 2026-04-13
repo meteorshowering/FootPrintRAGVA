@@ -1,0 +1,31 @@
+[
+    {
+        "paperId": 1,
+        "title": "On-road emissions of fine particles and associated chemical components from motor vehicles in Wuhan, China",
+        "keywords":[
+            "Vehicle emissions",
+            "PM2.5",
+            "OC/EC",
+            "emission factors",
+            "PEMS"
+        ],
+        "abstract":"Vehicle emission is an important contributor to urban air pollution with the increasing number of motor vehicles. Ten typical vehicles were selected in Wuhan to study the emissions of fine particular matters  $\mathrm{(PM_{2.5})}$  and associated chemical components by on-road tests through a Portable Emission Monitoring System (PEMS). The emission factors of  $\mathrm{PM}_{2.5}$  and the compositions of it from different types of vehicle were obtained. Results showed that the average emission factors of  $\mathrm{PM}_{2.5}$  from gasoline and diesel vehicles were 1.266 and  $16.589\mathrm{mg}/$  km. As the emission standard of vehicles increased from China III to China V,  $\mathrm{PM}_{2.5}$  emission factor gradually decreased from 17.385 to  $1.520~\mathrm{mg / km}$ . Emission rate of  $\mathrm{PM}_{2.5}$  was  $0.0384~\mathrm{mg / s}$  under low speed, and it increased to 0.0775 and  $0.0964~\mathrm{mg / s}$  under the medium and high speeds. The ratio of organic carbon versus elemental carbon (OC/EC) in  $\mathrm{PM}_{2.5}$  from gasoline vehicles was 6.89, which was greater than that of diesel vehicles as 3.12. Because gasoline was made of small molecules and the compression ratio of gasoline engine was relatively low, some OC remained in the area where the ignition failed in the cylinder. The top four water-soluble ions with high emission factors were  $\mathrm{Cl}^-$ ,  $\mathrm{SO}_4^{2 - }$ ,  $\mathrm{Ca}^{2 + }$ , and  $\mathrm{Na}^{+}$ , while K, Na, Ca and Mg had a larger emission factors in the 21 tested inorganic elements. These water-soluble ions and inorganic elements mainly came from the oil burning, fuel additives and engines wear. Results of  $\mathrm{PM}_{2.5}$  emission characteristics would help to improve the air quality in Wuhan."
+        
+    },
+    {
+        "paperId":2,
+        "title": "Changes in the ozone chemical regime over the contiguous United States inferred by the inversion of  $\mathrm{NO}_{\mathrm{x}}$  and VOC emissions using satellite observation",
+        "keywords":[
+            "$\mathrm{HCHO / NO_2}$  factor",
+            "Inverse modeling",
+            "Ozone chemical regime",
+            "OMI",
+            "CMAQ-DDM"
+        ],
+        "abstract":"To investigate changes in the ozone  $(\mathrm{O}_3)$  chemical production regime over the contiguous United States (CONUS) with accurate knowledge of concentrations of its precursors, we applied an inverse modeling technique with Ozone Monitoring Instrument (OMI) tropospheric nitrogen dioxide  $(\mathrm{NO}_2)$  and total formaldehyde (HCHO) retrieval products in the summers of 2011, 2014, and 2017, years in which United States National Emission Inventory were based. The inclusion of dynamic chemical lateral boundary conditions and lightning-induced nitric oxide emissions significantly account for the contribution of background sources in the free troposphere. Satellite-constrained nitrogen oxide  $(\mathrm{NO}_{\mathrm{x}})$  and non-methane volatile organic compounds (NMVOCs) emissions mitigate the discrepancy between satellite and modeled columns: the inversion suggested 2.33-2.84 (1.07-1.34) times higher  $\mathrm{NO}_{\mathrm{x}}$  over the CONUS (over urban regions) and 0.28-0.81 times fewer NMVOCs emissions over the southeastern United States. The model-derived HCHO/NO $_2$  column ratio shows gradual spatial changes in the  $\mathrm{O}_3$  production regime near urban cores relative to previously defined threshold values representing  $\mathrm{NO}_{\mathrm{x}}$  and VOC sensitive conditions. We also found apparent shifts from the  $\mathrm{NO}_{\mathrm{x}}$ -saturated regime to the transition regime (or the transition regime to the  $\mathrm{NO}_{\mathrm{x}}$ -limited regime) over the major cities in the western United States. In contrast, rural areas, especially in the east-southeastern United States, exhibit a decreased HCHO/NO $_2$  column ratio by  $-1.30 \pm 1.71$  with a reduction in HCHO column primarily driven by meteorology, becoming sensitive to VOC emissions. Results show that incorporating satellite observations into numerical modeling could help policymakers implement appropriate emission control policies for  $\mathrm{O}_3$  pollution."
+    },
+    {
+        "paperId":3,
+        "title":"# Source apportionment of PM2.5 in an urban area of Wuhan, China using positive matrix factorization",
+    }
+]

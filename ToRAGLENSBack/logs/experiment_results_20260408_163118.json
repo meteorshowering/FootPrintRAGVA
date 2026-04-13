@@ -1,0 +1,6 @@
+{
+  "root_goal": "我希望你用excel文件来创建剧本，这样方便看分镜和对应的prompt。每个短剧只用一个excel，不同的集数用excel中不同的sheet区别。现在生成一个以大学校园恋爱为话题的。",
+  "iterations": [],
+  "summary": null,
+  "hypothesis": null
+}

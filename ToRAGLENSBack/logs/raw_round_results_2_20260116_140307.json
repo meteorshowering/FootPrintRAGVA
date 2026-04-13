@@ -1,0 +1,819 @@
+{
+  "round_number": 2,
+  "query_results": [
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_multimodal_search",
+        "ParentNode": "3",
+        "args": {
+          "query_image_path": "allimages/Compass Towards Better Causal Analysis of Urban Time Series/figure_5.jpg"
+        },
+        "reason": "这个结果中包含了有价值的图片信息，我认为使用多模态检索可以找到更多相关的可视化内容，帮助我们更全面地了解这个领域。"
+      },
+      "rag_results": []
+    },
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_metadata_search",
+        "ParentNode": "223",
+        "args": {
+          "paper_id": "34"
+        },
+        "reason": "该图表揭示了工业热源的下降与政策执行效果，基于主条目值得进一步挖掘，确认文献中是否有更详细的数据支持和分析。"
+      },
+      "rag_results": [
+        {
+          "retrieval_result": {
+            "id": "img_220",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.1 Technical process of industrial heat source object extraction method based on BP neural network  ",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_220",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_1.jpg",
+              "title": "Fig.1 Technical process of industrial heat source object extraction method based on BP neural network  ",
+              "supplement": "图1基于BP神经网络的工业热源对象提取方法技术流程",
+              "references": [
+                "引用格式：李博，范俊甫，韩留生，等.一种工业热源提取方法：利用温度特征模板的BP神经网络[J].地球信息科学学报,2022,24(3):533-545.[Li B,Fan J F,Han L S,etal.Anindustrial heat source extraction method:BP neural network using temperature feature template[J].Jounal of Geo-information Science,2022,24(3):533-545.]DOI:10.12082/dqxxkx.2022.210462",
+                "# An Industrial Heat Source Extraction Method: BP Neural Network Using Temperature Feature Template",
+                "Abstract: Aiming at the problem of insufficient quantity and spatial refinement in the extraction of industrial heat source from annual scale thermal anomaly data, a neural network industrial heat source extraction method based on temperature feature template is proposed by using VIIRS active fire data. This study took Beijing-Tianjin- Hebei and its surrounding areas as the study area, Firstly, according to the spatial aggregation characteristics of industrial heat sources, the heat source objects were divided by the OPTICS algorithm. Secondly, according to the thermal radiation characteristics of the heat sources, the temperature characteristic template of industrial heat sources and non- industrial heat sources were constructed. Finally, the BP neural network was used to extract industrial heat source objects using the temperature feature template and heat source statistical characteristics as parameters. The results show that: (1) the extraction precision of industrial heat source of the neural network algorithm of temperature feature template proposed in this paper reached  $96.31\\%$ . Compared with time filtering and logistic regression methods, the extraction precision of industrial heat sources was improved by  $8.45\\%$  and  $7.53\\%$ , respectively; (2) From 2015 to 2020, the number of industrial heat sources in the six provinces and cities in Beijing-Tianjin- Hebei and its surrounding areas decreased by  $27.46\\%$ . The number of industrial heat source objects and heat anomalies in Hebei Province decreased by  $8.06\\%$  and  $7.44\\%$  annually, respectively, which was the largest decrease compared with other provinces and cities. The",
+                "Key words: industrial heat source; OPTICS algorithm; temperature feature template; neural network; VIIRS Active Fire; Beijing-Tianjin-Hebei and its surrounding areas",
+                "ing, 2020,12(12):2061. DOI:10.3390/rs12122061  \n[11] Melnikov D V, Zhizhin M N, Trifonov G, et al. Dynamics of snow volcano eruption (Chirpoi island, Kuriles) in 2012-2017: Results of VIIRS nightfire algorithm application[J]. Current Problems in Remote Sensing of the Earth From Space, 2018,15:69-79. DOI:10.21046/2070-7401-2018-15-3-69-79  \n[12] Trifonov G M, Zhizhin M N, Melnikov D V, et al. VIIRS nightfire remote sensing volcanoes[J]. Procedia Computer Science, 2017,119:307-314. DOI:10.1016/j.procs.2017.11.189  \n[13] Ma Y, Ma C, Liu P, et al. Spatial-temporal distribution analysis of industrial heat sources in the US with geocoded, tree-based, large-scale clustering[J]. Remote Sensing, 2020,12(18):3069. DOI:10.3390/rs12183069  \n[14] Xia H, Chen Y, Quan J. A simple method based on the thermal anomaly index to detect industrial heat sources [J]. International Journal of Applied Earth Observation and Geoinformation, 2018,73:627-637. DOI:10.1016/j.jag.2018.08.003  \n[15] Ma C, Yang J, Chen F, et al. Assessing heavy industrial heat source distribution in China using real-time VIIRS active fire/hotspot data[J]. Sustainability, 2018,10(12):4419. DOI:10.3390/su10124419  \n[16] Ma C, Niu Z, Ma Y, et al. Assessing the distribution of heavy industrial heat sources in India between 2012 and 2018[J]. ISPRS International Journal of Geo-Information, 2019,8(12):568. DOI:10.3390/ijgi8120568  \n[17] Liu Y, Hu C, Zhan W, et al. Identifying industrial heat sources using time-series of the VIIRS Nightfire product with an object-oriented approach[J]. Remote Sensing of Environment, 2018,204:347-365. DOI:10.1016/j.rse.2017.10.019  \n[18] 赖建波.重工业热源的遥感识别及空间分布格局研究[D].兰州:西北师范大学,2020. [Lai J B. Study on remote sensing identification and spatial distribution pattern of heat source in heavy industry[D]. Lanzhou: Northwest Normal University, 2020.] DOI:10.27410/d.cnki.gx-bfu.2020.001670  \n[19] 陈辉,厉青,李营,等.京津冀及周边地区PM2.5时空变化特征遥感监测分析[J].环境科学,2019,40(1):33-43. [Chen H, Li Q, Li Y, et al. Monitoring and analysis of the spatio-temporal change characteristics of the PM2.5 concentration over Beijing-Tianjin-Hebei and its surrounding regions based on remote sensing[J]. Environmental Science, 2019,40(1):33-43. ] DOI:10.13227/j.hjxx.201802104  \n[20] 发展改革委.全国老工业基地调整改造规划(2013-2022年) [EB/OL]. http://www.gov.cn/gongbao/content/2013/content_2441018.htm, 2013-03-18. [National Development and Reform Commission. Adjustment and reconstruction plan for national old industrial bases (2013-"
+              ],
+              "functional_roles": {
+                "main_role": "Methodology & Design",
+                "sub_roles": [
+                  "Illustrate Algorithm Process",
+                  "Elucidate Model Architecture"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Flowchart",
+                  "Conceptual Diagram"
+                ]
+              },
+              "key_entities": [
+                "BP neural network",
+                "industrial heat source",
+                "VIIRS Active Fire",
+                "temperature feature template",
+                "OPTICS algorithm"
+              ],
+              "concise_summary": "The figure illustrates the process of extracting industrial heat source objects using a BP neural network based on temperature feature templates, involving VIIRS Active Fire data and the OPTICS algorithm.",
+              "inferred_insight": "The figure highlights the method's efficiency in identifying industrial heat sources, showcasing improved accuracy over traditional techniques.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_221",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.2 Temperature frequency distribution of industrial and non-industrial temperature characteristic template",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_221",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_2.jpg",
+              "title": "Fig.2 Temperature frequency distribution of industrial and non-industrial temperature characteristic template",
+              "supplement": "(a)工业温度特征模板 (b)非工业温度特征模板 图2 工业和非工业温度特征模板的温度频率分布 ",
+              "references": [
+                "Abstract: Aiming at the problem of insufficient quantity and spatial refinement in the extraction of industrial heat source from annual scale thermal anomaly data, a neural network industrial heat source extraction method based on temperature feature template is proposed by using VIIRS active fire data. This study took Beijing-Tianjin- Hebei and its surrounding areas as the study area, Firstly, according to the spatial aggregation characteristics of industrial heat sources, the heat source objects were divided by the OPTICS algorithm. Secondly, according to the thermal radiation characteristics of the heat sources, the temperature characteristic template of industrial heat sources and non- industrial heat sources were constructed. Finally, the BP neural network was used to extract industrial heat source objects using the temperature feature template and heat source statistical characteristics as parameters. The results show that: (1) the extraction precision of industrial heat source of the neural network algorithm of temperature feature template proposed in this paper reached  $96.31\\%$ . Compared with time filtering and logistic regression methods, the extraction precision of industrial heat sources was improved by  $8.45\\%$  and  $7.53\\%$ , respectively; (2) From 2015 to 2020, the number of industrial heat sources in the six provinces and cities in Beijing-Tianjin- Hebei and its surrounding areas decreased by  $27.46\\%$ . The number of industrial heat source objects and heat anomalies in Hebei Province decreased by  $8.06\\%$  and  $7.44\\%$  annually, respectively, which was the largest decrease compared with other provinces and cities. The"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Showcase Prediction Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "industrial temperature characteristic template",
+                "non-industrial temperature characteristic template",
+                "temperature frequency distribution",
+                "VIIRS active fire data",
+                "BP neural network",
+                "OPTICS algorithm",
+                "Beijing-Tianjin-Hebei"
+              ],
+              "concise_summary": "The figure displays line charts showing temperature frequency distributions for industrial and non-industrial templates, indicating distinct thermal characteristics between these sources.",
+              "inferred_insight": "The figure illustrates the neural network's enhanced precision in distinguishing industrial heat sources using temperature feature templates, improving extraction accuracy over other methods.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_222",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.3 Spatial distribution of industrial heat source objects",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_222",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_3.jpg",
+              "title": "Fig.3 Spatial distribution of industrial heat source objects",
+              "supplement": "(a) 1667个工业热源对象 (b)各城市工业热源对象数量 图3 工业热源对象空间分布 ",
+              "references": [
+                "(b)各城市工业热源对象数量  \n图3 工业热源对象空间分布  \nFig. 3 Spatial distribution of industrial heat source objects",
+                "# An Industrial Heat Source Extraction Method: BP Neural Network Using Temperature Feature Template",
+                "Abstract: Aiming at the problem of insufficient quantity and spatial refinement in the extraction of industrial heat source from annual scale thermal anomaly data, a neural network industrial heat source extraction method based on temperature feature template is proposed by using VIIRS active fire data. This study took Beijing-Tianjin- Hebei and its surrounding areas as the study area, Firstly, according to the spatial aggregation characteristics of industrial heat sources, the heat source objects were divided by the OPTICS algorithm. Secondly, according to the thermal radiation characteristics of the heat sources, the temperature characteristic template of industrial heat sources and non- industrial heat sources were constructed. Finally, the BP neural network was used to extract industrial heat source objects using the temperature feature template and heat source statistical characteristics as parameters. The results show that: (1) the extraction precision of industrial heat source of the neural network algorithm of temperature feature template proposed in this paper reached  $96.31\\%$ . Compared with time filtering and logistic regression methods, the extraction precision of industrial heat sources was improved by  $8.45\\%$  and  $7.53\\%$ , respectively; (2) From 2015 to 2020, the number of industrial heat sources in the six provinces and cities in Beijing-Tianjin- Hebei and its surrounding areas decreased by  $27.46\\%$ . The number of industrial heat source objects and heat anomalies in Hebei Province decreased by  $8.06\\%$  and  $7.44\\%$  annually, respectively, which was the largest decrease compared with other provinces and cities. The",
+                "concentration of industrial heat sources in Shandong and Tianjin increased by  $25.72\\%$  and  $86.64\\%$ , respectively, indicating that the industrial transformation and upgrade policies in the two places have achieved remarkable results; (3) Tangshan, Handan, Lvliang, and Changzhi accounted for  $31.37\\%$  of the total industrial heat sources in the study area, which are the main cities in Beijing-Tianjin-Hebei and its surrounding areas. The degree of industrial heat source accumulation and energy consumption in seven cities such as Linfen and Taiyuan was higher than those in other cities; The degree of industrial heat source accumulation and energy consumption in 11 cities such as Beijing and Zhoukou was lower than those in other cities; (4) From January to May 2020, the number of industrial heat anomalies in Beijing-Tianjin-Hebei and its surrounding areas remained unchanged or increased compared with the same period in 2019 and 2021. The COVID-19 had no significant impact on the industrial heat source in the study area. The number of industrial heat anomalies in Wuhan in January and February 2020 decreased by more than  $66.67\\%$  compared with that in the same period in 2019 and 2021, the number of industrial heat anomalies from March to May 2020 was lower than that in the same period of 2019. The COVID-19 has had a significant impact on industrial heat sources in Wuhan from January to May 2020. This study reflects the current situation and trend of industrial heat source development in Beijing-Tianjin-Hebei and its surrounding areas, which provides a valuable reference for the formulation and adjustment of relevant policies such as reducing energy consumption and improving secondary industry concentration.",
+                "Key words: industrial heat source; OPTICS algorithm; temperature feature template; neural network; VIIRS Active Fire; Beijing-Tianjin-Hebei and its surrounding areas",
+                "图1基于BP神经网络的工业热源对象提取方法技术流程  \nFig. 1 Technical process of industrial heat source object extraction method based on BP neural network",
+                "表 2 工业热源提取方法对比表  \nTab. 2 Comparison of industrial heat source extraction methods",
+                "(a) 工业热源对象  \nFig. 4 Number of industrial heat source objects and industrial heat anomaly points in Beijing-Tianjin-Hebei and its surrounding areas",
+                "(d) Slope_NFHWH  \n图5各区域工业热源对象数量、工业热异常点数量、Slope_NWH值、Slope_NFHWH值  \nFig. 5 Number of industrial heat source objects, number of industrial thermal anomaly points, Slope_NWH value and Slope_NFHWH value in each region",
+                "Fig. 7 FRP value distribution map of industrial heat source from 2015 to 2020 (10 km grid)  \n(b)武汉",
+                "ing, 2020,12(12):2061. DOI:10.3390/rs12122061  \n[11] Melnikov D V, Zhizhin M N, Trifonov G, et al. Dynamics of snow volcano eruption (Chirpoi island, Kuriles) in 2012-2017: Results of VIIRS nightfire algorithm application[J]. Current Problems in Remote Sensing of the Earth From Space, 2018,15:69-79. DOI:10.21046/2070-7401-2018-15-3-69-79  \n[12] Trifonov G M, Zhizhin M N, Melnikov D V, et al. VIIRS nightfire remote sensing volcanoes[J]. Procedia Computer Science, 2017,119:307-314. DOI:10.1016/j.procs.2017.11.189  \n[13] Ma Y, Ma C, Liu P, et al. Spatial-temporal distribution analysis of industrial heat sources in the US with geocoded, tree-based, large-scale clustering[J]. Remote Sensing, 2020,12(18):3069. DOI:10.3390/rs12183069  \n[14] Xia H, Chen Y, Quan J. A simple method based on the thermal anomaly index to detect industrial heat sources [J]. International Journal of Applied Earth Observation and Geoinformation, 2018,73:627-637. DOI:10.1016/j.jag.2018.08.003  \n[15] Ma C, Yang J, Chen F, et al. Assessing heavy industrial heat source distribution in China using real-time VIIRS active fire/hotspot data[J]. Sustainability, 2018,10(12):4419. DOI:10.3390/su10124419  \n[16] Ma C, Niu Z, Ma Y, et al. Assessing the distribution of heavy industrial heat sources in India between 2012 and 2018[J]. ISPRS International Journal of Geo-Information, 2019,8(12):568. DOI:10.3390/ijgi8120568  \n[17] Liu Y, Hu C, Zhan W, et al. Identifying industrial heat sources using time-series of the VIIRS Nightfire product with an object-oriented approach[J]. Remote Sensing of Environment, 2018,204:347-365. DOI:10.1016/j.rse.2017.10.019  \n[18] 赖建波.重工业热源的遥感识别及空间分布格局研究[D].兰州:西北师范大学,2020. [Lai J B. Study on remote sensing identification and spatial distribution pattern of heat source in heavy industry[D]. Lanzhou: Northwest Normal University, 2020.] DOI:10.27410/d.cnki.gx-bfu.2020.001670  \n[19] 陈辉,厉青,李营,等.京津冀及周边地区PM2.5时空变化特征遥感监测分析[J].环境科学,2019,40(1):33-43. [Chen H, Li Q, Li Y, et al. Monitoring and analysis of the spatio-temporal change characteristics of the PM2.5 concentration over Beijing-Tianjin-Hebei and its surrounding regions based on remote sensing[J]. Environmental Science, 2019,40(1):33-43. ] DOI:10.13227/j.hjxx.201802104  \n[20] 发展改革委.全国老工业基地调整改造规划(2013-2022年) [EB/OL]. http://www.gov.cn/gongbao/content/2013/content_2441018.htm, 2013-03-18. [National Development and Reform Commission. Adjustment and reconstruction plan for national old industrial bases (2013-"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Present Qualitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Geospatial Visualizations",
+                "sub_types": [
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "industrial heat source objects",
+                "Beijing-Tianjin-Hebei",
+                "OPTICS algorithm",
+                "BP neural network",
+                "temperature feature template"
+              ],
+              "concise_summary": "The figure displays the spatial distribution of industrial heat source objects across Beijing-Tianjin-Hebei and surrounding areas, highlighting the concentration and quantity in various regions.",
+              "inferred_insight": "The spatial distribution indicates varied industrial heat source concentrations, influencing energy policy decisions and showcasing regional differences in industrial activity.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_223",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.4 Number of industrial heat source objects and industrial heat anomaly points in Beijing-Tianjin-Hebei and its surrounding areas",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_223",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_4.jpg",
+              "title": "Fig.4 Number of industrial heat source objects and industrial heat anomaly points in Beijing-Tianjin-Hebei and its surrounding areas",
+              "supplement": "(a) 工业热源对象 (b) 工业热源热异常点 图4 京津冀及周边地区工业热源对象和工业热异常点数量 ",
+              "references": [
+                "Abstract: Aiming at the problem of insufficient quantity and spatial refinement in the extraction of industrial heat source from annual scale thermal anomaly data, a neural network industrial heat source extraction method based on temperature feature template is proposed by using VIIRS active fire data. This study took Beijing-Tianjin- Hebei and its surrounding areas as the study area, Firstly, according to the spatial aggregation characteristics of industrial heat sources, the heat source objects were divided by the OPTICS algorithm. Secondly, according to the thermal radiation characteristics of the heat sources, the temperature characteristic template of industrial heat sources and non- industrial heat sources were constructed. Finally, the BP neural network was used to extract industrial heat source objects using the temperature feature template and heat source statistical characteristics as parameters. The results show that: (1) the extraction precision of industrial heat source of the neural network algorithm of temperature feature template proposed in this paper reached  $96.31\\%$ . Compared with time filtering and logistic regression methods, the extraction precision of industrial heat sources was improved by  $8.45\\%$  and  $7.53\\%$ , respectively; (2) From 2015 to 2020, the number of industrial heat sources in the six provinces and cities in Beijing-Tianjin- Hebei and its surrounding areas decreased by  $27.46\\%$ . The number of industrial heat source objects and heat anomalies in Hebei Province decreased by  $8.06\\%$  and  $7.44\\%$  annually, respectively, which was the largest decrease compared with other provinces and cities. The",
+                "concentration of industrial heat sources in Shandong and Tianjin increased by  $25.72\\%$  and  $86.64\\%$ , respectively, indicating that the industrial transformation and upgrade policies in the two places have achieved remarkable results; (3) Tangshan, Handan, Lvliang, and Changzhi accounted for  $31.37\\%$  of the total industrial heat sources in the study area, which are the main cities in Beijing-Tianjin-Hebei and its surrounding areas. The degree of industrial heat source accumulation and energy consumption in seven cities such as Linfen and Taiyuan was higher than those in other cities; The degree of industrial heat source accumulation and energy consumption in 11 cities such as Beijing and Zhoukou was lower than those in other cities; (4) From January to May 2020, the number of industrial heat anomalies in Beijing-Tianjin-Hebei and its surrounding areas remained unchanged or increased compared with the same period in 2019 and 2021. The COVID-19 had no significant impact on the industrial heat source in the study area. The number of industrial heat anomalies in Wuhan in January and February 2020 decreased by more than  $66.67\\%$  compared with that in the same period in 2019 and 2021, the number of industrial heat anomalies from March to May 2020 was lower than that in the same period of 2019. The COVID-19 has had a significant impact on industrial heat sources in Wuhan from January to May 2020. This study reflects the current situation and trend of industrial heat source development in Beijing-Tianjin-Hebei and its surrounding areas, which provides a valuable reference for the formulation and adjustment of relevant policies such as reducing energy consumption and improving secondary industry concentration.",
+                "Key words: industrial heat source; OPTICS algorithm; temperature feature template; neural network; VIIRS Active Fire; Beijing-Tianjin-Hebei and its surrounding areas",
+                "(d) Slope_NFHWH  \n图5各区域工业热源对象数量、工业热异常点数量、Slope_NWH值、Slope_NFHWH值  \nFig. 5 Number of industrial heat source objects, number of industrial thermal anomaly points, Slope_NWH value and Slope_NFHWH value in each region",
+                "ing, 2020,12(12):2061. DOI:10.3390/rs12122061  \n[11] Melnikov D V, Zhizhin M N, Trifonov G, et al. Dynamics of snow volcano eruption (Chirpoi island, Kuriles) in 2012-2017: Results of VIIRS nightfire algorithm application[J]. Current Problems in Remote Sensing of the Earth From Space, 2018,15:69-79. DOI:10.21046/2070-7401-2018-15-3-69-79  \n[12] Trifonov G M, Zhizhin M N, Melnikov D V, et al. VIIRS nightfire remote sensing volcanoes[J]. Procedia Computer Science, 2017,119:307-314. DOI:10.1016/j.procs.2017.11.189  \n[13] Ma Y, Ma C, Liu P, et al. Spatial-temporal distribution analysis of industrial heat sources in the US with geocoded, tree-based, large-scale clustering[J]. Remote Sensing, 2020,12(18):3069. DOI:10.3390/rs12183069  \n[14] Xia H, Chen Y, Quan J. A simple method based on the thermal anomaly index to detect industrial heat sources [J]. International Journal of Applied Earth Observation and Geoinformation, 2018,73:627-637. DOI:10.1016/j.jag.2018.08.003  \n[15] Ma C, Yang J, Chen F, et al. Assessing heavy industrial heat source distribution in China using real-time VIIRS active fire/hotspot data[J]. Sustainability, 2018,10(12):4419. DOI:10.3390/su10124419  \n[16] Ma C, Niu Z, Ma Y, et al. Assessing the distribution of heavy industrial heat sources in India between 2012 and 2018[J]. ISPRS International Journal of Geo-Information, 2019,8(12):568. DOI:10.3390/ijgi8120568  \n[17] Liu Y, Hu C, Zhan W, et al. Identifying industrial heat sources using time-series of the VIIRS Nightfire product with an object-oriented approach[J]. Remote Sensing of Environment, 2018,204:347-365. DOI:10.1016/j.rse.2017.10.019  \n[18] 赖建波.重工业热源的遥感识别及空间分布格局研究[D].兰州:西北师范大学,2020. [Lai J B. Study on remote sensing identification and spatial distribution pattern of heat source in heavy industry[D]. Lanzhou: Northwest Normal University, 2020.] DOI:10.27410/d.cnki.gx-bfu.2020.001670  \n[19] 陈辉,厉青,李营,等.京津冀及周边地区PM2.5时空变化特征遥感监测分析[J].环境科学,2019,40(1):33-43. [Chen H, Li Q, Li Y, et al. Monitoring and analysis of the spatio-temporal change characteristics of the PM2.5 concentration over Beijing-Tianjin-Hebei and its surrounding regions based on remote sensing[J]. Environmental Science, 2019,40(1):33-43. ] DOI:10.13227/j.hjxx.201802104  \n[20] 发展改革委.全国老工业基地调整改造规划(2013-2022年) [EB/OL]. http://www.gov.cn/gongbao/content/2013/content_2441018.htm, 2013-03-18. [National Development and Reform Commission. Adjustment and reconstruction plan for national old industrial bases (2013-"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Showcase Prediction Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "industrial heat source objects",
+                "industrial heat anomaly points",
+                "Beijing-Tianjin-Hebei",
+                "OPTICS algorithm",
+                "BP neural network",
+                "temperature feature template"
+              ],
+              "concise_summary": "The figure illustrates the trend in numbers of industrial heat source objects and industrial heat anomaly points in Beijing-Tianjin-Hebei from 2015 to 2020, showing a decrease over time.",
+              "inferred_insight": "The figure suggests a decline in industrial heat sources and anomalies, reflecting effective policy implementation and industrial transformation efforts in the Beijing-Tianjin-Hebei region.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_224",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.5 Number of industrial heat source objects, number of industrial thermal anomaly points, Slope_NWH value and Slope_NFHWH value in each region",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_224",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_5.jpg",
+              "title": "Fig.5 Number of industrial heat source objects, number of industrial thermal anomaly points, Slope_NWH value and Slope_NFHWH value in each region",
+              "supplement": "(a) 工业热源对象数量 (b) 工业热源热异常点数量 (c) Slope_NWH值 (d) Slope_NFHWH值 图5各区域工业热源对象数量、工业热异常点数量、Slope_NWH值、Slope_NFHWH值 ",
+              "references": [
+                "Abstract: Aiming at the problem of insufficient quantity and spatial refinement in the extraction of industrial heat source from annual scale thermal anomaly data, a neural network industrial heat source extraction method based on temperature feature template is proposed by using VIIRS active fire data. This study took Beijing-Tianjin- Hebei and its surrounding areas as the study area, Firstly, according to the spatial aggregation characteristics of industrial heat sources, the heat source objects were divided by the OPTICS algorithm. Secondly, according to the thermal radiation characteristics of the heat sources, the temperature characteristic template of industrial heat sources and non- industrial heat sources were constructed. Finally, the BP neural network was used to extract industrial heat source objects using the temperature feature template and heat source statistical characteristics as parameters. The results show that: (1) the extraction precision of industrial heat source of the neural network algorithm of temperature feature template proposed in this paper reached  $96.31\\%$ . Compared with time filtering and logistic regression methods, the extraction precision of industrial heat sources was improved by  $8.45\\%$  and  $7.53\\%$ , respectively; (2) From 2015 to 2020, the number of industrial heat sources in the six provinces and cities in Beijing-Tianjin- Hebei and its surrounding areas decreased by  $27.46\\%$ . The number of industrial heat source objects and heat anomalies in Hebei Province decreased by  $8.06\\%$  and  $7.44\\%$  annually, respectively, which was the largest decrease compared with other provinces and cities. The",
+                "(a) 工业热源对象  \nFig. 4 Number of industrial heat source objects and industrial heat anomaly points in Beijing-Tianjin-Hebei and its surrounding areas"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Bar Chart"
+                ]
+              },
+              "key_entities": [
+                "industrial heat source objects",
+                "industrial thermal anomaly points",
+                "Slope_NWH",
+                "Slope_NFHWH",
+                "Beijing-Tianjin-Hebei",
+                "neural network"
+              ],
+              "concise_summary": "Fig.5 presents the quantity of industrial heat sources, thermal anomaly points, and slope values for NWH and NFHWH in various regions from 2015 to 2020.",
+              "inferred_insight": "The figure illustrates a decline in industrial heat sources and anomalies in the Beijing-Tianjin-Hebei area, validating the effectiveness of the proposed neural network-based extraction method.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_225",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.6 The number distribution map of industrial thermal anomaly points from 2015 to  2020(10km grid)",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_225",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_6.jpg",
+              "title": "Fig.6 The number distribution map of industrial thermal anomaly points from 2015 to  2020(10km grid)",
+              "supplement": "(a) 2015年 (b) 2016年 (c) 2017年 (d) 2018年 (e) 2019年 (f) 2020年；工业热异常点 /（数量/个） 一级(1~3) 二级(4~11) 三级(12~41) 四级(42~115) 五级(>115) ； 图6 2015年至2020年工业热异常点数量分布地图 ",
+              "references": [
+                "Abstract: Aiming at the problem of insufficient quantity and spatial refinement in the extraction of industrial heat source from annual scale thermal anomaly data, a neural network industrial heat source extraction method based on temperature feature template is proposed by using VIIRS active fire data. This study took Beijing-Tianjin- Hebei and its surrounding areas as the study area, Firstly, according to the spatial aggregation characteristics of industrial heat sources, the heat source objects were divided by the OPTICS algorithm. Secondly, according to the thermal radiation characteristics of the heat sources, the temperature characteristic template of industrial heat sources and non- industrial heat sources were constructed. Finally, the BP neural network was used to extract industrial heat source objects using the temperature feature template and heat source statistical characteristics as parameters. The results show that: (1) the extraction precision of industrial heat source of the neural network algorithm of temperature feature template proposed in this paper reached  $96.31\\%$ . Compared with time filtering and logistic regression methods, the extraction precision of industrial heat sources was improved by  $8.45\\%$  and  $7.53\\%$ , respectively; (2) From 2015 to 2020, the number of industrial heat sources in the six provinces and cities in Beijing-Tianjin- Hebei and its surrounding areas decreased by  $27.46\\%$ . The number of industrial heat source objects and heat anomalies in Hebei Province decreased by  $8.06\\%$  and  $7.44\\%$  annually, respectively, which was the largest decrease compared with other provinces and cities. The",
+                "Fig. 7 FRP value distribution map of industrial heat source from 2015 to 2020 (10 km grid)  \n(b)武汉",
+                "ing, 2020,12(12):2061. DOI:10.3390/rs12122061  \n[11] Melnikov D V, Zhizhin M N, Trifonov G, et al. Dynamics of snow volcano eruption (Chirpoi island, Kuriles) in 2012-2017: Results of VIIRS nightfire algorithm application[J]. Current Problems in Remote Sensing of the Earth From Space, 2018,15:69-79. DOI:10.21046/2070-7401-2018-15-3-69-79  \n[12] Trifonov G M, Zhizhin M N, Melnikov D V, et al. VIIRS nightfire remote sensing volcanoes[J]. Procedia Computer Science, 2017,119:307-314. DOI:10.1016/j.procs.2017.11.189  \n[13] Ma Y, Ma C, Liu P, et al. Spatial-temporal distribution analysis of industrial heat sources in the US with geocoded, tree-based, large-scale clustering[J]. Remote Sensing, 2020,12(18):3069. DOI:10.3390/rs12183069  \n[14] Xia H, Chen Y, Quan J. A simple method based on the thermal anomaly index to detect industrial heat sources [J]. International Journal of Applied Earth Observation and Geoinformation, 2018,73:627-637. DOI:10.1016/j.jag.2018.08.003  \n[15] Ma C, Yang J, Chen F, et al. Assessing heavy industrial heat source distribution in China using real-time VIIRS active fire/hotspot data[J]. Sustainability, 2018,10(12):4419. DOI:10.3390/su10124419  \n[16] Ma C, Niu Z, Ma Y, et al. Assessing the distribution of heavy industrial heat sources in India between 2012 and 2018[J]. ISPRS International Journal of Geo-Information, 2019,8(12):568. DOI:10.3390/ijgi8120568  \n[17] Liu Y, Hu C, Zhan W, et al. Identifying industrial heat sources using time-series of the VIIRS Nightfire product with an object-oriented approach[J]. Remote Sensing of Environment, 2018,204:347-365. DOI:10.1016/j.rse.2017.10.019  \n[18] 赖建波.重工业热源的遥感识别及空间分布格局研究[D].兰州:西北师范大学,2020. [Lai J B. Study on remote sensing identification and spatial distribution pattern of heat source in heavy industry[D]. Lanzhou: Northwest Normal University, 2020.] DOI:10.27410/d.cnki.gx-bfu.2020.001670  \n[19] 陈辉,厉青,李营,等.京津冀及周边地区PM2.5时空变化特征遥感监测分析[J].环境科学,2019,40(1):33-43. [Chen H, Li Q, Li Y, et al. Monitoring and analysis of the spatio-temporal change characteristics of the PM2.5 concentration over Beijing-Tianjin-Hebei and its surrounding regions based on remote sensing[J]. Environmental Science, 2019,40(1):33-43. ] DOI:10.13227/j.hjxx.201802104  \n[20] 发展改革委.全国老工业基地调整改造规划(2013-2022年) [EB/OL]. http://www.gov.cn/gongbao/content/2013/content_2441018.htm, 2013-03-18. [National Development and Reform Commission. Adjustment and reconstruction plan for national old industrial bases (2013-",
+                "008  \n[29] 山东省工业和信息化研究院课题组.山东省工业布局特征与发展对策研究——基于第四次经济普查[J].现代管理科学,2021(5):30-38. [Research Group of Shandong Institute of Industry and Information Technology. Study on industrial distribution characteristics and development countermeasures of Shandong province: based on the fourth economic census[J]. Modern Management Science, 2021(5):30-38.] DOI:10.3969/j.issn.1007-368X.2021.05.005  \n[30] Wilder-Smith A, Freedman D O. Isolation, quarantine, social distancing and community containment: pivotal role for old-style public health measures in the novel coronavirus (2019- nCoV) outbreak[J]. Journal of Travel Medicine, 2020(2):2. DOI:10.1093/jtm/taaa020  \n[31] 刘竹,崔夺,邓铸,等.新型冠状病毒肺炎疫情对中国2020年碳排放的影响[J].科学通报,2021,66(15):1912-1922. [Liu Z, Cui D, Deng Z, et al. Impact on China's CO2 emissions from COVID-19 pandemic[J]. Bulletin of Surveying and Mapping, 2021,66(15):1912-1922.] DOI: 10.1360/TB-2020-0729  \n[32] 赵雪,沈楠驰,李令军,等. COVID-19疫情期间京津冀大气污染物变化及影响因素分析[J].环境科学,2021,42(3): 1205-1214. [Zhao X, Shen N C, Li L J. et al. Analysis of changes and factors influencing air pollutants in the Beijing-Tianjin-Hebei region during the COVID-19 pandemic[J]. Environmental Science, 2021,42(3):1205-1214. ] DOI:10.13227/j.hjxx.202007249  \n[33] 蔡晓斌,任永鹏,张媛,等.利用卫星遥感NO2监测结果分析COVID-19疫情对我国社会经济活动的短期影响[J].华中师范大学学报(自然科学版),2020,54(6):1045-1050.[Cai X B,Ren Y P,Zhang Y,et al.The short-term impact estimate of COVID-19 epidemic on social-economic activity of China by using remotely sensed  $\\mathrm{NO}_2$  observations[J].Journal of Central China Normal University(Natural Sciences),2020,54(6):1045-1050.]DOI:10.19603/j.cnki.1000-1190.2020.06.018  \n[34] 周亚端,朱宽广,黄凡,等.新冠肺炎疫情期间湖北省大气污染物减排效果评估[J].环境科学与技术,2020,43(3):228-236. [Zhou Y R, Zhu K G, Huang F, et al. Emission reductions and air quality improvements during the COVID-19 pandemic in Hubei province[J]. Environmental Science & Technology, 2020,43(3):228-236. ] DOI:10.19672/j.cnki.1003-6504.2020.03.032  \n[35]孙佳琪，刘永学，董雁伫，等.基于Suomi-NPP VIIRS夜间热异常产品的城市工业热源分类——以京津冀地区为例[J].地理与地理信息科学,2018,34(3):13-19.[SunJQ,LiuYX,DongYZ,etal.Classificationofurbanindustrialheat sourcesbased on Suomi-NPP VIIRS nighttime thermal anomaly products:A case study of the BeijingTianjin-Hebei Region[J].Geography and Geo-Information Science,2018,34(3):13-19.]DOI:CNKI:SUN:DLGT.0.2018-03-003"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Geospatial Visualizations",
+                "sub_types": [
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "Industrial Thermal Anomaly",
+                "VIIRS Active Fire Data",
+                "Beijing-Tianjin-Hebei",
+                "Temperature Feature Template",
+                "OPTICS Algorithm"
+              ],
+              "concise_summary": "The figure shows the distribution of industrial thermal anomalies in Beijing-Tianjin-Hebei from 2015 to 2020 using a 10km grid.",
+              "inferred_insight": "The map illustrates a decrease in the number of industrial heat sources, suggesting a decline in thermal anomalies, particularly in Hebei, over the observed period.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_226",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.7 FRP value distribution map of industrial heat source from 2015 to 2020 (10 km grid)",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_226",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_7.jpg",
+              "title": "Fig.7 FRP value distribution map of industrial heat source from 2015 to 2020 (10 km grid)",
+              "supplement": "(a) 2015年 (b) 2016年 (c) 2017年 (d) 2018年 (e) 2019年 (f) 2020年；FRP/MW 一级（1-18） 二级（19-64） 三级（65-146） 四级（147-422） 五级（>422) 图7 2015—2020年工业热源FRP值分布图（10km网格）",
+              "references": [
+                "Abstract: Aiming at the problem of insufficient quantity and spatial refinement in the extraction of industrial heat source from annual scale thermal anomaly data, a neural network industrial heat source extraction method based on temperature feature template is proposed by using VIIRS active fire data. This study took Beijing-Tianjin- Hebei and its surrounding areas as the study area, Firstly, according to the spatial aggregation characteristics of industrial heat sources, the heat source objects were divided by the OPTICS algorithm. Secondly, according to the thermal radiation characteristics of the heat sources, the temperature characteristic template of industrial heat sources and non- industrial heat sources were constructed. Finally, the BP neural network was used to extract industrial heat source objects using the temperature feature template and heat source statistical characteristics as parameters. The results show that: (1) the extraction precision of industrial heat source of the neural network algorithm of temperature feature template proposed in this paper reached  $96.31\\%$ . Compared with time filtering and logistic regression methods, the extraction precision of industrial heat sources was improved by  $8.45\\%$  and  $7.53\\%$ , respectively; (2) From 2015 to 2020, the number of industrial heat sources in the six provinces and cities in Beijing-Tianjin- Hebei and its surrounding areas decreased by  $27.46\\%$ . The number of industrial heat source objects and heat anomalies in Hebei Province decreased by  $8.06\\%$  and  $7.44\\%$  annually, respectively, which was the largest decrease compared with other provinces and cities. The",
+                "(f) 2020年  \nFig. 6 The number distribution map of industrial thermal anomaly points from 2015 to  $2020(10\\mathrm{km}$  grid)",
+                "ing, 2020,12(12):2061. DOI:10.3390/rs12122061  \n[11] Melnikov D V, Zhizhin M N, Trifonov G, et al. Dynamics of snow volcano eruption (Chirpoi island, Kuriles) in 2012-2017: Results of VIIRS nightfire algorithm application[J]. Current Problems in Remote Sensing of the Earth From Space, 2018,15:69-79. DOI:10.21046/2070-7401-2018-15-3-69-79  \n[12] Trifonov G M, Zhizhin M N, Melnikov D V, et al. VIIRS nightfire remote sensing volcanoes[J]. Procedia Computer Science, 2017,119:307-314. DOI:10.1016/j.procs.2017.11.189  \n[13] Ma Y, Ma C, Liu P, et al. Spatial-temporal distribution analysis of industrial heat sources in the US with geocoded, tree-based, large-scale clustering[J]. Remote Sensing, 2020,12(18):3069. DOI:10.3390/rs12183069  \n[14] Xia H, Chen Y, Quan J. A simple method based on the thermal anomaly index to detect industrial heat sources [J]. International Journal of Applied Earth Observation and Geoinformation, 2018,73:627-637. DOI:10.1016/j.jag.2018.08.003  \n[15] Ma C, Yang J, Chen F, et al. Assessing heavy industrial heat source distribution in China using real-time VIIRS active fire/hotspot data[J]. Sustainability, 2018,10(12):4419. DOI:10.3390/su10124419  \n[16] Ma C, Niu Z, Ma Y, et al. Assessing the distribution of heavy industrial heat sources in India between 2012 and 2018[J]. ISPRS International Journal of Geo-Information, 2019,8(12):568. DOI:10.3390/ijgi8120568  \n[17] Liu Y, Hu C, Zhan W, et al. Identifying industrial heat sources using time-series of the VIIRS Nightfire product with an object-oriented approach[J]. Remote Sensing of Environment, 2018,204:347-365. DOI:10.1016/j.rse.2017.10.019  \n[18] 赖建波.重工业热源的遥感识别及空间分布格局研究[D].兰州:西北师范大学,2020. [Lai J B. Study on remote sensing identification and spatial distribution pattern of heat source in heavy industry[D]. Lanzhou: Northwest Normal University, 2020.] DOI:10.27410/d.cnki.gx-bfu.2020.001670  \n[19] 陈辉,厉青,李营,等.京津冀及周边地区PM2.5时空变化特征遥感监测分析[J].环境科学,2019,40(1):33-43. [Chen H, Li Q, Li Y, et al. Monitoring and analysis of the spatio-temporal change characteristics of the PM2.5 concentration over Beijing-Tianjin-Hebei and its surrounding regions based on remote sensing[J]. Environmental Science, 2019,40(1):33-43. ] DOI:10.13227/j.hjxx.201802104  \n[20] 发展改革委.全国老工业基地调整改造规划(2013-2022年) [EB/OL]. http://www.gov.cn/gongbao/content/2013/content_2441018.htm, 2013-03-18. [National Development and Reform Commission. Adjustment and reconstruction plan for national old industrial bases (2013-"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Geospatial Visualizations",
+                "sub_types": [
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "FRP",
+                "industrial heat source",
+                "Beijing-Tianjin-Hebei",
+                "VIIRS",
+                "OPTICS algorithm"
+              ],
+              "concise_summary": "The figure illustrates the FRP value distribution map for industrial heat sources in the Beijing-Tianjin-Hebei region from 2015 to 2020 at a 10 km grid resolution.",
+              "inferred_insight": "The figure highlights the spatial distribution and change trends of industrial heat sources, indicating a reduction in number over the years in the studied region, supporting improved precision through the proposed neural network extraction method.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_227",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.8 Daily average number of industrial heat anomaly points in four periods of epidemic prevention and control",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_227",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_8.jpg",
+              "title": "Fig.8 Daily average number of industrial heat anomaly points in four periods of epidemic prevention and control",
+              "supplement": "(a)京津冀及周边地区 (b)武汉 图8 疫情防控4个时期工业热异常点日平均数量",
+              "references": [],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "industrial heat anomaly",
+                "epidemic prevention",
+                "control",
+                "Beijing-Tianjin-Hebei region",
+                "Wuhan"
+              ],
+              "concise_summary": "The figure shows daily average industrial heat anomaly points across different phases of epidemic control in Beijing-Tianjin-Hebei and Wuhan from 2019 to 2021.",
+              "inferred_insight": "The figure indicates variations in industrial heat anomalies during different epidemic control phases, highlighting differences in activity patterns across regions and years.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_228",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig.9 Number of thermal anomaly points from January to May",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_228",
+              "source_md": "一种工业热源提取方法_利用温度特征模板的BP神经网络.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\一种工业热源提取方法_利用温度特征模板的BP神经网络\\figure_9.jpg",
+              "title": "Fig.9 Number of thermal anomaly points from January to May",
+              "supplement": "图9 1—5月热异常点数量 ",
+              "references": [
+                "Abstract: Aiming at the problem of insufficient quantity and spatial refinement in the extraction of industrial heat source from annual scale thermal anomaly data, a neural network industrial heat source extraction method based on temperature feature template is proposed by using VIIRS active fire data. This study took Beijing-Tianjin- Hebei and its surrounding areas as the study area, Firstly, according to the spatial aggregation characteristics of industrial heat sources, the heat source objects were divided by the OPTICS algorithm. Secondly, according to the thermal radiation characteristics of the heat sources, the temperature characteristic template of industrial heat sources and non- industrial heat sources were constructed. Finally, the BP neural network was used to extract industrial heat source objects using the temperature feature template and heat source statistical characteristics as parameters. The results show that: (1) the extraction precision of industrial heat source of the neural network algorithm of temperature feature template proposed in this paper reached  $96.31\\%$ . Compared with time filtering and logistic regression methods, the extraction precision of industrial heat sources was improved by  $8.45\\%$  and  $7.53\\%$ , respectively; (2) From 2015 to 2020, the number of industrial heat sources in the six provinces and cities in Beijing-Tianjin- Hebei and its surrounding areas decreased by  $27.46\\%$ . The number of industrial heat source objects and heat anomalies in Hebei Province decreased by  $8.06\\%$  and  $7.44\\%$  annually, respectively, which was the largest decrease compared with other provinces and cities. The",
+                "concentration of industrial heat sources in Shandong and Tianjin increased by  $25.72\\%$  and  $86.64\\%$ , respectively, indicating that the industrial transformation and upgrade policies in the two places have achieved remarkable results; (3) Tangshan, Handan, Lvliang, and Changzhi accounted for  $31.37\\%$  of the total industrial heat sources in the study area, which are the main cities in Beijing-Tianjin-Hebei and its surrounding areas. The degree of industrial heat source accumulation and energy consumption in seven cities such as Linfen and Taiyuan was higher than those in other cities; The degree of industrial heat source accumulation and energy consumption in 11 cities such as Beijing and Zhoukou was lower than those in other cities; (4) From January to May 2020, the number of industrial heat anomalies in Beijing-Tianjin-Hebei and its surrounding areas remained unchanged or increased compared with the same period in 2019 and 2021. The COVID-19 had no significant impact on the industrial heat source in the study area. The number of industrial heat anomalies in Wuhan in January and February 2020 decreased by more than  $66.67\\%$  compared with that in the same period in 2019 and 2021, the number of industrial heat anomalies from March to May 2020 was lower than that in the same period of 2019. The COVID-19 has had a significant impact on industrial heat sources in Wuhan from January to May 2020. This study reflects the current situation and trend of industrial heat source development in Beijing-Tianjin-Hebei and its surrounding areas, which provides a valuable reference for the formulation and adjustment of relevant policies such as reducing energy consumption and improving secondary industry concentration.",
+                "(d) Slope_NFHWH  \n图5各区域工业热源对象数量、工业热异常点数量、Slope_NWH值、Slope_NFHWH值  \nFig. 5 Number of industrial heat source objects, number of industrial thermal anomaly points, Slope_NWH value and Slope_NFHWH value in each region",
+                "(f) 2020年  \nFig. 6 The number distribution map of industrial thermal anomaly points from 2015 to  $2020(10\\mathrm{km}$  grid)"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Present Core Findings"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "thermal anomaly",
+                "industrial heat sources",
+                "Beijing-Tianjin-Hebei",
+                "Wuhan"
+              ],
+              "concise_summary": "The figure shows the number of thermal anomaly points from January to May in Beijing-Tianjin-Hebei and Wuhan for the years 2019, 2020, and 2021.",
+              "inferred_insight": "This figure highlights the impact of COVID-19 on industrial heat sources in Wuhan, showing a significant drop in early 2020 compared to other years, while the impact was minimal in Beijing-Tianjin-Hebei.",
+              "paper_id": 34
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "34",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        }
+      ]
+    },
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_semantic_search",
+        "ParentNode": "28",
+        "args": {
+          "query_intent": "CCTP对空气质量的季节性影响"
+        },
+        "reason": "看到了季节性变化CCTP的影响，我认为这个切入点可能会有新的发现。深入季节性及CCTP的上下文可能给予我们更为全面的理解。"
+      },
+      "rag_results": [
+        {
+          "retrieval_result": {
+            "id": "img_22",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 1. Timeline of CCTPs implemented in China during 2015-2020. (Note: the public information is collected from the National Energy Administration, and the illustration is made by the authors).",
+              "summary": "Timeline illustrating CCTPs implemented in China from 2015 to 2020, highlighting key initiatives and action plans aimed at the clean and efficient use of coal.",
+              "insight": "The figure outlines major policy and action plans to utilize coal resources cleanly, reduce emissions, and align with China's 13th Five-Year Plan goals, shaping the atmospheric administration strategy."
+            },
+            "metadata": {
+              "id": "img_22",
+              "source_md": "Air quality changes in China 2013-2020_ Effectiven.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Air quality changes in China 2013-2020_ Effectiven\\figure_1.jpg",
+              "title": "Fig. 1. Timeline of CCTPs implemented in China during 2015-2020. (Note: the public information is collected from the National Energy Administration, and the illustration is made by the authors).",
+              "references": [
+                "On the policy side, the Chinese government explicitly proposed to promote the clean and efficient use of coal in 2014. And subsequently, two significant specialized action plans were published in 2015 (Action Plan for Clean and Efficient Use of Coal in Industry and Action Plan for Clean and Efficient Use of Coal), signifying that the clean and efficient use of coal in China has entered the implementation stage since 2015 (Zhu, 2019). Herein, the former plan chose four coal-dominated industries as key objects, and defined 21 types of critical technologies for clean and efficient coal utilization in the industry; the latter plan proposed the subjects involved in CCTPs include the government, enterprises, market, and the public, and all of the coal-rich districts in China were selected as key regions. Currently, a series of laws, regulations, and policies have been brought into effect, to alleviate air pollution and accelerate the development of CCTs. Additionally, China's 13th Five-Year Plan (FYP) ranges from 2016 to 2020, which sets goals and directions for national economic and social development during this period. In response to the economic regulation and marker supervision, 2020 is set as the last implementation year of many CCTPs, as shown in Fig. 1. Overall, these policies directed the dominant logic of atmospheric administration in the 13th FYP, namely utilizing coal resources cleanly and efficiently, reducing emissions comprehensively, and decreasing coal consumption."
+              ],
+              "functional_roles": {
+                "main_role": "Introduction & Background",
+                "sub_roles": [
+                  "Introduce Background Knowledge"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Flowchart"
+                ]
+              },
+              "key_entities": [
+                "CCTPs",
+                "National Energy Administration",
+                "Action Plan for Clean and Efficient Use of Coal",
+                "13th Five-Year Plan",
+                "Energy Technological Revolution",
+                "Chemical Industry Innovation"
+              ],
+              "concise_summary": "Timeline illustrating CCTPs implemented in China from 2015 to 2020, highlighting key initiatives and action plans aimed at the clean and efficient use of coal.",
+              "inferred_insight": "The figure outlines major policy and action plans to utilize coal resources cleanly, reduce emissions, and align with China's 13th Five-Year Plan goals, shaping the atmospheric administration strategy.",
+              "paper_id": 4
+            },
+            "score": 0.4769927389544495,
+            "source_args": {
+              "query_intent": "CCTP对空气质量的季节性影响"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_177",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 3. Key milestones and policy evolution of air pollution control in China, including control actions on the emissions of  SO_2  and  NO_x  and on ambient concentrations of  PM_{2.5} . FYP: Five-Year Plan.",
+              "summary": "The figure depicts the timeline and milestones in China's air pollution control policies, focusing on SO2, NOx emissions, and PM2.5 concentrations, highlighting significant control actions and achievements.",
+              "insight": "The figure illustrates China's strategic evolution in pollution control, emphasizing comprehensive policies and multi-sector collaboration from emission control to broader air quality management, marking significant progress over the decades."
+            },
+            "metadata": {
+              "id": "img_177",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_3.jpg",
+              "title": "Fig. 3. Key milestones and policy evolution of air pollution control in China, including control actions on the emissions of  SO_2  and  NO_x  and on ambient concentrations of  PM_{2.5} . FYP: Five-Year Plan.",
+              "references": [
+                "$\\mathrm{PM}_{2.5}$  pollution (Fig. 3). Control actions on acid rain were primarily focused on  $\\mathrm{SO}_2$  emissions from coal combustion in the 1990s. However, the increasing trend of  $\\mathrm{SO}_2$  emissions was not reversed until 2007, when diversified technological and policy instruments were widely utilized. Such progress could not have been achieved without innovative improvement in political accountability, verification of  $\\mathrm{SO}_2$  emissions, and financial incentives for power plants to install and operate flue gas desulfurization (FGD).  $\\mathrm{NO}_x$  has more sources than  $\\mathrm{SO}_2$ , including coal burning, mobile sources, and other fossil fuel combustion sectors. Therefore, control actions on  $\\mathrm{NO}_x$  emissions must be more extensive and complex, which requires cooperation among multiple sectors. Controlling  $\\mathrm{PM}_{2.5}$  concentrations not only requires consistently mitigating multiple precursors from numerous sectors, but also demands consideration of complex influences from both meteorological and atmospheric chemistry conditions. Indeed, comprehensive control actions with multi-party coordination on provincial and even national levels have been implemented in China to minimize the adverse ecological and social impacts of  $\\mathrm{PM}_{2.5}$  pollution. Since 2013, combating  $\\mathrm{PM}_{2.5}$  pollution has marked a strategic transfer from emission control toward air quality management in China, which is oriented toward benefiting the public health and social welfare. The fundamental improvement of  $\\mathrm{PM}_{2.5}$  concentrations has become a key indicator of the success of ecological civilization construction in China.",
+                "Aug 1 [cited 2020 Jun 8]. Available from: http://english.mee.gov.cn/Resources/Reports/soe/SOEE2017/201808/P020180801597738742758.pdf.  \n[8] Larssen T, Lydersen E, Tang D, He Y, Gao J, Liu H, et al. Acid rain in China. Environ Sci Technol 2006;40(2):418-25.  \n[9] Griggs D, Stafford-Smith M, Gaffney O, Rockström J, Ohman MC, Shyamsundar P, et al. Sustainable development goals for people and planet. Nature 2013;495 (7441):305-7.  \n[10] China Meteorological Administration. Annual report of acid rain monitoring in China. Beijing: China Meteorological Administration; 2014. Chinese.  \n[11] Schwartz J, Dockery DW, Neas LM. Is daily mortality associated specifically with fine particles? J Air Waste Manage 1996;46(10):927-39.  \n[12] Identification of nonattainment classification and deadlines for submission of state implementation plan (SIP) provisions for the 1997 & 2006 fine particle National Ambient Air Quality Standards (NAAQS)—fact sheet [Internet]. Washington, DC: United States Environmental Protection Agency; [updated 2020 May 22; cited 2020 Jun 8]. Available from: https://www.epa.gov/sites/production/files/2016-04/documents/20140428_factsheet_nonattainment.pdf.  \n[13] He K, Yang F, Ma Y, Zhang Q, Yao X, Chan CK, et al. The characteristics of  $\\mathrm{PM}_{2.5}$  in Beijing, China. Atmos Environ 2001;35(29):4959-70.  \n[14] Andersson A, Deng J, Du K, Zhang M, Yan C, Sköld M, et al. Regionally-varying combustion sources of the January 2013 severe haze events over eastern China. Environ Sci Technol 2015;49(4):2038-43.  \n[15] Ma Z, Hu X, Sayer AM, Levy R, Zhang Q, Xue Y, et al. Satellite-based spatiotemporal trends in  $\\mathrm{PM}_{2.5}$  concentrations: China, 2004-2013. Environ Health Persp 2015;124(2):184-92.  \n[16] Cohen AJ, Brauer M, Burnett R, Anderson HR, Frostad J, Estep K, et al. Estimates and 25-year trends of the global burden of disease attributable to ambient air pollution: an analysis of data from the Global Burden of Diseases Study 2015. Lancet 2017;389(10082):1907-18.  \n[17] World Bank Group. The cost of air pollution. Washington, DC: World Bank Group; 2016.  \n[18] Standing Committee of the National People's Congress. Law of the People's Republic of China on the Prevention and Control of Atmospheric Pollution. (Sep 5, 1987). Chinese.  \n[19] Hao J, Wang S, Liu B, He K. Designation of acid rain and  $\\mathrm{SO}_2$  control zones and control policies in China. J Environ Sci Health A 2000;35(10):1901-14.  \n[20] Schreifels JJ, Fu Y, Wilson EJ. Sulfur dioxide control in China: policy evolution during the 10th and 11th Five-Year Plans and lessons for the future. Energy Policy 2012;48:779-89.  \n[21] Jin Y, Andersson H, Zhang S. Air pollution control policies in China: a retrospective and prospects. Int J Environ Res Pub Health 2016;13(12):1219.  \n[22] Ministry of Ecology and Environment of the People's Republic of China. China environmental statistical bulletin 2010. Beijing: Ministry of Ecology and Environment of the People's Republic of China; 2012. Chinese.  \n[23] Wang S, Zhang Q, Martin RV, Philip S, Liu F, Li M, et al. Satellite measurements oversee China's sulfur dioxide emission reductions from coal-fired power plants. Environ Res Lett 2015;10(11):114015.  \n[24] De Foy B, Lu Z, Streets DG. Satellite  $\\mathrm{NO}_2$  retrievals suggest China has exceeded its  $\\mathrm{NO}_x$  reduction goals from the twelfth Five-Year Plan. Sci Rep 2016;6:35912.  \n[25] Yang F, Tan J, Zhao Q, Du Z, He K, Ma Y, et al. Characteristics of  $\\mathrm{PM}_{2.5}$  speciation in representative megacities and across China. Atmos Chem Phys 2011;11 (11):5207-19.  \n[26] Zhao B, Wang SX, Liu H, Xu JY, Fu K, Klimont Z, et al.  $\\mathrm{NO}_x$  emissions in China: historical trends and future perspectives. Atmos Chem Phys 2013;13 (19):9869-97.  \n[27] Liu X, Gao X, Wu X, Yu W, Chen L, Ni R, et al. Updated hourly emissions factors for Chinese power plants showing the impact of widespread ultralow emissions technology deployment. Environ Sci Technol 2019;53(5):2570-8.  \n[28] Ministry of Ecology and Environment of the People's Republic of China. China environmental statistic bulletin 2015. Beijing: Ministry of Ecology and Environment of the People's Republic of China; 2016. Chinese.  \n[29] Liu F, Zhang Q, Zheng B, Tong D, Yan L, Zheng Y, et al. Recent reduction in  $\\mathrm{NO}_x$  emissions over China: synthesis of satellite observations and emission inventories. Environ Res Lett 2016;11(11):114002.  \n[30] Ding D, Xing J, Wang S, Liu K, Hao J. Estimated contributions of emissions controls, meteorological factors, population growth, and changes in baseline mortality to reductions in ambient  $\\mathrm{PM}_{2.5}$  and  $\\mathrm{PM}_{2.5}$ -related mortality in China, 2013-2017. Environ Health Perspect 2019;127(6):067009.  \n[31] Geng G, Zhang Q, Tong D, Li M, Zheng Y, Wang S, et al. Chemical composition of ambient  $\\mathrm{PM}_{2.5}$  over China and relationship to precursor emissions during 2005-2012. Atmos Chem Phys 2017;17(14):9187-203.  \n[32] Zhang Q, Zheng Y, Tong D, Shao M, Wang S, Zhang Y, et al. Drivers of improved  $\\mathrm{PM}_{2.5}$  air quality in China from 2013 to 2017. Proc Natl Acad Sci USA 2019;116 (49):24463-9.  \n[33] Wang J, Zhao B, Wang S, Yang F, Xing J, Morawska L, et al. Particulate matter pollution over China and the effects of control policies. Sci Total Environ 2017;584-585:426-47.  \n[34] Zhao B, Wu W, Wang S, Xing J, Chang X, Liou KN, et al. A modeling study of the nonlinear response of fine particles to air pollutant emissions in the Beijing-Tianjin-Hebei region. Atmos Chem Phys 2017;17(19):12031-50.  \n[35] Wang S, Zhao B, Wu Y, Hao J. Target and measures to prevent and control ambient fine particle pollution in China. China Environ Manage 2015;2:37-43. Chinese.  \n[36] Wang S, Xing J, Jang C, Zhu Y, Fu JS, Hao J. Impact assessment of ammonia emissions on inorganic aerosols in East China using response surface modeling technique. Environ Sci Technol 2011;45(21):9293-300."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Showcase Prediction Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Flowchart"
+                ]
+              },
+              "key_entities": [
+                "SO2",
+                "NOx",
+                "PM2.5",
+                "Five-Year Plan",
+                "acid rain",
+                "haze pollution"
+              ],
+              "concise_summary": "The figure depicts the timeline and milestones in China's air pollution control policies, focusing on SO2, NOx emissions, and PM2.5 concentrations, highlighting significant control actions and achievements.",
+              "inferred_insight": "The figure illustrates China's strategic evolution in pollution control, emphasizing comprehensive policies and multi-sector collaboration from emission control to broader air quality management, marking significant progress over the decades.",
+              "paper_id": 26
+            },
+            "score": 0.41271580278967396,
+            "source_args": {
+              "query_intent": "CCTP对空气质量的季节性影响"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_96",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 3. Air pollutant concentrations at inlet and outlet of the tunnel. (a) NO; (b)  NO_2 ; (c) CO; (d)  PM_{2.5} .",
+              "summary": "The figure shows air pollutant concentrations (NO, NO2, CO, PM2.5) at the inlet and outlet of a Shanghai tunnel over time using line charts.",
+              "insight": "The figure illustrates higher pollutant concentrations at the tunnel outlet, highlighting the impact of vehicle emissions within the tunnel."
+            },
+            "metadata": {
+              "id": "img_96",
+              "source_md": "Evaluation of emission factors for light-duty gaso.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Evaluation of emission factors for light-duty gaso\\figure_3.jpg",
+              "title": "Fig. 3. Air pollutant concentrations at inlet and outlet of the tunnel. (a) NO; (b)  NO_2 ; (c) CO; (d)  PM_{2.5} .",
+              "references": [
+                "data, we regularly carried out maintenance of the monitoring units, calibrated the sensors, and cleaned the sampling pipes. Fig. 3 shows a fragment of NO,  $\\mathrm{NO}_2$ , CO, and  $\\mathrm{PM}_{2.5}$  concentrations at inlet and outlet of the tunnel.",
+                "A tunnel in the city center of Shanghai  $(31.24^{\\circ}\\mathrm{N}, 121.50^{\\circ}\\mathrm{E})$  was selected to conduct air pollution monitoring. The tunnel is called East Yan'an Road tunnel, is an underwater tunnel crossing the Huangpu River in Shanghai. It has two bores with two lanes for each direction. The total length is  $2,107\\mathrm{m}$ ; cross-sectional area is  $33.75\\mathrm{m}^2$ . To continuously monitor major air pollutants from vehicle exhaust, we installed two integrated air pollution monitoring units at  $150\\mathrm{m}$  away from the inlet and outlet of the tunnel, respectively. The height of the unit was about  $1.2\\mathrm{m}$ . Fig. 2 shows the location of the tunnel and the monitoring sites. There were 4 sensors which could separately monitor NO,  $\\mathrm{NO}_2$ , CO, and  $\\mathrm{PM}_{2.5}$  concentrations in each unit. NO,  $\\mathrm{NO}_2$ , and CO were detected using electrochemical method. Their detection limits were  $0.01\\mathrm{mg}\\mathrm{m}^{-3}$ ,  $0.01\\mathrm{mg}\\mathrm{m}^{-3}$ , and  $0.15\\mathrm{mg}\\mathrm{m}^{-3}$ , respectively.  $\\mathrm{PM}_{2.5}$  was detected by light scattering method. Its resolution was  $0.1\\mu \\mathrm{g}\\mathrm{m}^{-3}$ . The monitoring data was continuously transmitted to a remote database through wireless network. The system was built in July 2016 and has been operated by now. To ensure the reliability of monitoring",
+                "Where,  $EF(\\mathrm{g}\\cdot \\mathrm{km}^{-1})$  is the average emission factor per vehicle per kilometer of fleet in the tunnel.  $C_{outlet}$  and  $C_{inlet}$ $(\\mathrm{mg}\\cdot \\mathrm{m}^{-3})$  are air pollutant concentrations at outlet and inlet of the tunnel.  $A(\\mathrm{m}^2)$  is the cross-sectional area of the tunnel  $(\\mathrm{A} = 33.75\\mathrm{m}^2)$ .  $\\nu (\\mathrm{m}\\cdot \\mathrm{s}^{-1})$  is air velocity parallel to the tunnel monitored by an operation management company of the tunnel. Daily average air velocity was"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Present Core Findings"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "NO",
+                "NO2",
+                "CO",
+                "PM2.5",
+                "air pollutant concentrations",
+                "tunnel",
+                "inlet",
+                "outlet"
+              ],
+              "concise_summary": "The figure shows air pollutant concentrations (NO, NO2, CO, PM2.5) at the inlet and outlet of a Shanghai tunnel over time using line charts.",
+              "inferred_insight": "The figure illustrates higher pollutant concentrations at the tunnel outlet, highlighting the impact of vehicle emissions within the tunnel.",
+              "paper_id": 15
+            },
+            "score": 0.4112611093243805,
+            "source_args": {
+              "query_intent": "CCTP对空气质量的季节性影响"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_135",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 7. Major air pollution control goals, policies and specific control measures in China from the end of 2013 to 2020.",
+              "summary": "The figure outlines China's major air pollution control goals, policies, and measures from 2013 to 2020, focusing on process reduction, structure reduction, and source reduction.",
+              "insight": "The measures effectively decreased PM2.5 concentrations and associated premature deaths but highlighted the need for targeted strategies and mitigation measures for sustained benefits."
+            },
+            "metadata": {
+              "id": "img_135",
+              "source_md": "How the Air Clean Plan and carbon mitigation measu.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\How the Air Clean Plan and carbon mitigation measu\\figure_7.jpg",
+              "title": "Fig. 7. Major air pollution control goals, policies and specific control measures in China from the end of 2013 to 2020.",
+              "references": [
+                "The control goals, policies, and specific measures in China during ACP are characterized in Fig. 7. Specifically, for the source control, a series of stringent industry emission standards were enacted to limit energy and industrial emissions (e.g., thermal power, iron and steel, and cement) for controlling energy consumption. Regarding the process control, clean production (e.g., using end-of-pipe devices in coal-fired power plants) was the major measure. In addition, implementation of ultra-low emission transformation of steel and other industries was advocated in APWBSD. The  $\\mathrm{PM}_{2.5}$  emissions per coal and energy",
+                "China implemented a stringent Air Clean Plan (ACP) since 2013 to address environmental and health risks caused by ambient fine particulate matter  $\\mathrm{PM}_{2.5}$ . However, the policy effectiveness of ACP and co-benefits of carbon mitigation measures to environment and health are still largely unknown. Using satellite-based  $\\mathrm{PM}_{2.5}$  products produced in our previous study, concentration-response functions, and the logarithmic mean Divisia index (LMDI) method, we analyzed the spatiotemporal dynamics of premature deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure, and quantitatively estimated the policy benefits of ACP and carbon mitigation measures. We found the annual  $\\mathrm{PM}_{2.5}$  concentrations in China decreased by  $33.65\\%$ $(13.41\\mu \\mathrm{g}\\mathrm{m}^{-3})$  from 2014 to 2020, accompanied by a decrease in  $\\mathrm{PM}_{2.5}$ -attributable premature deaths of 0.23 million  $(95\\%$  confidence interval (CI): 0.22-0.27), indicating the huge benefits of China ACP for human health and environment. However, there were still 1.12 million  $(95\\%$  CI: 0.79-1.56) premature deaths caused by the exposure of  $\\mathrm{PM}_{2.5}$  in mainland China in 2020. Among all ACP measures, clean production (contributed  $55.98\\%$  and  $51.14\\%$  to decrease in  $\\mathrm{PM}_{2.5}$  and premature deaths attributable to  $\\mathrm{PM}_{2.5}$ ) and energy consumption control (contributed  $32.58\\%$  and  $29.54\\%$  to decrease in  $\\mathrm{PM}_{2.5}$  and premature deaths attributable to  $\\mathrm{PM}_{2.5}$ ) made the largest contribution during the past seven years. Nevertheless, the environmental and health benefits of ACP are not fully synergistic in different regions, and the effectiveness of ACP measures reduced from 2018 to 2020. The co-effects of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  has become one of the major drivers for  $\\mathrm{PM}_{2.5}$  and premature deaths reduction since 2018, confirming the clear environment and health co-benefits of carbon mitigation measures. Our study suggests, with the saturation of clean production and source control, more targeted region-specific strategies and synergistic air pollution-carbon mitigation measures are critical to achieving the WHO's Air Quality Guideline target and the UN's Sustainable Development Goal Target in China.",
+                "Therefore, the Chinese government launched the strict Air Clean Plan (ACP) in 2013, aiming to address the above problem of severe air pollution. The ACP was divided into two phases: a five-year Air Pollution Prevention and Control Action Plan (APPCAP, 2013-2017) as well as a three-year Action Plan to Win Blue-Sky Defense (APWBSD, 2018-2020) (The State Council of China, 2013; 2018). The APPCAP was targeted to decrease  $\\mathrm{PM}_{2.5}$  concentrations by over  $25\\%$ ,  $20\\%$ , and  $15\\%$  by 2017 in the Beijing-Tianjin-Hebei (BTH), Yangtze River Delta (YRD) and Pearl River Delta (PRD) regions, respectively (Fig. S1 and Table S1). The APWBSD, launched in 2018, set more comprehensive air quality requirements, such as the requirement that  $\\mathrm{PM}_{2.5}$  concentrations needed to be reduced by over  $18\\%$  compared to 2015 in all cities at prefecture-level where the standard was not met. In this context, a series of effective air pollution control measures were proposed on energy consumption control, clean production and energy structure adjustment (Zhang et al., 2019a; Zheng et al., 2018). However, greater effort remains necessary and urgent to reduce the  $\\mathrm{PM}_{2.5}$  concentrations to the WHO level and the standard of \"Beautiful China\" vision (annual mean  $\\mathrm{PM}_{2.5}$  concentrations  $\\leq 35~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$  in all cities by 2035).",
+                "Although some pioneering research has explored improvements in air quality and health impacts due to the ACP (Yue et al., 2020; Geng et al., 2021; Zhang et al., 2019a; Liu et al., 2021; Feng et al., 2017; Li et al., 2019; Zhu et al., 2019), these studies suffered from several limitations. First, current estimates of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths are limited in both spatial resolution and temporal scale. For example, Zhang et al. (2019a) estimated the change in  $\\mathrm{PM}_{2.5}$ -attributable premature deaths in China from 2013 to 2017, but their analysis was limited to the national level. Yue et al. (2020) estimated pixel level premature deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure. However, the relative coarse spatial resolution (10 km) made it difficult to discern detailed information clearly such as hot spots of severe regions. Second, few previous studies focused on the environment and health benefits of specific measures for  $\\mathrm{PM}_{2.5}$  pollution control in the ACP in China (Cai et al., 2017; Huang et al., 2018; Ma et al., 2019; Ding et al., 2019). Zheng et al. (2018) estimated the effectiveness of ACP by measuring the related induced decrease of emitted pollutants (e.g.,  $\\mathrm{SO}_2$ ,  $\\mathrm{NO_x}$  and  $\\mathrm{NH_3}$ ). Geng et al. (2021) considered the effectiveness of end-of-pipe treatment in ACP, while ignoring the effect of other specific measures in ACP. Finally, carbon mitigation and  $\\mathrm{PM}_{2.5}$  control have significant synergies (Li et al., 2019; Cheng et al., 2021; Xing et al., 2020; Tong et al., 2021). However, currently only a few studies considered or quantified the co-benefits of  $\\mathrm{CO}_{2}$  mitigation and reducing  $\\mathrm{PM}_{2.5}$  so far. Some other studies projected",
+                "Fig. 3 shows the population exposed to ambient  $\\mathrm{PM}_{2.5}$  in pollution control priority regions and in the whole nation in specific years at the beginning and end of the two phases of ACP (2014, 2017, and 2020). In 2014, over  $80\\%$  of Chinese people lived in areas with  $\\mathrm{PM}_{2.5}$  over  $35\\mu \\mathrm{g}$ $\\mathrm{m}^{-3}$  (WHO IT-1). In 2020, the corresponding proportion decreased to  $40\\%$ . BTH had the most severe  $\\mathrm{PM}_{2.5}$  exposure, even with the most prominent air quality improvement amongst four priority regions. In 2014, almost all populations in BTH lived in areas where  $\\mathrm{PM}_{2.5}$  concentrations exceeded the WHO IT-1 threshold and this population proportion decreased to  $90\\%$  in 2020. The FWP was not considered as a priority region for air pollution control in APPCAP, and pollution status was more serious during APPCAP as a result of crude industrial production and its gully terrain that was not conducive to the diffusion of pollutants. By contrast, the effect of ACP measures was profound in FWP region under APWBSD with a  $10\\%$  reduction in the population exposed to  $\\mathrm{PM}_{2.5} > 35\\mu \\mathrm{g}\\mathrm{m}^{-3}$  in 2020 compared to 2017. The exposed population in PRD is relatively low compared to other priority regions, with  $24\\%$  meeting the WHO IT-1 in 2014 and  $100\\%$  meeting the WHO IT-1 in 2020, which also achieved the \"Beautiful China\" vision. However, almost all populations ( $\\sim 98\\%$  in the whole nation) still lived under the  $\\mathrm{PM}_{2.5}$  concentrations exceeding the WHO IT-3 in 2020, not to mention the WHO AQG standard.",
+                "We provide a comprehensive estimation of the  $\\mathrm{PM}_{2.5}$  concentrations and the number of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths, as well as spatiotemporal changes in these, and a quantitative assessment of the effectiveness of ACP methods in mainland China during 2014 to 2020. The two key contributions are: (1) We estimated the spatiotemporal variation in the number of deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure in mainland China during ACP based on the  $\\mathrm{PM}_{2.5}$  product with the finest spatial resolution available to date, and elucidated the spatial discrepancies in policy implementation across China. China's recent clean air actions have achieved great benefits for human health and the environment. However, over  $98\\%$  of the population still lived under the risk of  $\\mathrm{PM}_{2.5}$  pollution ( $\\mathrm{PM}_{2.5}$  concentrations over  $15\\mu \\mathrm{g}\\mathrm{m}^{-3}$ ), with 1.12 million ( $95\\%$  CI: 0.79-1.56) premature deaths caused by  $\\mathrm{PM}_{2.5}$  pollution in mainland China in 2020, accounting for  $\\sim 27.05\\%$  of global ambient  $\\mathrm{PM}_{2.5}$ -attributable premature deaths. In addition, the environmental and health benefits of China ACP are not fully synergistic in spatial pattern, with the greatest health benefits detected in the YRD region and the best environment benefits identified in the BTH region. To achieve the co-benefits of environment and health, specific policies need to be adopted under different conditions. (2) We quantified the environment and health co-benefits of ACP measures and carbon mitigation from 2014 to 2020. Clean production was the most effective abatement measure in China ACP, reducing net  $\\mathrm{PM}_{2.5}$  concentrations and net premature deaths by  $18.35\\mu \\mathrm{g}\\mathrm{m}^{-3}$  and 0.45 million, respectively. The co-effects of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  contributed to a  $23\\%$  and  $26\\%$  decrease in the number of  $\\mathrm{PM}_{2.5}$  and premature deaths and became one of the major drivers for  $\\mathrm{PM}_{2.5}$  and premature deaths reduction in the APWBSD phase. This confirms the clear environment and health co-benefits of carbon mitigation measures. Meanwhile, the effectiveness of process and source control measures reduced during 2018 to 2020. With the exhaustion of end-of-pipe and energy consumption control measures, the future air clean actions should focus more on carbon abatement and energy structure optimization, especially under the background of global climate change mitigation. In addition to mitigation in industrial and energy sectors, it is also critical to explore more cost-effective approaches (e.g., agricultural ammonia mitigation) (Zhou et al., 2021; Gu et al., 2021) for pollution control in other sectors.",
+                "Our analysis of  $\\mathrm{PM}_{2.5}$  attributed deaths in China was compared with several recent studies (Table S3). Great progresses was made in previous studies (Zhang et al., 2019a; Li et al., 2019; Ding et al., 2019; McDuffie et al., 2021; Liu et al., 2017; Zou et al., 2019; Apte et al., 2015), albeit with several limitations in common: (1) previous studies focused mainly on the APPCAP (2013-2017) and lack the updated results of the APWBSD (2018-2020); (2) the chemical transport model was used widely in previous research, which showed advantages for predicting the  $\\mathrm{PM}_{2.5}$  concentrations without ground measurement, but also has limitations in terms of prediction accuracy (Ma et al., 2022); (3) the Integrated Exposure Response (IER) model used for premature death estimation in previous studies lacked sufficient information on deaths at high  $\\mathrm{PM}_{2.5}$  exposure, and failed to separate exposure from ambient  $\\mathrm{PM}_{2.5}$  and secondhand smoke, which could potentially introduce uncertainties (Burnett et al., 2014). Our research provides several advances compared to previous studies. First, we quantified the co-benefit of the Air Clean Plan and carbon mitigation measures in China for the environment and health from 2014 to 2020. Second, we used state-of-the-art  $\\mathrm{PM}_{2.5}$  products with the highest accuracy (Wang et al., 2021; 2022) (Fig. S3 and Fig. S4 for detail) and the finest resolution (spatial resolution of  $1\\mathrm{km}$ , Fig. S2) at the national scale to offer a full-coverage estimation of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths. With these innovations, we not only provided a more accurate estimation of the risk due to exposure to  $\\mathrm{PM}_{2.5}$ , but also to analyze the great spatially heterogeneity of policy effectiveness. Third, we adopted the updated MR-BRT spline method, which fits the risk with a more flexible shape for more reliable estimation of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths (Hystad et al., 2020). The MR-BRT includes more exposure scenarios at high  $\\mathrm{PM}_{2.5}$  levels during fitting compared with other models such as the IER model (Yusuf et al., 2020; Chowdhury et al., 2022). It also excludes active smoking to control for and reduce potential bias due to this effect (Pope et al., 2018). Finally, our study estimated the co-benefit from  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  to the environment and health under the background of the ACP and NDC pledges for the first time.",
+                "Our study estimated the changes in  $\\mathrm{PM}_{2.5}$  concentration and premature deaths attributable to  $\\mathrm{PM}_{2.5}$  in China at a fine-resolution (1 km) during 2014-2020, identifying the measure with greatest environmental and health co-benefits in ACP, and demonstrating the potential of carbon mitigation measures for air quality improvement and public health enhancement. Results showed that (1) the average  $\\mathrm{PM}_{2.5}$  concentrations in China decreased by  $33.65\\%$  ( $13.41~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) from 2014 to 2020, accompanied by a decrease in total attributed deaths of 0.23 million (95 % CI: 0.22-0.27), indicating the great benefits of China ACP for human health and environment. However, the premature deaths caused by  $\\mathrm{PM}_{2.5}$  pollution in mainland China still reached 1.12 million (95 % CI: 0.79-1.56) in 2020. (2) Among China ACP measures, clean production and energy consumption control made the largest contribution to air quality improvements and health burden mitigation during the past seven years. However, the effectiveness of the two ACP measures reduced during 2018 to 2020. Meanwhile, the environmental and health benefits of China ACP are not fully synergistic spatially. (3) The co-effects of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  has become one of the major drivers for  $\\mathrm{PM}_{2.5}$  and  $\\mathrm{PM}_{2.5}$ -attributable premature deaths reduction in the APWBSD phase, confirming the clear environment and health co-benefits of carbon mitigation measures.",
+                "Anenberg, S.C., et al., 2010. An estimate of the global burden of anthropogenic ozone and fine particulate matter on premature human mortality using atmospheric modeling. Environ. Health Perspect. 118, 1189-1195. https://doi.org/10.1289/ ehp.0901220.  \nAng, B.W., 2005. The LMDI approach to decomposition analysis: a practical guide. Energy Policy 33, 867-871. https://doi.org/10.1016/j.enpol.2003.10.010.  \nAng, B.W., 2015. LMDI decomposition approach: a guide for implementation. Energy Policy 86, 33-238.  \nApte, J.S., et al., 2015. Addressing global mortality from ambient  $\\mathrm{PM}_{2.5}$ . Environ. Sci. Technol. 49, 8057-8066. https://doi.org/10.1021/acs.est.5b01236.  \nBurnett, R.T., et al., 2014. An integrated risk function for estimating the global burden of disease attributable to ambient fine particulate matter exposure. Environ. Health Perspect. https://doi.org/10.1289/ehp.1307049.  \nBurnett, R., et al., 2018. Global estimates of mortality associated with long-term exposure to outdoor fine particulate matter. Proc. Natl. Acad. Sci. U. S. A. 115, 9592-9597. https://doi.org/10.1073/pnas.1803222115.  \nCai, S.Y., et al., 2017. The impact of the \"Air Pollution Prevention and Control Action Plan\" on  $\\mathrm{PM}_{2.5}$  concentrations in Jing-Jin-Ji region during 2012-2020. Sci. Total Environ. 580, 197-209. https://doi.org/10.1016/j.scitotenv.2016.11.188.  \nChen, J., et al., 2022. Long-term exposure to source-specific fine particles and mortality - a pooled analysis of 14 European cohorts within the ELAPSE project. Environ. Sci. Technol. 56, 9277-9290.  \nCheng, J., et al., 2021. Pathways of China's  $\\mathrm{PM}_{2.5}$  air quality 2015-2060 in the context of carbon neutrality. Natl. Sci. Rev. 8 https://doi.org/10.1093/nsr/nwab078.  \nChowdhury, S., et al., 2022. Global health burden of ambient  $\\mathrm{PM}_{2.5}$  and the contribution of anthropogenic black carbon and organic aerosols. Environ. Int. 159, 107020 https://doi.org/10.1016/j.envint.2021.107020.  \nCohen, A.J., et al., 2017. Estimates and 25-year trends of the global burden of disease attributable to ambient air pollution: an analysis of data from the Global Burden of Diseases Study 2015. Lancet 389, 1907-1918. https://doi.org/10.1016/s0140-6736(17)30505-6.  \nDimitrova, A., et al., 2021. Health impacts of fine particles under climate change mitigation, air quality control, and demographic change in India. Environ. Res. Lett. 16 https://doi.org/10.1088/1748-9326/abe5d5.  \nDing, D., et al., 2019. Estimated Contributions of Emissions Controls, Meteorological Factors, Population Growth, and Changes in Baseline Mortality to Reductions in Ambient PM2.5 and PM2.5-Related Mortality in China, 2013-2017. Environ. Health Perspect. 127, 12.  \nDong, F., Yu, B., Pan, Y., 2019. Examining the synergistic effect of  $\\mathrm{CO}_{2}$  emissions on  $\\mathrm{PM}_{2.5}$  emissions reduction: Evidence from China. J. Clean Prod. 223, 759-771.  \nFeng, L., et al., 2017b. Spatiotemporal changes in fine particulate matter pollution and the associated mortality burden in China between 2015 and 2016. Int. J. Environ. Res. Public Health 14, 1321. https://doi.org/10.3390/ijerph14111321.  \nFeng, L.W., Ye, B., Feng, H., Ren, F., Huang, S.C., Zhang, X.T., Zhang, Y.Q., Du, Q.Y., Ma, L., 2017a. Spatiotemporal changes in fine particulate matter pollution and the associated mortality burden. Int. J. Environ. Res. Public Health 14 in China between 2015 and 2016.  \nGeng, G., et al., 2021. Drivers of  $\\mathrm{PM}_{2.5}$  air pollution deaths in China 2002-2017. Nat. Geosci. 14, 645-650. https://doi.org/10.1038/s41561-021-00792-3.  \nGu, B., et al., 2021. Abating ammonia is more cost-effective than nitrogen oxides for mitigating PM2.5 air pollution. Science 374, 758-762. https://doi.org/10.1126/science.abf8623.  \nGuan, D., et al., 2018. Structural decline in China's  $\\mathrm{CO}_{2}$  emissions through transitions in industry and energy systems. Nat. Geosci. 11, 551-555.  \nGuan, Y., et al., 2021. Assessment to China's Recent Emission Pattern Shifts. Earth's Future, 9, e2021EF002241.  \nHong, C., et al., 2019. Impacts of climate change on future air quality and human health in China. Proc. Natl. Acad. Sci. U. S. A. 116, 17193-17200.  \nHuang, R., et al., 2014. High secondary aerosol contribution to particulate pollution during haze events in China. Nature 514, 218-222.  \nHuang, J., et al., 2018. Health impact of China's Air Pollution Prevention and Control Action Plan: an analysis of national air quality monitoring and mortality data. Lancet Planet. Health 2, E313-E323.  \nHystad, P., et al., 2020. Associations of outdoor fine particulate air pollution and cardiovascular disease in 157 436 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. The Lancet Planetary Health 4, e235-e245.",
+                "Kazemiparkouhi, F., et al., 2022. The impact of Long-Term  $\\mathrm{PM}_{2.5}$  constituents and their sources on specific causes of death in a US Medicare cohort. Environ. Int. 159, 106988.  \nLi, N., et al., 2019a. Air quality improvement co-benefits of low-carbon pathways toward well below the 2 degrees c climate target in China. Environ. Sci. Technol. 53, 5576-5584. https://doi.org/10.1021/acs.est.8b06948.  \nLi, T., et al., 2019b. Estimating mortality burden attributable to short-term  $\\mathrm{PM}_{2.5}$  exposure: A national observational study in China. Environ. Int. 125, 245-251.  \nLi, Z., Wang, J., Che, S., 2021. Synergistic effect of carbon trading scheme on carbon dioxide and atmospheric pollutants. Sustainability 13, 5403. https://doi.org/10.3390/su13105403.  \nLiu, M., et al., 2017. Spatial and temporal trends in the mortality burden of air pollution in China: 2004-2012. Environ. Int. 98, 75-81. https://doi.org/10.1016/j.envint.2016.10.003.  \nLiu, M., et al., 2021. Recent trends in premature mortality and health disparities attributable to ambient PM2.5 exposure in China: 2005-2017. Environ. Pollut. 279, 13. https://doi.org/10.1016/j.envpol.2021.116882.  \nLiu, Z., et al., 2020. COVID-19 causes record decline in global  $\\mathrm{CO}_{2}$  emissions. arXiv preprint arXiv:2004.13614.  \nMa, Z., et al., 2019. Effects of air pollution control policies on  $\\mathrm{PM}_{2.5}$  pollution improvement in China from 2005 to 2017: a satellite-based perspective. Atmos. Chem. Phys. 19, 6861-6877.  \nMa, Z., et al., 2022. A review of statistical methods used for developing large-scale and long-term  $\\mathrm{PM}_{2.5}$  models from satellite data. Remote Sens. Environ. 269.  \nMcDuffie, E.E., et al., 2021. Source sector and fuel contributions to ambient  $\\mathrm{PM}_{2.5}$  and attributable mortality across multiple spatial scales. Nat. Commun. 12, 3594.  \nMurray, C.J.L., et al., 2020. Global burden of 87 risk factors in 204 countries and territories, 1990-2019: a systematic analysis for the Global Burden of Disease Study 2019. Lancet 396, 1223-1249.  \nOstro, B., et al., 2015. Associations of mortality with long-term exposures to fine and ultrafine particles, species and sources: results from the California teachers study cohort. Environ. Health Perspect. 123, 549-556.  \nPhilip, S., et al., 2014. Global chemical composition of ambient fine particulate matter for exposure assessment. Environ. Sci. Technol. 48, 13060-13068.  \nPope 3rd, C.A., Cohen, A.J., Burnett, R.T., 2018. Cardiovascular disease and fine particulate matter: lessons and limitations of an integrated exposure-response approach. Circ. Res. 122, 1645-1647.  \nShan, Y., et al., 2018. China  $\\mathrm{CO}_{2}$  emission accounts 1997-2015. Sci. Data 5, 170201. https://doi.org/10.1038/sdata.2017.201.  \nShan, Y., et al., 2020. China  $\\mathrm{CO}_{2}$  emission accounts 2016-2017. Sci. Data 7, 54. https://doi.org/10.1038/s41597-020-0393-y.  \nSilva, R.A., et al., 2013. Global premature mortality due to anthropogenic outdoor air pollution and the contribution of past climate change. Environ. Res. Lett. 8, 11.  \nStanaway, J.D., et al., 2018. Global, regional, and national comparative risk assessment of 84 behavioural, environmental and occupational, and metabolic risks or clusters of risks for 195 countries and territories, 1990-2017: a systematic analysis for the Global Burden of Disease Study 2017. Lancet 392, 1923-1994. https://doi.org/10.1016/S0140-6736(18)32225-6.  \nThe State Council of China, 2013. Air Pollution Prevention and Control Action Plan. http://www.gov.cn/jrzg/2013-09/12/.  \nThe State Council of China, 2018. The State Council on the issuance of the three-year action plan to win the Blue Sky Defense War notice. http://www.gov.cn/zhengce/content/2018-07/03/.",
+                "Tong, D., et al., 2021. Health co-benefits of climate change mitigation depend on strategic power plant retirements and pollution controls. Nat. Clim. Chang. 11, 1077-1083. https://doi.org/10.1038/s41558-021-01216-1.  \nUnited Nations, 2015. Sustainable Development Goals. https://sustainabledevelopment.un.org/.  \nWang, Z., et al., 2021. High-resolution prediction of the spatial distribution of  $\\mathrm{PM}_{2.5}$  concentrations in China using a long short-term memory model. J. Clean Prod. 297 https://doi.org/10.1016/j.jclepro.2021.126493.  \nWang, Z., et al., 2022. Predicting annual  $\\mathrm{PM}_{2.5}$  in mainland China from 2014 to 2020 using multi temporal satellite product: An improved deep learning approach with spatial generalization ability. ISPRS-J. Photogramm. Remote Sens. 187, 141-158. https://doi.org/10.1016/j.isprsjprs.2022.03.002.  \nWorld Health Organization, 2016. Ambient air pollution: a global assessment of exposure and burden of disease. 121 p.  \nWorld Health Organization, 2021. WHO global air quality guidelines. https://apps.who.int/iris/bitstream/handle/10665/345329/9789240034228-eng.pdf? sequence=1&isAllowed=y.  \nXiao, Q., et al., 2021. Separating emission and meteorological contributions to long-term  $\\mathrm{PM}_{2.5}$  trends over eastern China during 2000-2018. Atmos. Chem. Phys. 21, 9475-9496.  \nXing, J., et al., 2020. The quest for improved air quality may push China to continue its  $\\mathrm{CO}_{2}$  reduction beyond the Paris Commitment. Proc. Natl. Acad. Sci. U. S. A. 117, 29535-29542.  \nXu, J., et al., 2021. Double cropping and cropland expansion boost grain production in Brazil. Nature Food. 2, 264-273.  \nXue, T., et al., 2019. Rapid improvement of  $\\mathrm{PM}_{2.5}$  pollution and associated health benefits in China during 2013-2017. Sci. China Earth Sci. 62, 1847-1856.  \nYue, H., et al., 2020. Stronger policy required to substantially reduce deaths from  $\\mathrm{PM}_{2.5}$  pollution in China. Nat. Commun. 11, 1462. https://doi.org/10.1038/s41467-020-15319-4.  \nYusuf, S., et al., 2020. Modifiable risk factors, cardiovascular disease, and mortality in 155 722 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. Lancet 395, 795-808.  \nZhang, Q., et al., 2019a. Drivers of improved  $\\mathrm{PM}_{2.5}$  air quality in China from 2013 to 2017. Proc. Natl. Acad. Sci. U. S. A. 116, 24463-24469.  \nZhang, Y., et al., 2019b. Socioeconomic factors of  $\\mathrm{PM}_{2.5}$  concentrations in 152 Chinese cities: Decomposition analysis using LMDI. J. Clean Prod. 218, 96-107.  \nZhang, X., et al., 2019c. The impact of meteorological changes from 2013 to 2017 on  $\\mathrm{PM}_{2.5}$  mass reduction in key regions in China. Sci. China Earth Sci. 62, 1885-1902.  \nZheng, B., et al., 2018. Trends in China's anthropogenic emissions since 2010 as the consequence of clean air actions. Atmos. Chem. Phys. 18, 14095-14111.  \nZheng, B., et al., 2021. Changes in China's anthropogenic emissions and air quality during the COVID-19 pandemic in 2020. Earth Syst. Sci. Data 13, 2895–2907. https://doi.org/10.5194/essd-13-2895-2021.  \nZhou, M., Liu, H., Peng, L., et al., 2021. Environmental benefits and household costs of clean heating options in northern China. Nat. Sustain. https://doi.org/10.1038/s41893-021-00837-w.  \nZhu, G., et al., 2019. Health burdens of ambient  $\\mathrm{PM}_{2.5}$  pollution across Chinese cities during 2006-2015. J. Environ. Manage. 243, 250-256.  \nZou, B., et al., 2019. Air pollution intervention and life-saving effect in China. Environ. Int. 125, 529-541."
+              ],
+              "functional_roles": {
+                "main_role": "Methodology & Design",
+                "sub_roles": [
+                  "Introduce Conceptual Framework",
+                  "Illustrate Algorithm Process"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Conceptual Diagram"
+                ]
+              },
+              "key_entities": [
+                "Air Clean Plan",
+                "APPCAP",
+                "APWBSD",
+                "PM2.5",
+                "China"
+              ],
+              "concise_summary": "The figure outlines China's major air pollution control goals, policies, and measures from 2013 to 2020, focusing on process reduction, structure reduction, and source reduction.",
+              "inferred_insight": "The measures effectively decreased PM2.5 concentrations and associated premature deaths but highlighted the need for targeted strategies and mitigation measures for sustained benefits.",
+              "paper_id": 20
+            },
+            "score": 0.4083523320884715,
+            "source_args": {
+              "query_intent": "CCTP对空气质量的季节性影响"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_27",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 6. The variation trend of AQI in the Chinese mainland.",
+              "summary": "Figure 6 shows the declining trend of AQI from 2013 to 2020 across seven regions in the Chinese mainland, highlighting improved air quality.",
+              "insight": "The figure illustrates significant improvements in air quality after implementing clean coal technology policies, with a notable decrease in AQI values across regions, underscoring the policies' positive impact."
+            },
+            "metadata": {
+              "id": "img_27",
+              "source_md": "Air quality changes in China 2013-2020_ Effectiven.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Air quality changes in China 2013-2020_ Effectiven\\figure_6.jpg",
+              "title": "Fig. 6. The variation trend of AQI in the Chinese mainland.",
+              "references": [
+                "considerably decreased from 2013 to 2020. As shown in Fig. 6, the AQI of all studied cities was all less than 100 since 2017, which is the threshold AQI value of excessive pollutants, indicating that air quality in China began to pick up. Herein, for better comparison, the 31 provincial capital cities were categorized into 7 districts according to the official administrative geographical area division. An identical trend was seen to that in central China, which showed the greatest improvement in air quality during 7 years.",
+                "Clean and efficient use of coal in China entered the implementation stage in 2015, and a series of policies were established to promote the sustainable development of clean coal technologies (CCTs). However, the long-term effects of the clean coal technology policies (CCTPs) have not been evaluated, and the outbreak of coronavirus disease 2019 (COVID-19) would bring great uncertainty regarding the effectiveness evaluation. Employing deep learning approaches and spatial autocorrelation analysis, the present work intended to explore the air quality variation before and after the implementation of CCTPs, and investigate the association between air quality and socioeconomic factors to explore the internal mechanism of air quality improvement. Results showed that after implementing CCTPs, the air quality index (AQI) had an average reduction of  $18.82\\%$  and the identical drop in air pollution in 2018 implied a 2-year time lag of CCTPs. Additionally, emission reduction and deindustrialization were explored as two promising ways to improve air quality while promoting energy transformation. The findings indicated that the Chinese government ought to pay more attention to long-term plans; industrial restructuring and environmental protection should be insisted upon to realize sustainable energy development. By providing a perspective on air quality improvement after the policies are implemented, this study can lead practitioners and academia to a comprehensive and objective view of clean coal policies.",
+                "The study obtained the data including a total of 1440 daily air quality and meteorological data (January 22, 2016, to December 31, 2019) from 31 provincial capital cities in the Chinese mainland,  $60\\%$  of which are chosen as the training set,  $20\\%$  as the validation set and  $20\\%$  as the test set. After determining the best basic network architecture for the current prediction tasks, models are set up in units of cities, and the training set is used to train the tailored CNN-LSTM models. The accuracy indicators of the model prediction results of 31 cities, namely RMSE values averaging 22.06, models perform well overall, indicating that the applied CNN-LSTM network has good capabilities for AQI prediction (Jin et al., 2020; Mao et al., 2021).",
+                "Temporally, it is evident that the AQI in the Chinese mainland",
+                "Fig. 5. AQI regional spatial autocorrelation in 31 provincial cities of the Chinese mainland.",
+                "Fig. 7. The variation trend of AQI in four seasons.",
+                "During the period of CCTPs implementation, an obvious air quality improvement was observed in the Chinese mainland, manifested as a decrease of AQI value by  $18.82\\%$  from 2013 to 2020. It is concluded that the clean and efficient transformation of coal resources conforms to China's national conditions, and could indeed improve the atmospheric environment, which has been demonstrated in the existing research as well (Li and Patino-Echeverri, 2017; Liu et al., 2021). Specifically, correlation coefficients showed that the promotion of emission reduction and deindustrialization could fundamentally help to reduce airborne contamination, although their persistence relies on continued efforts and is influenced by various factors (Yang and Teng, 2018). Another important observation was a 2-year time lag before the stringent CCTPs starting from 2015 takes any strong positive effects, shown as a dramatical reduction of AQI in 2018. It implies that the influence of time lag should be considered in the decision-making process, as a time lag commonly appears in air pollution regulations and plans (Van der et al., 2017).",
+                "The increase in population size and economic activity has remarkably increased the demand for fossil fuels in China, posing a severe threat to the environment. However, the recently implemented coal-based energy transition has shifted the energy structure from polluting energies to environment-friendly energies, and the subsequent policies created a great revolution in energy development and environment protection. Nevertheless, the energy distribution and air pollution in China are characterized by regionality, thus, targeting the efficiency of these national control policies, scholars mainly focus on regions with high-polluting and energy-intensive industries, such as Shanxi province and the BJH region; or target a specific policy, such as CTG and CTE policy. Differently, this study revealed the air quality improvement during the implementation of CCTPs at the national level. Clarifying the internal mechanism of these policies is significant when revising and implementing the following policies to achieve sustainable development. The quantitative assessment provided significant results: i) After implementing CCTPs, the Chinese mainland experienced air quality improvement, with the reduction of AQI averaging  $18.82\\%$ ; ii) An identical reduction of air pollution was observed in 2018, indicating a 2-year time lag of the related control policies; iii) There were positive associations between emission reduction promoting, deindustrialization and air quality improvement, suggesting two promising ways to realize sustainable energy development. Through assessing the air quality changes before and after the implementation of CCTPs, it is expected to provide a scientific basis for policymakers and stakeholders to forge consensus on the establishment and enforcement of clean coal policies."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "AQI",
+                "Chinese mainland",
+                "provincial capital cities",
+                "clean coal technology policies",
+                "CCTPs",
+                "central China"
+              ],
+              "concise_summary": "Figure 6 shows the declining trend of AQI from 2013 to 2020 across seven regions in the Chinese mainland, highlighting improved air quality.",
+              "inferred_insight": "The figure illustrates significant improvements in air quality after implementing clean coal technology policies, with a notable decrease in AQI values across regions, underscoring the policies' positive impact.",
+              "paper_id": 4
+            },
+            "score": 0.4053301203054174,
+            "source_args": {
+              "query_intent": "CCTP对空气质量的季节性影响"
+            }
+          },
+          "evaluation": null
+        }
+      ]
+    },
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_metadata_search",
+        "ParentNode": "175",
+        "args": {
+          "keywords": "GDP and environmental protection challenge"
+        },
+        "reason": "此条目展示了经济活动和污染之间的平衡挑战，未展示具体策略，我认为使用此关键词可能揭示更多相关策略和影响，以确保经济增长和污染减排的兼顾。"
+      },
+      "rag_results": []
+    },
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_metadata_search",
+        "ParentNode": "177",
+        "args": {
+          "keywords": "SO2 control actions"
+        },
+        "reason": "观察到中国在SO2和NOx方面的控制策略演变，这可能生发更多相关的政策影响和实际效果的记录，结合当前搜索策略，可能提供重要数据。"
+      },
+      "rag_results": []
+    }
+  ]
+}

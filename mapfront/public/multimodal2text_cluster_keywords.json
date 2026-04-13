@@ -1,0 +1,460 @@
+{
+  "source_file": "multimodal2text_embeddings_2d.json",
+  "method": "kmeans",
+  "params": {
+    "k": 15
+  },
+  "n_points": 4702,
+  "clusters": [
+    {
+      "cluster_id": 0,
+      "size": 563,
+      "centroid_2d": [
+        66.33836057131074,
+        1.2017330757109035
+      ],
+      "top_keywords": [
+        {
+          "term": "n00",
+          "score": 0.4931969619160719
+        },
+        {
+          "term": "distance entrance",
+          "score": 0.3287979746107146
+        },
+        {
+          "term": "m-3hr-1 rate",
+          "score": 0.3287979746107146
+        },
+        {
+          "term": "country mathrm",
+          "score": 0.3287979746107146
+        },
+        {
+          "term": "n00 n00",
+          "score": 0.3287979746107146
+        }
+      ]
+    },
+    {
+      "cluster_id": 1,
+      "size": 373,
+      "centroid_2d": [
+        -36.695292102108056,
+        -12.591210471043594
+      ],
+      "top_keywords": [
+        {
+          "term": "mosaic",
+          "score": 0.2726739405785878
+        },
+        {
+          "term": "sector-specific",
+          "score": 0.2516990220725426
+        },
+        {
+          "term": "asian emissions",
+          "score": 0.20974918506045215
+        },
+        {
+          "term": "capita emissions",
+          "score": 0.14682442954231653
+        },
+        {
+          "term": "gridded emission",
+          "score": 0.14682442954231653
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "size": 278,
+      "centroid_2d": [
+        -14.239206702589131,
+        51.69299262890713
+      ],
+      "top_keywords": [
+        {
+          "term": "engine load",
+          "score": 0.34355154812697053
+        },
+        {
+          "term": "resistance",
+          "score": 0.2389923813057186
+        },
+        {
+          "term": "vessel",
+          "score": 0.2091183336425038
+        },
+        {
+          "term": "propeller",
+          "score": 0.2091183336425038
+        },
+        {
+          "term": "cold start",
+          "score": 0.17924428597928896
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "size": 350,
+      "centroid_2d": [
+        16.80150831392833,
+        -14.065472009437425
+      ],
+      "top_keywords": [
+        {
+          "term": "assignments",
+          "score": 0.40191998585241906
+        },
+        {
+          "term": "ofp",
+          "score": 0.3767999867366429
+        },
+        {
+          "term": "soap",
+          "score": 0.2260799920419857
+        },
+        {
+          "term": "mixtures",
+          "score": 0.21351999248409761
+        },
+        {
+          "term": "cb05",
+          "score": 0.17583999381043336
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "size": 287,
+      "centroid_2d": [
+        12.582961366278239,
+        -56.82177596142068
+      ],
+      "top_keywords": [
+        {
+          "term": "tai",
+          "score": 0.3078805655063832
+        },
+        {
+          "term": "spots",
+          "score": 0.29388599434700213
+        },
+        {
+          "term": "hot spots",
+          "score": 0.29388599434700213
+        },
+        {
+          "term": "iasi",
+          "score": 0.2658968520282401
+        },
+        {
+          "term": "viirs nightfire",
+          "score": 0.1819294250719537
+        }
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "size": 243,
+      "centroid_2d": [
+        32.806705490551856,
+        34.391494405613024
+      ],
+      "top_keywords": [
+        {
+          "term": "rowspan",
+          "score": 0.607374081897414
+        },
+        {
+          "term": "pnnne",
+          "score": 0.2296170309612175
+        },
+        {
+          "term": "pnnne pnnne",
+          "score": 0.22221002996246855
+        },
+        {
+          "term": "declare",
+          "score": 0.17776802396997482
+        },
+        {
+          "term": "competing",
+          "score": 0.17776802396997482
+        }
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "size": 349,
+      "centroid_2d": [
+        -11.462613926970942,
+        8.302155319292414
+      ],
+      "top_keywords": [
+        {
+          "term": "deaths",
+          "score": 0.33009233313740516
+        },
+        {
+          "term": "premature",
+          "score": 0.2904812531609165
+        },
+        {
+          "term": "wchp",
+          "score": 0.2904812531609165
+        },
+        {
+          "term": "attributable",
+          "score": 0.2772775598354203
+        },
+        {
+          "term": "premature deaths",
+          "score": 0.2508701731844279
+        }
+      ]
+    },
+    {
+      "cluster_id": 7,
+      "size": 241,
+      "centroid_2d": [
+        52.829534388182076,
+        -29.003175687987774
+      ],
+      "top_keywords": [
+        {
+          "term": "cmaq dynamic",
+          "score": 0.49613893835683376
+        },
+        {
+          "term": "continued continued",
+          "score": 0.3721042037676253
+        },
+        {
+          "term": "observation cmaq",
+          "score": 0.24806946917841688
+        },
+        {
+          "term": "dokdqo lmaf",
+          "score": 0.24806946917841688
+        },
+        {
+          "term": "lmaf whohs",
+          "score": 0.24806946917841688
+        }
+      ]
+    },
+    {
+      "cluster_id": 8,
+      "size": 408,
+      "centroid_2d": [
+        -39.337992780348834,
+        28.81415228516448
+      ],
+      "top_keywords": [
+        {
+          "term": "ldgvs",
+          "score": 0.18435920513008772
+        },
+        {
+          "term": "strengths",
+          "score": 0.16131430448882678
+        },
+        {
+          "term": "source strengths",
+          "score": 0.16131430448882678
+        },
+        {
+          "term": "xiaoshan",
+          "score": 0.14979185416819626
+        },
+        {
+          "term": "model-calculated",
+          "score": 0.13826940384756578
+        }
+      ]
+    },
+    {
+      "cluster_id": 9,
+      "size": 228,
+      "centroid_2d": [
+        12.205749782553891,
+        66.65974382768597
+      ],
+      "top_keywords": [
+        {
+          "term": "tag",
+          "score": 0.7789102878622756
+        },
+        {
+          "term": "right tag",
+          "score": 0.2097066159629203
+        },
+        {
+          "term": "array",
+          "score": 0.15977646930508216
+        },
+        {
+          "term": "times tag",
+          "score": 0.14979043997351454
+        },
+        {
+          "term": "hat",
+          "score": 0.1398044106419469
+        }
+      ]
+    },
+    {
+      "cluster_id": 10,
+      "size": 334,
+      "centroid_2d": [
+        -33.86930794630222,
+        -45.225523029258866
+      ],
+      "top_keywords": [
+        {
+          "term": "aod",
+          "score": 0.41632177832758566
+        },
+        {
+          "term": "nmogs",
+          "score": 0.3392251527113661
+        },
+        {
+          "term": "radiative energy",
+          "score": 0.20045122660217085
+        },
+        {
+          "term": "combustion rate",
+          "score": 0.20045122660217085
+        },
+        {
+          "term": "nmog",
+          "score": 0.18503190147892695
+        }
+      ]
+    },
+    {
+      "cluster_id": 11,
+      "size": 249,
+      "centroid_2d": [
+        -58.22482335040847,
+        -1.3356710571391754
+      ],
+      "top_keywords": [
+        {
+          "term": "emission uncertainties",
+          "score": 0.2147683897937795
+        },
+        {
+          "term": "uncertainty analysis",
+          "score": 0.1861326044879422
+        },
+        {
+          "term": "industrial source",
+          "score": 0.1718147118350236
+        },
+        {
+          "term": "uncertainties emissions",
+          "score": 0.15749681918210495
+        },
+        {
+          "term": "city-level",
+          "score": 0.14317892652918632
+        }
+      ]
+    },
+    {
+      "cluster_id": 12,
+      "size": 218,
+      "centroid_2d": [
+        15.442346955111267,
+        14.505139824447282
+      ],
+      "top_keywords": [
+        {
+          "term": "supplementary",
+          "score": 0.3232963225131233
+        },
+        {
+          "term": "article online",
+          "score": 0.2748018741361548
+        },
+        {
+          "term": "natural science",
+          "score": 0.25863705801049863
+        },
+        {
+          "term": "supplementary article",
+          "score": 0.25863705801049863
+        },
+        {
+          "term": "national natural",
+          "score": 0.21014260963353013
+        }
+      ]
+    },
+    {
+      "cluster_id": 13,
+      "size": 156,
+      "centroid_2d": [
+        -43.309779485066734,
+        55.38550699674166
+      ],
+      "top_keywords": [
+        {
+          "term": "energy-saving",
+          "score": 0.2529822128134695
+        },
+        {
+          "term": "energy intensity",
+          "score": 0.2529822128134695
+        },
+        {
+          "term": "transport sector",
+          "score": 0.2319003617456804
+        },
+        {
+          "term": "passenger vehicles",
+          "score": 0.21081851067789129
+        },
+        {
+          "term": "potentials",
+          "score": 0.1475729574745239
+        }
+      ]
+    },
+    {
+      "cluster_id": 14,
+      "size": 425,
+      "centroid_2d": [
+        -6.2880365938211185,
+        -34.687457849839156
+      ],
+      "top_keywords": [
+        {
+          "term": "bvoc emissions",
+          "score": 0.40835453595439913
+        },
+        {
+          "term": "glyoxal vcds",
+          "score": 0.223936358426606
+        },
+        {
+          "term": "chemical regime",
+          "score": 0.21076363146033505
+        },
+        {
+          "term": "nmvocs emissions",
+          "score": 0.1712454505615222
+        },
+        {
+          "term": "production regime",
+          "score": 0.14489999662898034
+        }
+      ]
+    }
+  ]
+}

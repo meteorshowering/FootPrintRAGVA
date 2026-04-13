@@ -1,0 +1,4252 @@
+{
+  "meta": {
+    "root_goal": "air pollution study ",
+    "total_rounds": 7
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 air pollution s...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "55671fee-01b1-47d5-b961-211c1f075a8e",
+      "label": "Daily Emission Patte...",
+      "full_title": "Daily Emission Patterns of Coal-Fired Power Plants",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "daily_emission_patterns_of_coal-fired_power_plants",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 3
+          },
+          "reason": "内容残缺不全，未提供具体排放模式数据或结论，与研究方向关联度极低。",
+          "insight": "内容仅含'and air pollution modeling'，无实质性信息或数据点。"
+        }
+      }
+    },
+    {
+      "id": "1932d146-e6f9-43bd-b410-a24005690737",
+      "label": "On-road emissions of...",
+      "full_title": "On-road emissions of fine particles and associated",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "on-road_emissions_of_fine_particles_and_associated",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "提供权威来源占比数据，但未包含可深挖的独家模型或新方法。适合作为背景文献。",
+          "insight": "综述PM2.5三大来源：工业燃煤锅炉(40.1%)、工地扬尘(28.7%)和机动车(22.9%)，并指出机动车排放与大中城市污染强相关。"
+        }
+      }
+    },
+    {
+      "id": "495c7954-9e19-426b-a839-8f11c14e150d",
+      "label": "On-road emissions of...",
+      "full_title": "On-road emissions of fine particles and associated_1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "on-road_emissions_of_fine_particles_and_associated_1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 2
+          },
+          "reason": "证据重复且文件命名异常（名称带'_1'后缀），疑似检索系统误生成的冗余记录。",
+          "insight": "内容与ID 1932d146完全重复（包括文献引用和污染物源分类）。"
+        }
+      }
+    },
+    {
+      "id": "e1e0ff2f-a046-47b9-af31-d69570c82939",
+      "label": "Long-term observatio...",
+      "full_title": "Long-term observations of oxygenated volatile orga",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "long-term_observations_of_oxygenated_volatile_orga",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含关键地理位置图及长期观测数据集线索（2014-2019），建议追踪论文获取原始监测数据和时间序列分析方法。",
+          "insight": "图1显示PKUSZ站点位于深圳大学城（22.60°N,113.97°E），距高速路仅100米，6年1169天监测数据表明该点能代表整个珠三角区域污染水平。"
+        }
+      }
+    },
+    {
+      "id": "0ed3ffe2-8bc3-49da-ac73-a1b16e7dae42",
+      "label": "Does energy transiti...",
+      "full_title": "Does energy transition improve air quality_ Eviden",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "does_energy_transition_improve_air_quality__eviden",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "提供权威全球排名数据及政策转向关键论点，但未展示具体能源转型效果量化模型。",
+          "insight": "中国SO₂排放全球第三(18.7Mt/yr)，PM2.5平均浓度全球第十二(45μg/m³)，能源转型使污染控制从末端治理转向结构优化。"
+        }
+      }
+    },
+    {
+      "id": "398617ff-e8f5-408f-863d-fd28b4f329ff",
+      "label": "Does energy transiti...",
+      "full_title": "Does energy transition improve air quality_ Eviden",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "does_energy_transition_improve_air_quality__eviden",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "详细介绍研究设计和数据来源(包括国家级监测平台和统计年鉴)，但未展示具体实证结果，作为方法论参考价值较高",
+          "insight": "研究选用AQI、PM2.5、PM10、SO2、CO、NO2作为空气污染指标，结合中国环境监测中心气象数据和宏观经济参数，通过实验组(35个示范城市)与对照组(相邻非试点城市)比较评估能源转型政策"
+        }
+      }
+    },
+    {
+      "id": "a830468b-0880-49f0-bbe4-66d7a3c97158",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 5
+          },
+          "reason": "仅有模糊结论性语句且无实证数据支持，未能提供任何具体研究发现或方法论",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "0baceecc-3c4b-4dd4-8356-6e23a082136d",
+      "label": "Mobile measurement o...",
+      "full_title": "Mobile measurement of vehicle emission factors in ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "mobile_measurement_of_vehicle_emission_factors_in_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "系统阐述机动车排放的污染机制与健康影响，提供多文献佐证，适合作为污染源背景知识",
+          "insight": "机动车排放是城市NOx与VOCs主要来源，作为细颗粒物和臭氧生成的关键前体，直接关联呼吸道疾病、心血管疾病等健康风险，韩国案例显示车辆拥有率与排放因子测算需求正相关"
+        }
+      }
+    },
+    {
+      "id": "d37d6371-eb01-4e9a-bea8-20ea6eb279de",
+      "label": "Mobile measurement o...",
+      "full_title": "Mobile measurement of vehicle emission factors in _1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "mobile_measurement_of_vehicle_emission_factors_in__1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 3
+          },
+          "reason": "与ID 0baceecc内容完全重复，属于系统检索冗余信息",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "包含可直接使用的全球排放清单标准数据集名称、空间分辨率和污染物种类，具备深挖价值（如获取数据源或对比模型应用）",
+          "insight": "HTAP_v2.2数据集提供0.1°网格化人为排放数据，包含SO2、NOx、CO、NMVOC、NH3等气体及PM10/PM2.5碳组分（BC/OC）的年度/月度分布，专用于大气化学传输模型"
+        }
+      }
+    },
+    {
+      "id": "87beb9fb-d8e6-4201-9791-22ad6054b7c8",
+      "label": "Estimation of biogen...",
+      "full_title": "Estimation of biogenic VOC emissions and their cor",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "estimation_of_biogenic_voc_emissions_and_their_cor",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 7
+          },
+          "reason": "仅包含数据来源说明，无具体分析内容和研究结论，与核心问题关联度低",
+          "insight": "提供气象和污染物数据来源链接及补充数据获取方式"
+        }
+      }
+    },
+    {
+      "id": "408a9eaa-bd42-434c-8082-c493147700b6",
+      "label": "Progress of Air Poll...",
+      "full_title": "Progress of Air Pollution Control in China and Its",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "progress_of_air_pollution_control_in_china_and_its",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "提供PM2.5健康影响的权威量化数据，但未提出新的研究路径",
+          "insight": "GBD 2015研究显示中国PM2.5暴露导致110万例死亡，世界银行估计污染相关死亡成本占GDP的10%"
+        }
+      }
+    },
+    {
+      "id": "f17ef4f2-7d7a-4178-80c0-5acdad36158f",
+      "label": "Segment-based Volati...",
+      "full_title": "Segment-based Volatile Organic Compound Emission C",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "segment-based_volatile_organic_compound_emission_c",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 6
+          },
+          "reason": "仅为项目资助说明，无实质性研究内容",
+          "insight": "基金项目资助信息和免责声明"
+        }
+      }
+    },
+    {
+      "id": "68c33446-37ff-406a-8bc3-87962759883d",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含关键跨国比较数据和排放驱动因子分析，提供HDI与排放的量化关系",
+          "insight": "基于HDI指数对比各国人均PM2.5排放：中国(8.2kg), 印度(5.2kg), 日本(0.16kg)，揭示技术水平和经济活动对排放的影响"
+        }
+      }
+    },
+    {
+      "id": "1f04d04c-b5e5-4780-a0fc-2d46943805c4",
+      "label": "Long-term observatio...",
+      "full_title": "Long-term observations of oxygenated volatile orga",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "long-term_observations_of_oxygenated_volatile_orga",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 3
+          },
+          "reason": "文本片段残缺，无法提取有效信息",
+          "insight": "不完整句子描述大气污染物变化观测"
+        }
+      }
+    },
+    {
+      "id": "42d01c8d-c38c-4e13-acd4-0c9e95be442e",
+      "label": "Air quality changes ...",
+      "full_title": "Air quality changes in China 2013-2020_ Effectiven",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "air_quality_changes_in_china_2013-2020__effectiven",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据包含具体政策时间线可视化图表，并明确指向国家能源管理局原始数据，提供了深挖政策效果评估的论文线索",
+          "insight": "图1展示了中国2015-2020年清洁煤炭技术政策(CCTPs)的实施时间线，结合文本说明这些政策是可持续煤炭利用和验证'十三五'能源减排目标的关键依据"
+        }
+      }
+    },
+    {
+      "id": "949409a0-4312-4835-bc5b-8cf91e9d5b3f",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供了污染物排放机制的基础分析，但缺乏具体数据支撑和可视化证据，保留作背景参考",
+          "insight": "不同污染物排放存在明显地域差异：SO₂取决于工业燃煤和脱硫技术，NOₓ与工业燃烧及交通运输相关，PM排放则与燃烧效率和过滤器性能有关"
+        }
+      }
+    },
+    {
+      "id": "cd25de7f-cc74-4e49-9870-1dc3e1142f29",
+      "label": "Air quality changes ...",
+      "full_title": "Air quality changes in China 2013-2020_ Effectiven",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "air_quality_changes_in_china_2013-2020__effectiven",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "详实记录中国空气污染治理政策演变但未提供新洞察，政策内容与图1形成互证，建议保留作政策背景",
+          "insight": "2015年启动两项煤炭清洁利用行动计划，聚焦四大煤控行业/21项关键技术，建立政府-企业-市场-公众协同治理框架"
+        }
+      }
+    },
+    {
+      "id": "adcadbed-4de9-4e05-a403-f4addb6d7796",
+      "label": "How the Air Clean Pl...",
+      "full_title": "How the Air Clean Plan and carbon mitigation measu",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "how_the_air_clean_plan_and_carbon_mitigation_measu",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "明确量化碳减排与健康效益的因果关系，并引用Zhou/Gu等2021年具体研究，提供可追踪的深度线索",
+          "insight": "碳减排措施是2018-2020年PM2.5降低和过早死亡减少的主因，建议未来聚焦农业氨减排等成本效益路径"
+        }
+      }
+    },
+    {
+      "id": "83381eea-dac4-4b28-bd31-82bd059715c7",
+      "label": "Progress of Air Poll...",
+      "full_title": "Progress of Air Pollution Control in China and Its",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "progress_of_air_pollution_control_in_china_and_its",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提出世卫标准量化目标和具体达标路径（产业结构调整+脱碳），具有明确政策导向性和研究延展性",
+          "insight": "'美丽中国'目标要求2035年全境PM2.5＜35μg/m³，需产业深度调整与能源系统脱碳协同实施"
+        }
+      }
+    },
+    {
+      "id": "6ab92d70-76bd-4710-b17a-6108879feece",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供具体区域PM排放源解析和趋势数据（含巴西量化证据），表格数据可深挖各国排放强度指标。",
+          "insight": "亚洲国家因工业过程和居民部门导致PM排放显著增高，巴西2008-2010年PM排放下降主要由木炭产量减少引起（全球占比从23%降至12%）。"
+        }
+      }
+    },
+    {
+      "id": "b873da59-69cb-42d7-b1bc-cc5c9536c765",
+      "label": "Does energy transiti...",
+      "full_title": "Does energy transition improve air quality_ Eviden",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "does_energy_transition_improve_air_quality__eviden",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 6
+          },
+          "reason": "聚焦政策实施痛点但缺乏具体污染数据支撑，方法论部分提及数据尺度差异可能是通用局限。",
+          "insight": "清洁供暖项目（WCHP）需平衡成本效益，建议经济压力大地区采用清洁煤过渡，并强调因地制宜政策设计与低收入群体补贴。"
+        }
+      }
+    },
+    {
+      "id": "0aba0317-e2b8-49cd-b3f3-573024981563",
+      "label": "Air quality changes ...",
+      "full_title": "Air quality changes in China 2013-2020_ Effectiven",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "air_quality_changes_in_china_2013-2020__effectiven",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提出国家级政策协同评估新范式及AI方法创新点，具有方法论突破潜力。",
+          "insight": "全国性清洁煤技术政策（CCTPs）综合评估需跨区域协同治理框架，深度学习可解决COVID-19期间空气质量归因不确定性问题。"
+        }
+      }
+    },
+    {
+      "id": "be007256-f042-4fc7-b94b-16085c90452a",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 3
+          },
+          "reason": "仅为空泛政策建议无实质内容，缺乏具体污染物类型、控制措施或地域信息。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "e7928785-628d-42b7-afc5-6a090be68883",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "5张图表实质性展示排放清单空间异质性问题，Table 3直接提供不确定性量化框架，构成核心方法学资源。",
+          "insight": "HTAP_v2.2排放清单存在区域边界不确定性，多图表展示排放因子建模差异导致跨境数据不一致（需分析图中网格化排放分布模式）。"
+        }
+      }
+    },
+    {
+      "id": "fb7f2c54-096b-49f8-93fd-f1d68b03e7d3",
+      "label": "Air quality changes ...",
+      "full_title": "Air quality changes in China 2013-2020_ Effectiven",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "air_quality_changes_in_china_2013-2020__effectiven",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接量化清洁煤政策的减霾效果（含具体百分比和滞后期），提供深度学习方法与机制分析，对政策效果建模有高价值",
+          "insight": "研究表明实施清洁煤技术政策(CCTPs)后，中国空气质量指数(AQI)平均下降18.82%，且政策效果存在2年滞后期，减排和去工业化是改善空气质量的两种核心路径。"
+        }
+      }
+    },
+    {
+      "id": "390f5c99-d939-4868-887a-b3b8cfde75c8",
+      "label": "Exhaust Gas Condensa...",
+      "full_title": "Exhaust Gas Condensation during Engine Cold Start ",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "exhaust_gas_condensation_during_engine_cold_start_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 7
+          },
+          "reason": "主题与PM2.5预测或政策评估偏离较大，关注点在于检测设备精度而非污染物治理效果",
+          "insight": "主要讨论发动机冷启动时尾气测量技术（如PEMS, FTIR）的精确性问题，聚焦车辆排放检测方法学。"
+        }
+      }
+    },
+    {
+      "id": "677110f3-36b8-4c26-9292-114f5f2257c9",
+      "label": "Air quality changes ...",
+      "full_title": "Air quality changes in China 2013-2020_ Effectiven",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "air_quality_changes_in_china_2013-2020__effectiven",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供能源转型背景信息，但未涉及量化效果或预测模型，适合作为政策背景参考",
+          "insight": "描述中国煤炭清洁利用产业链转型框架：从'开发-利用'向'煤炭基材料化工一体化'的循环经济模式演进。"
+        }
+      }
+    },
+    {
+      "id": "402b8851-355f-45fd-8b34-606d56f187ba",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "提供关键排放源定量分配数据（含具体百分比），明确了跨境污染传输路径，对区域预测模型构建有核心价值",
+          "insight": "HTAP_v2.2排放清单揭示：亚洲59%SO2来自能源部门（燃煤电厂），32%来自制造业；国际航运贡献全球10%SO2和超10%NOx。"
+        }
+      }
+    },
+    {
+      "id": "167ec3e7-4dbd-4416-9e2c-4fa6b96e106c",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "5131cc07-08e3-4a46-b7e1-98c2672b2899",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "提供了空气污染传输的基本机制和国际合作框架背景，但缺乏具体数据或可深挖的独特方法论线索。",
+          "insight": "洲际空气污染传输在数天至数周时间尺度上发生，可显著加剧局部污染事件，但不同国家的排放清单存在报告质量和格式不统一问题。"
+        }
+      }
+    },
+    {
+      "id": "4e04fe91-c8f7-4579-aab0-b842dcb7df67",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 6
+          },
+          "reason": "纯致谢部分无实质科研信息，与空气污染机制研究无关。",
+          "insight": "未提供科研内容，仅为项目资助机构和致谢名单。"
+        }
+      }
+    },
+    {
+      "id": "d17b32fa-fa36-4f9a-bba5-699c516bad91",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接比较两种主流排放清单的基准数据，提供具体时间点（2010）和评估维度（全球一致性），建议深挖ECLIPSEv5方法学。",
+          "insight": "HTAP_v2.2与ECLIPSEv5排放清单在2010年全球层面呈现良好一致性，提示可交叉验证排放数据可靠性。"
+        }
+      }
+    },
+    {
+      "id": "12a14365-e241-400d-90d5-fd34e92a1767",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "描述排放数据处理的关键技术参数（空间分辨率、时间分解方法）和具体污染物覆盖范围，构成模型开发核心要素。",
+          "insight": "EDGARv4.3以0.1度网格分辨率提供全球排放空间分布，采用北半球/赤道/南半球三区域差异化月度分解因子。"
+        }
+      }
+    },
+    {
+      "id": "cfc1c814-7b4a-4c9c-a4a4-4d959b287324",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "无实质性研究内容，机构信息在其它片段已覆盖。",
+          "insight": "仅包含论文标题、作者及机构信息。"
+        }
+      }
+    },
+    {
+      "id": "25d5d8e1-db0c-4668-8eeb-ab542c86ff7b",
+      "label": "Changes in the ozone...",
+      "full_title": "Changes in the ozone chemical regime over the cont",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "changes_in_the_ozone_chemical_regime_over_the_cont",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "详述卫星数据集成与气象建模方法，但未展示具体实验结果或图表洞察，作为方法学参考保留较宜。",
+          "insight": "研究整合NASA OMI/Aura臭氧剖面、OMI对流层NO₂/HCHO和MOPITT CO等多源卫星数据（Fig.S1），并采用WRF v4.0模型（12km分辨率）模拟美国气象场，CMAQ-WRF配置参数见Table 1。"
+        }
+      }
+    },
+    {
+      "id": "821a2a63-bf66-4b76-a4ef-b947584e1388",
+      "label": "Changes in the ozone...",
+      "full_title": "Changes in the ozone chemical regime over the cont_1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "changes_in_the_ozone_chemical_regime_over_the_cont_1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 5
+          },
+          "reason": "内容与前一证据完全重复（包括文本、图表引用及Table 1描述），属冗余信息。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "1e92e5ad-644c-4508-bcc5-92b369c5e1cc",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "量化揭示关键VOCs（甲醛/乙二醛）的模型系统误差及其来源，包含具体误差传递计算逻辑，建议深挖误差校正方法。",
+          "insight": "甲醛模型在低层大气偏差仅-3%±2%，但在自由对流层低估41%；乙二醛在混合层偏差<20%，在高层低估超2倍，归因于模型垂直传输不足。经误差合成，甲醛和乙二醛观测总误差分别为±90%和±150%。"
+        }
+      }
+    },
+    {
+      "id": "6091e48a-f68e-434f-8d04-41e828a17295",
+      "label": "First space-based de...",
+      "full_title": "First space-based derivation of the global atmosph",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "first_space-based_derivation_of_the_global_atmosph",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "给出大气化学反演中后验误差估计的核心数学模型（含完整公式），对不确定性量化研究有直接方法论价值。",
+          "insight": "Davidon-Fletcher-Powell方法实现后验误差估计：逆Hessian矩阵通过Hessian(J_f)^{-1}≈[(DH_f)^T E^{-1}(DH_f)+B^{-1}]^{-1}计算，其中E为观测误差协方差，B为先验误差协方差（公式12）。"
+        }
+      }
+    },
+    {
+      "id": "e5f3c10c-c9d5-4974-9fd1-48d921c322db",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "权威全球排放清单的核心技术描述，突出多源数据融合方案和高分辨率优势，且明确服务于排放因子验证需求。",
+          "insight": "HTAP_v2.2全球污染物清单整合北美EPA/加拿大、欧洲EMEP-TNO、亚洲MIX及EDGARv4.3区域数据，提供0.1°~0.25°分辨率网格排放图（含点源），支持排放因子与人均排放的跨区域校验。"
+        }
+      }
+    },
+    {
+      "id": "656e1547-6003-4218-976d-acda79db2afb",
+      "label": "HTAP_v2.2_ a mosaic ...",
+      "full_title": "HTAP_v2.2_ a mosaic of regional and global emissio",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "htap_v2.2__a_mosaic_of_regional_and_global_emissio",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供排放清单框架，但未直接针对北京2018年细节，无图表或深挖线索，适合作为背景。",
+          "insight": "整合区域排放网格（含中国等亚洲国家），提供2008和2010年全球网格化排放数据（SO2, NOx, PM2.5等），支持建模研究。"
+        }
+      }
+    },
+    {
+      "id": "42a96839-b619-4aac-b911-aedc112b3619",
+      "label": "MIX_ a mosaic Asian ...",
+      "full_title": "MIX_ a mosaic Asian anthropogenic emission invento",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "mix__a_mosaic_asian_anthropogenic_emission_invento",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表关键：展示区域排放结构，提供与HTAP数据集链接，含2010年数据，可深挖北京排放组分。",
+          "insight": "图1展示亚洲MIX排放库组成（含中国），整合至HTAP v2.2，可直接支持北京PM2.5原始来源建模。"
+        }
+      }
+    },
+    {
+      "id": "279956cd-bc57-47a1-9d7b-a08b93a10537",
+      "label": "Source apportionment...",
+      "full_title": "Source apportionment of volatile organic compounds",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "source_apportionment_of_volatile_organic_compounds",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "聚焦污染机制，解释霾季形成原理，但未提供2018年北京具体数据或图表。",
+          "insight": "VOCs（如工业源）是冬季PM2.5二次有机气溶胶（SOA）关键前体，贡献超30%有机质量。"
+        }
+      }
+    },
+    {
+      "id": "9a8239ee-6c4f-4a82-9e31-9c2a680fa2c9",
+      "label": "Source apportionment...",
+      "full_title": "Source apportionment of volatile organic compounds",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "source_apportionment_of_volatile_organic_compounds",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图片关键：隐含排放源可视化，标题聚焦来源解析，匹配北京污染溯源需求。",
+          "insight": "配图表征VOCs来源解析与二次有机气溶胶生成机制，具直接污染物数据支撑。"
+        }
+      }
+    },
+    {
+      "id": "be31354d-661f-49e3-8684-2a052ade51ce",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "泛谈技术方法（如GEOS-Chem），与具体颗粒物来源无关，信息模糊且时间不匹配。",
+          "insight": "需反演建模NMVOC排放用于2007年模拟，未涉及PM2.5直接源解析或北京区域。"
+        }
+      }
+    },
+    {
+      "id": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "label": "An improved represen...",
+      "full_title": "An improved representation of fire non-methane org",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": "an_improved_representation_of_fire_non-methane_org",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图像数据直接揭示NMOG排放表征的系统性缺陷，提供明确的深层量化指标（IVOC阈值/C*值）和未解决机制（近场反应性建模），且文本明确指向需'further work'的研究缺口。",
+          "insight": "图1b证实已建立排放因子的NMOG物种主要属于高挥发性物质（高于10⁶μg/m³阈值），显著忽略了对二次有机气溶胶(SOA)形成关键的IVOC前体物；图1a显示多数短寿命物种(化学寿命<物理传输寿命)缺少已知氧化产物数据，导致近场反应性模型存在重大空白。"
+        }
+      }
+    },
+    {
+      "id": "c2d054ba-6b2a-4970-86ba-767705ac34ea",
+      "label": "Source apportionment...",
+      "full_title": "Source apportionment of volatile organic compounds",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "source_apportionment_of_volatile_organic_compounds",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "多图表系统性量化VOC物种对关键大气过程（OH消耗/O₃/SOA）的贡献度并解析源特征，提供可直接用于模型优化的源成份谱和时变特征，具备高工程应用价值。",
+          "insight": "图3显示芳烃约占SOA生成潜势的70%，是主要贡献者；图4源解析揭示工业源(IN)主导芳烃排放（中位数>40%），溶剂使用(SU)次之；图5显示车辆排放(VE)呈早晚双峰模式，而工业源(IN)呈持续日间排放特征。"
+        }
+      }
+    },
+    {
+      "id": "7fb986f8-b603-4914-a2de-cc117ddb3b04",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供关键量化参数（辐射强迫/温降幅度）阐明气溶胶-边界层相互作用机制，但缺少原始图表支持且机制描述较宏观，宜保留为气候影响背景。",
+          "insight": "生物质燃烧气溶胶辐射效应导致东亚地区地表短波辐射平均衰减20W/m²，近地表降温1.4°C，并通过抑制边界层发展（PBL高度下降约150m）加剧PM₂.₅污染（正反馈机制）。"
+        }
+      }
+    },
+    {
+      "id": "0e26e3a6-efcc-45be-86de-5db0cc1f4815",
+      "label": "Estimation of biogen...",
+      "full_title": "Estimation of biogenic VOC emissions and their cor",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "estimation_of_biogenic_voc_emissions_and_their_cor",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "仅重复基础BVOC常识（排放占比/反应路径），未提供新数据或模型改进方案，与核心问题关联较弱。",
+          "insight": "BVOCs占全球VOC排放90%以上，尤其异戊二烯/单萜类通过氧化反应主导SOA生成和新粒子形成，MEGAN模型基于植物功能型(PFT)构建排放基准。"
+        }
+      }
+    },
+    {
+      "id": "26fb2912-80c9-4468-aacd-f285927d7d2a",
+      "label": "Progress of Air Poll...",
+      "full_title": "Progress of Air Pollution Control in China and Its",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "progress_of_air_pollution_control_in_china_and_its",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "揭示PM₂.₅化学组分转变（硝酸盐主导）与非常规前体物（IVOC/POA）控制需求，直击政策调控盲点，提供具体减排阈值。",
+          "insight": "RSM模型表明渤海湾PM₂.₅对NH₃排放敏感性超预期（2005年化肥导致硝酸盐增长60%），同时要求NMVOCs减排36%以满足PM₂.₅国标；当前减排转向农业氨管控与IVOC/POA协同控制。"
+        }
+      }
+    },
+    {
+      "id": "a7eba560-c3fd-4440-aee6-e666ca5b1a57",
+      "label": "On-road emissions of...",
+      "full_title": "On-road emissions of fine particles and associated",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "on-road_emissions_of_fine_particles_and_associated",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据提供具体检测方法和排放因子公式，与空气污染研究强相关，可深挖源论文中的实验数据和方法。",
+          "insight": "文中详细描述了 PM2.5 的组分分析方法，包括有机碳（OC）和元素碳（EC）的检测使用 DRI 热碳分析仪，水溶离子通过离子色谱仪分析，以及 21 种地壳元素通过 ICP-MS 检测。同时，提出真实道路条件下 PM2.5 排放因子的计算公式： EF = (Δm · V · R) / (V₁ S)，用于量化车辆排放。"
+        }
+      }
+    },
+    {
+      "id": "7fa95cb6-5229-46b9-8922-bb90b2749bd1",
+      "label": "On-road emissions of...",
+      "full_title": "On-road emissions of fine particles and associated_1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "on-road_emissions_of_fine_particles_and_associated_1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 5
+          },
+          "reason": "复制另一证据的全文，信息冗余且低价值，缺乏新内容或深挖线索，建议剪除以避免资源浪费。",
+          "insight": "内容与 ID a7eba560-c3fd-4440-aee6-e666ca5b1a57 完全重复，包括相同的 PM2.5 组分分析方法（OC/EC 检测、水溶离子和地壳元素分析）和排放因子公式 EF = (Δm · V · R) / (V₁ S)。"
+        }
+      }
+    },
+    {
+      "id": "0bb591a2-9145-4533-b30a-a3f080472427",
+      "label": "Development of a dat...",
+      "full_title": "Development of a database for chemical mechanism a",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "development_of_a_database_for_chemical_mechanism_a",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "为排放模型提供背景，但未包含具体数据或深挖路径（如 Paper ID），适于作为上下文保留。",
+          "insight": "讨论了挥发性有机化合物（VOC）排放数据在空气质量模型中的化学机制分配挑战，强调模型物种分配的错误会导致排放测定或化学机制的错误。"
+        }
+      }
+    },
+    {
+      "id": "f941229d-4977-48a3-aba3-cf3cd86ef462",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "描述辐射效应对 PM2.5 浓度的影响，有潜在价值，但无引用图表或源数据线索，需结合图像（如 Fig. 7b/8）进一步验证。",
+          "insight": "生物质燃烧产生的气溶胶辐射效应导致气象变化，表现为地面温度（降低 0.5 K）、风速（降低 0.4 ms⁻¹）下降，相对湿度上升（1%），近边界层顶则呈反向趋势，这影响 PM2.5 积累速率。"
+        }
+      }
+    },
+    {
+      "id": "7a12c2c6-8771-4378-9c0b-72eed7a4467d",
+      "label": "Estimation of biogen...",
+      "full_title": "Estimation of biogenic VOC emissions and their cor",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "estimation_of_biogenic_voc_emissions_and_their_cor",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "间接相关研究展望，但无具体深挖线索（如 HOMs 数据），适合作背景参考。",
+          "insight": "强调了生物源挥发性有机化合物（BVOC）排放对二次有机气溶胶（SOA）模拟的局限性，提出高氧化分子（HOMs）机制可显著增加 SOA 质量，未来应整合到区域模型。"
+        }
+      }
+    },
+    {
+      "id": "cffc053b-2b7b-433f-a891-b218c6629612",
+      "label": "Development of a dat...",
+      "full_title": "Development of a database for chemical mechanism a",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "development_of_a_database_for_chemical_mechanism_a",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 5
+          },
+          "reason": "纯清单类表格未提供机制参数、对比数据或应用案例等实质内容，无法支撑深入分析",
+          "insight": "Table 1 仅列出当前数据库支持的气相大气化学机制名称清单"
+        }
+      }
+    },
+    {
+      "id": "c3b1ba3f-c803-4e14-95fd-8708b3a2f212",
+      "label": "Estimation of biogen...",
+      "full_title": "Estimation of biogenic VOC emissions and their cor",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "estimation_of_biogenic_voc_emissions_and_their_cor",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "量化展示BVOC对臭氧/SOA的区域影响及人为-生物排放耦合机制，包含模型情景分析(WRF-CMAQ)和关键数据峰值",
+          "insight": "2017年中国BVOC排放量达23.54Tg/年，夏季导致BTH/SCB/YRD/PRD地区臭氧浓度最高增加47μg/m³，且70%的SOA来自生物源；人为排放与生物排放相互作用可提升60%生物源SOA形成"
+        }
+      }
+    },
+    {
+      "id": "074210bc-9b9b-47ba-aea5-a47a6f13a9fe",
+      "label": "An improved represen...",
+      "full_title": "An improved representation of fire non-methane org",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 4,
+      "data": {
+        "paper_id": "an_improved_representation_of_fire_non-methane_org",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "提供具体化学机制更新及定量影响（如22%的NO3增加），但未明确后续研究方向或数据线索。",
+          "insight": "该研究更新了GEOS-Chem模型中芳香烃和烯烃化学机制，结果显示氮氧化物增加22%会显著降低非甲烷有机气体寿命，且乙二醛等产物浓度大幅升高。"
+        }
+      }
+    },
+    {
+      "id": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 4,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含具体化合物产率数据和多版本模型比较，提供可拓展的Paper ID（Chan Miller 2016, Bloss 2005）",
+          "insight": "研究更新了苯/甲苯/二甲苯等芳香烃氧化的乙二醛产率（33.3%/26.2%/21.0%），对比了不同化学机制版本（MCMv3.2-v3.3.1）下的甲醛生成差异。"
+        }
+      }
+    },
+    {
+      "id": "73c96062-58e9-4d37-a4c5-2094458b1777",
+      "label": "Long-term observatio...",
+      "full_title": "Long-term observations of oxygenated volatile orga",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 4,
+      "data": {
+        "paper_id": "long-term_observations_of_oxygenated_volatile_orga",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "基础性背景综述信息（浓度范围/来源分类），与核心问题关联度较低且无新发现",
+          "insight": "含氧挥发性有机物（OVOCs）在污染区浓度可达ppbv级，来源包括人为排放、生物释放及非甲烷烃氧化，显著影响臭氧和PAN生成。"
+        }
+      }
+    },
+    {
+      "id": "98c00e49-daff-4597-ad5d-10840bc8c70b",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "图表直观展示排放-O3敏感性的区域差异和交叉影响机制（含数据趋势图），提供可深挖实验名（EMDA/EMS3）和Paper ID（Souri 2020）",
+          "insight": "图表显示：在NOx高估区域同时优化NMVOC排放时，HCHO生成过程加速补偿现有浓度（对应图中RMSE变化）；O3浓度与排放呈敏感区特性正/负相关。"
+        }
+      }
+    },
+    {
+      "id": "85fe5b7d-4901-49f4-b52e-54313c8b46b6",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 4,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "清晰描述自由基调控机制，但缺乏可视化数据或新颖方法",
+          "insight": "NMVOC减排减少HO2/RO2自由基，抑制臭氧生成，但增强NO2+OH反应导致东中部臭氧损失；NMHC+O3反应在森林区仍是重要HOx来源。"
+        }
+      }
+    },
+    {
+      "id": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "label": "Long-term observatio...",
+      "full_title": "Long-term observations of oxygenated volatile orga",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": "long-term_observations_of_oxygenated_volatile_orga",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据直接链接OVOCs与臭氧生成、环境健康影响，提供多项具体研究（如Zhang 2012、Zhou 2019），包含Paper ID和定量数据，具备深挖线索。",
+          "insight": "OVOCs（如甲醛和乙醛）通过光解产生OH和HO2自由基，影响大气氧化能力，并参与光化学反应生成臭氧（O3）和二次有机气溶胶（SOA）；这些化合物具有高水溶性，对人体健康有害，可导致眼睛、皮肤和呼吸道刺激；在中国研究中，Zhang 等（2012）发现羰基化合物对O3形成潜力（166.1 μg/m³）是BTEX（65.4 μg/m³）的约2.5倍。"
+        }
+      }
+    },
+    {
+      "id": "27006a1e-4b0d-4e16-a1c3-cd008ed4d527",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 4,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "证据涉及源排放反演模型（如PMF）和观测数据，与VOCs来源解析相关，但未提供深挖线索（如Paper ID），适合作为上下文参考。",
+          "insight": "后验NMVOC排放估算显示：甲醛观测驱动排放减少（特别针对仅生产甲醛的化合物，如≥C4烷烃），而glyoxal观测驱动排放增加（对主要生产glyoxal的化合物，如ethene和芳香烃）；isoprene排放减少归因于甲醛观测权重更高。"
+        }
+      }
+    },
+    {
+      "id": "4a6da45c-9fe3-4d82-a41d-0b34c3ada616",
+      "label": "Mobile measurement o...",
+      "full_title": "Mobile measurement of vehicle emission factors in ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": "mobile_measurement_of_vehicle_emission_factors_in_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "提供车辆排放的实测数据（Fig. 2e/f提及但无图），涉及VOCs分布和O3趋势，但无具体Paper ID，价值中等作为背景。",
+          "insight": "隧道测量显示O3浓度从入口向出口递减，并在1200m后降至零；VOCs总量（以烷烃为主）随距离波动（306-364 ppb），在隧道进出口降低可能与反应相关；柴油车为主和车速（>40 km/h）导致VOCs排放较低。"
+        }
+      }
+    },
+    {
+      "id": "53718853-6e6f-42f5-ba25-c7ef93891ed4",
+      "label": "Mobile measurement o...",
+      "full_title": "Mobile measurement of vehicle emission factors in _1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": "mobile_measurement_of_vehicle_emission_factors_in__1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "证据内容与ID:4a6da45c...高度重复（相同文本和总结），信息冗余且无新增值，建议剪除以避免冗余。",
+          "insight": "O3浓度隧道内从入口向出口下降；VOCs总量（以烷烃为主）波动但进出口降低可能参与反应；柴油车比例高和车速快导致排放较低。"
+        }
+      }
+    },
+    {
+      "id": "af551209-b5d4-44b5-b216-9b0e1c8f412a",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "证据描述化学模型机制（如MCM适应），提供NMVOC前体分类，但仅作为技术背景，无深挖线索。",
+          "insight": "GEOS-Chem模型更新化学机制，列举甲醛和glyoxal的NMVOC前体（如ethane、isoprene），其中isoprene是主要源；模型源自Master Chemical Mechanism (MCM)。"
+        }
+      }
+    },
+    {
+      "id": "6a4d9c53-f30b-48a9-a199-9d1f35eaec1e",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "63dd0fd2-9b9d-4434-95be-4bfeb009b2ea",
+      "label": "Development of a dat...",
+      "full_title": "Development of a database for chemical mechanism a",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": "development_of_a_database_for_chemical_mechanism_a",
+        "keywords": [],
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "1d92ebbb-046f-498d-8232-6fdb06958024",
+      "label": "Changes in the ozone...",
+      "full_title": "Changes in the ozone chemical regime over the cont",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": "changes_in_the_ozone_chemical_regime_over_the_cont",
+        "keywords": [],
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "e3f70827-c7f5-4756-8660-227028d2d4da",
+      "label": "Changes in the ozone...",
+      "full_title": "Changes in the ozone chemical regime over the cont_1",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": "changes_in_the_ozone_chemical_regime_over_the_cont_1",
+        "keywords": [],
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "9c868bec-c753-4c6d-ad59-c50f7496e401",
+      "label": "Estimation of biogen...",
+      "full_title": "Estimation of biogenic VOC emissions and their cor",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "estimation_of_biogenic_voc_emissions_and_their_cor",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "提供关键背景：综述多项中国本土研究（Mo等2018；Qin等2018），但未包含深挖线索或原创数据。",
+          "insight": "BVOCs（特别是异戊二烯）对中国的近地面臭氧和SOA形成有显著影响，异戊二烯是北京地区臭氧形成主要贡献者（占50%），也是中国BSOA主导来源。"
+        }
+      }
+    },
+    {
+      "id": "26c594af-1df3-4a97-b68b-fce9e8edcff6",
+      "label": "Estimation of biogen...",
+      "full_title": "Estimation of biogenic VOC emissions and their cor",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "estimation_of_biogenic_voc_emissions_and_their_cor",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "含具体量化数据（70%/50%/40%）和政策意义，并引用关键文献Pye等(2019)。",
+          "insight": "BVOC对夏季SOA贡献率达70%（全国平均），且人为减排可间接调控BSOA（局部达50%），异戊二烯SOA比单萜烯SOA更易减排。"
+        }
+      }
+    },
+    {
+      "id": "70f022d0-cc8e-4537-9622-fd985cd9e4d2",
+      "label": "MIX_ a mosaic Asian ...",
+      "full_title": "MIX_ a mosaic Asian anthropogenic emission invento",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "mix__a_mosaic_asian_anthropogenic_emission_invento",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "焦点为印度排放清单技术细节，与中国BVOC-臭氧关联度低且无交叉验证价值。",
+          "insight": "印度排放清单（ANL-India vs REAS2）在SO2、BC、OC排放估算存在显著差异（8%-28%），主要源于发电厂空间分配和排放因子选择差异。"
+        }
+      }
+    },
+    {
+      "id": "33ca92a5-5a51-4268-a51f-2e4ca74dc04d",
+      "label": "Estimation of biogen...",
+      "full_title": "Estimation of biogenic VOC emissions and their cor",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "estimation_of_biogenic_voc_emissions_and_their_cor",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "含关键图表验证BVOC对臭氧贡献机制（NA/NB情景对比），模型结果与观测校准度高。",
+          "insight": "图7系列可视化对比显示：1）生物源排放主导夏季臭氧生成（京津冀臭氧峰值140μg/m³）；2）无生物源排放情景模式显著低估观测值。"
+        }
+      }
+    },
+    {
+      "id": "458f40b3-60f4-41e5-b494-7af5ecd9ff8a",
+      "label": "Estimation of biogen...",
+      "full_title": "Estimation of biogenic VOC emissions and their cor",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "estimation_of_biogenic_voc_emissions_and_their_cor",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "多图表揭示SOA-BVOC地域分布规律，指认反应路径控制变量（NOx/pH），提供化学机制深挖点。",
+          "insight": "图9/10显示中国SOA浓度空间异质性：1）生物源贡献70%+；2）高NOx环境促发单萜烯有机硝酸盐生成；3）IEPOX-SOA路径依赖酸度并与人为排放耦合。"
+        }
+      }
+    },
+    {
+      "id": "f7efe98a-8530-4b21-b5a1-3b98f8816065",
+      "label": "Biomass burning emis...",
+      "full_title": "Biomass burning emissions estimated with a global ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": "biomass_burning_emissions_estimated_with_a_global_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供具体排放因子数据（如PM2.5/CO比值）并引用多篇文献支持模型调整建议，但未包含可直接深挖的图表或唯一标识符。",
+          "insight": "研究发现生物质燃烧中PM2.5/CO排放比值为0.09±0.04，该比值可作为监测燃烧排放的关键指标；同时指出烟雾气溶胶模型需要调整OM/OC转换系数为2.2以提高精度。"
+        }
+      }
+    },
+    {
+      "id": "0f1e531d-74af-4b73-8550-f14b9d511ba4",
+      "label": "Source apportionment...",
+      "full_title": "Source apportionment of volatile organic compounds",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "source_apportionment_of_volatile_organic_compounds",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 7
+          },
+          "reason": "明确指出VOC与PM2.5污染的因果关系及当前研究方法缺陷，引出对本地化排放因子和同步测量方案的深挖需求。",
+          "insight": "VOC源解析对冬季PM2.5控制至关重要，现有两种OFP/SOAP估算方法中，排放清单法因依赖国外排放因子存在较大不确定性，而源谱测量法缺乏多源同步数据支撑。"
+        }
+      }
+    },
+    {
+      "id": "77c0df59-7a0e-4406-b0b9-d623913c38cb",
+      "label": "MIX_ a mosaic Asian ...",
+      "full_title": "MIX_ a mosaic Asian anthropogenic emission invento",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "mix__a_mosaic_asian_anthropogenic_emission_invento",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含关键图表展示区域排放差异（含热带/温带分区）和电厂规模与排放比的反向关系，提供检验模型精度的具体线索。",
+          "insight": "图15显示中国热带/温带省份NH3农业排放空间异质性，大型电厂SO2/CO2排放比随规模增大而降低（归因于脱硫设备覆盖率提升），该趋势未被EDGAR等全局恒定比模型捕捉。"
+        }
+      }
+    },
+    {
+      "id": "1f1fd4a9-bca3-4868-b9c1-adfcff21ff64",
+      "label": "MIX_ a mosaic Asian ...",
+      "full_title": "MIX_ a mosaic Asian anthropogenic emission invento",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "mix__a_mosaic_asian_anthropogenic_emission_invento",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "提供区域对比框架但缺乏具体数据支撑，属有价值的背景信息但无直接深挖路径。",
+          "insight": "东亚因工业/交通主导具有最低SO2/CO2和CO/CO2排放比，印度/东南亚因住宅燃烧效率低导致高排放比，区域排放比可表征能源结构差异。"
+        }
+      }
+    },
+    {
+      "id": "bc8c3ef7-ff6a-4578-86d4-1b27722acb32",
+      "label": "Source apportionment...",
+      "full_title": "Source apportionment of volatile organic compounds",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "source_apportionment_of_volatile_organic_compounds",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "多图表直观展示PM2.5浓度与VOC来源贡献的耦合机制，提供污染治理的优先级判据，具备重大深挖价值。",
+          "insight": "图7揭示PM2.5浓度梯度下VOC源贡献动态变化：交通排放（27.8%）和工业源（25.4%）主导OFP；高污染时溶剂使用对SOAP贡献激增，源解析需结合污染水平。"
+        }
+      }
+    },
+    {
+      "id": "7b7e492b-745c-4f4d-8f37-6b2fe78ccb3c",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "提供关键方法学依据（双化合物反演技术），但缺少可直接深挖的可视化数据或具体计算模块",
+          "insight": "卫星观测甲醛和乙二醛柱可区分生物源与人为源NMVOC排放，Stavrakou等(2009a)发现东亚人为NMVOC排放比EDGAR和RETRO清单高2-3倍"
+        }
+      }
+    },
+    {
+      "id": "745331b3-a3f8-48c7-bb21-6c8aa1a3347f",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "聚焦中国区域排放争议，但未提供可视化证据支持结论",
+          "insight": "中国东部乙二醛观测值比模拟值高2倍以上（Liu等2012），但Chan Miller等(2016)认为差异仅40%，争议源于SCIAMACHY数据偏差和乙二醛产率设定"
+        }
+      }
+    },
+    {
+      "id": "674ae788-6ab4-414f-b4d3-641c5e779f73",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "可视化关键数据差异，揭示模拟系统性低估暖季排放问题，图5c/d反演结果提供优化路径",
+          "insight": "图5通过四组面板展示中国1-6月乙二醛柱浓度对比：GOME-2A观测值普遍高于模拟值，尤其在暖季差异达52-59%；冬季华北平原模拟值反超观测值"
+        }
+      }
+    },
+    {
+      "id": "6e52796f-e913-4762-aaca-00353602f7be",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "多图表覆盖全年验证期，包含地面MAX-DOAS测量验证（图10倒三角），提供模型优化的直接证据",
+          "insight": "图9-10显示OMI观测与模型模拟全年对比，IE-2/IE-4反演显著改善一致性；图9(d)优化后空间相关性R>0.85，说明排放清单优化有效"
+        }
+      }
+    },
+    {
+      "id": "d6e64ef5-1e31-471c-aa41-3ae5352c487d",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "关键图表定量暴露区域排放清单缺陷，图4中MAX-DOAS验证数据（倒三角）增强结论可信度",
+          "insight": "图4揭示模型季节性误差：华北平原冬季乙二醛高估59%，夏季东部低估52%；显示过渡季甲醛/乙二醛模拟反向误差，暗示芳香烃排放低估"
+        }
+      }
+    },
+    {
+      "id": "2eee58e1-3a49-4d90-b3d2-2b4203921418",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "提供模型优化细节并引用多篇文献（Fu et al. 2008; Mao et al. 2013），但未包含可深挖的图表或明确探索路径。",
+          "insight": "模型更新了甲醛和glyoxal的化学机制，包括Henry定律常数调整（从3.6×10⁵更新至4.19×10⁵）和湿气溶胶表面吸附系数（γ=2.9×10⁻³），以提升GEOS-Chem模型的准确性。"
+        }
+      }
+    },
+    {
+      "id": "00f00e34-a875-4fca-a52e-15d20ac7f462",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含关键量化结果（R值从0.81提升至0.95）并引用图2和S6，提供深挖路径进行排放归因分析。",
+          "insight": "IE-4后验模拟显著提高人为glyoxal前体排放估计，使glyoxal垂直柱密度（VCDs）与OMI观测在所有月份一致，夏季生物源异戊二烯排放增加同时改善了甲醛VCDs。"
+        }
+      }
+    },
+    {
+      "id": "52ad2972-11b1-46f9-8bde-f192bdf6c496",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "关键图像展示甲醛VCDs空间分布和模型-观测偏差，为NMVOC排放优化提供视觉依据且含可追踪论文ID。",
+          "insight": "图7影像显示中国甲醛VCDs月均分布：OMI观测值（最高达8×10¹⁵ molec/cm²）高于先验模型模拟值（偏低32%-66%），后验模拟在IE-2中改善但仍有偏差。"
+        }
+      }
+    },
+    {
+      "id": "dfea150d-3bcc-4a31-ae3f-db5f791babba",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "聚焦排放的季节性变化机制，为背景分析提供支持，但未提出新探索线索或有突破的图表数据。",
+          "insight": "后验甲醛VCDs冬季下降而夏季上升（如华北平原），结合图7-10显示glyoxal VCDs在过渡月份增加，推动人为前体排放的季节性重估。"
+        }
+      }
+    },
+    {
+      "id": "3fc678fe-ca80-47ca-910f-9417ccb4e691",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "两张关键图表可视化臭氧生成与损耗机制变化，直接关联NMVOC排放和污染控制效果，含深度分析价值。",
+          "insight": "图6-7臭氧路径分析：后验排放调整降低O₃生成反应（HO₂+NO, RO₂+NO）速率，增加损耗反应（O₃+HO₂, NO₂+OH），MDA8 O₃浓度相应下降。"
+        }
+      }
+    },
+    {
+      "id": "151f999f-e16f-4588-aaba-b298b84f1072",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据核心揭示了O3污染形成的关键机制（VOCs-NOx敏感性），包含可深挖的实验数据源（Wang et al., 2019/2021c），且图片应展示关键化学梯度变化趋势。",
+          "insight": "图表显示NMVOC排放减少与地表O3浓度降低直接相关，同时NOx排放高估（见图S34）会通过滴定效应抑制O3累积，影响污染源解析和政策制定。"
+        }
+      }
+    },
+    {
+      "id": "6203126f-f6a9-43ad-bbe3-a99d89906d9b",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "图片应包含关键时序比对图（O3浓度vs前体排放量），且提供量化模型优化方案（VEP实验），可作为污染控制策略的直接依据。",
+          "insight": "通过增量反应速率（IRRs）量化显示：NMVOC排放变化与MDA8-O3生成率呈正相关关系，排放优化后模型偏差从22.6%降至9.2%，证明前体调控有效性。"
+        }
+      }
+    },
+    {
+      "id": "7d7c741c-0d62-46fa-ac3d-b6218d49d30d",
+      "label": "Source apportionment...",
+      "full_title": "Source apportionment of volatile organic compounds",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "source_apportionment_of_volatile_organic_compounds",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "提供VOC观测校正的核心算法（公式1-3）和验证图示，对构建准确源解析模型具有方法论价值。",
+          "insight": "图1展示时间分辨法校正VOC观测值的有效性：通过m/p-xylene与ethylbenzene的OH反应动力学差异（k值）计算光化学年龄，量化光化学损失的影响。"
+        }
+      }
+    },
+    {
+      "id": "b7243cb9-1a9d-4b14-99b1-410f98d59ff5",
+      "label": "First space-based de...",
+      "full_title": "First space-based derivation of the global atmosph",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "first_space-based_derivation_of_the_global_atmosph",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "聚焦生物挥发物甲醇的空间反演，与工业源O3前体研究关联度低，且缺乏污染机制深度分析。",
+          "insight": "图片对比反演模型（OptS2）与实测数据在垂直剖面的差异，并展示生物源甲醇排放通量分布。"
+        }
+      }
+    },
+    {
+      "id": "7cd76794-3083-4af1-b3b5-5f1cfa9ebd8d",
+      "label": "Segment-based Volati...",
+      "full_title": "Segment-based Volatile Organic Compound Emission C",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": "segment-based_volatile_organic_compound_emission_c",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "提供特定工业源的排放成分数据库，但缺少与O3生成的量化关联分析，可作为行业源谱背景参考。",
+          "insight": "图3展示焦化厂烟道气（SFN/SFM）与无组织排放（OLM/BLM）的VOCs特征谱差异，其中芳烃占比上升与多环芳烃裂解机制相关。"
+        }
+      }
+    },
+    {
+      "id": "55d2cc89-747e-4279-90ba-b57261c5873c",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心图表直接量化臭氧形成机制，包含详细实验对比数据且论文ID清晰可追溯",
+          "insight": "图5展示了两种实验方案（CEP1和VEP）中地表臭氧（O₃）浓度的时间序列对比及均方根误差（RMSE），提供了排放优化对区域臭氧光化学影响的量化证据"
+        }
+      }
+    },
+    {
+      "id": "12d8072d-79ca-4b04-b547-7504acf70724",
+      "label": "Source apportionment...",
+      "full_title": "Source apportionment of volatile organic compounds",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "source_apportionment_of_volatile_organic_compounds",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "重要源解析数据可视化完整（时间序列+箱线图+日变化），定量组分数据利于参数化建模",
+          "insight": "图2显示烷烃占VOCs总量63.7%（33.6±17.3ppbv），丙烷(9.89ppbv)、乙烯(4.27ppbv)、苯(3.76ppbv)为主要组分，PM₂.₅同步监测数据揭示复合污染特征"
+        }
+      }
+    },
+    {
+      "id": "f9730761-09e6-4b6c-9b73-339892540373",
+      "label": "Mobile measurement o...",
+      "full_title": "Mobile measurement of vehicle emission factors in ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "mobile_measurement_of_vehicle_emission_factors_in_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "关键排放特征图谱提供交通源VOC指纹，多方法对比数据确立测量可靠性",
+          "insight": "图3显示机动车VOC排放因子组分分布，内环为烷烃占比61.2%；图4对比固定/移动测量方法差异，标准偏差量化隧道环境测量不确定性"
+        }
+      }
+    },
+    {
+      "id": "0551c988-bfd6-4772-b88c-3a5e060cae30",
+      "label": "Mobile measurement o...",
+      "full_title": "Mobile measurement of vehicle emission factors in _1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": "mobile_measurement_of_vehicle_emission_factors_in__1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 0,
+            "credibility": 0
+          },
+          "reason": "与ID=f9730761证据完全重复（相同图片与描述），造成信息冗余",
+          "insight": "重复前条证据内容：图3机动车排放因子剖面，图4固定/移动测量方法对比"
+        }
+      }
+    },
+    {
+      "id": "a8791a2c-7823-4205-a326-d978be334d1d",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心证据展示NMVOC排放地图及量化的比较数据，隐含多组可深挖源数据（如四大排放类别空间分布差异）。",
+          "insight": "图表展示了中国地区生物质燃烧、人为源、生物源和总NMVOC排放的空间分布及先验/反演估算对比，量化了排放总量（单位：Tgyr -1）和不确定性。"
+        }
+      }
+    },
+    {
+      "id": "ec589925-da47-463a-b6c9-1f176d874d0d",
+      "label": "Constraint of non-me...",
+      "full_title": "Constraint of non-methane volatile organic compoun",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": "constraint_of_non-methane_volatile_organic_compoun",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "展现排放估算方法的系统性偏差，但缺乏具体模型细节或新方法路径",
+          "insight": "研究比较了卫星反演（HCHO/CHOCHO）与传统排放清单的差异，指出中国地区生物源排放被高估30-60%，人为源被低估13-16%。"
+        }
+      }
+    },
+    {
+      "id": "3b95e112-af58-4921-ba3c-88bc73fab1be",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供数据生成的技术背景但未发现突破性的新线索",
+          "insight": "详细描述了OMI/GOME2A对HCHO/CHOCHO的反演技术流程与方法学误差（30-40%不确定度）。"
+        }
+      }
+    },
+    {
+      "id": "0577f978-e243-4422-89af-81d6d6e81c00",
+      "label": "Changes in the ozone...",
+      "full_title": "Changes in the ozone chemical regime over the cont",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": "changes_in_the_ozone_chemical_regime_over_the_cont",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "研究对象区域（北美）和研究目标（臭氧探测）与当前主题不匹配",
+          "insight": "地图展示北美地区建模网格及城乡分区（城市=红色，农村=灰色）和臭氧观测点位部署。"
+        }
+      }
+    },
+    {
+      "id": "6e1ebf16-f9be-4c1f-b7ae-aef2ad175700",
+      "label": "Changes in the ozone...",
+      "full_title": "Changes in the ozone chemical regime over the cont_1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": "changes_in_the_ozone_chemical_regime_over_the_cont_1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 0
+          },
+          "reason": "证据完全重复且研究区域无关",
+          "insight": "完全重复ID：0577f978-e243-4422-89af-81d6d6e81c00的北美区域模型配置及地图内容。"
+        }
+      }
+    },
+    {
+      "id": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "label": "Biomass burning emis...",
+      "full_title": "Biomass burning emissions estimated with a global ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": "biomass_burning_emissions_estimated_with_a_global_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据提出关键校正因子（3.4倍）及明确模型优化方案（GFASv1.0/GFED3.1），并系统分析排放估算差异根源，提供可深挖的算法优化与方法论对比线索。",
+          "insight": "研究发现使用MODIS FRP数据估算生物质燃烧排放时，需对有机质（OM）和黑碳（BC）排放量应用3.4倍校正因子才能使GFASv1.0模型与MODIS AOD观测结果一致，该校正同样适用于GFED3.1排放清单。同时揭示了自上而下与自下而上排放估算的根本差异来源。"
+        }
+      }
+    },
+    {
+      "id": "d84cb7e1-2b12-46e6-a091-7c9a1e2255d1",
+      "label": "Long-term observatio...",
+      "full_title": "Long-term observations of oxygenated volatile orga",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "long-term_observations_of_oxygenated_volatile_orga",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供生物质燃烧贡献度具体数据及示踪剂选择依据，但缺少定量模型或图表支持深挖",
+          "insight": "生物质燃烧对珠江三角洲VOCs贡献达9.5-17.7%，乙腈是可靠的生物质燃烧示踪剂，苯作为人为源示踪剂对生物质燃烧影响可忽略。"
+        }
+      }
+    },
+    {
+      "id": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "包含关键对比图表及定量数据（贡献率变化），明确指向排放清单改进需求",
+          "insight": "图5显示VIIRS_G清单中生物质燃烧对黑龙江PM2.5贡献达60%（GFED仅29%），小火灾贡献被严重低估，VIIRS_G比GFED高2倍。"
+        }
+      }
+    },
+    {
+      "id": "c8226a66-e1b9-4cd4-b959-119ba531db8f",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "揭示排放估算系统性差异但缺少可视化数据支撑",
+          "insight": "中国NMVOC生物质燃烧排放估计存巨大差异（0.47-5.1Tg/yr），作物燃烧排放因子需翻倍修正，底向上清单不确定性因子达3。"
+        }
+      }
+    },
+    {
+      "id": "e532a747-81a6-4571-983f-eb9fc2bd3bfc",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "揭示PM2.5形成的物理机制并提出具体改进方案（卫星融合/分辨率提升）",
+          "insight": "生物质燃烧气溶胶通过辐射效应改变边界层发展并导致PM2.5积累，需融合风云四号/Sentinel-2A卫星数据提升36km分辨率模型。"
+        }
+      }
+    },
+    {
+      "id": "8891ebf3-1c2a-48ed-94e5-75e9b7824ff1",
+      "label": "Estimation of emissi...",
+      "full_title": "Estimation of emissions from biomass burning in Ch",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "estimation_of_emissions_from_biomass_burning_in_ch",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 2
+          },
+          "reason": "仅为论文标题和作者信息，无实质内容或数据",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "44b77844-2f82-4186-afae-14396884efb5",
+      "label": "First space-based de...",
+      "full_title": "First space-based derivation of the global atmosph",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "first_space-based_derivation_of_the_global_atmosph",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供具体全球甲醇排放数据和清除机制，但图片仅显示植被火灾排放分类，未展示关键数据趋势。",
+          "insight": "全球甲醇排放量在Jacob等人模型中达239 Tg yr⁻¹，其中半数通过OH氧化去除。生物质燃烧贡献全球5.3 Tg的甲醇排放量（2009年数据）。"
+        }
+      }
+    },
+    {
+      "id": "da41027c-f0fe-46fd-a5a6-8440bc0958f3",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含多张关键图表对比排放清单影响，直接展示PM2.5浓度分布差异，案例日期明确（2017年11月），含Table 1案例索引",
+          "insight": "多个图表显示：1)不同情景下PM2.5浓度空间分布 2)气溶胶辐射效应显著影响边界层高度和太阳辐射 3)VIIRS_G排放清单使PM2.5高于GFED清单。"
+        }
+      }
+    },
+    {
+      "id": "ec149f6e-9ad5-48d7-88ec-7cfc45f27052",
+      "label": "Biomass burning emis...",
+      "full_title": "Biomass burning emissions estimated with a global ",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "biomass_burning_emissions_estimated_with_a_global_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "仅提供论文标题和作者信息，无实质研究内容、方法或结论，缺少可评估数据",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "6faa3361-f6fd-4c2a-ad49-9e2ac53c5b1f",
+      "label": "Estimation of emissi...",
+      "full_title": "Estimation of emissions from biomass burning in Ch",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "estimation_of_emissions_from_biomass_burning_in_ch",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "引入创新排放估算方法并给出区域验证数据，但缺图片支持，未说明具体技术实现",
+          "insight": "火灾辐射能量(FRE)法估算排放量，其转换率对植被类型不敏感，华北平原应用显示较统计值低13%-49%，较MCD45A1产品结果更高"
+        }
+      }
+    },
+    {
+      "id": "ab9e980a-18b2-49aa-8485-c20df5b7a94c",
+      "label": "Changes in the ozone...",
+      "full_title": "Changes in the ozone chemical regime over the cont",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "changes_in_the_ozone_chemical_regime_over_the_cont",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "含完整数学公式的反演方法描述，适用卫星数据验证，提供FINN排放分布比例，具有可复现性",
+          "insight": "高斯牛顿法反演NOx/NMVOCs排放：建立观测值(y)与排放量(x)的代价函数，通过迭代方程优化排放估算，FINN清单将65%排放分配至边界层"
+        }
+      }
+    },
+    {
+      "id": "aa4f9ac6-8c36-41a4-9029-86afa7135a9a",
+      "label": "Changes in the ozone...",
+      "full_title": "Changes in the ozone chemical regime over the cont_1",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "changes_in_the_ozone_chemical_regime_over_the_cont_1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "提供具体反演算法公式但未展示实际应用结果，作为方法学参考保留",
+          "insight": "证据描述生物质燃烧排放采用FINN v1.5清单技术和Gauss-Newton方法反演NOx/NMVOCs排放的数学建模过程"
+        }
+      }
+    },
+    {
+      "id": "920e7780-594a-4f6b-872a-c4979a0b2d11",
+      "label": "Long-term observatio...",
+      "full_title": "Long-term observations of oxygenated volatile orga",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "long-term_observations_of_oxygenated_volatile_orga",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 8
+          },
+          "reason": "重复性结论未提供新见解，信息密度低且无深挖线索",
+          "insight": "生物质燃烧仅贡献OVOCs的5-11%，与粤港澳大湾区前期研究一致"
+        }
+      }
+    },
+    {
+      "id": "c9b94f15-ef26-4bc3-85eb-a9c0aa3fccbe",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "揭示排放时空规律并提供图表具体位置（图3-6,9-10）和实验编码（IE-3/IE-4）的深挖线索",
+          "insight": "卫星甲醛/乙二醛观测显示中国NMVOC排放存在夏增冬减的季节性特征，芳香族是乙二醛关键前体物"
+        }
+      }
+    },
+    {
+      "id": "6e75b9e5-8e72-43c6-bccd-251e7278d064",
+      "label": "Adjoint inversion of...",
+      "full_title": "Adjoint inversion of Chinese non-methane volatile ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": "adjoint_inversion_of_chinese_non-methane_volatile_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "指出关键数据偏差问题并给出验证方案，提供具体研究者线索（Zhu2016, ChanMiller2017）",
+          "insight": "GOME-2A/OMI卫星甲醛观测系统性低估（最多达1.7倍），需用MAX-DOAS验证减少反演误差"
+        }
+      }
+    },
+    {
+      "id": "dd382968-f23a-4dbc-95db-a7b9b28a5832",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 4,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心创新方法明确（温度特征模板+BP神经网络），量化效果对比显著，包含具体地理分布和政策影响分析",
+          "insight": "提出基于温度特征模板的BP神经网络工业热源提取方法，精度达96.31%，较传统方法提高7-8%；2015-2020年京津冀工业热源减少27.46%，河北省减少幅度最大；唐山等4市集中31.37%工业热源"
+        }
+      }
+    },
+    {
+      "id": "7a66f9d8-390d-4d61-9f20-cd1b3ac0f6d8",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 3,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "提供关键数据规格参数和模型性能指标，但缺乏新洞察，属于方法验证细节",
+          "insight": "VIIRS Active Fire数据空间分辨率375m，温度检测范围400~1200K；BP神经网络模型ROC达98.98%，混淆矩阵准确率97.10%"
+        }
+      }
+    },
+    {
+      "id": "9189cd04-2c65-4993-9aa9-8be5757a8e00",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 4,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心温度特征模板图像具关键判别价值，包含D=1/√Σ(xi-yi)²相似性量化公式，提供模型参数细节",
+          "insight": "可视化展示295-367K工业/非工业温度特征频率分布差异，采用轮廓系数确定OPTICS最佳聚类阈值（半径400m/8个热点）"
+        }
+      }
+    },
+    {
+      "id": "b501c182-1f11-4cad-88dd-45ca924c0eb9",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 4,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "结论性陈述重复前文发现，缺乏新数据或方法验证",
+          "insight": "京津冀2020年1-5月工业热源无显著疫情影响，而武汉同期减少66.67%"
+        }
+      }
+    },
+    {
+      "id": "7a78cf49-2d79-4657-8a99-214d005a1404",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 4,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "多时段热力图直接揭示疫情区域差异，含FRP（火点辐射功率）分级空间分析，具深度挖掘价值",
+          "insight": "图8可视化对比显示：2020年京津冀工业热异常点在疫情中期为2019年114.5%，而武汉同期仅26.44%；月尺度展示2015-2019年空间分布演变"
+        }
+      }
+    },
+    {
+      "id": "16b1f645-04be-4e40-ad69-3dbf28cedc63",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 3,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "核心数据表展示方法对比指标，但缺失关键视觉化图表支持。建议保留作方法性能基准参考，内容可信但无未深挖线索。",
+          "insight": "温度+BP神经网络方法的工业热源提取精度达96.31%，比温度特征模板、时间滤波和逻辑回归方法分别提高0.58%、8.45%和7.53%，且年际稳定性最佳（精度波动仅1.08%）。"
+        }
+      }
+    },
+    {
+      "id": "4292ebb5-9833-484d-a844-4ed0c8f85b12",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "内容聚焦生物质燃烧排放的空间分配方法（如GFED/VIIRS_G），与工业热源提取的核心问题无直接关联，信息价值低。",
+          "insight": "不适用"
+        }
+      }
+    },
+    {
+      "id": "4b103889-421a-465c-8a1f-12f8d255d387",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 4,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键空间分布图（含省级热源数量直方图）揭示工业集群区域格局，且明确标注老工业城市污染传输通道问题，建议深挖城市级热源与产业关联。",
+          "insight": "图3显示河北省唐山市聚集46.89%的工业热源（105-249个热源对象），邯郸市占17.89%，呈现显著空间集聚；山西省分布较均匀，50%以上城市热源数在31-57个。"
+        }
+      }
+    },
+    {
+      "id": "84d113ab-5766-4a69-ba69-8e80d8fd69e7",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心方法流程图包含完整处理链条，且明确说明375m VIIRS数据对识别小热源的优势，提供方法论深挖线索。",
+          "insight": "图1技术流程图展示OPTICS聚类与BP神经网络结合的温度特征模板方法，显著提升空间精细化程度，优于传统DBSCAN/K-means算法。"
+        }
+      }
+    },
+    {
+      "id": "c6f4c6fa-ebb1-4f95-8a8e-26355c8301d5",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 4,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "多时序对比图（含FRP分布/热异常点数量）揭示外部冲击下的工业响应模式，提供产业韧性分析切入点。",
+          "insight": "图7展示10km网格尺度的FRP值时空演变；图9显示2020年1-4月武汉工业热源减少70%+（疫情冲击），而京津冀重工业区保持连续生产。"
+        }
+      }
+    },
+    {
+      "id": "5fe3fc95-decf-44e1-a0d2-f87515c090bc",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 3,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供了工业能源消耗的时空可视化数据（网格等级分布图），关键聚焦污染核心区域（京津冀），包含疫情期排放数据对比线索；论文标题含具体方法（BP神经网络），可通过paper_id深入验证模型",
+          "insight": "图表显示2015-2020年工业热源等级分布，唐山、邯郸出现超过10个五级网格（最高能源消耗等级）；文本提及2020年疫情期间工业部门二氧化硫排放变化，附有2015-2020年工业热异常点年度分布图演示区域能源消耗动态。"
+        }
+      }
+    },
+    {
+      "id": "77730986-971d-4a59-a4df-f5be794470f1",
+      "label": "A simple method base...",
+      "full_title": "A simple method based on the thermal anomaly index",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "a_simple_method_based_on_the_thermal_anomaly_index",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "内容聚焦遥感技术局限性与验证，未涉及实际排放数据或污染趋势分析，与核心问题相关性低",
+          "insight": "讨论热异常指数(TAI)对VIIRS和ASTER热点检测的敏感性，指出检测能力受大气条件（水汽/CO2/CH4浓度）和背景温度影响。"
+        }
+      }
+    },
+    {
+      "id": "41540b8f-6484-4ff7-b0bf-573cde4536d6",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "可视化数据直接比较不同监测系统差异，突显秸秆焚烧对PM2.5的贡献异常值；提供具体时空范围（2017/东北）及模型验证方法",
+          "insight": "对比图表显示东北地区农业火灾排放：VIIRS监测的PM2.5等污染物排放量是GFED数据的1-3倍，尤其2017年11月初的日排放显著峰值。"
+        }
+      }
+    },
+    {
+      "id": "5ea492c0-5daf-478d-8cc6-f215a2f166a4",
+      "label": "Long-term observatio...",
+      "full_title": "Long-term observations of oxygenated volatile orga",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": "long-term_observations_of_oxygenated_volatile_orga",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "数据过于陈旧（2010年），且仅展示片段化表格无深层分析；污染物类型与当前PM2.5路径关联弱",
+          "insight": "表格显示2010年北京含氧挥发性有机物组分数据，含甲醇/乙醛占比及来源分析（如甲醇62%来自生物源）。"
+        }
+      }
+    },
+    {
+      "id": "2dfb935a-e15c-45a8-b646-ff56495155a3",
+      "label": "Mobile measurement o...",
+      "full_title": "Mobile measurement of vehicle emission factors in ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "mobile_measurement_of_vehicle_emission_factors_in_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供机动车排放基准数据参考，但作为背景数据无深度分析；可保留用于交通污染横向对比框架",
+          "insight": "多国隧道实测数据对比：上海SJT隧道（2019）汽油车PM2.5排放因子为4.33mg/km/veh，显著低于同类早期研究（如2003年香港隧道115mg/km/veh）。"
+        }
+      }
+    },
+    {
+      "id": "a0d4cbee-fa65-4352-b5c6-097ab2b21321",
+      "label": "Air quality changes ...",
+      "full_title": "Air quality changes in China 2013-2020_ Effectiven",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "air_quality_changes_in_china_2013-2020__effectiven",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供中国主要城市空气质量的定量比较，但无深挖线索或具体机制分析",
+          "insight": "表格显示2013-2020年中国区域城市CAQI指数，其中华北石家庄最高(27.60)，西北太原最低(4.28)，反映空气质量区域差异"
+        }
+      }
+    },
+    {
+      "id": "a63f6a00-e835-4b36-96a0-6419288448a1",
+      "label": "MIX_ a mosaic Asian ...",
+      "full_title": "MIX_ a mosaic Asian anthropogenic emission invento",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": "mix__a_mosaic_asian_anthropogenic_emission_invento",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "关键图表揭示污染物排放时空模式，且跨系统对比数据(EDGAR/REAS2)提供验证路径",
+          "insight": "图11显示亚洲区域污染物月度排放特征：东亚冬季PM2.5和CO峰值显著，南亚SO2排放雨季(7月)突增，东南亚CO2呈双峰特征"
+        }
+      }
+    },
+    {
+      "id": "94b0b383-d8f5-4b81-9b00-899e6de3275e",
+      "label": "MIX_ a mosaic Asian ...",
+      "full_title": "MIX_ a mosaic Asian anthropogenic emission invento",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "mix__a_mosaic_asian_anthropogenic_emission_invento",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "多污染物跨境对比数据精准，中国占比量化指标明确，适合趋势分析",
+          "insight": "量化2010年亚洲各国污染物排放：中国占区域PM2.5总量65%(12.2万吨)，印度占25%(5.2万吨)，中国BC排放量约印度的1.7倍"
+        }
+      }
+    },
+    {
+      "id": "cb0979a0-9229-4fdd-9e75-d24dfe46606a",
+      "label": "MIX_ a mosaic Asian ...",
+      "full_title": "MIX_ a mosaic Asian anthropogenic emission invento",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "mix__a_mosaic_asian_anthropogenic_emission_invento",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "元数据冗余信息，不包含实质性研究内容",
+          "insight": "MIX排放清单论文的作者及机构信息，无数据或结论"
+        }
+      }
+    },
+    {
+      "id": "a045aff0-c8a0-470a-9a38-5f1c8e848c7c",
+      "label": "Quantifying the unce...",
+      "full_title": "Quantifying the uncertainties of China's emission ",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "quantifying_the_uncertainties_of_china's_emission_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 1
+          },
+          "reason": "信息碎片化，缺乏分析价值",
+          "insight": "单独城市名'江苏'无上下文"
+        }
+      }
+    },
+    {
+      "id": "ceaedb93-ecf9-45ba-b23c-bd74ed2740c9",
+      "label": "一种工业热源提取方法_利用温度特征模板的...",
+      "full_title": "一种工业热源提取方法_利用温度特征模板的BP神经网络",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "一种工业热源提取方法_利用温度特征模板的bp神经网络",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 3
+          },
+          "reason": "仅提供标题和作者信息，无核心内容或技术细节，不包含任何图表或数据。信息价值极低且无法判断与团队研究方向的相关性。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "4e1bbf4f-ef7b-4230-a1fa-75a27519d10c",
+      "label": "Striking impacts of ...",
+      "full_title": "Striking impacts of biomass burning on  $_mathrm{P",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "striking_impacts_of_biomass_burning_on__$_mathrm{p",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表直接呈现生物质燃烧引起的气象参数垂直变化，包含明确时空范围和研究方法（案例5-6与案例1-2对比）。DOI和资助信息提供可追踪源论文路径",
+          "insight": "图8展示了黑龙江生物质燃烧密集区在气溶胶辐射效应影响下，边界层内的每小时气温、相对湿度和风速垂直分布变化。图中揭示大气边界层高度与污染物扩散的显著关联（2017年11月1-7日案例）"
+        }
+      }
+    },
+    {
+      "id": "e635641f-a34a-4827-89e2-8c88439399be",
+      "label": "Quantifying the unce...",
+      "full_title": "Quantifying the uncertainties of China's emission ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "quantifying_the_uncertainties_of_china's_emission_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键工业源颗粒物控制技术效率的概率分布图，提供具体量化数据和不确定性分析方法（bootstrap simulation），具有直接工程参考价值",
+          "insight": "图2通过自举法模拟显示：水泥生产湿法除尘器（a-c）对PM>10去除率为65±8%，烧结工艺布袋除尘器（d-f）效率为78±5%，表1量化了2012年中国排放清单中95%置信区间的不确定性"
+        }
+      }
+    },
+    {
+      "id": "07355846-1325-4e99-88d1-a207e1793bf1",
+      "label": "Quantifying the unce...",
+      "full_title": "Quantifying the uncertainties of China's emission _1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "quantifying_the_uncertainties_of_china's_emission__1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 2
+          },
+          "reason": "与ID:e635641f证据内容完全重复（相同图片和描述），属于检索系统冗余输出",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "3cf1ff69-a0d1-4f03-8896-a1e5b74bf323",
+      "label": "Biomass burning emis...",
+      "full_title": "Biomass burning emissions estimated with a global ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "biomass_burning_emissions_estimated_with_a_global_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "提供排放估算的算法基础但未包含实证结果，公式组描述数据融合流程（如MODIS格点处理），缺乏可视化支撑",
+          "insight": "建立卫星FRP数据网格化校正模型（公式14-19），引入陆地占比和人工热源噪音掩膜（η_j,δ_j参数）优化生物质燃烧排放估算"
+        }
+      }
+    },
+    {
+      "id": "ef4693f8-a3b6-456a-a7cc-92b3b9d74e33",
+      "label": "Biomass burning emis...",
+      "full_title": "Biomass burning emissions estimated with a global ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "biomass_burning_emissions_estimated_with_a_global_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "提供排放估算方法学但不含可视化数据，是重要背景技术值得保留但缺乏深挖线索",
+          "insight": "提出了一种基于MODIS卫星数据的生物质燃烧排放权重融合方法，通过视角依赖性补偿和云量调整优化网格化排放估计"
+        }
+      }
+    },
+    {
+      "id": "c141b524-e65d-42a5-8e6e-ec6ac50b7b1a",
+      "label": "A long-term estimati...",
+      "full_title": "A long-term estimation of biogenic volatile organi",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "a_long-term_estimation_of_biogenic_volatile_organi",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 6
+          },
+          "reason": "重要区域排放图谱但图像标签缺失（S2-S5未明确指代），可作为自然源排放背景参考",
+          "insight": "可视化展示多种植物挥发性有机化合物（包括单萜类）的空间分布特征，但图像说明不足需结合论文"
+        }
+      }
+    },
+    {
+      "id": "b548bd17-da16-4aa6-b163-588fee43a268",
+      "label": "Daily Emission Patte...",
+      "full_title": "Daily Emission Patterns of Coal-Fired Power Plants",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "daily_emission_patterns_of_coal-fired_power_plants",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心图表展示多污染物协同变化趋势及空间热点（含最大/最小排放日对比），具深度分析价值",
+          "insight": "图2展示2017-2020年中国燃煤电厂CO₂/PM₂.₅/NOx/SO₂的春节排放模式，并揭示广东台山电厂不同污染物的日排放关联特征"
+        }
+      }
+    },
+    {
+      "id": "641fa712-4b93-4d6d-801b-a4b99a4eea33",
+      "label": "Quantifying the unce...",
+      "full_title": "Quantifying the uncertainties of China's emission ",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "quantifying_the_uncertainties_of_china's_emission_",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "关键不确定性量化方法可迁移至其他区域，内含卫星验证技术路径(GOME)",
+          "insight": "图4蒙特卡洛模拟显示省级与国家SO₂/NOx清单差异，图5表明江苏排放估算在95%置信区间收敛且与GOME观测趋同"
+        }
+      }
+    },
+    {
+      "id": "21621113-01b5-420c-80a6-517113a45459",
+      "label": "Quantifying the unce...",
+      "full_title": "Quantifying the uncertainties of China's emission _1",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "quantifying_the_uncertainties_of_china's_emission__1",
+        "keywords": [],
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 0
+          },
+          "reason": "完整重复前条证据内容，属系统索引错误产生的冗余条目",
+          "insight": "重复前条证据：图4蒙特卡洛模拟SO₂/NOx清单差异，图5显示江苏排放95%置信区间与卫星观测趋同"
+        }
+      }
+    },
+    {
+      "id": "ea8e5be3-b6e9-48e1-9d54-66c97cd3107f",
+      "label": "Daily Emission Patte...",
+      "full_title": "Daily Emission Patterns of Coal-Fired Power Plants",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "daily_emission_patterns_of_coal-fired_power_plants",
+        "keywords": [],
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "ec984bb1-1789-4df6-b73f-7c7462e4a361",
+      "label": "Quantifying the unce...",
+      "full_title": "Quantifying the uncertainties of a bottom-up emiss",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "quantifying_the_uncertainties_of_a_bottom-up_emiss",
+        "keywords": [],
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "001113de-923a-4778-a785-b9626003f0cc",
+      "label": "A long-term estimati...",
+      "full_title": "A long-term estimation of biogenic volatile organi",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": "a_long-term_estimation_of_biogenic_volatile_organi",
+        "keywords": [],
+        "evaluation": {}
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "0",
+      "target": "55671fee-01b1-47d5-b961-211c1f075a8e",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "1932d146-e6f9-43bd-b410-a24005690737",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "495c7954-9e19-426b-a839-8f11c14e150d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "e1e0ff2f-a046-47b9-af31-d69570c82939",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "0ed3ffe2-8bc3-49da-ac73-a1b16e7dae42",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "398617ff-e8f5-408f-863d-fd28b4f329ff",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "a830468b-0880-49f0-bbe4-66d7a3c97158",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "0baceecc-3c4b-4dd4-8356-6e23a082136d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "d37d6371-eb01-4e9a-bea8-20ea6eb279de",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "87beb9fb-d8e6-4201-9791-22ad6054b7c8",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "408a9eaa-bd42-434c-8082-c493147700b6",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "f17ef4f2-7d7a-4178-80c0-5acdad36158f",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "68c33446-37ff-406a-8bc3-87962759883d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "1f04d04c-b5e5-4780-a0fc-2d46943805c4",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: air pollution study \nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "42d01c8d-c38c-4e13-acd4-0c9e95be442e",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "949409a0-4312-4835-bc5b-8cf91e9d5b3f",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "cd25de7f-cc74-4e49-9870-1dc3e1142f29",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "adcadbed-4de9-4e05-a403-f4addb6d7796",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "83381eea-dac4-4b28-bd31-82bd059715c7",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "6ab92d70-76bd-4710-b17a-6108879feece",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "b873da59-69cb-42d7-b1bc-cc5c9536c765",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "0aba0317-e2b8-49cd-b3f3-573024981563",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "be007256-f042-4fc7-b94b-16085c90452a",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "e7928785-628d-42b7-afc5-6a090be68883",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "fb7f2c54-096b-49f8-93fd-f1d68b03e7d3",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "390f5c99-d939-4868-887a-b3b8cfde75c8",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "677110f3-36b8-4c26-9292-114f5f2257c9",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "68c33446-37ff-406a-8bc3-87962759883d",
+      "target": "402b8851-355f-45fd-8b34-606d56f187ba",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: end-of-pipe technology implementation in developing countries\nReason: 该节点揭示了末端处理技术对降低PM2.5排放的关键作用，但未详细探讨技术落地障碍和效果量化。聚焦发展中国家可揭示技术转移瓶颈和创新解决方案，与原始问题高度相关（9分），新颖性高（8分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "167ec3e7-4dbd-4416-9e2c-4fa6b96e106c",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "5131cc07-08e3-4a46-b7e1-98c2672b2899",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "4e04fe91-c8f7-4579-aab0-b842dcb7df67",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "d17b32fa-fa36-4f9a-bba5-699c516bad91",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "12a14365-e241-400d-90d5-fd34e92a1767",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "cfc1c814-7b4a-4c9c-a4a4-4d959b287324",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "25d5d8e1-db0c-4668-8eeb-ab542c86ff7b",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "821a2a63-bf66-4b76-a4ef-b947584e1388",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "1e92e5ad-644c-4508-bcc5-92b369c5e1cc",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "6091e48a-f68e-434f-8d04-41e828a17295",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "e5f3c10c-c9d5-4974-9fd1-48d921c322db",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "656e1547-6003-4218-976d-acda79db2afb",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "8bc99c90-52a1-4cd4-a234-70c463760d52",
+      "target": "42a96839-b619-4aac-b911-aedc112b3619",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: HTAP_v2.2 dataset validation with atmospheric transport models\nReason: 该数据集可用于模拟PM2.5扩散过程，需验证其与大气化学传输模型的耦合精度。提供污染溯源新方法（相关性10分），突破当前单纯排放统计局限（新颖性9分）"
+    },
+    {
+      "source": "0",
+      "target": "279956cd-bc57-47a1-9d7b-a08b93a10537",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "9a8239ee-6c4f-4a82-9e31-9c2a680fa2c9",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "be31354d-661f-49e3-8684-2a052ade51ce",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "c2d054ba-6b2a-4970-86ba-767705ac34ea",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "7fb986f8-b603-4914-a2de-cc117ddb3b04",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "0e26e3a6-efcc-45be-86de-5db0cc1f4815",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "26fb2912-80c9-4468-aacd-f285927d7d2a",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "a7eba560-c3fd-4440-aee6-e666ca5b1a57",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "7fa95cb6-5229-46b9-8922-bb90b2749bd1",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "0bb591a2-9145-4533-b30a-a3f080472427",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "f941229d-4977-48a3-aba3-cf3cd86ef462",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "7a12c2c6-8771-4378-9c0b-72eed7a4467d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "cffc053b-2b7b-433f-a891-b218c6629612",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "c3b1ba3f-c803-4e14-95fd-8708b3a2f212",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: secondary organic aerosol formation mechanisms\nReason: 现有证据未深入解析PM2.5中二次组分成因。探索VOCs光化学转化路径可填补反应机理空白。与污染形成基础研究高度相关（9分），区别于现有浓度监测研究（新颖性8分）"
+    },
+    {
+      "source": "0",
+      "target": "074210bc-9b9b-47ba-aea5-a47a6f13a9fe",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "73c96062-58e9-4d37-a4c5-2094458b1777",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "98c00e49-daff-4597-ad5d-10840bc8c70b",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "85fe5b7d-4901-49f4-b52e-54313c8b46b6",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "27006a1e-4b0d-4e16-a1c3-cd008ed4d527",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "4a6da45c-9fe3-4d82-a41d-0b34c3ada616",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "53718853-6e6f-42f5-ba25-c7ef93891ed4",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "af551209-b5d4-44b5-b216-9b0e1c8f412a",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "6a4d9c53-f30b-48a9-a199-9d1f35eaec1e",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "63dd0fd2-9b9d-4434-95be-4bfeb009b2ea",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "1d92ebbb-046f-498d-8232-6fdb06958024",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "0",
+      "target": "e3f70827-c7f5-4756-8660-227028d2d4da",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC oxidation mechanisms under low-NOx conditions\nReason: 现有证据显示IVOC是SOA生成关键前体物（如节点5a8eb779），但缺乏其氧化路径数据。探索低氮氧化物条件下的IVOC反应机制，可解决二次气溶胶形成模型的根本缺陷。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "9c868bec-c753-4c6d-ad59-c50f7496e401",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "26c594af-1df3-4a97-b68b-fce9e8edcff6",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "70f022d0-cc8e-4537-9622-fd985cd9e4d2",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "33ca92a5-5a51-4268-a51f-2e4ca74dc04d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "458f40b3-60f4-41e5-b494-7af5ecd9ff8a",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "f7efe98a-8530-4b21-b5a1-3b98f8816065",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "0f1e531d-74af-4b73-8550-f14b9d511ba4",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "77c0df59-7a0e-4406-b0b9-d623913c38cb",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "1f1fd4a9-bca3-4868-b9c1-adfcff21ff64",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "bc8c3ef7-ff6a-4578-86d4-1b27722acb32",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: quantifying IVOC emissions and oxidation kinetics for SOA formation\nReason: 该节点明确揭示当前模型对IVOC前体物的表征空白以及近场反应性建模缺陷，相关性评分10（直接指向IVOC核心机制），新颖性评分8（区别于已有VOC研究），需深度探索排放因子约束和氧化反应路径。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "7b7e492b-745c-4f4d-8f37-6b2fe78ccb3c",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "745331b3-a3f8-48c7-bb21-6c8aa1a3347f",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "674ae788-6ab4-414f-b4d3-641c5e779f73",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "6e52796f-e913-4762-aaca-00353602f7be",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "d6e64ef5-1e31-471c-aa41-3ae5352c487d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "2eee58e1-3a49-4d90-b3d2-2b4203921418",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "00f00e34-a875-4fca-a52e-15d20ac7f462",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "52ad2972-11b1-46f9-8bde-f192bdf6c496",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "dfea150d-3bcc-4a31-ae3f-db5f791babba",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx pathways for glyoxal formation from aromatics oxidation\nReason: 该节点提供具体芳香烃氧化产率数据和模型比较，但缺乏低NOx条件下的机制解析，相关性评分9（深化核心反应路径），新颖性评分8（区别于已有高NOx研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "3fc678fe-ca80-47ca-910f-9417ccb4e691",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "151f999f-e16f-4588-aaba-b298b84f1072",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "6203126f-f6a9-43ad-bbe3-a99d89906d9b",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "7d7c741c-0d62-46fa-ac3d-b6218d49d30d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "b7243cb9-1a9d-4b14-99b1-410f98d59ff5",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "7cd76794-3083-4af1-b3b5-5f1cfa9ebd8d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "55d2cc89-747e-4279-90ba-b57261c5873c",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "12d8072d-79ca-4b04-b547-7504acf70724",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "f9730761-09e6-4b6c-9b73-339892540373",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "1112e20e-8ef4-4ab3-ba8e-82c84ff1fdbe",
+      "target": "0551c988-bfd6-4772-b88c-3a5e060cae30",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: radical cycling mechanisms between OVOCs and HO_x under low-NOx\nReason: 该节点显示OVOCs显著影响HOx自由基循环和臭氧生成，但低NOx条件下的定量反应链尚未明晰，相关性评分9（完善反应网络框架），新颖性评分7（区别于传统NOx-VOC敏感性研究）。"
+    },
+    {
+      "source": "0",
+      "target": "a8791a2c-7823-4205-a326-d978be334d1d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: heterogeneous uptake mechanisms of glyoxal on aerosol surfaces\nReason: 多个高价值节点提及乙二醛湿沉降系数（γ=2.9x10⁻³），但缺乏气粒分配机制研究。需探索乙二醛在有机/硫酸盐气溶胶上的非均相反应路径及其对VCD观测偏差的解释潜力。"
+    },
+    {
+      "source": "0",
+      "target": "ec589925-da47-463a-b6c9-1f176d874d0d",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: heterogeneous uptake mechanisms of glyoxal on aerosol surfaces\nReason: 多个高价值节点提及乙二醛湿沉降系数（γ=2.9x10⁻³），但缺乏气粒分配机制研究。需探索乙二醛在有机/硫酸盐气溶胶上的非均相反应路径及其对VCD观测偏差的解释潜力。"
+    },
+    {
+      "source": "0",
+      "target": "3b95e112-af58-4921-ba3c-88bc73fab1be",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: heterogeneous uptake mechanisms of glyoxal on aerosol surfaces\nReason: 多个高价值节点提及乙二醛湿沉降系数（γ=2.9x10⁻³），但缺乏气粒分配机制研究。需探索乙二醛在有机/硫酸盐气溶胶上的非均相反应路径及其对VCD观测偏差的解释潜力。"
+    },
+    {
+      "source": "0",
+      "target": "0577f978-e243-4422-89af-81d6d6e81c00",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: heterogeneous uptake mechanisms of glyoxal on aerosol surfaces\nReason: 多个高价值节点提及乙二醛湿沉降系数（γ=2.9x10⁻³），但缺乏气粒分配机制研究。需探索乙二醛在有机/硫酸盐气溶胶上的非均相反应路径及其对VCD观测偏差的解释潜力。"
+    },
+    {
+      "source": "0",
+      "target": "6e1ebf16-f9be-4c1f-b7ae-aef2ad175700",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: heterogeneous uptake mechanisms of glyoxal on aerosol surfaces\nReason: 多个高价值节点提及乙二醛湿沉降系数（γ=2.9x10⁻³），但缺乏气粒分配机制研究。需探索乙二醛在有机/硫酸盐气溶胶上的非均相反应路径及其对VCD观测偏差的解释潜力。"
+    },
+    {
+      "source": "0",
+      "target": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: heterogeneous uptake mechanisms of glyoxal on aerosol surfaces\nReason: 多个高价值节点提及乙二醛湿沉降系数（γ=2.9x10⁻³），但缺乏气粒分配机制研究。需探索乙二醛在有机/硫酸盐气溶胶上的非均相反应路径及其对VCD观测偏差的解释潜力。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "d84cb7e1-2b12-46e6-a091-7c9a1e2255d1",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "c8226a66-e1b9-4cd4-b959-119ba531db8f",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "e532a747-81a6-4571-983f-eb9fc2bd3bfc",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "8891ebf3-1c2a-48ed-94e5-75e9b7824ff1",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "44b77844-2f82-4186-afae-14396884efb5",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "da41027c-f0fe-46fd-a5a6-8440bc0958f3",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "ec149f6e-9ad5-48d7-88ec-7cfc45f27052",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "6faa3361-f6fd-4c2a-ad49-9e2ac53c5b1f",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "ab9e980a-18b2-49aa-8485-c20df5b7a94c",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "aa4f9ac6-8c36-41a4-9029-86afa7135a9a",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "5a8eb779-e173-43a6-9aea-525738b387f1",
+      "target": "920e7780-594a-4f6b-872a-c4979a0b2d11",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: IVOC partitioning coefficients (C*) and oxidation kinetics in biomass burning plumes\nReason: 节点揭示当前模型忽略C*<10⁶μg/m³的IVOC前体物（图1b），需要探索火灾排放中IVOC挥发性分布及氧化动力学参数，填补近场反应性建模空白。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "c9b94f15-ef26-4bc3-85eb-a9c0aa3fccbe",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: laboratory measurements of glyoxal yields from low-NOx aromatics oxidation\nReason: 节点报告不同芳香烃氧化路径乙二醛产率分歧（MCMv3.2-v3.3.1），需对照实验测量验证低NOx条件下苯/甲苯/二甲苯的乙二醛生成机理和次级反应路径。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "6e75b9e5-8e72-43c6-bccd-251e7278d064",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: laboratory measurements of glyoxal yields from low-NOx aromatics oxidation\nReason: 节点报告不同芳香烃氧化路径乙二醛产率分歧（MCMv3.2-v3.3.1），需对照实验测量验证低NOx条件下苯/甲苯/二甲苯的乙二醛生成机理和次级反应路径。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "dd382968-f23a-4dbc-95db-a7b9b28a5832",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "7a66f9d8-390d-4d61-9f20-cd1b3ac0f6d8",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "9189cd04-2c65-4993-9aa9-8be5757a8e00",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "b501c182-1f11-4cad-88dd-45ca924c0eb9",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "7a78cf49-2d79-4657-8a99-214d005a1404",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "16b1f645-04be-4e40-ad69-3dbf28cedc63",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "4292ebb5-9833-484d-a844-4ed0c8f85b12",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "4b103889-421a-465c-8a1f-12f8d255d387",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "84d113ab-5766-4a69-ba69-8e80d8fd69e7",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "c6f4c6fa-ebb1-4f95-8a8e-26355c8301d5",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "5fe3fc95-decf-44e1-a0d2-f87515c090bc",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "77730986-971d-4a59-a4df-f5be794470f1",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "41540b8f-6484-4ff7-b0bf-573cde4536d6",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "5ea492c0-5daf-478d-8cc6-f215a2f166a4",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "9b0f97ff-7af3-475d-be9c-a05bab44f791",
+      "target": "2dfb935a-e15c-45a8-b646-ff56495155a3",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G与GFED排放清单在气溶胶-边界层反馈中的量化差异\nReason: 节点显示VIIRS_G清单可检测GFED遗漏的小型火灾(PM2.5贡献差达2倍)，需探索其在PBL抑制模型(图5-6)与OM/OC转换系数优化(2.2)中的具体应用机制。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "a0d4cbee-fa65-4352-b5c6-097ab2b21321",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 低NOx条件下芳香烃氧化生成乙二醛的实验室产率验证\nReason: 节点提供苯/甲苯/二甲苯的乙二醛产率基准数据(33.3%/26.2%/21.0%)，需通过实验测量验证其低NOx路径下与MCMv3.2的75%差异机制。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "a63f6a00-e835-4b36-96a0-6419288448a1",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 低NOx条件下芳香烃氧化生成乙二醛的实验室产率验证\nReason: 节点提供苯/甲苯/二甲苯的乙二醛产率基准数据(33.3%/26.2%/21.0%)，需通过实验测量验证其低NOx路径下与MCMv3.2的75%差异机制。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "94b0b383-d8f5-4b81-9b00-899e6de3275e",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 低NOx条件下芳香烃氧化生成乙二醛的实验室产率验证\nReason: 节点提供苯/甲苯/二甲苯的乙二醛产率基准数据(33.3%/26.2%/21.0%)，需通过实验测量验证其低NOx路径下与MCMv3.2的75%差异机制。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "cb0979a0-9229-4fdd-9e75-d24dfe46606a",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 低NOx条件下芳香烃氧化生成乙二醛的实验室产率验证\nReason: 节点提供苯/甲苯/二甲苯的乙二醛产率基准数据(33.3%/26.2%/21.0%)，需通过实验测量验证其低NOx路径下与MCMv3.2的75%差异机制。"
+    },
+    {
+      "source": "24b1f42d-9a68-4c59-9e06-e48c2fe18635",
+      "target": "a045aff0-c8a0-470a-9a38-5f1c8e848c7c",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 低NOx条件下芳香烃氧化生成乙二醛的实验室产率验证\nReason: 节点提供苯/甲苯/二甲苯的乙二醛产率基准数据(33.3%/26.2%/21.0%)，需通过实验测量验证其低NOx路径下与MCMv3.2的75%差异机制。"
+    },
+    {
+      "source": "6e75b9e5-8e72-43c6-bccd-251e7278d064",
+      "target": "ceaedb93-ecf9-45ba-b23c-bd74ed2740c9",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MAX-DOAS与卫星甲醛/乙二醛观测的系统偏差校正方法\nReason: 节点揭示GOME-2A/OMI系统性低估(1.5-1.7倍)，需研究地基MAX-DOAS(如Back Garden站点)与飞机测量的多平台验证技术改进反演算法。"
+    },
+    {
+      "source": "6e75b9e5-8e72-43c6-bccd-251e7278d064",
+      "target": "4e1bbf4f-ef7b-4230-a1fa-75a27519d10c",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MAX-DOAS与卫星甲醛/乙二醛观测的系统偏差校正方法\nReason: 节点揭示GOME-2A/OMI系统性低估(1.5-1.7倍)，需研究地基MAX-DOAS(如Back Garden站点)与飞机测量的多平台验证技术改进反演算法。"
+    },
+    {
+      "source": "6e75b9e5-8e72-43c6-bccd-251e7278d064",
+      "target": "e635641f-a34a-4827-89e2-8c88439399be",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MAX-DOAS与卫星甲醛/乙二醛观测的系统偏差校正方法\nReason: 节点揭示GOME-2A/OMI系统性低估(1.5-1.7倍)，需研究地基MAX-DOAS(如Back Garden站点)与飞机测量的多平台验证技术改进反演算法。"
+    },
+    {
+      "source": "6e75b9e5-8e72-43c6-bccd-251e7278d064",
+      "target": "07355846-1325-4e99-88d1-a207e1793bf1",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MAX-DOAS与卫星甲醛/乙二醛观测的系统偏差校正方法\nReason: 节点揭示GOME-2A/OMI系统性低估(1.5-1.7倍)，需研究地基MAX-DOAS(如Back Garden站点)与飞机测量的多平台验证技术改进反演算法。"
+    },
+    {
+      "source": "6e75b9e5-8e72-43c6-bccd-251e7278d064",
+      "target": "3cf1ff69-a0d1-4f03-8896-a1e5b74bf323",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MAX-DOAS与卫星甲醛/乙二醛观测的系统偏差校正方法\nReason: 节点揭示GOME-2A/OMI系统性低估(1.5-1.7倍)，需研究地基MAX-DOAS(如Back Garden站点)与飞机测量的多平台验证技术改进反演算法。"
+    },
+    {
+      "source": "6e75b9e5-8e72-43c6-bccd-251e7278d064",
+      "target": "ef4693f8-a3b6-456a-a7cc-92b3b9d74e33",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MAX-DOAS与卫星甲醛/乙二醛观测的系统偏差校正方法\nReason: 节点揭示GOME-2A/OMI系统性低估(1.5-1.7倍)，需研究地基MAX-DOAS(如Back Garden站点)与飞机测量的多平台验证技术改进反演算法。"
+    },
+    {
+      "source": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "target": "c141b524-e65d-42a5-8e6e-ec6ac50b7b1a",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OM/BC排放的3.4倍校正因子在GFASv1.0与MACC模型中的实施机制\nReason: 节点提出关键校正因子使AOD匹配MODIS观测，需探究其在湿沉降过程参数化、FRP-排放转换率敏感度分析中的具体技术实现路径。"
+    },
+    {
+      "source": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "target": "b548bd17-da16-4aa6-b163-588fee43a268",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OM/BC排放的3.4倍校正因子在GFASv1.0与MACC模型中的实施机制\nReason: 节点提出关键校正因子使AOD匹配MODIS观测，需探究其在湿沉降过程参数化、FRP-排放转换率敏感度分析中的具体技术实现路径。"
+    },
+    {
+      "source": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "target": "641fa712-4b93-4d6d-801b-a4b99a4eea33",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OM/BC排放的3.4倍校正因子在GFASv1.0与MACC模型中的实施机制\nReason: 节点提出关键校正因子使AOD匹配MODIS观测，需探究其在湿沉降过程参数化、FRP-排放转换率敏感度分析中的具体技术实现路径。"
+    },
+    {
+      "source": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "target": "21621113-01b5-420c-80a6-517113a45459",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OM/BC排放的3.4倍校正因子在GFASv1.0与MACC模型中的实施机制\nReason: 节点提出关键校正因子使AOD匹配MODIS观测，需探究其在湿沉降过程参数化、FRP-排放转换率敏感度分析中的具体技术实现路径。"
+    },
+    {
+      "source": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "target": "ea8e5be3-b6e9-48e1-9d54-66c97cd3107f",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OM/BC排放的3.4倍校正因子在GFASv1.0与MACC模型中的实施机制\nReason: 节点提出关键校正因子使AOD匹配MODIS观测，需探究其在湿沉降过程参数化、FRP-排放转换率敏感度分析中的具体技术实现路径。"
+    },
+    {
+      "source": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "target": "ec984bb1-1789-4df6-b73f-7c7462e4a361",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OM/BC排放的3.4倍校正因子在GFASv1.0与MACC模型中的实施机制\nReason: 节点提出关键校正因子使AOD匹配MODIS观测，需探究其在湿沉降过程参数化、FRP-排放转换率敏感度分析中的具体技术实现路径。"
+    },
+    {
+      "source": "ebc12056-02ee-4eac-816a-1ef9fe7662d8",
+      "target": "001113de-923a-4778-a785-b9626003f0cc",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OM/BC排放的3.4倍校正因子在GFASv1.0与MACC模型中的实施机制\nReason: 节点提出关键校正因子使AOD匹配MODIS观测，需探究其在湿沉降过程参数化、FRP-排放转换率敏感度分析中的具体技术实现路径。"
+    }
+  ]
+}

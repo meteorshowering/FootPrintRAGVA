@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG嵌入向量可视化</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #chart {
+            width: 100%;
+            height: 1400px;
+        }
+        .info-panel {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>RAG嵌入向量可视化</h1>
+            <p>基于paper_id分组的二维嵌入向量分布</p>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="dataFile">选择数据文件:</label>
+                <input type="file" id="dataFile" accept=".json">
+            </div>
+            <div class="control-group">
+                <label for="pointSize">点大小:</label>
+                <input type="range" id="pointSize" min="1" max="20" value="5">
+                <span id="pointSizeValue">5</span>
+            </div>
+            <div class="control-group">
+                <label for="opacity">透明度:</label>
+                <input type="range" id="opacity" min="0.1" max="1" step="0.1" value="0.7">
+                <span id="opacityValue">0.7</span>
+            </div>
+        </div>
+        
+        <div id="chart"></div>
+        
+        <div class="info-panel">
+            <h3>统计信息</h3>
+            <div id="stats">
+                <p>请上传JSON数据文件开始可视化</p>
+            </div>
+            <div id="legend" class="legend"></div>
+        </div>
+    </div>
+
+    <script>
+        let data = [];
+        let paperIdColors = {};
+        
+        // 生成颜色函数
+        function generateColors(count) {
+            const colors = [];
+            for (let i = 0; i < count; i++) {
+                const hue = (i * 137.508) % 360; // 黄金角分布
+                colors.push(`hsl(${hue}, 70%, 60%)`);
+            }
+            return colors;
+        }
+        
+        // 处理文件上传
+        document.getElementById('dataFile').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        data = JSON.parse(e.target.result);
+                        visualizeData();
+                    } catch (error) {
+                        alert('文件解析错误: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+        
+        // 更新点大小显示
+        document.getElementById('pointSize').addEventListener('input', function() {
+            document.getElementById('pointSizeValue').textContent = this.value;
+            if (data.length > 0) {
+                visualizeData();
+            }
+        });
+        
+        // 更新透明度显示
+        document.getElementById('opacity').addEventListener('input', function() {
+            document.getElementById('opacityValue').textContent = this.value;
+            if (data.length > 0) {
+                visualizeData();
+            }
+        });
+        
+        function visualizeData() {
+            if (data.length === 0) return;
+            
+            // 按paper_id分组
+            const paperGroups = {};
+            data.forEach(item => {
+                const paperId = item.paper_id || 'unknown';
+                if (!paperGroups[paperId]) {
+                    paperGroups[paperId] = [];
+                }
+                paperGroups[paperId].push(item);
+            });
+            
+            // 生成颜色映射
+            const paperIds = Object.keys(paperGroups);
+            const colors = generateColors(paperIds.length);
+            paperIds.forEach((paperId, index) => {
+                paperIdColors[paperId] = colors[index];
+            });
+            
+            // 准备绘图数据
+            const traces = [];
+            paperIds.forEach(paperId => {
+                const groupData = paperGroups[paperId];
+                const x = groupData.map(item => item.coordinates_2d[0]);
+                const y = groupData.map(item => item.coordinates_2d[1]);
+                
+                // 生成悬停文本
+                const hoverText = groupData.map(item => 
+                    `Paper ID: ${item.paper_id}<br>Chunk ID: ${item.id}<br>内容: ${item.content}`
+                );
+                
+                traces.push({
+                    x: x,
+                    y: y,
+                    mode: 'markers',
+                    type: 'scatter',
+                    name: `Paper ${paperId}`,
+                    text: hoverText,
+                    hoverinfo: 'text',
+                    marker: {
+                        size: parseInt(document.getElementById('pointSize').value),
+                        color: paperIdColors[paperId],
+                        opacity: parseFloat(document.getElementById('opacity').value)
+                    }
+                });
+            });
+            
+            // 创建图表
+            const layout = {
+                title: 'RAG嵌入向量二维分布',
+                xaxis: { title: '维度 1' },
+                yaxis: { title: '维度 2' },
+                hovermode: 'closest',
+                showlegend: true,
+                legend: {
+                    orientation: 'h',
+                    y: -0.2
+                }
+            };
+            
+            Plotly.newPlot('chart', traces, layout, { responsive: true });
+            
+            // 更新统计信息
+            updateStats(paperGroups);
+            
+            // 更新图例
+            updateLegend(paperIds);
+        }
+        
+        function updateStats(paperGroups) {
+            const statsDiv = document.getElementById('stats');
+            const totalPoints = data.length;
+            const totalPapers = Object.keys(paperGroups).length;
+            
+            let statsHtml = `
+                <p><strong>总数据点:</strong> ${totalPoints}</p>
+                <p><strong>论文数量:</strong> ${totalPapers}</p>
+                <p><strong>各论文数据点分布:</strong></p>
+                <ul>
+            `;
+            
+            Object.entries(paperGroups).forEach(([paperId, items]) => {
+                statsHtml += `<li>Paper ${paperId}: ${items.length} 个数据点</li>`;
+            });
+            
+            statsHtml += '</ul>';
+            statsDiv.innerHTML = statsHtml;
+        }
+        
+        function updateLegend(paperIds) {
+            const legendDiv = document.getElementById('legend');
+            let legendHtml = '<strong>图例:</strong><br>';
+            
+            paperIds.forEach(paperId => {
+                legendHtml += `
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: ${paperIdColors[paperId]}"></div>
+                        <span>Paper ${paperId}</span>
+                    </div>
+                `;
+            });
+            
+            legendDiv.innerHTML = legendHtml;
+        }
+        
+        // 添加交互功能
+        document.getElementById('chart').addEventListener('plotly_click', function(data) {
+            if (data.points && data.points.length > 0) {
+                const point = data.points[0];
+                const paperId = point.data.name.replace('Paper ', '');
+                const paperData = data.filter(item => item.paper_id === paperId);
+                
+                if (paperData.length > 0) {
+                    const sample = paperData[0];
+                    alert(`Paper ID: ${sample.paper_id}\nID: ${sample.id}\n内容预览: ${sample.content}`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

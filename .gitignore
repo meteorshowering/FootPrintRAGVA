@@ -1,0 +1,5 @@
+ToRAGLENSBack/.chromadb_autogen/
+ToRAGLENSBack/chroma_db/
+ToRAGLENSBack/logs/
+ToRAGLENSBack/__pycache__/
+*.pyc

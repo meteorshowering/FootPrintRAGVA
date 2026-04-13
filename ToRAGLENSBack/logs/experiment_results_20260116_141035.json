@@ -1,0 +1,173 @@
+{
+  "root_goal": "测试单文件保存功能",
+  "iterations": [
+    {
+      "round_number": 0,
+      "query_results": [
+        {
+          "orchestrator_plan": {
+            "action": "call_tool",
+            "tool_name": "strategy_semantic_search",
+            "ParentNode": "0",
+            "args": {
+              "query_intent": "测试查询_0"
+            },
+            "reason": "测试策略原因_0"
+          },
+          "rag_results": [
+            {
+              "retrieval_result": {
+                "id": "0_0",
+                "source_tool": "strategy_semantic_search",
+                "content": {
+                  "title": "测试证据_0_0",
+                  "summary": "这是第 0 轮的第 0 个测试证据"
+                },
+                "metadata": {
+                  "paper_id": "0_0",
+                  "keywords": [
+                    "测试",
+                    "保存",
+                    "轮次_0"
+                  ]
+                },
+                "score": 0.95,
+                "source_args": {}
+              },
+              "evaluation": {
+                "target_evidence_id": "0_0",
+                "branch_action": "GROW",
+                "extracted_insight": "测试洞察_0_0",
+                "scores": {
+                  "relevance": 9,
+                  "credibility": 8
+                },
+                "reason": "测试评估原因_0_0",
+                "suggested_keywords": [
+                  "测试关键词_0_0"
+                ]
+              }
+            },
+            {
+              "retrieval_result": {
+                "id": "0_1",
+                "source_tool": "strategy_semantic_search",
+                "content": {
+                  "title": "测试证据_0_1",
+                  "summary": "这是第 0 轮的第 1 个测试证据"
+                },
+                "metadata": {
+                  "paper_id": "0_1",
+                  "keywords": [
+                    "测试",
+                    "保存",
+                    "轮次_0"
+                  ]
+                },
+                "score": 0.95,
+                "source_args": {}
+              },
+              "evaluation": {
+                "target_evidence_id": "0_1",
+                "branch_action": "KEEP",
+                "extracted_insight": "测试洞察_0_1",
+                "scores": {
+                  "relevance": 9,
+                  "credibility": 8
+                },
+                "reason": "测试评估原因_0_1",
+                "suggested_keywords": [
+                  "测试关键词_0_1"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "round_number": 1,
+      "query_results": [
+        {
+          "orchestrator_plan": {
+            "action": "call_tool",
+            "tool_name": "strategy_semantic_search",
+            "ParentNode": "0",
+            "args": {
+              "query_intent": "测试查询_1"
+            },
+            "reason": "测试策略原因_1"
+          },
+          "rag_results": [
+            {
+              "retrieval_result": {
+                "id": "1_0",
+                "source_tool": "strategy_semantic_search",
+                "content": {
+                  "title": "测试证据_1_0",
+                  "summary": "这是第 1 轮的第 0 个测试证据"
+                },
+                "metadata": {
+                  "paper_id": "1_0",
+                  "keywords": [
+                    "测试",
+                    "保存",
+                    "轮次_1"
+                  ]
+                },
+                "score": 0.8999999999999999,
+                "source_args": {}
+              },
+              "evaluation": {
+                "target_evidence_id": "1_0",
+                "branch_action": "GROW",
+                "extracted_insight": "测试洞察_1_0",
+                "scores": {
+                  "relevance": 8,
+                  "credibility": 7
+                },
+                "reason": "测试评估原因_1_0",
+                "suggested_keywords": [
+                  "测试关键词_1_0"
+                ]
+              }
+            },
+            {
+              "retrieval_result": {
+                "id": "1_1",
+                "source_tool": "strategy_semantic_search",
+                "content": {
+                  "title": "测试证据_1_1",
+                  "summary": "这是第 1 轮的第 1 个测试证据"
+                },
+                "metadata": {
+                  "paper_id": "1_1",
+                  "keywords": [
+                    "测试",
+                    "保存",
+                    "轮次_1"
+                  ]
+                },
+                "score": 0.8999999999999999,
+                "source_args": {}
+              },
+              "evaluation": {
+                "target_evidence_id": "1_1",
+                "branch_action": "KEEP",
+                "extracted_insight": "测试洞察_1_1",
+                "scores": {
+                  "relevance": 8,
+                  "credibility": 7
+                },
+                "reason": "测试评估原因_1_1",
+                "suggested_keywords": [
+                  "测试关键词_1_1"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

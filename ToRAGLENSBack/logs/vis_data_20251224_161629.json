@@ -1,0 +1,500 @@
+{
+  "meta": {
+    "root_goal": "pm2.5",
+    "total_rounds": 5
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 pm2.5...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "9",
+      "label": "figure_1:the study a...",
+      "full_title": "figure_1:the study area and its typical urban agglomerations. abbreviations: scb, sichuan basin; cc, central china; yrd, yangtze river delta; bth, beijing-tianjin-hebei.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 11,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"Sichuan Basin\", \"Central China\", \"Yangtze River Delta\", \"Beijing-Tianjin-Hebei\", \"urban agglomerations\", \"China\", \"grid resolution\", \"horizontal grid spacing\", \"vertical levels\", \"simulation domain\", \"data assimilation (DA)\", \"bias correction (BC)\", \"PM2.5 predictions\", \"WRF-Chem\", \"GSI (Gridpoint Statistical Interpolation)\", \"deep-learning-based BC\", \"RMSEs\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 6
+          },
+          "reason": "图像提供了重要的地理背景，对于理解研究的区域布置和污染水平有帮助，但没有直接的深入挖掘线路。",
+          "insight": "图中显示了中国的地理范围及其特定研究区域，聚焦于受到严重污染的城市群，帮助理解不同 PM2.5 预测优化方法（DA、BC 及其组合）在各区域的性能。"
+        }
+      }
+    },
+    {
+      "id": "18",
+      "label": "figure_10:distributi...",
+      "full_title": "figure_10:distributions of  $\\mathrm{pm}_{2.5}$  concentrations  $(\\mu \\mathrm{g} / \\mathrm{m}^{3})$  predicted in wrf-chem_da_bc in four large urban agglomerations in china: (a) bth; (b) yrd; (c) cc; and (d) scb.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 6,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"PM2.5 concentrations\", \"WRF-Chem_DA_BC\", \"urban agglomerations\", \"China\", \"BTH\", \"YRD\", \"CC\", \"SCB\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 7
+          },
+          "reason": "图表展示了关键的 PM2.5 浓度预测结果，能够更好地进行城市污染管理和发展相应策略，是重要的分析基础。",
+          "insight": "图显示了中国四个主要城市群中预测的 PM2.5 浓度分布，使用 WRF-Chem_DA_BC 模型进行预测，显示模型在城市区域预测中的改进能力。"
+        }
+      }
+    },
+    {
+      "id": "39",
+      "label": "figure_5:(left) dist...",
+      "full_title": "figure_5:(left) distribution of air quality stations. (right) aqi and corresponding air quality descriptions.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 12,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"air quality stations\", \"AQI\", \"air quality descriptions\", \"China\", \"monitoring stations\", \"ST series dataset\", \"geographic space\", \"grid\", \"temporal granularity\", \"Gaussian model\", \"PyKridge library\", \"Kriging interpolation\", \"DBSCAN\", \"MinPts\", \"window size\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 6
+          },
+          "reason": "图提供了数据收集的背景和范围，虽无直接分析的深挖路径，仍对相关研究方法和数据分析有重要上下文意义。",
+          "insight": "图展示了中国空气质量监测站分布以及 AQI 的范围，定义空气质量的标准，为研究数据的可靠性提供上下文。"
+        }
+      }
+    },
+    {
+      "id": "19",
+      "label": "figure_1:flowchart s...",
+      "full_title": "figure_1:flowchart showing the procedures of the constraining analysis in the current study. the colors indicate the modeled relationships (blue), satellite observations (orange), in situ relationships (purple), field measurements of emission factors (efs) for the primary bba (gray), and constrained estimates (red). in particular, the satellite observation is labeled with a subscript of “0,” and constrained values are labeled with a subscript of “c.” f₁ and f₂ show the linear regressions developed from the aerocom models. f₃ indicates the observed relationship from (24). abbreviations/notations are defined as follows: ssa (single - scattering albedo), ae (angstrom exponent), precip (precipitation), mac (mass absorption coefficient), τ (lifetime), and e (emission).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "2",
+        "keywords": "[\"constraining analysis\", \"modeled relationships\", \"satellite observations\", \"in situ relationships\", \"emission factors (EFs)\", \"primary BBA\", \"constrained estimates\", \"SSA\", \"AE\", \"Precip\", \"MAC\", \"lifetime\", \"E\", \"AeroCom models\", \"POLDER-GRASP\", \"GPCP\", \"AAOD\", \"SOA\", \"BC\", \"OA\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "图中展示的约束分析方法是前沿的并用于明确分解复杂气溶胶研究中的误差贡献，提供进一步研究的深挖路径。",
+          "insight": "流程图展示了新颖的约束方法学，通过卫星和原位数据分解气溶胶光学厚度(AAOD)误差贡献因素(排放、生命周期、MAC)。"
+        }
+      }
+    },
+    {
+      "id": "17",
+      "label": "figure_9:spatial dis...",
+      "full_title": "figure_9:spatial distributions of average hourly  $\\mathrm{pm}_{2.5}$  concentrations  $(\\mu \\mathrm{g} / \\mathrm{m}^{3})$  predicted in the (a) control experiment, (b) observations, and (c) wrf-chem_da_bc experiment.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 5,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"PM2.5 concentrations\", \"control experiment\", \"observations\", \"WRF-Chem_DA_BC experiment\", \"WRF-Chem\", \"DA (Data Assimilation)\", \"BC (Bias Correction)\", \"BTH\", \"YRD\", \"CC\", \"SCB\", \"RMSE (Root Mean Square Error)\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图提供了验证 PM2.5 预测模型有效性的核心见解，显示出模型改进显著，有明确的进一步研究价值。",
+          "insight": "图表明 DA 和 BC 方法的结合显著提高了 PM2.5 浓度预测的准确性，与实地观察结果更为一致。"
+        }
+      }
+    },
+    {
+      "id": "10",
+      "label": "figure_2:flow charts...",
+      "full_title": "figure_2:flow charts of the four different experiments. case 1: wrf-chem; case 2: wrf-chem_da; case 3: wrf-chem_bc; case 4: wrf-chem_da_bc.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"WRF-Chem\", \"WRF-Chem_DA\", \"WRF-Chem_BC\", \"WRF-Chem_DA_BC\", \"GSI\", \"OBS\", \"DA\", \"BC\", \"MDS-UNet\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "While the diagram provides a clear methodological overview, it does not directly provide insights into data trends or results which could imply deeper analysis.",
+          "insight": "Flow charts demonstrate methodologies for PM2.5 prediction using different configurations: WRF-Chem, WRF-Chem_DA, WRF-Chem_BC, and WRF-Chem_DA_BC. They visually outline different approaches to improving prediction accuracy."
+        }
+      }
+    },
+    {
+      "id": "12",
+      "label": "figure_4:spatial dis...",
+      "full_title": "figure_4:spatial distributions of the  $\\mathrm{pm}_{2.5}$  prediction mb  $(\\mu \\mathrm{g} / \\mathrm{m}^{3})$  during winter produced by the four experiments: (a) wrf-chem, (b) wrf-chem_bc, (c) wrf-chem_da, and (d) wrf-chem_da_bc.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"PM2.5\", \"prediction MB\", \"WRF-Chem\", \"WRF-Chem_BC\", \"WRF-Chem_DA\", \"WRF-Chem_DA_BC\", \"SCB\", \"CC\", \"YRD\", \"BTH\", \"Shandong Peninsula\", \"data assimilation (DA)\", \"bias correction (BC)\", \"GSI (Gridpoint Statistical Interpolation)\", \"MDS-Unet\", \"RMSE\", \"correlation coefficient (R)\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "This map provides detailed regional performance data and illustrates significant improvements, representing a valuable insight into effective prediction methods.",
+          "insight": "The spatial distribution map shows WRF-Chem_DA_BC method significantly reduces PM2.5 prediction bias in regions such as YRD and Shandong Peninsula, indicating enhanced accuracy through combined DA and BC methods."
+        }
+      }
+    },
+    {
+      "id": "41",
+      "label": "figure_7:case study ...",
+      "full_title": "figure_7:case study of air quality in china. (a) air quality data is visualized with the surface rendering in volumestcube, where (a1 and a2) two propagation processes of air pollution can be identified. (b) after clicking (a1), the user can obtain this view. (c) the air pollution propagated from the loess plateau to the north china plain. (d) after clicking (a2), the user can obtain this view. (e) the air pollution propagated from the north china plain to the yangtze river delta.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 9,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"air quality data\", \"VolumeSTCube\", \"air pollution\", \"Loess Plateau\", \"North China Plain\", \"Yangtze River Delta\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "提供了关于空气污染传播过程的重要视觉证据，且与 VolumeSTCube 技术相关，具有深挖价值。",
+          "insight": "图像展示了空气污染从黄土高原向华北平原传播，以及从华北平原向长三角传播的两个不同过程。这种通过 VolumeSTCube 的可视化大大降低了用户识别传播路径的时间和心智负担，提高了识别准确性。"
+        }
+      }
+    },
+    {
+      "id": "30",
+      "label": "figure_6:air quality...",
+      "full_title": "figure_6:air quality in yangtze river delta. (a) interesting evolution patterns in storyline. (b) the map coordinated with the evolutions. (c) line charts and (d) trend motifs of the patterns of (a). (e) a line chart of an evolution pattern and (f) its trend motif.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 7,
+      "data": {
+        "paper_id": "3",
+        "keywords": "[\"Air quality\", \"Yangtze River Delta\", \"Storyline\", \"Evolution patterns\", \"Trend motifs\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "提供了长三角区域空气质量的背景信息，但没有提供具体的深挖线索，适合作为上下文保留。",
+          "insight": "图像提供了长三角地区空气质量的演化模式及其地理协调图，展示了趋势图和演化模式的主题，揭示了复杂的时空模式。"
+        }
+      }
+    },
+    {
+      "id": "31",
+      "label": "figure_7:temperature...",
+      "full_title": "figure_7:temperature in china. (a) storyline with (a1) the shade mapping. (b) upper right corner of (a), where (b1) periodicity and (b2) drops are observed. (c) colored result of (b). (d) the spatial distribution of colored st series in (c). (e) line charts and (f) trend motifs of (c1), where obvious drops are observed in (e1, f1).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": "3",
+        "keywords": "[\"Temperature\", \"China\", \"Storyline\", \"Shade Mapping\", \"Periodicity\", \"Drops\", \"Spatial Distribution\", \"ST Series\", \"Line Charts\", \"Trend Motifs\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "尽管与空气污染问题关系不直接，但提供了对气候相关变量的视觉分析，有助于了解背景条件。",
+          "insight": "本图通过不同视图展示了中国温度的复杂时空模式，包括明显的周期性温度变化和显著降温现象。"
+        }
+      }
+    },
+    {
+      "id": "28",
+      "label": "figure_4:layout refi...",
+      "full_title": "figure_4:layout refinement. (a) vertical space consumed by the positioning process. (b) the layout after loose alignment and session filtering. (c) curve hiding. (d) enforced alignment of sessions  $\\mathcal{q}$  and  $(5)$",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "3",
+        "keywords": "[\"Layout refinement\", \"Vertical space\", \"positioning process\", \"loose alignment\", \"session filtering\", \"Curve hiding\", \"enforced alignment\", \"sessions\", \"Storyline layout algorithm\", \"StoryFlow\", \"entities\", \"time slices\", \"wiggle distance\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "与空气污染问题无直接关联，且主要讨论布局优化，与环境数据无关。",
+          "insight": "该图展示了版面优化的多种技术以提高空间效率，但与当前研究的空气污染议题无直接关联。"
+        }
+      }
+    },
+    {
+      "id": "40",
+      "label": "figure_6:case study ...",
+      "full_title": "figure_6:case study of air quality in china. (a) volumestcube provides the overview of air quality with  $\\lambda = 0$ . (b) the visual pattern becomes clearer with a larger  $\\lambda = 150$ . (c) the temporal variation of air quality in xinjiang and (d) in the bth region were revealed via volume highlight. (e, e1, and e2) the air pollution during the spring festival was generally below the moderate level. (f, f1, and f2) the air pollution caused by the dust storm from late march to april impacted a wide spatial range. (g) the air pollution caused by the dust storm in late may impacted a smaller spatial range.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 8,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"air quality\", \"China\", \"VolumeSTCube\", \"temporal variation\", \"Xinjiang\", \"BTH region\", \"volume highlight\", \"Spring Festival\", \"dust storm\", \"air pollution\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "此图不仅展示了重要的时间和空间空气污染事件，还显示了 VolumeSTCube 在环境监测中的应用潜力，值得进一步研究。",
+          "insight": "VolumeSTCube 可视化展示了中国的空气质量，揭示了不同地区的时间变化和如春季节日及沙尘暴前后的污染事件。"
+        }
+      }
+    },
+    {
+      "id": "35",
+      "label": "figure_1:Our impleme...",
+      "full_title": "figure_1:Our implementation of Thakur and Hanson's method [14], later used as a baseline in the comparative user study.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"Thakur and Hanson's method\", \"Space-Time Cube\", \"ST series\", \"baseline\", \"hotspot\", \"occlusion\", \"VolumeSTCube\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "该图提供了对比基准，强调遮挡和热点识别的问题，为改进提供了依据，有深入挖掘意义。",
+          "insight": "作者展示了Thakur和Hanson的方法的视觉化方式，通过柱状和磁盘方法编码值的大小，从而展现柱状可视化的遮挡问题和热点识别的困难，作为他们改进的空间时间立方体视觉化方法的基准。"
+        }
+      }
+    },
+    {
+      "id": "36",
+      "label": "figure_2:Pipeline of...",
+      "full_title": "figure_2:Pipeline of VolumeSTCube. (A) The spatial time (ST) series are placed in a 3D space following the space-time cube. (B) After interpolation and smoothing, the ST series are transformed as a space-time volume. (C) The volume is visualized with volume rendering and surface rendering, and is equipped with temporal slicing, spatial filter, and voxel cluster-based interactions, forming VolumeSTCube.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 5,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"VolumeSTCube\", \"Space-Time Cube\", \"ST series\", \"interpolation\", \"smoothing\", \"space-time volume\", \"volume rendering\", \"surface rendering\", \"temporal slicing\", \"spatial filter\", \"voxel cluster\", \"voxel\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图中展示了完整的流程和处理框架，有助于理解技术的实现和应用，是深入研究的基础。",
+          "insight": "此图说明了VolumeSTCube的处理流程，从空间时间序列数据通过插值和平滑转化为空间时间体积，并通过高级渲染和交互技术进行可视化，包括时间切片和体素簇实现交互。"
+        }
+      }
+    },
+    {
+      "id": "37",
+      "label": "figure_3:Visual desi...",
+      "full_title": "figure_3:Visual designs of VolumeSTCube. (A) Space-time volume visualization with volume rendering and contextual information. (B and C) A propagation process of air pollution is visualized with volume rendering and surface rendering, respectively.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 5,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"VolumeSTCube\", \"Space-time volume visualization\", \"volume rendering\", \"surface rendering\", \"air pollution\", \"propagation process\", \"spatiotemporal domains\", \"visual occlusion\", \"depth ambiguity\", \"spatial time series data\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "通过具体的应用案例展示了方法的实际效果和优势，特别是在环境数据分析中表现突出，有继续研究的意义。",
+          "insight": "此图展示了VolumeSTCube使用体积和表面渲染来有效可视化空气污染的传播过程，解决现有遮挡问题并提供详细的分析模式，优于现有大型时空序列分析方法。"
+        }
+      }
+    },
+    {
+      "id": "38",
+      "label": "figure_4:Interaction...",
+      "full_title": "figure_4:Interactions in VolumeSTCube. (A) Volume Slicing. (B) Volume Spotlight. (C) Voxel cluster-based selection.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 5,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"VolumeSTCube\", \"Volume Slicing\", \"Volume Spotlight\", \"Voxel cluster-based selection\", \"ST series\", \"space-time volume\", \"spatiotemporal patterns\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "描述了基本的交互功能，给出了一些使用方式，但并没有提供关于新技术或方法的详细信息。作为背景信息保留。",
+          "insight": "此图展示了VolumeSTCube的交互功能，使用户可以通过分片、聚光灯和体素簇选择来操作3D可视化以探索复杂的时空数据和定位热点。"
+        }
+      }
+    },
+    {
+      "id": "42",
+      "label": "figure_8:Results of ...",
+      "full_title": "figure_8:Results of user study. The results for VolumeSTCube and the baseline are represented by soft blue and soft orange, respectively. The bottom section categorizes the 18 questions into three groups based on their spatial, temporal, and spatiotemporal perspectives. The middle section displays the response times for each question with jittered dot plots, where horizontal markers denote medians. The top section shows the correctness of the answers. Black rectangles highlight instances where either the difference of the correctness is more than 25% or the response time is significantly different. No instances were found where the baseline obviously outperforms VolumeSTCube.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"VolumeSTCube\", \"baseline\", \"user study\", \"response times\", \"correctness\", \"spatial perspective\", \"temporal perspective\", \"spatiotemporal perspectives\", \"Wilcoxon test\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "用户研究的结果显示了VolumeSTCube的明显优势和可靠性，尤其在数据分析结果的准确性和效率上，值得进一步关注和研究。",
+          "insight": "该图展示了用户研究中VolumeSTCube在答案正确性和响应时间上对基准系统的全面优越表现，统计结果显示在所有问题情境下均无基准胜出的情况。"
+        }
+      }
+    },
+    {
+      "id": "13",
+      "label": "figure_5:temporal va...",
+      "full_title": "figure_5:temporal variation of the  $r$  between observations and the predictions produced by the four experiments: (a) wrf-chem, (b) wrf-chem_da, (c) wrf-chem_bc, and (d) wrf-chem_da_bc.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"correlation coefficient\", \"WRF-Chem\", \"WRF-Chem_DA\", \"WRF-Chem_BC\", \"WRF-Chem_DA_BC\", \"observations\", \"predictions\", \"PM2.5\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "The figure highlights a significant improvement in forecasting PM2.5 concentrations by combining DA and BC, which is a key part of the study's findings. The consistent results across four different experiments suggest robust evidence supporting the method's effectiveness.",
+          "insight": "This figure shows that combining Data Assimilation (DA) and Bias Correction (BC) in the WRF-Chem_DA_BC consistently results in the highest correlation coefficients, indicating superior prediction accuracy for PM2.5 concentrations compared to individual methods or the control experiment."
+        }
+      }
+    },
+    {
+      "id": "14",
+      "label": "figure_6:scatter plo...",
+      "full_title": "figure_6:scatter plots of simulated versus observed  $\\mathrm{pm}_{2.5}$  mass concentrations  $(\\mu \\mathrm{g} / \\mathrm{m}^{3})$  during winter in the four experiments: (a) wrf-chem, (b) wrf-chem_da, (c) wrf-chem_bc, and (d) wrf-chem_da_bc.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"PM2.5\", \"mass concentrations\", \"WRF-Chem\", \"WRF-Chem_DA\", \"WRF-Chem_BC\", \"WRF-Chem_DA_BC\", \"simulated\", \"observed\", \"data assimilation\", \"bias correction\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "The visual evidence provided by the scatter plot complements the quantitative findings and strongly supports the effectiveness of the WRF-Chem_DA_BC method, which is critical for understanding and improving air quality predictions.",
+          "insight": "This scatter plot demonstrates that combining DA and BC in the WRF-Chem_DA_BC experiment significantly enhances PM2.5 prediction accuracy, with a fitted slope of 1.04 indicating a close match to the ideal slope of 1, showing the best agreement with observations among all studied methods."
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "18",
+      "target": "41",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 城市污染管理策略\nReason: 节点18提供关键的PM2.5浓度预测信息，探索城市污染管理策略可能揭示如何有效利用这些预测来改善空气质量。"
+    },
+    {
+      "source": "18",
+      "target": "30",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 城市污染管理策略\nReason: 节点18提供关键的PM2.5浓度预测信息，探索城市污染管理策略可能揭示如何有效利用这些预测来改善空气质量。"
+    },
+    {
+      "source": "12",
+      "target": "31",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 数据同化与偏差校正在空气质量预测中的应用\nReason: 节点12强调了数据同化与偏差校正在提高预测准确性上的价值，深入研究这些技术在空气质量预测中的应用可以帮助完善证据链。"
+    },
+    {
+      "source": "12",
+      "target": "28",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 数据同化与偏差校正在空气质量预测中的应用\nReason: 节点12强调了数据同化与偏差校正在提高预测准确性上的价值，深入研究这些技术在空气质量预测中的应用可以帮助完善证据链。"
+    },
+    {
+      "source": "41",
+      "target": "35",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: keywords: [VolumeSTCube, Air pollution propagation, Loess Plateau, North China Plain, Yangtze River Delta]\nReason: 此节点与空气污染传播过程相关，并且评估者认为具有深挖价值，应进一步探索其在环境监测中的应用潜力。"
+    },
+    {
+      "source": "41",
+      "target": "36",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: keywords: [VolumeSTCube, Air pollution propagation, Loess Plateau, North China Plain, Yangtze River Delta]\nReason: 此节点与空气污染传播过程相关，并且评估者认为具有深挖价值，应进一步探索其在环境监测中的应用潜力。"
+    },
+    {
+      "source": "41",
+      "target": "37",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: keywords: [VolumeSTCube, Air pollution propagation, Loess Plateau, North China Plain, Yangtze River Delta]\nReason: 此节点与空气污染传播过程相关，并且评估者认为具有深挖价值，应进一步探索其在环境监测中的应用潜力。"
+    },
+    {
+      "source": "41",
+      "target": "38",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: keywords: [VolumeSTCube, Air pollution propagation, Loess Plateau, North China Plain, Yangtze River Delta]\nReason: 此节点与空气污染传播过程相关，并且评估者认为具有深挖价值，应进一步探索其在环境监测中的应用潜力。"
+    },
+    {
+      "source": "41",
+      "target": "42",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: keywords: [VolumeSTCube, Air pollution propagation, Loess Plateau, North China Plain, Yangtze River Delta]\nReason: 此节点与空气污染传播过程相关，并且评估者认为具有深挖价值，应进一步探索其在环境监测中的应用潜力。"
+    },
+    {
+      "source": "18",
+      "target": "13",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WRF-Chem_DA_BC模型在空气污染预测中的应用\nReason: 该节点提供了关于PM2.5污染预测的细节及其城市管理中的重要性，应进一步探索相关模型的应用和影响。"
+    },
+    {
+      "source": "18",
+      "target": "14",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WRF-Chem_DA_BC模型在空气污染预测中的应用\nReason: 该节点提供了关于PM2.5污染预测的细节及其城市管理中的重要性，应进一步探索相关模型的应用和影响。"
+    }
+  ]
+}

@@ -1,0 +1,1517 @@
+{
+  "round_number": 6,
+  "query_results": [
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_metadata_search",
+        "ParentNode": "99",
+        "args": {
+          "keywords": "Emission factors"
+        },
+        "reason": "该节点给出了关于不同排放标准的车辆排放因子的高价值图表，深入了解这些排放因子对空气污染的具体影响可获取更多信息。"
+      },
+      "rag_results": []
+    },
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_semantic_search",
+        "ParentNode": "149",
+        "args": {
+          "query_intent": "区域间污染物传输路径建模"
+        },
+        "reason": "这一节点给出了深圳区域空气污染的传播路径，可能涉及复杂地理建模。对该方面展开搜索可能能提供给我们关于空气污染跨区域传输的更多见解。"
+      },
+      "rag_results": [
+        {
+          "retrieval_result": {
+            "id": "img_181",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 1. Comprehensive traffic monitoring network in Xiaoshan District. (a) Xiaoshan District (the red area) is located in the hinterland of the YRD in China. (b) Comprehensive traffic monitoring achieves full coverage over Xiaoshan District. Each dot represents a set of comprehensive traffic monitoring facilities that can recognize license plates, traffic fluxes, vehicle-specific speed, and vehicle categories. The entire road network over Xiaoshan District is divided into 4585 road segments. Such road segments are divided into three road classes: highways (blue lines), arterial roads (pink lines), and residential streets (green lines). Map data © 2022, Gaode Map.",
+              "summary": "The figure illustrates the comprehensive traffic monitoring network in Xiaoshan District, highlighting road classes and monitoring facilities on a map.",
+              "insight": "The traffic monitoring network in Xiaoshan enables detailed tracking of vehicle dynamics, crucial for analyzing the impact of traffic on air quality and public health."
+            },
+            "metadata": {
+              "id": "img_181",
+              "source_md": "Quantifying on-road vehicle emissions during traff.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Quantifying on-road vehicle emissions during traff\\figure_1.jpg",
+              "title": "Fig. 1. Comprehensive traffic monitoring network in Xiaoshan District. (a) Xiaoshan District (the red area) is located in the hinterland of the YRD in China. (b) Comprehensive traffic monitoring achieves full coverage over Xiaoshan District. Each dot represents a set of comprehensive traffic monitoring facilities that can recognize license plates, traffic fluxes, vehicle-specific speed, and vehicle categories. The entire road network over Xiaoshan District is divided into 4585 road segments. Such road segments are divided into three road classes: highways (blue lines), arterial roads (pink lines), and residential streets (green lines). Map data © 2022, Gaode Map.",
+              "references": [
+                "Xiaoshan District is located in eastern Hangzhou, in the Yangtze River Delta in China (Fig. 1) with a population of over 2.01 million. In 2021, its annual GDP was 201.16 billion Yuan, ranking fourth among districts in Hangzhou. Equipped with an international airport, Xiaoshan District has become an important transportation center of Zhejiang province with densely distributed road networks (i.e.,  $1953.7\\mathrm{km}$  within  $1417.8\\mathrm{km}^2$ ). This implies that the on-road vehicle emissions play a crucial role in affecting local fine-scale air quality and public health."
+              ],
+              "functional_roles": {
+                "main_role": "Data & Experimental Setup",
+                "sub_roles": [
+                  "Introduce Experimental Setup",
+                  "Showcase Dataset Samples"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Geospatial Visualizations",
+                "sub_types": [
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "Xiaoshan District",
+                "Yangtze River Delta",
+                "traffic monitoring facilities",
+                "road segments",
+                "highways",
+                "arterial roads",
+                "residential streets",
+                "Gaode Map"
+              ],
+              "concise_summary": "The figure illustrates the comprehensive traffic monitoring network in Xiaoshan District, highlighting road classes and monitoring facilities on a map.",
+              "inferred_insight": "The traffic monitoring network in Xiaoshan enables detailed tracking of vehicle dynamics, crucial for analyzing the impact of traffic on air quality and public health.",
+              "paper_id": 27
+            },
+            "score": 0.4170875773691597,
+            "source_args": {
+              "query_intent": "区域间污染物传输路径建模"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_12",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 1. Study area. The blue line encompasses the region of Jinjingji, including Beijing, Tianjin and Hebei province. (a) China's territory, (b) the study area (Tangshan); this image is obtained from the red, green, and blue bands of Landsat 8 (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article).",
+              "summary": "The figure depicts the study area encompassing Jinjingji, including Beijing, Tianjin, and Hebei. It uses Landsat 8 data for Tangshan, highlighted within China's territory.",
+              "insight": "The figure highlights the targeted study area for spatial analysis using satellite imagery, emphasizing its geographic boundaries and components for focused research."
+            },
+            "metadata": {
+              "id": "img_12",
+              "source_md": "A simple method based on the thermal anomaly index.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\A simple method based on the thermal anomaly index\\figure_1.jpg",
+              "title": "Fig. 1. Study area. The blue line encompasses the region of Jinjingji, including Beijing, Tianjin and Hebei province. (a) China's territory, (b) the study area (Tangshan); this image is obtained from the red, green, and blue bands of Landsat 8 (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article).",
+              "references": [
+                "Daily VIIRS Nightfire product V2.1 (obtained from https://ngdc.noaa.gov/eog/viirs/) was produced via an algorithm that was combined with the visible, NIR, SWIR, and MWIR (Elvidge et al., 2013). Here, we classified the results of this product into two parts: one is hot spots without FRP and fire areas (i.e., white placemarks that failed the Planck curve fit), which is termed as nonconfirmed; the other is hot spots with FRP and fire area (i.e., purple, blue, green, yellow and red place marks), which is termed as confirmed (Fig. 1)."
+              ],
+              "functional_roles": {
+                "main_role": "Data & Experimental Setup",
+                "sub_roles": [
+                  "Showcase Dataset Samples",
+                  "Describe Data Distribution"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Geospatial Visualizations",
+                "sub_types": [
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "Jinjingji",
+                "Beijing",
+                "Tianjin",
+                "Hebei",
+                "Landsat 8",
+                "VIIRS Nightfire"
+              ],
+              "concise_summary": "The figure depicts the study area encompassing Jinjingji, including Beijing, Tianjin, and Hebei. It uses Landsat 8 data for Tangshan, highlighted within China's territory.",
+              "inferred_insight": "The figure highlights the targeted study area for spatial analysis using satellite imagery, emphasizing its geographic boundaries and components for focused research.",
+              "paper_id": 2
+            },
+            "score": 0.41029062249165793,
+            "source_args": {
+              "query_intent": "区域间污染物传输路径建模"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_206",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 1. The simulation domain (Fig. 1a) with the red square indicating the regions of Northeast China (i.e., Heilongjiang (HLJ), Jilin (JL), Liaoning (LN)), which is zoomed in and shown in Fig. 1b, with the red and blue dots indicative of observational data for  PM_{2.5}  and meteorology. (For interpretation of the references to colour in this figure legend, the reader is referred to the Web version of this article.)",
+              "summary": "The figure shows a map of Northeast China with regions and observational data points for PM2.5 and meteorology.",
+              "insight": "This figure provides spatial context for the study area, highlighting regions where PM2.5 and meteorological data are collected."
+            },
+            "metadata": {
+              "id": "img_206",
+              "source_md": "Striking impacts of biomass burning on  PM.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Striking impacts of biomass burning on  PM\\figure_1.jpg",
+              "title": "Fig. 1. The simulation domain (Fig. 1a) with the red square indicating the regions of Northeast China (i.e., Heilongjiang (HLJ), Jilin (JL), Liaoning (LN)), which is zoomed in and shown in Fig. 1b, with the red and blue dots indicative of observational data for  PM_{2.5}  and meteorology. (For interpretation of the references to colour in this figure legend, the reader is referred to the Web version of this article.)",
+              "references": [],
+              "functional_roles": {
+                "main_role": "Data & Experimental Setup",
+                "sub_roles": [
+                  "Introduce Experimental Setup"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Geospatial Visualizations",
+                "sub_types": [
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "Northeast China",
+                "Heilongjiang",
+                "Jilin",
+                "Liaoning",
+                "PM2.5",
+                "meteorology"
+              ],
+              "concise_summary": "The figure shows a map of Northeast China with regions and observational data points for PM2.5 and meteorology.",
+              "inferred_insight": "This figure provides spatial context for the study area, highlighting regions where PM2.5 and meteorological data are collected.",
+              "paper_id": 32
+            },
+            "score": 0.4102675461641028,
+            "source_args": {
+              "query_intent": "区域间污染物传输路径建模"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_161",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Figure 8. Emission changes from 2006 to 2010 by Asian regions for  SO_2  (a) and CO (b). Left panel: emissions in 2006 and 2010 by region.  Y  axis represents emissions by region.  X  axis represents cumulative emission contribution of regions. The dotted and solid lines represent emissions in 2006 and 2010 respectively. Right panel: the shares of emissions by sectors over China and India in 2006 and 2010.",
+              "summary": "The figure displays emission changes from 2006 to 2010 for SO2 and CO in Asian regions, with bar charts showing regional emissions and pie charts illustrating sector shares in China and India.",
+              "insight": "Emissions for SO2 and CO show a noticeable change between 2006 and 2010, with sectoral shifts in China and India indicating differing contributions from power, industry, residential, and transportation sectors."
+            },
+            "metadata": {
+              "id": "img_161",
+              "source_md": "MIX_ a mosaic Asian anthropogenic emission invento.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\MIX_ a mosaic Asian anthropogenic emission invento\\figure_8.jpg",
+              "title": "Figure 8. Emission changes from 2006 to 2010 by Asian regions for  SO_2  (a) and CO (b). Left panel: emissions in 2006 and 2010 by region.  Y  axis represents emissions by region.  X  axis represents cumulative emission contribution of regions. The dotted and solid lines represent emissions in 2006 and 2010 respectively. Right panel: the shares of emissions by sectors over China and India in 2006 and 2010.",
+              "references": [
+                "(b)  \nFigure 8. Emission changes from 2006 to 2010 by Asian regions for  $\\mathrm{SO}_2$  (a) and CO (b). Left panel: emissions in 2006 and 2010 by region.  $Y$  axis represents emissions by region.  $X$  axis represents cumulative emission contribution of regions. The dotted and solid lines represent emissions in 2006 and 2010 respectively. Right panel: the shares of emissions by sectors over China and India in 2006 and 2010."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Bar Chart",
+                  "Pie Chart"
+                ]
+              },
+              "key_entities": [
+                "SO2",
+                "CO",
+                "China",
+                "India",
+                "Emissions",
+                "Asian regions",
+                "Power",
+                "Industry",
+                "Residential",
+                "Transportation"
+              ],
+              "concise_summary": "The figure displays emission changes from 2006 to 2010 for SO2 and CO in Asian regions, with bar charts showing regional emissions and pie charts illustrating sector shares in China and India.",
+              "inferred_insight": "Emissions for SO2 and CO show a noticeable change between 2006 and 2010, with sectoral shifts in China and India indicating differing contributions from power, industry, residential, and transportation sectors.",
+              "paper_id": 23
+            },
+            "score": 0.4032282067778191,
+            "source_args": {
+              "query_intent": "区域间污染物传输路径建模"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_95",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 2. Schematic diagram of the monitoring site in the East Yan'an Road Tunnel, Shanghai.",
+              "summary": "The figure displays the location and setup of air pollution monitoring sites within East Yan'an Road Tunnel, Shanghai. It includes schematic representations of the tunnel and monitoring locations.",
+              "insight": "The schematic provides spatial context for the air quality monitoring study, highlighting the strategic placement of sensors to capture key pollutants from vehicle emissions in a high-traffic urban tunnel."
+            },
+            "metadata": {
+              "id": "img_95",
+              "source_md": "Evaluation of emission factors for light-duty gaso.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Evaluation of emission factors for light-duty gaso\\figure_2.jpg",
+              "title": "Fig. 2. Schematic diagram of the monitoring site in the East Yan'an Road Tunnel, Shanghai.",
+              "references": [
+                "A tunnel in the city center of Shanghai  $(31.24^{\\circ}\\mathrm{N}, 121.50^{\\circ}\\mathrm{E})$  was selected to conduct air pollution monitoring. The tunnel is called East Yan'an Road tunnel, is an underwater tunnel crossing the Huangpu River in Shanghai. It has two bores with two lanes for each direction. The total length is  $2,107\\mathrm{m}$ ; cross-sectional area is  $33.75\\mathrm{m}^2$ . To continuously monitor major air pollutants from vehicle exhaust, we installed two integrated air pollution monitoring units at  $150\\mathrm{m}$  away from the inlet and outlet of the tunnel, respectively. The height of the unit was about  $1.2\\mathrm{m}$ . Fig. 2 shows the location of the tunnel and the monitoring sites. There were 4 sensors which could separately monitor NO,  $\\mathrm{NO}_2$ , CO, and  $\\mathrm{PM}_{2.5}$  concentrations in each unit. NO,  $\\mathrm{NO}_2$ , and CO were detected using electrochemical method. Their detection limits were  $0.01\\mathrm{mg}\\mathrm{m}^{-3}$ ,  $0.01\\mathrm{mg}\\mathrm{m}^{-3}$ , and  $0.15\\mathrm{mg}\\mathrm{m}^{-3}$ , respectively.  $\\mathrm{PM}_{2.5}$  was detected by light scattering method. Its resolution was  $0.1\\mu \\mathrm{g}\\mathrm{m}^{-3}$ . The monitoring data was continuously transmitted to a remote database through wireless network. The system was built in July 2016 and has been operated by now. To ensure the reliability of monitoring",
+                "Vehicle flow and average speed in the tunnel were detected by a buried induction coil and transmitted to a data platform in real time. The fleet compositions were recognized by automatic acquisition of vehicle license plate information through a high-definition video in the tunnel. Fig. 4 shows the average traffic flow and fleet composition in each hour of weekday and weekend. The data between August and November of 2016 were used in this study. Daily average vehicle flow and speed were  $34,818 \\pm 2,214 \\mathrm{veh} \\cdot \\mathrm{h}^{-1}$  and  $33.47 \\pm 7.95 \\mathrm{km} \\cdot \\mathrm{h}^{-1}$  on weekday and were  $30,818 \\pm 1,848 \\mathrm{veh} \\cdot \\mathrm{h}^{-1}$  and  $33.86 \\pm 8.83 \\mathrm{km} \\cdot \\mathrm{h}^{-1}$  on weekend. Vehicle flows in peak hour were  $2,173 \\pm 161$  and  $1,952 \\pm 68 \\mathrm{veh} \\cdot \\mathrm{h}^{-1}$  on weekday and weekend, respectively. East Yan'an Road tunnel was located in the city center of Shanghai, where heavy-duty diesel vehicles (HDDVs) were restricted to access except for some medium-duty diesel vehicles (MDDVs). Therefore, fleet in the tunnel was mainly comprised of light-duty gasoline vehicles, which accounted for  $93.7 \\pm 2.2\\%$  and  $94.6 \\pm 1.9\\%$  of the total on weekday and weekend, respectively. The",
+                "tunnel in Taiwan in 2006. The CO,  $\\mathrm{NO}_x$ , and  $\\mathrm{PM}_{2.5}$  EFs were  $0.91 \\pm 0.47 - 1.47 \\pm 0.63$ ,  $0.15 \\pm 0.07 - 0.33 \\pm 0.17\\mathrm{gkm}^{-1} \\cdot \\mathrm{veh}^{-1}$ , and  $2 \\pm 2 - 4 \\pm 3\\mathrm{mgkm}^{-1} \\cdot \\mathrm{veh}^{-1}$ , respectively. Their results were the lowest compared with other tunnel studies in China mainly because Taiwan implemented Tier 1 and Tier 2 emission standards in 1999 and 2008, earlier than the mainland of China. Liu et al. (2015a,b) and Deng et al. (2015) measured CO and  $\\mathrm{PM}_{10}$  EFs in East Yan'an Road tunnel in 2012. CO EF decreased by about  $30\\%$  compared with our result in 2016.  $\\mathrm{PM}_{2.5}$  EF also declined if we considered  $\\mathrm{PM}_{10}$  was similar to  $\\mathrm{PM}_{2.5}$  for vehicle exhaust. The enforcement of vehicle emission control strategies should be the main reason for the decrease. Between 2012 and 2016, Shanghai implemented the emission standards of LDGVs from Euro 4 to Euro 5, eliminated Euro 0 gasoline vehicles from the whole city, and restricted Euro 1 gasoline vehicles in urban area. CO and  $\\mathrm{NO}_x$  EFs in Yingpan Road tunnel were  $0.75 \\pm 0.56 - 6.05 \\pm 5.94$  and  $0.12 \\pm 0.02 - 0.82 \\pm 0.76\\mathrm{gkm}^{-1} \\cdot \\mathrm{veh}^{-1}$  (Deng et al., 2015). Our results were relatively lower than the average value of Yingpan Road tunnel. The fractions of gasoline and diesel vehicles have influences on EFs in the tunnels. CO,  $\\mathrm{NO}_x$ , and  $\\mathrm{PM}_{2.5}$  EFs in Zhujiang tunnel were much higher than those in our study since there was higher proportion of diesel vehicles (Liu et al., 2014; Zhang et al., 2015b). Correspondingly, KXL tunnel had lower  $\\mathrm{PM}_{2.5}$  EF due to its high proportion of gasoline vehicles (Cui et al., 2016).",
+                "<table><tr><td rowspan=\"2\">Tunnel</td><td rowspan=\"2\">City/Region</td><td rowspan=\"2\">Vehicle type</td><td rowspan=\"2\">Test year</td><td colspan=\"3\">Emission factors</td><td rowspan=\"2\">References</td></tr><tr><td>CO(g·km-1·veh-1)</td><td>NOx(g·km-1·veh-1)</td><td>PM2.5(mg·km-1·veh-1)</td></tr><tr><td>Hsuehshan tunnel (Downslope)</td><td>Taiwan</td><td>LDV</td><td>2006</td><td>0.91 ± 0.47</td><td>0.15 ± 0.07</td><td>2 ± 2</td><td>Chang et al., 2009</td></tr><tr><td>Hsuehshan tunnel (Upslope)</td><td>Taiwan</td><td>LDV</td><td>2006</td><td>1.47 ± 0.63</td><td>0.33 ± 0.17</td><td>4 ± 3</td><td>Chang et al., 2009</td></tr><tr><td>East Yan&#x27;an Road tunnel</td><td>Shanghai</td><td>94.5% Gasoline</td><td>2012</td><td></td><td></td><td>56.7 ± 69.4a</td><td>Liu et al., 2015b</td></tr><tr><td>East Yan&#x27;an Road tunnel</td><td>Shanghai</td><td>91.5%-96% Gasoline</td><td>2012</td><td>1.27 ± 0.89-3.97 ± 2.19</td><td></td><td></td><td>Deng et al., 2015</td></tr><tr><td>Yingpan Road tunnel</td><td>Changsha</td><td>96.3%-98.4% Gasoline</td><td>2013</td><td>0.75 ± 0.56-6.05 ± 5.94</td><td>0.12 ± 0.02-0.82 ± 0.76</td><td></td><td>Deng et al., 2015</td></tr><tr><td>Zhujiang tunnel</td><td>Guangzhou</td><td>88.2% Gasoline</td><td>2013</td><td></td><td>0.56 ± 0.05</td><td></td><td>Liu et al., 2014</td></tr><tr><td>Zhujiang tunnel</td><td>Guangzhou</td><td>61% LDV; 27% LPG;12% HDV</td><td>2014</td><td>3.10 ± 0.68</td><td>1.29 ± 0.20</td><td>82.7 ± 28.3</td><td>Zhang et al., 2015a,b</td></tr><tr><td>KXL tunnel</td><td>Yantai</td><td>96.6% Gasoline</td><td>2014</td><td></td><td></td><td>22.2 ± 6.5</td><td>Cui et al., 2016</td></tr><tr><td>East Yan&#x27;an Road tunnel</td><td>Shanghai</td><td>94.1% Gasoline</td><td>2016</td><td>1.84 ± 0.90</td><td>0.40 ± 0.25</td><td>34.0 ± 23.5</td><td>This study</td></tr></table>"
+              ],
+              "functional_roles": {
+                "main_role": "Data & Experimental Setup",
+                "sub_roles": [
+                  "Introduce Experimental Setup"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Conceptual Diagram"
+                ]
+              },
+              "key_entities": [
+                "East Yan'an Road Tunnel",
+                "Shanghai",
+                "Huangpu River",
+                "air pollution monitoring",
+                "vehicle exhaust",
+                "sensors",
+                "NO",
+                "NO2",
+                "CO",
+                "PM2.5"
+              ],
+              "concise_summary": "The figure displays the location and setup of air pollution monitoring sites within East Yan'an Road Tunnel, Shanghai. It includes schematic representations of the tunnel and monitoring locations.",
+              "inferred_insight": "The schematic provides spatial context for the air quality monitoring study, highlighting the strategic placement of sensors to capture key pollutants from vehicle emissions in a high-traffic urban tunnel.",
+              "paper_id": 15
+            },
+            "score": 0.4022819646395421,
+            "source_args": {
+              "query_intent": "区域间污染物传输路径建模"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_169",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 1. (a): Ownership of vehicle shares in emission standards; (b) Ownership of vehicle shares in fuel type.",
+              "summary": "Fig. 1 showcases vehicle ownership shares categorized by emission standards and fuel types in Wuhan, displaying distinct distributions in pie charts.",
+              "insight": "The figure illustrates the dominance of certain emission standards and fuel types in Wuhan's vehicle population, highlighting the prevalence of China IV emission standards and gasoline vehicles."
+            },
+            "metadata": {
+              "id": "img_169",
+              "source_md": "On-road emissions of fine particles and associated.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\On-road emissions of fine particles and associated\\figure_1.jpg",
+              "title": "Fig. 1. (a): Ownership of vehicle shares in emission standards; (b) Ownership of vehicle shares in fuel type.",
+              "references": [
+                "<table><tr><td>No.</td><td>Fuel type</td><td>Emission standards</td><td>Production date</td><td>Driven distance (km)</td><td>Engine displacement</td><td>Vehicle type</td><td>Weight (kg)</td></tr><tr><td>1#</td><td>Gasoline</td><td>China III</td><td>Mar-13</td><td>746,690</td><td>1.6 L</td><td>Citroen DC7160</td><td>1485</td></tr><tr><td>2#</td><td>Gasoline</td><td>China IV</td><td>Dec-15</td><td>48,281</td><td>1.2 L</td><td>SGMW LZW6389</td><td>1575</td></tr><tr><td>3#</td><td>Gasoline</td><td>China IV</td><td>Sep-16</td><td>13,718</td><td>1.6 L</td><td>Volkswagen FV7160BB</td><td>1600</td></tr><tr><td>4#</td><td>Gasoline</td><td>China IV</td><td>Oct-13</td><td>84,194</td><td>3.6 L</td><td>Jeep Wrangler Sahara</td><td>2050</td></tr><tr><td>5#</td><td>Gasoline</td><td>China V</td><td>Mar-18</td><td>183</td><td>1.6 L</td><td>Citroen DC7162</td><td>1630</td></tr><tr><td>6#</td><td>Gasoline</td><td>China V</td><td>Juannary 2018</td><td>28,155</td><td>2.0 T</td><td>SAIC MAXUS SH6521C1-A</td><td>2800</td></tr><tr><td>7#</td><td>Diesel</td><td>China III</td><td>Jul-15</td><td>125,000</td><td>4.5 L</td><td>Dongfeng DFA1160L15D7</td><td>15,585</td></tr><tr><td>8#</td><td>Diesel</td><td>China IV</td><td>May-15</td><td>63,276</td><td>3.8 T</td><td>FOTON BJ5049</td><td>4490</td></tr><tr><td>9#</td><td>Diesel</td><td>China IV</td><td>Sep-16</td><td>47,051</td><td>7.14 L</td><td>Yutong ZK6107</td><td>15,000</td></tr><tr><td>10#</td><td>Diesel</td><td>China V</td><td>Apr-18</td><td>14,839</td><td>3.92 L</td><td>HOWO ZZ1047G3315E145</td><td>4290</td></tr></table>",
+                "vehicle ownership shares of emission standards in Wuhan was shown in Fig. 1a, and the classification of different fuel types was shown in Fig. 2b. From the perspective of the utilization characteristics of motor vehicles in Wuhan, the 10 selected motor vehicles include small domestic passenger cars, taxis, large and medium passenger buses, large and medium trucks and so on, which covered most kinds of the vehicles in Wuhan, China. The basic information of the 10 typical vehicles were shown in Table 1.",
+                "The ratio of OC/EC was an important parameter in the carbonaceous components of  $\\mathrm{PM}_{2.5}$ , which was often used to determine the source of  $\\mathrm{PM}_{2.5}$ . The OC/EC ratios of carbonaceous compositions from the 10 tested vehicles were shown in Fig. 4, and the average OC/EC ratios of the vehicles with different emission standards were figured out as well. The OC/EC ratio of gasoline vehicles was higher than 3.0 except for Vehicle 1#. It meant there were many organic components in the carbonaceous component, which was consistent with the results of some recent studies (James et al., 2002). The OC/EC ratio of Vehicle 1# was only 0.3, which deviated from the normal value of gasoline vehicle emissions. Because Vehicle 1# was a taxi with both gasoline and natural gas functions, and the engine used a mixture of gasoline and natural gas for a long time. It used gasoline fuel during the test, and insufficient combustion of gasoline in the engine caused an increase in the number of black carbon particles, which led to a small ratio of OC/EC. The average OC/EC ratio of China IV Vehicles was 10.2, and it decreased to 5.3 in China V gasoline vehicles. This indicated the improvement of emission standards could reduce the percentage of OC in  $\\mathrm{PM}_{2.5}$  emitted from gasoline vehicles. For diesel vehicles, the average OC/EC ratios of China III, IV and V vehicles were 1.5, 3.0, and 4.9, respectively. The OC/EC ratio of diesel vehicles turned to decrease as the emission standard rose up. It could also be seen from Fig. 4 that the OC/EC ratio of gasoline vehicles was generally greater than that of diesel vehicles, which was mainly because diesel was more likely to form unburned soot particles during the combustion process (Shen et al., 2021). There were two main differences between gasoline vehicles and diesel vehicles, fuel composition and engine structure. Gasoline was made of small molecules and was easy to mix evenly with air. After the spark plug discharged ignition, the fuel burned rapidly. The compression ratio of the gasoline engine was relatively low, and a large amount of OC remained in the area where the"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Pie Chart"
+                ]
+              },
+              "key_entities": [
+                "Wuhan",
+                "vehicle ownership",
+                "emission standards",
+                "fuel type"
+              ],
+              "concise_summary": "Fig. 1 showcases vehicle ownership shares categorized by emission standards and fuel types in Wuhan, displaying distinct distributions in pie charts.",
+              "inferred_insight": "The figure illustrates the dominance of certain emission standards and fuel types in Wuhan's vehicle population, highlighting the prevalence of China IV emission standards and gasoline vehicles.",
+              "paper_id": 25
+            },
+            "score": 0.4008779106044928,
+            "source_args": {
+              "query_intent": "区域间污染物传输路径建模"
+            }
+          },
+          "evaluation": {
+            "target_evidence_id": "img_169",
+            "branch_action": "KEEP",
+            "extracted_insight": "图表 1 显示了武汉地区不同排放标准和燃料类型的车辆拥有量，揭示了中国 IV 排放标准和汽油车辆的主导地位。",
+            "scores": {
+              "relevance": 7,
+              "credibility": 6
+            },
+            "reason": "该图与排放标准的研究相关，但主要提供背景信息，没有明确的深挖路径。",
+            "suggested_keywords": [
+              "vehicle ownership",
+              "emission standards",
+              "fuel type",
+              "Wuhan"
+            ]
+          }
+        },
+        {
+          "retrieval_result": {
+            "id": "img_130",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 2.  PM_{2.5}  distribution at city-level in 2014 to 2020. The frequency histograms in (a)-(g) denote the frequency distribution of  PM_{2.5}  in 368 cities across mainland China. The dot lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  5\\mu gm^{-3} ).",
+              "summary": "Frequency histograms depicting PM2.5 distribution in 368 Chinese cities from 2014-2020, with WHO air quality target lines overlaid.",
+              "insight": "Despite improvements, many cities still fail to meet WHO air quality standards, highlighting ongoing PM2.5 pollution challenges in China."
+            },
+            "metadata": {
+              "id": "img_130",
+              "source_md": "How the Air Clean Plan and carbon mitigation measu.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\How the Air Clean Plan and carbon mitigation measu\\figure_2.jpg",
+              "title": "Fig. 2.  PM_{2.5}  distribution at city-level in 2014 to 2020. The frequency histograms in (a)-(g) denote the frequency distribution of  PM_{2.5}  in 368 cities across mainland China. The dot lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  5\\mu gm^{-3} ).",
+              "references": [
+                "In 2014, only  $26.63\\%$  cities in mainland China met the WHO Interim target (IT)-1 standard, which is also the Chinese National Ambient Air Quality Standard level 2 (CNAQS II, annual mean  $\\mathrm{PM}_{2.5}$  of  $35~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) (Fig. 2). By contrast,  $44.83\\%$  cities met the IT-1 standard at the end of APPCAP. However, few cities ( $\\sim 0.05\\%$ ) met the IT-3 standard (also the CNAQS level 1, annual mean  $\\mathrm{PM}_{2.5}$  of  $15~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) in APPCAP. In 2020, the air quality was further improved, with nearly  $3/4$  ( $\\sim 71.82\\%$ ) cities meeting the IT-1 standard and  $4.07\\%$  cities meeting the IT-3 standard. However, few cities met the WHO IT-4 level (annual mean  $\\mathrm{PM}_{2.5}$  of  $10~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) and no city met the updated WHO AQG (annual mean  $\\mathrm{PM}_{2.5}$  of  $5~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) in 2020, suggesting that the threat of  $\\mathrm{PM}_{2.5}$  pollution is still prevalent in China, despite the remarkable achievements have been made through the implementation of ACP.",
+                "Fig. 3. The proportion of people exposed to  $\\mathrm{PM}_{2.5}$  in BTH, PRD, YRD, FWP region and the whole nation at different years (i.e., 2014, 2017, and 2020). The dot vertical lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  $5\\mu \\mathrm{g}\\mathrm{m}^{-3}$ ).",
+                "Tong, D., et al., 2021. Health co-benefits of climate change mitigation depend on strategic power plant retirements and pollution controls. Nat. Clim. Chang. 11, 1077-1083. https://doi.org/10.1038/s41558-021-01216-1.  \nUnited Nations, 2015. Sustainable Development Goals. https://sustainabledevelopment.un.org/.  \nWang, Z., et al., 2021. High-resolution prediction of the spatial distribution of  $\\mathrm{PM}_{2.5}$  concentrations in China using a long short-term memory model. J. Clean Prod. 297 https://doi.org/10.1016/j.jclepro.2021.126493.  \nWang, Z., et al., 2022. Predicting annual  $\\mathrm{PM}_{2.5}$  in mainland China from 2014 to 2020 using multi temporal satellite product: An improved deep learning approach with spatial generalization ability. ISPRS-J. Photogramm. Remote Sens. 187, 141-158. https://doi.org/10.1016/j.isprsjprs.2022.03.002.  \nWorld Health Organization, 2016. Ambient air pollution: a global assessment of exposure and burden of disease. 121 p.  \nWorld Health Organization, 2021. WHO global air quality guidelines. https://apps.who.int/iris/bitstream/handle/10665/345329/9789240034228-eng.pdf? sequence=1&isAllowed=y.  \nXiao, Q., et al., 2021. Separating emission and meteorological contributions to long-term  $\\mathrm{PM}_{2.5}$  trends over eastern China during 2000-2018. Atmos. Chem. Phys. 21, 9475-9496.  \nXing, J., et al., 2020. The quest for improved air quality may push China to continue its  $\\mathrm{CO}_{2}$  reduction beyond the Paris Commitment. Proc. Natl. Acad. Sci. U. S. A. 117, 29535-29542.  \nXu, J., et al., 2021. Double cropping and cropland expansion boost grain production in Brazil. Nature Food. 2, 264-273.  \nXue, T., et al., 2019. Rapid improvement of  $\\mathrm{PM}_{2.5}$  pollution and associated health benefits in China during 2013-2017. Sci. China Earth Sci. 62, 1847-1856.  \nYue, H., et al., 2020. Stronger policy required to substantially reduce deaths from  $\\mathrm{PM}_{2.5}$  pollution in China. Nat. Commun. 11, 1462. https://doi.org/10.1038/s41467-020-15319-4.  \nYusuf, S., et al., 2020. Modifiable risk factors, cardiovascular disease, and mortality in 155 722 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. Lancet 395, 795-808.  \nZhang, Q., et al., 2019a. Drivers of improved  $\\mathrm{PM}_{2.5}$  air quality in China from 2013 to 2017. Proc. Natl. Acad. Sci. U. S. A. 116, 24463-24469.  \nZhang, Y., et al., 2019b. Socioeconomic factors of  $\\mathrm{PM}_{2.5}$  concentrations in 152 Chinese cities: Decomposition analysis using LMDI. J. Clean Prod. 218, 96-107.  \nZhang, X., et al., 2019c. The impact of meteorological changes from 2013 to 2017 on  $\\mathrm{PM}_{2.5}$  mass reduction in key regions in China. Sci. China Earth Sci. 62, 1885-1902.  \nZheng, B., et al., 2018. Trends in China's anthropogenic emissions since 2010 as the consequence of clean air actions. Atmos. Chem. Phys. 18, 14095-14111.  \nZheng, B., et al., 2021. Changes in China's anthropogenic emissions and air quality during the COVID-19 pandemic in 2020. Earth Syst. Sci. Data 13, 2895–2907. https://doi.org/10.5194/essd-13-2895-2021.  \nZhou, M., Liu, H., Peng, L., et al., 2021. Environmental benefits and household costs of clean heating options in northern China. Nat. Sustain. https://doi.org/10.1038/s41893-021-00837-w.  \nZhu, G., et al., 2019. Health burdens of ambient  $\\mathrm{PM}_{2.5}$  pollution across Chinese cities during 2006-2015. J. Environ. Manage. 243, 250-256.  \nZou, B., et al., 2019. Air pollution intervention and life-saving effect in China. Environ. Int. 125, 529-541."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Showcase Prediction Results",
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Histogram"
+                ]
+              },
+              "key_entities": [
+                "PM2.5",
+                "WHO Interim Targets",
+                "Air Quality Guidelines",
+                "Mainland China",
+                "APPCAP"
+              ],
+              "concise_summary": "Frequency histograms depicting PM2.5 distribution in 368 Chinese cities from 2014-2020, with WHO air quality target lines overlaid.",
+              "inferred_insight": "Despite improvements, many cities still fail to meet WHO air quality standards, highlighting ongoing PM2.5 pollution challenges in China.",
+              "paper_id": 20
+            },
+            "score": 0.4004593395907333,
+            "source_args": {
+              "query_intent": "区域间污染物传输路径建模"
+            }
+          },
+          "evaluation": null
+        }
+      ]
+    },
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_metadata_search",
+        "ParentNode": "176",
+        "args": {
+          "paper_id": "26"
+        },
+        "reason": "该节点中的图表提到中国长期政策对空气污染的影响，继续深挖这篇论文以了解具体政策实施的结果细节及其适用性。"
+      },
+      "rag_results": [
+        {
+          "retrieval_result": {
+            "id": "img_175",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig. 1. Trends in GDP, energy consumption, and population, as well as emissions of  SO_2 ,  NO_x , primary  PM_{2.5} , non-methane volatile organic compounds (NMVOCs), and  CO_2  between 1990 and 2017, with values for 1990 taken as 1. GDP, energy consumption, and population data were obtained from the National Bureau of Statistics of China. Emission data of air pollutants ( SO_2 ,  NO_x ,  PM_{2.5} , and NMVOCs) for 2010-2017 was obtained from Tsinghua University's multi-resolution emission inventory for China (MEIC) [5].  CO_2  emission data was obtained from the International Energy Agency (IEA) [6].",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_175",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_1.jpg",
+              "title": "Fig. 1. Trends in GDP, energy consumption, and population, as well as emissions of  SO_2 ,  NO_x , primary  PM_{2.5} , non-methane volatile organic compounds (NMVOCs), and  CO_2  between 1990 and 2017, with values for 1990 taken as 1. GDP, energy consumption, and population data were obtained from the National Bureau of Statistics of China. Emission data of air pollutants ( SO_2 ,  NO_x ,  PM_{2.5} , and NMVOCs) for 2010-2017 was obtained from Tsinghua University's multi-resolution emission inventory for China (MEIC) [5].  CO_2  emission data was obtained from the International Energy Agency (IEA) [6].",
+              "references": [
+                "(Fig. 1 [5,6]). In 2017, approximately  $70\\%$  of all 338 municipal cities in China still did not meet the National Ambient Air Quality Standard (NAAQS) [7], with non-attainment of  $\\mathrm{PM}_{2.5}$  as the most prominent air pollution problem. China faces the dual pressures of the improvement of national air quality and the mitigation of climate change.",
+                "On the other hand, regulations on  $\\mathrm{NO}_x$  emissions in China have lagged in comparison with actions on  $\\mathrm{SO}_2$ . The sources for  $\\mathrm{NO}_x$  are distributed across multiple sectors involving high-temperature combustions, resulting in increased difficulty and higher costs for  $\\mathrm{NO}_x$  emission mitigation. In addition to coal combustion processes, including thermal power and industrial plants, on-road vehicles and other fossil fuel combustion processes are important sources of  $\\mathrm{NO}_x$  emissions. Total  $\\mathrm{NO}_x$  emissions increased threefold during 1990-2010 (Fig. 1), as indicated by both bottom-up estimation and satellite observations [24]. Many large cities have experienced rapid motorization since 2000, resulting in their urban nitrogen dioxide  $(\\mathrm{NO}_2)$  concentrations exceeding NAAQS. Increasing trends in the ratios of nitrate  $(\\mathrm{NO}_3^-)$  to sulfate  $(\\mathrm{SO}_4^{2-})$  in both ambient  $\\mathrm{PM}_{2.5}$  mass [25] and precipitation [10] have been observed in many regions of China. However, national mandates on controlling  $\\mathrm{NO}_x$  emissions were not established until the 12th FYP (2011-2015)."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "GDP",
+                "energy consumption",
+                "population",
+                "emissions",
+                "SO_2",
+                "NO_x",
+                "PM_{2.5}",
+                "NMVOCs",
+                "CO_2",
+                "National Bureau of Statistics of China",
+                "Tsinghua University's multi-resolution emission inventory for China",
+                "International Energy Agency",
+                "National Ambient Air Quality Standard",
+                "nitrate",
+                "sulfate",
+                "12th FYP"
+              ],
+              "concise_summary": "The figure illustrates trends in GDP, energy consumption, population, and air pollutant emissions in China from 1990 to 2017, highlighting changes relative to 1990 levels.",
+              "inferred_insight": "The figure highlights the increase in economic activity, energy consumption, and emissions, underscoring the challenge of balancing economic growth and environmental protection.",
+              "paper_id": 26
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "26",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_176",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig. 2. Trends in national average precipitation pH and total  SO_2  emissions between 1995 and 2017. Precipitation pH data were obtained from 74 sites with continuous observations in the Acid Rain Monitoring Networks [10]; the blue belt indicates the interval within one standard deviation of the mean. Emission data for  SO_2  were derived from the MEIC model.",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_176",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_2.jpg",
+              "title": "Fig. 2. Trends in national average precipitation pH and total  SO_2  emissions between 1995 and 2017. Precipitation pH data were obtained from 74 sites with continuous observations in the Acid Rain Monitoring Networks [10]; the blue belt indicates the interval within one standard deviation of the mean. Emission data for  SO_2  were derived from the MEIC model.",
+              "references": [
+                "A significant negative correlation (Pearson's  $r = -0.90$ ) can be seen between the national average precipitation acidity (i.e., average pH values) and total  $\\mathrm{SO}_2$  emissions over the past 20 years (Fig. 2 [10]). The trough of average precipitation pH values and the peak of total  $\\mathrm{SO}_2$  emissions both took place in 2006, when about one third of China's total territory area was at risk of acid rain. In terms of bulk sulfur and nitrogen deposition, the severity of the acid rain in China in 2006, when acid rain was at its peak, was estimated in the same range (if not higher) as that in central Europe in the 1980s [8].",
+                "Although installation of FGD systems was required by the 2000 amendment of the Air Pollution Law, the implementation was not well enforced [20]. Consequently, the total  $\\mathrm{SO}_2$  emissions increased by nearly  $50\\%$  during 2002-2006, driven by a surge in coal consumption (Fig. 2), which worsened acid rain pollution nationwide [10]. This situation was improved during the 11th Five-Year Plan (FYP) (2006-2010), which set a concrete target to mitigate total  $\\mathrm{SO}_2$  emissions by  $10\\%$ . The 11th FYP was considered a milestone during which the air pollution control target became mandatory for provincial and municipal governments for the first time, enforced by the fact that local leaders could receive a sanction in cadre evaluation if they failed [21].",
+                "Fig. 4 summarizes the major action plans for  $\\mathrm{PM}_{2.5}$  control implemented by the Chinese government since 2013. The policy framework shows a clear trend of gradually involving more categories of  $\\mathrm{PM}_{2.5}$  precursors and emission sectors, since traditional control actions for a single pollutant or a single sector were insufficient to deliver substantial reductions in  $\\mathrm{PM}_{2.5}$  concentrations as required by the Action Plan. One notable case is that the estimated  $\\mathrm{SO}_2$  emissions and sulfate concentrations inversed from satellite observations both rebounded slightly during 2010-2011 due to a rapid increase in industrial activities and less stringent controls on the iron and steel industries (Fig. 2), which surpassed the reduction benefits of  $\\mathrm{SO}_2$  controls on power plants [31]. As a result, a series of stringent control measures have been implemented in the industrial polluting sector, including strengthening industrial emissions standards, phasing out small-scale high-polluting factories, phasing out outdated industrial capacities, and upgrading industrial boilers [32]. Compared with the control measures for"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "precipitation pH",
+                "SO2 emissions",
+                "Acid Rain Monitoring Networks",
+                "MEIC model",
+                "11th Five-Year Plan"
+              ],
+              "concise_summary": "The figure illustrates trends in national average precipitation pH and total SO2 emissions in China from 1995 to 2017, showing a correlation between pH values and emissions.",
+              "inferred_insight": "There is a strong negative correlation between SO2 emissions and precipitation pH, with significant policy impact noted during the 11th Five-Year Plan, highlighting past and ongoing efforts to control pollution.",
+              "paper_id": 26
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "26",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_177",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig. 3. Key milestones and policy evolution of air pollution control in China, including control actions on the emissions of  SO_2  and  NO_x  and on ambient concentrations of  PM_{2.5} . FYP: Five-Year Plan.",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_177",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_3.jpg",
+              "title": "Fig. 3. Key milestones and policy evolution of air pollution control in China, including control actions on the emissions of  SO_2  and  NO_x  and on ambient concentrations of  PM_{2.5} . FYP: Five-Year Plan.",
+              "references": [
+                "$\\mathrm{PM}_{2.5}$  pollution (Fig. 3). Control actions on acid rain were primarily focused on  $\\mathrm{SO}_2$  emissions from coal combustion in the 1990s. However, the increasing trend of  $\\mathrm{SO}_2$  emissions was not reversed until 2007, when diversified technological and policy instruments were widely utilized. Such progress could not have been achieved without innovative improvement in political accountability, verification of  $\\mathrm{SO}_2$  emissions, and financial incentives for power plants to install and operate flue gas desulfurization (FGD).  $\\mathrm{NO}_x$  has more sources than  $\\mathrm{SO}_2$ , including coal burning, mobile sources, and other fossil fuel combustion sectors. Therefore, control actions on  $\\mathrm{NO}_x$  emissions must be more extensive and complex, which requires cooperation among multiple sectors. Controlling  $\\mathrm{PM}_{2.5}$  concentrations not only requires consistently mitigating multiple precursors from numerous sectors, but also demands consideration of complex influences from both meteorological and atmospheric chemistry conditions. Indeed, comprehensive control actions with multi-party coordination on provincial and even national levels have been implemented in China to minimize the adverse ecological and social impacts of  $\\mathrm{PM}_{2.5}$  pollution. Since 2013, combating  $\\mathrm{PM}_{2.5}$  pollution has marked a strategic transfer from emission control toward air quality management in China, which is oriented toward benefiting the public health and social welfare. The fundamental improvement of  $\\mathrm{PM}_{2.5}$  concentrations has become a key indicator of the success of ecological civilization construction in China.",
+                "Aug 1 [cited 2020 Jun 8]. Available from: http://english.mee.gov.cn/Resources/Reports/soe/SOEE2017/201808/P020180801597738742758.pdf.  \n[8] Larssen T, Lydersen E, Tang D, He Y, Gao J, Liu H, et al. Acid rain in China. Environ Sci Technol 2006;40(2):418-25.  \n[9] Griggs D, Stafford-Smith M, Gaffney O, Rockström J, Ohman MC, Shyamsundar P, et al. Sustainable development goals for people and planet. Nature 2013;495 (7441):305-7.  \n[10] China Meteorological Administration. Annual report of acid rain monitoring in China. Beijing: China Meteorological Administration; 2014. Chinese.  \n[11] Schwartz J, Dockery DW, Neas LM. Is daily mortality associated specifically with fine particles? J Air Waste Manage 1996;46(10):927-39.  \n[12] Identification of nonattainment classification and deadlines for submission of state implementation plan (SIP) provisions for the 1997 & 2006 fine particle National Ambient Air Quality Standards (NAAQS)—fact sheet [Internet]. Washington, DC: United States Environmental Protection Agency; [updated 2020 May 22; cited 2020 Jun 8]. Available from: https://www.epa.gov/sites/production/files/2016-04/documents/20140428_factsheet_nonattainment.pdf.  \n[13] He K, Yang F, Ma Y, Zhang Q, Yao X, Chan CK, et al. The characteristics of  $\\mathrm{PM}_{2.5}$  in Beijing, China. Atmos Environ 2001;35(29):4959-70.  \n[14] Andersson A, Deng J, Du K, Zhang M, Yan C, Sköld M, et al. Regionally-varying combustion sources of the January 2013 severe haze events over eastern China. Environ Sci Technol 2015;49(4):2038-43.  \n[15] Ma Z, Hu X, Sayer AM, Levy R, Zhang Q, Xue Y, et al. Satellite-based spatiotemporal trends in  $\\mathrm{PM}_{2.5}$  concentrations: China, 2004-2013. Environ Health Persp 2015;124(2):184-92.  \n[16] Cohen AJ, Brauer M, Burnett R, Anderson HR, Frostad J, Estep K, et al. Estimates and 25-year trends of the global burden of disease attributable to ambient air pollution: an analysis of data from the Global Burden of Diseases Study 2015. Lancet 2017;389(10082):1907-18.  \n[17] World Bank Group. The cost of air pollution. Washington, DC: World Bank Group; 2016.  \n[18] Standing Committee of the National People's Congress. Law of the People's Republic of China on the Prevention and Control of Atmospheric Pollution. (Sep 5, 1987). Chinese.  \n[19] Hao J, Wang S, Liu B, He K. Designation of acid rain and  $\\mathrm{SO}_2$  control zones and control policies in China. J Environ Sci Health A 2000;35(10):1901-14.  \n[20] Schreifels JJ, Fu Y, Wilson EJ. Sulfur dioxide control in China: policy evolution during the 10th and 11th Five-Year Plans and lessons for the future. Energy Policy 2012;48:779-89.  \n[21] Jin Y, Andersson H, Zhang S. Air pollution control policies in China: a retrospective and prospects. Int J Environ Res Pub Health 2016;13(12):1219.  \n[22] Ministry of Ecology and Environment of the People's Republic of China. China environmental statistical bulletin 2010. Beijing: Ministry of Ecology and Environment of the People's Republic of China; 2012. Chinese.  \n[23] Wang S, Zhang Q, Martin RV, Philip S, Liu F, Li M, et al. Satellite measurements oversee China's sulfur dioxide emission reductions from coal-fired power plants. Environ Res Lett 2015;10(11):114015.  \n[24] De Foy B, Lu Z, Streets DG. Satellite  $\\mathrm{NO}_2$  retrievals suggest China has exceeded its  $\\mathrm{NO}_x$  reduction goals from the twelfth Five-Year Plan. Sci Rep 2016;6:35912.  \n[25] Yang F, Tan J, Zhao Q, Du Z, He K, Ma Y, et al. Characteristics of  $\\mathrm{PM}_{2.5}$  speciation in representative megacities and across China. Atmos Chem Phys 2011;11 (11):5207-19.  \n[26] Zhao B, Wang SX, Liu H, Xu JY, Fu K, Klimont Z, et al.  $\\mathrm{NO}_x$  emissions in China: historical trends and future perspectives. Atmos Chem Phys 2013;13 (19):9869-97.  \n[27] Liu X, Gao X, Wu X, Yu W, Chen L, Ni R, et al. Updated hourly emissions factors for Chinese power plants showing the impact of widespread ultralow emissions technology deployment. Environ Sci Technol 2019;53(5):2570-8.  \n[28] Ministry of Ecology and Environment of the People's Republic of China. China environmental statistic bulletin 2015. Beijing: Ministry of Ecology and Environment of the People's Republic of China; 2016. Chinese.  \n[29] Liu F, Zhang Q, Zheng B, Tong D, Yan L, Zheng Y, et al. Recent reduction in  $\\mathrm{NO}_x$  emissions over China: synthesis of satellite observations and emission inventories. Environ Res Lett 2016;11(11):114002.  \n[30] Ding D, Xing J, Wang S, Liu K, Hao J. Estimated contributions of emissions controls, meteorological factors, population growth, and changes in baseline mortality to reductions in ambient  $\\mathrm{PM}_{2.5}$  and  $\\mathrm{PM}_{2.5}$ -related mortality in China, 2013-2017. Environ Health Perspect 2019;127(6):067009.  \n[31] Geng G, Zhang Q, Tong D, Li M, Zheng Y, Wang S, et al. Chemical composition of ambient  $\\mathrm{PM}_{2.5}$  over China and relationship to precursor emissions during 2005-2012. Atmos Chem Phys 2017;17(14):9187-203.  \n[32] Zhang Q, Zheng Y, Tong D, Shao M, Wang S, Zhang Y, et al. Drivers of improved  $\\mathrm{PM}_{2.5}$  air quality in China from 2013 to 2017. Proc Natl Acad Sci USA 2019;116 (49):24463-9.  \n[33] Wang J, Zhao B, Wang S, Yang F, Xing J, Morawska L, et al. Particulate matter pollution over China and the effects of control policies. Sci Total Environ 2017;584-585:426-47.  \n[34] Zhao B, Wu W, Wang S, Xing J, Chang X, Liou KN, et al. A modeling study of the nonlinear response of fine particles to air pollutant emissions in the Beijing-Tianjin-Hebei region. Atmos Chem Phys 2017;17(19):12031-50.  \n[35] Wang S, Zhao B, Wu Y, Hao J. Target and measures to prevent and control ambient fine particle pollution in China. China Environ Manage 2015;2:37-43. Chinese.  \n[36] Wang S, Xing J, Jang C, Zhu Y, Fu JS, Hao J. Impact assessment of ammonia emissions on inorganic aerosols in East China using response surface modeling technique. Environ Sci Technol 2011;45(21):9293-300."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Showcase Prediction Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Flowchart"
+                ]
+              },
+              "key_entities": [
+                "SO2",
+                "NOx",
+                "PM2.5",
+                "Five-Year Plan",
+                "acid rain",
+                "haze pollution"
+              ],
+              "concise_summary": "The figure depicts the timeline and milestones in China's air pollution control policies, focusing on SO2, NOx emissions, and PM2.5 concentrations, highlighting significant control actions and achievements.",
+              "inferred_insight": "The figure illustrates China's strategic evolution in pollution control, emphasizing comprehensive policies and multi-sector collaboration from emission control to broader air quality management, marking significant progress over the decades.",
+              "paper_id": 26
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "26",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_178",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig. 4. Summary of the major control regulations in China since 2013. PP: power plants; IN: industry; TR: transport; DO: domestic sector; AR: agriculture.",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_178",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_4.jpg",
+              "title": "Fig. 4. Summary of the major control regulations in China since 2013. PP: power plants; IN: industry; TR: transport; DO: domestic sector; AR: agriculture.",
+              "references": [
+                "Fig. 4 summarizes the major action plans for  $\\mathrm{PM}_{2.5}$  control implemented by the Chinese government since 2013. The policy framework shows a clear trend of gradually involving more categories of  $\\mathrm{PM}_{2.5}$  precursors and emission sectors, since traditional control actions for a single pollutant or a single sector were insufficient to deliver substantial reductions in  $\\mathrm{PM}_{2.5}$  concentrations as required by the Action Plan. One notable case is that the estimated  $\\mathrm{SO}_2$  emissions and sulfate concentrations inversed from satellite observations both rebounded slightly during 2010-2011 due to a rapid increase in industrial activities and less stringent controls on the iron and steel industries (Fig. 2), which surpassed the reduction benefits of  $\\mathrm{SO}_2$  controls on power plants [31]. As a result, a series of stringent control measures have been implemented in the industrial polluting sector, including strengthening industrial emissions standards, phasing out small-scale high-polluting factories, phasing out outdated industrial capacities, and upgrading industrial boilers [32]. Compared with the control measures for",
+                "As Fig. 4 indicates, control actions have been implemented nationwide, with additional efforts in several key regions. Improving air quality and mitigating  $\\mathrm{PM}_{2.5}$  pollution in core megacities (e.g., Beijing and Shanghai) have been attained due to increased attention from the central government and the public. Beijing provides a success story in tackling  $\\mathrm{PM}_{2.5}$  pollution after two-decade-long efforts. In fact, the implementation of comprehensive air pollution controls in Beijing was initiated as early as the 1990s. During the 2008 Olympic Games, extensive control measures were implemented in Beijing and surrounding provinces to guarantee good air quality [41]. Ambient concentrations of CO,  $\\mathrm{SO}_2$ ,  $\\mathrm{PM}_{10}$ , and  $\\mathrm{NO}_2$  continuously decreased, even as the municipal GDP, resident population, vehicle stock, and energy consumption increased significantly from 1998 to 2013. Owing to the success of air pollution controls for the 2008 Olympic Games, the local leaders recognized that ambient  $\\mathrm{PM}_{2.5}$  concentrations resulted from a combination of emissions, meteorological conditions, and"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Tabular & Textual",
+                "sub_types": [
+                  "Table"
+                ]
+              },
+              "key_entities": [
+                "Air Pollution Prevention and Control Action Plan",
+                "Industrial Green Development Plan",
+                "Coal-Fired Power Plants",
+                "Beijing-Tianjin-Hebei",
+                "Three-Year Action Plan",
+                "PM2.5",
+                "SO2"
+              ],
+              "concise_summary": "The table summarizes China's major control regulations for PM2.5 mitigation from 2013 to 2020, highlighting different action plans and targeted emission sectors.",
+              "inferred_insight": "The figure illustrates the shift in China's policy framework, gradually encompassing more emission sectors and precursors to achieve substantial PM2.5 reductions nationwide, emphasizing extensive measures in key regions.",
+              "paper_id": 26
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "26",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_179",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig. 5. Trend of annual average  PM_{2.5}  concentrations for the top 20 most populated cities in China from 2013 to 2018. Observed  PM_{2.5}  concentrations were obtained from the China National Environmental Monitoring Center.",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_179",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_5.jpg",
+              "title": "Fig. 5. Trend of annual average  PM_{2.5}  concentrations for the top 20 most populated cities in China from 2013 to 2018. Observed  PM_{2.5}  concentrations were obtained from the China National Environmental Monitoring Center.",
+              "references": [
+                "Guided by the Action Plan, many other cities in China are following Beijing to reduce ambient  $\\mathrm{PM}_{2.5}$  concentrations (Fig. 5). The strategic promotion of ecological civilization has spurred stronger willingness, clearer targets, more supportive legislation and incentives, and more stringent implementation of control actions from central to local governments. All these factors work together with public engagement to achieve progress in controlling  $\\mathrm{PM}_{2.5}$  pollution and improving public health and welfare. During the Action Plan 2013-2017,  $\\mathrm{PM}_{2.5}$  concentrations deceased by  $23\\%$  on average for all the municipal cities in China [46] (Fig. 5). Reductions for the three key regions were even more significant:  $40\\%$  for BTH,  $34\\%$  for YRD, and  $28\\%$  for PRD. The average  $\\mathrm{PM}_{2.5}$  concentration in the PRD region was  $34~\\mu \\mathrm{g}\\cdot \\mathrm{m}^{-3}$ , which adhered to NAAQS for  $\\mathrm{PM}_{2.5}$ . This progress has motivated some local governments to actively target more stringent limits on  $\\mathrm{PM}_{2.5}$",
+                "(b)  \nFig. 6. (a) Trends in observed annual  $\\mathrm{PM}_{2.5}$  concentrations for BTH and 74 key cities between 2013 and 2017; (b) trends expressed as 90th percentiles in maximum daily average  $8\\mathrm{hO}_3$  concentration. Shaded areas represent the 25th-75th percentile range. Data are available in Table S1 in Appendix A. Details on monthly  $\\mathrm{PM}_{2.5}$  concentration for 74 key cities are summarized in Tables S2-S6.  $\\mathrm{PM}_{2.5}$  and  $\\mathrm{O}_3$  concentrations in the BTH region and 74 cities were obtained from the China National Environmental Monitoring Center."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Heatmap"
+                ]
+              },
+              "key_entities": [
+                "PM2.5 concentrations",
+                "China National Environmental Monitoring Center",
+                "Beijing",
+                "ecological civilization",
+                "Action Plan"
+              ],
+              "concise_summary": "Heatmap showing annual average PM2.5 concentrations for the top 20 most populated cities in China from 2013 to 2018, highlighting trends in air quality improvements.",
+              "inferred_insight": "The figure illustrates significant improvements in PM2.5 concentrations due to strategic ecological campaigns and government interventions in China's major cities.",
+              "paper_id": 26
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "26",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_180",
+            "source_tool": "Right_Path(LocalFilter)",
+            "content": {
+              "title": "Fig. 6. (a) Trends in observed annual  PM_{2.5}  concentrations for BTH and 74 key cities between 2013 and 2017; (b) trends expressed as 90th percentiles in maximum daily average  8hO_3  concentration. Shaded areas represent the 25th-75th percentile range. Data are available in Table S1 in Appendix A. Details on monthly  PM_{2.5}  concentration for 74 key cities are summarized in Tables S2-S6.  PM_{2.5}  and  O_3  concentrations in the BTH region and 74 cities were obtained from the China National Environmental Monitoring Center.",
+              "summary": "",
+              "insight": ""
+            },
+            "metadata": {
+              "id": "img_180",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_6.jpg",
+              "title": "Fig. 6. (a) Trends in observed annual  PM_{2.5}  concentrations for BTH and 74 key cities between 2013 and 2017; (b) trends expressed as 90th percentiles in maximum daily average  8hO_3  concentration. Shaded areas represent the 25th-75th percentile range. Data are available in Table S1 in Appendix A. Details on monthly  PM_{2.5}  concentration for 74 key cities are summarized in Tables S2-S6.  PM_{2.5}  and  O_3  concentrations in the BTH region and 74 cities were obtained from the China National Environmental Monitoring Center.",
+              "references": [
+                "Despite the substantial progress that has been made in addressing acid rain and  $\\mathrm{PM}_{2.5}$  issues (Fig. 6(a)), an unwanted increase in ground-level  $\\mathrm{O}_3$  pollution is still found in many regions across China, posing the more complex challenge of simultaneous continuous mitigation of  $\\mathrm{PM}_{2.5}$  pollution with an emerging  $\\mathrm{O}_3$  issue. As  $\\mathrm{O}_3$  pollution has been steadily increasing in most parts of eastern China [47-50],  $\\mathrm{O}_3$  issues have recently gained more attention among both the public and academia in China. As illustrated in Fig. 6(b), the average 90th percentiles in daily maximum  $8\\mathrm{h}$ $\\mathrm{O}_3$  concentrations increased by  $20.1\\%$  and  $24.5\\%$  in 74 key cities and BTH, respectively, from 2013 to 2017. Furthermore, densely populated regions of eastern China were exposed to high  $\\mathrm{O}_3$  pollution, increasing the impacts of  $\\mathrm{O}_3$  on human health. The results of the GBD project [51] estimated that respiratory mortality attributable to long-term  $\\mathrm{O}_3$  exposure in adults is between 274000 and 316000 in China, equal to approximately  $25\\% -29\\%$  of the deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure [16]. It is necessary to integrate  $\\mathrm{O}_3$  and  $\\mathrm{PM}_{2.5}$  controls to ensure a pollution-free and healthy living environment in the development of ecological civilization in China.",
+                "The biggest challenge of  $\\mathrm{O_3}$  pollution control is rooted in the complexity of atmospheric photochemistry formation, which depends on  $\\mathrm{O_3 - NO_x - VOC}$  sensitivity diagnosis and meteorological conditions [52,53]. A control strategy designed to reduce emissions of  $\\mathrm{NO}_x$  or VOCs for  $\\mathrm{PM}_{2.5}$  control may result in an unexpected disadvantage for  $\\mathrm{O_3}$  reduction. Strong VOC-limiting systems are found in most urban areas of China [54,55], and  $\\mathrm{O_3}$  in urban areas can be enhanced if few or no VOCs are controlled simultaneously with  $\\mathrm{NO}_x$  [56]. For example, during the Action Plan from 2013 to 2017, anthropogenic emissions of  $\\mathrm{NO}_x$  were reduced by  $21\\%$  but VOCs increased by  $2\\%$  nationwide [57]. Such combinational changes in  $\\mathrm{NO}_x$ -VOC emissions might be beneficial for reducing  $\\mathrm{PM}_{2.5}$  but not for  $\\mathrm{O_3}$ , as shown by the decreased  $\\mathrm{PM}_{2.5}$  concentrations and increased  $\\mathrm{O_3}$  concentrations during the same period (Fig. 6). It is notable that the increase in  $\\mathrm{O_3}$  concentration during the Action Plan period is also attributable to variation in meteorological conditions—specifically, changing temperature and short-wave radiation. Therefore, full consideration of meteorology and optimal mitigation of precursor emissions are critical in designing an effective  $\\mathrm{O_3}$  control strategy."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "PM2.5",
+                "O3",
+                "BTH region",
+                "China National Environmental Monitoring Center",
+                "90th percentiles"
+              ],
+              "concise_summary": "The figure shows trends in PM2.5 and O3 concentrations between 2013 and 2017 in BTH and 74 key cities, highlighting a decrease in PM2.5 and an increase in O3 levels.",
+              "inferred_insight": "Despite reductions in PM2.5, O3 pollution increased, posing challenges in simultaneous mitigation and highlighting the need for integrated pollution control strategies in China.",
+              "paper_id": 26
+            },
+            "score": 1.0,
+            "source_args": {
+              "keywords": null,
+              "paper_id": "26",
+              "figure_type": null
+            }
+          },
+          "evaluation": null
+        }
+      ]
+    },
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_multimodal_search",
+        "ParentNode": "149",
+        "args": {
+          "query_image_path": "allimages/Performance assessment of abatement measures on ozone and their effects on a regional scale/figure_3.jpg"
+        },
+        "reason": "图表中20小时倒流轨迹图展示了空气中不同成分的浓度相互影响。多模态检索可帮助识别更多类似视觉信息，帮助我们深入理解区域空气质量的动态变化。"
+      },
+      "rag_results": []
+    },
+    {
+      "orchestrator_plan": {
+        "action": "call_tool",
+        "tool_name": "strategy_semantic_search",
+        "ParentNode": "0",
+        "args": {
+          "query_intent": "新型空气质量监测与分析技术"
+        },
+        "reason": "当前获得的文献较多涉及已有的空气质量问题分析，探寻新技术和方法来进一步拓宽研究范围可能带来重要的科学突破。"
+      },
+      "rag_results": [
+        {
+          "retrieval_result": {
+            "id": "img_135",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 7. Major air pollution control goals, policies and specific control measures in China from the end of 2013 to 2020.",
+              "summary": "The figure outlines China's major air pollution control goals, policies, and measures from 2013 to 2020, focusing on process reduction, structure reduction, and source reduction.",
+              "insight": "The measures effectively decreased PM2.5 concentrations and associated premature deaths but highlighted the need for targeted strategies and mitigation measures for sustained benefits."
+            },
+            "metadata": {
+              "id": "img_135",
+              "source_md": "How the Air Clean Plan and carbon mitigation measu.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\How the Air Clean Plan and carbon mitigation measu\\figure_7.jpg",
+              "title": "Fig. 7. Major air pollution control goals, policies and specific control measures in China from the end of 2013 to 2020.",
+              "references": [
+                "The control goals, policies, and specific measures in China during ACP are characterized in Fig. 7. Specifically, for the source control, a series of stringent industry emission standards were enacted to limit energy and industrial emissions (e.g., thermal power, iron and steel, and cement) for controlling energy consumption. Regarding the process control, clean production (e.g., using end-of-pipe devices in coal-fired power plants) was the major measure. In addition, implementation of ultra-low emission transformation of steel and other industries was advocated in APWBSD. The  $\\mathrm{PM}_{2.5}$  emissions per coal and energy",
+                "China implemented a stringent Air Clean Plan (ACP) since 2013 to address environmental and health risks caused by ambient fine particulate matter  $\\mathrm{PM}_{2.5}$ . However, the policy effectiveness of ACP and co-benefits of carbon mitigation measures to environment and health are still largely unknown. Using satellite-based  $\\mathrm{PM}_{2.5}$  products produced in our previous study, concentration-response functions, and the logarithmic mean Divisia index (LMDI) method, we analyzed the spatiotemporal dynamics of premature deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure, and quantitatively estimated the policy benefits of ACP and carbon mitigation measures. We found the annual  $\\mathrm{PM}_{2.5}$  concentrations in China decreased by  $33.65\\%$ $(13.41\\mu \\mathrm{g}\\mathrm{m}^{-3})$  from 2014 to 2020, accompanied by a decrease in  $\\mathrm{PM}_{2.5}$ -attributable premature deaths of 0.23 million  $(95\\%$  confidence interval (CI): 0.22-0.27), indicating the huge benefits of China ACP for human health and environment. However, there were still 1.12 million  $(95\\%$  CI: 0.79-1.56) premature deaths caused by the exposure of  $\\mathrm{PM}_{2.5}$  in mainland China in 2020. Among all ACP measures, clean production (contributed  $55.98\\%$  and  $51.14\\%$  to decrease in  $\\mathrm{PM}_{2.5}$  and premature deaths attributable to  $\\mathrm{PM}_{2.5}$ ) and energy consumption control (contributed  $32.58\\%$  and  $29.54\\%$  to decrease in  $\\mathrm{PM}_{2.5}$  and premature deaths attributable to  $\\mathrm{PM}_{2.5}$ ) made the largest contribution during the past seven years. Nevertheless, the environmental and health benefits of ACP are not fully synergistic in different regions, and the effectiveness of ACP measures reduced from 2018 to 2020. The co-effects of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  has become one of the major drivers for  $\\mathrm{PM}_{2.5}$  and premature deaths reduction since 2018, confirming the clear environment and health co-benefits of carbon mitigation measures. Our study suggests, with the saturation of clean production and source control, more targeted region-specific strategies and synergistic air pollution-carbon mitigation measures are critical to achieving the WHO's Air Quality Guideline target and the UN's Sustainable Development Goal Target in China.",
+                "Therefore, the Chinese government launched the strict Air Clean Plan (ACP) in 2013, aiming to address the above problem of severe air pollution. The ACP was divided into two phases: a five-year Air Pollution Prevention and Control Action Plan (APPCAP, 2013-2017) as well as a three-year Action Plan to Win Blue-Sky Defense (APWBSD, 2018-2020) (The State Council of China, 2013; 2018). The APPCAP was targeted to decrease  $\\mathrm{PM}_{2.5}$  concentrations by over  $25\\%$ ,  $20\\%$ , and  $15\\%$  by 2017 in the Beijing-Tianjin-Hebei (BTH), Yangtze River Delta (YRD) and Pearl River Delta (PRD) regions, respectively (Fig. S1 and Table S1). The APWBSD, launched in 2018, set more comprehensive air quality requirements, such as the requirement that  $\\mathrm{PM}_{2.5}$  concentrations needed to be reduced by over  $18\\%$  compared to 2015 in all cities at prefecture-level where the standard was not met. In this context, a series of effective air pollution control measures were proposed on energy consumption control, clean production and energy structure adjustment (Zhang et al., 2019a; Zheng et al., 2018). However, greater effort remains necessary and urgent to reduce the  $\\mathrm{PM}_{2.5}$  concentrations to the WHO level and the standard of \"Beautiful China\" vision (annual mean  $\\mathrm{PM}_{2.5}$  concentrations  $\\leq 35~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$  in all cities by 2035).",
+                "Although some pioneering research has explored improvements in air quality and health impacts due to the ACP (Yue et al., 2020; Geng et al., 2021; Zhang et al., 2019a; Liu et al., 2021; Feng et al., 2017; Li et al., 2019; Zhu et al., 2019), these studies suffered from several limitations. First, current estimates of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths are limited in both spatial resolution and temporal scale. For example, Zhang et al. (2019a) estimated the change in  $\\mathrm{PM}_{2.5}$ -attributable premature deaths in China from 2013 to 2017, but their analysis was limited to the national level. Yue et al. (2020) estimated pixel level premature deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure. However, the relative coarse spatial resolution (10 km) made it difficult to discern detailed information clearly such as hot spots of severe regions. Second, few previous studies focused on the environment and health benefits of specific measures for  $\\mathrm{PM}_{2.5}$  pollution control in the ACP in China (Cai et al., 2017; Huang et al., 2018; Ma et al., 2019; Ding et al., 2019). Zheng et al. (2018) estimated the effectiveness of ACP by measuring the related induced decrease of emitted pollutants (e.g.,  $\\mathrm{SO}_2$ ,  $\\mathrm{NO_x}$  and  $\\mathrm{NH_3}$ ). Geng et al. (2021) considered the effectiveness of end-of-pipe treatment in ACP, while ignoring the effect of other specific measures in ACP. Finally, carbon mitigation and  $\\mathrm{PM}_{2.5}$  control have significant synergies (Li et al., 2019; Cheng et al., 2021; Xing et al., 2020; Tong et al., 2021). However, currently only a few studies considered or quantified the co-benefits of  $\\mathrm{CO}_{2}$  mitigation and reducing  $\\mathrm{PM}_{2.5}$  so far. Some other studies projected",
+                "Fig. 3 shows the population exposed to ambient  $\\mathrm{PM}_{2.5}$  in pollution control priority regions and in the whole nation in specific years at the beginning and end of the two phases of ACP (2014, 2017, and 2020). In 2014, over  $80\\%$  of Chinese people lived in areas with  $\\mathrm{PM}_{2.5}$  over  $35\\mu \\mathrm{g}$ $\\mathrm{m}^{-3}$  (WHO IT-1). In 2020, the corresponding proportion decreased to  $40\\%$ . BTH had the most severe  $\\mathrm{PM}_{2.5}$  exposure, even with the most prominent air quality improvement amongst four priority regions. In 2014, almost all populations in BTH lived in areas where  $\\mathrm{PM}_{2.5}$  concentrations exceeded the WHO IT-1 threshold and this population proportion decreased to  $90\\%$  in 2020. The FWP was not considered as a priority region for air pollution control in APPCAP, and pollution status was more serious during APPCAP as a result of crude industrial production and its gully terrain that was not conducive to the diffusion of pollutants. By contrast, the effect of ACP measures was profound in FWP region under APWBSD with a  $10\\%$  reduction in the population exposed to  $\\mathrm{PM}_{2.5} > 35\\mu \\mathrm{g}\\mathrm{m}^{-3}$  in 2020 compared to 2017. The exposed population in PRD is relatively low compared to other priority regions, with  $24\\%$  meeting the WHO IT-1 in 2014 and  $100\\%$  meeting the WHO IT-1 in 2020, which also achieved the \"Beautiful China\" vision. However, almost all populations ( $\\sim 98\\%$  in the whole nation) still lived under the  $\\mathrm{PM}_{2.5}$  concentrations exceeding the WHO IT-3 in 2020, not to mention the WHO AQG standard.",
+                "We provide a comprehensive estimation of the  $\\mathrm{PM}_{2.5}$  concentrations and the number of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths, as well as spatiotemporal changes in these, and a quantitative assessment of the effectiveness of ACP methods in mainland China during 2014 to 2020. The two key contributions are: (1) We estimated the spatiotemporal variation in the number of deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure in mainland China during ACP based on the  $\\mathrm{PM}_{2.5}$  product with the finest spatial resolution available to date, and elucidated the spatial discrepancies in policy implementation across China. China's recent clean air actions have achieved great benefits for human health and the environment. However, over  $98\\%$  of the population still lived under the risk of  $\\mathrm{PM}_{2.5}$  pollution ( $\\mathrm{PM}_{2.5}$  concentrations over  $15\\mu \\mathrm{g}\\mathrm{m}^{-3}$ ), with 1.12 million ( $95\\%$  CI: 0.79-1.56) premature deaths caused by  $\\mathrm{PM}_{2.5}$  pollution in mainland China in 2020, accounting for  $\\sim 27.05\\%$  of global ambient  $\\mathrm{PM}_{2.5}$ -attributable premature deaths. In addition, the environmental and health benefits of China ACP are not fully synergistic in spatial pattern, with the greatest health benefits detected in the YRD region and the best environment benefits identified in the BTH region. To achieve the co-benefits of environment and health, specific policies need to be adopted under different conditions. (2) We quantified the environment and health co-benefits of ACP measures and carbon mitigation from 2014 to 2020. Clean production was the most effective abatement measure in China ACP, reducing net  $\\mathrm{PM}_{2.5}$  concentrations and net premature deaths by  $18.35\\mu \\mathrm{g}\\mathrm{m}^{-3}$  and 0.45 million, respectively. The co-effects of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  contributed to a  $23\\%$  and  $26\\%$  decrease in the number of  $\\mathrm{PM}_{2.5}$  and premature deaths and became one of the major drivers for  $\\mathrm{PM}_{2.5}$  and premature deaths reduction in the APWBSD phase. This confirms the clear environment and health co-benefits of carbon mitigation measures. Meanwhile, the effectiveness of process and source control measures reduced during 2018 to 2020. With the exhaustion of end-of-pipe and energy consumption control measures, the future air clean actions should focus more on carbon abatement and energy structure optimization, especially under the background of global climate change mitigation. In addition to mitigation in industrial and energy sectors, it is also critical to explore more cost-effective approaches (e.g., agricultural ammonia mitigation) (Zhou et al., 2021; Gu et al., 2021) for pollution control in other sectors.",
+                "Our analysis of  $\\mathrm{PM}_{2.5}$  attributed deaths in China was compared with several recent studies (Table S3). Great progresses was made in previous studies (Zhang et al., 2019a; Li et al., 2019; Ding et al., 2019; McDuffie et al., 2021; Liu et al., 2017; Zou et al., 2019; Apte et al., 2015), albeit with several limitations in common: (1) previous studies focused mainly on the APPCAP (2013-2017) and lack the updated results of the APWBSD (2018-2020); (2) the chemical transport model was used widely in previous research, which showed advantages for predicting the  $\\mathrm{PM}_{2.5}$  concentrations without ground measurement, but also has limitations in terms of prediction accuracy (Ma et al., 2022); (3) the Integrated Exposure Response (IER) model used for premature death estimation in previous studies lacked sufficient information on deaths at high  $\\mathrm{PM}_{2.5}$  exposure, and failed to separate exposure from ambient  $\\mathrm{PM}_{2.5}$  and secondhand smoke, which could potentially introduce uncertainties (Burnett et al., 2014). Our research provides several advances compared to previous studies. First, we quantified the co-benefit of the Air Clean Plan and carbon mitigation measures in China for the environment and health from 2014 to 2020. Second, we used state-of-the-art  $\\mathrm{PM}_{2.5}$  products with the highest accuracy (Wang et al., 2021; 2022) (Fig. S3 and Fig. S4 for detail) and the finest resolution (spatial resolution of  $1\\mathrm{km}$ , Fig. S2) at the national scale to offer a full-coverage estimation of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths. With these innovations, we not only provided a more accurate estimation of the risk due to exposure to  $\\mathrm{PM}_{2.5}$ , but also to analyze the great spatially heterogeneity of policy effectiveness. Third, we adopted the updated MR-BRT spline method, which fits the risk with a more flexible shape for more reliable estimation of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths (Hystad et al., 2020). The MR-BRT includes more exposure scenarios at high  $\\mathrm{PM}_{2.5}$  levels during fitting compared with other models such as the IER model (Yusuf et al., 2020; Chowdhury et al., 2022). It also excludes active smoking to control for and reduce potential bias due to this effect (Pope et al., 2018). Finally, our study estimated the co-benefit from  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  to the environment and health under the background of the ACP and NDC pledges for the first time.",
+                "Our study estimated the changes in  $\\mathrm{PM}_{2.5}$  concentration and premature deaths attributable to  $\\mathrm{PM}_{2.5}$  in China at a fine-resolution (1 km) during 2014-2020, identifying the measure with greatest environmental and health co-benefits in ACP, and demonstrating the potential of carbon mitigation measures for air quality improvement and public health enhancement. Results showed that (1) the average  $\\mathrm{PM}_{2.5}$  concentrations in China decreased by  $33.65\\%$  ( $13.41~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) from 2014 to 2020, accompanied by a decrease in total attributed deaths of 0.23 million (95 % CI: 0.22-0.27), indicating the great benefits of China ACP for human health and environment. However, the premature deaths caused by  $\\mathrm{PM}_{2.5}$  pollution in mainland China still reached 1.12 million (95 % CI: 0.79-1.56) in 2020. (2) Among China ACP measures, clean production and energy consumption control made the largest contribution to air quality improvements and health burden mitigation during the past seven years. However, the effectiveness of the two ACP measures reduced during 2018 to 2020. Meanwhile, the environmental and health benefits of China ACP are not fully synergistic spatially. (3) The co-effects of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  has become one of the major drivers for  $\\mathrm{PM}_{2.5}$  and  $\\mathrm{PM}_{2.5}$ -attributable premature deaths reduction in the APWBSD phase, confirming the clear environment and health co-benefits of carbon mitigation measures.",
+                "Anenberg, S.C., et al., 2010. An estimate of the global burden of anthropogenic ozone and fine particulate matter on premature human mortality using atmospheric modeling. Environ. Health Perspect. 118, 1189-1195. https://doi.org/10.1289/ ehp.0901220.  \nAng, B.W., 2005. The LMDI approach to decomposition analysis: a practical guide. Energy Policy 33, 867-871. https://doi.org/10.1016/j.enpol.2003.10.010.  \nAng, B.W., 2015. LMDI decomposition approach: a guide for implementation. Energy Policy 86, 33-238.  \nApte, J.S., et al., 2015. Addressing global mortality from ambient  $\\mathrm{PM}_{2.5}$ . Environ. Sci. Technol. 49, 8057-8066. https://doi.org/10.1021/acs.est.5b01236.  \nBurnett, R.T., et al., 2014. An integrated risk function for estimating the global burden of disease attributable to ambient fine particulate matter exposure. Environ. Health Perspect. https://doi.org/10.1289/ehp.1307049.  \nBurnett, R., et al., 2018. Global estimates of mortality associated with long-term exposure to outdoor fine particulate matter. Proc. Natl. Acad. Sci. U. S. A. 115, 9592-9597. https://doi.org/10.1073/pnas.1803222115.  \nCai, S.Y., et al., 2017. The impact of the \"Air Pollution Prevention and Control Action Plan\" on  $\\mathrm{PM}_{2.5}$  concentrations in Jing-Jin-Ji region during 2012-2020. Sci. Total Environ. 580, 197-209. https://doi.org/10.1016/j.scitotenv.2016.11.188.  \nChen, J., et al., 2022. Long-term exposure to source-specific fine particles and mortality - a pooled analysis of 14 European cohorts within the ELAPSE project. Environ. Sci. Technol. 56, 9277-9290.  \nCheng, J., et al., 2021. Pathways of China's  $\\mathrm{PM}_{2.5}$  air quality 2015-2060 in the context of carbon neutrality. Natl. Sci. Rev. 8 https://doi.org/10.1093/nsr/nwab078.  \nChowdhury, S., et al., 2022. Global health burden of ambient  $\\mathrm{PM}_{2.5}$  and the contribution of anthropogenic black carbon and organic aerosols. Environ. Int. 159, 107020 https://doi.org/10.1016/j.envint.2021.107020.  \nCohen, A.J., et al., 2017. Estimates and 25-year trends of the global burden of disease attributable to ambient air pollution: an analysis of data from the Global Burden of Diseases Study 2015. Lancet 389, 1907-1918. https://doi.org/10.1016/s0140-6736(17)30505-6.  \nDimitrova, A., et al., 2021. Health impacts of fine particles under climate change mitigation, air quality control, and demographic change in India. Environ. Res. Lett. 16 https://doi.org/10.1088/1748-9326/abe5d5.  \nDing, D., et al., 2019. Estimated Contributions of Emissions Controls, Meteorological Factors, Population Growth, and Changes in Baseline Mortality to Reductions in Ambient PM2.5 and PM2.5-Related Mortality in China, 2013-2017. Environ. Health Perspect. 127, 12.  \nDong, F., Yu, B., Pan, Y., 2019. Examining the synergistic effect of  $\\mathrm{CO}_{2}$  emissions on  $\\mathrm{PM}_{2.5}$  emissions reduction: Evidence from China. J. Clean Prod. 223, 759-771.  \nFeng, L., et al., 2017b. Spatiotemporal changes in fine particulate matter pollution and the associated mortality burden in China between 2015 and 2016. Int. J. Environ. Res. Public Health 14, 1321. https://doi.org/10.3390/ijerph14111321.  \nFeng, L.W., Ye, B., Feng, H., Ren, F., Huang, S.C., Zhang, X.T., Zhang, Y.Q., Du, Q.Y., Ma, L., 2017a. Spatiotemporal changes in fine particulate matter pollution and the associated mortality burden. Int. J. Environ. Res. Public Health 14 in China between 2015 and 2016.  \nGeng, G., et al., 2021. Drivers of  $\\mathrm{PM}_{2.5}$  air pollution deaths in China 2002-2017. Nat. Geosci. 14, 645-650. https://doi.org/10.1038/s41561-021-00792-3.  \nGu, B., et al., 2021. Abating ammonia is more cost-effective than nitrogen oxides for mitigating PM2.5 air pollution. Science 374, 758-762. https://doi.org/10.1126/science.abf8623.  \nGuan, D., et al., 2018. Structural decline in China's  $\\mathrm{CO}_{2}$  emissions through transitions in industry and energy systems. Nat. Geosci. 11, 551-555.  \nGuan, Y., et al., 2021. Assessment to China's Recent Emission Pattern Shifts. Earth's Future, 9, e2021EF002241.  \nHong, C., et al., 2019. Impacts of climate change on future air quality and human health in China. Proc. Natl. Acad. Sci. U. S. A. 116, 17193-17200.  \nHuang, R., et al., 2014. High secondary aerosol contribution to particulate pollution during haze events in China. Nature 514, 218-222.  \nHuang, J., et al., 2018. Health impact of China's Air Pollution Prevention and Control Action Plan: an analysis of national air quality monitoring and mortality data. Lancet Planet. Health 2, E313-E323.  \nHystad, P., et al., 2020. Associations of outdoor fine particulate air pollution and cardiovascular disease in 157 436 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. The Lancet Planetary Health 4, e235-e245.",
+                "Kazemiparkouhi, F., et al., 2022. The impact of Long-Term  $\\mathrm{PM}_{2.5}$  constituents and their sources on specific causes of death in a US Medicare cohort. Environ. Int. 159, 106988.  \nLi, N., et al., 2019a. Air quality improvement co-benefits of low-carbon pathways toward well below the 2 degrees c climate target in China. Environ. Sci. Technol. 53, 5576-5584. https://doi.org/10.1021/acs.est.8b06948.  \nLi, T., et al., 2019b. Estimating mortality burden attributable to short-term  $\\mathrm{PM}_{2.5}$  exposure: A national observational study in China. Environ. Int. 125, 245-251.  \nLi, Z., Wang, J., Che, S., 2021. Synergistic effect of carbon trading scheme on carbon dioxide and atmospheric pollutants. Sustainability 13, 5403. https://doi.org/10.3390/su13105403.  \nLiu, M., et al., 2017. Spatial and temporal trends in the mortality burden of air pollution in China: 2004-2012. Environ. Int. 98, 75-81. https://doi.org/10.1016/j.envint.2016.10.003.  \nLiu, M., et al., 2021. Recent trends in premature mortality and health disparities attributable to ambient PM2.5 exposure in China: 2005-2017. Environ. Pollut. 279, 13. https://doi.org/10.1016/j.envpol.2021.116882.  \nLiu, Z., et al., 2020. COVID-19 causes record decline in global  $\\mathrm{CO}_{2}$  emissions. arXiv preprint arXiv:2004.13614.  \nMa, Z., et al., 2019. Effects of air pollution control policies on  $\\mathrm{PM}_{2.5}$  pollution improvement in China from 2005 to 2017: a satellite-based perspective. Atmos. Chem. Phys. 19, 6861-6877.  \nMa, Z., et al., 2022. A review of statistical methods used for developing large-scale and long-term  $\\mathrm{PM}_{2.5}$  models from satellite data. Remote Sens. Environ. 269.  \nMcDuffie, E.E., et al., 2021. Source sector and fuel contributions to ambient  $\\mathrm{PM}_{2.5}$  and attributable mortality across multiple spatial scales. Nat. Commun. 12, 3594.  \nMurray, C.J.L., et al., 2020. Global burden of 87 risk factors in 204 countries and territories, 1990-2019: a systematic analysis for the Global Burden of Disease Study 2019. Lancet 396, 1223-1249.  \nOstro, B., et al., 2015. Associations of mortality with long-term exposures to fine and ultrafine particles, species and sources: results from the California teachers study cohort. Environ. Health Perspect. 123, 549-556.  \nPhilip, S., et al., 2014. Global chemical composition of ambient fine particulate matter for exposure assessment. Environ. Sci. Technol. 48, 13060-13068.  \nPope 3rd, C.A., Cohen, A.J., Burnett, R.T., 2018. Cardiovascular disease and fine particulate matter: lessons and limitations of an integrated exposure-response approach. Circ. Res. 122, 1645-1647.  \nShan, Y., et al., 2018. China  $\\mathrm{CO}_{2}$  emission accounts 1997-2015. Sci. Data 5, 170201. https://doi.org/10.1038/sdata.2017.201.  \nShan, Y., et al., 2020. China  $\\mathrm{CO}_{2}$  emission accounts 2016-2017. Sci. Data 7, 54. https://doi.org/10.1038/s41597-020-0393-y.  \nSilva, R.A., et al., 2013. Global premature mortality due to anthropogenic outdoor air pollution and the contribution of past climate change. Environ. Res. Lett. 8, 11.  \nStanaway, J.D., et al., 2018. Global, regional, and national comparative risk assessment of 84 behavioural, environmental and occupational, and metabolic risks or clusters of risks for 195 countries and territories, 1990-2017: a systematic analysis for the Global Burden of Disease Study 2017. Lancet 392, 1923-1994. https://doi.org/10.1016/S0140-6736(18)32225-6.  \nThe State Council of China, 2013. Air Pollution Prevention and Control Action Plan. http://www.gov.cn/jrzg/2013-09/12/.  \nThe State Council of China, 2018. The State Council on the issuance of the three-year action plan to win the Blue Sky Defense War notice. http://www.gov.cn/zhengce/content/2018-07/03/.",
+                "Tong, D., et al., 2021. Health co-benefits of climate change mitigation depend on strategic power plant retirements and pollution controls. Nat. Clim. Chang. 11, 1077-1083. https://doi.org/10.1038/s41558-021-01216-1.  \nUnited Nations, 2015. Sustainable Development Goals. https://sustainabledevelopment.un.org/.  \nWang, Z., et al., 2021. High-resolution prediction of the spatial distribution of  $\\mathrm{PM}_{2.5}$  concentrations in China using a long short-term memory model. J. Clean Prod. 297 https://doi.org/10.1016/j.jclepro.2021.126493.  \nWang, Z., et al., 2022. Predicting annual  $\\mathrm{PM}_{2.5}$  in mainland China from 2014 to 2020 using multi temporal satellite product: An improved deep learning approach with spatial generalization ability. ISPRS-J. Photogramm. Remote Sens. 187, 141-158. https://doi.org/10.1016/j.isprsjprs.2022.03.002.  \nWorld Health Organization, 2016. Ambient air pollution: a global assessment of exposure and burden of disease. 121 p.  \nWorld Health Organization, 2021. WHO global air quality guidelines. https://apps.who.int/iris/bitstream/handle/10665/345329/9789240034228-eng.pdf? sequence=1&isAllowed=y.  \nXiao, Q., et al., 2021. Separating emission and meteorological contributions to long-term  $\\mathrm{PM}_{2.5}$  trends over eastern China during 2000-2018. Atmos. Chem. Phys. 21, 9475-9496.  \nXing, J., et al., 2020. The quest for improved air quality may push China to continue its  $\\mathrm{CO}_{2}$  reduction beyond the Paris Commitment. Proc. Natl. Acad. Sci. U. S. A. 117, 29535-29542.  \nXu, J., et al., 2021. Double cropping and cropland expansion boost grain production in Brazil. Nature Food. 2, 264-273.  \nXue, T., et al., 2019. Rapid improvement of  $\\mathrm{PM}_{2.5}$  pollution and associated health benefits in China during 2013-2017. Sci. China Earth Sci. 62, 1847-1856.  \nYue, H., et al., 2020. Stronger policy required to substantially reduce deaths from  $\\mathrm{PM}_{2.5}$  pollution in China. Nat. Commun. 11, 1462. https://doi.org/10.1038/s41467-020-15319-4.  \nYusuf, S., et al., 2020. Modifiable risk factors, cardiovascular disease, and mortality in 155 722 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. Lancet 395, 795-808.  \nZhang, Q., et al., 2019a. Drivers of improved  $\\mathrm{PM}_{2.5}$  air quality in China from 2013 to 2017. Proc. Natl. Acad. Sci. U. S. A. 116, 24463-24469.  \nZhang, Y., et al., 2019b. Socioeconomic factors of  $\\mathrm{PM}_{2.5}$  concentrations in 152 Chinese cities: Decomposition analysis using LMDI. J. Clean Prod. 218, 96-107.  \nZhang, X., et al., 2019c. The impact of meteorological changes from 2013 to 2017 on  $\\mathrm{PM}_{2.5}$  mass reduction in key regions in China. Sci. China Earth Sci. 62, 1885-1902.  \nZheng, B., et al., 2018. Trends in China's anthropogenic emissions since 2010 as the consequence of clean air actions. Atmos. Chem. Phys. 18, 14095-14111.  \nZheng, B., et al., 2021. Changes in China's anthropogenic emissions and air quality during the COVID-19 pandemic in 2020. Earth Syst. Sci. Data 13, 2895–2907. https://doi.org/10.5194/essd-13-2895-2021.  \nZhou, M., Liu, H., Peng, L., et al., 2021. Environmental benefits and household costs of clean heating options in northern China. Nat. Sustain. https://doi.org/10.1038/s41893-021-00837-w.  \nZhu, G., et al., 2019. Health burdens of ambient  $\\mathrm{PM}_{2.5}$  pollution across Chinese cities during 2006-2015. J. Environ. Manage. 243, 250-256.  \nZou, B., et al., 2019. Air pollution intervention and life-saving effect in China. Environ. Int. 125, 529-541."
+              ],
+              "functional_roles": {
+                "main_role": "Methodology & Design",
+                "sub_roles": [
+                  "Introduce Conceptual Framework",
+                  "Illustrate Algorithm Process"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Conceptual Diagram"
+                ]
+              },
+              "key_entities": [
+                "Air Clean Plan",
+                "APPCAP",
+                "APWBSD",
+                "PM2.5",
+                "China"
+              ],
+              "concise_summary": "The figure outlines China's major air pollution control goals, policies, and measures from 2013 to 2020, focusing on process reduction, structure reduction, and source reduction.",
+              "inferred_insight": "The measures effectively decreased PM2.5 concentrations and associated premature deaths but highlighted the need for targeted strategies and mitigation measures for sustained benefits.",
+              "paper_id": 20
+            },
+            "score": 0.42579966034938727,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_177",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 3. Key milestones and policy evolution of air pollution control in China, including control actions on the emissions of  SO_2  and  NO_x  and on ambient concentrations of  PM_{2.5} . FYP: Five-Year Plan.",
+              "summary": "The figure depicts the timeline and milestones in China's air pollution control policies, focusing on SO2, NOx emissions, and PM2.5 concentrations, highlighting significant control actions and achievements.",
+              "insight": "The figure illustrates China's strategic evolution in pollution control, emphasizing comprehensive policies and multi-sector collaboration from emission control to broader air quality management, marking significant progress over the decades."
+            },
+            "metadata": {
+              "id": "img_177",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_3.jpg",
+              "title": "Fig. 3. Key milestones and policy evolution of air pollution control in China, including control actions on the emissions of  SO_2  and  NO_x  and on ambient concentrations of  PM_{2.5} . FYP: Five-Year Plan.",
+              "references": [
+                "$\\mathrm{PM}_{2.5}$  pollution (Fig. 3). Control actions on acid rain were primarily focused on  $\\mathrm{SO}_2$  emissions from coal combustion in the 1990s. However, the increasing trend of  $\\mathrm{SO}_2$  emissions was not reversed until 2007, when diversified technological and policy instruments were widely utilized. Such progress could not have been achieved without innovative improvement in political accountability, verification of  $\\mathrm{SO}_2$  emissions, and financial incentives for power plants to install and operate flue gas desulfurization (FGD).  $\\mathrm{NO}_x$  has more sources than  $\\mathrm{SO}_2$ , including coal burning, mobile sources, and other fossil fuel combustion sectors. Therefore, control actions on  $\\mathrm{NO}_x$  emissions must be more extensive and complex, which requires cooperation among multiple sectors. Controlling  $\\mathrm{PM}_{2.5}$  concentrations not only requires consistently mitigating multiple precursors from numerous sectors, but also demands consideration of complex influences from both meteorological and atmospheric chemistry conditions. Indeed, comprehensive control actions with multi-party coordination on provincial and even national levels have been implemented in China to minimize the adverse ecological and social impacts of  $\\mathrm{PM}_{2.5}$  pollution. Since 2013, combating  $\\mathrm{PM}_{2.5}$  pollution has marked a strategic transfer from emission control toward air quality management in China, which is oriented toward benefiting the public health and social welfare. The fundamental improvement of  $\\mathrm{PM}_{2.5}$  concentrations has become a key indicator of the success of ecological civilization construction in China.",
+                "Aug 1 [cited 2020 Jun 8]. Available from: http://english.mee.gov.cn/Resources/Reports/soe/SOEE2017/201808/P020180801597738742758.pdf.  \n[8] Larssen T, Lydersen E, Tang D, He Y, Gao J, Liu H, et al. Acid rain in China. Environ Sci Technol 2006;40(2):418-25.  \n[9] Griggs D, Stafford-Smith M, Gaffney O, Rockström J, Ohman MC, Shyamsundar P, et al. Sustainable development goals for people and planet. Nature 2013;495 (7441):305-7.  \n[10] China Meteorological Administration. Annual report of acid rain monitoring in China. Beijing: China Meteorological Administration; 2014. Chinese.  \n[11] Schwartz J, Dockery DW, Neas LM. Is daily mortality associated specifically with fine particles? J Air Waste Manage 1996;46(10):927-39.  \n[12] Identification of nonattainment classification and deadlines for submission of state implementation plan (SIP) provisions for the 1997 & 2006 fine particle National Ambient Air Quality Standards (NAAQS)—fact sheet [Internet]. Washington, DC: United States Environmental Protection Agency; [updated 2020 May 22; cited 2020 Jun 8]. Available from: https://www.epa.gov/sites/production/files/2016-04/documents/20140428_factsheet_nonattainment.pdf.  \n[13] He K, Yang F, Ma Y, Zhang Q, Yao X, Chan CK, et al. The characteristics of  $\\mathrm{PM}_{2.5}$  in Beijing, China. Atmos Environ 2001;35(29):4959-70.  \n[14] Andersson A, Deng J, Du K, Zhang M, Yan C, Sköld M, et al. Regionally-varying combustion sources of the January 2013 severe haze events over eastern China. Environ Sci Technol 2015;49(4):2038-43.  \n[15] Ma Z, Hu X, Sayer AM, Levy R, Zhang Q, Xue Y, et al. Satellite-based spatiotemporal trends in  $\\mathrm{PM}_{2.5}$  concentrations: China, 2004-2013. Environ Health Persp 2015;124(2):184-92.  \n[16] Cohen AJ, Brauer M, Burnett R, Anderson HR, Frostad J, Estep K, et al. Estimates and 25-year trends of the global burden of disease attributable to ambient air pollution: an analysis of data from the Global Burden of Diseases Study 2015. Lancet 2017;389(10082):1907-18.  \n[17] World Bank Group. The cost of air pollution. Washington, DC: World Bank Group; 2016.  \n[18] Standing Committee of the National People's Congress. Law of the People's Republic of China on the Prevention and Control of Atmospheric Pollution. (Sep 5, 1987). Chinese.  \n[19] Hao J, Wang S, Liu B, He K. Designation of acid rain and  $\\mathrm{SO}_2$  control zones and control policies in China. J Environ Sci Health A 2000;35(10):1901-14.  \n[20] Schreifels JJ, Fu Y, Wilson EJ. Sulfur dioxide control in China: policy evolution during the 10th and 11th Five-Year Plans and lessons for the future. Energy Policy 2012;48:779-89.  \n[21] Jin Y, Andersson H, Zhang S. Air pollution control policies in China: a retrospective and prospects. Int J Environ Res Pub Health 2016;13(12):1219.  \n[22] Ministry of Ecology and Environment of the People's Republic of China. China environmental statistical bulletin 2010. Beijing: Ministry of Ecology and Environment of the People's Republic of China; 2012. Chinese.  \n[23] Wang S, Zhang Q, Martin RV, Philip S, Liu F, Li M, et al. Satellite measurements oversee China's sulfur dioxide emission reductions from coal-fired power plants. Environ Res Lett 2015;10(11):114015.  \n[24] De Foy B, Lu Z, Streets DG. Satellite  $\\mathrm{NO}_2$  retrievals suggest China has exceeded its  $\\mathrm{NO}_x$  reduction goals from the twelfth Five-Year Plan. Sci Rep 2016;6:35912.  \n[25] Yang F, Tan J, Zhao Q, Du Z, He K, Ma Y, et al. Characteristics of  $\\mathrm{PM}_{2.5}$  speciation in representative megacities and across China. Atmos Chem Phys 2011;11 (11):5207-19.  \n[26] Zhao B, Wang SX, Liu H, Xu JY, Fu K, Klimont Z, et al.  $\\mathrm{NO}_x$  emissions in China: historical trends and future perspectives. Atmos Chem Phys 2013;13 (19):9869-97.  \n[27] Liu X, Gao X, Wu X, Yu W, Chen L, Ni R, et al. Updated hourly emissions factors for Chinese power plants showing the impact of widespread ultralow emissions technology deployment. Environ Sci Technol 2019;53(5):2570-8.  \n[28] Ministry of Ecology and Environment of the People's Republic of China. China environmental statistic bulletin 2015. Beijing: Ministry of Ecology and Environment of the People's Republic of China; 2016. Chinese.  \n[29] Liu F, Zhang Q, Zheng B, Tong D, Yan L, Zheng Y, et al. Recent reduction in  $\\mathrm{NO}_x$  emissions over China: synthesis of satellite observations and emission inventories. Environ Res Lett 2016;11(11):114002.  \n[30] Ding D, Xing J, Wang S, Liu K, Hao J. Estimated contributions of emissions controls, meteorological factors, population growth, and changes in baseline mortality to reductions in ambient  $\\mathrm{PM}_{2.5}$  and  $\\mathrm{PM}_{2.5}$ -related mortality in China, 2013-2017. Environ Health Perspect 2019;127(6):067009.  \n[31] Geng G, Zhang Q, Tong D, Li M, Zheng Y, Wang S, et al. Chemical composition of ambient  $\\mathrm{PM}_{2.5}$  over China and relationship to precursor emissions during 2005-2012. Atmos Chem Phys 2017;17(14):9187-203.  \n[32] Zhang Q, Zheng Y, Tong D, Shao M, Wang S, Zhang Y, et al. Drivers of improved  $\\mathrm{PM}_{2.5}$  air quality in China from 2013 to 2017. Proc Natl Acad Sci USA 2019;116 (49):24463-9.  \n[33] Wang J, Zhao B, Wang S, Yang F, Xing J, Morawska L, et al. Particulate matter pollution over China and the effects of control policies. Sci Total Environ 2017;584-585:426-47.  \n[34] Zhao B, Wu W, Wang S, Xing J, Chang X, Liou KN, et al. A modeling study of the nonlinear response of fine particles to air pollutant emissions in the Beijing-Tianjin-Hebei region. Atmos Chem Phys 2017;17(19):12031-50.  \n[35] Wang S, Zhao B, Wu Y, Hao J. Target and measures to prevent and control ambient fine particle pollution in China. China Environ Manage 2015;2:37-43. Chinese.  \n[36] Wang S, Xing J, Jang C, Zhu Y, Fu JS, Hao J. Impact assessment of ammonia emissions on inorganic aerosols in East China using response surface modeling technique. Environ Sci Technol 2011;45(21):9293-300."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Showcase Prediction Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Flowchart"
+                ]
+              },
+              "key_entities": [
+                "SO2",
+                "NOx",
+                "PM2.5",
+                "Five-Year Plan",
+                "acid rain",
+                "haze pollution"
+              ],
+              "concise_summary": "The figure depicts the timeline and milestones in China's air pollution control policies, focusing on SO2, NOx emissions, and PM2.5 concentrations, highlighting significant control actions and achievements.",
+              "inferred_insight": "The figure illustrates China's strategic evolution in pollution control, emphasizing comprehensive policies and multi-sector collaboration from emission control to broader air quality management, marking significant progress over the decades.",
+              "paper_id": 26
+            },
+            "score": 0.42364680840769886,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_95",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 2. Schematic diagram of the monitoring site in the East Yan'an Road Tunnel, Shanghai.",
+              "summary": "The figure displays the location and setup of air pollution monitoring sites within East Yan'an Road Tunnel, Shanghai. It includes schematic representations of the tunnel and monitoring locations.",
+              "insight": "The schematic provides spatial context for the air quality monitoring study, highlighting the strategic placement of sensors to capture key pollutants from vehicle emissions in a high-traffic urban tunnel."
+            },
+            "metadata": {
+              "id": "img_95",
+              "source_md": "Evaluation of emission factors for light-duty gaso.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Evaluation of emission factors for light-duty gaso\\figure_2.jpg",
+              "title": "Fig. 2. Schematic diagram of the monitoring site in the East Yan'an Road Tunnel, Shanghai.",
+              "references": [
+                "A tunnel in the city center of Shanghai  $(31.24^{\\circ}\\mathrm{N}, 121.50^{\\circ}\\mathrm{E})$  was selected to conduct air pollution monitoring. The tunnel is called East Yan'an Road tunnel, is an underwater tunnel crossing the Huangpu River in Shanghai. It has two bores with two lanes for each direction. The total length is  $2,107\\mathrm{m}$ ; cross-sectional area is  $33.75\\mathrm{m}^2$ . To continuously monitor major air pollutants from vehicle exhaust, we installed two integrated air pollution monitoring units at  $150\\mathrm{m}$  away from the inlet and outlet of the tunnel, respectively. The height of the unit was about  $1.2\\mathrm{m}$ . Fig. 2 shows the location of the tunnel and the monitoring sites. There were 4 sensors which could separately monitor NO,  $\\mathrm{NO}_2$ , CO, and  $\\mathrm{PM}_{2.5}$  concentrations in each unit. NO,  $\\mathrm{NO}_2$ , and CO were detected using electrochemical method. Their detection limits were  $0.01\\mathrm{mg}\\mathrm{m}^{-3}$ ,  $0.01\\mathrm{mg}\\mathrm{m}^{-3}$ , and  $0.15\\mathrm{mg}\\mathrm{m}^{-3}$ , respectively.  $\\mathrm{PM}_{2.5}$  was detected by light scattering method. Its resolution was  $0.1\\mu \\mathrm{g}\\mathrm{m}^{-3}$ . The monitoring data was continuously transmitted to a remote database through wireless network. The system was built in July 2016 and has been operated by now. To ensure the reliability of monitoring",
+                "Vehicle flow and average speed in the tunnel were detected by a buried induction coil and transmitted to a data platform in real time. The fleet compositions were recognized by automatic acquisition of vehicle license plate information through a high-definition video in the tunnel. Fig. 4 shows the average traffic flow and fleet composition in each hour of weekday and weekend. The data between August and November of 2016 were used in this study. Daily average vehicle flow and speed were  $34,818 \\pm 2,214 \\mathrm{veh} \\cdot \\mathrm{h}^{-1}$  and  $33.47 \\pm 7.95 \\mathrm{km} \\cdot \\mathrm{h}^{-1}$  on weekday and were  $30,818 \\pm 1,848 \\mathrm{veh} \\cdot \\mathrm{h}^{-1}$  and  $33.86 \\pm 8.83 \\mathrm{km} \\cdot \\mathrm{h}^{-1}$  on weekend. Vehicle flows in peak hour were  $2,173 \\pm 161$  and  $1,952 \\pm 68 \\mathrm{veh} \\cdot \\mathrm{h}^{-1}$  on weekday and weekend, respectively. East Yan'an Road tunnel was located in the city center of Shanghai, where heavy-duty diesel vehicles (HDDVs) were restricted to access except for some medium-duty diesel vehicles (MDDVs). Therefore, fleet in the tunnel was mainly comprised of light-duty gasoline vehicles, which accounted for  $93.7 \\pm 2.2\\%$  and  $94.6 \\pm 1.9\\%$  of the total on weekday and weekend, respectively. The",
+                "tunnel in Taiwan in 2006. The CO,  $\\mathrm{NO}_x$ , and  $\\mathrm{PM}_{2.5}$  EFs were  $0.91 \\pm 0.47 - 1.47 \\pm 0.63$ ,  $0.15 \\pm 0.07 - 0.33 \\pm 0.17\\mathrm{gkm}^{-1} \\cdot \\mathrm{veh}^{-1}$ , and  $2 \\pm 2 - 4 \\pm 3\\mathrm{mgkm}^{-1} \\cdot \\mathrm{veh}^{-1}$ , respectively. Their results were the lowest compared with other tunnel studies in China mainly because Taiwan implemented Tier 1 and Tier 2 emission standards in 1999 and 2008, earlier than the mainland of China. Liu et al. (2015a,b) and Deng et al. (2015) measured CO and  $\\mathrm{PM}_{10}$  EFs in East Yan'an Road tunnel in 2012. CO EF decreased by about  $30\\%$  compared with our result in 2016.  $\\mathrm{PM}_{2.5}$  EF also declined if we considered  $\\mathrm{PM}_{10}$  was similar to  $\\mathrm{PM}_{2.5}$  for vehicle exhaust. The enforcement of vehicle emission control strategies should be the main reason for the decrease. Between 2012 and 2016, Shanghai implemented the emission standards of LDGVs from Euro 4 to Euro 5, eliminated Euro 0 gasoline vehicles from the whole city, and restricted Euro 1 gasoline vehicles in urban area. CO and  $\\mathrm{NO}_x$  EFs in Yingpan Road tunnel were  $0.75 \\pm 0.56 - 6.05 \\pm 5.94$  and  $0.12 \\pm 0.02 - 0.82 \\pm 0.76\\mathrm{gkm}^{-1} \\cdot \\mathrm{veh}^{-1}$  (Deng et al., 2015). Our results were relatively lower than the average value of Yingpan Road tunnel. The fractions of gasoline and diesel vehicles have influences on EFs in the tunnels. CO,  $\\mathrm{NO}_x$ , and  $\\mathrm{PM}_{2.5}$  EFs in Zhujiang tunnel were much higher than those in our study since there was higher proportion of diesel vehicles (Liu et al., 2014; Zhang et al., 2015b). Correspondingly, KXL tunnel had lower  $\\mathrm{PM}_{2.5}$  EF due to its high proportion of gasoline vehicles (Cui et al., 2016).",
+                "<table><tr><td rowspan=\"2\">Tunnel</td><td rowspan=\"2\">City/Region</td><td rowspan=\"2\">Vehicle type</td><td rowspan=\"2\">Test year</td><td colspan=\"3\">Emission factors</td><td rowspan=\"2\">References</td></tr><tr><td>CO(g·km-1·veh-1)</td><td>NOx(g·km-1·veh-1)</td><td>PM2.5(mg·km-1·veh-1)</td></tr><tr><td>Hsuehshan tunnel (Downslope)</td><td>Taiwan</td><td>LDV</td><td>2006</td><td>0.91 ± 0.47</td><td>0.15 ± 0.07</td><td>2 ± 2</td><td>Chang et al., 2009</td></tr><tr><td>Hsuehshan tunnel (Upslope)</td><td>Taiwan</td><td>LDV</td><td>2006</td><td>1.47 ± 0.63</td><td>0.33 ± 0.17</td><td>4 ± 3</td><td>Chang et al., 2009</td></tr><tr><td>East Yan&#x27;an Road tunnel</td><td>Shanghai</td><td>94.5% Gasoline</td><td>2012</td><td></td><td></td><td>56.7 ± 69.4a</td><td>Liu et al., 2015b</td></tr><tr><td>East Yan&#x27;an Road tunnel</td><td>Shanghai</td><td>91.5%-96% Gasoline</td><td>2012</td><td>1.27 ± 0.89-3.97 ± 2.19</td><td></td><td></td><td>Deng et al., 2015</td></tr><tr><td>Yingpan Road tunnel</td><td>Changsha</td><td>96.3%-98.4% Gasoline</td><td>2013</td><td>0.75 ± 0.56-6.05 ± 5.94</td><td>0.12 ± 0.02-0.82 ± 0.76</td><td></td><td>Deng et al., 2015</td></tr><tr><td>Zhujiang tunnel</td><td>Guangzhou</td><td>88.2% Gasoline</td><td>2013</td><td></td><td>0.56 ± 0.05</td><td></td><td>Liu et al., 2014</td></tr><tr><td>Zhujiang tunnel</td><td>Guangzhou</td><td>61% LDV; 27% LPG;12% HDV</td><td>2014</td><td>3.10 ± 0.68</td><td>1.29 ± 0.20</td><td>82.7 ± 28.3</td><td>Zhang et al., 2015a,b</td></tr><tr><td>KXL tunnel</td><td>Yantai</td><td>96.6% Gasoline</td><td>2014</td><td></td><td></td><td>22.2 ± 6.5</td><td>Cui et al., 2016</td></tr><tr><td>East Yan&#x27;an Road tunnel</td><td>Shanghai</td><td>94.1% Gasoline</td><td>2016</td><td>1.84 ± 0.90</td><td>0.40 ± 0.25</td><td>34.0 ± 23.5</td><td>This study</td></tr></table>"
+              ],
+              "functional_roles": {
+                "main_role": "Data & Experimental Setup",
+                "sub_roles": [
+                  "Introduce Experimental Setup"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Conceptual Diagram"
+                ]
+              },
+              "key_entities": [
+                "East Yan'an Road Tunnel",
+                "Shanghai",
+                "Huangpu River",
+                "air pollution monitoring",
+                "vehicle exhaust",
+                "sensors",
+                "NO",
+                "NO2",
+                "CO",
+                "PM2.5"
+              ],
+              "concise_summary": "The figure displays the location and setup of air pollution monitoring sites within East Yan'an Road Tunnel, Shanghai. It includes schematic representations of the tunnel and monitoring locations.",
+              "inferred_insight": "The schematic provides spatial context for the air quality monitoring study, highlighting the strategic placement of sensors to capture key pollutants from vehicle emissions in a high-traffic urban tunnel.",
+              "paper_id": 15
+            },
+            "score": 0.4168370068780078,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_96",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 3. Air pollutant concentrations at inlet and outlet of the tunnel. (a) NO; (b)  NO_2 ; (c) CO; (d)  PM_{2.5} .",
+              "summary": "The figure shows air pollutant concentrations (NO, NO2, CO, PM2.5) at the inlet and outlet of a Shanghai tunnel over time using line charts.",
+              "insight": "The figure illustrates higher pollutant concentrations at the tunnel outlet, highlighting the impact of vehicle emissions within the tunnel."
+            },
+            "metadata": {
+              "id": "img_96",
+              "source_md": "Evaluation of emission factors for light-duty gaso.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Evaluation of emission factors for light-duty gaso\\figure_3.jpg",
+              "title": "Fig. 3. Air pollutant concentrations at inlet and outlet of the tunnel. (a) NO; (b)  NO_2 ; (c) CO; (d)  PM_{2.5} .",
+              "references": [
+                "data, we regularly carried out maintenance of the monitoring units, calibrated the sensors, and cleaned the sampling pipes. Fig. 3 shows a fragment of NO,  $\\mathrm{NO}_2$ , CO, and  $\\mathrm{PM}_{2.5}$  concentrations at inlet and outlet of the tunnel.",
+                "A tunnel in the city center of Shanghai  $(31.24^{\\circ}\\mathrm{N}, 121.50^{\\circ}\\mathrm{E})$  was selected to conduct air pollution monitoring. The tunnel is called East Yan'an Road tunnel, is an underwater tunnel crossing the Huangpu River in Shanghai. It has two bores with two lanes for each direction. The total length is  $2,107\\mathrm{m}$ ; cross-sectional area is  $33.75\\mathrm{m}^2$ . To continuously monitor major air pollutants from vehicle exhaust, we installed two integrated air pollution monitoring units at  $150\\mathrm{m}$  away from the inlet and outlet of the tunnel, respectively. The height of the unit was about  $1.2\\mathrm{m}$ . Fig. 2 shows the location of the tunnel and the monitoring sites. There were 4 sensors which could separately monitor NO,  $\\mathrm{NO}_2$ , CO, and  $\\mathrm{PM}_{2.5}$  concentrations in each unit. NO,  $\\mathrm{NO}_2$ , and CO were detected using electrochemical method. Their detection limits were  $0.01\\mathrm{mg}\\mathrm{m}^{-3}$ ,  $0.01\\mathrm{mg}\\mathrm{m}^{-3}$ , and  $0.15\\mathrm{mg}\\mathrm{m}^{-3}$ , respectively.  $\\mathrm{PM}_{2.5}$  was detected by light scattering method. Its resolution was  $0.1\\mu \\mathrm{g}\\mathrm{m}^{-3}$ . The monitoring data was continuously transmitted to a remote database through wireless network. The system was built in July 2016 and has been operated by now. To ensure the reliability of monitoring",
+                "Where,  $EF(\\mathrm{g}\\cdot \\mathrm{km}^{-1})$  is the average emission factor per vehicle per kilometer of fleet in the tunnel.  $C_{outlet}$  and  $C_{inlet}$ $(\\mathrm{mg}\\cdot \\mathrm{m}^{-3})$  are air pollutant concentrations at outlet and inlet of the tunnel.  $A(\\mathrm{m}^2)$  is the cross-sectional area of the tunnel  $(\\mathrm{A} = 33.75\\mathrm{m}^2)$ .  $\\nu (\\mathrm{m}\\cdot \\mathrm{s}^{-1})$  is air velocity parallel to the tunnel monitored by an operation management company of the tunnel. Daily average air velocity was"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Present Core Findings"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "NO",
+                "NO2",
+                "CO",
+                "PM2.5",
+                "air pollutant concentrations",
+                "tunnel",
+                "inlet",
+                "outlet"
+              ],
+              "concise_summary": "The figure shows air pollutant concentrations (NO, NO2, CO, PM2.5) at the inlet and outlet of a Shanghai tunnel over time using line charts.",
+              "inferred_insight": "The figure illustrates higher pollutant concentrations at the tunnel outlet, highlighting the impact of vehicle emissions within the tunnel.",
+              "paper_id": 15
+            },
+            "score": 0.4153122879464098,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_62",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Figure 2. Daily emission patterns of (a)  CO_{2} , (b)  PM_{2.5} , (c)  NO_{x} , and (d)  SO_{2}  from 2017 to 2020 in China. The light orange shades represent the Spring Festival. (e–g) Maps of  SO_{2}  emissions from power units on January 10, 2017 (the date of maximum daily  SO_{2}  emissions during 2017–2020), July 24, 2019 (the date of maximum daily  SO_{2}  emissions in summer of 2019), and February 9, 2020 (the date of minimum daily  SO_{2}  emissions during 2017–2020). The size and color of the circles represent the installed capacity and  SO_{2}  emissions, respectively. (h) Daily emission estimates of  CO_{2} ,  SO_{2} ,  NO_{x} , and  PM_{2.5}  from a unit of Guangdong Guohua Taishan Power Plant from 2017 to 2020 as an example.",
+              "summary": "Figure 2 displays daily emission patterns of CO2, PM2.5, NOx, and SO2 in China from 2017 to 2020, highlighting variations during the Spring Festival and specific high/low emission dates.",
+              "insight": "This figure illustrates emission trends over time, emphasizing significant variations and illustrating the impact of specific temporal events like the Spring Festival on emissions."
+            },
+            "metadata": {
+              "id": "img_62",
+              "source_md": "Daily Emission Patterns of Coal-Fired Power Plants.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Daily Emission Patterns of Coal-Fired Power Plants\\figure_2.jpg",
+              "title": "Figure 2. Daily emission patterns of (a)  CO_{2} , (b)  PM_{2.5} , (c)  NO_{x} , and (d)  SO_{2}  from 2017 to 2020 in China. The light orange shades represent the Spring Festival. (e–g) Maps of  SO_{2}  emissions from power units on January 10, 2017 (the date of maximum daily  SO_{2}  emissions during 2017–2020), July 24, 2019 (the date of maximum daily  SO_{2}  emissions in summer of 2019), and February 9, 2020 (the date of minimum daily  SO_{2}  emissions during 2017–2020). The size and color of the circles represent the installed capacity and  SO_{2}  emissions, respectively. (h) Daily emission estimates of  CO_{2} ,  SO_{2} ,  NO_{x} , and  PM_{2.5}  from a unit of Guangdong Guohua Taishan Power Plant from 2017 to 2020 as an example.",
+              "references": [
+                "(h)  \nFigure 2. Daily emission patterns of (a)  $\\mathrm{CO}_{2}$ , (b)  $\\mathrm{PM}_{2.5}$ , (c)  $\\mathrm{NO}_{x}$ , and (d)  $\\mathrm{SO}_{2}$  from 2017 to 2020 in China. The light orange shades represent the Spring Festival. (e–g) Maps of  $\\mathrm{SO}_{2}$  emissions from power units on January 10, 2017 (the date of maximum daily  $\\mathrm{SO}_{2}$  emissions during 2017–2020), July 24, 2019 (the date of maximum daily  $\\mathrm{SO}_{2}$  emissions in summer of 2019), and February 9, 2020 (the date of minimum daily  $\\mathrm{SO}_{2}$  emissions during 2017–2020). The size and color of the circles represent the installed capacity and  $\\mathrm{SO}_{2}$  emissions, respectively. (h) Daily emission estimates of  $\\mathrm{CO}_{2}$ ,  $\\mathrm{SO}_{2}$ ,  $\\mathrm{NO}_{x}$ , and  $\\mathrm{PM}_{2.5}$  from a unit of Guangdong Guohua Taishan Power Plant from 2017 to 2020 as an example."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Present Quantitative Results",
+                  "Showcase Prediction Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Composite & Multi-view",
+                "sub_types": [
+                  "Line Chart",
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "CO2",
+                "PM2.5",
+                "NOx",
+                "SO2",
+                "Spring Festival",
+                "Guangdong Guohua Taishan Power Plant"
+              ],
+              "concise_summary": "Figure 2 displays daily emission patterns of CO2, PM2.5, NOx, and SO2 in China from 2017 to 2020, highlighting variations during the Spring Festival and specific high/low emission dates.",
+              "inferred_insight": "This figure illustrates emission trends over time, emphasizing significant variations and illustrating the impact of specific temporal events like the Spring Festival on emissions.",
+              "paper_id": 9
+            },
+            "score": 0.41042102240561207,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": {
+            "target_evidence_id": "img_62",
+            "branch_action": "GROW",
+            "extracted_insight": "图表 2 通过线图展示了 2017 至 2020 年中国 CO2、PM2.5、NOx 和 SO2 的日排放模式，并通过弯曲显示了特定时间（如春节）对排放的影响。",
+            "scores": {
+              "relevance": 9,
+              "credibility": 8
+            },
+            "reason": "图中提供了有关于节日期间和高低排放日的较详细的趋势数据，对理解排放模式有重要参考价值。",
+            "suggested_keywords": [
+              "daily emission patterns",
+              "Spring Festival impact",
+              "temporal emission trends",
+              "Guangdong Guohua Taishan Power Plant"
+            ]
+          }
+        },
+        {
+          "retrieval_result": {
+            "id": "img_22",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 1. Timeline of CCTPs implemented in China during 2015-2020. (Note: the public information is collected from the National Energy Administration, and the illustration is made by the authors).",
+              "summary": "Timeline illustrating CCTPs implemented in China from 2015 to 2020, highlighting key initiatives and action plans aimed at the clean and efficient use of coal.",
+              "insight": "The figure outlines major policy and action plans to utilize coal resources cleanly, reduce emissions, and align with China's 13th Five-Year Plan goals, shaping the atmospheric administration strategy."
+            },
+            "metadata": {
+              "id": "img_22",
+              "source_md": "Air quality changes in China 2013-2020_ Effectiven.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Air quality changes in China 2013-2020_ Effectiven\\figure_1.jpg",
+              "title": "Fig. 1. Timeline of CCTPs implemented in China during 2015-2020. (Note: the public information is collected from the National Energy Administration, and the illustration is made by the authors).",
+              "references": [
+                "On the policy side, the Chinese government explicitly proposed to promote the clean and efficient use of coal in 2014. And subsequently, two significant specialized action plans were published in 2015 (Action Plan for Clean and Efficient Use of Coal in Industry and Action Plan for Clean and Efficient Use of Coal), signifying that the clean and efficient use of coal in China has entered the implementation stage since 2015 (Zhu, 2019). Herein, the former plan chose four coal-dominated industries as key objects, and defined 21 types of critical technologies for clean and efficient coal utilization in the industry; the latter plan proposed the subjects involved in CCTPs include the government, enterprises, market, and the public, and all of the coal-rich districts in China were selected as key regions. Currently, a series of laws, regulations, and policies have been brought into effect, to alleviate air pollution and accelerate the development of CCTs. Additionally, China's 13th Five-Year Plan (FYP) ranges from 2016 to 2020, which sets goals and directions for national economic and social development during this period. In response to the economic regulation and marker supervision, 2020 is set as the last implementation year of many CCTPs, as shown in Fig. 1. Overall, these policies directed the dominant logic of atmospheric administration in the 13th FYP, namely utilizing coal resources cleanly and efficiently, reducing emissions comprehensively, and decreasing coal consumption."
+              ],
+              "functional_roles": {
+                "main_role": "Introduction & Background",
+                "sub_roles": [
+                  "Introduce Background Knowledge"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Diagrams & Schematics",
+                "sub_types": [
+                  "Flowchart"
+                ]
+              },
+              "key_entities": [
+                "CCTPs",
+                "National Energy Administration",
+                "Action Plan for Clean and Efficient Use of Coal",
+                "13th Five-Year Plan",
+                "Energy Technological Revolution",
+                "Chemical Industry Innovation"
+              ],
+              "concise_summary": "Timeline illustrating CCTPs implemented in China from 2015 to 2020, highlighting key initiatives and action plans aimed at the clean and efficient use of coal.",
+              "inferred_insight": "The figure outlines major policy and action plans to utilize coal resources cleanly, reduce emissions, and align with China's 13th Five-Year Plan goals, shaping the atmospheric administration strategy.",
+              "paper_id": 4
+            },
+            "score": 0.40963040225641745,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_161",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Figure 8. Emission changes from 2006 to 2010 by Asian regions for  SO_2  (a) and CO (b). Left panel: emissions in 2006 and 2010 by region.  Y  axis represents emissions by region.  X  axis represents cumulative emission contribution of regions. The dotted and solid lines represent emissions in 2006 and 2010 respectively. Right panel: the shares of emissions by sectors over China and India in 2006 and 2010.",
+              "summary": "The figure displays emission changes from 2006 to 2010 for SO2 and CO in Asian regions, with bar charts showing regional emissions and pie charts illustrating sector shares in China and India.",
+              "insight": "Emissions for SO2 and CO show a noticeable change between 2006 and 2010, with sectoral shifts in China and India indicating differing contributions from power, industry, residential, and transportation sectors."
+            },
+            "metadata": {
+              "id": "img_161",
+              "source_md": "MIX_ a mosaic Asian anthropogenic emission invento.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\MIX_ a mosaic Asian anthropogenic emission invento\\figure_8.jpg",
+              "title": "Figure 8. Emission changes from 2006 to 2010 by Asian regions for  SO_2  (a) and CO (b). Left panel: emissions in 2006 and 2010 by region.  Y  axis represents emissions by region.  X  axis represents cumulative emission contribution of regions. The dotted and solid lines represent emissions in 2006 and 2010 respectively. Right panel: the shares of emissions by sectors over China and India in 2006 and 2010.",
+              "references": [
+                "(b)  \nFigure 8. Emission changes from 2006 to 2010 by Asian regions for  $\\mathrm{SO}_2$  (a) and CO (b). Left panel: emissions in 2006 and 2010 by region.  $Y$  axis represents emissions by region.  $X$  axis represents cumulative emission contribution of regions. The dotted and solid lines represent emissions in 2006 and 2010 respectively. Right panel: the shares of emissions by sectors over China and India in 2006 and 2010."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Bar Chart",
+                  "Pie Chart"
+                ]
+              },
+              "key_entities": [
+                "SO2",
+                "CO",
+                "China",
+                "India",
+                "Emissions",
+                "Asian regions",
+                "Power",
+                "Industry",
+                "Residential",
+                "Transportation"
+              ],
+              "concise_summary": "The figure displays emission changes from 2006 to 2010 for SO2 and CO in Asian regions, with bar charts showing regional emissions and pie charts illustrating sector shares in China and India.",
+              "inferred_insight": "Emissions for SO2 and CO show a noticeable change between 2006 and 2010, with sectoral shifts in China and India indicating differing contributions from power, industry, residential, and transportation sectors.",
+              "paper_id": 23
+            },
+            "score": 0.4066617891472802,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_27",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 6. The variation trend of AQI in the Chinese mainland.",
+              "summary": "Figure 6 shows the declining trend of AQI from 2013 to 2020 across seven regions in the Chinese mainland, highlighting improved air quality.",
+              "insight": "The figure illustrates significant improvements in air quality after implementing clean coal technology policies, with a notable decrease in AQI values across regions, underscoring the policies' positive impact."
+            },
+            "metadata": {
+              "id": "img_27",
+              "source_md": "Air quality changes in China 2013-2020_ Effectiven.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Air quality changes in China 2013-2020_ Effectiven\\figure_6.jpg",
+              "title": "Fig. 6. The variation trend of AQI in the Chinese mainland.",
+              "references": [
+                "considerably decreased from 2013 to 2020. As shown in Fig. 6, the AQI of all studied cities was all less than 100 since 2017, which is the threshold AQI value of excessive pollutants, indicating that air quality in China began to pick up. Herein, for better comparison, the 31 provincial capital cities were categorized into 7 districts according to the official administrative geographical area division. An identical trend was seen to that in central China, which showed the greatest improvement in air quality during 7 years.",
+                "Clean and efficient use of coal in China entered the implementation stage in 2015, and a series of policies were established to promote the sustainable development of clean coal technologies (CCTs). However, the long-term effects of the clean coal technology policies (CCTPs) have not been evaluated, and the outbreak of coronavirus disease 2019 (COVID-19) would bring great uncertainty regarding the effectiveness evaluation. Employing deep learning approaches and spatial autocorrelation analysis, the present work intended to explore the air quality variation before and after the implementation of CCTPs, and investigate the association between air quality and socioeconomic factors to explore the internal mechanism of air quality improvement. Results showed that after implementing CCTPs, the air quality index (AQI) had an average reduction of  $18.82\\%$  and the identical drop in air pollution in 2018 implied a 2-year time lag of CCTPs. Additionally, emission reduction and deindustrialization were explored as two promising ways to improve air quality while promoting energy transformation. The findings indicated that the Chinese government ought to pay more attention to long-term plans; industrial restructuring and environmental protection should be insisted upon to realize sustainable energy development. By providing a perspective on air quality improvement after the policies are implemented, this study can lead practitioners and academia to a comprehensive and objective view of clean coal policies.",
+                "The study obtained the data including a total of 1440 daily air quality and meteorological data (January 22, 2016, to December 31, 2019) from 31 provincial capital cities in the Chinese mainland,  $60\\%$  of which are chosen as the training set,  $20\\%$  as the validation set and  $20\\%$  as the test set. After determining the best basic network architecture for the current prediction tasks, models are set up in units of cities, and the training set is used to train the tailored CNN-LSTM models. The accuracy indicators of the model prediction results of 31 cities, namely RMSE values averaging 22.06, models perform well overall, indicating that the applied CNN-LSTM network has good capabilities for AQI prediction (Jin et al., 2020; Mao et al., 2021).",
+                "Temporally, it is evident that the AQI in the Chinese mainland",
+                "Fig. 5. AQI regional spatial autocorrelation in 31 provincial cities of the Chinese mainland.",
+                "Fig. 7. The variation trend of AQI in four seasons.",
+                "During the period of CCTPs implementation, an obvious air quality improvement was observed in the Chinese mainland, manifested as a decrease of AQI value by  $18.82\\%$  from 2013 to 2020. It is concluded that the clean and efficient transformation of coal resources conforms to China's national conditions, and could indeed improve the atmospheric environment, which has been demonstrated in the existing research as well (Li and Patino-Echeverri, 2017; Liu et al., 2021). Specifically, correlation coefficients showed that the promotion of emission reduction and deindustrialization could fundamentally help to reduce airborne contamination, although their persistence relies on continued efforts and is influenced by various factors (Yang and Teng, 2018). Another important observation was a 2-year time lag before the stringent CCTPs starting from 2015 takes any strong positive effects, shown as a dramatical reduction of AQI in 2018. It implies that the influence of time lag should be considered in the decision-making process, as a time lag commonly appears in air pollution regulations and plans (Van der et al., 2017).",
+                "The increase in population size and economic activity has remarkably increased the demand for fossil fuels in China, posing a severe threat to the environment. However, the recently implemented coal-based energy transition has shifted the energy structure from polluting energies to environment-friendly energies, and the subsequent policies created a great revolution in energy development and environment protection. Nevertheless, the energy distribution and air pollution in China are characterized by regionality, thus, targeting the efficiency of these national control policies, scholars mainly focus on regions with high-polluting and energy-intensive industries, such as Shanxi province and the BJH region; or target a specific policy, such as CTG and CTE policy. Differently, this study revealed the air quality improvement during the implementation of CCTPs at the national level. Clarifying the internal mechanism of these policies is significant when revising and implementing the following policies to achieve sustainable development. The quantitative assessment provided significant results: i) After implementing CCTPs, the Chinese mainland experienced air quality improvement, with the reduction of AQI averaging  $18.82\\%$ ; ii) An identical reduction of air pollution was observed in 2018, indicating a 2-year time lag of the related control policies; iii) There were positive associations between emission reduction promoting, deindustrialization and air quality improvement, suggesting two promising ways to realize sustainable energy development. Through assessing the air quality changes before and after the implementation of CCTPs, it is expected to provide a scientific basis for policymakers and stakeholders to forge consensus on the establishment and enforcement of clean coal policies."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "AQI",
+                "Chinese mainland",
+                "provincial capital cities",
+                "clean coal technology policies",
+                "CCTPs",
+                "central China"
+              ],
+              "concise_summary": "Figure 6 shows the declining trend of AQI from 2013 to 2020 across seven regions in the Chinese mainland, highlighting improved air quality.",
+              "inferred_insight": "The figure illustrates significant improvements in air quality after implementing clean coal technology policies, with a notable decrease in AQI values across regions, underscoring the policies' positive impact.",
+              "paper_id": 4
+            },
+            "score": 0.406462045529462,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_130",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 2.  PM_{2.5}  distribution at city-level in 2014 to 2020. The frequency histograms in (a)-(g) denote the frequency distribution of  PM_{2.5}  in 368 cities across mainland China. The dot lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  5\\mu gm^{-3} ).",
+              "summary": "Frequency histograms depicting PM2.5 distribution in 368 Chinese cities from 2014-2020, with WHO air quality target lines overlaid.",
+              "insight": "Despite improvements, many cities still fail to meet WHO air quality standards, highlighting ongoing PM2.5 pollution challenges in China."
+            },
+            "metadata": {
+              "id": "img_130",
+              "source_md": "How the Air Clean Plan and carbon mitigation measu.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\How the Air Clean Plan and carbon mitigation measu\\figure_2.jpg",
+              "title": "Fig. 2.  PM_{2.5}  distribution at city-level in 2014 to 2020. The frequency histograms in (a)-(g) denote the frequency distribution of  PM_{2.5}  in 368 cities across mainland China. The dot lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  5\\mu gm^{-3} ).",
+              "references": [
+                "In 2014, only  $26.63\\%$  cities in mainland China met the WHO Interim target (IT)-1 standard, which is also the Chinese National Ambient Air Quality Standard level 2 (CNAQS II, annual mean  $\\mathrm{PM}_{2.5}$  of  $35~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) (Fig. 2). By contrast,  $44.83\\%$  cities met the IT-1 standard at the end of APPCAP. However, few cities ( $\\sim 0.05\\%$ ) met the IT-3 standard (also the CNAQS level 1, annual mean  $\\mathrm{PM}_{2.5}$  of  $15~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) in APPCAP. In 2020, the air quality was further improved, with nearly  $3/4$  ( $\\sim 71.82\\%$ ) cities meeting the IT-1 standard and  $4.07\\%$  cities meeting the IT-3 standard. However, few cities met the WHO IT-4 level (annual mean  $\\mathrm{PM}_{2.5}$  of  $10~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) and no city met the updated WHO AQG (annual mean  $\\mathrm{PM}_{2.5}$  of  $5~\\mu \\mathrm{g}~\\mathrm{m}^{-3}$ ) in 2020, suggesting that the threat of  $\\mathrm{PM}_{2.5}$  pollution is still prevalent in China, despite the remarkable achievements have been made through the implementation of ACP.",
+                "Fig. 3. The proportion of people exposed to  $\\mathrm{PM}_{2.5}$  in BTH, PRD, YRD, FWP region and the whole nation at different years (i.e., 2014, 2017, and 2020). The dot vertical lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  $5\\mu \\mathrm{g}\\mathrm{m}^{-3}$ ).",
+                "Tong, D., et al., 2021. Health co-benefits of climate change mitigation depend on strategic power plant retirements and pollution controls. Nat. Clim. Chang. 11, 1077-1083. https://doi.org/10.1038/s41558-021-01216-1.  \nUnited Nations, 2015. Sustainable Development Goals. https://sustainabledevelopment.un.org/.  \nWang, Z., et al., 2021. High-resolution prediction of the spatial distribution of  $\\mathrm{PM}_{2.5}$  concentrations in China using a long short-term memory model. J. Clean Prod. 297 https://doi.org/10.1016/j.jclepro.2021.126493.  \nWang, Z., et al., 2022. Predicting annual  $\\mathrm{PM}_{2.5}$  in mainland China from 2014 to 2020 using multi temporal satellite product: An improved deep learning approach with spatial generalization ability. ISPRS-J. Photogramm. Remote Sens. 187, 141-158. https://doi.org/10.1016/j.isprsjprs.2022.03.002.  \nWorld Health Organization, 2016. Ambient air pollution: a global assessment of exposure and burden of disease. 121 p.  \nWorld Health Organization, 2021. WHO global air quality guidelines. https://apps.who.int/iris/bitstream/handle/10665/345329/9789240034228-eng.pdf? sequence=1&isAllowed=y.  \nXiao, Q., et al., 2021. Separating emission and meteorological contributions to long-term  $\\mathrm{PM}_{2.5}$  trends over eastern China during 2000-2018. Atmos. Chem. Phys. 21, 9475-9496.  \nXing, J., et al., 2020. The quest for improved air quality may push China to continue its  $\\mathrm{CO}_{2}$  reduction beyond the Paris Commitment. Proc. Natl. Acad. Sci. U. S. A. 117, 29535-29542.  \nXu, J., et al., 2021. Double cropping and cropland expansion boost grain production in Brazil. Nature Food. 2, 264-273.  \nXue, T., et al., 2019. Rapid improvement of  $\\mathrm{PM}_{2.5}$  pollution and associated health benefits in China during 2013-2017. Sci. China Earth Sci. 62, 1847-1856.  \nYue, H., et al., 2020. Stronger policy required to substantially reduce deaths from  $\\mathrm{PM}_{2.5}$  pollution in China. Nat. Commun. 11, 1462. https://doi.org/10.1038/s41467-020-15319-4.  \nYusuf, S., et al., 2020. Modifiable risk factors, cardiovascular disease, and mortality in 155 722 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. Lancet 395, 795-808.  \nZhang, Q., et al., 2019a. Drivers of improved  $\\mathrm{PM}_{2.5}$  air quality in China from 2013 to 2017. Proc. Natl. Acad. Sci. U. S. A. 116, 24463-24469.  \nZhang, Y., et al., 2019b. Socioeconomic factors of  $\\mathrm{PM}_{2.5}$  concentrations in 152 Chinese cities: Decomposition analysis using LMDI. J. Clean Prod. 218, 96-107.  \nZhang, X., et al., 2019c. The impact of meteorological changes from 2013 to 2017 on  $\\mathrm{PM}_{2.5}$  mass reduction in key regions in China. Sci. China Earth Sci. 62, 1885-1902.  \nZheng, B., et al., 2018. Trends in China's anthropogenic emissions since 2010 as the consequence of clean air actions. Atmos. Chem. Phys. 18, 14095-14111.  \nZheng, B., et al., 2021. Changes in China's anthropogenic emissions and air quality during the COVID-19 pandemic in 2020. Earth Syst. Sci. Data 13, 2895–2907. https://doi.org/10.5194/essd-13-2895-2021.  \nZhou, M., Liu, H., Peng, L., et al., 2021. Environmental benefits and household costs of clean heating options in northern China. Nat. Sustain. https://doi.org/10.1038/s41893-021-00837-w.  \nZhu, G., et al., 2019. Health burdens of ambient  $\\mathrm{PM}_{2.5}$  pollution across Chinese cities during 2006-2015. J. Environ. Manage. 243, 250-256.  \nZou, B., et al., 2019. Air pollution intervention and life-saving effect in China. Environ. Int. 125, 529-541."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Showcase Prediction Results",
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Histogram"
+                ]
+              },
+              "key_entities": [
+                "PM2.5",
+                "WHO Interim Targets",
+                "Air Quality Guidelines",
+                "Mainland China",
+                "APPCAP"
+              ],
+              "concise_summary": "Frequency histograms depicting PM2.5 distribution in 368 Chinese cities from 2014-2020, with WHO air quality target lines overlaid.",
+              "inferred_insight": "Despite improvements, many cities still fail to meet WHO air quality standards, highlighting ongoing PM2.5 pollution challenges in China.",
+              "paper_id": 20
+            },
+            "score": 0.40534167589869957,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_63",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Figure 3. (a) Daily variations in China's  NO_x  emissions from coal-fire power plants around Lunar New Year 2017-2020. The dark gray shading around the blue line shows the range of daily  NO_x  emissions during 2017-2019. The light gray shading highlights the period of the Wuhan lockdown. The  x -axis represents the number of days relative to the Lunar New Year's Day. (b) Daily reductions in power plant  NO_x  emissions in Hubei and other provinces during the Wuhan lockdown in 2020 compared to 2019. (c) Spatial distribution of the reduction rates of  NO_x  emissions from power units in 2020 relative to 2019. The shades in each province indicate the relative differences in power  NO_x  emissions, and the shaded circles represent the changes in  NO_x  emissions for each power unit. Gray shading indicates no valid data.",
+              "summary": "The figure shows variations and reductions in NO_x emissions from coal-fired power plants in China during Lunar New Year and Wuhan lockdown periods, highlighting spatial distribution and changes across provinces.",
+              "insight": "The figure illustrates significant NO_x emission reductions during Wuhan's lockdown, emphasizing the impact of decreased industrial activities on air quality."
+            },
+            "metadata": {
+              "id": "img_63",
+              "source_md": "Daily Emission Patterns of Coal-Fired Power Plants.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Daily Emission Patterns of Coal-Fired Power Plants\\figure_3.jpg",
+              "title": "Figure 3. (a) Daily variations in China's  NO_x  emissions from coal-fire power plants around Lunar New Year 2017-2020. The dark gray shading around the blue line shows the range of daily  NO_x  emissions during 2017-2019. The light gray shading highlights the period of the Wuhan lockdown. The  x -axis represents the number of days relative to the Lunar New Year's Day. (b) Daily reductions in power plant  NO_x  emissions in Hubei and other provinces during the Wuhan lockdown in 2020 compared to 2019. (c) Spatial distribution of the reduction rates of  NO_x  emissions from power units in 2020 relative to 2019. The shades in each province indicate the relative differences in power  NO_x  emissions, and the shaded circles represent the changes in  NO_x  emissions for each power unit. Gray shading indicates no valid data.",
+              "references": [],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results",
+                  "Showcase Prediction Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Composite & Multi-view",
+                "sub_types": [
+                  "Line Chart",
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "NO_x emissions",
+                "Wuhan lockdown",
+                "Lunar New Year",
+                "Hubei",
+                "power plants",
+                "reduction rates"
+              ],
+              "concise_summary": "The figure shows variations and reductions in NO_x emissions from coal-fired power plants in China during Lunar New Year and Wuhan lockdown periods, highlighting spatial distribution and changes across provinces.",
+              "inferred_insight": "The figure illustrates significant NO_x emission reductions during Wuhan's lockdown, emphasizing the impact of decreased industrial activities on air quality.",
+              "paper_id": 9
+            },
+            "score": 0.4051354782449613,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_136",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 8. Contribution of different factors to the change of  PM_{2.5}  concentrations (a) and  PM_{2.5} -attributable premature deaths (b) in 2014 to 2020 (\"Clean production\") denotes process control measures, \"Optimize fuel structure\" denotes structure control measures, \"Energy consumption control\" denotes source control measures, \"Co-effect of C and PM\" denotes the co-effect of  CO_{2}  and  PM_{2.5} , \"Death rate\" denotes health care level).",
+              "summary": "Figure shows the contribution of various factors to changes in PM2.5 levels and related premature deaths in China from 2014 to 2020.",
+              "insight": "The figure illustrates the effectiveness of measures like clean production in reducing PM2.5 and premature deaths, highlighting the need for targeted regional strategies and synergistic mitigation measures."
+            },
+            "metadata": {
+              "id": "img_136",
+              "source_md": "How the Air Clean Plan and carbon mitigation measu.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\How the Air Clean Plan and carbon mitigation measu\\figure_8.jpg",
+              "title": "Fig. 8. Contribution of different factors to the change of  PM_{2.5}  concentrations (a) and  PM_{2.5} -attributable premature deaths (b) in 2014 to 2020 (\"Clean production\") denotes process control measures, \"Optimize fuel structure\" denotes structure control measures, \"Energy consumption control\" denotes source control measures, \"Co-effect of C and PM\" denotes the co-effect of  CO_{2}  and  PM_{2.5} , \"Death rate\" denotes health care level).",
+              "references": [
+                "China implemented a stringent Air Clean Plan (ACP) since 2013 to address environmental and health risks caused by ambient fine particulate matter  $\\mathrm{PM}_{2.5}$ . However, the policy effectiveness of ACP and co-benefits of carbon mitigation measures to environment and health are still largely unknown. Using satellite-based  $\\mathrm{PM}_{2.5}$  products produced in our previous study, concentration-response functions, and the logarithmic mean Divisia index (LMDI) method, we analyzed the spatiotemporal dynamics of premature deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure, and quantitatively estimated the policy benefits of ACP and carbon mitigation measures. We found the annual  $\\mathrm{PM}_{2.5}$  concentrations in China decreased by  $33.65\\%$ $(13.41\\mu \\mathrm{g}\\mathrm{m}^{-3})$  from 2014 to 2020, accompanied by a decrease in  $\\mathrm{PM}_{2.5}$ -attributable premature deaths of 0.23 million  $(95\\%$  confidence interval (CI): 0.22-0.27), indicating the huge benefits of China ACP for human health and environment. However, there were still 1.12 million  $(95\\%$  CI: 0.79-1.56) premature deaths caused by the exposure of  $\\mathrm{PM}_{2.5}$  in mainland China in 2020. Among all ACP measures, clean production (contributed  $55.98\\%$  and  $51.14\\%$  to decrease in  $\\mathrm{PM}_{2.5}$  and premature deaths attributable to  $\\mathrm{PM}_{2.5}$ ) and energy consumption control (contributed  $32.58\\%$  and  $29.54\\%$  to decrease in  $\\mathrm{PM}_{2.5}$  and premature deaths attributable to  $\\mathrm{PM}_{2.5}$ ) made the largest contribution during the past seven years. Nevertheless, the environmental and health benefits of ACP are not fully synergistic in different regions, and the effectiveness of ACP measures reduced from 2018 to 2020. The co-effects of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  has become one of the major drivers for  $\\mathrm{PM}_{2.5}$  and premature deaths reduction since 2018, confirming the clear environment and health co-benefits of carbon mitigation measures. Our study suggests, with the saturation of clean production and source control, more targeted region-specific strategies and synergistic air pollution-carbon mitigation measures are critical to achieving the WHO's Air Quality Guideline target and the UN's Sustainable Development Goal Target in China.",
+                "The  $\\mathrm{PM}_{2.5}$  exposure-related drivers (i.e., the drivers of  $\\mathrm{PM}_{2.5}$ ) avoided 0.10 million net premature deaths in the first phase (2014 to 2017) (Fig. 8b). The measures in ACP fully offset the increase in the number of premature deaths caused by the co-effect of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  as well as the population growth effect, indicating the explicit positive health effect of air quality improvements. The vulnerability factors (i.e., health care level and age structure) contributed to 0.03 million net premature deaths during 2014 to 2017. Amongst them, the improvement in health care level (decrease of baseline death rate) cannot fully offset the net deaths caused by the aging population in China, meaning that the health care level in China needs to be enhanced further. During the APWBSD, improvement in health care became a more effective driver than energy consumption control for  $\\mathrm{PM}_{2.5}$  emission to avoid  $\\mathrm{PM}_{2.5}$ -attributable deaths, and can, thus, fully offset the effect of population aging. The population aging caused more premature deaths than economic growth, in the phase of APWBSD, which was distinct from APPCAP.",
+                "We provide a comprehensive estimation of the  $\\mathrm{PM}_{2.5}$  concentrations and the number of  $\\mathrm{PM}_{2.5}$ -attributable premature deaths, as well as spatiotemporal changes in these, and a quantitative assessment of the effectiveness of ACP methods in mainland China during 2014 to 2020. The two key contributions are: (1) We estimated the spatiotemporal variation in the number of deaths attributable to  $\\mathrm{PM}_{2.5}$  exposure in mainland China during ACP based on the  $\\mathrm{PM}_{2.5}$  product with the finest spatial resolution available to date, and elucidated the spatial discrepancies in policy implementation across China. China's recent clean air actions have achieved great benefits for human health and the environment. However, over  $98\\%$  of the population still lived under the risk of  $\\mathrm{PM}_{2.5}$  pollution ( $\\mathrm{PM}_{2.5}$  concentrations over  $15\\mu \\mathrm{g}\\mathrm{m}^{-3}$ ), with 1.12 million ( $95\\%$  CI: 0.79-1.56) premature deaths caused by  $\\mathrm{PM}_{2.5}$  pollution in mainland China in 2020, accounting for  $\\sim 27.05\\%$  of global ambient  $\\mathrm{PM}_{2.5}$ -attributable premature deaths. In addition, the environmental and health benefits of China ACP are not fully synergistic in spatial pattern, with the greatest health benefits detected in the YRD region and the best environment benefits identified in the BTH region. To achieve the co-benefits of environment and health, specific policies need to be adopted under different conditions. (2) We quantified the environment and health co-benefits of ACP measures and carbon mitigation from 2014 to 2020. Clean production was the most effective abatement measure in China ACP, reducing net  $\\mathrm{PM}_{2.5}$  concentrations and net premature deaths by  $18.35\\mu \\mathrm{g}\\mathrm{m}^{-3}$  and 0.45 million, respectively. The co-effects of  $\\mathrm{CO}_{2}$  and  $\\mathrm{PM}_{2.5}$  contributed to a  $23\\%$  and  $26\\%$  decrease in the number of  $\\mathrm{PM}_{2.5}$  and premature deaths and became one of the major drivers for  $\\mathrm{PM}_{2.5}$  and premature deaths reduction in the APWBSD phase. This confirms the clear environment and health co-benefits of carbon mitigation measures. Meanwhile, the effectiveness of process and source control measures reduced during 2018 to 2020. With the exhaustion of end-of-pipe and energy consumption control measures, the future air clean actions should focus more on carbon abatement and energy structure optimization, especially under the background of global climate change mitigation. In addition to mitigation in industrial and energy sectors, it is also critical to explore more cost-effective approaches (e.g., agricultural ammonia mitigation) (Zhou et al., 2021; Gu et al., 2021) for pollution control in other sectors.",
+                "Anenberg, S.C., et al., 2010. An estimate of the global burden of anthropogenic ozone and fine particulate matter on premature human mortality using atmospheric modeling. Environ. Health Perspect. 118, 1189-1195. https://doi.org/10.1289/ ehp.0901220.  \nAng, B.W., 2005. The LMDI approach to decomposition analysis: a practical guide. Energy Policy 33, 867-871. https://doi.org/10.1016/j.enpol.2003.10.010.  \nAng, B.W., 2015. LMDI decomposition approach: a guide for implementation. Energy Policy 86, 33-238.  \nApte, J.S., et al., 2015. Addressing global mortality from ambient  $\\mathrm{PM}_{2.5}$ . Environ. Sci. Technol. 49, 8057-8066. https://doi.org/10.1021/acs.est.5b01236.  \nBurnett, R.T., et al., 2014. An integrated risk function for estimating the global burden of disease attributable to ambient fine particulate matter exposure. Environ. Health Perspect. https://doi.org/10.1289/ehp.1307049.  \nBurnett, R., et al., 2018. Global estimates of mortality associated with long-term exposure to outdoor fine particulate matter. Proc. Natl. Acad. Sci. U. S. A. 115, 9592-9597. https://doi.org/10.1073/pnas.1803222115.  \nCai, S.Y., et al., 2017. The impact of the \"Air Pollution Prevention and Control Action Plan\" on  $\\mathrm{PM}_{2.5}$  concentrations in Jing-Jin-Ji region during 2012-2020. Sci. Total Environ. 580, 197-209. https://doi.org/10.1016/j.scitotenv.2016.11.188.  \nChen, J., et al., 2022. Long-term exposure to source-specific fine particles and mortality - a pooled analysis of 14 European cohorts within the ELAPSE project. Environ. Sci. Technol. 56, 9277-9290.  \nCheng, J., et al., 2021. Pathways of China's  $\\mathrm{PM}_{2.5}$  air quality 2015-2060 in the context of carbon neutrality. Natl. Sci. Rev. 8 https://doi.org/10.1093/nsr/nwab078.  \nChowdhury, S., et al., 2022. Global health burden of ambient  $\\mathrm{PM}_{2.5}$  and the contribution of anthropogenic black carbon and organic aerosols. Environ. Int. 159, 107020 https://doi.org/10.1016/j.envint.2021.107020.  \nCohen, A.J., et al., 2017. Estimates and 25-year trends of the global burden of disease attributable to ambient air pollution: an analysis of data from the Global Burden of Diseases Study 2015. Lancet 389, 1907-1918. https://doi.org/10.1016/s0140-6736(17)30505-6.  \nDimitrova, A., et al., 2021. Health impacts of fine particles under climate change mitigation, air quality control, and demographic change in India. Environ. Res. Lett. 16 https://doi.org/10.1088/1748-9326/abe5d5.  \nDing, D., et al., 2019. Estimated Contributions of Emissions Controls, Meteorological Factors, Population Growth, and Changes in Baseline Mortality to Reductions in Ambient PM2.5 and PM2.5-Related Mortality in China, 2013-2017. Environ. Health Perspect. 127, 12.  \nDong, F., Yu, B., Pan, Y., 2019. Examining the synergistic effect of  $\\mathrm{CO}_{2}$  emissions on  $\\mathrm{PM}_{2.5}$  emissions reduction: Evidence from China. J. Clean Prod. 223, 759-771.  \nFeng, L., et al., 2017b. Spatiotemporal changes in fine particulate matter pollution and the associated mortality burden in China between 2015 and 2016. Int. J. Environ. Res. Public Health 14, 1321. https://doi.org/10.3390/ijerph14111321.  \nFeng, L.W., Ye, B., Feng, H., Ren, F., Huang, S.C., Zhang, X.T., Zhang, Y.Q., Du, Q.Y., Ma, L., 2017a. Spatiotemporal changes in fine particulate matter pollution and the associated mortality burden. Int. J. Environ. Res. Public Health 14 in China between 2015 and 2016.  \nGeng, G., et al., 2021. Drivers of  $\\mathrm{PM}_{2.5}$  air pollution deaths in China 2002-2017. Nat. Geosci. 14, 645-650. https://doi.org/10.1038/s41561-021-00792-3.  \nGu, B., et al., 2021. Abating ammonia is more cost-effective than nitrogen oxides for mitigating PM2.5 air pollution. Science 374, 758-762. https://doi.org/10.1126/science.abf8623.  \nGuan, D., et al., 2018. Structural decline in China's  $\\mathrm{CO}_{2}$  emissions through transitions in industry and energy systems. Nat. Geosci. 11, 551-555.  \nGuan, Y., et al., 2021. Assessment to China's Recent Emission Pattern Shifts. Earth's Future, 9, e2021EF002241.  \nHong, C., et al., 2019. Impacts of climate change on future air quality and human health in China. Proc. Natl. Acad. Sci. U. S. A. 116, 17193-17200.  \nHuang, R., et al., 2014. High secondary aerosol contribution to particulate pollution during haze events in China. Nature 514, 218-222.  \nHuang, J., et al., 2018. Health impact of China's Air Pollution Prevention and Control Action Plan: an analysis of national air quality monitoring and mortality data. Lancet Planet. Health 2, E313-E323.  \nHystad, P., et al., 2020. Associations of outdoor fine particulate air pollution and cardiovascular disease in 157 436 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. The Lancet Planetary Health 4, e235-e245."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Bar Chart"
+                ]
+              },
+              "key_entities": [
+                "PM2.5 concentrations",
+                "premature deaths",
+                "clean production",
+                "optimize fuel structure",
+                "energy consumption control",
+                "co-effect of CO2 and PM",
+                "population growth"
+              ],
+              "concise_summary": "Figure shows the contribution of various factors to changes in PM2.5 levels and related premature deaths in China from 2014 to 2020.",
+              "inferred_insight": "The figure illustrates the effectiveness of measures like clean production in reducing PM2.5 and premature deaths, highlighting the need for targeted regional strategies and synergistic mitigation measures.",
+              "paper_id": 20
+            },
+            "score": 0.4045919497825307,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_164",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Figure 11. Monthly variations of SO2, CO, PM2.5, and CO2 emissions by Asian region for the year 2010. SO2 CO PM25 CO2",
+              "summary": "Figure 11 illustrates monthly variations in SO2, CO, PM2.5, and CO2 emissions across Asian regions for 2010 using line charts.",
+              "insight": "The figure highlights regional differences in monthly emission patterns, revealing distinct seasonal peaks and variations in the emissions of key pollutants across Asia."
+            },
+            "metadata": {
+              "id": "img_164",
+              "source_md": "MIX_ a mosaic Asian anthropogenic emission invento.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\MIX_ a mosaic Asian anthropogenic emission invento\\figure_11.jpg",
+              "title": "Figure 11. Monthly variations of SO2, CO, PM2.5, and CO2 emissions by Asian region for the year 2010. SO2 CO PM25 CO2",
+              "references": [
+                "Figure 11 presents monthly variations of  $\\mathrm{SO}_2$ , CO,  $\\mathrm{PM}_{2.5}$  and  $\\mathrm{CO}_2$  emissions by Asian region. Compared to other",
+                "Figure 11. Monthly variations of  $\\mathrm{SO}_2$ , CO,  $\\mathrm{PM}_{2.5}$ , and  $\\mathrm{CO}_2$  emissions by Asian region for the year 2010.  \n![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/fa4e3fc1-fa8a-45bf-892c-02fa70317f3a/c266dabcdbbe5fad09e87a4619e6cd846ec0f4fb5bb66d439847e86b94d5a2df.jpg)  \nOther East Asia",
+                "<table><tr><td>Item</td><td>Description</td></tr><tr><td>Domain</td><td>29 countries and regions in Asia</td></tr><tr><td>Countries and regions</td><td>China, Japan, Democratic People&#x27;s Republic of Korea, Republic of Korea, Mongolia, India, Afghanistan, Bangladesh, Bhutan, Maldives, Nepal, Pakistan, Sri Lanka, Brunei, Cambodia, Indonesia, Laos, Malaysia, Myanmar, Philippines, Singapore, Thailand, Vietnam, Kazakhstan, Kyrgyzstan, Tajikistan, Turkmenistan, Uzbekistan, Russia (East Siberia, Far East, Ural, West Siberia)</td></tr><tr><td>Species</td><td>SO2, NOx, CO, NMVOC, NH3, PM10, PM2.5, BC, OC, CO2</td></tr><tr><td>VOC speciation</td><td>by chemical mechanisms: CB05, SAPRC-99</td></tr><tr><td>Sectors</td><td>power, industry, residential, transportation, agriculture</td></tr><tr><td>Spatial resolution</td><td>0.25° × 0.25°</td></tr><tr><td>Seasonality</td><td>monthly</td></tr><tr><td>Year</td><td>2008, 2010</td></tr><tr><td>Data Access</td><td>http://www.meicmodel.org/dataset-mix</td></tr></table>",
+                "<table><tr><td></td><td>MEIC v1.0</td><td>PKU-NH3</td><td>CAPSS</td><td>JEI-DB+OPRF</td><td colspan=\"2\">ANL-India</td><td>REAS2</td></tr><tr><td>Year</td><td>1990–2010</td><td>2006</td><td>2008, 2010</td><td>2008, 2010</td><td>1996–2010</td><td>2008, 2010</td><td>2000–2010</td></tr><tr><td>Region</td><td>China</td><td>China</td><td>Republic of Korea</td><td>Japan</td><td>India</td><td>India</td><td>Asia</td></tr><tr><td>Seasonality</td><td>Monthly</td><td>Monthly</td><td>Annual</td><td>Monthly</td><td>Monthly</td><td>Annual</td><td>Monthly</td></tr><tr><td>Resolution</td><td>0.25°*</td><td>1 km</td><td>0.25°</td><td>1 km</td><td>0.1°</td><td>0.25°*</td><td>0.25°*</td></tr><tr><td>SO2</td><td>X</td><td></td><td>X</td><td>X</td><td>X</td><td></td><td>X</td></tr><tr><td>NOx</td><td>X</td><td></td><td>X</td><td>X</td><td></td><td>X</td><td>X</td></tr><tr><td>CO</td><td>X</td><td></td><td>X</td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>NMVOC</td><td>X</td><td></td><td>X</td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>NH3</td><td>X</td><td>X</td><td></td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>PM10</td><td>X</td><td></td><td>X</td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>PM2.5</td><td>X</td><td></td><td></td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>BC</td><td>X</td><td></td><td></td><td>X</td><td>X</td><td></td><td>X</td></tr><tr><td>OC</td><td>X</td><td></td><td></td><td>X</td><td>X</td><td></td><td>X</td></tr><tr><td>CO2</td><td>X</td><td></td><td>X</td><td>X</td><td></td><td></td><td>X</td></tr><tr><td>NMVOC speciation</td><td>X</td><td></td><td></td><td></td><td></td><td></td><td>X</td></tr></table>",
+                "Figure 10. Monthly variations of Asian  $\\mathrm{SO}_2$ , CO,  $\\mathrm{PM}_{2.5}$ , and  $\\mathrm{CO}_2$  emissions by sector for the year 2010.  \n![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/fa4e3fc1-fa8a-45bf-892c-02fa70317f3a/9f2ea3261ee32bb0c63e3b3f77bf598158a7f14fca17a9e7de52657445eb7c5a.jpg)  \nSO2 CO PM25 CO2",
+                "Monthly emissions by sector and by Asian region are provided in Tables S6-S14. Monthly profiles in emissions are highly sector dependent given that monthly activity rates vary among different sectors. Figure 10 illustrates the monthly variations of Asian  $\\mathrm{SO}_2$ , CO,  $\\mathrm{PM}_{2.5}$ , and  $\\mathrm{CO}_2$  emissions by sector for the year 2010. Different species generally show similar monthly emission patterns within the same sector, indicating that monthly emission profiles of each sector are dominated by monthly variations in activity rates. For example, industrial emissions are higher in the second half of the year induced by larger industrial productions to meet the annual total production target. The most significant monthly variation with a winter peak was found in the residential sector, reflecting the higher energy demand for residential heating in winter. Residential  $\\mathrm{SO}_2$  emissions in winter are even higher than other species, because  $\\mathrm{SO}_2$  emissions from China dominate residential emissions in Asia (70% of total), of which coal consumption in winter is higher than other regions for heating. Monthly profiles of CO emissions are different from other species for the transportation sector. This is because the CO emission factor in winter is higher than in other seasons due to additional emissions from the cold-start process (Kurokawa et al., 2013; Zheng et al., 2014)."
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Quantitative Results"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Quantitative Charts",
+                "sub_types": [
+                  "Line Chart"
+                ]
+              },
+              "key_entities": [
+                "SO2",
+                "CO",
+                "PM2.5",
+                "CO2",
+                "Asian region",
+                "2010"
+              ],
+              "concise_summary": "Figure 11 illustrates monthly variations in SO2, CO, PM2.5, and CO2 emissions across Asian regions for 2010 using line charts.",
+              "inferred_insight": "The figure highlights regional differences in monthly emission patterns, revealing distinct seasonal peaks and variations in the emissions of key pollutants across Asia.",
+              "paper_id": 23
+            },
+            "score": 0.4030866666259829,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": {
+            "target_evidence_id": "img_164",
+            "branch_action": "GROW",
+            "extracted_insight": "图表 11 显示 2010 年亚洲各地区 SO2、CO、PM2.5 和 CO2 的月排放变化，突出了一年中的季节性高峰和污染物排放的区域差异。",
+            "scores": {
+              "relevance": 8,
+              "credibility": 7
+            },
+            "reason": "该图表为不同地区和季节的排放变化提供了重要数据，可以帮助分析和比较污染源。",
+            "suggested_keywords": [
+              "monthly emission variations",
+              "seasonal emission peaks",
+              "Asian regions",
+              "2010"
+            ]
+          }
+        },
+        {
+          "retrieval_result": {
+            "id": "img_178",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 4. Summary of the major control regulations in China since 2013. PP: power plants; IN: industry; TR: transport; DO: domestic sector; AR: agriculture.",
+              "summary": "The table summarizes China's major control regulations for PM2.5 mitigation from 2013 to 2020, highlighting different action plans and targeted emission sectors.",
+              "insight": "The figure illustrates the shift in China's policy framework, gradually encompassing more emission sectors and precursors to achieve substantial PM2.5 reductions nationwide, emphasizing extensive measures in key regions."
+            },
+            "metadata": {
+              "id": "img_178",
+              "source_md": "Progress of Air Pollution Control in China and Its.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\Progress of Air Pollution Control in China and Its\\figure_4.jpg",
+              "title": "Fig. 4. Summary of the major control regulations in China since 2013. PP: power plants; IN: industry; TR: transport; DO: domestic sector; AR: agriculture.",
+              "references": [
+                "Fig. 4 summarizes the major action plans for  $\\mathrm{PM}_{2.5}$  control implemented by the Chinese government since 2013. The policy framework shows a clear trend of gradually involving more categories of  $\\mathrm{PM}_{2.5}$  precursors and emission sectors, since traditional control actions for a single pollutant or a single sector were insufficient to deliver substantial reductions in  $\\mathrm{PM}_{2.5}$  concentrations as required by the Action Plan. One notable case is that the estimated  $\\mathrm{SO}_2$  emissions and sulfate concentrations inversed from satellite observations both rebounded slightly during 2010-2011 due to a rapid increase in industrial activities and less stringent controls on the iron and steel industries (Fig. 2), which surpassed the reduction benefits of  $\\mathrm{SO}_2$  controls on power plants [31]. As a result, a series of stringent control measures have been implemented in the industrial polluting sector, including strengthening industrial emissions standards, phasing out small-scale high-polluting factories, phasing out outdated industrial capacities, and upgrading industrial boilers [32]. Compared with the control measures for",
+                "As Fig. 4 indicates, control actions have been implemented nationwide, with additional efforts in several key regions. Improving air quality and mitigating  $\\mathrm{PM}_{2.5}$  pollution in core megacities (e.g., Beijing and Shanghai) have been attained due to increased attention from the central government and the public. Beijing provides a success story in tackling  $\\mathrm{PM}_{2.5}$  pollution after two-decade-long efforts. In fact, the implementation of comprehensive air pollution controls in Beijing was initiated as early as the 1990s. During the 2008 Olympic Games, extensive control measures were implemented in Beijing and surrounding provinces to guarantee good air quality [41]. Ambient concentrations of CO,  $\\mathrm{SO}_2$ ,  $\\mathrm{PM}_{10}$ , and  $\\mathrm{NO}_2$  continuously decreased, even as the municipal GDP, resident population, vehicle stock, and energy consumption increased significantly from 1998 to 2013. Owing to the success of air pollution controls for the 2008 Olympic Games, the local leaders recognized that ambient  $\\mathrm{PM}_{2.5}$  concentrations resulted from a combination of emissions, meteorological conditions, and"
+              ],
+              "functional_roles": {
+                "main_role": "Results & Findings",
+                "sub_roles": [
+                  "Present Core Findings",
+                  "Compare Experimental Performance"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Tabular & Textual",
+                "sub_types": [
+                  "Table"
+                ]
+              },
+              "key_entities": [
+                "Air Pollution Prevention and Control Action Plan",
+                "Industrial Green Development Plan",
+                "Coal-Fired Power Plants",
+                "Beijing-Tianjin-Hebei",
+                "Three-Year Action Plan",
+                "PM2.5",
+                "SO2"
+              ],
+              "concise_summary": "The table summarizes China's major control regulations for PM2.5 mitigation from 2013 to 2020, highlighting different action plans and targeted emission sectors.",
+              "inferred_insight": "The figure illustrates the shift in China's policy framework, gradually encompassing more emission sectors and precursors to achieve substantial PM2.5 reductions nationwide, emphasizing extensive measures in key regions.",
+              "paper_id": 26
+            },
+            "score": 0.40257583790941415,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        },
+        {
+          "retrieval_result": {
+            "id": "img_12",
+            "source_tool": "Left_Path(Semantic)",
+            "content": {
+              "title": "Fig. 1. Study area. The blue line encompasses the region of Jinjingji, including Beijing, Tianjin and Hebei province. (a) China's territory, (b) the study area (Tangshan); this image is obtained from the red, green, and blue bands of Landsat 8 (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article).",
+              "summary": "The figure depicts the study area encompassing Jinjingji, including Beijing, Tianjin, and Hebei. It uses Landsat 8 data for Tangshan, highlighted within China's territory.",
+              "insight": "The figure highlights the targeted study area for spatial analysis using satellite imagery, emphasizing its geographic boundaries and components for focused research."
+            },
+            "metadata": {
+              "id": "img_12",
+              "source_md": "A simple method based on the thermal anomaly index.md",
+              "save_path": "C:\\liuxingyu\\multisubspace-data\\predataprocess\\paper_md\\A simple method based on the thermal anomaly index\\figure_1.jpg",
+              "title": "Fig. 1. Study area. The blue line encompasses the region of Jinjingji, including Beijing, Tianjin and Hebei province. (a) China's territory, (b) the study area (Tangshan); this image is obtained from the red, green, and blue bands of Landsat 8 (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article).",
+              "references": [
+                "Daily VIIRS Nightfire product V2.1 (obtained from https://ngdc.noaa.gov/eog/viirs/) was produced via an algorithm that was combined with the visible, NIR, SWIR, and MWIR (Elvidge et al., 2013). Here, we classified the results of this product into two parts: one is hot spots without FRP and fire areas (i.e., white placemarks that failed the Planck curve fit), which is termed as nonconfirmed; the other is hot spots with FRP and fire area (i.e., purple, blue, green, yellow and red place marks), which is termed as confirmed (Fig. 1)."
+              ],
+              "functional_roles": {
+                "main_role": "Data & Experimental Setup",
+                "sub_roles": [
+                  "Showcase Dataset Samples",
+                  "Describe Data Distribution"
+                ]
+              },
+              "visual_type": {
+                "main_type": "Geospatial Visualizations",
+                "sub_types": [
+                  "Map"
+                ]
+              },
+              "key_entities": [
+                "Jinjingji",
+                "Beijing",
+                "Tianjin",
+                "Hebei",
+                "Landsat 8",
+                "VIIRS Nightfire"
+              ],
+              "concise_summary": "The figure depicts the study area encompassing Jinjingji, including Beijing, Tianjin, and Hebei. It uses Landsat 8 data for Tangshan, highlighted within China's territory.",
+              "inferred_insight": "The figure highlights the targeted study area for spatial analysis using satellite imagery, emphasizing its geographic boundaries and components for focused research.",
+              "paper_id": 2
+            },
+            "score": 0.4023344256998819,
+            "source_args": {
+              "query_intent": "新型空气质量监测与分析技术"
+            }
+          },
+          "evaluation": null
+        }
+      ]
+    }
+  ]
+}

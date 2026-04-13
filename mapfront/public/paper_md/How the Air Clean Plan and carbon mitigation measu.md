@@ -1,0 +1,363 @@
+Full length article
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/83cba1848e634f728d786ec294db506a6f47ca113161782a09cba5c0a3da9034.jpg)
+
+# How the Air Clean Plan and carbon mitigation measures co-benefited China in  $\mathrm{PM}_{2.5}$  reduction and health from 2014 to 2020
+
+Zhige Wang a, Bifeng Hu b, Ce Zhang c,d, Peter M. Atkinson c,e, Zifa Wang f, Kang Xu a, Jinfeng Chang a,g, Xuekun Fang a,h, Yefeng Jiang a, Zhou Shi a,i,*
+
+a College of Environmental and Resource Sciences, Zhejiang University, Hangzhou 310058, China  
+$^{b}$  Department of Land Resource Management, School of Tourism and Urban Management, Jiangxi University of Finance and Economics, Nanchang 330013, China  
+c Lancaster Environment Centre, Lancaster University, Lancaster LA1 4YQ, UK  
+d UK Centre for Ecology & Hydrology, Library Avenue, Bailrigg, Lancaster LA1 4AP, UK  
+e Institute of Geographic Sciences and Natural Resources Research, Chinese Academy of Sciences, 11A Datun Road, Beijing 100101, China  
+$^{\mathrm{f}}$  LAPC, Institute of Atmospheric Physics, Chinese Academy of Sciences, Beijing 100029, China  
+$^{8}$  Biodiversity and Natural Resources (BNR), International Institute for Applied Systems Analysis (IIASA), Laxenburg, Austria  
+<sup>h</sup> Center for Global Change Science, Massachusetts Institute of Technology, Cambridge, MA 02139, United States  
+<sup>1</sup> Key Laboratory of Environment Remediation and Ecological Health, Ministry of Education, College of Environmental and Resource Sciences, Zhejiang University, Hangzhou 310058, China
+
+# ARTICLEINFO
+
+Handling Editor: Adrian Covaci
+
+Keywords:
+
+Air pollution
+
+Health impact
+
+Carbon mitigation
+
+China Air Clean Plan
+
+# ABSTRACT
+
+China implemented a stringent Air Clean Plan (ACP) since 2013 to address environmental and health risks caused by ambient fine particulate matter  $\mathrm{PM}_{2.5}$ . However, the policy effectiveness of ACP and co-benefits of carbon mitigation measures to environment and health are still largely unknown. Using satellite-based  $\mathrm{PM}_{2.5}$  products produced in our previous study, concentration-response functions, and the logarithmic mean Divisia index (LMDI) method, we analyzed the spatiotemporal dynamics of premature deaths attributable to  $\mathrm{PM}_{2.5}$  exposure, and quantitatively estimated the policy benefits of ACP and carbon mitigation measures. We found the annual  $\mathrm{PM}_{2.5}$  concentrations in China decreased by  $33.65\%$ $(13.41\mu \mathrm{g}\mathrm{m}^{-3})$  from 2014 to 2020, accompanied by a decrease in  $\mathrm{PM}_{2.5}$ -attributable premature deaths of 0.23 million  $(95\%$  confidence interval (CI): 0.22-0.27), indicating the huge benefits of China ACP for human health and environment. However, there were still 1.12 million  $(95\%$  CI: 0.79-1.56) premature deaths caused by the exposure of  $\mathrm{PM}_{2.5}$  in mainland China in 2020. Among all ACP measures, clean production (contributed  $55.98\%$  and  $51.14\%$  to decrease in  $\mathrm{PM}_{2.5}$  and premature deaths attributable to  $\mathrm{PM}_{2.5}$ ) and energy consumption control (contributed  $32.58\%$  and  $29.54\%$  to decrease in  $\mathrm{PM}_{2.5}$  and premature deaths attributable to  $\mathrm{PM}_{2.5}$ ) made the largest contribution during the past seven years. Nevertheless, the environmental and health benefits of ACP are not fully synergistic in different regions, and the effectiveness of ACP measures reduced from 2018 to 2020. The co-effects of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  has become one of the major drivers for  $\mathrm{PM}_{2.5}$  and premature deaths reduction since 2018, confirming the clear environment and health co-benefits of carbon mitigation measures. Our study suggests, with the saturation of clean production and source control, more targeted region-specific strategies and synergistic air pollution-carbon mitigation measures are critical to achieving the WHO's Air Quality Guideline target and the UN's Sustainable Development Goal Target in China.
+
+# 1. Introduction
+
+Exposure to ambient  $\mathrm{PM}_{2.5}$  (fine particulate matter with an aerodynamic diameter  $\leq 2.5\mu \mathrm{m}$ ) increases the likelihood of premature death from cause-specific diseases such as ischemic heart disease (IHD),
+
+cerebrovascular disease (stroke), chronic obstructive pulmonary disease (COPD), lower respiratory infections (LRI), type II diabetes (DM) and lung cancer (LC) according to epidemiological cohort studies (Cohen et al., 2017; Burnett et al., 2018; Murray et al., 2020), and caused over four million death around the world in 2019 (Stanaway et al., 2018). To
+
+protect public health, the World Health Organization (WHO) updated the global Air Quality Guideline (AQG) (WHO, 2021) and further tightened the annual mean  $\mathrm{PM}_{2.5}$  concentration limits from  $10\mu \mathrm{g}\mathrm{m}^{-3}$  to  $5\mu \mathrm{g}\mathrm{m}^{-3}$  in 2021. The United Nation also proposed the Sustainable Development Goals (SDGs) with target 3.9 aiming to reduce substantially the number of deaths and illnesses from air, water and soil pollution and contamination (United Nations, 2015). In the past three decades, China, as one of the fastest developing countries in the world, has experienced unprecedented challenges of severe air pollution due to the consumption of fossil fuels generally, industrial emissions (Mcduffie et al., 2021), vehicle ownership, urban construction and ever-growing population, which poses enormous threats to human health (Huang et al., 2014; Yue et al., 2020).
+
+Therefore, the Chinese government launched the strict Air Clean Plan (ACP) in 2013, aiming to address the above problem of severe air pollution. The ACP was divided into two phases: a five-year Air Pollution Prevention and Control Action Plan (APPCAP, 2013-2017) as well as a three-year Action Plan to Win Blue-Sky Defense (APWBSD, 2018-2020) (The State Council of China, 2013; 2018). The APPCAP was targeted to decrease  $\mathrm{PM}_{2.5}$  concentrations by over  $25\%$ ,  $20\%$ , and  $15\%$  by 2017 in the Beijing-Tianjin-Hebei (BTH), Yangtze River Delta (YRD) and Pearl River Delta (PRD) regions, respectively (Fig. S1 and Table S1). The APWBSD, launched in 2018, set more comprehensive air quality requirements, such as the requirement that  $\mathrm{PM}_{2.5}$  concentrations needed to be reduced by over  $18\%$  compared to 2015 in all cities at prefecture-level where the standard was not met. In this context, a series of effective air pollution control measures were proposed on energy consumption control, clean production and energy structure adjustment (Zhang et al., 2019a; Zheng et al., 2018). However, greater effort remains necessary and urgent to reduce the  $\mathrm{PM}_{2.5}$  concentrations to the WHO level and the standard of "Beautiful China" vision (annual mean  $\mathrm{PM}_{2.5}$  concentrations  $\leq 35~\mu \mathrm{g}~\mathrm{m}^{-3}$  in all cities by 2035).
+
+Meanwhile, to mitigate the global climate change and increasing greenhouse gas (GHG) emission, the Chinese government signed the Nationally Determined Contribution (NDC) pledge to cap  $\mathrm{CO}_{2}$  emissions at a peak in 2030 and achieve carbon neutrality by 2060. Due to the analogous sources (e.g., coal combustion) of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  (Dimitrova et al., 2021), the  $\mathrm{CO}_{2}$  mitigation measures can bring health and environment co-benefits from abating air pollution. Facing dual pressures from air clean and GHG mitigation, evaluating the co-benefits of air clean plan and carbon mitigation policies, as well as clarifying the improvements of air quality and public health, are critical to achieve the "Beautiful China" vision, SDG target, and NDC goal, simultaneously.
+
+Although some pioneering research has explored improvements in air quality and health impacts due to the ACP (Yue et al., 2020; Geng et al., 2021; Zhang et al., 2019a; Liu et al., 2021; Feng et al., 2017; Li et al., 2019; Zhu et al., 2019), these studies suffered from several limitations. First, current estimates of  $\mathrm{PM}_{2.5}$ -attributable premature deaths are limited in both spatial resolution and temporal scale. For example, Zhang et al. (2019a) estimated the change in  $\mathrm{PM}_{2.5}$ -attributable premature deaths in China from 2013 to 2017, but their analysis was limited to the national level. Yue et al. (2020) estimated pixel level premature deaths attributable to  $\mathrm{PM}_{2.5}$  exposure. However, the relative coarse spatial resolution (10 km) made it difficult to discern detailed information clearly such as hot spots of severe regions. Second, few previous studies focused on the environment and health benefits of specific measures for  $\mathrm{PM}_{2.5}$  pollution control in the ACP in China (Cai et al., 2017; Huang et al., 2018; Ma et al., 2019; Ding et al., 2019). Zheng et al. (2018) estimated the effectiveness of ACP by measuring the related induced decrease of emitted pollutants (e.g.,  $\mathrm{SO}_2$ ,  $\mathrm{NO_x}$  and  $\mathrm{NH_3}$ ). Geng et al. (2021) considered the effectiveness of end-of-pipe treatment in ACP, while ignoring the effect of other specific measures in ACP. Finally, carbon mitigation and  $\mathrm{PM}_{2.5}$  control have significant synergies (Li et al., 2019; Cheng et al., 2021; Xing et al., 2020; Tong et al., 2021). However, currently only a few studies considered or quantified the co-benefits of  $\mathrm{CO}_{2}$  mitigation and reducing  $\mathrm{PM}_{2.5}$  so far. Some other studies projected
+
+the  $\mathrm{PM}_{2.5}$  reductions under future carbon mitigation pathways, but without quantifying the specific contribution of  $\mathrm{CO}_{2}$  mitigation (Li et al., 2019; Cheng et al., 2021).
+
+To overcome the above drawbacks, the objective of this study is to assess the environmental and health benefits of China ACP by capturing the spatiotemporal dynamics of  $\mathrm{PM}_{2.5}$  and  $\mathrm{PM}_{2.5}$ -attributable premature deaths at finer spatial resolution, and to evaluate quantitatively the effectiveness of specific ACP measures and carbon mitigation with respects to these improvements. Three research questions are to be addressed in this study:
+
+1. How have  $\mathrm{PM}_{2.5}$  concentrations and  $\mathrm{PM}_{2.5}$ -attributable premature deaths been changed during the two phases of ACP in China?  
+2. What was the most effective ACP abatement measures in China, and what was its contribution rate?  
+3. What role did in  $\mathrm{CO}_{2}$  emissions of China play in  $\mathrm{PM}_{2.5}$  abatement?
+
+# 2. Materials and methods
+
+# 2.1. Satellite-based  $PM_{2,5}$  data
+
+Annual satellite-based  $\mathrm{PM}_{2.5}$  products covering mainland China from 2014 to 2020 (Fig. S2) were used to investigate the spatiotemporal variation in  $\mathrm{PM}_{2.5}$  and to estimate  $\mathrm{PM}_{2.5}$ -attributable deaths. This dataset was produced by our previous studies (Wang et al., 2021; 2022) through the combination of satellite-based remote sensing data, site-based  $\mathrm{PM}_{2.5}$  observation data, and an improved deep learning model. It has the finest spatial resolution (1 km) and accuracy (determination coefficient  $(\mathbb{R}^2)$  of 0.90, root mean square error (RMSE) of  $4.82~\mu \mathrm{g~m}^{-3}$ ) (Fig. S3), compared with other publicly available  $\mathrm{PM}_{2.5}$  datasets for assessing  $\mathrm{PM}_{2.5}$  change and  $\mathrm{PM}_{2.5}$ -attributable deaths in detail.
+
+# 2.2.  $PM_{2.5}$ -attributable premature deaths estimation
+
+The total number of  $\mathrm{PM}_{2.5}$ -attributable premature deaths was calculated from the six specific diseases (i.e., IHD, stroke, COPD, LRI, DM and LC) associated with the exposure to  $\mathrm{PM}_{2.5}$ , using a similar method following Global Burden Disease (GBD) and WHO (WHO, 2016; Stanaway et al., 2018). According to the method, the population attributable fractions (PAFs) of six diseases, which represents the proportion of premature deaths specific disease attributable to  $\mathrm{PM}_{2.5}$  exposure, is calculated using Eq. (1).
+
+$$
+\mathrm {P A F} _ {\text {a g e , d i s c a s e}} = 1 - \frac {1}{\mathrm {R R} _ {\text {a g e , d i s c a s e , P M 2 . 5}}} \tag {1}
+$$
+
+where  $\mathrm{RR}_{\mathrm{age,disease,PM2.5}}$  is the relative risk (also known as CRFs), calculated using a Meta Regression-Bayesian, Trimmed (MR-BRT) spline updated in the GBD 2019 (Text S1 and Fig. S5 for detail). The RR describes the excess risk of non-accidental mortality from different age of disease IHD, stroke, COPD, LC, DM, and LRI at different  $\mathrm{PM}_{2.5}$  concentrations. Among six specific diseases, IHD and stroke have the age-specific RRs stratified by five year of age (i.e., 25–30, 30–35...90–95, and  $95+$ ), while other diseases use the same RR for all age groups. In addition, for LRI, the children under the age of five and adults over the age of 25 are considered, and for the other five diseases, only adults over the age of 25 are considered.
+
+$$
+\mathrm {P A D} _ {\mathrm {t}} = \sum_ {\text {d i s e a s e}} ^ {\mathrm {n}} \sum_ {\text {a g e}} ^ {\mathrm {m}} \left(\mathrm {P A F} _ {\text {a g e , d i s e a s e}} \times \mathrm {P O P} _ {\mathrm {t}} \times \text {R a t e} _ {\text {a g e , d i s e a s e , t}} \times \mathrm {P} _ {\text {a g e , t}}\right) \tag {2}
+$$
+
+where  $\mathrm{PAD}_{\mathrm{t}}$  is the deaths attributed to  $\mathrm{PM}_{2.5}$  pollution for year t,  $\mathrm{PAF}_{\mathrm{age,disease}}$  denotes the population attributable fraction of specific age groups and diseases,  $\mathrm{POP}_{\mathrm{t}}$  refers to the population in year t.  $\mathrm{Rate}_{\mathrm{age,disease,t}}$  refers to the death rate of different diseases for people of different ages.  $\mathrm{P}_{\mathrm{age,t}}$  is the percentage of the population with different ages in year t. The POP and PAF are at 1-km pixel level, while the  $\mathrm{P}_{\mathrm{age}}$  and  $\mathrm{Rate}_{\mathrm{age,disease}}$  are
+
+only available at the national level. Therefore, we assumed that the death rates and age structure is homogeneous in mainland China refers to previous studies (Anenberg, 2010; Stanaway, 2018). Finally, we used a country-scale adjustment factor (McDuffie et al., 2021; Stanaway et al., 2018) to separate the deaths attributable to ambient  $\mathrm{PM}_{2.5}$  from the total deaths attributable to ambient and household  $\mathrm{PM}_{2.5}$  according to the study of McDuffie et al (2021). The adjustment factor (Table S2) is calculated by comparing the national-scale deaths derived for all particulate matter pollution to deaths related to ambient particulate matter pollution only in GBD 2019.
+
+Population distribution data  $(\mathrm{POP}_{\mathrm{t}})$  at  $1\mathrm{km}$  spatial resolution were obtained from the WorldPop dataset (https://www.worldpop.org/) (Fig. S6). The national age structure data  $(\mathrm{P_{age}})$  were obtained from official national statistical yearbooks and datasets (https://www.stats.gov.cn/tjsj/ndsj/). The national age-specific death rates  $(\mathrm{Rate}_{\mathrm{age,disease}})$  for six diseases (i.e., IHD, stroke, COPD, LRI, DM II, and LC), from 2014 to 2019, were updated in GBD 2019 (Murray et al., 2020). Death rates in 2020 are the linear derivation of the death rate for historical years (1990-2019), with the average  $\mathbb{R}^2$  of the fit over 0.8.
+
+# 2.3. Decomposing changes in  $PM_{2.5}$  and premature death attributable to  $PM_{2.5}$
+
+In this study, we considered three main drivers in relation to the changes in  $\mathrm{PM}_{2.5}$  concentrations, including (1) the co-effect of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$ , (2) air clean plan measures, (3) socio-economic factors. The first driver consists of the homology of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  (H), and the synergistic emission control in  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  (C). The second main driver consists of three sub-drivers, including (1) process control measures (P), (2) source control measures (So), and (3) structure control measure (St). The last driver consists of the economic development (E), and the demographic growth (D). Noted that we did not consider the impact of meteorological change in this study, since previous research has found that the  $\mathrm{PM}_{2.5}$  pollution reduction in China is dominated by anthropogenic impact rather than meteorological conditions (Xiao et al., 2021; Zhang et al., 2019c).
+
+An index decomposition approach, the logarithmic mean Divisia index (LMDI), was adopted to decompose the effect of the above drivers in this research. The LMDI method can decompose the change of the objective variable into several predefined drivers related to the objective variables (Ang et al., 2005 and 2015). The LMDI decomposition is consistent in aggregation from each component without unexplained residual errors, which increases the interpretability of the method. Such method has been widely applied in pollution (Geng et al., 2021; Zhang et al., 2019b), emission and crop production related studies (Guan et al., 2018; Xu et al., 2021) (see Text S2 for details).
+
+Considering the application of LMDI method in previous studies (Dong et al., 2019; Li et al., 2021), the  $\mathrm{PM}_{2.5}$  concentrations are expressed as the products of several factors as shown in Eq. (3):
+
+$$
+\begin{array}{l} P M = \frac {P M}{U _ {C O 2}} \times \frac {U _ {C O 2}}{U _ {P M}} \times \frac {U _ {P M}}{E _ {c o a l}} \times \frac {E _ {c o a l}}{E _ {t o t}} \times \frac {E _ {t o t}}{G} \times \frac {G}{P o p} \times P o p (3) \\ = H \times C \times P \times S t \times S o \times E \times D (4) \\ \end{array}
+$$
+
+PM,  $\mathrm{U}_{\mathrm{CO2}}$ ,  $\mathrm{U}_{\mathrm{PM}}$ ,  $\mathrm{E}_{\mathrm{coal}}$ ,  $\mathrm{E}_{\mathrm{tot}}$ , G, and P represent  $\mathrm{PM}_{2.5}$  concentration,  $\mathrm{CO}_{2}$  emission,  $\mathrm{PM}_{2.5}$  emission, coal consumption, total energy consumption, GDP and population, respectively.
+
+$H = \frac{PM}{U_{CO2}}$  is the  $\mathrm{PM}_{2.5}$  concentration per unit of  $\mathrm{CO}_{2}$  emission, which indicates the contribution of  $\mathrm{CO}_{2}$  emissions to  $\mathrm{PM}_{2.5}$  concentrations (i.e., homology of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$ ).
+
+$C = \frac{U_{CO2}}{U_{PM}}$  is the  $\mathrm{CO}_{2}$  emissions per unit of  $\mathrm{PM}_{2.5}$  emission, which are used to quantify the synergistic mitigation of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  (i.e., cooperativity of control in  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$ ).
+
+$H$  and  $C$  are regarded as the co-effect of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  collectively in our research.
+
+$\mathrm{P} = \frac{U_{PM}}{E_{cool}}$  is the  $\mathrm{PM}_{2.5}$  emission per unit of coal, which indicates the emission intensity, corresponding to clean production, the main measure of process control in ACP.
+
+$S_t = \frac{E_{\text{coal}}}{E_{\text{tot}}}$  is the percentage of coal consumption in total energy consumption, which indicates the fuel structure, corresponding to optimize the fuel structure measure in structure control in ACP.
+
+$S_{0} = \frac{E_{\mathrm{tot}}}{G}$  is the energy consumption per unit of GDP, which denotes the energy consumption intensity, corresponding to the source control measure in ACP.
+
+$P$ ,  $St$ , and  $So$  are regarded as the effects of process control measure, structure control measure, and source control measure in ACP.
+
+$E = \frac{G}{Pop}$  is the GDP per capita, representing the development of the economy (i.e., economic development).
+
+Pop is the population, representing the effect of demographic change (i.e., demographic growth).
+
+In this research, according to LMDI, the change in  $\mathrm{PM}_{2.5}$  concentrations  $(\Delta PM)$  in different periods can be calculated as:
+
+$$
+\begin{array}{l} \Delta P M _ {t} = P M _ {t} - P M _ {0} (5) \\ = \Delta H + \Delta C + \Delta P + \Delta S o + \Delta S t + \Delta E + \Delta D (6) \\ = \frac {P M ^ {t} - P M ^ {0}}{\ln P M ^ {t} - \ln P M ^ {0}} \times \ln \left(\frac {H ^ {t}}{H ^ {0}}\right) + \frac {P M ^ {t} - P M ^ {0}}{\ln P M ^ {t} - \ln P M ^ {0}} \times \ln \left(\frac {C ^ {t}}{C ^ {0}}\right) (7) \\ + \frac {P M ^ {t} - P M ^ {0}}{\ln P M ^ {t} - \ln P M ^ {0}} \times \ln \left(\frac {P ^ {t}}{P ^ {0}}\right) + \frac {P M ^ {t} - P M ^ {0}}{\ln P M ^ {t} - \ln P M ^ {0}} \times \ln \left(\frac {S o ^ {t}}{S o ^ {0}}\right) \\ + \frac {P M ^ {t} - P M ^ {0}}{\ln P M ^ {t} - \ln P M ^ {0}} \times \ln \left(\frac {S t ^ {t}}{S t ^ {0}}\right) + \frac {P M ^ {t} - P M ^ {0}}{\ln P M ^ {t} - \ln P M ^ {0}} \times \ln \left(\frac {E ^ {t}}{E ^ {0}}\right) \\ + \frac {P M ^ {t} - P M ^ {0}}{\ln P M ^ {t} - \ln P M ^ {0}} \times \ln \left(\frac {D ^ {t}}{D ^ {0}}\right) \\ \end{array}
+$$
+
+Here,  $\Delta H$ ,  $\Delta C$ ,  $\Delta P$ ,  $\Delta S_o$ ,  $\Delta S_t$ ,  $\Delta E$  and  $\Delta D$  represent the changes in the seven drivers. The sum of  $\Delta H$  and  $\Delta C$  are regarded as the co-effect of  $\mathrm{CO}_2$  and  $\mathrm{PM}_{2.5}$ . Influences of each driver are decomposed over two phases of ACP (i.e., APPCAP and APWBSD). Therefore, the 0-t is set as 2014-2017, and 2017-2020.
+
+The annual provincial  $\mathrm{PM}_{2.5}$  emission data  $(\mathrm{U}_{\mathrm{PM}})$  were obtained from Zheng et al. (2021) and the Multi-resolution Emission Inventory of China (MEIC, https://www.meicmodel.org) model, which is a bottom-up emission inventory model with detailed estimates of anthropogenic emissions of major air pollutants (e.g.,  $\mathrm{PM}_{2.5}$ ,  $\mathrm{SO}_2$  and  $\mathrm{NH}_3$ ) from more than 700 sources, covering both energy consumption and non-energy processes in Mainland China. The annual provincial  $\mathrm{CO}_{2}$  emission data  $(\mathrm{U}_{\mathrm{CO2}})$  from 2014 to 2019 (Shan et al., 2018; 2020; Guan et al., 2021) were downloaded from the Carbon Emission Accounts and Datasets (CEADs, https://www.ceads.net/) which leveraged the efforts of a group of experts from the UK, USA and China to work on China and other emerging economies' emission accounting methods and applications. The national  $\mathrm{CO}_{2}$  emission  $(\mathrm{U}_{\mathrm{CO2}})$  in mainland China during 2020 was obtained from the Carbon Monitor (https://carbonmonitor.org.cn/). The Carbon Monitor is an international initiative to provide for the first time regularly updated, science-based estimates of daily  $\mathrm{CO}_{2}$  emissions in different countries (Liu et al., 2020). The energy consumption  $(E_{tot})$ , coal consumption  $(E_{coal})$ , GDP  $(G)$  were obtained from China official national statistical yearbooks and datasets (https://www.stats.gov.cn/t jsj/ndsj/). Among them,  $E_{tot}$  and  $E_{coal}$  were at the national scale while GDP was at a provincial scale. The spatial distribution of annual  $\mathrm{PM}_{2.5}$  emission and GDP were shown in Fig. S7 and Fig. S8.
+
+We also decomposed the changes in  $\mathrm{PM}_{2.5}$ -attributable premature deaths into influences from two main drivers, including (1)  $\mathrm{PM}_{2.5}$  exposure factors (PM), and (2) vulnerability factors. The first driver consists of three sub-drivers (i.e., the drivers of change in  $\mathrm{PM}_{2.5}$ ), including; (1) the co-effect of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$ , (2) air clean plan
+
+measures, (3) socio-economic factors. The second driver consists of two sub-drivers, including (1) age structure of population (A) and (2) health care level (He).
+
+According to Eq. (2) and the LMDI method, the change in  $\mathrm{PM}_{2.5}$ -attributable premature deaths in different periods can be calculated as:
+
+$$
+\Delta P A D _ {t} = P A D _ {t} - P A D _ {0} \tag {8}
+$$
+
+$$
+\begin{array}{l} = \sum_ {\text {d i s e a s e}} ^ {n} \sum_ {\text {a g e}} ^ {m} \left(\Delta P M _ {\text {a g e , d i s e a s e}} + \Delta H e _ {\text {a g e , d i s e a s e}} + \Delta A _ {\text {a g e}}\right) (9) \\ = \sum_ {\text {d i s c a s e}} ^ {\mathrm {n}} \sum_ {\text {a g e}} ^ {\mathrm {m}} \left(\frac {\mathrm {P A D} ^ {\mathrm {t}} - \mathrm {P A D} ^ {0}}{\ln \mathrm {P A D} ^ {\mathrm {t}} - \ln \mathrm {P A D} ^ {0}} \times \ln \left(\frac {\mathrm {P M} _ {\text {a g e , d i s c a s e}}}{\mathrm {P M} _ {\text {a g e , d i s c a s e}}} ^ {\mathrm {t}}\right) \right. (10) \\ + \frac {\mathrm {P A D} ^ {\mathrm {t}} - \mathrm {P A D} ^ {0}}{\ln \mathrm {P A D} ^ {\mathrm {t}} - \ln \mathrm {P A D} ^ {0}} \times \ln \left(\frac {\mathrm {H e} _ {\text {a g e , d i s c a s e}}}{\mathrm {H e} _ {\text {a g e , d i s c a s e}}} ^ {\mathrm {t}}\right) \\ + \frac {\mathrm {P A D} ^ {\mathrm {t}} - \mathrm {P A D} ^ {0}}{\ln \mathrm {P A D} ^ {\mathrm {t}} - \ln \mathrm {P A D} ^ {0}} \times \ln \left(\frac {\mathrm {A} _ {\mathrm {a g e}} ^ {\mathrm {t}}}{\mathrm {A} _ {\mathrm {a g e}} ^ {\mathrm {0}}}\right) \\ \end{array}
+$$
+
+Here, PM denotes the  $\mathrm{PM}_{2.5}$  exposure factors, which consists of three sub-drivers (i.e., the drivers of change in  $\mathrm{PM}_{2.5}$ ). He is the death rates of
+
+specific diseases associated with  $\mathrm{PM}_{2.5}$ , which denote health care level.  $\mathrm{A_{age}}$  is the age structure of the population.  $\Delta \mathrm{PM}$ ,  $\Delta \mathrm{He}$  and  $\Delta \mathrm{A_{age}}$  are the changes in the three drivers. Influences of each driver are decomposed over two phases of ACP (i.e., APPCAP and APWBSD), and the 0-t is set as 2014-2017, and 2017-2020.
+
+# 3. Results
+
+# 3.1. Change in  $PM_{2.5}$  concentrations
+
+After seven-year implementing of Air Clean Plan, the mean  $\mathrm{PM}_{2.5}$  concentrations clearly decreased  $(13.41\mu \mathrm{g}\mathrm{m}^{-3}$ $33.65\%)$  in China. The average  $\mathrm{PM}_{2.5}$  concentrations in the first phase (2014-2017) were 35.97  $\pm 15.11~\mu \mathrm{g~m}^{-3}$ , which decreased to  $28.92\pm 12.76~\mu \mathrm{g~m}^{-3}$  in the latter phase (2018-2020) of the China ACP. In both phases, high concentrations were observed mainly in northwest China, northern China, and a small proportion of central China (i.e., Henan and Hubei provinces) (Fig. 1). The  $\mathrm{PM}_{2.5}$  concentrations decreased in over  $68.09\%$  of the area in mainland China during the period of APPCAP (Fig. 1b). A clear reduction was detected in BTH (decreased by  $17.33~\mu \mathrm{g~m}^{-3}$ ;  $25.81\%$ ), followed by YRD (decreased by  $12.79~\mu \mathrm{g~m}^{-3}$ ;  $24.07\%$ ) and parts of central China (decreased by  $14.66~\mu \mathrm{g~m}^{-3}$ ;  $22.93\%$ ) during the APPCAP
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/c4bbca0ff295c8b4dd7c0a82573530cc2b89c51e8394f44139e32ad07bc307a4.jpg)
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/5e294a71d26465367c334abd2e311a6711d82dfffeb865a61c4d9f99c81502bb.jpg)  
+Fig. 1. The averaged  $\mathrm{PM}_{2.5}$  concentrations during APPCAP (a) and APWBSD (c), and their change in APPCAP (b), and APWBSD (d).
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/7ca64d0eb2301b817ce9f0283623c57802c48b8e2fc4bd0a40b85903b483b11f.jpg)
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/19f4d39a1425b2e05e7713d848da71e22938b255b464395e7c83277bcc072ba4.jpg)
+
+phase (Table 1). However, in southwest China, the  $\mathrm{PM}_{2.5}$  concentrations increased slightly with a difference of less than  $10\mu \mathrm{g}\mathrm{m}^{-3}$ . During the APWBSD phase, the  $\mathrm{PM}_{2.5}$  concentrations decreased in most of mainland China (90.19 % of areas). However, the average decrease in the latter phase was less than the former, with the decreases of  $11.86\mu \mathrm{g}\mathrm{m}^{-3}$ ,  $11.81\mu \mathrm{g}\mathrm{m}^{-3}$  and  $10.14\mu \mathrm{g}\mathrm{m}^{-3}$  in BTH, Fenwei Plain (FWP) and parts of central China, respectively. By contrast, the mean  $\mathrm{PM}_{2.5}$  concentrations increased in Xinjiang province in northwest China in both phases (Fig. 1b, Fig. 1d).
+
+In 2014, only  $26.63\%$  cities in mainland China met the WHO Interim target (IT)-1 standard, which is also the Chinese National Ambient Air Quality Standard level 2 (CNAQS II, annual mean  $\mathrm{PM}_{2.5}$  of  $35~\mu \mathrm{g}~\mathrm{m}^{-3}$ ) (Fig. 2). By contrast,  $44.83\%$  cities met the IT-1 standard at the end of APPCAP. However, few cities ( $\sim 0.05\%$ ) met the IT-3 standard (also the CNAQS level 1, annual mean  $\mathrm{PM}_{2.5}$  of  $15~\mu \mathrm{g}~\mathrm{m}^{-3}$ ) in APPCAP. In 2020, the air quality was further improved, with nearly  $3/4$  ( $\sim 71.82\%$ ) cities meeting the IT-1 standard and  $4.07\%$  cities meeting the IT-3 standard. However, few cities met the WHO IT-4 level (annual mean  $\mathrm{PM}_{2.5}$  of  $10~\mu \mathrm{g}~\mathrm{m}^{-3}$ ) and no city met the updated WHO AQG (annual mean  $\mathrm{PM}_{2.5}$  of  $5~\mu \mathrm{g}~\mathrm{m}^{-3}$ ) in 2020, suggesting that the threat of  $\mathrm{PM}_{2.5}$  pollution is still prevalent in China, despite the remarkable achievements have been made through the implementation of ACP.
+
+Fig. 3 shows the population exposed to ambient  $\mathrm{PM}_{2.5}$  in pollution control priority regions and in the whole nation in specific years at the beginning and end of the two phases of ACP (2014, 2017, and 2020). In 2014, over  $80\%$  of Chinese people lived in areas with  $\mathrm{PM}_{2.5}$  over  $35\mu \mathrm{g}$ $\mathrm{m}^{-3}$  (WHO IT-1). In 2020, the corresponding proportion decreased to  $40\%$ . BTH had the most severe  $\mathrm{PM}_{2.5}$  exposure, even with the most prominent air quality improvement amongst four priority regions. In 2014, almost all populations in BTH lived in areas where  $\mathrm{PM}_{2.5}$  concentrations exceeded the WHO IT-1 threshold and this population proportion decreased to  $90\%$  in 2020. The FWP was not considered as a priority region for air pollution control in APPCAP, and pollution status was more serious during APPCAP as a result of crude industrial production and its gully terrain that was not conducive to the diffusion of pollutants. By contrast, the effect of ACP measures was profound in FWP region under APWBSD with a  $10\%$  reduction in the population exposed to  $\mathrm{PM}_{2.5} > 35\mu \mathrm{g}\mathrm{m}^{-3}$  in 2020 compared to 2017. The exposed population in PRD is relatively low compared to other priority regions, with  $24\%$  meeting the WHO IT-1 in 2014 and  $100\%$  meeting the WHO IT-1 in 2020, which also achieved the "Beautiful China" vision. However, almost all populations ( $\sim 98\%$  in the whole nation) still lived under the  $\mathrm{PM}_{2.5}$  concentrations exceeding the WHO IT-3 in 2020, not to mention the WHO AQG standard.
+
+# 3.2. Change in  $PM_{2,5}$ -attributable premature death
+
+The number of premature deaths attributable to ambient  $\mathrm{PM}_{2.5}$  decreased by  $\sim 0.07$  million  $(5.00\%)$ , from 1.35 million  $(95\%$  Confidence Interval (CI): 1.06-1.78) to 1.28 million  $(95\%$  CI: 0.97-1.73) in the APPCAP (2014 to 2017) (Fig. 6a and Fig. S9) and showed a continuous declining trend, decreasing to 1.12 million  $(95\%$  CI: 0.79-1.56) by 2020 (Fig. 4 and Fig. 6a). The number of attributable premature deaths in most areas  $(\sim 99.5\%)$  of China is less than four cases per  $1\mathrm{km}^2$  in 2020 (Fig. 4). Large numbers of premature deaths
+
+were identified in dense populations and advanced industrial areas in the BTH, YRD, PRD and FWP regions (Fig. 4 and Table 1), despite the  $\mathrm{PM}_{2.5}$  concentrations in these regions decreased over time. The high-density premature death values are mostly found in metropolitan cities such as Beijing, Shanghai and Guangzhou. The largest number of  $\mathrm{PM}_{2.5}$ -attributable premature deaths per unit area ( $1\mathrm{km}$ ) occurred in the FWP region. The  $4.72\%$  region of PRD had more than four cases of premature death per  $\mathrm{km}^2$ , which is higher than other three priority control regions ( $1.76\%$ ,  $2.47\%$ , and  $0.99\%$  in BTH, YRD, and FWP, respectively) and the national average ( $0.35\%$ ), indicating that the high population density also exacerbates  $\mathrm{PM}_{2.5}$ -attributable premature deaths.
+
+The  $\mathrm{PM}_{2.5}$ -attributable premature deaths was reduced in  $68.38\%$  areas of mainland China over 2014 to 2020 (Fig. 5). The most effectively controlled region was BTH, where over  $74\%$  of the area showed a decline in the number premature deaths attributable to  $\mathrm{PM}_{2.5}$  exposure. The FWP produced the smallest decrease amongst the four priority control regions, with the number of  $\mathrm{PM}_{2.5}$ -attributable premature deaths reducing in only  $26.95\%$  of the area. Regarding the decrease number of  $\mathrm{PM}_{2.5}$ -attributable premature deaths, unlike the largest decrease in  $\mathrm{PM}_{2.5}$  concentration occurred in BTH region, the largest decrease in the number of  $\mathrm{PM}_{2.5}$ -attributable premature death occurred in YRD region, with a decrease number of 0.037 million  $(17.00\%)$  in 2020 compared to 2014 (Table 1), followed by the PRD (decrease  $16.45\%$ ), BTH (decrease  $10.51\%$ ) and FWP (decrease  $8.99\%$ ) regions.
+
+The  $\mathrm{PM}_{2.5}$ -attributable premature deaths were primarily caused by stroke (cerebrovascular disease) and lung cancer (LC) in China, accounting for  $41.12\%$  and  $30.55\%$  of the total number of premature deaths, respectively (Fig. 6a). This was followed by chronic obstructive pulmonary disease (COPD) and ischemic heart disease (IHD), which accounted for  $14.4\%$  and  $9.6\%$  of premature deaths, accordingly. The proportion of deaths from each disease was fairly stable between 2014 and 2020. The proportion of deaths due to ischemic heart disease (IHD), lung cancer (LC) and lower respiratory infections (LRI) increased slightly by  $1.41\%$ ,  $2.81\%$ , and  $0.58\%$ , while the proportion of deaths caused by stroke, DM and COPD decreased slightly by  $2.35\%$ ,  $0.27\%$  and  $2.19\%$ .
+
+Additionally, the number of  $\mathrm{PM}_{2.5}$ -attributable premature deaths in different age groups also varies. The number of premature deaths increased remarkably with age (Fig. 6b). However, about 3340 children under the age of 5 died prematurely from lower respiratory infections (LRI) attributable to  $\mathrm{PM}_{2.5}$  each year. For people over 80 years old, the number of premature deaths due to  $\mathrm{PM}_{2.5}$  exposure reached 0.51 million every year, accounting for  $15.1\%$  of the total deaths for those aged over 80.
+
+# 3.3. Analysis of trends in the drivers
+
+We considered the influences of six drivers on  $\mathrm{PM}_{2.5}$  change over 2014 to 2020: (1) co-effect of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  (change in  $\mathrm{PM}_{2.5}$  concentration per unit of  $\mathrm{CO}_{2}$  emitted, i.e., effect of homology of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$ ; change in emission of  $\mathrm{CO}_{2}$  per unit of  $\mathrm{PM}_{2.5}$  emitted, i.e., effect of synergistic emission control of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$ ) (2) process control measure (change in  $\mathrm{PM}_{2.5}$  emission per unit of coal, i.e., effect of clean production), (3) source control measure (change in energy consumption
+
+Table 1 Regional changes of  $\mathrm{PM}_{2.5}$  concentrations and premature deaths attributable to ambient  $\mathrm{PM}_{2.5}$  
+
+<table><tr><td rowspan="2">Year</td><td colspan="3">PM2.5 concentrations change (μg m-3)</td><td colspan="3">Death change (thousand)</td></tr><tr><td>2014–2017</td><td>2017–2020</td><td>2014–2020</td><td>2014–2017</td><td>2017–2020</td><td>2014–2020</td></tr><tr><td>China</td><td>-4.09</td><td>-8.25</td><td>-13.41</td><td>-18.91</td><td>-210.45</td><td>-229.35</td></tr><tr><td>BTH</td><td>-17.33</td><td>-11.86</td><td>-30.24</td><td>-4.63</td><td>-9.10</td><td>-13.73</td></tr><tr><td>YRD</td><td>-12.79</td><td>-5.61</td><td>-20.19</td><td>-14.29</td><td>-19.45</td><td>-33.74</td></tr><tr><td>PRD</td><td>-6.19</td><td>-3.42</td><td>-13.71</td><td>-3.03</td><td>-5.33</td><td>-8.36</td></tr><tr><td>FWP</td><td>-7.97</td><td>-11.81</td><td>-19.68</td><td>-0.33</td><td>-4.65</td><td>-4.98</td></tr></table>
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/6ddf1e35b2d69f9794bc7a9cd7d5117661b5741e034a018b0fff324f415c2bae.jpg)  
+Fig. 2.  $\mathrm{PM}_{2.5}$  distribution at city-level in 2014 to 2020. The frequency histograms in (a)-(g) denote the frequency distribution of  $\mathrm{PM}_{2.5}$  in 368 cities across mainland China. The dot lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  $5\mu \mathrm{g}\mathrm{m}^{-3}$ ).
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/b9069b325abf2e3cc7374723c877baba035563ad306165cfaafaf28b2b23ab58.jpg)  
+Fig. 3. The proportion of people exposed to  $\mathrm{PM}_{2.5}$  in BTH, PRD, YRD, FWP region and the whole nation at different years (i.e., 2014, 2017, and 2020). The dot vertical lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  $5\mu \mathrm{g}\mathrm{m}^{-3}$ ).
+
+per unit of GDP, i.e., effect of energy consumption control), (4) structure control measure (change in percentage of coal in total energy consumption, i.e., the effect of fuel structure optimization), (5) economic development (change in GDP), and (6) demographic growth (change in population). The (2) - (5) are used to represent the effectiveness of ACP in China.
+
+The influences of eight drivers on the change in the number of  $\mathrm{PM}_{2.5}$ -attributable deaths over 2014 to 2020 were considered. The first six drivers are the same as the drivers of  $\mathrm{PM}_{2.5}$  change, and the other two are vulnerability factors including age structure of the population, and
+
+health care level (the baseline death rate of related diseases).
+
+The control goals, policies, and specific measures in China during ACP are characterized in Fig. 7. Specifically, for the source control, a series of stringent industry emission standards were enacted to limit energy and industrial emissions (e.g., thermal power, iron and steel, and cement) for controlling energy consumption. Regarding the process control, clean production (e.g., using end-of-pipe devices in coal-fired power plants) was the major measure. In addition, implementation of ultra-low emission transformation of steel and other industries was advocated in APWBSD. The  $\mathrm{PM}_{2.5}$  emissions per coal and energy
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/0714fc4c20e3945f94f636e3821e6b09e7e98fcc6aed1b98f280255749ccb741.jpg)
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/e4b71a2f5f6a6f23b5c7b49320d71480803f3ce622c1c3a88069e296f80a7010.jpg)
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/d3ea8d68676533242baed5454e376c99a1e9b81baaa561169dcc373b823b9aa5.jpg)  
+N00.55 N00.06 N00.4
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/f17ec3f36b8df0dfd22cdf848e7b1c80abe2b423ef11bcd2935e22109914b465.jpg)  
+15/33
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/6c1751e2438090d8ed835e72b7c0b644ee50ebc1388fc8a42fbf0c235fdab685.jpg)  
+27010  
+Fig. 4. Spatial distribution (at  $1\mathrm{km}$  resolution) of the  $\mathbf{PM}_{2.5}$ -attributable premature death in mainland China (a), BTH (b), YRD (c), FWP (d), and PRD region (e) in 2020.
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/75fb8f28961ce79afd98bcb71bcf6b219b265ab25dc5b58ae3ccbeb75ee4eff5.jpg)
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/c463850516ce9617dfed2d4d8c0188b004603676d018e2141acec1a361a6be8a.jpg)  
+68.38% decrease; 30.40% no change; 1.22% increase
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/6846daf0e1e60451babdb4726c10b7d56b9418f2fdf61fe416585bc68d8cc70a.jpg)
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/68a86e6c54726a765fdbf879f3584249b40f58b7232a0fdff8bcc88768767461.jpg)  
+108°0'0"E  
+Fig. 5. Spatial distribution of changes in  $\mathrm{PM}_{2.5}$ -attributable premature death in mainland China (a), BTH (b), YRD (c), FWP (d), PRD region (e) between 2014 and 2020 (where the numbers of premature deaths in 2014 and 2020 are both zero this is represented by a white background).
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/956cce12c6ae25c5be902b24c6a628d2b6d4f7db36bc1b96805aab3e75ec71cf.jpg)  
+30000000000000000000000000000  
+114°0'0"E
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/2701d03a53bfaaacdec9acef6ea4013fbcc6df9d719f4522686ea837fb1fcf72.jpg)  
+Fig. 6. An overview of  $\mathrm{PM}_{2.5}$ -attributable disease burden conditions. (a) the proportion of six diseases in total deaths, and (b) the number of deaths in different ages (stroke: cerebrovascular disease; DM: type II diabetes; IHD: ischemic heart disease; LC: lung cancer; LRI: lower respiratory infections; COPD: chronic obstructive pulmonary disease).
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/850763e6bff8ceeb53914a4bfa145d54639b74ed102766b28d11aabf9ffe9f4a.jpg)  
+Fig. 7. Major air pollution control goals, policies and specific control measures in China from the end of 2013 to 2020.
+
+consumption intensity decreased by  $\sim 41.6\%$  and  $\sim 26.4\%$  in 2020 compared to 2014 (Fig. S10a) respectively, indicating the efficiency of clean production and energy consumption control according to the demand of ACP. As for structure control, the measures are implemented in the dimensions of industry, living and transportation (e.g., remediation of "small, scattered and polluted" enterprises, replacing residential coal with electricity and natural gas). The proportion of coal in total energy consumption was reduced from  $65.8\%$  in 2014 to  $60.6\%$  in 2017. In
+
+2020, this proportion further declined to  $56.8\%$ . However, coal still dominates the energy structure in China, and non-fossil energy accounts for  $15.9\%$  of the total energy in 2020 (Fig. S10b).
+
+A set of  $\mathrm{CO}_{2}$  emission mitigation measures (e.g., develop non-fossil energy, establish and operate carbon market, develop circular economy and afforestation) were implemented after signing the NDC target in 2016. Meanwhile, the Department of Climate Change is set up in China to mitigate climate change caused by GHGs emissions. The  $\mathrm{CO}_{2}$
+
+emissions remained relatively steady over seven years, with a modest increase  $(\sim 6.54\%)$ . However, the increase slowed down gradually after signing the NDC pledge. The proportion of coal in total energy consumption was reduced from  $65.8\%$  in 2014 to  $60.6\%$  in 2017. In 2020, the proportion declined monotonically to  $56.8\%$  (Fig. S10a).
+
+Regarding the vulnerability factors for  $\mathrm{PM}_{2.5}$  exposure, in 2014 to 2020 the death rate of related diseases showed declining trends, except for lung cancer (LC), with the death rate of COPD and LRI decreasing by over  $15\%$  in 2020, demonstrating the improvement in health care level. In terms of population age structure, the population of age over 60 in China continued to grow and reached a proportion of  $18.26\%$  in 2020, which is likely to exacerbate the numbers of premature deaths attributable to  $\mathrm{PM}_{2.5}$  (Fig. S10c).
+
+# 3.4. Contribution of different drivers
+
+During the period of APPCAP, the control policies essentially contributed to the decrease of  $\mathrm{PM}_{2.5}$  concentrations (Fig. 8a). The  $\mathrm{PM}_{2.5}$  reduction was sourced primarily from the clean production policy (net decrease contribution of  $10.53\mu \mathrm{g}\mathrm{m}^{-3}$ ), followed by the energy consumption control measure (net decrease contribution of  $7.28\mu \mathrm{g}\mathrm{m}^{-3}$ ) and fuel structure optimization (net decrease contribution of  $3.08\mu \mathrm{g}\mathrm{m}^{-3}$ ). Economic growth was the primary driver for increasing  $\mathrm{PM}_{2.5}$  pollution from 2014 to 2017, with a net contribution of  $9.00\mu \mathrm{g}\mathrm{m}^{-3}$ . The co-effect of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  in this period also intensified  $\mathrm{PM}_{2.5}$  pollution. During the APWBSD, the contribution of clean production, energy consumption control and fuel structure optimization to  $\mathrm{PM}_{2.5}$  decrease were  $85\%$ ,  $37\%$  and  $21\%$ , respectively. Compared with the period of ACPCAP, the effectiveness of all measures decreases in APWBSD, especially the clean production measures (from  $-257\%$  to  $-85\%$  ) and
+
+![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/be8162a1-b632-4506-baf9-c0e07d4e90b7/c01d8e3f352068e6b24344562b2abac624769b0991b30327657c9eccf611d2d4.jpg)  
+Fig. 8. Contribution of different factors to the change of  $\mathrm{PM}_{2.5}$  concentrations (a) and  $\mathrm{PM}_{2.5}$ -attributable premature deaths (b) in 2014 to 2020 ("Clean production") denotes process control measures, "Optimize fuel structure" denotes structure control measures, "Energy consumption control" denotes source control measures, "Co-effect of C and PM" denotes the co-effect of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$ , "Death rate" denotes health care level).
+
+energy consumption control measures (from  $-177\%$  to  $-37\%$ ). Furthermore, the co-effect of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  became one of the main drivers for  $\mathrm{PM}_{2.5}$  decreasing during this period, with the net contribution of  $2.09\mu \mathrm{g}\mathrm{m}^{-3}$ , exceeding the effect of fuel structure optimization (net contribution of  $1.98\mu \mathrm{g}\mathrm{m}^{-3}$ ). Economic and population growth were still the major drivers of  $\mathrm{PM}_{2.5}$  pollution.
+
+The  $\mathrm{PM}_{2.5}$  exposure-related drivers (i.e., the drivers of  $\mathrm{PM}_{2.5}$ ) avoided 0.10 million net premature deaths in the first phase (2014 to 2017) (Fig. 8b). The measures in ACP fully offset the increase in the number of premature deaths caused by the co-effect of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  as well as the population growth effect, indicating the explicit positive health effect of air quality improvements. The vulnerability factors (i.e., health care level and age structure) contributed to 0.03 million net premature deaths during 2014 to 2017. Amongst them, the improvement in health care level (decrease of baseline death rate) cannot fully offset the net deaths caused by the aging population in China, meaning that the health care level in China needs to be enhanced further. During the APWBSD, improvement in health care became a more effective driver than energy consumption control for  $\mathrm{PM}_{2.5}$  emission to avoid  $\mathrm{PM}_{2.5}$ -attributable deaths, and can, thus, fully offset the effect of population aging. The population aging caused more premature deaths than economic growth, in the phase of APWBSD, which was distinct from APPCAP.
+
+# 4. Discussion
+
+We provide a comprehensive estimation of the  $\mathrm{PM}_{2.5}$  concentrations and the number of  $\mathrm{PM}_{2.5}$ -attributable premature deaths, as well as spatiotemporal changes in these, and a quantitative assessment of the effectiveness of ACP methods in mainland China during 2014 to 2020. The two key contributions are: (1) We estimated the spatiotemporal variation in the number of deaths attributable to  $\mathrm{PM}_{2.5}$  exposure in mainland China during ACP based on the  $\mathrm{PM}_{2.5}$  product with the finest spatial resolution available to date, and elucidated the spatial discrepancies in policy implementation across China. China's recent clean air actions have achieved great benefits for human health and the environment. However, over  $98\%$  of the population still lived under the risk of  $\mathrm{PM}_{2.5}$  pollution ( $\mathrm{PM}_{2.5}$  concentrations over  $15\mu \mathrm{g}\mathrm{m}^{-3}$ ), with 1.12 million ( $95\%$  CI: 0.79-1.56) premature deaths caused by  $\mathrm{PM}_{2.5}$  pollution in mainland China in 2020, accounting for  $\sim 27.05\%$  of global ambient  $\mathrm{PM}_{2.5}$ -attributable premature deaths. In addition, the environmental and health benefits of China ACP are not fully synergistic in spatial pattern, with the greatest health benefits detected in the YRD region and the best environment benefits identified in the BTH region. To achieve the co-benefits of environment and health, specific policies need to be adopted under different conditions. (2) We quantified the environment and health co-benefits of ACP measures and carbon mitigation from 2014 to 2020. Clean production was the most effective abatement measure in China ACP, reducing net  $\mathrm{PM}_{2.5}$  concentrations and net premature deaths by  $18.35\mu \mathrm{g}\mathrm{m}^{-3}$  and 0.45 million, respectively. The co-effects of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  contributed to a  $23\%$  and  $26\%$  decrease in the number of  $\mathrm{PM}_{2.5}$  and premature deaths and became one of the major drivers for  $\mathrm{PM}_{2.5}$  and premature deaths reduction in the APWBSD phase. This confirms the clear environment and health co-benefits of carbon mitigation measures. Meanwhile, the effectiveness of process and source control measures reduced during 2018 to 2020. With the exhaustion of end-of-pipe and energy consumption control measures, the future air clean actions should focus more on carbon abatement and energy structure optimization, especially under the background of global climate change mitigation. In addition to mitigation in industrial and energy sectors, it is also critical to explore more cost-effective approaches (e.g., agricultural ammonia mitigation) (Zhou et al., 2021; Gu et al., 2021) for pollution control in other sectors.
+
+Population and economic growth are major obstacles for controlling  $\mathrm{PM}_{2.5}$  and  $\mathrm{PM}_{2.5}$ -attributable premature deaths. Their negative impacts are unavoidable when societies expand, but were largely offset by the ACP control policies and improvements in health care. Additionally,
+
+although GDP is increasing continuously, the negative impact of economic growth decreased during the APWBSD compared with the APP-CAP. That is, a decoupling between economic growth and air pollution is emerging, indicating that China is transitioning from an extensive towards an intense economy. From 2017 to 2020, population aging replaced economic growth as the priority driver of  $\mathrm{PM}_{2.5}$ -attributable premature deaths, and this is expected to exacerbate with socioeconomic development (Hong et al., 2019). The negative impacts of population aging can be offset by the constantly decreasing death rate of specific diseases in 2017 to 2020. Therefore, health care ability need to be improved further to alleviate the risk of population aging in China in the future.
+
+Our analysis of  $\mathrm{PM}_{2.5}$  attributed deaths in China was compared with several recent studies (Table S3). Great progresses was made in previous studies (Zhang et al., 2019a; Li et al., 2019; Ding et al., 2019; McDuffie et al., 2021; Liu et al., 2017; Zou et al., 2019; Apte et al., 2015), albeit with several limitations in common: (1) previous studies focused mainly on the APPCAP (2013-2017) and lack the updated results of the APWBSD (2018-2020); (2) the chemical transport model was used widely in previous research, which showed advantages for predicting the  $\mathrm{PM}_{2.5}$  concentrations without ground measurement, but also has limitations in terms of prediction accuracy (Ma et al., 2022); (3) the Integrated Exposure Response (IER) model used for premature death estimation in previous studies lacked sufficient information on deaths at high  $\mathrm{PM}_{2.5}$  exposure, and failed to separate exposure from ambient  $\mathrm{PM}_{2.5}$  and secondhand smoke, which could potentially introduce uncertainties (Burnett et al., 2014). Our research provides several advances compared to previous studies. First, we quantified the co-benefit of the Air Clean Plan and carbon mitigation measures in China for the environment and health from 2014 to 2020. Second, we used state-of-the-art  $\mathrm{PM}_{2.5}$  products with the highest accuracy (Wang et al., 2021; 2022) (Fig. S3 and Fig. S4 for detail) and the finest resolution (spatial resolution of  $1\mathrm{km}$ , Fig. S2) at the national scale to offer a full-coverage estimation of  $\mathrm{PM}_{2.5}$ -attributable premature deaths. With these innovations, we not only provided a more accurate estimation of the risk due to exposure to  $\mathrm{PM}_{2.5}$ , but also to analyze the great spatially heterogeneity of policy effectiveness. Third, we adopted the updated MR-BRT spline method, which fits the risk with a more flexible shape for more reliable estimation of  $\mathrm{PM}_{2.5}$ -attributable premature deaths (Hystad et al., 2020). The MR-BRT includes more exposure scenarios at high  $\mathrm{PM}_{2.5}$  levels during fitting compared with other models such as the IER model (Yusuf et al., 2020; Chowdhury et al., 2022). It also excludes active smoking to control for and reduce potential bias due to this effect (Pope et al., 2018). Finally, our study estimated the co-benefit from  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  to the environment and health under the background of the ACP and NDC pledges for the first time.
+
+Nevertheless, several issues remain to be addressed. Although the feasibility of the MR-BRT provided by GBD 2019 is currently confirmed for estimating premature deaths attributed to  $\mathrm{PM}_{2.5}$ , the different PM source, size and chemical composition may cause different health impacts (Philip et al., 2014; Ostro et al., 2015). For example, some studies demonstrated that coal combustion-related sources and components of  $\mathrm{PM}_{2.5}$  had the greater mortality hazard ratios than  $\mathrm{PM}_{2.5}$  from other sources (Chen et al., 2022; Kazemiparkouhi et al., 2022). This would undervalue the ACP measurement benefits of reducing fossil fuel combustion while adding uncertainty to estimates of deaths attributed to  $\mathrm{PM}_{2.5}$ . Introducing more epidemiological cohort studies focusing on specific  $\mathrm{PM}_{2.5}$  sources and components, and further develop source-specific  $\mathrm{PM}_{2.5}$  exposure-response functions might help. In addition, despite the high accuracy and spatial resolution of the satellite-derived  $\mathrm{PM}_{2.5}$  products we utilized, a few bias was still shown in the northwest China (Fig. S4), which could potentially bring errors to our estimates of premature death there. Meanwhile, the lag in updating the death rate data may cause bias in our results. The death rate data provided by GBD 2019 was updated to 2019 only. We utilized the linear derivation of the death rates for historical years (1990 to 2019) to produce the 2020 death
+
+rates with an average  $\mathbb{R}^2$  over 0.8 for the fit. Finally, the age structure and death rate data we used are captured at the national scale similar to previous studies (Liu, 2017; Xue, 2019; Yue, 2020; Silva et al., 2013). Influenced by the urban development level, the two variables present some spatial heterogeneity in China. The  $\mathrm{PM}_{2.5}$ -attributbale premature death may be lower than our estimates in metropolitan areas with better healthcare level. Finer scale data (e.g., provincial or county data) will further increase the accuracy of the estimates (Yue et al., 2020). However, the age structure and death rate data, we intent to utilize, that spanned long periods of time over such broad ranges of province or city are currently not available in China.
+
+# 5. Conclusion
+
+Our study estimated the changes in  $\mathrm{PM}_{2.5}$  concentration and premature deaths attributable to  $\mathrm{PM}_{2.5}$  in China at a fine-resolution (1 km) during 2014-2020, identifying the measure with greatest environmental and health co-benefits in ACP, and demonstrating the potential of carbon mitigation measures for air quality improvement and public health enhancement. Results showed that (1) the average  $\mathrm{PM}_{2.5}$  concentrations in China decreased by  $33.65\%$  ( $13.41~\mu \mathrm{g}~\mathrm{m}^{-3}$ ) from 2014 to 2020, accompanied by a decrease in total attributed deaths of 0.23 million (95 % CI: 0.22-0.27), indicating the great benefits of China ACP for human health and environment. However, the premature deaths caused by  $\mathrm{PM}_{2.5}$  pollution in mainland China still reached 1.12 million (95 % CI: 0.79-1.56) in 2020. (2) Among China ACP measures, clean production and energy consumption control made the largest contribution to air quality improvements and health burden mitigation during the past seven years. However, the effectiveness of the two ACP measures reduced during 2018 to 2020. Meanwhile, the environmental and health benefits of China ACP are not fully synergistic spatially. (3) The co-effects of  $\mathrm{CO}_{2}$  and  $\mathrm{PM}_{2.5}$  has become one of the major drivers for  $\mathrm{PM}_{2.5}$  and  $\mathrm{PM}_{2.5}$ -attributable premature deaths reduction in the APWBSD phase, confirming the clear environment and health co-benefits of carbon mitigation measures.
+
+In summary, to improve air quality and human health further under the context of climate change mitigation in the future, more attention needs to be paid to the following aspects: 1) refined strategies considering geographical variation can bring more synergistic co-benefits in environment and health; 2) climate and carbon mitigation policies have substantial environment and health co-benefits; 3) with the advent of an aging society, it is necessary to enhance health care level in China continuously to protect public health.
+
+# CRediT authorship contribution statement
+
+Zhige Wang: Conceptualization, Methodology, Investigation, Formal analysis, Visualization, Writing - original draft. Bifeng Hu: Data curation, Writing - review & editing, Funding acquisition. Ce Zhang: Software, Validation, Writing - review & editing. Peter M. Atkinson: Writing - review & editing, Supervision. Zifa Wang: Writing - review & editing, Supervision. Kang Xu: Conceptualization, Writing - review & editing. Jinfeng Chang: Resources, Writing - review & editing, Supervision. Xuekun Fang: Writing - review & editing, Supervision. Yefeng Jiang: Writing - review & editing. Zhou Shi: Writing - review & editing, Supervision, Project administration, Funding acquisition.
+
+# Declaration of Competing Interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+# Data availability
+
+Data will be made available on request.
+
+# Acknowledgements
+
+This work was supported by the National Key Research and Development Program of China (2018YFC1800105), the Key R&D Program of Zhejiang (2022C03078), and the Social Science Foundation of Jiangxi Province (No. 21YJ43D).
+
+# Appendix A. Supplementary data
+
+Supplementary data to this article can be found online at https://doi.org/10.1016/j.envint.2022.107510.
+
+# References
+
+Anenberg, S.C., et al., 2010. An estimate of the global burden of anthropogenic ozone and fine particulate matter on premature human mortality using atmospheric modeling. Environ. Health Perspect. 118, 1189-1195. https://doi.org/10.1289/ ehp.0901220.  
+Ang, B.W., 2005. The LMDI approach to decomposition analysis: a practical guide. Energy Policy 33, 867-871. https://doi.org/10.1016/j.enpol.2003.10.010.  
+Ang, B.W., 2015. LMDI decomposition approach: a guide for implementation. Energy Policy 86, 33-238.  
+Apte, J.S., et al., 2015. Addressing global mortality from ambient  $\mathrm{PM}_{2.5}$ . Environ. Sci. Technol. 49, 8057-8066. https://doi.org/10.1021/acs.est.5b01236.  
+Burnett, R.T., et al., 2014. An integrated risk function for estimating the global burden of disease attributable to ambient fine particulate matter exposure. Environ. Health Perspect. https://doi.org/10.1289/ehp.1307049.  
+Burnett, R., et al., 2018. Global estimates of mortality associated with long-term exposure to outdoor fine particulate matter. Proc. Natl. Acad. Sci. U. S. A. 115, 9592-9597. https://doi.org/10.1073/pnas.1803222115.  
+Cai, S.Y., et al., 2017. The impact of the "Air Pollution Prevention and Control Action Plan" on  $\mathrm{PM}_{2.5}$  concentrations in Jing-Jin-Ji region during 2012-2020. Sci. Total Environ. 580, 197-209. https://doi.org/10.1016/j.scitotenv.2016.11.188.  
+Chen, J., et al., 2022. Long-term exposure to source-specific fine particles and mortality - a pooled analysis of 14 European cohorts within the ELAPSE project. Environ. Sci. Technol. 56, 9277-9290.  
+Cheng, J., et al., 2021. Pathways of China's  $\mathrm{PM}_{2.5}$  air quality 2015-2060 in the context of carbon neutrality. Natl. Sci. Rev. 8 https://doi.org/10.1093/nsr/nwab078.  
+Chowdhury, S., et al., 2022. Global health burden of ambient  $\mathrm{PM}_{2.5}$  and the contribution of anthropogenic black carbon and organic aerosols. Environ. Int. 159, 107020 https://doi.org/10.1016/j.envint.2021.107020.  
+Cohen, A.J., et al., 2017. Estimates and 25-year trends of the global burden of disease attributable to ambient air pollution: an analysis of data from the Global Burden of Diseases Study 2015. Lancet 389, 1907-1918. https://doi.org/10.1016/s0140-6736(17)30505-6.  
+Dimitrova, A., et al., 2021. Health impacts of fine particles under climate change mitigation, air quality control, and demographic change in India. Environ. Res. Lett. 16 https://doi.org/10.1088/1748-9326/abe5d5.  
+Ding, D., et al., 2019. Estimated Contributions of Emissions Controls, Meteorological Factors, Population Growth, and Changes in Baseline Mortality to Reductions in Ambient PM2.5 and PM2.5-Related Mortality in China, 2013-2017. Environ. Health Perspect. 127, 12.  
+Dong, F., Yu, B., Pan, Y., 2019. Examining the synergistic effect of  $\mathrm{CO}_{2}$  emissions on  $\mathrm{PM}_{2.5}$  emissions reduction: Evidence from China. J. Clean Prod. 223, 759-771.  
+Feng, L., et al., 2017b. Spatiotemporal changes in fine particulate matter pollution and the associated mortality burden in China between 2015 and 2016. Int. J. Environ. Res. Public Health 14, 1321. https://doi.org/10.3390/ijerph14111321.  
+Feng, L.W., Ye, B., Feng, H., Ren, F., Huang, S.C., Zhang, X.T., Zhang, Y.Q., Du, Q.Y., Ma, L., 2017a. Spatiotemporal changes in fine particulate matter pollution and the associated mortality burden. Int. J. Environ. Res. Public Health 14 in China between 2015 and 2016.  
+Geng, G., et al., 2021. Drivers of  $\mathrm{PM}_{2.5}$  air pollution deaths in China 2002-2017. Nat. Geosci. 14, 645-650. https://doi.org/10.1038/s41561-021-00792-3.  
+Gu, B., et al., 2021. Abating ammonia is more cost-effective than nitrogen oxides for mitigating PM2.5 air pollution. Science 374, 758-762. https://doi.org/10.1126/science.abf8623.  
+Guan, D., et al., 2018. Structural decline in China's  $\mathrm{CO}_{2}$  emissions through transitions in industry and energy systems. Nat. Geosci. 11, 551-555.  
+Guan, Y., et al., 2021. Assessment to China's Recent Emission Pattern Shifts. Earth's Future, 9, e2021EF002241.  
+Hong, C., et al., 2019. Impacts of climate change on future air quality and human health in China. Proc. Natl. Acad. Sci. U. S. A. 116, 17193-17200.  
+Huang, R., et al., 2014. High secondary aerosol contribution to particulate pollution during haze events in China. Nature 514, 218-222.  
+Huang, J., et al., 2018. Health impact of China's Air Pollution Prevention and Control Action Plan: an analysis of national air quality monitoring and mortality data. Lancet Planet. Health 2, E313-E323.  
+Hystad, P., et al., 2020. Associations of outdoor fine particulate air pollution and cardiovascular disease in 157 436 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. The Lancet Planetary Health 4, e235-e245.
+
+Kazemiparkouhi, F., et al., 2022. The impact of Long-Term  $\mathrm{PM}_{2.5}$  constituents and their sources on specific causes of death in a US Medicare cohort. Environ. Int. 159, 106988.  
+Li, N., et al., 2019a. Air quality improvement co-benefits of low-carbon pathways toward well below the 2 degrees c climate target in China. Environ. Sci. Technol. 53, 5576-5584. https://doi.org/10.1021/acs.est.8b06948.  
+Li, T., et al., 2019b. Estimating mortality burden attributable to short-term  $\mathrm{PM}_{2.5}$  exposure: A national observational study in China. Environ. Int. 125, 245-251.  
+Li, Z., Wang, J., Che, S., 2021. Synergistic effect of carbon trading scheme on carbon dioxide and atmospheric pollutants. Sustainability 13, 5403. https://doi.org/10.3390/su13105403.  
+Liu, M., et al., 2017. Spatial and temporal trends in the mortality burden of air pollution in China: 2004-2012. Environ. Int. 98, 75-81. https://doi.org/10.1016/j.envint.2016.10.003.  
+Liu, M., et al., 2021. Recent trends in premature mortality and health disparities attributable to ambient PM2.5 exposure in China: 2005-2017. Environ. Pollut. 279, 13. https://doi.org/10.1016/j.envpol.2021.116882.  
+Liu, Z., et al., 2020. COVID-19 causes record decline in global  $\mathrm{CO}_{2}$  emissions. arXiv preprint arXiv:2004.13614.  
+Ma, Z., et al., 2019. Effects of air pollution control policies on  $\mathrm{PM}_{2.5}$  pollution improvement in China from 2005 to 2017: a satellite-based perspective. Atmos. Chem. Phys. 19, 6861-6877.  
+Ma, Z., et al., 2022. A review of statistical methods used for developing large-scale and long-term  $\mathrm{PM}_{2.5}$  models from satellite data. Remote Sens. Environ. 269.  
+McDuffie, E.E., et al., 2021. Source sector and fuel contributions to ambient  $\mathrm{PM}_{2.5}$  and attributable mortality across multiple spatial scales. Nat. Commun. 12, 3594.  
+Murray, C.J.L., et al., 2020. Global burden of 87 risk factors in 204 countries and territories, 1990-2019: a systematic analysis for the Global Burden of Disease Study 2019. Lancet 396, 1223-1249.  
+Ostro, B., et al., 2015. Associations of mortality with long-term exposures to fine and ultrafine particles, species and sources: results from the California teachers study cohort. Environ. Health Perspect. 123, 549-556.  
+Philip, S., et al., 2014. Global chemical composition of ambient fine particulate matter for exposure assessment. Environ. Sci. Technol. 48, 13060-13068.  
+Pope 3rd, C.A., Cohen, A.J., Burnett, R.T., 2018. Cardiovascular disease and fine particulate matter: lessons and limitations of an integrated exposure-response approach. Circ. Res. 122, 1645-1647.  
+Shan, Y., et al., 2018. China  $\mathrm{CO}_{2}$  emission accounts 1997-2015. Sci. Data 5, 170201. https://doi.org/10.1038/sdata.2017.201.  
+Shan, Y., et al., 2020. China  $\mathrm{CO}_{2}$  emission accounts 2016-2017. Sci. Data 7, 54. https://doi.org/10.1038/s41597-020-0393-y.  
+Silva, R.A., et al., 2013. Global premature mortality due to anthropogenic outdoor air pollution and the contribution of past climate change. Environ. Res. Lett. 8, 11.  
+Stanaway, J.D., et al., 2018. Global, regional, and national comparative risk assessment of 84 behavioural, environmental and occupational, and metabolic risks or clusters of risks for 195 countries and territories, 1990-2017: a systematic analysis for the Global Burden of Disease Study 2017. Lancet 392, 1923-1994. https://doi.org/10.1016/S0140-6736(18)32225-6.  
+The State Council of China, 2013. Air Pollution Prevention and Control Action Plan. http://www.gov.cn/jrzg/2013-09/12/.  
+The State Council of China, 2018. The State Council on the issuance of the three-year action plan to win the Blue Sky Defense War notice. http://www.gov.cn/zhengce/content/2018-07/03/.
+
+Tong, D., et al., 2021. Health co-benefits of climate change mitigation depend on strategic power plant retirements and pollution controls. Nat. Clim. Chang. 11, 1077-1083. https://doi.org/10.1038/s41558-021-01216-1.  
+United Nations, 2015. Sustainable Development Goals. https://sustainabledevelopment.un.org/.  
+Wang, Z., et al., 2021. High-resolution prediction of the spatial distribution of  $\mathrm{PM}_{2.5}$  concentrations in China using a long short-term memory model. J. Clean Prod. 297 https://doi.org/10.1016/j.jclepro.2021.126493.  
+Wang, Z., et al., 2022. Predicting annual  $\mathrm{PM}_{2.5}$  in mainland China from 2014 to 2020 using multi temporal satellite product: An improved deep learning approach with spatial generalization ability. ISPRS-J. Photogramm. Remote Sens. 187, 141-158. https://doi.org/10.1016/j.isprsjprs.2022.03.002.  
+World Health Organization, 2016. Ambient air pollution: a global assessment of exposure and burden of disease. 121 p.  
+World Health Organization, 2021. WHO global air quality guidelines. https://apps.who.int/iris/bitstream/handle/10665/345329/9789240034228-eng.pdf? sequence=1&isAllowed=y.  
+Xiao, Q., et al., 2021. Separating emission and meteorological contributions to long-term  $\mathrm{PM}_{2.5}$  trends over eastern China during 2000-2018. Atmos. Chem. Phys. 21, 9475-9496.  
+Xing, J., et al., 2020. The quest for improved air quality may push China to continue its  $\mathrm{CO}_{2}$  reduction beyond the Paris Commitment. Proc. Natl. Acad. Sci. U. S. A. 117, 29535-29542.  
+Xu, J., et al., 2021. Double cropping and cropland expansion boost grain production in Brazil. Nature Food. 2, 264-273.  
+Xue, T., et al., 2019. Rapid improvement of  $\mathrm{PM}_{2.5}$  pollution and associated health benefits in China during 2013-2017. Sci. China Earth Sci. 62, 1847-1856.  
+Yue, H., et al., 2020. Stronger policy required to substantially reduce deaths from  $\mathrm{PM}_{2.5}$  pollution in China. Nat. Commun. 11, 1462. https://doi.org/10.1038/s41467-020-15319-4.  
+Yusuf, S., et al., 2020. Modifiable risk factors, cardiovascular disease, and mortality in 155 722 individuals from 21 high-income, middle-income, and low-income countries (PURE): a prospective cohort study. Lancet 395, 795-808.  
+Zhang, Q., et al., 2019a. Drivers of improved  $\mathrm{PM}_{2.5}$  air quality in China from 2013 to 2017. Proc. Natl. Acad. Sci. U. S. A. 116, 24463-24469.  
+Zhang, Y., et al., 2019b. Socioeconomic factors of  $\mathrm{PM}_{2.5}$  concentrations in 152 Chinese cities: Decomposition analysis using LMDI. J. Clean Prod. 218, 96-107.  
+Zhang, X., et al., 2019c. The impact of meteorological changes from 2013 to 2017 on  $\mathrm{PM}_{2.5}$  mass reduction in key regions in China. Sci. China Earth Sci. 62, 1885-1902.  
+Zheng, B., et al., 2018. Trends in China's anthropogenic emissions since 2010 as the consequence of clean air actions. Atmos. Chem. Phys. 18, 14095-14111.  
+Zheng, B., et al., 2021. Changes in China's anthropogenic emissions and air quality during the COVID-19 pandemic in 2020. Earth Syst. Sci. Data 13, 2895–2907. https://doi.org/10.5194/essd-13-2895-2021.  
+Zhou, M., Liu, H., Peng, L., et al., 2021. Environmental benefits and household costs of clean heating options in northern China. Nat. Sustain. https://doi.org/10.1038/s41893-021-00837-w.  
+Zhu, G., et al., 2019. Health burdens of ambient  $\mathrm{PM}_{2.5}$  pollution across Chinese cities during 2006-2015. J. Environ. Manage. 243, 250-256.  
+Zou, B., et al., 2019. Air pollution intervention and life-saving effect in China. Environ. Int. 125, 529-541.

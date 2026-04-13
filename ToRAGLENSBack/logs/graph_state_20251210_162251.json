@@ -1,0 +1,1311 @@
+{
+  "root_goal": "可视化",
+  "nodes": {
+    "0": {
+      "id": "0",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "content": {
+        "goal": "可视化"
+      },
+      "metadata": null,
+      "ParentNode": null,
+      "children_ids": [
+        "39",
+        "9",
+        "41",
+        "31",
+        "5",
+        "40",
+        "30"
+      ],
+      "hit_count": 2,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "",
+      "source_args": {},
+      "source_reason": "",
+      "evaluation": null
+    },
+    "39": {
+      "id": "39",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_5:(left) distribution of air quality stations. (right) aqi and corresponding air quality descriptions.",
+        "summary": "figure 5 displays the distribution of 448 air quality monitoring stations across china on the left, alongside a chart on the right showing the air quality index (aqi) values mapped to corresponding air quality descriptions, ranging from excellent to severely polluted.",
+        "insight": "the figure illustrates the spatial distribution of aqi monitoring stations in china and defines the aqi scale, providing context for the real-world dataset used. this setup ensures the reliability of spatio-temporal analyses on air quality, utilizing specific parameters for interpolation and clustering methods."
+      },
+      "metadata": {
+        "visual_type": "{\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_5.jpg",
+        "embedding": "[35.1541, 52.4408]",
+        "paper_id": "4",
+        "key_entities": "[\"air quality stations\", \"AQI\", \"air quality descriptions\", \"China\", \"monitoring stations\", \"ST series dataset\", \"geographic space\", \"grid\", \"temporal granularity\", \"Gaussian model\", \"PyKridge library\", \"Kriging interpolation\", \"DBSCAN\", \"MinPts\", \"window size\"]",
+        "keywords": "[\"air quality stations\", \"AQI\", \"air quality descriptions\", \"China\", \"monitoring stations\", \"ST series dataset\", \"geographic space\", \"grid\", \"temporal granularity\", \"Gaussian model\", \"PyKridge library\", \"Kriging interpolation\", \"DBSCAN\", \"MinPts\", \"window size\"]",
+        "mime_type": "MemoryMimeType.JSON",
+        "functionalroles": "{\"main_role\": \"Data & Experimental Setup\", \"sub_roles\": [\"Introduce Experimental Setup\", \"Describe Data Distribution\"]}",
+        "references": "[\"We have a real- world AQI (air quality index) ST series dataset, collected from 448 air quality monitoring stations in China (Figure 5(left)). In the whole evaluation section, the geographic space is divided into a  $350 \\\\times 350$  grid. The time span is from January 1 to December 20, 2018, and the temporal granularity is one hour. In sum, the dataset comprises 448 (stations)  $\\\\times 8,472$  (timesteps) values, ranging from 0 to 500. Each value in the dataset is the AQI at the timestamp of a monitoring station. The higher the value, the worse the air quality. In the data transformation procedure, the parameters of the Gaussian model are automatically determined by the PyKridge library. We evaluated the accuracy of the adopted Kriging interpolation on the dataset and found it to be acceptable, ensuring the reliability of subsequent analyses. For detailed results, please refer to Appendix D. The parameters of DBSCAN,  $\\\\epsilon$  and MinPts, are configured as 10 and 100, respectively, after multiple trials. The window size for smoothing is set as 24 hours.\"]",
+        "id": "39"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 6,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "可视化在科学研究中的应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "数据可视化技术的最新进展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "交互式数据可视化工具的发展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "Yangtze River Delta air quality visualization techniques"
+          },
+          "parent_id": "30"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "可视化在科学研究中的应用"
+      },
+      "source_reason": "初次探索，从广义的科学研究中可视化应用的角度切入，以便找到广泛相关的文献。",
+      "evaluation": {
+        "target_evidence_id": "39",
+        "branch_action": "KEEP",
+        "extracted_insight": "图表展示了中国境内 448 个空气质量监测站的空间分布，伴随代表 AQI 值的空气质量描述。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 7
+        },
+        "reason": "虽然提供了研究的数据基础，但主要是对实验数据集的背景介绍，不直接提供新洞察。",
+        "suggested_keywords": [
+          "DBSCAN",
+          "Kriging interpolation",
+          "Gaussian model"
+        ]
+      }
+    },
+    "9": {
+      "id": "9",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_1:the study area and its typical urban agglomerations. abbreviations: scb, sichuan basin; cc, central china; yrd, yangtze river delta; bth, beijing-tianjin-hebei.",
+        "summary": "this figure displays a map of china, highlighting four key urban agglomerations: sichuan basin (scb), central china (cc), yangtze river delta (yrd), and beijing-tianjin-hebei (bth). these regions are outlined in red, indicating their significance as study areas within the larger geographical context.",
+        "insight": "the figure illustrates the geographical scope and specific study areas within china, focusing on urban agglomerations prone to severe pollution. this setup is crucial for understanding the performance of different pm2.5 prediction optimization methods (da, bc, and their combination) across various regions, as detailed in the referenced text."
+      },
+      "metadata": {
+        "functionalroles": "{\"main_role\": \"Data & Experimental Setup\", \"sub_roles\": [\"Introduce Experimental Setup\"]}",
+        "paper_id": "1",
+        "references": "[\"The model was set as a  $27 - \\\\mathrm{km}$  grid resolution with  $232\\\\times 182$  horizontal grid spacing and 35 vertical levels. The simulation domain in China is shown in Fig. 1, with the center of the model at  $(32^{\\\\circ}\\\\mathrm{N},110^{\\\\circ}\\\\mathrm{E})$  including four typical urban agglomerations: Beijing- Tianjin- Hebei (BTH), Central China (CC), the Sichuan Basin (SCB), and Yangtze River Delta (YRD). These regions, chosen as they were in Chen et al. (2022), are of broad concern owing to their relatively more severe pollution related to their high levels of urbanization and dense populations.\", \"In numerical model simulations, data assimilation (DA) on the initial conditions and bias correction (BC) of model outputs have been proven to be promising approaches to improving  $\\\\mathrm{PM}_{2.5}$  (particulate matter with an aerodynamic equivalent diameter of  $\\\\leq 2.5\\\\mu \\\\mathrm{m}$ ) predictions. This study compared the optimization effects of these two methods and developed a new scheme that combines DA and BC simultaneously. Four parallel experiments were conducted during winter 2019: a control experiment directly forecasted by WRF- Chem (experiment name: WRF- Chem); an experiment that assimilated in situ observations based on the GSI (Gridpoint Statistical Interpolation) system (WRF- Chem_DA); an experiment with deep- learning- based BC (WRF- Chem_BC); and an experiment considering the combination of DA on the initial conditions and BC (WRF- Chem_DA_BC). Statistically, the accuracy of  $\\\\mathrm{PM}_{2.5}$  predictions could be optimized by both DA and BC for the first 24- h period, and WRF- Chem_BC performed better than WRF- Chem_DA in the initial field, especially in the period of 10\\u201324 h, while the best performance was achieved by combining BC and DA. Throughout the initial 24- h period, compared with the control experiment, the results of WRF- Chem_DA_BC (WRF- Chem_DA, WRF- Chem_BC) showed an improvement in terms of root- mean- square error, with reduction proportions varying from 38.90% to 48.86% (18.88% to 32.44%, 30.10% to 46.08%). Besides having the best optimization effect over the whole domain, the combined method also performed well in different regions: during the forecasting period of 0\\u201324 h, the RMSEs decreased from 32% to 62%, 39% to 57%, 28% to 40%, and 30% to 49% in the Beijing- Tianjin- Hebei, Yangtze River Delta, Central China, and Sichuan Basin urban agglomerations, respectively.\"]",
+        "id": "9",
+        "savepath": "Improving WRF-Chem PM2.5 predictions by combining data assimilation and deep-learning-based bias correction/figure_1.jpg",
+        "keywords": "[\"Sichuan Basin\", \"Central China\", \"Yangtze River Delta\", \"Beijing-Tianjin-Hebei\", \"urban agglomerations\", \"China\", \"grid resolution\", \"horizontal grid spacing\", \"vertical levels\", \"simulation domain\", \"data assimilation (DA)\", \"bias correction (BC)\", \"PM2.5 predictions\", \"WRF-Chem\", \"GSI (Gridpoint Statistical Interpolation)\", \"deep-learning-based BC\", \"RMSEs\"]",
+        "mime_type": "MemoryMimeType.JSON",
+        "key_entities": "[\"Sichuan Basin\", \"Central China\", \"Yangtze River Delta\", \"Beijing-Tianjin-Hebei\", \"urban agglomerations\", \"China\", \"grid resolution\", \"horizontal grid spacing\", \"vertical levels\", \"simulation domain\", \"data assimilation (DA)\", \"bias correction (BC)\", \"PM2.5 predictions\", \"WRF-Chem\", \"GSI (Gridpoint Statistical Interpolation)\", \"deep-learning-based BC\", \"RMSEs\"]",
+        "visual_type": "{\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}",
+        "embedding": "[22.6328, 51.8414]"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 3,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "可视化在科学研究中的应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "数据可视化技术的最新进展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "交互式数据可视化工具的发展"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "可视化在科学研究中的应用"
+      },
+      "source_reason": "初次探索，从广义的科学研究中可视化应用的角度切入，以便找到广泛相关的文献。",
+      "evaluation": {
+        "target_evidence_id": "9",
+        "branch_action": "KEEP",
+        "extracted_insight": "地图标示了中国四个主要城市群的地理位置，并强调这些地区作为研究对象的重要性。",
+        "scores": {
+          "relevance": 8,
+          "credibility": 8
+        },
+        "reason": "提供数据模拟的设置及 PM2.5 预测优化方法的比较背景，对于理解研究的不同区域性能有帮助。",
+        "suggested_keywords": [
+          "PM2.5 predictions",
+          "Data assimilation (DA)",
+          "Bias correction (BC)"
+        ]
+      }
+    },
+    "41": {
+      "id": "41",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_7:case study of air quality in china. (a) air quality data is visualized with the surface rendering in volumestcube, where (a1 and a2) two propagation processes of air pollution can be identified. (b) after clicking (a1), the user can obtain this view. (c) the air pollution propagated from the loess plateau to the north china plain. (d) after clicking (a2), the user can obtain this view. (e) the air pollution propagated from the north china plain to the yangtze river delta.",
+        "summary": "this figure presents a case study of air quality in china, visualizing air pollution propagation using volumestcube's surface rendering. it highlights two distinct propagation processes, one from the loess plateau to the north china plain and another from the north china plain to the yangtze river delta, illustrating the system's application.",
+        "insight": "the authors intend to show how volumestcube effectively visualizes air pollution propagation, making complex processes like those in figure 7 easily identifiable. this system significantly reduces the time and mental burden for users compared to baseline methods, improving accuracy in identifying propagation paths."
+      },
+      "metadata": {
+        "paper_id": "4",
+        "key_entities": "[\"air quality data\", \"VolumeSTCube\", \"air pollution\", \"Loess Plateau\", \"North China Plain\", \"Yangtze River Delta\"]",
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Map\", \"3D Rendering\"]}",
+        "functionalroles": "{\"main_role\": \"Analysis & Discussion\", \"sub_roles\": [\"Exemplify Application Case\"]}",
+        "references": "[\"Q17. In the baseline, the propagation process is hidden in multiple discretely distributed columns and subjects had to move the time range back and forth and observe changes in the color or radius of every disk, which is time- consuming with the mental burden. Nonetheless, subjects using VolumeSTCube can easily identify a propagation process via the rendered surface in a continuous form (e.g., shown in Figure 7) and select two cities based on the propagation path. As a result, VolumeSTCube outperformed the baseline by over 40 seconds regarding response time; two subjects gave up when using the baseline, resulting in a correctness of  $66.7\\\\%$ .\", \"tion process (e.g., shown in Figure 7). Subjects using the baseline took an average of 21 seconds longer than those using VolumeSTCube. Notably, four subjects gave up, and the accuracy rate was only  $58.3\\\\%$  considerably lower than VolumeSTCube's  $91.7\\\\%$\"]",
+        "keywords": "[\"air quality data\", \"VolumeSTCube\", \"air pollution\", \"Loess Plateau\", \"North China Plain\", \"Yangtze River Delta\"]",
+        "mime_type": "MemoryMimeType.JSON",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_7.jpg",
+        "embedding": "[53.6498, 58.3364]",
+        "id": "41"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 6,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "可视化在科学研究中的应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "数据可视化技术的最新进展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "交互式数据可视化工具的发展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "Yangtze River Delta air quality visualization techniques"
+          },
+          "parent_id": "30"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "可视化在科学研究中的应用"
+      },
+      "source_reason": "初次探索，从广义的科学研究中可视化应用的角度切入，以便找到广泛相关的文献。",
+      "evaluation": {
+        "target_evidence_id": "41",
+        "branch_action": "GROW",
+        "extracted_insight": "图显示使用 VolumeSTCube 有效识别空气污染传播路径，相较基线方法显著减少用户时间和认知负担。",
+        "scores": {
+          "relevance": 9,
+          "credibility": 9
+        },
+        "reason": "图展示了创新的可视化技术，通过 VolumeSTCube 动态识别空气质量变化路径，值得深入研究。",
+        "suggested_keywords": [
+          "VolumeSTCube",
+          "Air pollution propagation"
+        ]
+      }
+    },
+    "31": {
+      "id": "31",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "content": {
+        "title": "figure_7:temperature in china. (a) storyline with (a1) the shade mapping. (b) upper right corner of (a), where (b1) periodicity and (b2) drops are observed. (c) colored result of (b). (d) the spatial distribution of colored st series in (c). (e) line charts and (f) trend motifs of (c1), where obvious drops are observed in (e1, f1).",
+        "summary": "the figure illustrates temperature patterns in china using a multi-view visualization. it presents a storyline view, detailed magnified sections showing periodicity and drops, and colored representations. additionally, it displays the spatial distribution of these colored time series and corresponding line charts and trend motifs highlighting observed temperature drops.",
+        "insight": "the figure aims to demonstrate how visual analytics can reveal complex spatiotemporal patterns, such as temperature fluctuations and significant drops in china, providing qualitative insights into environmental data dynamics. the combined views allow for detailed observation and analysis of specific temperature events across different regions."
+      },
+      "metadata": {
+        "savepath": "Visualizing Large-Scale Spatial Time Series with GeoChron/figure_7.jpg",
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Line Chart\", \"Map\", \"Heatmap\"]}",
+        "key_entities": "[\"Temperature\", \"China\", \"Storyline\", \"Shade Mapping\", \"Periodicity\", \"Drops\", \"Spatial Distribution\", \"ST Series\", \"Line Charts\", \"Trend Motifs\"]",
+        "references": "[]",
+        "functionalroles": "{\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Core Findings\", \"Present Qualitative Results\"]}",
+        "mime_type": "MemoryMimeType.JSON",
+        "embedding": "[74.6457, 57.2639]",
+        "keywords": "[\"Temperature\", \"China\", \"Storyline\", \"Shade Mapping\", \"Periodicity\", \"Drops\", \"Spatial Distribution\", \"ST Series\", \"Line Charts\", \"Trend Motifs\"]",
+        "id": "31",
+        "paper_id": "3"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 3,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "可视化在科学研究中的应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "数据可视化技术的最新进展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "Yangtze River Delta air quality visualization techniques"
+          },
+          "parent_id": "30"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "可视化在科学研究中的应用"
+      },
+      "source_reason": "初次探索，从广义的科学研究中可视化应用的角度切入，以便找到广泛相关的文献。",
+      "evaluation": {
+        "target_evidence_id": "31",
+        "branch_action": "PRUNE",
+        "extracted_insight": "展示了中国的温度模式及周期性事件的空间分布，但缺乏与空气质量或污染直接相关的洞察。",
+        "scores": {
+          "relevance": 5,
+          "credibility": 7
+        },
+        "reason": "主要焦点在温度，并未直接涉及研究主题，空气质量或污染。",
+        "suggested_keywords": [
+          "Temperature",
+          "Trend Motifs"
+        ]
+      }
+    },
+    "5": {
+      "id": "5",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_6:a causal relation (left) and the relation view for visualizing causal relations (right). (a) a causal link may be incorrect because the pearson's  $r$  is near 0. (b) a causal link opposite to (a) has a large pearson's  $r$ . (c) a bi-directional causal relation comprises two causal links with opposite directions. (d) the relation view adopts a multidimensional visualization and presents (d1, d2, and d3) three illustrative causal relations.",
+        "summary": "the figure illustrates causal relations and their visualization using a relation view. it shows examples of causal links with varying pearson's r, including incorrect, strong, and bi-directional links (a-c), and how these are represented in a multidimensional visualization based on strength, lag, and spatial distance (d).",
+        "insight": "the authors intend for readers to understand how different types of causal relations, characterized by strength, lag, and correlation, are visually represented in a multidimensional 'relation view'. this visualization aids in interpreting complex causal structures within data."
+      },
+      "metadata": {
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Line Chart\", \"Scatter Plot\", \"Conceptual Diagram\"]}",
+        "functionalroles": "{\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Introduce Conceptual Framework\"]}",
+        "references": "[]",
+        "embedding": "[92.5961, 15.1888]",
+        "keywords": "[\"causal relation\", \"relation view\", \"Pearson's r\", \"causal link\", \"bi-directional causal relation\", \"multidimensional visualization\", \"Strength\", \"Lag\", \"Correlation\", \"spatial distance\"]",
+        "id": "5",
+        "mime_type": "MemoryMimeType.JSON",
+        "key_entities": "[\"causal relation\", \"relation view\", \"Pearson's r\", \"causal link\", \"bi-directional causal relation\", \"multidimensional visualization\", \"Strength\", \"Lag\", \"Correlation\", \"spatial distance\"]",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_6.jpg",
+        "paper_id": "0"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "6",
+        "7",
+        "8"
+      ],
+      "hit_count": 3,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "可视化在科学研究中的应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "multidimensional visualization techniques"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "可视化在科学研究中的应用"
+      },
+      "source_reason": "初次探索，从广义的科学研究中可视化应用的角度切入，以便找到广泛相关的文献。",
+      "evaluation": {
+        "target_evidence_id": "5",
+        "branch_action": "KEEP",
+        "extracted_insight": "展示了因果关系的可视化方法，帮助理解数据中的复杂因果结构。",
+        "scores": {
+          "relevance": 6,
+          "credibility": 7
+        },
+        "reason": "关于因果关系可视化的信息可能为更深层次分析提供工具支持，特别是涉及空气污染的数据分析。",
+        "suggested_keywords": [
+          "Pearson's r",
+          "Causal relation"
+        ]
+      }
+    },
+    "40": {
+      "id": "40",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_6:case study of air quality in china. (a) volumestcube provides the overview of air quality with  $\\lambda = 0$ . (b) the visual pattern becomes clearer with a larger  $\\lambda = 150$ . (c) the temporal variation of air quality in xinjiang and (d) in the bth region were revealed via volume highlight. (e, e1, and e2) the air pollution during the spring festival was generally below the moderate level. (f, f1, and f2) the air pollution caused by the dust storm from late march to april impacted a wide spatial range. (g) the air pollution caused by the dust storm in late may impacted a smaller spatial range.",
+        "summary": "this figure presents a case study of air quality in china using volumestcube. it illustrates an overview of air quality with different lambda values, temporal variations in specific regions, and distinct air pollution events like the spring festival and dust storms, showcasing their spatial and temporal impacts.",
+        "insight": "the authors intend to show how volumestcube can effectively visualize and analyze complex spatio-temporal air quality data, revealing patterns and events like dust storms and festival pollution across different regions of china, thereby demonstrating its utility in environmental monitoring."
+      },
+      "metadata": {
+        "embedding": "[52.8688, 65.1006]",
+        "functionalroles": "{\"main_role\": \"Analysis & Discussion\", \"sub_roles\": [\"Exemplify Application Case\"]}",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_6.jpg",
+        "key_entities": "[\"air quality\", \"China\", \"VolumeSTCube\", \"temporal variation\", \"Xinjiang\", \"BTH region\", \"volume highlight\", \"Spring Festival\", \"dust storm\", \"air pollution\"]",
+        "mime_type": "MemoryMimeType.JSON",
+        "id": "40",
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Geospatial Visualizations\", \"Qualitative & Representational Imagery\"]}",
+        "references": "[]",
+        "keywords": "[\"air quality\", \"China\", \"VolumeSTCube\", \"temporal variation\", \"Xinjiang\", \"BTH region\", \"volume highlight\", \"Spring Festival\", \"dust storm\", \"air pollution\"]",
+        "paper_id": "4"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [
+        "35",
+        "36",
+        "37",
+        "38",
+        "42"
+      ],
+      "hit_count": 5,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "数据可视化技术的最新进展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "交互式数据可视化工具的发展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "Yangtze River Delta air quality visualization techniques"
+          },
+          "parent_id": "30"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "数据可视化技术的最新进展"
+      },
+      "source_reason": "初始规划阶段需要对数据可视化技术的最新动态有一定了解，从而更好地指导后续的深入探索。",
+      "evaluation": {
+        "target_evidence_id": "40",
+        "branch_action": "GROW",
+        "extracted_insight": "VolumeSTCube 在中国区域的空气质量分析中展示了其能够揭示复杂时空模型的有效性，尤其是在展示春节期间和沙尘暴期间的空气污染事件时。",
+        "scores": {
+          "relevance": 9,
+          "credibility": 8
+        },
+        "reason": "该证据展示了 VolumeSTCube 在分析和可视化空气质量数据中的应用，能有效揭示特定时空事件，且包含具体的图像和多个相关区域的分析，是进一步研究的有力证据。",
+        "suggested_keywords": [
+          "VolumeSTCube",
+          "temporal variation",
+          "air pollution",
+          "Spring Festival",
+          "dust storm"
+        ]
+      }
+    },
+    "30": {
+      "id": "30",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_6:air quality in yangtze river delta. (a) interesting evolution patterns in storyline. (b) the map coordinated with the evolutions. (c) line charts and (d) trend motifs of the patterns of (a). (e) a line chart of an evolution pattern and (f) its trend motif.",
+        "summary": "the figure illustrates air quality patterns in the yangtze river delta, presenting storyline evolutions, their geographical coordination, and corresponding line charts. it details daily trends and specific evolution patterns with their trend motifs, highlighting interesting visual insights.",
+        "insight": "the authors intend to show how the proposed visualization techniques, storyline and trend motifs, can effectively reveal and analyze complex spatiotemporal patterns in air quality data within the yangtze river delta region, facilitating the identification of interesting evolution patterns."
+      },
+      "metadata": {
+        "id": "30",
+        "mime_type": "MemoryMimeType.JSON",
+        "paper_id": "3",
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Line Chart\", \"Map\"]}",
+        "references": "[]",
+        "key_entities": "[\"Air quality\", \"Yangtze River Delta\", \"Storyline\", \"Evolution patterns\", \"Trend motifs\"]",
+        "savepath": "Visualizing Large-Scale Spatial Time Series with GeoChron/figure_6.jpg",
+        "keywords": "[\"Air quality\", \"Yangtze River Delta\", \"Storyline\", \"Evolution patterns\", \"Trend motifs\"]",
+        "functionalroles": "{\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Qualitative Results\"]}",
+        "embedding": "[60.7871, 62.2482]"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 2,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "交互式数据可视化工具的发展"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "Yangtze River Delta air quality visualization techniques"
+          },
+          "parent_id": "30"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "交互式数据可视化工具的发展"
+      },
+      "source_reason": "交互式数据可视化正在成为趋势，理解这方面的研究能够为用户带来嵌入式、用户友好的可视化方案。",
+      "evaluation": {
+        "target_evidence_id": "30",
+        "branch_action": "KEEP",
+        "extracted_insight": "图中展示的长三角地区空气质量演进模式及其趋势母题，为理解区域空气质量变化提供了可视化支撑。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 7
+        },
+        "reason": "虽然提供了视觉上有趣的信息，但主要为背景性展示，未包含深度挖掘路径。仍可作为理解时空变化的背景证据。",
+        "suggested_keywords": [
+          "Storyline",
+          "Evolution patterns",
+          "Trend motifs",
+          "Yangtze River Delta"
+        ]
+      }
+    },
+    "35": {
+      "id": "35",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_1:Our implementation of Thakur and Hanson's method [14], later used as a baseline in the comparative user study.",
+        "summary": "This figure displays Thakur and Hanson's method for visualizing spatiotemporal series data as a baseline. It uses columns and disks on a map, where disk size and color encode value magnitude, illustrating a column-based visualization method with visible occlusion issues.",
+        "insight": "The authors present this figure as a baseline visualization method (Thakur and Hanson's method) to highlight its limitations, particularly occlusion in dense areas and difficulty in identifying hotspots, thereby justifying the need for their enhanced Space-Time Cube visualization."
+      },
+      "metadata": {
+        "id": "35",
+        "paper_id": "4",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_1.jpg",
+        "image_path": "",
+        "keywords": "[\"Thakur and Hanson's method\", \"Space-Time Cube\", \"ST series\", \"baseline\", \"hotspot\", \"occlusion\", \"VolumeSTCube\"]",
+        "full_json": "{\"title\": \"figure_1:Our implementation of Thakur and Hanson's method [14], later used as a baseline in the comparative user study.\", \"save_path\": \"Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_1.jpg\", \"references\": [\"The STC works well for various datasets, such as spatiotemporal events [9]- [11] and trajectories [12], [13]. Yet, adopting the STC to visualize large- scale ST series is still in an exploratory stage. Prior studies [14]- [16] adopted the STC to visualize ST series (e.g., Figure 1), but only a few timestamps (e.g.,  $\\\\leq 30$  are applicable. It remains unexplored how to enable in- depth visual analysis of large- scale, highly dynamic, and multi- correlated ST series data based on the STC. To this end, this study aims to enhance the STC for visualizing large- scale ST series. However, two major challenges are posed.\", \"Effective presentation of spatiotemporal patterns. Due to the characteristics of the STC, each reading value of the ST series can directly correspond to time and space. However, the effective presentation of massive values is non- trivial. With Thakur and Hanson's method [14], the graphic plot of each ST series tends to occlude each other (Figure 1). Besides, the dataset's hidden spatiotemporal patterns (e.g., hotspots and propagation processes) cannot be revealed clearly. New data transformation and visualization strategies are strongly required to summarize and present the large- scale ST series in less visual occlusion.\", \"STC applications. The STC has been successfully applied in the visualization of spatiotemporal datasets in various domains, such as earthquake events [9], crime clusters [10], mobilities [39], and eye- tracking recordings [40]. However, the STC has the same well- known limitation as other 3D data representations: occlusion [41]. For example, if there are more time series and more timestamps, there will be occlusion between columns (Figure 1). The user may suffer from the process of searching the patterns from many multiple columns that are separately distributed in the cube.\", \"With the development of sensor technology and the decrease in storage costs, more and more fine- grained large- scale ST series are collected. To analyze large- scale data adequately, analysts need effective and interactive visualization techniques. However, as concluded in section II, although many ST series visualizations are designed to present temporal trends with the spatial context, they require users to make costly switches between geographic and temporal information, which is particularly unfriendly in the face of large- scale datasets. The spacetime cube is the most promising technique for alleviating the context switching cost. Yet, existing attempts focused on small- scale datasets and may experience occlusion problems (Figure 1). Our research problem is refined to address how to adapt the space- time cube to large- scale ST series.\", \"We conducted a controlled, within- subject user study. The study primarily aimed to verify 1) the effectiveness of continuous volume- based visualization compared to column- based visualization and 2) the ease of understanding of volume- based visualization combined with the space- time cube. Besides, we hoped to identify the strengths and weaknesses of VolumeSTCube. While numerous methods, such as 2D map- based estimations or coordinated 2D maps and line charts, are available for comparison, these approaches differ fundamentally in design and interaction principles from STC- based methods. We selected Thakur and Hanson's STC- based method [14] as the baseline, shown in Figure 1. This method, the most recent STC- based visualization for ST series, lacks volumetric representation but serves as a representative of similar methods [15], [16]. Its design allows a focused evaluation of the benefits introduced by volume- based visualization.\", \"Baseline. In the baseline (Figure 1), each column represents an ST series and is positioned on the map according to its geographic location. Disks distributed along the z- axis within each column visualize the values at different timestamps. The size and color of the disks encode the magnitude of the values. Larger disks and redder colors indicate higher values and smaller disks and greener colors indicate lower values.\", \"Q12. To solve Q12, subjects should identify the largest hotspot. In VolumeSTCube, identifying hotspots is expedited as they are presented as distinct voxel clusters. Subjects can easily compare the size and color of each voxel cluster, and thereby identify the largest one. Conversely, subjects using the baseline method found it challenging to compare hotspots due to occlusion, especially in densely clustered columns in North China, as shown in Figure 1. They resorted to selecting time ranges and columns to estimate the largest hotspot, which was time- consuming and imprecise. Consequently, the baseline takes 8 seconds longer on average than VolumeSTCube. Furthermore, with the baseline method, one subject gave up, and two subjects provided incorrect answers, resulting in an accuracy rate of  $75\\\\%$ , which is lower than VolumeSTCube's accuracy rate of  $100\\\\%$ .\"], \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Qualitative Results\"]}, \"visual_type\": {\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Geospatial Visualizations\", \"Quantitative Charts\"]}, \"key_entities\": [\"Thakur and Hanson's method\", \"Space-Time Cube\", \"ST series\", \"baseline\", \"hotspot\", \"occlusion\", \"VolumeSTCube\"], \"concise_summary\": \"This figure displays Thakur and Hanson's method for visualizing spatiotemporal series data as a baseline. It uses columns and disks on a map, where disk size and color encode value magnitude, illustrating a column-based visualization method with visible occlusion issues.\", \"inferred_insight\": \"The authors present this figure as a baseline visualization method (Thakur and Hanson's method) to highlight its limitations, particularly occlusion in dense areas and difficulty in identifying hotspots, thereby justifying the need for their enhanced Space-Time Cube visualization.\", \"id\": 35, \"x\": 42.8114, \"y\": 38.926, \"paper_id\": 4}"
+      },
+      "ParentNode": "40",
+      "children_ids": [],
+      "hit_count": 3,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "multidimensional visualization techniques"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "4"
+      },
+      "source_reason": "评估人员给出的GROW标记表明该节点具有较高的研究价值，我认为有必要更深入地查看该篇文献的相关信息。",
+      "evaluation": {
+        "target_evidence_id": "35",
+        "branch_action": "KEEP",
+        "extracted_insight": "图表展示了 Thakur 和 Hanson 方法用于空间时间序列数据的可视化，作为一种基线方法，该图中的遮挡问题突出了其在密集区域识别热点的局限性。",
+        "scores": {
+          "relevance": 6,
+          "credibility": 7
+        },
+        "reason": "虽然作为背景和基线使用，但依旧对于理解空间时间序列数据可视化的基础方法和改进方向有一定价值。",
+        "suggested_keywords": [
+          "Thakur and Hanson's method",
+          "Space-Time Cube",
+          "VolumeSTCube"
+        ]
+      }
+    },
+    "36": {
+      "id": "36",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_2:Pipeline of VolumeSTCube. (A) The spatial time (ST) series are placed in a 3D space following the space-time cube. (B) After interpolation and smoothing, the ST series are transformed as a space-time volume. (C) The volume is visualized with volume rendering and surface rendering, and is equipped with temporal slicing, spatial filter, and voxel cluster-based interactions, forming VolumeSTCube.",
+        "summary": "This figure illustrates the pipeline of VolumeSTCube. It shows the transformation from spatial time series data into a space-time volume through interpolation and smoothing, and then the visualization of this volume using rendering techniques and interactive features like temporal slicing and voxel clusters.",
+        "insight": "The figure visually explains the VolumeSTCube methodology, demonstrating how continuous space-time phenomena are processed and visualized. It highlights the transformation framework and interactive features designed to address challenges in exploring large-scale spatio-temporal data by converting discrete data into a continuous volumetric representation for effective analysis."
+      },
+      "metadata": {
+        "id": "36",
+        "paper_id": "4",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_2.jpg",
+        "image_path": "",
+        "keywords": "[\"VolumeSTCube\", \"Space-Time Cube\", \"ST series\", \"interpolation\", \"smoothing\", \"space-time volume\", \"volume rendering\", \"surface rendering\", \"temporal slicing\", \"spatial filter\", \"voxel cluster\", \"voxel\"]",
+        "full_json": "{\"title\": \"figure_2:Pipeline of VolumeSTCube. (A) The spatial time (ST) series are placed in a 3D space following the space-time cube. (B) After interpolation and smoothing, the ST series are transformed as a space-time volume. (C) The volume is visualized with volume rendering and surface rendering, and is equipped with temporal slicing, spatial filter, and voxel cluster-based interactions, forming VolumeSTCube.\", \"save_path\": \"Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_2.jpg\", \"references\": [\"The pipeline of VolumeSTCube is illustrated in Figure 2.\", \"This study focuses on ST series of phenomena that are continuous across both space and time, a characteristic typically found in natural phenomena, in contrast to other phenomena such as tourist visits to different attractions and demographic trends across countries. We propose a visualization technique named VolumeSTCube that addresses the aforementioned challenges. For the first challenge, we propose a transformation framework that transforms large- scale ST series into a volume visualization. In particular, the framework adopts interpolation to convert discretely distributed values into continuously distributed volumetric data following the STC schema. Afterward, the volumetric data is rendered with the volume and surface rendering techniques in a less cluttered manner. For the second challenge, we design a set of flexible interactions to facilitate exploring the STC from temporal, spatial, and spatiotemporal perspectives. The volume can be sliced and highlighted for spatial and temporal exploration, respectively. A voxel cluster- based interaction builds upon the volume slicing and highlights to enable easy selection and investigation of spatiotemporal patterns.\", \"First, we generate a space- time cube space where the x- y plane represents the geographic space, and the z- axis represents the timeline. Every ST series is represented as a column (i.e., the vertical line in Figure 2A) in the cube according to the geographic position. The time- varying values of the ST series can be mapped to the column's vertical position. Second, as shown in Figure 2B, the cube space is evenly divided into voxels, i.e., small regular cubes. We apply interpolation and temporal smoothing to estimate the value  $v$  for every voxel with a 3D position  $(x,y,z)$ . As a result, all voxels together constitute a space- time volume where the values of adjacent voxels tend to be continuous. Finally, the space- time volume is visualized with volume and surface rendering techniques (Figure 2C). We also adapt the traditional 2D interactions into the 3D space- time cube environment, enabling users to effectively explore the volume with large- scale ST series.\"], \"functional_roles\": {\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Illustrate Algorithm Process\"]}, \"visual_type\": {\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Flowchart\", \"Conceptual Diagram\"]}, \"key_entities\": [\"VolumeSTCube\", \"Space-Time Cube\", \"ST series\", \"interpolation\", \"smoothing\", \"space-time volume\", \"volume rendering\", \"surface rendering\", \"temporal slicing\", \"spatial filter\", \"voxel cluster\", \"voxel\"], \"concise_summary\": \"This figure illustrates the pipeline of VolumeSTCube. It shows the transformation from spatial time series data into a space-time volume through interpolation and smoothing, and then the visualization of this volume using rendering techniques and interactive features like temporal slicing and voxel clusters.\", \"inferred_insight\": \"The figure visually explains the VolumeSTCube methodology, demonstrating how continuous space-time phenomena are processed and visualized. It highlights the transformation framework and interactive features designed to address challenges in exploring large-scale spatio-temporal data by converting discrete data into a continuous volumetric representation for effective analysis.\", \"id\": 36, \"x\": 65.7175, \"y\": 30.7111, \"paper_id\": 4}"
+      },
+      "ParentNode": "40",
+      "children_ids": [],
+      "hit_count": 3,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "multidimensional visualization techniques"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "4"
+      },
+      "source_reason": "评估人员给出的GROW标记表明该节点具有较高的研究价值，我认为有必要更深入地查看该篇文献的相关信息。",
+      "evaluation": {
+        "target_evidence_id": "36",
+        "branch_action": "GROW",
+        "extracted_insight": "图表详细展示了 VolumeSTCube 的方法管道，强调其用于转换和可视化大规模时空数据的先进框架和交互特性。",
+        "scores": {
+          "relevance": 9,
+          "credibility": 8
+        },
+        "reason": "该图对 VolumeSTCube 的架构和方法进行了深入的展示，是理解新型数据处理技术的关键帮助。",
+        "suggested_keywords": [
+          "VolumeSTCube",
+          "space-time volume",
+          "voxel cluster"
+        ]
+      }
+    },
+    "37": {
+      "id": "37",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_3:Visual designs of VolumeSTCube. (A) Space-time volume visualization with volume rendering and contextual information. (B and C) A propagation process of air pollution is visualized with volume rendering and surface rendering, respectively.",
+        "summary": "The figure illustrates VolumeSTCube's visual designs for spatiotemporal data. It showcases space-time volume visualization with contextual information (A) and the propagation of air pollution using both volume rendering (B) and surface rendering (C) to highlight different visual aspects.",
+        "insight": "The figure demonstrates how VolumeSTCube leverages volume and surface rendering to effectively visualize continuous spatiotemporal phenomena like air pollution propagation, addressing occlusion and providing detailed patterns for analysis, which is superior to prior work in large-scale spatial time series analysis."
+      },
+      "metadata": {
+        "id": "37",
+        "paper_id": "4",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_3.jpg",
+        "image_path": "",
+        "keywords": "[\"VolumeSTCube\", \"Space-time volume visualization\", \"volume rendering\", \"surface rendering\", \"air pollution\", \"propagation process\", \"spatiotemporal domains\", \"visual occlusion\", \"depth ambiguity\", \"spatial time series data\"]",
+        "full_json": "{\"title\": \"figure_3:Visual designs of VolumeSTCube. (A) Space-time volume visualization with volume rendering and contextual information. (B and C) A propagation process of air pollution is visualized with volume rendering and surface rendering, respectively.\", \"save_path\": \"Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_3.jpg\", \"references\": [\"Abstract- Spatial time series visualization offers scientific research pathways and analytical decision- making tools across various spatiotemporal domains. Despite many advanced methodologies, the seamless integration of temporal and spatial information remains a challenge. The space- time cube (STC) stands out as a promising approach for the synergistic presentation of spatial and temporal information, with successful applications across various spatiotemporal datasets. However, the STC is plagued by well- known issues such as visual occlusion and depth ambiguity, which are further exacerbated when dealing with large- scale spatial time series data. In this study, we introduce a novel technical framework termed VolumeSTCube, designed for continuous spatiotemporal phenomena. It first leverages the concept of the STC to transform discretely distributed spatial time series data into continuously volumetric data. Subsequently, volume rendering and surface rendering techniques are employed to visualize the transformed volumetric data. Volume rendering is utilized to mitigate visual occlusion, while surface rendering provides pattern details by enhanced lighting information. Lastly, we design interactions to facilitate the exploration and analysis from temporal, spatial, and spatiotemporal perspectives. VolumeSTCube is evaluated through a computational experiment, a real- world case study with one expert, and a controlled user study with twelve non- experts, compared against a baseline from prior work, showing its superiority and effectiveness in large- scale spatial time series analysis.\", \"evident, exhibiting a tilted configuration within 3D space- time cube space. Such a tilted shape signified the spatiotemporal propagation process of air pollution. With rendered isosurfaces  $\\\\lambda_{i} = 150$  and  $\\\\lambda_{v} = 125$  (Figure 7A), PA could clearly discern the propagation process. To analyze the process in detail, PA clicked the surface (Figure 7A1), i.e., the voxel cluster detected with  $\\\\lambda_{a} = 150$ . As a result, spatial selection, temporal selection, and zooming- in functionalities were automatically issued, thereby eliminating the clutter from non- selected visual elements. From Figure 7B, PA obtained the following three pieces of information. First, the pollution generally propagated toward the southeast, as indicated by the red arrow. Second, the propagation process appeared to be a round- trip, as indicated by the orange arrow. Third, the pollution once spread to the southwest, as indicated by the white arrow. Identifying these visual patterns was attributed to the surface rendered with lighting information.\", \"Visualization. All subjects quickly grasped the space- time cube and confirmed the intuitiveness of VolumeSTCube.Moreover, all subjects using VolumeSTCube for analysis experienced minimal occlusion problems and remarked that \\\"due to the opacity of voxels (actually the volume visualization they meant), they experienced no visual occlusion during analysis.\\\" Two subjects noted that the opacity of voxels could potentially hinder analyzing low pollution levels, which corresponds to VolumeSTCube's poor performance in Q15. In the future, we plan to implement a rendering parameter adjustment control to alleviate this problem. For example, the mapping of values to transparency and color can be adjusted interactively. Finally, most subjects expressed that surface rendering offered clear boundaries for voxel clusters, aiding in obtaining specific values at spatiotemporal positions and assessing propagation processes. This capability could be difficult to achieve solely with volume rendering. Interestingly, some subjects with strong spatial perception felt relying solely on volume visualization was sufficient.\"], \"functional_roles\": {\"main_role\": \"System & Application\", \"sub_roles\": [\"Illustrate User Workflow\"]}, \"visual_type\": {\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Conceptual Diagram\", \"3D Rendering\"]}, \"key_entities\": [\"VolumeSTCube\", \"Space-time volume visualization\", \"volume rendering\", \"surface rendering\", \"air pollution\", \"propagation process\", \"spatiotemporal domains\", \"visual occlusion\", \"depth ambiguity\", \"spatial time series data\"], \"concise_summary\": \"The figure illustrates VolumeSTCube's visual designs for spatiotemporal data. It showcases space-time volume visualization with contextual information (A) and the propagation of air pollution using both volume rendering (B) and surface rendering (C) to highlight different visual aspects.\", \"inferred_insight\": \"The figure demonstrates how VolumeSTCube leverages volume and surface rendering to effectively visualize continuous spatiotemporal phenomena like air pollution propagation, addressing occlusion and providing detailed patterns for analysis, which is superior to prior work in large-scale spatial time series analysis.\", \"id\": 37, \"x\": 52.2369, \"y\": 49.1212, \"paper_id\": 4}"
+      },
+      "ParentNode": "40",
+      "children_ids": [],
+      "hit_count": 3,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "multidimensional visualization techniques"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "4"
+      },
+      "source_reason": "评估人员给出的GROW标记表明该节点具有较高的研究价值，我认为有必要更深入地查看该篇文献的相关信息。",
+      "evaluation": {
+        "target_evidence_id": "37",
+        "branch_action": "GROW",
+        "extracted_insight": "通过 VolumeSTCube 的体积与表面渲染，图表有效地展示了空气污染传播的时空现象，并解决了遮挡问题以提供详细分析。",
+        "scores": {
+          "relevance": 9,
+          "credibility": 8
+        },
+        "reason": "空气污染传播的可视化在研究污染影响方面有直接重要性，该图是 VolumeSTCube 在大规模空间时间分析中的核心应用实例。",
+        "suggested_keywords": [
+          "Space-time volume visualization",
+          "air pollution",
+          "VolumeSTCube"
+        ]
+      }
+    },
+    "38": {
+      "id": "38",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_4:Interactions in VolumeSTCube. (A) Volume Slicing. (B) Volume Spotlight. (C) Voxel cluster-based selection.",
+        "summary": "The figure illustrates three interaction techniques within VolumeSTCube: (A) Volume Slicing for temporal exploration, (B) Volume Spotlight for spatial highlighting, and (C) Voxel cluster-based selection with auto zoom-in for investigating spatiotemporal patterns.",
+        "insight": "The figure demonstrates the interactive capabilities of VolumeSTCube, highlighting how users can manipulate the 3D visualization through slicing, spotlighting, and voxel cluster selection to effectively explore complex spatiotemporal data and locate hotspots."
+      },
+      "metadata": {
+        "id": "38",
+        "paper_id": "4",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_4.jpg",
+        "image_path": "",
+        "keywords": "[\"VolumeSTCube\", \"Volume Slicing\", \"Volume Spotlight\", \"Voxel cluster-based selection\", \"ST series\", \"space-time volume\", \"spatiotemporal patterns\"]",
+        "full_json": "{\"title\": \"figure_4:Interactions in VolumeSTCube. (A) Volume Slicing. (B) Volume Spotlight. (C) Voxel cluster-based selection.\", \"save_path\": \"Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_4.jpg\", \"references\": [\"This study focuses on ST series of phenomena that are continuous across both space and time, a characteristic typically found in natural phenomena, in contrast to other phenomena such as tourist visits to different attractions and demographic trends across countries. We propose a visualization technique named VolumeSTCube that addresses the aforementioned challenges. For the first challenge, we propose a transformation framework that transforms large- scale ST series into a volume visualization. In particular, the framework adopts interpolation to convert discretely distributed values into continuously distributed volumetric data following the STC schema. Afterward, the volumetric data is rendered with the volume and surface rendering techniques in a less cluttered manner. For the second challenge, we design a set of flexible interactions to facilitate exploring the STC from temporal, spatial, and spatiotemporal perspectives. The volume can be sliced and highlighted for spatial and temporal exploration, respectively. A voxel cluster- based interaction builds upon the volume slicing and highlights to enable easy selection and investigation of spatiotemporal patterns.\", \"Fig. 2. Pipeline of VolumeSTCube. (A) The spatial time (ST) series are placed in a 3D space following the space-time cube. (B) After interpolation and smoothing, the ST series are transformed as a space-time volume. (C) The volume is visualized with volume rendering and surface rendering, and is equipped with temporal slicing, spatial filter, and voxel cluster-based interactions, forming VolumeSTCube.\", \"Voxel Cluster- Based Interactions. For each remaining voxel, we additionally add a transparent but clickable hexahedron in the cube space according to the voxel's 3D position. After the user clicks the hexahedron, the cluster the hexahedron belongs to is retrieved. Consequently, the volume slicing and spotlight can be automatically executed to select the time and spatial ranges, respectively. The time range is determined by the range of vertical positions over all voxels in the cluster. The spatial range is a circle on the x- y plane that covers the projection of the cluster on the plane.\", \"Interaction. All subjects stated that the interactions regarding the spatial range and temporal range selections implemented in the two systems were helpful and effective in exploring large- scale spatiotemporal data. More interestingly, most subjects took it for granted that the voxel clusters in VolumeSTCube were clickable or could be selected. VolumeSTCube's voxel cluster- based interaction exactly offers such interactivity. Several subjects exactly commented, \\\"I prefer the voxel cluster- based interaction to locate hotspots in one step rather than the volume slicing first, followed by the volume spotlight and zooming- in.\\\"\", \"A. ImplicationsThe STC, a form of 3D visualization, has historically seen mixed reception in the visualization community, particularly due to inherent occlusion issues [66]. Nonetheless, our study shows that the STC's effectiveness can be enhanced by reducing occlusion through data transformation combined with volume and surface visualizations. Furthermore, to improve the STC's adaptability to large-scale datasets, we design interactions for users to manipulate the STC from time and space dimensions, corresponding to spatial and temporal selection interactions common in 2D views. In the case study, the expert comprehensively analyzed an quality in China, demonstrating VolumeSTCube's effectiveness. The user study employed carefully designed tasks that required participants to utilize both volume and surface visualizations, alongside interactions such as volume spotlight, slicing, and voxel cluster-based techniques, to complete the analyses. The high accuracy and efficiency observed in task completion indicate that participants mastered VolumeSTCube, further underscoring its usability, effectiveness, and broad applicability.\"], \"functional_roles\": {\"main_role\": \"System & Application\", \"sub_roles\": [\"Illustrate User Workflow\"]}, \"visual_type\": {\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Conceptual Diagram\"]}, \"key_entities\": [\"VolumeSTCube\", \"Volume Slicing\", \"Volume Spotlight\", \"Voxel cluster-based selection\", \"ST series\", \"space-time volume\", \"spatiotemporal patterns\"], \"concise_summary\": \"The figure illustrates three interaction techniques within VolumeSTCube: (A) Volume Slicing for temporal exploration, (B) Volume Spotlight for spatial highlighting, and (C) Voxel cluster-based selection with auto zoom-in for investigating spatiotemporal patterns.\", \"inferred_insight\": \"The figure demonstrates the interactive capabilities of VolumeSTCube, highlighting how users can manipulate the 3D visualization through slicing, spotlighting, and voxel cluster selection to effectively explore complex spatiotemporal data and locate hotspots.\", \"id\": 38, \"x\": 60.7729, \"y\": 27.8139, \"paper_id\": 4}"
+      },
+      "ParentNode": "40",
+      "children_ids": [],
+      "hit_count": 3,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "multidimensional visualization techniques"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "4"
+      },
+      "source_reason": "评估人员给出的GROW标记表明该节点具有较高的研究价值，我认为有必要更深入地查看该篇文献的相关信息。",
+      "evaluation": {
+        "target_evidence_id": "38",
+        "branch_action": "GROW",
+        "extracted_insight": "图例展示了 VolumeSTCube 的交互能力，包括通过切片、聚光灯效应和体素簇选择，使用户能够探查复杂的时空数据并定位热点。",
+        "scores": {
+          "relevance": 8,
+          "credibility": 7
+        },
+        "reason": "这是 VolumeSTCube 与用户交互的核心功能示例，对于探查大规模数据具有改革意义。",
+        "suggested_keywords": [
+          "VolumeSTCube",
+          "Volume Slicing",
+          "Voxel cluster-based selection"
+        ]
+      }
+    },
+    "42": {
+      "id": "42",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_8:Results of user study. The results for VolumeSTCube and the baseline are represented by soft blue and soft orange, respectively. The bottom section categorizes the 18 questions into three groups based on their spatial, temporal, and spatiotemporal perspectives. The middle section displays the response times for each question with jittered dot plots, where horizontal markers denote medians. The top section shows the correctness of the answers. Black rectangles highlight instances where either the difference of the correctness is more than 25% or the response time is significantly different. No instances were found where the baseline obviously outperforms VolumeSTCube.",
+        "summary": "The figure presents user study results comparing VolumeSTCube and a baseline system across 18 questions categorized by spatial, temporal, and spatiotemporal perspectives. It displays response times with jittered dot plots and correctness percentages, highlighting significant differences with black rectangles.",
+        "insight": "The authors intend for readers to conclude that VolumeSTCube generally outperforms the baseline in both answer correctness and response time, with no instances where the baseline is clearly superior, based on the user study results and statistical tests."
+      },
+      "metadata": {
+        "id": "42",
+        "paper_id": "4",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_8.jpg",
+        "image_path": "",
+        "keywords": "[\"VolumeSTCube\", \"baseline\", \"user study\", \"response times\", \"correctness\", \"spatial perspective\", \"temporal perspective\", \"spatiotemporal perspectives\", \"Wilcoxon test\"]",
+        "full_json": "{\"title\": \"figure_8:Results of user study. The results for VolumeSTCube and the baseline are represented by soft blue and soft orange, respectively. The bottom section categorizes the 18 questions into three groups based on their spatial, temporal, and spatiotemporal perspectives. The middle section displays the response times for each question with jittered dot plots, where horizontal markers denote medians. The top section shows the correctness of the answers. Black rectangles highlight instances where either the difference of the correctness is more than 25% or the response time is significantly different. No instances were found where the baseline obviously outperforms VolumeSTCube.\", \"save_path\": \"Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_8.jpg\", \"references\": [\"2) Results: If the subject chose to give up, it was also counted as an incorrect answer. In addition, response records corresponding to incorrect answers, as well as the user's response records for the same question when using the alternate system, will be excluded from the response time calculations. Figure 8 summarizes the correctness of the subjects' answers and the subjects' response times for every question.\", \"Overall, Figure 8 suggests that VolumeSTCube outperforms the baseline, with advantages in eight questions, as highlighted by the black rectangles. Regarding the answer correctness, using VolumeSTCube is at least  $25\\\\%$  more accurate than using the baseline on Q7, Q8, Q12, Q17, and Q18. Regarding the response time, VolumeSTCube significantly outperforms the baseline in the support for Q4  $(p< 0.05)$ , Q8  $(p< 0.05)$ , Q11  $(p< 0.01)$ , Q13  $(p< 0.05)$ , and Q17  $(p< 0.01)$  based on the Wilcoxon test's results. No instances were observed where the baseline obviously outperforms VolumeSTCube. Below, we elucidate the performance of both the baseline method and VolumeSTCube in supporting subjects to answer questions Q7, Q8, Q11, Q13, Q12, Q17, and Q18.\"], \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Compare Experimental Performance\", \"Present Quantitative Results\"]}, \"visual_type\": {\"main_type\": \"Quantitative Charts\", \"sub_types\": [\"Bar Chart\", \"Scatter Plot\"]}, \"key_entities\": [\"VolumeSTCube\", \"baseline\", \"user study\", \"response times\", \"correctness\", \"spatial perspective\", \"temporal perspective\", \"spatiotemporal perspectives\", \"Wilcoxon test\"], \"concise_summary\": \"The figure presents user study results comparing VolumeSTCube and a baseline system across 18 questions categorized by spatial, temporal, and spatiotemporal perspectives. It displays response times with jittered dot plots and correctness percentages, highlighting significant differences with black rectangles.\", \"inferred_insight\": \"The authors intend for readers to conclude that VolumeSTCube generally outperforms the baseline in both answer correctness and response time, with no instances where the baseline is clearly superior, based on the user study results and statistical tests.\", \"id\": 42, \"x\": 29.4017, \"y\": 0.0, \"paper_id\": 4}"
+      },
+      "ParentNode": "40",
+      "children_ids": [],
+      "hit_count": 2,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "4"
+      },
+      "source_reason": "评估人员给出的GROW标记表明该节点具有较高的研究价值，我认为有必要更深入地查看该篇文献的相关信息。",
+      "evaluation": {
+        "target_evidence_id": "42",
+        "branch_action": "GROW",
+        "extracted_insight": "用户研究结果表明 VolumeSTCube 在正确性和响应时间方面普遍优于基线，没有显著的基线优势实例。",
+        "scores": {
+          "relevance": 8,
+          "credibility": 9
+        },
+        "reason": "用户研究数据支持 VolumeSTCube 的有效性和优越性，数据呈现与分析对进一步探索具有重要的决策支持作用。",
+        "suggested_keywords": [
+          "VolumeSTCube",
+          "user study",
+          "Wilcoxon test"
+        ]
+      }
+    },
+    "1": {
+      "id": "1",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_2:Motivation illustration. (a) Real-world causal relations between sensors can change over time, shown by the different relations in three time windows. (b, c) Causal detection in large time windows may produce wrong or rough results. (d) Although the result is correct, further interpretation and verification are still required for informed policy making.",
+        "summary": "This figure illustrates the motivation behind the research, showing how real-world causal relations between sensors in urban spaces can change dynamically over time. It highlights issues with static causal detection, which can yield wrong or rough results, and the need for further interpretation.",
+        "insight": "The figure aims to convince the reader that existing causal detection methods are inadequate for dynamic urban environments. It emphasizes the necessity for dynamic causality analysis and interactive systems to ensure reliable and useful policymaking, thus motivating the paper's contribution."
+      },
+      "metadata": {
+        "id": "1",
+        "paper_id": "0",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_2.jpg",
+        "image_path": "",
+        "keywords": "[\"causal relations\", \"sensors\", \"time windows\", \"causal detection\", \"policymaking\", \"urban space\"]",
+        "full_json": "{\"title\": \"figure_2:Motivation illustration. (a) Real-world causal relations between sensors can change over time, shown by the different relations in three time windows. (b, c) Causal detection in large time windows may produce wrong or rough results. (d) Although the result is correct, further interpretation and verification are still required for informed policy making.\", \"save_path\": \"Compass Towards Better Causal Analysis of Urban Time Series/figure_2.jpg\", \"references\": [\"After preliminary discussions, we realize that the causal relations in urban space can be dynamic. Take Fig. 2 as an example. The causal direction between sensors  $s_1$  and  $s_2$  disappears and is flipped over time (Fig. 2a). Although causal detection models can summarize these causal relations across a whole time span, the detected static results can be rough (partially correct) or even incorrect and provide limited insights into precise and reliable policymaking (Fig. 2b and 2c). No interactive systems are available for interpreting and validating the detected causality in an urban context, which makes the causality unreliable and cannot be fully utilized (Fig. 2d).\"], \"functional_roles\": {\"main_role\": \"Introduction & Background\", \"sub_roles\": [\"Clarify Research Motivation\", \"Exemplify Existing Limitations\"]}, \"visual_type\": {\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Conceptual Diagram\"]}, \"key_entities\": [\"causal relations\", \"sensors\", \"time windows\", \"causal detection\", \"policymaking\", \"urban space\"], \"concise_summary\": \"This figure illustrates the motivation behind the research, showing how real-world causal relations between sensors in urban spaces can change dynamically over time. It highlights issues with static causal detection, which can yield wrong or rough results, and the need for further interpretation.\", \"inferred_insight\": \"The figure aims to convince the reader that existing causal detection methods are inadequate for dynamic urban environments. It emphasizes the necessity for dynamic causality analysis and interactive systems to ensure reliable and useful policymaking, thus motivating the paper's contribution.\", \"id\": 1, \"x\": 77.7545, \"y\": 27.8492, \"paper_id\": 0}"
+      },
+      "ParentNode": "5",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "0"
+      },
+      "source_reason": "选择检索和展示因果关联的多维可视化方法相关文献，有助于进一步分析复杂因果结构在空气污染数据中的应用。",
+      "evaluation": {
+        "target_evidence_id": "1",
+        "branch_action": "KEEP",
+        "extracted_insight": "图画展示了传感器之间的因果关系随时间在城市空间中动态变化，强调现有静态因果检测方法的不足，并表明需要进行动态因果分析以支持政策制定。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 8
+        },
+        "reason": "该证据对于理解动态城市环境中的因果关系变化提供背景支持，但没有具体数据可用于深度分析。",
+        "suggested_keywords": [
+          "causal relations",
+          "dynamic urban environments",
+          "causal detection"
+        ]
+      }
+    },
+    "2": {
+      "id": "2",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_3:System architecture. Compass comprises data storage, backend, and frontend. Data storage stores urban time series. Backend runs a causal detection framework. Frontend supports the input specification for causal detection and visual analysis of the detected dynamic causalities.",
+        "summary": "This figure illustrates the system architecture of Compass, composed of data storage for urban time series, a backend for causal detection and data pre-processing, and a frontend for input specification, causal graph visualization, and result improvement.",
+        "insight": "The figure serves to explain how Compass processes urban time series data, from initial storage and pre-processing to causal detection and interactive visualization, highlighting the seamless integration of its components for urban causality analysis."
+      },
+      "metadata": {
+        "id": "2",
+        "paper_id": "0",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_3.jpg",
+        "image_path": "",
+        "keywords": "[\"Compass\", \"data storage\", \"backend\", \"frontend\", \"urban time series\", \"causal detection framework\", \"geo-space\", \"sensors\", \"causal graphs\", \"Python\", \"multiprocessing\", \"TypeScript\", \"Vue.js\", \"ego sensor\", \"time windows\"]",
+        "full_json": "{\"title\": \"figure_3:System architecture. Compass comprises data storage, backend, and frontend. Data storage stores urban time series. Backend runs a causal detection framework. Frontend supports the input specification for causal detection and visual analysis of the detected dynamic causalities.\", \"save_path\": \"Compass Towards Better Causal Analysis of Urban Time Series/figure_3.jpg\", \"references\": [\"Compass is a web- based application constituted by data storage, backend, and frontend (Fig. 3). The data storage indexes urban time series spatially. The backend is written in Python. The backend handles a causal detection framework (Sec. 4.2) including a data pre- processing module (WP) with the Python multiprocessing (a parallel computing package). The frontend is written in TypeScript and Vue.js. Users can specify an ego sensor and partition the time in the frontend. The causal relations involving the ego sensor are then detected in the partitioned time windows. The frontend also empowers users to understand urban causality with the causal graph visualizations (WA) and facilitates the discovery and modification of the incorrect causalities (WI).\"], \"functional_roles\": {\"main_role\": \"System & Application\", \"sub_roles\": [\"Introduce System Functions\", \"Illustrate User Workflow\"]}, \"visual_type\": {\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Architecture Diagram\", \"Flowchart\", \"Conceptual Diagram\"]}, \"key_entities\": [\"Compass\", \"data storage\", \"backend\", \"frontend\", \"urban time series\", \"causal detection framework\", \"geo-space\", \"sensors\", \"causal graphs\", \"Python\", \"multiprocessing\", \"TypeScript\", \"Vue.js\", \"ego sensor\", \"time windows\"], \"concise_summary\": \"This figure illustrates the system architecture of Compass, composed of data storage for urban time series, a backend for causal detection and data pre-processing, and a frontend for input specification, causal graph visualization, and result improvement.\", \"inferred_insight\": \"The figure serves to explain how Compass processes urban time series data, from initial storage and pre-processing to causal detection and interactive visualization, highlighting the seamless integration of its components for urban causality analysis.\", \"id\": 2, \"x\": 76.4835, \"y\": 13.2021, \"paper_id\": 0}"
+      },
+      "ParentNode": "5",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "0"
+      },
+      "source_reason": "选择检索和展示因果关联的多维可视化方法相关文献，有助于进一步分析复杂因果结构在空气污染数据中的应用。",
+      "evaluation": {
+        "target_evidence_id": "2",
+        "branch_action": "GROW",
+        "extracted_insight": "图中描绘了 Compass 系统的架构，说明它如何处理城市时间序列，从初始存储和预处理到因果检测和交互式可视化，这些环节的无缝集成促进了城市因果分析。",
+        "scores": {
+          "relevance": 9,
+          "credibility": 9
+        },
+        "reason": "该证据详细介绍了 Compass 系统架构，包含有潜在深挖价值的信息，如运行的因果检测框架。",
+        "suggested_keywords": [
+          "Compass",
+          "causal detection framework",
+          "urban time series"
+        ]
+      }
+    },
+    "3": {
+      "id": "3",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_4:Causal detection based on neighbor index (top) and debounce strategy for alleviating time sensitivity (bottom). (a) The downstream of  $s_x$  can be potentially caused by  $s_x$ . (b) The upstream of  $s_y$  can potentially cause  $s_y$ . (c) Sensors enclosed in the polygon are considered control variables when testing the causal link  $s_x \\to s_y$ . (d) Sampled time windows are generated by slightly adjusting a partitioned window. (e) Multiple sample causal graphs are detected in every sampled time window. (f) A final causal graph is constructed for the partitioned window.",
+        "summary": "The figure illustrates a method for causal detection, showing how neighbor index identifies potential causal links (a-c) and how a debounce strategy (d-f) mitigates time sensitivity. It details the process from sampling time windows to constructing a final causal graph from multiple samples.",
+        "insight": "The figure demonstrates a robust approach to causal detection in sensor data, addressing the challenge of time sensitivity through a debounce strategy. By visually outlining the process, the authors aim to show how their method accurately identifies causal relationships between sensors."
+      },
+      "metadata": {
+        "id": "3",
+        "paper_id": "0",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_4.jpg",
+        "image_path": "",
+        "keywords": "[\"Causal detection\", \"neighbor index\", \"debounce strategy\", \"time sensitivity\", \"downstream\", \"upstream\", \"causal link\", \"control variables\", \"sensors\", \"sampled time windows\", \"partitioned window\", \"sample causal graphs\", \"final causal graph\", \"ego sensor\", \"Egod(Se)\", \"Egou(Se)\", \"causal strength\", \"causal graph\"]",
+        "full_json": "{\"title\": \"figure_4:Causal detection based on neighbor index (top) and debounce strategy for alleviating time sensitivity (bottom). (a) The downstream of  $s_x$  can be potentially caused by  $s_x$ . (b) The upstream of  $s_y$  can potentially cause  $s_y$ . (c) Sensors enclosed in the polygon are considered control variables when testing the causal link  $s_x \\\\to s_y$ . (d) Sampled time windows are generated by slightly adjusting a partitioned window. (e) Multiple sample causal graphs are detected in every sampled time window. (f) A final causal graph is constructed for the partitioned window.\", \"save_path\": \"Compass Towards Better Causal Analysis of Urban Time Series/figure_4.jpg\", \"references\": [], \"functional_roles\": {\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Illustrate Algorithm Process\"]}, \"visual_type\": {\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Flowchart\", \"Conceptual Diagram\"]}, \"key_entities\": [\"Causal detection\", \"neighbor index\", \"debounce strategy\", \"time sensitivity\", \"downstream\", \"upstream\", \"causal link\", \"control variables\", \"sensors\", \"sampled time windows\", \"partitioned window\", \"sample causal graphs\", \"final causal graph\", \"ego sensor\", \"Egod(Se)\", \"Egou(Se)\", \"causal strength\", \"causal graph\"], \"concise_summary\": \"The figure illustrates a method for causal detection, showing how neighbor index identifies potential causal links (a-c) and how a debounce strategy (d-f) mitigates time sensitivity. It details the process from sampling time windows to constructing a final causal graph from multiple samples.\", \"inferred_insight\": \"The figure demonstrates a robust approach to causal detection in sensor data, addressing the challenge of time sensitivity through a debounce strategy. By visually outlining the process, the authors aim to show how their method accurately identifies causal relationships between sensors.\", \"id\": 3, \"x\": 83.9991, \"y\": 35.9643, \"paper_id\": 0}"
+      },
+      "ParentNode": "5",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "0"
+      },
+      "source_reason": "选择检索和展示因果关联的多维可视化方法相关文献，有助于进一步分析复杂因果结构在空气污染数据中的应用。",
+      "evaluation": {
+        "target_evidence_id": "3",
+        "branch_action": "GROW",
+        "extracted_insight": "图示展示了基于邻居指数识别潜在因果链接及缓解时间敏感性的方法，通过描述从采样时间窗口到多个样本因果图检测过程以及最终因果图的构造，提供了识别传感器间因果关系的有效途径。",
+        "scores": {
+          "relevance": 8,
+          "credibility": 8
+        },
+        "reason": "该图提供了深入理解因果检测的方法和策略，是评估时间敏感性问题的重要技术参考。",
+        "suggested_keywords": [
+          "neighbor index",
+          "debounce strategy",
+          "causal graph"
+        ]
+      }
+    },
+    "4": {
+      "id": "4",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_5:Visual encodings for causal graphs. (a) An illustrative spatial ego-graph comprises three edges (i.e., e1, e2, and e3) with three different color styles. (b) A compass glyph shows the causal relation where only the causal link from the ego sensor exists. (c) Multiple causal graphs are detected in different time windows and depicted as spatial causal graphs on maps. (d) Graph bands are aligned along the timeline as a compact visualization of dynamic causal graph. (e) A revisited compass glyph summarizes the compass glyphs of the edge e2. (f) A spatiotemporal causal graph summaries the spatial causal graphs in (c).",
+        "summary": "This figure illustrates visual encodings for causal graphs, detailing how individual ego-graphs (a), compass glyphs (b, e), dynamic spatial causal graphs over time (c, d), and summarized spatiotemporal causal graphs (f) are represented to show causal links and their evolution.",
+        "insight": "The figure demonstrates a visualization system for dynamic causal graphs, using graph bands aligned along a timeline and minimaps to effectively reveal time-varying causal relations, even those hidden in less compact representations, enhancing temporal exploration."
+      },
+      "metadata": {
+        "id": "4",
+        "paper_id": "0",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_5.jpg",
+        "image_path": "",
+        "keywords": "[\"causal graphs\", \"ego-graph\", \"edges\", \"color styles\", \"compass glyph\", \"causal relation\", \"ego sensor\", \"time windows\", \"spatial causal graphs\", \"maps\", \"graph bands\", \"timeline\", \"dynamic causal graph\", \"spatiotemporal causal graph\", \"temporal variation\", \"time-oriented exploration\", \"minimaps\", \"geographic background\", \"directions\"]",
+        "full_json": "{\"title\": \"figure_5:Visual encodings for causal graphs. (a) An illustrative spatial ego-graph comprises three edges (i.e., e1, e2, and e3) with three different color styles. (b) A compass glyph shows the causal relation where only the causal link from the ego sensor exists. (c) Multiple causal graphs are detected in different time windows and depicted as spatial causal graphs on maps. (d) Graph bands are aligned along the timeline as a compact visualization of dynamic causal graph. (e) A revisited compass glyph summarizes the compass glyphs of the edge e2. (f) A spatiotemporal causal graph summaries the spatial causal graphs in (c).\", \"save_path\": \"Compass Towards Better Causal Analysis of Urban Time Series/figure_5.jpg\", \"references\": [\"Visualizing multiple causal graphs. The system should expose the temporal variation of causalities and support the time- oriented exploration (R2). Thus, all graph bands are placed along the time view according to the time window in which the graph is detected (Fig. 5d). The bands repel each other to avoid occlusion while keeping their positions along the timeline as much as possible. To further enhance the spatial context, we add minimaps on the left side of this view. Each minimap (Fig. 5d- 2) contains the same ego- graph structure as in the map view but removes detailed information such as geographic background, colors, and directions. The bold edge indicates where the glyphs on the right are located. This visualization presents time- varying causal relations in an unobstructed way. Take Fig. 5 as an example. The causal relations of the bottom left edge (e.g., e3) exist in all time windows. These existences may be hidden by the scattered arrows in Fig. 5c but are clearly revealed in the third row in Fig. 5d.\"], \"functional_roles\": {\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Illustrate Algorithm Process\", \"Introduce Conceptual Framework\"]}, \"visual_type\": {\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Conceptual Diagram\", \"Flowchart\"]}, \"key_entities\": [\"causal graphs\", \"ego-graph\", \"edges\", \"color styles\", \"compass glyph\", \"causal relation\", \"ego sensor\", \"time windows\", \"spatial causal graphs\", \"maps\", \"graph bands\", \"timeline\", \"dynamic causal graph\", \"spatiotemporal causal graph\", \"temporal variation\", \"time-oriented exploration\", \"minimaps\", \"geographic background\", \"directions\"], \"concise_summary\": \"This figure illustrates visual encodings for causal graphs, detailing how individual ego-graphs (a), compass glyphs (b, e), dynamic spatial causal graphs over time (c, d), and summarized spatiotemporal causal graphs (f) are represented to show causal links and their evolution.\", \"inferred_insight\": \"The figure demonstrates a visualization system for dynamic causal graphs, using graph bands aligned along a timeline and minimaps to effectively reveal time-varying causal relations, even those hidden in less compact representations, enhancing temporal exploration.\", \"id\": 4, \"x\": 91.7382, \"y\": 23.8842, \"paper_id\": 0}"
+      },
+      "ParentNode": "5",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "0"
+      },
+      "source_reason": "选择检索和展示因果关联的多维可视化方法相关文献，有助于进一步分析复杂因果结构在空气污染数据中的应用。",
+      "evaluation": {
+        "target_evidence_id": "4",
+        "branch_action": "KEEP",
+        "extracted_insight": "图中展现了动态因果图的可视化系统，使用沿时间轴的图带和小地图揭示时间变化的因果关系，有效增强了时间探索能力。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 7
+        },
+        "reason": "虽然图示有助于理解动态因果关系的可视化，但不具备直接数据分析的深挖点。",
+        "suggested_keywords": [
+          "dynamic causal graph",
+          "spatiotemporal causal graph",
+          "time-oriented exploration"
+        ]
+      }
+    },
+    "6": {
+      "id": "6",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "content": {
+        "title": "figure_7:The alternative designs are designed for (a1, a2) visualizing dynamic causal graphs (b1, b2) presenting causal relations.",
+        "summary": "Figure 7 illustrates alternative designs for visualizing dynamic causal graphs and presenting causal relations. Subfigures a1 and a2 show different approaches to represent time-varying causal links, while b1 and b2 present ways to convey causal relation details like strength, lag, and correlation.",
+        "insight": "The figure presents alternative visual designs considered during the development of the Compass system. It demonstrates the challenges of effectively visualizing dynamic causal graphs and causal relations, highlighting the trade-offs between showing spatial structures, causal directions, and avoiding clutter, which ultimately led to the final design using compass glyphs."
+      },
+      "metadata": {
+        "id": "6",
+        "paper_id": "0",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_7.jpg",
+        "image_path": "",
+        "keywords": "[\"dynamic causal graphs\", \"causal relations\", \"ego sensor\", \"neighbor sensor\", \"Compass\", \"urban time series\", \"Granger causality test\", \"causal detection framework\"]",
+        "full_json": "{\"title\": \"figure_7:The alternative designs are designed for (a1, a2) visualizing dynamic causal graphs (b1, b2) presenting causal relations.\", \"save_path\": \"Compass Towards Better Causal Analysis of Urban Time Series/figure_7.jpg\", \"references\": [\"Abstract— The spatial time series generated by city sensors allow us to observe urban phenomena like environmental pollution and traffic congestion at an unprecedented scale. However, recovering causal relations from these observations to explain the sources of urban phenomena remains a challenging task because these causal relations tend to be time- varying and demand proper time series partitioning for effective analyses. The prior approaches extract one causal graph given long- time observations, which cannot be directly applied to capturing, interpreting, and validating dynamic urban causality. This paper presents Compass, a novel visual analytics approach for in- depth analyses of the dynamic causality in urban time series. To develop Compass, we identify and address three challenges: detecting urban causality, interpreting dynamic causal relations, and unveiling suspicious causal relations. First, multiple causal graphs over time among urban time series are obtained with a causal detection framework extended from the Granger causality test. Then, a dynamic causal graph visualization is designed to reveal the time- varying causal relations across these causal graphs and facilitate the exploration of the graphs along the time. Finally, a tailored multi- dimensional visualization is developed to support the identification of spurious causal relations, thereby improving the reliability of causal analyses. The effectiveness of Compass is evaluated with two case studies conducted on the real- world urban datasets, including the air pollution and traffic speed datasets, and positive feedback was received from domain experts.\", \"Justification. Many timeline- based and scalable visualizations for dynamic graphs have been proposed [24]. In Beck et al.'s hierarchical taxonomy [6], juxtaposed node- link diagrams [11] are the most suitable for our problem. We have created an alternative design using juxtaposed node- link diagrams (Fig. 7a- 1). However, all edges are connected to the red node (i.e., the ego sensor), causing visual clutter. The variations of the causal directions cannot be easily revealed. We have also created an alternative (Fig. 7a- 2). Each row represents a neighbor sensor or its causal relations with the ego sensor. Each rectangle is divided into two parts to indicate the opposite directions. Although the causal relations are revealed without clutter, the spatial structures are still lost. We enhance this design and derive our final design (Fig. 1c) by using the compass glyphs and adding the heatmaps and the minimaps.\"], \"functional_roles\": {\"main_role\": \"Analysis & Discussion\", \"sub_roles\": [\"Analyze Component Contribution\"]}, \"visual_type\": {\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Flowchart\", \"Table\", \"Line Chart\"]}, \"key_entities\": [\"dynamic causal graphs\", \"causal relations\", \"ego sensor\", \"neighbor sensor\", \"Compass\", \"urban time series\", \"Granger causality test\", \"causal detection framework\"], \"concise_summary\": \"Figure 7 illustrates alternative designs for visualizing dynamic causal graphs and presenting causal relations. Subfigures a1 and a2 show different approaches to represent time-varying causal links, while b1 and b2 present ways to convey causal relation details like strength, lag, and correlation.\", \"inferred_insight\": \"The figure presents alternative visual designs considered during the development of the Compass system. It demonstrates the challenges of effectively visualizing dynamic causal graphs and causal relations, highlighting the trade-offs between showing spatial structures, causal directions, and avoiding clutter, which ultimately led to the final design using compass glyphs.\", \"id\": 6, \"x\": 85.4818, \"y\": 17.0274, \"paper_id\": 0}"
+      },
+      "ParentNode": "5",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "0"
+      },
+      "source_reason": "选择检索和展示因果关联的多维可视化方法相关文献，有助于进一步分析复杂因果结构在空气污染数据中的应用。",
+      "evaluation": {
+        "target_evidence_id": "6",
+        "branch_action": "PRUNE",
+        "extracted_insight": "该图中展示的替代视觉设计在开发 Compass 系统时被考虑，用以平衡展示空间结构、因果方向以及避免视觉杂乱。",
+        "scores": {
+          "relevance": 5,
+          "credibility": 6
+        },
+        "reason": "虽然讨论了系统设计方面的挑战，但缺乏深度分析或实践价值，不建议继续保留。",
+        "suggested_keywords": [
+          "dynamic causal graphs",
+          "Compass",
+          "Granger causality test"
+        ]
+      }
+    },
+    "7": {
+      "id": "7",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_8:(a) A graph band is unfolded to show much information of five causal relations. (b, c) Two suspicious causal relations are highlighted in the relation view. (d) A graph band shows the correct causal relations.",
+        "summary": "The figure illustrates the unfolding of a graph band to reveal causal relations between sensors. It highlights suspicious causal relations in the relation view (b, c) and then shows the corrected causal relations (d), demonstrating how the system helps verify and validate causality through visual inspection of time series data.",
+        "insight": "The figure aims to show how the system allows users to interactively verify causal relations by highlighting suspicious links and unfolding graph bands to reveal underlying data. It emphasizes the importance of visual verification, even when quantitative correlations are low, as confirmed by expert feedback on capturing key features like peaks and obtaining reasonable causalities."
+      },
+      "metadata": {
+        "id": "7",
+        "paper_id": "0",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_8.jpg",
+        "image_path": "",
+        "keywords": "[\"graph band\", \"causal relations\", \"relation view\", \"causal graph\", \"causal links\", \"correlation coefficients\", \"causalities\", \"time series\", \"peaks\", \"lags\"]",
+        "full_json": "{\"title\": \"figure_8:(a) A graph band is unfolded to show much information of five causal relations. (b, c) Two suspicious causal relations are highlighted in the relation view. (d) A graph band shows the correct causal relations.\", \"save_path\": \"Compass Towards Better Causal Analysis of Urban Time Series/figure_8.jpg\", \"references\": [\"Causal relations hovering and highlighting. Causal relations can be highlighted throughout the system to respond to graph, edge, and individual level hovering. First, the relations comprised by a causal graph are highlighted when users hover over or unfold the graph band. The map view will present the corresponding spatial causal graph. Second, multiple relations between two sensors are highlighted when users hover over the minimap (in the graph view) or the revised compass glyph. Finally, a single relation is highlighted when users hover over the compass glyph or the relation curve. Besides, the global highlighting based on the causal directions is also supported (Fig. 1d- 1).\", \"A sharp peak in the third time window was first noticed. The heatmap below showed that the stimulus of an air pollution event spread from north to south (Fig. 1e- 1). After hovering over this band, the map view displayed the spatial causal graph (Fig. 1a- 1). However, some involved causal links were suspicious because they had low correlation coefficients indicated by the circle sizes in the relation view (Fig. 1d- 2). Given that, the experts unfolded this graph band to verify the causalities (Fig. 1c- 2). The orders in which the peaks appear in the two time series supported the causal directions detected by the model. The time differences of the peaks were also consistent with the lags. EB said, \\\"although the time series were not highly correlated, the model captured the key features, i.e., the peaks, and obtained reasonable causalities.\\\"\"], \"functional_roles\": {\"main_role\": \"Analysis & Discussion\", \"sub_roles\": [\"Analyze Component Contribution\", \"Exemplify Application Case\"]}, \"visual_type\": {\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Line Chart\", \"Conceptual Diagram\", \"Map\", \"Network / Graph Diagram\"]}, \"key_entities\": [\"graph band\", \"causal relations\", \"relation view\", \"causal graph\", \"causal links\", \"correlation coefficients\", \"causalities\", \"time series\", \"peaks\", \"lags\"], \"concise_summary\": \"The figure illustrates the unfolding of a graph band to reveal causal relations between sensors. It highlights suspicious causal relations in the relation view (b, c) and then shows the corrected causal relations (d), demonstrating how the system helps verify and validate causality through visual inspection of time series data.\", \"inferred_insight\": \"The figure aims to show how the system allows users to interactively verify causal relations by highlighting suspicious links and unfolding graph bands to reveal underlying data. It emphasizes the importance of visual verification, even when quantitative correlations are low, as confirmed by expert feedback on capturing key features like peaks and obtaining reasonable causalities.\", \"id\": 7, \"x\": 98.5657, \"y\": 29.1742, \"paper_id\": 0}"
+      },
+      "ParentNode": "5",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "0"
+      },
+      "source_reason": "选择检索和展示因果关联的多维可视化方法相关文献，有助于进一步分析复杂因果结构在空气污染数据中的应用。",
+      "evaluation": {
+        "target_evidence_id": "7",
+        "branch_action": "KEEP",
+        "extracted_insight": "该图展示了如何通过图带展开来验证因果关系，通过可视化检查时间序列数据，从而帮助用户交互式地检验因果关系。这种可视化验证在定量相关性较低时尤为重要。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 7
+        },
+        "reason": "该图反映了因果关系验证的重要性，但主要关注的是方法的可视化验证而非深层次结果分析。",
+        "suggested_keywords": [
+          "graph band",
+          "causal relations",
+          "causal graph"
+        ]
+      }
+    },
+    "8": {
+      "id": "8",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_9:Causal analysis of traffic time series. (a) The spatial ego-network of  $r1$  is shown on the map. (b) A spatiotemporal causal graph summaries the dynamic causal graphs. (c) Two causal links of  $r1\\rightarrow r3$  are unfolded in the graph view. (d) The time series of  $r3$  is shown together with that of  $r1$ . (e) The graph view presents ten causal graphs. (f, g) The causal relations of  $r1\\rightarrow r4$  and  $r1\\rightarrow r5$  are presented in the relation view. (h) The time series of  $r4$  and  $r5$  are shown together with that of  $r1$ .",
+        "summary": "This figure presents a causal analysis of traffic time series using multiple coordinated views. It illustrates the spatial ego-network, spatiotemporal causal graphs, unfolds causal links, and shows corresponding time series and relation views to demonstrate dynamic causal connections.",
+        "insight": "The authors intend to show how the Compass system facilitates the analysis of dynamic causal graphs in traffic data. The figure demonstrates the system's ability to explore, interpret, and refine causal relations from spatiotemporal perspectives across different views, helping to identify valid and spurious causal links."
+      },
+      "metadata": {
+        "id": "8",
+        "paper_id": "0",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_9.jpg",
+        "image_path": "",
+        "keywords": "[\"traffic time series\", \"spatial ego-network\", \"spatiotemporal causal graph\", \"causal links\", \"causal graphs\", \"causal relations\", \"ego sensors\", \"time windows\", \"spurious causal relations\"]",
+        "full_json": "{\"title\": \"figure_9:Causal analysis of traffic time series. (a) The spatial ego-network of  $r1$  is shown on the map. (b) A spatiotemporal causal graph summaries the dynamic causal graphs. (c) Two causal links of  $r1\\\\rightarrow r3$  are unfolded in the graph view. (d) The time series of  $r3$  is shown together with that of  $r1$ . (e) The graph view presents ten causal graphs. (f, g) The causal relations of  $r1\\\\rightarrow r4$  and  $r1\\\\rightarrow r5$  are presented in the relation view. (h) The time series of  $r4$  and  $r5$  are shown together with that of  $r1$ .\", \"save_path\": \"Compass Towards Better Causal Analysis of Urban Time Series/figure_9.jpg\", \"references\": [\"Compass comprises four views, namely, map, time, graph, and relation views. The map view provides a spatial context for selecting the ego sensors of interests and reasoning causal graphs (R1 and R3). The time view shows the time series of selected sensors and the partitioned time windows. It also serves as a timeline for the graph view. The graph view displays the causal graphs detected in each window along the timeline. In this view, users can explore the detected dynamic causal graphs along the time (R2) and interpret each graph with its causal relations (R3 and R4) from a spatiotemporal perspective. The relation view presents every causal relation from multiple dimensions. Thereby, users can interpret causal relations further (R4), discover spurious ones, and improve causal detection results (R5).\"], \"functional_roles\": {\"main_role\": \"Analysis & Discussion\", \"sub_roles\": [\"Analyze Component Contribution\", \"Exemplify Application Case\"]}, \"visual_type\": {\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Map\", \"Line Chart\", \"Conceptual Diagram\"]}, \"key_entities\": [\"traffic time series\", \"spatial ego-network\", \"spatiotemporal causal graph\", \"causal links\", \"causal graphs\", \"causal relations\", \"ego sensors\", \"time windows\", \"spurious causal relations\"], \"concise_summary\": \"This figure presents a causal analysis of traffic time series using multiple coordinated views. It illustrates the spatial ego-network, spatiotemporal causal graphs, unfolds causal links, and shows corresponding time series and relation views to demonstrate dynamic causal connections.\", \"inferred_insight\": \"The authors intend to show how the Compass system facilitates the analysis of dynamic causal graphs in traffic data. The figure demonstrates the system's ability to explore, interpret, and refine causal relations from spatiotemporal perspectives across different views, helping to identify valid and spurious causal links.\", \"id\": 8, \"x\": 100.0, \"y\": 24.8369, \"paper_id\": 0}"
+      },
+      "ParentNode": "5",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "0"
+          },
+          "parent_id": "5"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "0"
+      },
+      "source_reason": "选择检索和展示因果关联的多维可视化方法相关文献，有助于进一步分析复杂因果结构在空气污染数据中的应用。",
+      "evaluation": {
+        "target_evidence_id": "8",
+        "branch_action": "GROW",
+        "extracted_insight": "该图使用多种协调视图展示了交通时间序列的数据因果分析，揭示了空间自我网络、时空因果图和动态因果连接。",
+        "scores": {
+          "relevance": 9,
+          "credibility": 8
+        },
+        "reason": "该图详细阐述了如何使用系统分析交通数据的动态因果关系，提供了深挖交通时空因果关系的潜在方向。",
+        "suggested_keywords": [
+          "traffic time series",
+          "spatiotemporal causal graph",
+          "spurious causal relations"
+        ]
+      }
+    }
+  },
+  "action_history": []
+}

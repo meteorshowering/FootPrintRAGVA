@@ -1,0 +1,535 @@
+{
+  "meta": {
+    "root_goal": "可视化",
+    "total_rounds": 5
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 可视化...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "39",
+      "label": "figure_5:(left) dist...",
+      "full_title": "figure_5:(left) distribution of air quality stations. (right) aqi and corresponding air quality descriptions.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 11,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"air quality stations\", \"AQI\", \"air quality descriptions\", \"China\", \"monitoring stations\", \"ST series dataset\", \"geographic space\", \"grid\", \"temporal granularity\", \"Gaussian model\", \"PyKridge library\", \"Kriging interpolation\", \"DBSCAN\", \"MinPts\", \"window size\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "The evidence provides context about the distribution of monitoring stations and describes the AQI scale, which is useful but lacks direct answers or paths for further investigation related to a specific research question.",
+          "insight": "Figure 5 shows the spatial distribution of 448 air quality monitoring stations across China and maps AQI values to air quality descriptions, providing a foundation for further spatial-temporal analyses."
+        }
+      }
+    },
+    {
+      "id": "9",
+      "label": "figure_1:the study a...",
+      "full_title": "figure_1:the study area and its typical urban agglomerations. abbreviations: scb, sichuan basin; cc, central china; yrd, yangtze river delta; bth, beijing-tianjin-hebei.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 7,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"Sichuan Basin\", \"Central China\", \"Yangtze River Delta\", \"Beijing-Tianjin-Hebei\", \"urban agglomerations\", \"China\", \"grid resolution\", \"horizontal grid spacing\", \"vertical levels\", \"simulation domain\", \"data assimilation (DA)\", \"bias correction (BC)\", \"PM2.5 predictions\", \"WRF-Chem\", \"GSI (Gridpoint Statistical Interpolation)\", \"deep-learning-based BC\", \"RMSEs\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "The evidence directly pertains to the impact of combined statistical methods on PM2.5 predictions, valuable for designing a predictive model or understanding regional pollution dynamics.",
+          "insight": "Figure 1 presents a map of China highlighting urban areas experiencing severe pollution, and provides quantitative evidence on improvement in PM2.5 prediction with DA and BC methods."
+        }
+      }
+    },
+    {
+      "id": "40",
+      "label": "figure_6:case study ...",
+      "full_title": "figure_6:case study of air quality in china. (a) volumestcube provides the overview of air quality with  $\\lambda = 0$ . (b) the visual pattern becomes clearer with a larger  $\\lambda = 150$ . (c) the temporal variation of air quality in xinjiang and (d) in the bth region were revealed via volume highlight. (e, e1, and e2) the air pollution during the spring festival was generally below the moderate level. (f, f1, and f2) the air pollution caused by the dust storm from late march to april impacted a wide spatial range. (g) the air pollution caused by the dust storm in late may impacted a smaller spatial range.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 12,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"air quality\", \"China\", \"VolumeSTCube\", \"temporal variation\", \"Xinjiang\", \"BTH region\", \"volume highlight\", \"Spring Festival\", \"dust storm\", \"air pollution\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "While this figure illustrates visualization efficacy, it does not offer new scientific insights beyond visualization capabilities or specific findings tied to research questions.",
+          "insight": "VolumeSTCube is used to visualize air quality data in China, showcasing spatio-temporal impacts of events like dust storms with varied lambda values for clarity."
+        }
+      }
+    },
+    {
+      "id": "41",
+      "label": "figure_7:case study ...",
+      "full_title": "figure_7:case study of air quality in china. (a) air quality data is visualized with the surface rendering in volumestcube, where (a1 and a2) two propagation processes of air pollution can be identified. (b) after clicking (a1), the user can obtain this view. (c) the air pollution propagated from the loess plateau to the north china plain. (d) after clicking (a2), the user can obtain this view. (e) the air pollution propagated from the north china plain to the yangtze river delta.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 13,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"air quality data\", \"VolumeSTCube\", \"air pollution\", \"Loess Plateau\", \"North China Plain\", \"Yangtze River Delta\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "The evidence relates more to evaluation of visualization tools rather than providing substantive scientific data or findings pertinent to pollution dynamics.",
+          "insight": "VolumeSTCube significantly improves accuracy and reduces time for identifying air pollution propagation compared to baseline methods."
+        }
+      }
+    },
+    {
+      "id": "31",
+      "label": "figure_7:temperature...",
+      "full_title": "figure_7:temperature in china. (a) storyline with (a1) the shade mapping. (b) upper right corner of (a), where (b1) periodicity and (b2) drops are observed. (c) colored result of (b). (d) the spatial distribution of colored st series in (c). (e) line charts and (f) trend motifs of (c1), where obvious drops are observed in (e1, f1).",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 4,
+      "data": {
+        "paper_id": "3",
+        "keywords": "[\"Temperature\", \"China\", \"Storyline\", \"Shade Mapping\", \"Periodicity\", \"Drops\", \"Spatial Distribution\", \"ST Series\", \"Line Charts\", \"Trend Motifs\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "This evidence focuses on temperature visualization, which is less relevant to the central theme of air quality and pollution analysis.",
+          "insight": "The figure aims to demonstrate how visual analytics can reveal complex spatiotemporal temperature patterns in China."
+        }
+      }
+    },
+    {
+      "id": "30",
+      "label": "figure_6:air quality...",
+      "full_title": "figure_6:air quality in yangtze river delta. (a) interesting evolution patterns in storyline. (b) the map coordinated with the evolutions. (c) line charts and (d) trend motifs of the patterns of (a). (e) a line chart of an evolution pattern and (f) its trend motif.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 4,
+      "data": {
+        "paper_id": "3",
+        "keywords": "[\"Air quality\", \"Yangtze River Delta\", \"Storyline\", \"Evolution patterns\", \"Trend motifs\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "尽管没有提供具体的来源或趋势分析，但它描述了一种解析复杂数据的技术，可作为背景信息进行保留。",
+          "insight": "该图展示了长三角地区空气质量的复杂时空模式，并通过故事线和趋势母题揭示了演变模式，帮助识别重要的演变模式。"
+        }
+      }
+    },
+    {
+      "id": "25",
+      "label": "figure_1:two-levenl ...",
+      "full_title": "figure_1:two-levenl visualizations (left and right) in geochron. (a) a snapshot of storyline. (b) entities in (a) are recolored. (c) the spatial distribution of (b). (d) the spatial distribution and evolens ((e) line charts and (f) trend motifs) of evolution patterns in (b).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": "3",
+        "keywords": "[\"GeoChron\", \"Storyline\", \"EvoLens\", \"entities\", \"spatial distribution\", \"evolution patterns\", \"trend motifs\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "展示了一种系统应用，并提供了背景信息，但缺少直接分析或深度挖掘的路径，仅可作为系统应用的示例保留。",
+          "insight": "图中介绍了 GeoChron 系统的多层次可视化能力，通过故事线和 EvoLens 展示空间和时间数据分析，帮助全面理解复杂现象。"
+        }
+      }
+    },
+    {
+      "id": "35",
+      "label": "figure_1:Our impleme...",
+      "full_title": "figure_1:Our implementation of Thakur and Hanson's method [14], later used as a baseline in the comparative user study.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"Thakur and Hanson's method\", \"Space-Time Cube\", \"ST series\", \"baseline\", \"hotspot\", \"occlusion\", \"VolumeSTCube\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 6
+          },
+          "reason": "Provides context on baseline visualization techniques but does not offer further exploration paths.",
+          "insight": "This figure presents Thakur and Hanson's method for visualizing spatiotemporal series data as a baseline, highlighting its limitations such as occlusion and difficulty in identifying hotspots."
+        }
+      }
+    },
+    {
+      "id": "36",
+      "label": "figure_2:Pipeline of...",
+      "full_title": "figure_2:Pipeline of VolumeSTCube. (A) The spatial time (ST) series are placed in a 3D space following the space-time cube. (B) After interpolation and smoothing, the ST series are transformed as a space-time volume. (C) The volume is visualized with volume rendering and surface rendering, and is equipped with temporal slicing, spatial filter, and voxel cluster-based interactions, forming VolumeSTCube.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"VolumeSTCube\", \"Space-Time Cube\", \"ST series\", \"interpolation\", \"smoothing\", \"space-time volume\", \"volume rendering\", \"surface rendering\", \"temporal slicing\", \"spatial filter\", \"voxel cluster\", \"voxel\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Illustrates the core methodology of VolumeSTCube with clear transformation and visualization techniques, suitable for deeper investigation.",
+          "insight": "The figure visually explains the VolumeSTCube methodology, demonstrating the transformation of discrete spatial time series data into a continuous volumetric representation through interpolation and rendering techniques for effective analysis."
+        }
+      }
+    },
+    {
+      "id": "37",
+      "label": "figure_3:Visual desi...",
+      "full_title": "figure_3:Visual designs of VolumeSTCube. (A) Space-time volume visualization with volume rendering and contextual information. (B and C) A propagation process of air pollution is visualized with volume rendering and surface rendering, respectively.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 6,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"VolumeSTCube\", \"Space-time volume visualization\", \"volume rendering\", \"surface rendering\", \"air pollution\", \"propagation process\", \"spatiotemporal domains\", \"visual occlusion\", \"depth ambiguity\", \"spatial time series data\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "Effectively showcases VolumeSTCube's application in visualizing complex spatiotemporal phenomena, offering substantial value over prior methodologies.",
+          "insight": "The figure demonstrates the visualization of air pollution propagation using VolumeSTCube's rendering techniques, addressing visual occlusion and providing detailed patterns for analysis."
+        }
+      }
+    },
+    {
+      "id": "38",
+      "label": "figure_4:Interaction...",
+      "full_title": "figure_4:Interactions in VolumeSTCube. (A) Volume Slicing. (B) Volume Spotlight. (C) Voxel cluster-based selection.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"VolumeSTCube\", \"Volume Slicing\", \"Volume Spotlight\", \"Voxel cluster-based selection\", \"ST series\", \"space-time volume\", \"spatiotemporal patterns\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "Highlights interaction capabilities within VolumeSTCube but lacks direct links to further exploration or deeper insights.",
+          "insight": "The figure demonstrates VolumeSTCube's interactive features enabling users to explore spatial and temporal data through slicing, spotlighting, and voxel cluster selection."
+        }
+      }
+    },
+    {
+      "id": "42",
+      "label": "figure_8:Results of ...",
+      "full_title": "figure_8:Results of user study. The results for VolumeSTCube and the baseline are represented by soft blue and soft orange, respectively. The bottom section categorizes the 18 questions into three groups based on their spatial, temporal, and spatiotemporal perspectives. The middle section displays the response times for each question with jittered dot plots, where horizontal markers denote medians. The top section shows the correctness of the answers. Black rectangles highlight instances where either the difference of the correctness is more than 25% or the response time is significantly different. No instances were found where the baseline obviously outperforms VolumeSTCube.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": "4",
+        "keywords": "[\"VolumeSTCube\", \"baseline\", \"user study\", \"response times\", \"correctness\", \"spatial perspective\", \"temporal perspective\", \"spatiotemporal perspectives\", \"Wilcoxon test\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "Offers valuable insights into the comparative performance of VolumeSTCube and baseline methods, backed by statistical tests, suggesting strong evidence for its effectiveness.",
+          "insight": "The results of the user study show that VolumeSTCube significantly outperforms the baseline in both correctness and response time across spatial, temporal, and spatiotemporal questions."
+        }
+      }
+    },
+    {
+      "id": "10",
+      "label": "figure_2:flow charts...",
+      "full_title": "figure_2:flow charts of the four different experiments. case 1: wrf-chem; case 2: wrf-chem_da; case 3: wrf-chem_bc; case 4: wrf-chem_da_bc.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "1",
+        "keywords": "[\"WRF-Chem\", \"WRF-Chem_DA\", \"WRF-Chem_BC\", \"WRF-Chem_DA_BC\", \"GSI\", \"OBS\", \"DA\", \"BC\", \"MDS-UNet\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "该图为不同的试验提供了方法论基础，文中详细分析了它们对PM2.5预测性能的影响，是进一步研究的关键信息。",
+          "insight": "该图概述了四种试验方法（WRF-Chem，WRF-Chem_DA，WRF-Chem_BC和WRF-Chem_DA_BC），并展示数据同化（DA）与偏差校正（BC）如何应用于提高PM2.5预测。这提供了深入比较这些方法在不同条件下性能的基础。"
+        }
+      }
+    },
+    {
+      "id": "28",
+      "label": "figure_4:layout refi...",
+      "full_title": "figure_4:layout refinement. (a) vertical space consumed by the positioning process. (b) the layout after loose alignment and session filtering. (c) curve hiding. (d) enforced alignment of sessions  $\\mathcal{q}$  and  $(5)$",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "3",
+        "keywords": "[\"Layout refinement\", \"Vertical space\", \"positioning process\", \"loose alignment\", \"session filtering\", \"Curve hiding\", \"enforced alignment\", \"sessions\", \"Storyline layout algorithm\", \"StoryFlow\", \"entities\", \"time slices\", \"wiggle distance\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "图表虽然提供了一种布局优化的视觉展示，但缺乏与主要研究问题的直接相关性，信息价值较低。",
+          "insight": "这幅图展示布局优化技术，如松散对齐和会话过滤，旨在提高长篇布局的可读性和空间效率。"
+        }
+      }
+    },
+    {
+      "id": "19",
+      "label": "figure_1:flowchart s...",
+      "full_title": "figure_1:flowchart showing the procedures of the constraining analysis in the current study. the colors indicate the modeled relationships (blue), satellite observations (orange), in situ relationships (purple), field measurements of emission factors (efs) for the primary bba (gray), and constrained estimates (red). in particular, the satellite observation is labeled with a subscript of “0,” and constrained values are labeled with a subscript of “c.” f₁ and f₂ show the linear regressions developed from the aerocom models. f₃ indicates the observed relationship from (24). abbreviations/notations are defined as follows: ssa (single - scattering albedo), ae (angstrom exponent), precip (precipitation), mac (mass absorption coefficient), τ (lifetime), and e (emission).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": "2",
+        "keywords": "[\"constraining analysis\", \"modeled relationships\", \"satellite observations\", \"in situ relationships\", \"emission factors (EFs)\", \"primary BBA\", \"constrained estimates\", \"SSA\", \"AE\", \"Precip\", \"MAC\", \"lifetime\", \"E\", \"AeroCom models\", \"POLDER-GRASP\", \"GPCP\", \"AAOD\", \"SOA\", \"BC\", \"OA\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "虽然该图未直接关联到当前研究问题，但它介绍了一种新的分析方法，可以为未来相关性研究提供背景知识。",
+          "insight": "流程图展示了一种新的紧急约束方法论，将气溶胶光学厚度分解为特定因子（如排放，生命周期，MAC），使用模型关系和卫星观测，旨在改善计算的准确性。"
+        }
+      }
+    },
+    {
+      "id": "8",
+      "label": "No Title",
+      "full_title": "No Title",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "0",
+        "keywords": "[\"traffic time series\", \"spatial ego-network\", \"spatiotemporal causal graph\", \"causal links\", \"causal graphs\", \"causal relations\", \"ego sensors\", \"time windows\", \"spurious causal relations\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 0
+          },
+          "reason": "没有标题和总结，未提供有用的信息供分析。",
+          "insight": "未提供相关信息。"
+        }
+      }
+    },
+    {
+      "id": "5",
+      "label": "No Title",
+      "full_title": "No Title",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "0",
+        "keywords": "[\"causal relation\", \"relation view\", \"Pearson's r\", \"causal link\", \"bi-directional causal relation\", \"multidimensional visualization\", \"Strength\", \"Lag\", \"Correlation\", \"spatial distance\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 0
+          },
+          "reason": "没有标题和总结，无法分析。",
+          "insight": "未提供相关信息。"
+        }
+      }
+    },
+    {
+      "id": "4",
+      "label": "No Title",
+      "full_title": "No Title",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "0",
+        "keywords": "[\"causal graphs\", \"ego-graph\", \"edges\", \"color styles\", \"compass glyph\", \"causal relation\", \"ego sensor\", \"time windows\", \"spatial causal graphs\", \"maps\", \"graph bands\", \"timeline\", \"dynamic causal graph\", \"spatiotemporal causal graph\", \"temporal variation\", \"time-oriented exploration\", \"minimaps\", \"geographic background\", \"directions\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 4
+          },
+          "reason": "缺乏标题、总结及洞察内容，只提供了与因果分析相关的一些关键词，没有提供深挖线索。",
+          "insight": "图表及总结内容未提供明确的科学洞察，且没有具体演示如何进行时间序列因果分析。"
+        }
+      }
+    },
+    {
+      "id": "7",
+      "label": "No Title",
+      "full_title": "No Title",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": "0",
+        "keywords": "[\"graph band\", \"causal relations\", \"relation view\", \"causal graph\", \"causal links\", \"correlation coefficients\", \"causalities\", \"time series\", \"peaks\", \"lags\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 4
+          },
+          "reason": "虽然包含关键词如'causal links'和'time series'，但缺乏具体的图示和内容描述来执行深度分析。",
+          "insight": "未观察到图表图片，且没有相关内容描述来支持进一步分析。"
+        }
+      }
+    },
+    {
+      "id": "29",
+      "label": "figure_5:tracking ov...",
+      "full_title": "figure_5:tracking overall evolution patterns in the first case. (a) storyline with (b) the shade mapping. (c) a draggable map. (d) colored storyline of (a). (f) the spatial distribution of colored st series. (g, h, i, j) interesting evolution patterns observed in the first case.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": "3",
+        "keywords": "[\"Storyline\", \"shade mapping\", \"draggable map\", \"colored ST series\", \"evolution patterns\", \"spatial distribution\"]",
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "图表结合多种视图技术来分析演变模式和时空数据，提供了深挖大型数据集的线索，并在 Metadata 中包含源论文 ID，非常适合进一步研究。",
+          "insight": "该图展示如何通过多视图组合进行整体演变模式的跟踪，利用 Storyline、shade mapping 和可拖动地图等工具，揭示复杂的时空关系和显著的时间趋势，支持大规模数据的多层次分析。"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "39",
+      "target": "35",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 这篇论文有较高的相关性和可信度，并提供了有价值的视觉证据，值得在此基础上进行更深入的探索来验证证据链的完整性。"
+    },
+    {
+      "source": "39",
+      "target": "36",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 这篇论文有较高的相关性和可信度，并提供了有价值的视觉证据，值得在此基础上进行更深入的探索来验证证据链的完整性。"
+    },
+    {
+      "source": "39",
+      "target": "37",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 这篇论文有较高的相关性和可信度，并提供了有价值的视觉证据，值得在此基础上进行更深入的探索来验证证据链的完整性。"
+    },
+    {
+      "source": "39",
+      "target": "38",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 这篇论文有较高的相关性和可信度，并提供了有价值的视觉证据，值得在此基础上进行更深入的探索来验证证据链的完整性。"
+    },
+    {
+      "source": "39",
+      "target": "42",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 这篇论文有较高的相关性和可信度，并提供了有价值的视觉证据，值得在此基础上进行更深入的探索来验证证据链的完整性。"
+    },
+    {
+      "source": "9",
+      "target": "10",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 深度学习与数据可视化结合的趋势\nReason: 当前证据中提到深度学习用于数据预测和改进，我认为深入探索深度学习在可视化中的应用可能会带来新的启示。"
+    },
+    {
+      "source": "9",
+      "target": "28",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 深度学习与数据可视化结合的趋势\nReason: 当前证据中提到深度学习用于数据预测和改进，我认为深入探索深度学习在可视化中的应用可能会带来新的启示。"
+    },
+    {
+      "source": "9",
+      "target": "19",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 深度学习与数据可视化结合的趋势\nReason: 当前证据中提到深度学习用于数据预测和改进，我认为深入探索深度学习在可视化中的应用可能会带来新的启示。"
+    },
+    {
+      "source": "25",
+      "target": "8",
+      "type": "DEEPER",
+      "label": "multimodal",
+      "detail": "Args: query_image_path: allimages/Compass Towards Better Causal Analysis of Urban Time Series/figure_1.jpg\nReason: 考虑到 GeoChron 系统的图像展示了多层次的可视化能力，可以通过多模态搜索进一步探索这种视觉特性的应用。"
+    },
+    {
+      "source": "25",
+      "target": "5",
+      "type": "DEEPER",
+      "label": "multimodal",
+      "detail": "Args: query_image_path: allimages/Compass Towards Better Causal Analysis of Urban Time Series/figure_1.jpg\nReason: 考虑到 GeoChron 系统的图像展示了多层次的可视化能力，可以通过多模态搜索进一步探索这种视觉特性的应用。"
+    },
+    {
+      "source": "25",
+      "target": "4",
+      "type": "DEEPER",
+      "label": "multimodal",
+      "detail": "Args: query_image_path: allimages/Compass Towards Better Causal Analysis of Urban Time Series/figure_1.jpg\nReason: 考虑到 GeoChron 系统的图像展示了多层次的可视化能力，可以通过多模态搜索进一步探索这种视觉特性的应用。"
+    },
+    {
+      "source": "25",
+      "target": "7",
+      "type": "DEEPER",
+      "label": "multimodal",
+      "detail": "Args: query_image_path: allimages/Compass Towards Better Causal Analysis of Urban Time Series/figure_1.jpg\nReason: 考虑到 GeoChron 系统的图像展示了多层次的可视化能力，可以通过多模态搜索进一步探索这种视觉特性的应用。"
+    },
+    {
+      "source": "19",
+      "target": "29",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: 气溶胶光学厚度的可视化方法\nReason: 对紧急约束方法的介绍可以为未来研究提供背景，将其与可视化方法结合，可能获得新的见解。"
+    }
+  ]
+}

@@ -1,0 +1,1172 @@
+{
+  "meta": {
+    "root_goal": "experiment of air pollution in China",
+    "total_rounds": 2
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 experiment of a...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "img_177",
+      "label": "Fig. 3. Key mileston...",
+      "full_title": "Fig. 3. Key milestones and policy evolution of air pollution control in China, including control actions on the emissions of  SO_2  and  NO_x  and on ambient concentrations of  PM_{2.5} . FYP: Five-Year Plan.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "作为政策框架背景资料有价值，但未提供特定数据或深挖线索；可视化类型属于概览性流程图而非数据图表",
+          "insight": "流程图展示了中国空气污染控制的政策演变历程，包含SO₂、NOₓ排放管控和PM₂.₅浓度控制的里程碑事件及五年计划等重要节点。"
+        }
+      }
+    },
+    {
+      "id": "img_135",
+      "label": "Fig. 7. Major air po...",
+      "full_title": "Fig. 7. Major air pollution control goals, policies and specific control measures in China from the end of 2013 to 2020.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 20,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "包含关键量化效果数据和具体措施分类，提供论文ID(20)可供深挖协同减排策略",
+          "insight": "概念图系统展示2013-2020年中国空气清洁计划的具体措施，量化显示清洁生产贡献率55.98%(PM₂.₅降低)和51.14%(过早死亡减少)，能源控制分别贡献32.58%/29.54%。"
+        }
+      }
+    },
+    {
+      "id": "img_179",
+      "label": "Fig. 5. Trend of ann...",
+      "full_title": "Fig. 5. Trend of annual average  PM_{2.5}  concentrations for the top 20 most populated cities in China from 2013 to 2018. Observed  PM_{2.5}  concentrations were obtained from the China National Environmental Monitoring Center.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "展示具体城市数据趋势但无新方法论，数据源权威(国家监测中心)但时间跨度有限",
+          "insight": "热图显示2013-2018年中国前20大人口城市PM₂.₅年均浓度变化趋势，其中北京下降幅度最大，所有城市均呈现持续改善态势。"
+        }
+      }
+    },
+    {
+      "id": "img_180",
+      "label": "Fig. 6. (a) Trends i...",
+      "full_title": "Fig. 6. (a) Trends in observed annual  PM_{2.5}  concentrations for BTH and 74 key cities between 2013 and 2017; (b) trends expressed as 90th percentiles in maximum daily average  8hO_3  concentration. Shaded areas represent the 25th-75th percentile range. Data are available in Table S1 in Appendix A. Details on monthly  PM_{2.5}  concentration for 74 key cities are summarized in Tables S2-S6.  PM_{2.5}  and  O_3  concentrations in the BTH region and 74 cities were obtained from the China National Environmental Monitoring Center.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "发现关键矛盾现象(VOCs/NOₓ减排失衡)，含25th-75th百分位统计范围，提供Table S1-S6深挖线索",
+          "insight": "折线图揭示2013-2017年京津冀地区PM₂.₅浓度下降40%与O₃浓度上升24.5%的负相关现象，凸显多污染物协同控制困境。"
+        }
+      }
+    },
+    {
+      "id": "img_130",
+      "label": "Fig. 2.  PM_{2.5}  d...",
+      "full_title": "Fig. 2.  PM_{2.5}  distribution at city-level in 2014 to 2020. The frequency histograms in (a)-(g) denote the frequency distribution of  PM_{2.5}  in 368 cities across mainland China. The dot lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  5\\mu gm^{-3} ).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": 20,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "包含关键达标率数据与WHO标准对标，覆盖368城市体现全国尺度，提供不同时点对比",
+          "insight": "直方图量化显示2020年中国71.82%城市达到WHO IT-1标准(35μg/m³)，仅4.07%达到IT-3标准(15μg/m³)，无城市满足AQG(5μg/m³)。"
+        }
+      }
+    },
+    {
+      "id": "img_208",
+      "label": "Fig. 3. Comparison o...",
+      "full_title": "Fig. 3. Comparison of emissions of air pollutants due to agricultural fires from GFED and VIIRS in Northeast China in November 2017. (a), comparison of monthly emissions of each species reported by GFED and VIIRS over Northeast China for November 2017. (b), comparison of daily  PM_{2.5}  emissions reported by GFED and VIIRS over Northeast China in November 2017.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键排放源数据对比图可直接用于验证排放清单准确性，Metadata包含论文ID可直接溯源完整数据集",
+          "insight": "图表显示2017年11月中国东北地区农业火灾排放物中，VIIRS系统报告的所有污染物排放量均高于GFED系统，尤其在PM2.5排放方面存在显著日常波动差异"
+        }
+      }
+    },
+    {
+      "id": "img_89",
+      "label": "Fig. 10. Relative di...",
+      "full_title": "Fig. 10. Relative difference between the SOA concentrations averaged in July with and without biogenic emissions ug/m3",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 13,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心量化结果揭示排放源相互作用机制，且包含WRF-CMAQ模型等重要方法论标记",
+          "insight": "地图显示中国夏季SOA浓度70%源于生物源排放，消除人为排放可使SOA浓度降低60%，说明人为与生物源排放存在协同作用"
+        }
+      }
+    },
+    {
+      "id": "img_26",
+      "label": "Fig. 5. AQI regional...",
+      "full_title": "Fig. 5. AQI regional spatial autocorrelation in 31 provincial cities of the Chinese mainland.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供空气污染空间分布背景信息，但缺乏具体政策-效果定量对应",
+          "insight": "空间自相关分析显示2013-2020年中国北方持续存在AQI高-高聚集区，形成南北污染梯度，验证清洁煤政策实施效果"
+        }
+      }
+    },
+    {
+      "id": "img_131",
+      "label": "Fig. 3. The proporti...",
+      "full_title": "Fig. 3. The proportion of people exposed to  PM_{2.5}  in BTH, PRD, YRD, FWP region and the whole nation at different years (i.e., 2014, 2017, and 2020). The dot vertical lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  5\\mu gm^{-3} ).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 20,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "直接量化评估政策健康效益的关键结果曲线，包含多区域多时段对比",
+          "insight": "2020年京津冀地区90%人口仍暴露于WHO IT-1标准以上的PM2.5，而汾渭平原实施清洁空气计划后暴露高风险人群比例骤减10%"
+        }
+      }
+    },
+    {
+      "id": "img_96",
+      "label": "Fig. 3. Air pollutan...",
+      "full_title": "Fig. 3. Air pollutant concentrations at inlet and outlet of the tunnel. (a) NO; (b)  NO_2 ; (c) CO; (d)  PM_{2.5} .",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 15,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "路段特异性监测数据缺乏普适性，未提供排放因子计算等延伸信息",
+          "insight": "上海延安东路隧道出口处NO、NO2、CO、PM2.5浓度均显著高于入口"
+        }
+      }
+    },
+    {
+      "id": "img_175",
+      "label": "Fig. 1. Trends in GD...",
+      "full_title": "Fig. 1. Trends in GDP, energy consumption, and population, as well as emissions of  SO_2 ,  NO_x , primary  PM_{2.5} , non-methane volatile organic compounds (NMVOCs), and  CO_2  between 1990 and 2017, with values for 1990 taken as 1. GDP, energy consumption, and population data were obtained from the National Bureau of Statistics of China. Emission data of air pollutants ( SO_2 ,  NO_x ,  PM_{2.5} , and NMVOCs) for 2010-2017 was obtained from Tsinghua University's multi-resolution emission inventory for China (MEIC) [5].  CO_2  emission data was obtained from the International Energy Agency (IEA) [6].",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "图表权威性强（基于国家统计局和 MEIC/IEA 数据），展示长期污染趋势与核心矛盾，包含可深挖的源论文 ID 引用 [5][6]",
+          "insight": "Fig. 1 显示 1990-2017 年中国 GDP、能源消耗、人口增长伴随 SO2、NOx、PM2.5 排放显著上升(NOx增长3倍)，反映经济扩张与空气污染恶化的强关联性，PM2.5成为主要超标污染物。"
+        }
+      }
+    },
+    {
+      "id": "img_27",
+      "label": "Fig. 6. The variatio...",
+      "full_title": "Fig. 6. The variation trend of AQI in the Chinese mainland.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "核心结果图表直接量化政策效果，包含时间滞后效应证据和区域比较(CCTPs 的全国影响)，支持政策评估或延展分析。",
+          "insight": "Fig. 6 显示 2013-2020 年中国大陆 AQI 整体下降趋势，2017 年后全部城市达标 (AQI<100)，政策实施两年后(2018年)污染显著缓解，验证清洁煤技术政策的有效性（AQI平均下降18.82%）。"
+        }
+      }
+    },
+    {
+      "id": "img_212",
+      "label": "Fig. 7. a, mean diur...",
+      "full_title": "Fig. 7. a, mean diurnal cycle of simulated  PM_{2.5}  concentrations, downward surface shortwave radiation based on case 5, as well as their changes due to aerosol radiative effects ((case 5 - case 6) - (case 1 - case 2)) over Heilongjiang (top black box in Fig. S1b) from November 1 to 3, 2017. b, the same as a, but the meteorological parameters were changed to PBL height.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "聚焦单一区域短期事件，无强可深挖线索，但提供污染机制具体案例，可作为空气污染模型的支撑材料。",
+          "insight": "Fig. 7a 显示 2017 年 11 月黑龙江地区气溶胶辐射效应导致 PM2.5 日际浓度升高与边界层(PBL)高度降低的正反馈循环。"
+        }
+      }
+    },
+    {
+      "id": "img_71",
+      "label": "Fig. 4. Estimated co...",
+      "full_title": "Fig. 4. Estimated coefficients (date) prior to and following the start time of heating.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 11,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "图表信息模糊（标题与总结矛盾：条形图统计百分比 vs.系数日期分析），无明确深度价值线索，内容冗余（政策改革在证据 img_27 已覆盖）。",
+          "insight": "系数图显示取暖政策(WCHP)启动前后 AQI 无显著趋势变化，部分日期异常值未通过统计检验，说明政策在不同地域的效果差异。"
+        }
+      }
+    },
+    {
+      "id": "img_211",
+      "label": "Fig. 6. Simulated ho...",
+      "full_title": "Fig. 6. Simulated hourly  PM_{2.5}  concentrations, as well as changes (i.e., (case 5 - case 6) - (case 1 - case 2) in Table 1) of  PM_{2.5}  concentrations, meteorological parameters including downward surface shortwave radiation, PBL height, air temperature at  2\\text{-m} , relative humidity and wind speed at  10\\text{-m}  induced by aerosol direct radiative effects over Heilongjiang (top black box in Fig. S1b) from November 1 to 7, 2017.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "模拟结果与区域气象动态相关性强，但覆盖时间短、地域特定，缺乏跨文献通用性，适合作为次要案例保留。",
+          "insight": "Fig. 6 展示 2017 年 11 月黑龙江气溶胶直接辐射效应导致 PM2.5 浓度上升、短波辐射下降、风速减弱的水文气象耦合特征。"
+        }
+      }
+    },
+    {
+      "id": "img_150",
+      "label": "Fig. 4. Normalized a...",
+      "full_title": "Fig. 4. Normalized average diurnal variations in  O_3  and typical VOCs during the dry and wet seasons from 2014 to 2019 (shaded part:  \\pm SD ).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 22,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Line chart reveals season-specific photochemical behaviors and species-level ozone formation mechanisms. Metadata contains Paper ID 22 for follow-up.",
+          "insight": "Normalized diurnal variations show O3 and OVOC concentrations peak during daytime in wet season due to enhanced photochemical production. Acetaldehyde exhibits similar diurnal patterns to O3, indicating dominant secondary formation."
+        }
+      }
+    },
+    {
+      "id": "img_198",
+      "label": "Fig. 1. Scatter plot...",
+      "full_title": "Fig. 1. Scatter plots between the measured VOC levels and initial levels derived from a time-resolved approach (see Section 2.2 for details). The error bars represent the 95th confidence intervals of the mean values.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 31,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "Provides measurement validation and shows OH reactivity differences, but lacks temporal trends or policy implications.",
+          "insight": "Scatter plot demonstrates clear volatility in VOC measurements, particularly for highly reactive species like isoprene (kOH = 100×10¹² cm³ molecule⁻¹s⁻¹) indicating significant photochemical processing."
+        }
+      }
+    },
+    {
+      "id": "img_152",
+      "label": "Fig. 6. Six-year tre...",
+      "full_title": "Fig. 6. Six-year trends of the contributions from different sources to daytime OVOC concentrations.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 22,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "Critical long-term dataset demonstrating measurable policy impacts on emission sources. Directly links to pollution control outcomes.",
+          "insight": "Bar chart shows 50-60% reduction in primary anthropogenic OVOC sources during dry seasons (2014-2019) versus minimal change in secondary sources, proving effectiveness of Shenzhen's emission controls."
+        }
+      }
+    },
+    {
+      "id": "img_148",
+      "label": "Fig. 2. Concentratio...",
+      "full_title": "Fig. 2. Concentrations of VOC components during dry and wet seasons from 2014 to 2019.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 22,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "Provides fundamental contextual data on VOC speciation but overlaps with higher-value evidence on trends.",
+          "insight": "Bar chart confirms OVOCs constitute 70-78% of total VOCs with 13% higher concentrations in dry seasons due to continental air masses, establishing baseline composition data."
+        }
+      }
+    },
+    {
+      "id": "img_48",
+      "label": "Fig. 7. (a) Differen...",
+      "full_title": "Fig. 7. (a) Difference between the surface ozone concentrations of the baseline model output (with posterior emissions) and emission reduction cases (20% reduction in  NO_{x}  and NMVOCs emissions) with the ratio of the modeled HCHO column to the  NO_2  column in the summer of 2011; (b) the cumulative probability of  NO_{x} -limited and  NO_{x} -saturated conditions with respect to the ratio of the modeled HCHO column to the  NO_2  column following Jin et al. (2017). Both are estimated from daily averaged HCHO/NO _2  values and surface  O_3  concentrations for the revisit time of the OMI satellite (13:00-14:00 LST) over polluted regions (modeled  NO_2  column  >1 10^{15}  molecules  cm^{-2} ).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 7,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Provides quantitative threshold methodology for optimizing ozone mitigation strategies using satellite data, with clear policy implications.",
+          "insight": "Scatter plots establish OH/HCHO/NO₂ ratio as predictor for ozone chemical regimes: NOx-limited conditions require VOC reduction (low ratios) while NOx-saturated areas benefit from NOx control (high ratios)."
+        }
+      }
+    },
+    {
+      "id": "img_204",
+      "label": "Fig. 7. Percentages ...",
+      "full_title": "Fig. 7. Percentages  \\%  of different VOC sources to the total VOC mixing ratio (MR), reactivity  (L_{OH)} , ozone formation potential (OFP), and secondary organic aerosol potential (SOAP) under different  PM_{2.5}  concentration ranges.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 31,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Bar chart quantitatively demonstrates pollution-dependent shifts in source contributions with high applicability to air quality management. Contains specific paper_id (31) for follow-up research.",
+          "insight": "Industrial VOC sources increase their contribution to VOC mixing ratio (up to 27.3%), OH loss rate (56.2%), ozone formation potential (48.4%), and secondary organic aerosol potential (57.0%) as PM2.5 pollution intensifies, becoming the dominant pollution source during heavy haze events."
+        }
+      }
+    },
+    {
+      "id": "img_203",
+      "label": "Fig. 6. Percentages ...",
+      "full_title": "Fig. 6. Percentages  \\%  of different VOC sources to the total VOC mixing ratio (MR), OH loss rate  (L_{OH)} , ozone formation potential (OFP), and secondary organic aerosol potential (SOAP).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 31,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "Provides baseline source apportionment valuable for contextual understanding, but lacks pollution-level dynamics shown in Fig. 7 (img_204). Shared paper_id with higher-value evidence.",
+          "insight": "Combustion sources dominate VOC mixing ratio (39.0%), industrial sources lead in OH loss rate (32.2%) and SOAP (32.8%), while vehicle emissions contribute most to ozone formation potential (27.8%), revealing metric-dependent source dominance."
+        }
+      }
+    },
+    {
+      "id": "img_52",
+      "label": "Fig. 1. Results of t...",
+      "full_title": "Fig. 1. Results of the BAB II quality assurance measures for  8NO / NO_x  instruments. Readings of the 8 instruments measuring ambient air with their gas inlet systems located very close to each other (y-axis) are compared with the mean value of all instruments (x-axis) before (left diagram, raw data) and after data correction (right diagram, corrected data).",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 8,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "Focuses on instrument calibration methodology rather than pollution source characteristics. Minimal relevance to core VOC-ozone research objectives.",
+          "insight": "Quality assurance measures reduce instrumental divergence by over 50% in NO/NO_x monitoring, achieving measurement uncertainties below 10% at high concentrations."
+        }
+      }
+    },
+    {
+      "id": "img_45",
+      "label": "Fig. 4. Comparisons ...",
+      "full_title": "Fig. 4. Comparisons of the vertical distribution of ozone and nitrogen dioxide  NO_2  concentrations measured during the DISCOVER-AQ (a to d) 2011 (July 21 and 22) and (e to h) 2014 (July 29 and 31) campaigns and modeled concentrations with prior emissions and three background setups (i.e., with dynamic lateral boundary conditions and LNO emissions, with dynamic lateral boundary conditions and without LNO emissions, and with profile lateral boundary conditions and without LNO emissions). Error bars represent the standard deviation.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 7,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "Line charts with error bars demonstrate key model improvements for ozone/NO2 prediction. Contains specific implementable techniques (LNO emissions) and campaign references.",
+          "insight": "Implementing dynamic lateral boundary conditions and lightning NO emissions reduces model bias by 23.24% (NO2) and 14.76% (ozone) in upper troposphere simulations, significantly improving DISCOVER-AQ campaign validation accuracy."
+        }
+      }
+    },
+    {
+      "id": "img_195",
+      "label": "Fig. 3. VOC profiles...",
+      "full_title": "Fig. 3. VOC profiles of (a) stack flue gas (SFN and SFM) and (b) fugitive emissions (OLM and BLM). The ID number of each VOCs species is listed in Table S2.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 30,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Bar charts provide plant-specific VOC speciation critical for emission inventories. Reveals 2-order magnitude emission differences with clear policy implications (industrial phase-out potential) and paper_id (30) for follow-up.",
+          "insight": "Non-recovery coking plants emit 240x more VOCs than mechanical plants (96 vs 0.4 g/Mg-coke) with alkene-rich profiles (69.96% C2-C4 alkenes), while mechanical plants show aromatic dominance with distinct fugitive emission signatures."
+        }
+      }
+    },
+    {
+      "id": "img_200",
+      "label": "Fig. 3. Individual c...",
+      "full_title": "Fig. 3. Individual contributions  \\%  of different VOC species (outer circular bar plots) and mean contributions  \\%  (inner donut charts) of alkanes, alkenes, acetylene, and aromatics to the OH loss rate (a), ozone formation potential (b), and secondary organic aerosol potential (c).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 31,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表定量展示关键大气污染物（VOC）对OH损失率、臭氧和SOA形成的贡献，且含Paper ID 31支持深挖",
+          "insight": "环形柱状图和甜甜圈图显示，alkanes对二次有机气溶胶潜力（c）贡献最高（均超40%），而aromatics对臭氧形成潜力（b）主导（均超35%），揭示VOC物种在大气化学过程中的差异化作用。"
+        }
+      }
+    },
+    {
+      "id": "img_144",
+      "label": "Figure 4. Spatial di...",
+      "full_title": "Figure 4. Spatial distributions of summer averaged tropospheric  NO_2  vertical columns modeled by GEOS-Chem based on S1-S6 emissions and scenario-specific data retrieved from the OMI for 2006.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 21,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心展示空间代理对排放分配的影响，含OMI卫星验证和六种情景对比，Paper ID 21可深挖排放优化策略",
+          "insight": "空间分布图比较显示，当使用人口密度分配NOx排放（S1）时，GEOS-Chem模型在北平原和长三角低估NO2柱浓度，而夜间灯光数据（S2）显著改善污染热点精度。"
+        }
+      }
+    },
+    {
+      "id": "img_215",
+      "label": "Fig. 2. Comparisons ...",
+      "full_title": "Fig. 2. Comparisons of concentration profiles of coating processes measured in this study, Beijing (Yuan et al., 2010), Shanghai (Wang et al., 2014), and PRD (Zheng et al., 2013). The species concentrations are normalized by the total VOCs concentrations. The species with average percentages larger than  3\\%  are presented.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 33,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供区域VOC组分对比证据，但无新深挖线索（如机制分析），适用于背景积累",
+          "insight": "条形图显示北京/上海/PRD涂层过程中，toluene、m/p-xylene和ethylbenzene合计占VOC总量超70%，1,2-dichloropropane在船舶涂层中突出（>10%）。"
+        }
+      }
+    },
+    {
+      "id": "img_49",
+      "label": "Fig. 8. (a) Spatial ...",
+      "full_title": "Fig. 8. (a) Spatial distribution of the ozone chemical production regime over the CONUS for the year 2011. (b) The difference between the  HCHO / NO_2  ratios of 2011 and 2017. Gray areas represent tropospheric  NO_2  column densities that are less than  1\\times 10^{15}  molecules  cm^{-2} .",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 7,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "臭氧生成机制时空演变的关键证据，结合OMI反演数据，Paper ID 7支持污染政策分析",
+          "insight": "2011年地图揭示美国本土都市圈为NOx饱和区（HCHO/NO2<0.28），而2017年比率差异图显示东部农村HCHO/NO2下降约1.3，转向NOx敏感机制。"
+        }
+      }
+    },
+    {
+      "id": "img_206",
+      "label": "Fig. 1. The simulati...",
+      "full_title": "Fig. 1. The simulation domain (Fig. 1a) with the red square indicating the regions of Northeast China (i.e., Heilongjiang (HLJ), Jilin (JL), Liaoning (LN)), which is zoomed in and shown in Fig. 1b, with the red and blue dots indicative of observational data for  PM_{2.5}  and meteorology. (For interpretation of the references to colour in this figure legend, the reader is referred to the Web version of this article.)",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "纯背景信息且无独特价值，摘要中的洞察仅为位置描述，与核心污染机制无关",
+          "insight": "地图仅标示东北三省（黑龙江、吉林、辽宁）PM2.5和气象观测站点分布，无数据趋势或分析结论。"
+        }
+      }
+    },
+    {
+      "id": "img_28",
+      "label": "Fig. 7. The variatio...",
+      "full_title": "Fig. 7. The variation trend of AQI in four seasons.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表提供分区域、分季节的定量污染改善数据，直接反映空气治理政策效果，且含具体论文ID(4)可深挖。",
+          "insight": "柱状图显示中国七大区域在四个季节的AQI变化率，其中东北地区冬季降幅最大达35.46%，证实CCTPs政策在冬季效果最显著。"
+        }
+      }
+    },
+    {
+      "id": "img_178",
+      "label": "Fig. 4. Summary of t...",
+      "full_title": "Fig. 4. Summary of the major control regulations in China since 2013. PP: power plants; IN: industry; TR: transport; DO: domestic sector; AR: agriculture.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供政策演进背景，但缺乏具体数据指标且可视化为表格，适合作为政策演变上下文参考。",
+          "insight": "表格总结了2013-2020年中国PM2.5控制法规框架，显示从单一污染物控制扩展到多部门(电厂/工业/交通等)协同治理的转变。"
+        }
+      }
+    },
+    {
+      "id": "img_132",
+      "label": "Fig. 4. Spatial dist...",
+      "full_title": "Fig. 4. Spatial distribution (at  1km  resolution) of the  PM_{2.5} -attributable premature death in mainland China (a), BTH (b), YRD (c), FWP (d), and PRD region (e) in 2020.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 20,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "结合地理信息与健康数据的可视化具有高价值，定量揭示污染健康影响的区域差异，且含论文ID(20)。",
+          "insight": "1km分辨率地图显示2020年PM2.5相关过早死亡空间分布，珠三角4.72%区域死亡密度>4例/km²，揭示人口密度加剧健康风险的核心矛盾。"
+        }
+      }
+    },
+    {
+      "id": "img_209",
+      "label": "Fig. 4. Time series ...",
+      "full_title": "Fig. 4. Time series of simulated and observed  PM_{2.5}  concentrations in Heilongjiang Province (a), Jilin Province (b) and Liaoning Province (c). Please note that only the data inside the black boxes (Fig. S1b) over these three provinces are used. The black line represents observations, the green, red and blue lines represent the scenarios, respectively, without biomass burning emissions (Case 1 in Table 1), with biomass burning emissions from GFED (Case 3 in Table 1) and VIIRS_G (Case 5 in Table 1). The statistical metrics including MFB, MFE and R (formula shown in Appendix A) among the three scenarios are listed on top of each panel. (For interpretation of the references to colour in this figure legend, the reader is referred to the Web version of this article.)",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "折线图提供模型优化关键证据，内含统计指标(MFB/MFE/R)和排放情景对比，支撑后续模型校验。",
+          "insight": "三省PM2.5观测与模拟时序对比显示：添加GFED生物质燃烧排放数据后，模型相关系数(R)提高至0.67-0.85，验证排放清单改进价值。"
+        }
+      }
+    },
+    {
+      "id": "img_240",
+      "label": "Figure 12. Spatial d...",
+      "full_title": "Figure 12. Spatial distributions of the optimized scale factors for annual Chinese NMVOC emissions, relative to the a priori emission estimates, for the four inversion experiments.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "图解卫星反演对排放清单的校正作用，揭示关键物种(芳烃)估值偏差，含四个实验组对比数据可深挖。",
+          "insight": "空间优化因子图表明：GOME-2A卫星约束下，中国生物源NMVOC排放普遍上调（东北除外），人为源在北部下调，反演提升芳烃排放估值20%。"
+        }
+      }
+    },
+    {
+      "id": "img_3",
+      "label": "Figure 4. Annual BVO...",
+      "full_title": "Figure 4. Annual BVOC emissions in China from 2001 to 2016 for five scenarios (S1-S5) described in Table 1. The increasing trends and the probabilities  p  using the Mann-Kendall test are shown in the legend.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 1,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "Core results visualization showing multi-year emission trends across scenarios with statistical analysis. Contains deep-dive potential through referenced source paper and methodologies.",
+          "insight": "Figure 4 demonstrates significantly increasing BVOC emission trends (0.50% yr⁻¹ for total emissions) in S2 scenario without meteorological variability, with LAI increase identified as the primary driver. Mann-Kendall test confirms statistical significance (p<0.05)."
+        }
+      }
+    },
+    {
+      "id": "img_167",
+      "label": "Figure 14. Compariso...",
+      "full_title": "Figure 14. Comparison of 2008 power plants emission estimates between MEIC v1.0, REAS2, and EDGAR v4.2 for Shanxi province, China. (a) Spatial distribution of  CO_{2}  emissions and (b) emission ratios of  SO_{2}  to  CO_{2} .  CO_{2}  emissions are grouped by colors.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Critical comparison of emission inventory methodologies with specialized geospatial and scatter plot visualization identifying model limitations and technological influence.",
+          "insight": "Figure 14(a) reveals MEIC v1.0 includes 134 power plants vs 22 in REAS2, exposing inventory omissions; 14(b) shows SO₂/CO₂ ratios decrease with plant size due to FGD installations (R²=0.39), unlike constant ratios in EDGAR."
+        }
+      }
+    },
+    {
+      "id": "img_147",
+      "label": "Fig. 1. (a) Shenzhen...",
+      "full_title": "Fig. 1. (a) Shenzhen is located on the southeast coast of China; (b) the sampling site of this study and its surrounding environment in the Pearl River Delta region (satellite images from Google Earth).",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 22,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "Pure geographical context without emissions data visualization. Redundant with textual site description in paper.",
+          "insight": "Satellite map illustrates Shenzhen sampling site location (22.60°N, 113.97°E) near PRD highway, validated as regionally representative for pollutant monitoring."
+        }
+      }
+    },
+    {
+      "id": "img_12",
+      "label": "Fig. 1. Study area. ...",
+      "full_title": "Fig. 1. Study area. The blue line encompasses the region of Jinjingji, including Beijing, Tianjin and Hebei province. (a) China's territory, (b) the study area (Tangshan); this image is obtained from the red, green, and blue bands of Landsat 8 (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "Basic region demarcation with limited research value beyond establishing spatial context. Retained only as background reference.",
+          "insight": "Landsat-derived map delineates Jinjingji study region boundaries but contains no emissions/measurement overlays."
+        }
+      }
+    },
+    {
+      "id": "img_265",
+      "label": "Fig. 4. The distribu...",
+      "full_title": "Fig. 4. The distributions of  SO_2  (a) and  NO_X  (b) emissions from power plants in Jiangsu in 2012, using Monte-Carlo simulation. The red and black bars represent the results from the national and provincial inventories, respectively. (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article.) Fig. 5. Comparisons of Jiangsu's annual emissions from different studies. The range line represents the  95\\%  CIs around the central estimates of the provincial inventory by this work.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 28,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "Quantitative uncertainty analysis of emission inventories using statistical methods. Supports subsequent inter-study comparisons in linked Fig.5.",
+          "insight": "Monte Carlo histograms show provincial SO₂ emissions peaking at 700-800 Gg versus national inventory's 500-600 Gg in Jiangsu, with 95% CI differences exceeding ±15%."
+        }
+      }
+    },
+    {
+      "id": "img_141",
+      "label": "Figure 1. Spatial pa...",
+      "full_title": "Figure 1. Spatial patterns of (a) the total population density and (b) nighttime lights for eastern China and (c) the distributions of total population density and nighttime lights in China at a resolution of  0.1^{\\circ} \\times 0.1^{\\circ} .",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 21,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心图表直接验证关键概念'空间代理'对排放分配的影响，包含定量比较（图c）和空间模式可视化（图a/b）；metadata提供具体论文ID(Paper21)支持深挖；证据结论对优化排放模型具有直接方法学价值",
+          "insight": "图表(c)量化展示了夜间灯光数据相比人口密度对中国城乡经济梯度的区分能力更强；空间分布图(a)(b)实证显示夜间灯光能更显著反映城市边界与经济活动强度，可优化排放清单中NOx的网格化分配精度。"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "0",
+      "target": "img_177",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_135",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_179",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_180",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_130",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_208",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_89",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_26",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_131",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_96",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_175",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_27",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_212",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_71",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_211",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: experiment of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "img_180",
+      "target": "img_150",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_198",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_152",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_148",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_48",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_204",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_203",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_52",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_45",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_195",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_200",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_144",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_215",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_49",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: O₃-NOₓ-VOC sensitivity experimental studies in China\nReason: 该节点揭示PM2.5-O3负相关现象（评分relevance=10），评估人员推荐'O₃-NOₓ-VOC sensitivity'关键词，需通过控制实验量化VOCs/NOx减排比例对臭氧生成的敏感性。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_206",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_28",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_178",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_132",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_209",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_240",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_3",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_167",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_147",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_12",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_265",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    },
+    {
+      "source": "img_130",
+      "target": "img_141",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WHO AQG attainment experiments in Chinese megacities\nReason: 仅4.07%城市达IT-3标准（评分relevance=9），评估人员推荐'urban air quality disparity'，需针对不同城市群设计达标路径实验，量化控制措施效果阈值。"
+    }
+  ]
+}

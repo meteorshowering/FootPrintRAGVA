@@ -1,0 +1,1621 @@
+{
+  "root_goal": "空气污染",
+  "nodes": {
+    "0": {
+      "id": "0",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "content": {
+        "goal": "空气污染"
+      },
+      "metadata": null,
+      "ParentNode": null,
+      "children_ids": [
+        "39",
+        "30",
+        "9",
+        "41",
+        "31",
+        "40",
+        "1",
+        "2",
+        "28",
+        "19"
+      ],
+      "hit_count": 1,
+      "created_at_round": 0,
+      "search_history": [],
+      "source_tool": "",
+      "source_args": {},
+      "source_reason": "",
+      "evaluation": null
+    },
+    "39": {
+      "id": "39",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_5:(left) distribution of air quality stations. (right) aqi and corresponding air quality descriptions.",
+        "summary": "figure 5 displays the distribution of 448 air quality monitoring stations across china on the left, alongside a chart on the right showing the air quality index (aqi) values mapped to corresponding air quality descriptions, ranging from excellent to severely polluted.",
+        "insight": "the figure illustrates the spatial distribution of aqi monitoring stations in china and defines the aqi scale, providing context for the real-world dataset used. this setup ensures the reliability of spatio-temporal analyses on air quality, utilizing specific parameters for interpolation and clustering methods."
+      },
+      "metadata": {
+        "id": "39",
+        "embedding": "[35.1541, 52.4408]",
+        "functionalroles": "{\"main_role\": \"Data & Experimental Setup\", \"sub_roles\": [\"Introduce Experimental Setup\", \"Describe Data Distribution\"]}",
+        "visual_type": "{\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}",
+        "key_entities": "[\"air quality stations\", \"AQI\", \"air quality descriptions\", \"China\", \"monitoring stations\", \"ST series dataset\", \"geographic space\", \"grid\", \"temporal granularity\", \"Gaussian model\", \"PyKridge library\", \"Kriging interpolation\", \"DBSCAN\", \"MinPts\", \"window size\"]",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_5.jpg",
+        "paper_id": "4",
+        "mime_type": "MemoryMimeType.JSON",
+        "keywords": "[\"air quality stations\", \"AQI\", \"air quality descriptions\", \"China\", \"monitoring stations\", \"ST series dataset\", \"geographic space\", \"grid\", \"temporal granularity\", \"Gaussian model\", \"PyKridge library\", \"Kriging interpolation\", \"DBSCAN\", \"MinPts\", \"window size\"]",
+        "references": "[\"We have a real- world AQI (air quality index) ST series dataset, collected from 448 air quality monitoring stations in China (Figure 5(left)). In the whole evaluation section, the geographic space is divided into a  $350 \\\\times 350$  grid. The time span is from January 1 to December 20, 2018, and the temporal granularity is one hour. In sum, the dataset comprises 448 (stations)  $\\\\times 8,472$  (timesteps) values, ranging from 0 to 500. Each value in the dataset is the AQI at the timestamp of a monitoring station. The higher the value, the worse the air quality. In the data transformation procedure, the parameters of the Gaussian model are automatically determined by the PyKridge library. We evaluated the accuracy of the adopted Kriging interpolation on the dataset and found it to be acceptable, ensuring the reliability of subsequent analyses. For detailed results, please refer to Appendix D. The parameters of DBSCAN,  $\\\\epsilon$  and MinPts, are configured as 10 and 100, respectively, after multiple trials. The window size for smoothing is set as 24 hours.\"]"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 16,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染源及其影响因素"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "室内空气污染研究"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气质量监测技术与设备"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染对人体健康的影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理政策与法律规定"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理中的动态因果关系分析"
+          },
+          "parent_id": "2"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染影响的健康风险分析"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "环境监测新技术应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "沙尘暴对空气质量的长远影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "37"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的时空演变"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的来源和控制方法"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "用户研究在环境数据可视化中的影响"
+          },
+          "parent_id": "42"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染源及其影响因素"
+      },
+      "source_reason": "为了全面理解空气污染问题扩展新的领域，可以探索空气污染的源头及其影响因素，寻找新的研究方向。",
+      "evaluation": {
+        "target_evidence_id": "39",
+        "branch_action": "GROW",
+        "extracted_insight": "图 5 展示了 2018 年中国 448 个空气监测站的空间分布和空气质量指数的映射。这为后续的时空数据分析提供了可靠的实验架构基础，利用 Kriging 插值和 DBSCAN 聚类进行数据处理。",
+        "scores": {
+          "relevance": 8,
+          "credibility": 9
+        },
+        "reason": "该图直接提供了实验数据集的空间和时间设置基础，并详细介绍了数据处理方法，极具深入研究的价值。",
+        "suggested_keywords": [
+          "Gaussian model",
+          "Kriging interpolation",
+          "DBSCAN",
+          "PyKridge library",
+          "Air quality monitoring"
+        ]
+      }
+    },
+    "30": {
+      "id": "30",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_6:air quality in yangtze river delta. (a) interesting evolution patterns in storyline. (b) the map coordinated with the evolutions. (c) line charts and (d) trend motifs of the patterns of (a). (e) a line chart of an evolution pattern and (f) its trend motif.",
+        "summary": "the figure illustrates air quality patterns in the yangtze river delta, presenting storyline evolutions, their geographical coordination, and corresponding line charts. it details daily trends and specific evolution patterns with their trend motifs, highlighting interesting visual insights.",
+        "insight": "the authors intend to show how the proposed visualization techniques, storyline and trend motifs, can effectively reveal and analyze complex spatiotemporal patterns in air quality data within the yangtze river delta region, facilitating the identification of interesting evolution patterns."
+      },
+      "metadata": {
+        "embedding": "[60.7871, 62.2482]",
+        "key_entities": "[\"Air quality\", \"Yangtze River Delta\", \"Storyline\", \"Evolution patterns\", \"Trend motifs\"]",
+        "keywords": "[\"Air quality\", \"Yangtze River Delta\", \"Storyline\", \"Evolution patterns\", \"Trend motifs\"]",
+        "functionalroles": "{\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Qualitative Results\"]}",
+        "mime_type": "MemoryMimeType.JSON",
+        "references": "[]",
+        "id": "30",
+        "savepath": "Visualizing Large-Scale Spatial Time Series with GeoChron/figure_6.jpg",
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Line Chart\", \"Map\"]}",
+        "paper_id": "3"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 9,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染源及其影响因素"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "室内空气污染研究"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气质量监测技术与设备"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染对人体健康的影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理政策与法律规定"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理中的动态因果关系分析"
+          },
+          "parent_id": "2"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染影响的健康风险分析"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "沙尘暴对空气质量的长远影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的时空演变"
+          },
+          "parent_id": "41"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染源及其影响因素"
+      },
+      "source_reason": "为了全面理解空气污染问题扩展新的领域，可以探索空气污染的源头及其影响因素，寻找新的研究方向。",
+      "evaluation": {
+        "target_evidence_id": "30",
+        "branch_action": "KEEP",
+        "extracted_insight": "该图阐述了长三角地区空气质量演化模式，通过线图和趋势法展示相应的时空变化，帮助识别有趣的演化模式。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 8
+        },
+        "reason": "提供了空气质量时空变化模式的定性结果，但缺乏进一步信息挖掘的具体指引。",
+        "suggested_keywords": [
+          "Storyline evolution",
+          "Trend motifs",
+          "Yangtze River Delta"
+        ]
+      }
+    },
+    "9": {
+      "id": "9",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_1:the study area and its typical urban agglomerations. abbreviations: scb, sichuan basin; cc, central china; yrd, yangtze river delta; bth, beijing-tianjin-hebei.",
+        "summary": "this figure displays a map of china, highlighting four key urban agglomerations: sichuan basin (scb), central china (cc), yangtze river delta (yrd), and beijing-tianjin-hebei (bth). these regions are outlined in red, indicating their significance as study areas within the larger geographical context.",
+        "insight": "the figure illustrates the geographical scope and specific study areas within china, focusing on urban agglomerations prone to severe pollution. this setup is crucial for understanding the performance of different pm2.5 prediction optimization methods (da, bc, and their combination) across various regions, as detailed in the referenced text."
+      },
+      "metadata": {
+        "references": "[\"The model was set as a  $27 - \\\\mathrm{km}$  grid resolution with  $232\\\\times 182$  horizontal grid spacing and 35 vertical levels. The simulation domain in China is shown in Fig. 1, with the center of the model at  $(32^{\\\\circ}\\\\mathrm{N},110^{\\\\circ}\\\\mathrm{E})$  including four typical urban agglomerations: Beijing- Tianjin- Hebei (BTH), Central China (CC), the Sichuan Basin (SCB), and Yangtze River Delta (YRD). These regions, chosen as they were in Chen et al. (2022), are of broad concern owing to their relatively more severe pollution related to their high levels of urbanization and dense populations.\", \"In numerical model simulations, data assimilation (DA) on the initial conditions and bias correction (BC) of model outputs have been proven to be promising approaches to improving  $\\\\mathrm{PM}_{2.5}$  (particulate matter with an aerodynamic equivalent diameter of  $\\\\leq 2.5\\\\mu \\\\mathrm{m}$ ) predictions. This study compared the optimization effects of these two methods and developed a new scheme that combines DA and BC simultaneously. Four parallel experiments were conducted during winter 2019: a control experiment directly forecasted by WRF- Chem (experiment name: WRF- Chem); an experiment that assimilated in situ observations based on the GSI (Gridpoint Statistical Interpolation) system (WRF- Chem_DA); an experiment with deep- learning- based BC (WRF- Chem_BC); and an experiment considering the combination of DA on the initial conditions and BC (WRF- Chem_DA_BC). Statistically, the accuracy of  $\\\\mathrm{PM}_{2.5}$  predictions could be optimized by both DA and BC for the first 24- h period, and WRF- Chem_BC performed better than WRF- Chem_DA in the initial field, especially in the period of 10\\u201324 h, while the best performance was achieved by combining BC and DA. Throughout the initial 24- h period, compared with the control experiment, the results of WRF- Chem_DA_BC (WRF- Chem_DA, WRF- Chem_BC) showed an improvement in terms of root- mean- square error, with reduction proportions varying from 38.90% to 48.86% (18.88% to 32.44%, 30.10% to 46.08%). Besides having the best optimization effect over the whole domain, the combined method also performed well in different regions: during the forecasting period of 0\\u201324 h, the RMSEs decreased from 32% to 62%, 39% to 57%, 28% to 40%, and 30% to 49% in the Beijing- Tianjin- Hebei, Yangtze River Delta, Central China, and Sichuan Basin urban agglomerations, respectively.\"]",
+        "savepath": "Improving WRF-Chem PM2.5 predictions by combining data assimilation and deep-learning-based bias correction/figure_1.jpg",
+        "paper_id": "1",
+        "functionalroles": "{\"main_role\": \"Data & Experimental Setup\", \"sub_roles\": [\"Introduce Experimental Setup\"]}",
+        "visual_type": "{\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}",
+        "embedding": "[22.6328, 51.8414]",
+        "id": "9",
+        "key_entities": "[\"Sichuan Basin\", \"Central China\", \"Yangtze River Delta\", \"Beijing-Tianjin-Hebei\", \"urban agglomerations\", \"China\", \"grid resolution\", \"horizontal grid spacing\", \"vertical levels\", \"simulation domain\", \"data assimilation (DA)\", \"bias correction (BC)\", \"PM2.5 predictions\", \"WRF-Chem\", \"GSI (Gridpoint Statistical Interpolation)\", \"deep-learning-based BC\", \"RMSEs\"]",
+        "mime_type": "MemoryMimeType.JSON",
+        "keywords": "[\"Sichuan Basin\", \"Central China\", \"Yangtze River Delta\", \"Beijing-Tianjin-Hebei\", \"urban agglomerations\", \"China\", \"grid resolution\", \"horizontal grid spacing\", \"vertical levels\", \"simulation domain\", \"data assimilation (DA)\", \"bias correction (BC)\", \"PM2.5 predictions\", \"WRF-Chem\", \"GSI (Gridpoint Statistical Interpolation)\", \"deep-learning-based BC\", \"RMSEs\"]"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 11,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染源及其影响因素"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "室内空气污染研究"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气质量监测技术与设备"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染对人体健康的影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理中的动态因果关系分析"
+          },
+          "parent_id": "2"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染影响的健康风险分析"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "环境监测新技术应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "沙尘暴对空气质量的长远影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的时空演变"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的来源和控制方法"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "用户研究在环境数据可视化中的影响"
+          },
+          "parent_id": "42"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染源及其影响因素"
+      },
+      "source_reason": "为了全面理解空气污染问题扩展新的领域，可以探索空气污染的源头及其影响因素，寻找新的研究方向。",
+      "evaluation": {
+        "target_evidence_id": "9",
+        "branch_action": "GROW",
+        "extracted_insight": "图 1 展示了中国四个主要城市群的地理范围，为 PM2.5 预测优化方法的区域性研究提供了背景。不同优化方法在这些地区的效果显著不同。",
+        "scores": {
+          "relevance": 9,
+          "credibility": 9
+        },
+        "reason": "此图结合文献提供了重要的实验区域背景，帮助理解空气污染预测优化方法的地理针对性表现。",
+        "suggested_keywords": [
+          "Data assimilation (DA)",
+          "Bias correction (BC)",
+          "WRF-Chem",
+          "RMSEs"
+        ]
+      }
+    },
+    "41": {
+      "id": "41",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_7:case study of air quality in china. (a) air quality data is visualized with the surface rendering in volumestcube, where (a1 and a2) two propagation processes of air pollution can be identified. (b) after clicking (a1), the user can obtain this view. (c) the air pollution propagated from the loess plateau to the north china plain. (d) after clicking (a2), the user can obtain this view. (e) the air pollution propagated from the north china plain to the yangtze river delta.",
+        "summary": "this figure presents a case study of air quality in china, visualizing air pollution propagation using volumestcube's surface rendering. it highlights two distinct propagation processes, one from the loess plateau to the north china plain and another from the north china plain to the yangtze river delta, illustrating the system's application.",
+        "insight": "the authors intend to show how volumestcube effectively visualizes air pollution propagation, making complex processes like those in figure 7 easily identifiable. this system significantly reduces the time and mental burden for users compared to baseline methods, improving accuracy in identifying propagation paths."
+      },
+      "metadata": {
+        "id": "41",
+        "paper_id": "4",
+        "key_entities": "[\"air quality data\", \"VolumeSTCube\", \"air pollution\", \"Loess Plateau\", \"North China Plain\", \"Yangtze River Delta\"]",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_7.jpg",
+        "mime_type": "MemoryMimeType.JSON",
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Map\", \"3D Rendering\"]}",
+        "embedding": "[53.6498, 58.3364]",
+        "references": "[\"Q17. In the baseline, the propagation process is hidden in multiple discretely distributed columns and subjects had to move the time range back and forth and observe changes in the color or radius of every disk, which is time- consuming with the mental burden. Nonetheless, subjects using VolumeSTCube can easily identify a propagation process via the rendered surface in a continuous form (e.g., shown in Figure 7) and select two cities based on the propagation path. As a result, VolumeSTCube outperformed the baseline by over 40 seconds regarding response time; two subjects gave up when using the baseline, resulting in a correctness of  $66.7\\\\%$ .\", \"tion process (e.g., shown in Figure 7). Subjects using the baseline took an average of 21 seconds longer than those using VolumeSTCube. Notably, four subjects gave up, and the accuracy rate was only  $58.3\\\\%$  considerably lower than VolumeSTCube's  $91.7\\\\%$\"]",
+        "keywords": "[\"air quality data\", \"VolumeSTCube\", \"air pollution\", \"Loess Plateau\", \"North China Plain\", \"Yangtze River Delta\"]",
+        "functionalroles": "{\"main_role\": \"Analysis & Discussion\", \"sub_roles\": [\"Exemplify Application Case\"]}"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [
+        "35",
+        "42"
+      ],
+      "hit_count": 17,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染源及其影响因素"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "室内空气污染研究"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气质量监测技术与设备"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染对人体健康的影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "VolumeSTCube 技术在空气质量研究的应用"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理中的动态因果关系分析"
+          },
+          "parent_id": "2"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染影响的健康风险分析"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "keywords": [
+              "VolumeSTCube",
+              "Geospatial Visualizations",
+              "Temporal Variation"
+            ]
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "环境监测新技术应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "沙尘暴对空气质量的长远影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "37"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的时空演变"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的来源和控制方法"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "用户研究在环境数据可视化中的影响"
+          },
+          "parent_id": "42"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染源及其影响因素"
+      },
+      "source_reason": "为了全面理解空气污染问题扩展新的领域，可以探索空气污染的源头及其影响因素，寻找新的研究方向。",
+      "evaluation": {
+        "target_evidence_id": "41",
+        "branch_action": "GROW",
+        "extracted_insight": "图 7 证明了 VolumeSTCube 在空气污染传播过程中的应用，显著提升了对传播路径识别的效率和准确性。",
+        "scores": {
+          "relevance": 8,
+          "credibility": 8
+        },
+        "reason": "VolumeSTCube 提供了比传统方法更有效的可视化工具，并且显著减轻用户的认知负担，建议进一步分析其性能优势。",
+        "suggested_keywords": [
+          "VolumeSTCube",
+          "Air pollution propagation",
+          "Visualization efficiency"
+        ]
+      }
+    },
+    "31": {
+      "id": "31",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_7:temperature in china. (a) storyline with (a1) the shade mapping. (b) upper right corner of (a), where (b1) periodicity and (b2) drops are observed. (c) colored result of (b). (d) the spatial distribution of colored st series in (c). (e) line charts and (f) trend motifs of (c1), where obvious drops are observed in (e1, f1).",
+        "summary": "the figure illustrates temperature patterns in china using a multi-view visualization. it presents a storyline view, detailed magnified sections showing periodicity and drops, and colored representations. additionally, it displays the spatial distribution of these colored time series and corresponding line charts and trend motifs highlighting observed temperature drops.",
+        "insight": "the figure aims to demonstrate how visual analytics can reveal complex spatiotemporal patterns, such as temperature fluctuations and significant drops in china, providing qualitative insights into environmental data dynamics. the combined views allow for detailed observation and analysis of specific temperature events across different regions."
+      },
+      "metadata": {
+        "key_entities": "[\"Temperature\", \"China\", \"Storyline\", \"Shade Mapping\", \"Periodicity\", \"Drops\", \"Spatial Distribution\", \"ST Series\", \"Line Charts\", \"Trend Motifs\"]",
+        "id": "31",
+        "embedding": "[74.6457, 57.2639]",
+        "functionalroles": "{\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Core Findings\", \"Present Qualitative Results\"]}",
+        "keywords": "[\"Temperature\", \"China\", \"Storyline\", \"Shade Mapping\", \"Periodicity\", \"Drops\", \"Spatial Distribution\", \"ST Series\", \"Line Charts\", \"Trend Motifs\"]",
+        "savepath": "Visualizing Large-Scale Spatial Time Series with GeoChron/figure_7.jpg",
+        "paper_id": "3",
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Line Chart\", \"Map\", \"Heatmap\"]}",
+        "mime_type": "MemoryMimeType.JSON",
+        "references": "[]"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 4,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染源及其影响因素"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气质量监测技术与设备"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "环境监测新技术应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "用户研究在环境数据可视化中的影响"
+          },
+          "parent_id": "42"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染源及其影响因素"
+      },
+      "source_reason": "为了全面理解空气污染问题扩展新的领域，可以探索空气污染的源头及其影响因素，寻找新的研究方向。",
+      "evaluation": {
+        "target_evidence_id": "31",
+        "branch_action": "KEEP",
+        "extracted_insight": "图 7 展示了中国地区温度变化的复杂时空模式，包括周期性和显著下降。这些图表提供了温度变化的质性洞察。",
+        "scores": {
+          "relevance": 6,
+          "credibility": 8
+        },
+        "reason": "提供了温度变化的定性分析结果，但未提供进一步深入研究的具体方向，保留用于背景信息。",
+        "suggested_keywords": [
+          "Temperature fluctuations",
+          "Shade Mapping",
+          "Trend motifs"
+        ]
+      }
+    },
+    "40": {
+      "id": "40",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_6:case study of air quality in china. (a) volumestcube provides the overview of air quality with  $\\lambda = 0$ . (b) the visual pattern becomes clearer with a larger  $\\lambda = 150$ . (c) the temporal variation of air quality in xinjiang and (d) in the bth region were revealed via volume highlight. (e, e1, and e2) the air pollution during the spring festival was generally below the moderate level. (f, f1, and f2) the air pollution caused by the dust storm from late march to april impacted a wide spatial range. (g) the air pollution caused by the dust storm in late may impacted a smaller spatial range.",
+        "summary": "this figure presents a case study of air quality in china using volumestcube. it illustrates an overview of air quality with different lambda values, temporal variations in specific regions, and distinct air pollution events like the spring festival and dust storms, showcasing their spatial and temporal impacts.",
+        "insight": "the authors intend to show how volumestcube can effectively visualize and analyze complex spatio-temporal air quality data, revealing patterns and events like dust storms and festival pollution across different regions of china, thereby demonstrating its utility in environmental monitoring."
+      },
+      "metadata": {
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Geospatial Visualizations\", \"Qualitative & Representational Imagery\"]}",
+        "functionalroles": "{\"main_role\": \"Analysis & Discussion\", \"sub_roles\": [\"Exemplify Application Case\"]}",
+        "key_entities": "[\"air quality\", \"China\", \"VolumeSTCube\", \"temporal variation\", \"Xinjiang\", \"BTH region\", \"volume highlight\", \"Spring Festival\", \"dust storm\", \"air pollution\"]",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_6.jpg",
+        "mime_type": "MemoryMimeType.JSON",
+        "keywords": "[\"air quality\", \"China\", \"VolumeSTCube\", \"temporal variation\", \"Xinjiang\", \"BTH region\", \"volume highlight\", \"Spring Festival\", \"dust storm\", \"air pollution\"]",
+        "paper_id": "4",
+        "references": "[]",
+        "embedding": "[52.8688, 65.1006]",
+        "id": "40"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [
+        "37",
+        "36",
+        "38"
+      ],
+      "hit_count": 13,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "室内空气污染研究"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染对人体健康的影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理政策与法律规定"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "VolumeSTCube 技术在空气质量研究的应用"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理中的动态因果关系分析"
+          },
+          "parent_id": "2"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "keywords": [
+              "VolumeSTCube",
+              "Geospatial Visualizations",
+              "Temporal Variation"
+            ]
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "环境监测新技术应用"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "沙尘暴对空气质量的长远影响"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "37"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "用户研究在环境数据可视化中的影响"
+          },
+          "parent_id": "42"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "室内空气污染研究"
+      },
+      "source_reason": "寻找新的空气污染研究方向，关注室内空气污染可能会提供新的视角。",
+      "evaluation": {
+        "target_evidence_id": "40",
+        "branch_action": "GROW",
+        "extracted_insight": "图表使用 VolumeSTCube 技术展示了中国不同地区的空气质量时空变化，包括春节期间的污染水平和三月至四月间的沙尘暴影响范围。",
+        "scores": {
+          "relevance": 8,
+          "credibility": 9
+        },
+        "reason": "VolumeSTCube 提供了关于空气污染的全面时空概述，尤其是沙尘暴事件的空间影响，可用于深入理解空气质量问题。",
+        "suggested_keywords": [
+          "VolumeSTCube",
+          "Geospatial Visualizations",
+          "Temporal Variation"
+        ]
+      }
+    },
+    "1": {
+      "id": "1",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_2:motivation illustration. (a) real-world causal relations between sensors can change over time, shown by the different relations in three time windows. (b, c) causal detection in large time windows may produce wrong or rough results. (d) although the result is correct, further interpretation and verification are still required for informed policy making.",
+        "summary": "this figure illustrates the motivation behind the research, showing how real-world causal relations between sensors in urban spaces can change dynamically over time. it highlights issues with static causal detection, which can yield wrong or rough results, and the need for further interpretation.",
+        "insight": "the figure aims to convince the reader that existing causal detection methods are inadequate for dynamic urban environments. it emphasizes the necessity for dynamic causality analysis and interactive systems to ensure reliable and useful policymaking, thus motivating the paper's contribution."
+      },
+      "metadata": {
+        "references": "[\"After preliminary discussions, we realize that the causal relations in urban space can be dynamic. Take Fig. 2 as an example. The causal direction between sensors  $s_1$  and  $s_2$  disappears and is flipped over time (Fig. 2a). Although causal detection models can summarize these causal relations across a whole time span, the detected static results can be rough (partially correct) or even incorrect and provide limited insights into precise and reliable policymaking (Fig. 2b and 2c). No interactive systems are available for interpreting and validating the detected causality in an urban context, which makes the causality unreliable and cannot be fully utilized (Fig. 2d).\"]",
+        "keywords": "[\"causal relations\", \"sensors\", \"time windows\", \"causal detection\", \"policymaking\", \"urban space\"]",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_2.jpg",
+        "mime_type": "MemoryMimeType.JSON",
+        "key_entities": "[\"causal relations\", \"sensors\", \"time windows\", \"causal detection\", \"policymaking\", \"urban space\"]",
+        "paper_id": "0",
+        "visual_type": "{\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Conceptual Diagram\"]}",
+        "embedding": "[77.7545, 27.8492]",
+        "functionalroles": "{\"main_role\": \"Introduction & Background\", \"sub_roles\": [\"Clarify Research Motivation\", \"Exemplify Existing Limitations\"]}",
+        "id": "1"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理政策与法律规定"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染治理政策与法律规定"
+      },
+      "source_reason": "研究空气污染治理政策和法律规定有助于理解现有控制措施及其有效性，也可能触发新的研究方向。",
+      "evaluation": {
+        "target_evidence_id": "1",
+        "branch_action": "KEEP",
+        "extracted_insight": "此图强调了在城市环境中传感器之间的因果关系会动态变化，指出静态因果检测方法的不充分性及互动系统在政策制定中的必要性。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 7
+        },
+        "reason": "提供了在城市环境中动态因果关系变化的概念背景，但缺少具体技术细节或数据支持，保留作为背景材料。",
+        "suggested_keywords": [
+          "Dynamic Causality",
+          "Urban Space",
+          "Causal Detection"
+        ]
+      }
+    },
+    "2": {
+      "id": "2",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_3:system architecture. compass comprises data storage, backend, and frontend. data storage stores urban time series. backend runs a causal detection framework. frontend supports the input specification for causal detection and visual analysis of the detected dynamic causalities.",
+        "summary": "this figure illustrates the system architecture of compass, composed of data storage for urban time series, a backend for causal detection and data pre-processing, and a frontend for input specification, causal graph visualization, and result improvement.",
+        "insight": "the figure serves to explain how compass processes urban time series data, from initial storage and pre-processing to causal detection and interactive visualization, highlighting the seamless integration of its components for urban causality analysis."
+      },
+      "metadata": {
+        "keywords": "[\"Compass\", \"data storage\", \"backend\", \"frontend\", \"urban time series\", \"causal detection framework\", \"geo-space\", \"sensors\", \"causal graphs\", \"Python\", \"multiprocessing\", \"TypeScript\", \"Vue.js\", \"ego sensor\", \"time windows\"]",
+        "paper_id": "0",
+        "savepath": "Compass Towards Better Causal Analysis of Urban Time Series/figure_3.jpg",
+        "key_entities": "[\"Compass\", \"data storage\", \"backend\", \"frontend\", \"urban time series\", \"causal detection framework\", \"geo-space\", \"sensors\", \"causal graphs\", \"Python\", \"multiprocessing\", \"TypeScript\", \"Vue.js\", \"ego sensor\", \"time windows\"]",
+        "id": "2",
+        "mime_type": "MemoryMimeType.JSON",
+        "embedding": "[76.4835, 13.2021]",
+        "functionalroles": "{\"main_role\": \"System & Application\", \"sub_roles\": [\"Introduce System Functions\", \"Illustrate User Workflow\"]}",
+        "visual_type": "{\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Architecture Diagram\", \"Flowchart\", \"Conceptual Diagram\"]}",
+        "references": "[\"Compass is a web- based application constituted by data storage, backend, and frontend (Fig. 3). The data storage indexes urban time series spatially. The backend is written in Python. The backend handles a causal detection framework (Sec. 4.2) including a data pre- processing module (WP) with the Python multiprocessing (a parallel computing package). The frontend is written in TypeScript and Vue.js. Users can specify an ego sensor and partition the time in the frontend. The causal relations involving the ego sensor are then detected in the partitioned time windows. The frontend also empowers users to understand urban causality with the causal graph visualizations (WA) and facilitates the discovery and modification of the incorrect causalities (WI).\"]"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 0,
+      "search_history": [
+        {
+          "round_index": 0,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染治理政策与法律规定"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染治理政策与法律规定"
+      },
+      "source_reason": "研究空气污染治理政策和法律规定有助于理解现有控制措施及其有效性，也可能触发新的研究方向。",
+      "evaluation": {
+        "target_evidence_id": "2",
+        "branch_action": "KEEP",
+        "extracted_insight": "该图展示了 Compass 系统的架构，从数据存储到因果检测及交互式可视化的过程，以支持城市时间序列分析的可靠性和结果改进。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 7
+        },
+        "reason": "描述了系统架构及其功能，但缺乏数据和案例分析以佐证其有效性，适合保留用于理解研究背景和技术系统。",
+        "suggested_keywords": [
+          "Compass",
+          "System Architecture",
+          "Causal Detection Framework"
+        ]
+      }
+    },
+    "37": {
+      "id": "37",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_3:visual designs of volumestcube. (a) space-time volume visualization with volume rendering and contextual information. (b and c) a propagation process of air pollution is visualized with volume rendering and surface rendering, respectively.",
+        "summary": "the figure illustrates volumestcube's visual designs for spatiotemporal data. it showcases space-time volume visualization with contextual information (a) and the propagation of air pollution using both volume rendering (b) and surface rendering (c) to highlight different visual aspects.",
+        "insight": "the figure demonstrates how volumestcube leverages volume and surface rendering to effectively visualize continuous spatiotemporal phenomena like air pollution propagation, addressing occlusion and providing detailed patterns for analysis, which is superior to prior work in large-scale spatial time series analysis."
+      },
+      "metadata": {
+        "id": "37",
+        "key_entities": "[\"VolumeSTCube\", \"Space-time volume visualization\", \"volume rendering\", \"surface rendering\", \"air pollution\", \"propagation process\", \"spatiotemporal domains\", \"visual occlusion\", \"depth ambiguity\", \"spatial time series data\"]",
+        "functionalroles": "{\"main_role\": \"System & Application\", \"sub_roles\": [\"Illustrate User Workflow\"]}",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_3.jpg",
+        "mime_type": "MemoryMimeType.JSON",
+        "references": "[\"Abstract- Spatial time series visualization offers scientific research pathways and analytical decision- making tools across various spatiotemporal domains. Despite many advanced methodologies, the seamless integration of temporal and spatial information remains a challenge. The space- time cube (STC) stands out as a promising approach for the synergistic presentation of spatial and temporal information, with successful applications across various spatiotemporal datasets. However, the STC is plagued by well- known issues such as visual occlusion and depth ambiguity, which are further exacerbated when dealing with large- scale spatial time series data. In this study, we introduce a novel technical framework termed VolumeSTCube, designed for continuous spatiotemporal phenomena. It first leverages the concept of the STC to transform discretely distributed spatial time series data into continuously volumetric data. Subsequently, volume rendering and surface rendering techniques are employed to visualize the transformed volumetric data. Volume rendering is utilized to mitigate visual occlusion, while surface rendering provides pattern details by enhanced lighting information. Lastly, we design interactions to facilitate the exploration and analysis from temporal, spatial, and spatiotemporal perspectives. VolumeSTCube is evaluated through a computational experiment, a real- world case study with one expert, and a controlled user study with twelve non- experts, compared against a baseline from prior work, showing its superiority and effectiveness in large- scale spatial time series analysis.\", \"evident, exhibiting a tilted configuration within 3D space- time cube space. Such a tilted shape signified the spatiotemporal propagation process of air pollution. With rendered isosurfaces  $\\\\lambda_{i} = 150$  and  $\\\\lambda_{v} = 125$  (Figure 7A), PA could clearly discern the propagation process. To analyze the process in detail, PA clicked the surface (Figure 7A1), i.e., the voxel cluster detected with  $\\\\lambda_{a} = 150$ . As a result, spatial selection, temporal selection, and zooming- in functionalities were automatically issued, thereby eliminating the clutter from non- selected visual elements. From Figure 7B, PA obtained the following three pieces of information. First, the pollution generally propagated toward the southeast, as indicated by the red arrow. Second, the propagation process appeared to be a round- trip, as indicated by the orange arrow. Third, the pollution once spread to the southwest, as indicated by the white arrow. Identifying these visual patterns was attributed to the surface rendered with lighting information.\", \"Visualization. All subjects quickly grasped the space- time cube and confirmed the intuitiveness of VolumeSTCube.Moreover, all subjects using VolumeSTCube for analysis experienced minimal occlusion problems and remarked that \\\"due to the opacity of voxels (actually the volume visualization they meant), they experienced no visual occlusion during analysis.\\\" Two subjects noted that the opacity of voxels could potentially hinder analyzing low pollution levels, which corresponds to VolumeSTCube's poor performance in Q15. In the future, we plan to implement a rendering parameter adjustment control to alleviate this problem. For example, the mapping of values to transparency and color can be adjusted interactively. Finally, most subjects expressed that surface rendering offered clear boundaries for voxel clusters, aiding in obtaining specific values at spatiotemporal positions and assessing propagation processes. This capability could be difficult to achieve solely with volume rendering. Interestingly, some subjects with strong spatial perception felt relying solely on volume visualization was sufficient.\"]",
+        "keywords": "[\"VolumeSTCube\", \"Space-time volume visualization\", \"volume rendering\", \"surface rendering\", \"air pollution\", \"propagation process\", \"spatiotemporal domains\", \"visual occlusion\", \"depth ambiguity\", \"spatial time series data\"]",
+        "embedding": "[52.2369, 49.1212]",
+        "paper_id": "4",
+        "visual_type": "{\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Conceptual Diagram\", \"3D Rendering\"]}"
+      },
+      "ParentNode": "40",
+      "children_ids": [],
+      "hit_count": 6,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "VolumeSTCube 技术在空气质量研究的应用"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "keywords": [
+              "VolumeSTCube",
+              "Geospatial Visualizations",
+              "Temporal Variation"
+            ]
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "37"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "VolumeSTCube 技术在空气质量研究的应用"
+      },
+      "source_reason": "VolumeSTCube 被多次提及，且它提供的时空数据分析能力被认为非常有价值，值得通过这一主题进行深入探索。",
+      "evaluation": {
+        "target_evidence_id": "37",
+        "branch_action": "GROW",
+        "extracted_insight": "VolumeSTCube uses volume and surface rendering to effectively visualize air pollution propagation as a continuous spatiotemporal phenomenon, addressing visual occlusion while providing detailed analysis patterns, demonstrating a methodological improvement over prior work.",
+        "scores": {
+          "relevance": 9,
+          "credibility": 8
+        },
+        "reason": "The evidence discusses a novel visualization framework, VolumeSTCube, with significant methodological improvements to handle spatial time series data, relevant for deepening understanding of air pollution propagation.",
+        "suggested_keywords": [
+          "VolumeSTCube",
+          "Spatiotemporal domains",
+          "Visual occlusion"
+        ]
+      }
+    },
+    "36": {
+      "id": "36",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_2:pipeline of volumestcube. (a) the spatial time (st) series are placed in a 3d space following the space-time cube. (b) after interpolation and smoothing, the st series are transformed as a space-time volume. (c) the volume is visualized with volume rendering and surface rendering, and is equipped with temporal slicing, spatial filter, and voxel cluster-based interactions, forming volumestcube.",
+        "summary": "this figure illustrates the pipeline of volumestcube. it shows the transformation from spatial time series data into a space-time volume through interpolation and smoothing, and then the visualization of this volume using rendering techniques and interactive features like temporal slicing and voxel clusters.",
+        "insight": "the figure visually explains the volumestcube methodology, demonstrating how continuous space-time phenomena are processed and visualized. it highlights the transformation framework and interactive features designed to address challenges in exploring large-scale spatio-temporal data by converting discrete data into a continuous volumetric representation for effective analysis."
+      },
+      "metadata": {
+        "key_entities": "[\"VolumeSTCube\", \"Space-Time Cube\", \"ST series\", \"interpolation\", \"smoothing\", \"space-time volume\", \"volume rendering\", \"surface rendering\", \"temporal slicing\", \"spatial filter\", \"voxel cluster\", \"voxel\"]",
+        "keywords": "[\"VolumeSTCube\", \"Space-Time Cube\", \"ST series\", \"interpolation\", \"smoothing\", \"space-time volume\", \"volume rendering\", \"surface rendering\", \"temporal slicing\", \"spatial filter\", \"voxel cluster\", \"voxel\"]",
+        "visual_type": "{\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Flowchart\", \"Conceptual Diagram\"]}",
+        "functionalroles": "{\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Illustrate Algorithm Process\"]}",
+        "references": "[\"The pipeline of VolumeSTCube is illustrated in Figure 2.\", \"This study focuses on ST series of phenomena that are continuous across both space and time, a characteristic typically found in natural phenomena, in contrast to other phenomena such as tourist visits to different attractions and demographic trends across countries. We propose a visualization technique named VolumeSTCube that addresses the aforementioned challenges. For the first challenge, we propose a transformation framework that transforms large- scale ST series into a volume visualization. In particular, the framework adopts interpolation to convert discretely distributed values into continuously distributed volumetric data following the STC schema. Afterward, the volumetric data is rendered with the volume and surface rendering techniques in a less cluttered manner. For the second challenge, we design a set of flexible interactions to facilitate exploring the STC from temporal, spatial, and spatiotemporal perspectives. The volume can be sliced and highlighted for spatial and temporal exploration, respectively. A voxel cluster- based interaction builds upon the volume slicing and highlights to enable easy selection and investigation of spatiotemporal patterns.\", \"First, we generate a space- time cube space where the x- y plane represents the geographic space, and the z- axis represents the timeline. Every ST series is represented as a column (i.e., the vertical line in Figure 2A) in the cube according to the geographic position. The time- varying values of the ST series can be mapped to the column's vertical position. Second, as shown in Figure 2B, the cube space is evenly divided into voxels, i.e., small regular cubes. We apply interpolation and temporal smoothing to estimate the value  $v$  for every voxel with a 3D position  $(x,y,z)$ . As a result, all voxels together constitute a space- time volume where the values of adjacent voxels tend to be continuous. Finally, the space- time volume is visualized with volume and surface rendering techniques (Figure 2C). We also adapt the traditional 2D interactions into the 3D space- time cube environment, enabling users to effectively explore the volume with large- scale ST series.\"]",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_2.jpg",
+        "paper_id": "4",
+        "id": "36",
+        "mime_type": "MemoryMimeType.JSON",
+        "embedding": "[65.7175, 30.7111]"
+      },
+      "ParentNode": "40",
+      "children_ids": [],
+      "hit_count": 6,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "VolumeSTCube 技术在空气质量研究的应用"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "keywords": [
+              "VolumeSTCube",
+              "Geospatial Visualizations",
+              "Temporal Variation"
+            ]
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "37"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "VolumeSTCube 技术在空气质量研究的应用"
+      },
+      "source_reason": "VolumeSTCube 被多次提及，且它提供的时空数据分析能力被认为非常有价值，值得通过这一主题进行深入探索。",
+      "evaluation": {
+        "target_evidence_id": "36",
+        "branch_action": "GROW",
+        "extracted_insight": "The pipeline of VolumeSTCube transforms discrete spatial time series data into continuous volumetric data through interpolation and smoothing, visualized using rendering techniques with features like temporal slicing and voxel clusters for effective data exploration.",
+        "scores": {
+          "relevance": 8,
+          "credibility": 7
+        },
+        "reason": "Details a critical process in the VolumeSTCube methodology for managing and visualizing large-scale spatiotemporal data, which is valuable for understanding complex phenomena like air pollution.",
+        "suggested_keywords": [
+          "Interpolation",
+          "Volume rendering",
+          "Voxel clusters"
+        ]
+      }
+    },
+    "38": {
+      "id": "38",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_4:interactions in volumestcube. (a) volume slicing. (b) volume spotlight. (c) voxel cluster-based selection.",
+        "summary": "the figure illustrates three interaction techniques within volumestcube: (a) volume slicing for temporal exploration, (b) volume spotlight for spatial highlighting, and (c) voxel cluster-based selection with auto zoom-in for investigating spatiotemporal patterns.",
+        "insight": "the figure demonstrates the interactive capabilities of volumestcube, highlighting how users can manipulate the 3d visualization through slicing, spotlighting, and voxel cluster selection to effectively explore complex spatiotemporal data and locate hotspots."
+      },
+      "metadata": {
+        "paper_id": "4",
+        "embedding": "[60.7729, 27.8139]",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_4.jpg",
+        "references": "[\"This study focuses on ST series of phenomena that are continuous across both space and time, a characteristic typically found in natural phenomena, in contrast to other phenomena such as tourist visits to different attractions and demographic trends across countries. We propose a visualization technique named VolumeSTCube that addresses the aforementioned challenges. For the first challenge, we propose a transformation framework that transforms large- scale ST series into a volume visualization. In particular, the framework adopts interpolation to convert discretely distributed values into continuously distributed volumetric data following the STC schema. Afterward, the volumetric data is rendered with the volume and surface rendering techniques in a less cluttered manner. For the second challenge, we design a set of flexible interactions to facilitate exploring the STC from temporal, spatial, and spatiotemporal perspectives. The volume can be sliced and highlighted for spatial and temporal exploration, respectively. A voxel cluster- based interaction builds upon the volume slicing and highlights to enable easy selection and investigation of spatiotemporal patterns.\", \"Fig. 2. Pipeline of VolumeSTCube. (A) The spatial time (ST) series are placed in a 3D space following the space-time cube. (B) After interpolation and smoothing, the ST series are transformed as a space-time volume. (C) The volume is visualized with volume rendering and surface rendering, and is equipped with temporal slicing, spatial filter, and voxel cluster-based interactions, forming VolumeSTCube.\", \"Voxel Cluster- Based Interactions. For each remaining voxel, we additionally add a transparent but clickable hexahedron in the cube space according to the voxel's 3D position. After the user clicks the hexahedron, the cluster the hexahedron belongs to is retrieved. Consequently, the volume slicing and spotlight can be automatically executed to select the time and spatial ranges, respectively. The time range is determined by the range of vertical positions over all voxels in the cluster. The spatial range is a circle on the x- y plane that covers the projection of the cluster on the plane.\", \"Interaction. All subjects stated that the interactions regarding the spatial range and temporal range selections implemented in the two systems were helpful and effective in exploring large- scale spatiotemporal data. More interestingly, most subjects took it for granted that the voxel clusters in VolumeSTCube were clickable or could be selected. VolumeSTCube's voxel cluster- based interaction exactly offers such interactivity. Several subjects exactly commented, \\\"I prefer the voxel cluster- based interaction to locate hotspots in one step rather than the volume slicing first, followed by the volume spotlight and zooming- in.\\\"\", \"A. ImplicationsThe STC, a form of 3D visualization, has historically seen mixed reception in the visualization community, particularly due to inherent occlusion issues [66]. Nonetheless, our study shows that the STC's effectiveness can be enhanced by reducing occlusion through data transformation combined with volume and surface visualizations. Furthermore, to improve the STC's adaptability to large-scale datasets, we design interactions for users to manipulate the STC from time and space dimensions, corresponding to spatial and temporal selection interactions common in 2D views. In the case study, the expert comprehensively analyzed an quality in China, demonstrating VolumeSTCube's effectiveness. The user study employed carefully designed tasks that required participants to utilize both volume and surface visualizations, alongside interactions such as volume spotlight, slicing, and voxel cluster-based techniques, to complete the analyses. The high accuracy and efficiency observed in task completion indicate that participants mastered VolumeSTCube, further underscoring its usability, effectiveness, and broad applicability.\"]",
+        "mime_type": "MemoryMimeType.JSON",
+        "id": "38",
+        "keywords": "[\"VolumeSTCube\", \"Volume Slicing\", \"Volume Spotlight\", \"Voxel cluster-based selection\", \"ST series\", \"space-time volume\", \"spatiotemporal patterns\"]",
+        "key_entities": "[\"VolumeSTCube\", \"Volume Slicing\", \"Volume Spotlight\", \"Voxel cluster-based selection\", \"ST series\", \"space-time volume\", \"spatiotemporal patterns\"]",
+        "visual_type": "{\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Conceptual Diagram\"]}",
+        "functionalroles": "{\"main_role\": \"System & Application\", \"sub_roles\": [\"Illustrate User Workflow\"]}"
+      },
+      "ParentNode": "40",
+      "children_ids": [],
+      "hit_count": 6,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "VolumeSTCube 技术在空气质量研究的应用"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "keywords": [
+              "VolumeSTCube",
+              "Geospatial Visualizations",
+              "Temporal Variation"
+            ]
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "37"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "VolumeSTCube 技术在空气质量研究的应用"
+      },
+      "source_reason": "VolumeSTCube 被多次提及，且它提供的时空数据分析能力被认为非常有价值，值得通过这一主题进行深入探索。",
+      "evaluation": {
+        "target_evidence_id": "38",
+        "branch_action": "KEEP",
+        "extracted_insight": "VolumeSTCube offers interactivity through volume slicing, spotlighting, and voxel cluster selection, enabling users to explore and analyze spatiotemporal data effectively.",
+        "scores": {
+          "relevance": 7,
+          "credibility": 6
+        },
+        "reason": "Provides insights into user interaction capabilities within VolumeSTCube, useful for understanding its utility in exploring data but doesn’t offer new methodological advancements.",
+        "suggested_keywords": [
+          "Voxel cluster-based interaction",
+          "Volume Slicing"
+        ]
+      }
+    },
+    "35": {
+      "id": "35",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_1:Our implementation of Thakur and Hanson's method [14], later used as a baseline in the comparative user study.",
+        "summary": "This figure displays Thakur and Hanson's method for visualizing spatiotemporal series data as a baseline. It uses columns and disks on a map, where disk size and color encode value magnitude, illustrating a column-based visualization method with visible occlusion issues.",
+        "insight": "The authors present this figure as a baseline visualization method (Thakur and Hanson's method) to highlight its limitations, particularly occlusion in dense areas and difficulty in identifying hotspots, thereby justifying the need for their enhanced Space-Time Cube visualization."
+      },
+      "metadata": {
+        "id": "35",
+        "paper_id": "4",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_1.jpg",
+        "image_path": "",
+        "keywords": "[\"Thakur and Hanson's method\", \"Space-Time Cube\", \"ST series\", \"baseline\", \"hotspot\", \"occlusion\", \"VolumeSTCube\"]",
+        "full_json": "{\"title\": \"figure_1:Our implementation of Thakur and Hanson's method [14], later used as a baseline in the comparative user study.\", \"save_path\": \"Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_1.jpg\", \"references\": [\"The STC works well for various datasets, such as spatiotemporal events [9]- [11] and trajectories [12], [13]. Yet, adopting the STC to visualize large- scale ST series is still in an exploratory stage. Prior studies [14]- [16] adopted the STC to visualize ST series (e.g., Figure 1), but only a few timestamps (e.g.,  $\\\\leq 30$  are applicable. It remains unexplored how to enable in- depth visual analysis of large- scale, highly dynamic, and multi- correlated ST series data based on the STC. To this end, this study aims to enhance the STC for visualizing large- scale ST series. However, two major challenges are posed.\", \"Effective presentation of spatiotemporal patterns. Due to the characteristics of the STC, each reading value of the ST series can directly correspond to time and space. However, the effective presentation of massive values is non- trivial. With Thakur and Hanson's method [14], the graphic plot of each ST series tends to occlude each other (Figure 1). Besides, the dataset's hidden spatiotemporal patterns (e.g., hotspots and propagation processes) cannot be revealed clearly. New data transformation and visualization strategies are strongly required to summarize and present the large- scale ST series in less visual occlusion.\", \"STC applications. The STC has been successfully applied in the visualization of spatiotemporal datasets in various domains, such as earthquake events [9], crime clusters [10], mobilities [39], and eye- tracking recordings [40]. However, the STC has the same well- known limitation as other 3D data representations: occlusion [41]. For example, if there are more time series and more timestamps, there will be occlusion between columns (Figure 1). The user may suffer from the process of searching the patterns from many multiple columns that are separately distributed in the cube.\", \"With the development of sensor technology and the decrease in storage costs, more and more fine- grained large- scale ST series are collected. To analyze large- scale data adequately, analysts need effective and interactive visualization techniques. However, as concluded in section II, although many ST series visualizations are designed to present temporal trends with the spatial context, they require users to make costly switches between geographic and temporal information, which is particularly unfriendly in the face of large- scale datasets. The spacetime cube is the most promising technique for alleviating the context switching cost. Yet, existing attempts focused on small- scale datasets and may experience occlusion problems (Figure 1). Our research problem is refined to address how to adapt the space- time cube to large- scale ST series.\", \"We conducted a controlled, within- subject user study. The study primarily aimed to verify 1) the effectiveness of continuous volume- based visualization compared to column- based visualization and 2) the ease of understanding of volume- based visualization combined with the space- time cube. Besides, we hoped to identify the strengths and weaknesses of VolumeSTCube. While numerous methods, such as 2D map- based estimations or coordinated 2D maps and line charts, are available for comparison, these approaches differ fundamentally in design and interaction principles from STC- based methods. We selected Thakur and Hanson's STC- based method [14] as the baseline, shown in Figure 1. This method, the most recent STC- based visualization for ST series, lacks volumetric representation but serves as a representative of similar methods [15], [16]. Its design allows a focused evaluation of the benefits introduced by volume- based visualization.\", \"Baseline. In the baseline (Figure 1), each column represents an ST series and is positioned on the map according to its geographic location. Disks distributed along the z- axis within each column visualize the values at different timestamps. The size and color of the disks encode the magnitude of the values. Larger disks and redder colors indicate higher values and smaller disks and greener colors indicate lower values.\", \"Q12. To solve Q12, subjects should identify the largest hotspot. In VolumeSTCube, identifying hotspots is expedited as they are presented as distinct voxel clusters. Subjects can easily compare the size and color of each voxel cluster, and thereby identify the largest one. Conversely, subjects using the baseline method found it challenging to compare hotspots due to occlusion, especially in densely clustered columns in North China, as shown in Figure 1. They resorted to selecting time ranges and columns to estimate the largest hotspot, which was time- consuming and imprecise. Consequently, the baseline takes 8 seconds longer on average than VolumeSTCube. Furthermore, with the baseline method, one subject gave up, and two subjects provided incorrect answers, resulting in an accuracy rate of  $75\\\\%$ , which is lower than VolumeSTCube's accuracy rate of  $100\\\\%$ .\"], \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Qualitative Results\"]}, \"visual_type\": {\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Geospatial Visualizations\", \"Quantitative Charts\"]}, \"key_entities\": [\"Thakur and Hanson's method\", \"Space-Time Cube\", \"ST series\", \"baseline\", \"hotspot\", \"occlusion\", \"VolumeSTCube\"], \"concise_summary\": \"This figure displays Thakur and Hanson's method for visualizing spatiotemporal series data as a baseline. It uses columns and disks on a map, where disk size and color encode value magnitude, illustrating a column-based visualization method with visible occlusion issues.\", \"inferred_insight\": \"The authors present this figure as a baseline visualization method (Thakur and Hanson's method) to highlight its limitations, particularly occlusion in dense areas and difficulty in identifying hotspots, thereby justifying the need for their enhanced Space-Time Cube visualization.\", \"id\": 35, \"x\": 42.8114, \"y\": 38.926, \"paper_id\": 4}"
+      },
+      "ParentNode": "41",
+      "children_ids": [],
+      "hit_count": 5,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "keywords": [
+              "VolumeSTCube",
+              "Geospatial Visualizations",
+              "Temporal Variation"
+            ]
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "37"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "4"
+      },
+      "source_reason": "该论文涉及两次高评分的研究节点，包含了关于空气污染传播和质量评估的深入内容，值得进一步查看。",
+      "evaluation": {
+        "target_evidence_id": "35",
+        "branch_action": "KEEP",
+        "extracted_insight": "Thakur and Hanson's method serves as a baseline visualization technique, highlighting issues like occlusion in dense areas, which support the need for improved visualization methods like VolumeSTCube.",
+        "scores": {
+          "relevance": 6,
+          "credibility": 7
+        },
+        "reason": "Serves as useful background context for understanding the advancements presented by VolumeSTCube but not directly actionable for further exploration.",
+        "suggested_keywords": [
+          "Baseline method",
+          "Occlusion issues"
+        ]
+      }
+    },
+    "42": {
+      "id": "42",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_8:Results of user study. The results for VolumeSTCube and the baseline are represented by soft blue and soft orange, respectively. The bottom section categorizes the 18 questions into three groups based on their spatial, temporal, and spatiotemporal perspectives. The middle section displays the response times for each question with jittered dot plots, where horizontal markers denote medians. The top section shows the correctness of the answers. Black rectangles highlight instances where either the difference of the correctness is more than 25% or the response time is significantly different. No instances were found where the baseline obviously outperforms VolumeSTCube.",
+        "summary": "The figure presents user study results comparing VolumeSTCube and a baseline system across 18 questions categorized by spatial, temporal, and spatiotemporal perspectives. It displays response times with jittered dot plots and correctness percentages, highlighting significant differences with black rectangles.",
+        "insight": "The authors intend for readers to conclude that VolumeSTCube generally outperforms the baseline in both answer correctness and response time, with no instances where the baseline is clearly superior, based on the user study results and statistical tests."
+      },
+      "metadata": {
+        "id": "42",
+        "paper_id": "4",
+        "savepath": "Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_8.jpg",
+        "image_path": "",
+        "keywords": "[\"VolumeSTCube\", \"baseline\", \"user study\", \"response times\", \"correctness\", \"spatial perspective\", \"temporal perspective\", \"spatiotemporal perspectives\", \"Wilcoxon test\"]",
+        "full_json": "{\"title\": \"figure_8:Results of user study. The results for VolumeSTCube and the baseline are represented by soft blue and soft orange, respectively. The bottom section categorizes the 18 questions into three groups based on their spatial, temporal, and spatiotemporal perspectives. The middle section displays the response times for each question with jittered dot plots, where horizontal markers denote medians. The top section shows the correctness of the answers. Black rectangles highlight instances where either the difference of the correctness is more than 25% or the response time is significantly different. No instances were found where the baseline obviously outperforms VolumeSTCube.\", \"save_path\": \"Volume-Based Space-Time Cube for Large-Scale Continuous Spatial Time Series/figure_8.jpg\", \"references\": [\"2) Results: If the subject chose to give up, it was also counted as an incorrect answer. In addition, response records corresponding to incorrect answers, as well as the user's response records for the same question when using the alternate system, will be excluded from the response time calculations. Figure 8 summarizes the correctness of the subjects' answers and the subjects' response times for every question.\", \"Overall, Figure 8 suggests that VolumeSTCube outperforms the baseline, with advantages in eight questions, as highlighted by the black rectangles. Regarding the answer correctness, using VolumeSTCube is at least  $25\\\\%$  more accurate than using the baseline on Q7, Q8, Q12, Q17, and Q18. Regarding the response time, VolumeSTCube significantly outperforms the baseline in the support for Q4  $(p< 0.05)$ , Q8  $(p< 0.05)$ , Q11  $(p< 0.01)$ , Q13  $(p< 0.05)$ , and Q17  $(p< 0.01)$  based on the Wilcoxon test's results. No instances were observed where the baseline obviously outperforms VolumeSTCube. Below, we elucidate the performance of both the baseline method and VolumeSTCube in supporting subjects to answer questions Q7, Q8, Q11, Q13, Q12, Q17, and Q18.\"], \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Compare Experimental Performance\", \"Present Quantitative Results\"]}, \"visual_type\": {\"main_type\": \"Quantitative Charts\", \"sub_types\": [\"Bar Chart\", \"Scatter Plot\"]}, \"key_entities\": [\"VolumeSTCube\", \"baseline\", \"user study\", \"response times\", \"correctness\", \"spatial perspective\", \"temporal perspective\", \"spatiotemporal perspectives\", \"Wilcoxon test\"], \"concise_summary\": \"The figure presents user study results comparing VolumeSTCube and a baseline system across 18 questions categorized by spatial, temporal, and spatiotemporal perspectives. It displays response times with jittered dot plots and correctness percentages, highlighting significant differences with black rectangles.\", \"inferred_insight\": \"The authors intend for readers to conclude that VolumeSTCube generally outperforms the baseline in both answer correctness and response time, with no instances where the baseline is clearly superior, based on the user study results and statistical tests.\", \"id\": 42, \"x\": 29.4017, \"y\": 0.0, \"paper_id\": 4}"
+      },
+      "ParentNode": "41",
+      "children_ids": [],
+      "hit_count": 5,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 2,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "keywords": [
+              "VolumeSTCube",
+              "Geospatial Visualizations",
+              "Temporal Variation"
+            ]
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "37"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_metadata_search",
+          "source_args": {
+            "paper_id": "4"
+          },
+          "parent_id": "40"
+        }
+      ],
+      "source_tool": "strategy_metadata_search",
+      "source_args": {
+        "paper_id": "4"
+      },
+      "source_reason": "该论文涉及两次高评分的研究节点，包含了关于空气污染传播和质量评估的深入内容，值得进一步查看。",
+      "evaluation": {
+        "target_evidence_id": "42",
+        "branch_action": "GROW",
+        "extracted_insight": "User study results show that VolumeSTCube generally outperforms the baseline in both correctness and response time in analyzing spatiotemporal data.",
+        "scores": {
+          "relevance": 9,
+          "credibility": 8
+        },
+        "reason": "Provides strong evidence of VolumeSTCube's effectiveness and superiority over baseline methods through empirical user study results, warranting deeper investigation.",
+        "suggested_keywords": [
+          "User study",
+          "Response times",
+          "Correctness",
+          "Wilcoxon test"
+        ]
+      }
+    },
+    "28": {
+      "id": "28",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_4:layout refinement. (a) vertical space consumed by the positioning process. (b) the layout after loose alignment and session filtering. (c) curve hiding. (d) enforced alignment of sessions  $\\mathcal{q}$  and  $(5)$",
+        "summary": "the figure illustrates various steps in layout refinement, including the vertical space consumption in positioning (a), the layout after loose alignment and session filtering (b), curve hiding (c), and enforced alignment of sessions (d1, d2). this process aims to optimize visual representation and space efficiency.",
+        "insight": "the figure demonstrates the layout refinement techniques, such as loose alignment and session filtering, to address issues of excessive vertical space consumption and improve readability in storyline layouts. the goal is to create a more space-efficient and understandable visual representation of sessions."
+      },
+      "metadata": {
+        "embedding": "[72.6918, 20.4522]",
+        "id": "28",
+        "key_entities": "[\"Layout refinement\", \"Vertical space\", \"positioning process\", \"loose alignment\", \"session filtering\", \"Curve hiding\", \"enforced alignment\", \"sessions\", \"Storyline layout algorithm\", \"StoryFlow\", \"entities\", \"time slices\", \"wiggle distance\"]",
+        "mime_type": "MemoryMimeType.JSON",
+        "paper_id": "3",
+        "references": "[\"Loose Alignment. Feeding numerous sessions into the Storyline layout algorithm above may produce a hard- to- read representation. The sessions sparsely distribute vertically and users have to scroll a lot to browse them. The main reason is that when two aligned entities are straightened, the straightening process pushes other sessions up or down entirely over many time slices (Fig. 4A), consuming much vertical space. StoryFlow's solution [30] also has this issue. To alleviate this issue, we discard those session pairs whose number of entities in common is less than a threshold  $th_{c}$ . For example, compared with Fig. 4B1, Fig. 4B2 is more space- efficient since the curve pointed by the red arrow is not aligned.\"]",
+        "visual_type": "{\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Flowchart\", \"Conceptual Diagram\"]}",
+        "savepath": "Visualizing Large-Scale Spatial Time Series with GeoChron/figure_4.jpg",
+        "keywords": "[\"Layout refinement\", \"Vertical space\", \"positioning process\", \"loose alignment\", \"session filtering\", \"Curve hiding\", \"enforced alignment\", \"sessions\", \"Storyline layout algorithm\", \"StoryFlow\", \"entities\", \"time slices\", \"wiggle distance\"]",
+        "functionalroles": "{\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Illustrate Algorithm Process\"]}"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 3,
+      "created_at_round": 1,
+      "search_history": [
+        {
+          "round_index": 1,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染影响的健康风险分析"
+          },
+          "parent_id": "ROOT"
+        },
+        {
+          "round_index": 3,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的时空演变"
+          },
+          "parent_id": "41"
+        },
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的来源和控制方法"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染影响的健康风险分析"
+      },
+      "source_reason": "当前研究主要集中在污染源及治理，而对健康风险的具体量化与研究较少，值得探索以扩展影响分析面。",
+      "evaluation": {
+        "target_evidence_id": "28",
+        "branch_action": "KEEP",
+        "extracted_insight": "该图展示了通过约束对齐和会话过滤来优化空间使用，以实现更易理解的故事线布局。这些布局技术有助于降低垂直空间的消耗，提高可读性。",
+        "scores": {
+          "relevance": 7,
+          "credibility": 8
+        },
+        "reason": "该图提供了一些关于布局优化的技术细节，这对于理解空间时间序列数据的可视化有帮助，虽不直接解决当前调研方向的核心问题，但可以为相关算法改进提供背景信息。",
+        "suggested_keywords": [
+          "Layout refinement",
+          "Storyline layout algorithm",
+          "StoryFlow"
+        ]
+      }
+    },
+    "19": {
+      "id": "19",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "content": {
+        "title": "figure_1:flowchart showing the procedures of the constraining analysis in the current study. the colors indicate the modeled relationships (blue), satellite observations (orange), in situ relationships (purple), field measurements of emission factors (efs) for the primary bba (gray), and constrained estimates (red). in particular, the satellite observation is labeled with a subscript of “0,” and constrained values are labeled with a subscript of “c.” f₁ and f₂ show the linear regressions developed from the aerocom models. f₃ indicates the observed relationship from (24). abbreviations/notations are defined as follows: ssa (single - scattering albedo), ae (angstrom exponent), precip (precipitation), mac (mass absorption coefficient), τ (lifetime), and e (emission).",
+        "summary": "this flowchart illustrates the constraining analysis procedures, detailing the relationships, observations, and measurements used to derive constrained estimates of aerosol properties like mac, lifetime, and emissions (e) for carbonaceous aerosols, integrating satellite and in situ data.",
+        "insight": "the figure outlines a novel emergent constraint methodology, building on previous work, to decompose aerosol optical depth (aaod) into contributing factors (emission, lifetime, mac) using modeled relationships and satellite observations. this allows for attributing aaod errors and disaggregating bc and oc emissions."
+      },
+      "metadata": {
+        "mime_type": "MemoryMimeType.JSON",
+        "key_entities": "[\"constraining analysis\", \"modeled relationships\", \"satellite observations\", \"in situ relationships\", \"emission factors (EFs)\", \"primary BBA\", \"constrained estimates\", \"SSA\", \"AE\", \"Precip\", \"MAC\", \"lifetime\", \"E\", \"AeroCom models\", \"POLDER-GRASP\", \"GPCP\", \"AAOD\", \"SOA\", \"BC\", \"OA\"]",
+        "keywords": "[\"constraining analysis\", \"modeled relationships\", \"satellite observations\", \"in situ relationships\", \"emission factors (EFs)\", \"primary BBA\", \"constrained estimates\", \"SSA\", \"AE\", \"Precip\", \"MAC\", \"lifetime\", \"E\", \"AeroCom models\", \"POLDER-GRASP\", \"GPCP\", \"AAOD\", \"SOA\", \"BC\", \"OA\"]",
+        "visual_type": "{\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Flowchart\"]}",
+        "embedding": "[26.8542, 9.9281]",
+        "savepath": "Threefold reduction of modeled uncertainty in direct radiative effects over biomass burning regions by constraining absorbing aerosols/figure_1.jpg",
+        "references": "[\"The overall procedure for constraining the above three components is somewhat similar to strategies commonly used in the context of \\\"emergent constraints,\\\" but we have introduced a closure relation (based on a simple box model) that allows estimating three components from two modeled relationships. It is similar to the methodology applied in a previous study (31), in which we analyze AOD and considered all aerosols instead of carbonaceous aerosols only. Briefly, we linearly regressed modeled MAC against modeled SSA and modeled  $\\\\tau$  against modeled precipitation and the angstrom exponent (AE; an indicator of ambient particle size) using the model data from the AeroCom (Aerosol Comparisons between Observations and Models; see table S1) project. Then, we applied satellite observations of SSA to estimate the constrained MAC and similarly constrain  $\\\\tau$  from observations of precipitation and AE. Last, we used Eq. 1 to constrain  $E$  The constrained values of  $E,\\\\tau ,$  and MAC allow us to attribute AAOD errors to contributions from these three factors for individual models. Uncertainty analysis is conducted for all these constraining processes as shown in Fig. 1. Notably, the constrained results are only effective on a regional and seasonal scale, and caution must be exercised when directly applying these results to smaller scales. This work presents advancements upon the foundation of (31) as it constrains MAC instead of MEC (mass extinction coefficient). In addition, we implement in situ data in the interpretation of satellite observations that allows a disaggregation of BC and OC emissions. Furthermore, in our seasonal, regional analysis, we find that SOA formation is important for fire aerosols over the Amazon but not over Africa.\", \"The overall constraining procedure is displayed in Fig. 1. The basic idea is to decompose AAOD into three interpretable factors: emission, lifetime, and MAC (see Eq. 1). The emission is calculated as the total of the BC and OA emissions; lifetime is calculated as the (burden of  $\\\\mathrm{BC + OA}$ )/emission of  $\\\\mathrm{BC + OA}$ , and MAC is AAOD/(burden of  $\\\\mathrm{BC + OA}$ ). All the variables are calculated as regional fire- season averages. Other absorbing components (e.g., dust) are assumed to have negligible impacts given the small contribution indicated by the observations (50) and AeroCom models (4%) for the two regions. In addition, we find a small absorption AE from POLDER- GRASP observations (fig. S19), suggesting that brown carbon is not important (51, 52). Note that the emission in Eq. 1 includes both primary emissions and those from secondary formation (SOA), as the latter happens on a much smaller time scale than the seasonal average that we are working with.\"]",
+        "id": "19",
+        "paper_id": "2",
+        "functionalroles": "{\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Illustrate Algorithm Process\", \"Describe Data Flow\"]}"
+      },
+      "ParentNode": "ROOT",
+      "children_ids": [],
+      "hit_count": 1,
+      "created_at_round": 4,
+      "search_history": [
+        {
+          "round_index": 4,
+          "source_tool": "strategy_semantic_search",
+          "source_args": {
+            "query_intent": "空气污染的来源和控制方法"
+          },
+          "parent_id": "ROOT"
+        }
+      ],
+      "source_tool": "strategy_semantic_search",
+      "source_args": {
+        "query_intent": "空气污染的来源和控制方法"
+      },
+      "source_reason": "虽然在可视化领域有相应贡献，但是需要更大范围地查看空气污染的来源以及如何减少和控制污染。",
+      "evaluation": {
+        "target_evidence_id": "19",
+        "branch_action": "GROW",
+        "extracted_insight": "图表展示了一种新颖的约束分析方法，用于将气溶胶光学深度 (AAOD) 分解为排放、寿命和质量吸收系数 (MAC) 三个因素。这种方法结合了建模关系和卫星观测数据，能够归因 AAOD 误差并解离黑碳 (BC) 和有机碳 (OC) 排放。",
+        "scores": {
+          "relevance": 8,
+          "credibility": 9
+        },
+        "reason": "这张图提供了一种能精确分解气溶胶光学深度的方法，对研究气溶胶影响至关重要，且有明确的卫星数据支持和方法创新性。",
+        "suggested_keywords": [
+          "constraining analysis",
+          "modeled relationships",
+          "satellite observations",
+          "emission factors (EFs)",
+          "primary BBA",
+          "SSA",
+          "AeroCom models",
+          "POLDER-GRASP"
+        ]
+      }
+    }
+  },
+  "action_history": []
+}

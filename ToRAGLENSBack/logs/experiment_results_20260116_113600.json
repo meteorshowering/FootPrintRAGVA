@@ -1,0 +1,87 @@
+{
+  "root_goal": "测试原始保存功能",
+  "iterations": [
+    {
+      "round_number": 0,
+      "query_results": [
+        {
+          "orchestrator_plan": {
+            "action": "call_tool",
+            "tool_name": "strategy_semantic_search",
+            "ParentNode": "0",
+            "args": {
+              "query_intent": "测试查询"
+            },
+            "reason": "测试策略原因"
+          },
+          "rag_results": [
+            {
+              "retrieval_result": {
+                "id": "1",
+                "source_tool": "strategy_semantic_search",
+                "content": {
+                  "title": "测试证据1",
+                  "summary": "这是第一个测试证据"
+                },
+                "metadata": {
+                  "paper_id": "123",
+                  "keywords": [
+                    "测试",
+                    "保存"
+                  ]
+                },
+                "score": 0.95,
+                "source_args": {}
+              },
+              "evaluation": {
+                "target_evidence_id": "1",
+                "branch_action": "GROW",
+                "extracted_insight": "测试洞察1",
+                "scores": {
+                  "relevance": 9,
+                  "credibility": 8
+                },
+                "reason": "测试评估原因1",
+                "suggested_keywords": [
+                  "测试关键词1"
+                ]
+              }
+            },
+            {
+              "retrieval_result": {
+                "id": "2",
+                "source_tool": "strategy_semantic_search",
+                "content": {
+                  "title": "测试证据2",
+                  "summary": "这是第二个测试证据"
+                },
+                "metadata": {
+                  "paper_id": "456",
+                  "keywords": [
+                    "测试",
+                    "原始数据"
+                  ]
+                },
+                "score": 0.9,
+                "source_args": {}
+              },
+              "evaluation": {
+                "target_evidence_id": "2",
+                "branch_action": "KEEP",
+                "extracted_insight": "测试洞察2",
+                "scores": {
+                  "relevance": 8,
+                  "credibility": 7
+                },
+                "reason": "测试评估原因2",
+                "suggested_keywords": [
+                  "测试关键词2"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

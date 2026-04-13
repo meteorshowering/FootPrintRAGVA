@@ -1,0 +1,2488 @@
+{
+  "meta": {
+    "root_goal": "how to visualize the data of air pollution in China",
+    "total_rounds": 7
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 how to visualiz...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_001905",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "数据来源权威但仅描述数据获取途径，未涉及具体研究成果或趋势分析，属于背景信息支持类内容。",
+          "insight": "证据提供中国VOC研究的气候和污染物数据来源，包括国家气象局和国家环保平台的数据获取路径及共享机制。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001639",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "明确中国空气质量数据的官方来源和方法论，但未展示具体发现或模型结论，适用于背景补充。",
+          "insight": "研究依赖中国国家环境监测中心（CNEMC）的实时空气质量平台数据，涵盖PM2.5、SO2等关键污染物指标，结合气象和宏观经济变量。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004609",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 6,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "地图直接可视化排放热点与行业贡献，包含具体数据对比（如工业SO2占比）和论文引用线索（paper_013），且提供公开数据集链接（www.meicmodel.org/dataset-mix），具深度挖掘价值。",
+          "insight": "图12展示基于MIX亚洲排放清单的2010年气态与气溶胶物种网格空间分布，整合高分辨率数据集（如CPED、JEI-DB），显著提升亚洲排放模式精度，揭示工业部门主导SO2（50%）、NMVOC（38%）排放。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000484",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "说明AQI计算标准及数据来源，但未提供具体分析或趋势，属基础方法论描述。",
+          "insight": "中国空气质量指数（AQI）自2013年起纳入PM2.5等六项污染物指标，数据源自官方监测平台（aqistudy.cn），整合国家环境监测中心的小时均值。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004535",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "地理可视化直接定位排放核心区域（如大兴安岭、天山绿洲），结合土地覆盖类型指明污染源机制，支持区域治理策略制定。",
+          "insight": "图2揭示中国生物质燃烧CO2排放空间分异：东北林火、三大平原农作物残余焚烧（华北/东北/长江平原）及新疆绿洲农业区为排放热点，突显地理-土地利用关联性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004598",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心框架图直接显示亚洲多国排放数据整合机制，含具体清单名称（MEIC/CAPSS等）和空间分辨率（0.25°×0.25°），提供源数据追溯路径",
+          "insight": "地理分布图展示了覆盖29个亚洲国家和地区的MIX排放清单组成框架，明确标注中国大陆采用MEIC数据集、印度使用ANL-India与REAS2组合方案、韩国选用CAPSS清单的区域协作模式"
+        }
+      }
+    },
+    {
+      "id": "chunk_002649",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供全球参考背景但未涉及具体区域方法创新，缺乏深度扩展线索",
+          "insight": "构建了2008/2010年多污染物全球排放网格地图用于半球尺度空气污染传输研究"
+        }
+      }
+    },
+    {
+      "id": "chunk_004695",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "微观尺度道路排放测量与区域清单构建目标关联弱，无亚洲数据特征",
+          "insight": "隧道测量显示CO2浓度在600米处形成分界点（混合区与累积区切换）"
+        }
+      }
+    },
+    {
+      "id": "chunk_003135",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键成果附图展示排放空间异质性，配套数据下载地址（meicmodel.org）支持深度验证",
+          "insight": "网格化排放图对比揭示中国东部SO2热点与印度北部PM2.5高值区，突显MEIC数据对中国排放空间模式的改进"
+        }
+      }
+    },
+    {
+      "id": "chunk_001920",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "中国特定区域清单方法论背景参考，但未与其他亚洲清单交叉印证",
+          "insight": "基于MODIS火点辐射能开发中国2003-2017年1km分辨率生物质燃烧污染物日尺度排放网格"
+        }
+      }
+    },
+    {
+      "id": "chunk_004322",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据直接展示生物质燃烧对PM2.5的空间影响并通过比较不同排放清单定量揭示贡献差异，含具体图表编号(Fig.5)可深挖源数据。",
+          "insight": "图5证明生物质燃烧显著提升中国东北地区（尤其是黑龙江省）的PM2.5浓度，且VIIRS_G排放清单显示的PM2.5贡献率比GFED清单更高。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001916",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供排放估算方法的关键局限性分析，但未包含新数据或可视化结果，宜保留作为方法学背景参考。",
+          "insight": "生物质燃烧排放估算存在显著不确定性：火灾计数法因假设1平方公里最大过火面积可能高估排放，而过火面积算法对小规模农业火灾检测不敏感。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001912",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "提供2003-2017年多污染物系统排放数据及显著趋势变化，含具体置信区间(90%)和来源分解，具备高深挖价值。",
+          "insight": "基于火辐射能(FRE)的清单显示：森林火灾贡献中国生物质燃烧CO2总排放的45%(40.8Tg/年)，作物残余燃烧占39%(35.3Tg/年)，且后者排放在2015-2016年骤降42%。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000485",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "仅描述通用气象参数获取方式，未涉及PM2.5形成机制或排放归因等核心议题，信息价值低。",
+          "insight": "空气质量预测需整合最高温、最低温、风向及风力等气象参数，数据源自公共天气预报平台。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004160",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 5
+          },
+          "reason": "不包含任何科研内容或数据，纯属机构描述，与研究方向无关。",
+          "insight": "此段落仅列出论文作者所属机构信息（中国地质大学等）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004470",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心结果图证政策有效性，包含具体政策名称（CCTPs）和地理时空数据，可深挖paper_031源文献。",
+          "insight": "地图显示2013-2020年中国31个省级城市AQI空间自相关模式，北部高污染区域（高-高聚集区）显著减少，表明清洁煤技术政策实施后空气污染改善效果明显。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000516",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供方法论背景但缺少新结论或无深挖线索，建议保留作为技术上下文。",
+          "insight": "使用ArcGIS和GeoDa软件对2013-2020年中国31个首府城市空气质量进行时空变异特征的空间自相关分析。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004506",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "关键时间序列+地理视图复合图表，含具体电厂案例和节日效应证据，可溯源paper_029。",
+          "insight": "多视图图表揭示2017-2020年中国燃煤电厂污染物（CO₂/PM₂.₅/NOₓ/SO₂）日排放模式，特别是春节（橙色区域）期间SO₂排放锐减，并以广东台山电厂为例展示具体单元排放轨迹。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004451",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "生物源排放（BVOC）与煤炭污染问题弱相关，图表仅显示区域植被变化趋势，偏离核心研究方向。",
+          "insight": "图表展示2001-2016年中国西南/华南/海南三地区植物功能类型（PFTs）与生物挥发性有机物（BVOC）排放变化趋势，涉及S1/S2/S5模型对比。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004608",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "季节排放动态可视化数据支持污染驱动机制研究，含亚洲多区域对比，metadata提供完整数据源链接（http://www.meicmodel.org/dataset-mix）。",
+          "insight": "亚洲区域2010年污染物（SO₂/CO/PM₂.₅/CO₂）月尺度排放变化线图，揭示冬季住宅采暖导致排放峰值及区域间差异模式。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004574",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "包含关键城市级PM2.5长期分布数据及WHO标准对比，图表直接展示污染治理缺口，且Metadata提供多篇源头论文链接可深挖。",
+          "insight": "2014-2020年中国368个城市的PM2.5频率直方图显示，仅71.82%的城市达到WHO临时目标IT-1（35μg/m³），4.07%达到IT-3（15μg/m³），无城市达到AQG标准（5μg/m³），凸显持续污染问题。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004573",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "通过地理可视化量化政策效果，明确显示重点区域减排成效，且Metadata含1km高分辨率数据和MR-BRT模型等深度研究方法，具备强扩展价值。",
+          "insight": "地图显示APPCAP期中国PM2.5浓度下降33.65%，京津冀地区降幅25.81%，长三角降24.07%，污染控制政策显著降低区域污染物浓度但空间差异明显。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000493",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "Provides valuable context on modeling techniques, but lacks specific implementation details or growth hooks for further investigation.",
+          "insight": "Deep learning methods overcome traditional statistical models in air pollution forecasting by modeling complex nonlinear relationships, leading to better detection of pollution episodes."
+        }
+      }
+    },
+    {
+      "id": "chunk_000483",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Relevant to air quality prediction under real-world disruptions, but no explicit new metrics or hooks beyond general methodology.",
+          "insight": "To avoid COVID-19 pandemic impacts on data, a deep learning network predicted AQI for 2020, enabling 8-year policy evaluation of clean coal technologies."
+        }
+      }
+    },
+    {
+      "id": "chunk_004467",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "Visual diagram offers concrete methodology for replication, with references to tools like Keras and potential for deep diving into architecture adaptations.",
+          "insight": "The figure details a system architecture combining CNN and LSTM networks for multi-stage AQI prediction, including data collection and spatial analysis, achieving accurate forecasts with RMSE validation."
+        }
+      }
+    },
+    {
+      "id": "chunk_004291",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "Tangential to core modeling and forecasting tasks; focuses narrowly on data partitioning with minimal actionable value or innovation.",
+          "insight": "Biomass burning emissions are partitioned by altitude categories based on fire location, relying on GFED and VIIRS satellite data sources without direct pollution impact insights."
+        }
+      }
+    },
+    {
+      "id": "chunk_004306",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 8
+          },
+          "reason": "Low relevance to air quality prediction modeling; repeats data source issues without offering new approaches or integration hooks.",
+          "insight": "Agricultural fire detections from VIIRS exceed GFED by 2-5 times due to higher resolution, increasing uncertainty in emissions data without clarifying solutions."
+        }
+      }
+    },
+    {
+      "id": "chunk_004305",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供了卫星检测方法比较的关键数据，直接关联生物质燃烧与PM2.5浓度矛盾现象，建议深挖文中Fig.2和Fig.S1",
+          "insight": "VIIRS检测的农业火灾干物质燃烧量比GFED高2.5倍，但在云覆盖率＞90%时（如11月6-7日），两种方法均无法解释高PM2.5与低燃烧量的不一致现象"
+        }
+      }
+    },
+    {
+      "id": "chunk_004304",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 0
+          },
+          "reason": "仅为章节标题无实质内容",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004537",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "柱状图清晰展示不同类型生物质燃烧的月度排放特征，含关键数据（如区域排放贡献比）和机制解释",
+          "insight": "农业火灾贡献中国夏季CO2排放的84%，尤其6月华北平原冬小麦秸秆燃烧；森林火灾排放集中于1-5月（春季占45%），受植被含水率和清明节祭祀活动影响"
+        }
+      }
+    },
+    {
+      "id": "chunk_004628",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "地理热力图展示排放空间分布特征，但未提供具体量化趋势图，需结合论文中Table 2/3补充验证",
+          "insight": "前10%高排放车辆贡献＞60%总污染，其50%为旧标准（国三前）车辆；拥堵加重时排放增加5-21%，尤其住宅区街道排放强度达工业区5倍"
+        }
+      }
+    },
+    {
+      "id": "chunk_001456",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "多图表联合展示2017-2020年四种污染物排放模式，包含地理分布图和时间趋势图，具深挖价值",
+          "insight": "燃煤电厂SO2排放存在显著时间波动：夏季峰值（7月24日）比春节低谷（2月9日）高3倍，排放热点分布在华北-华东工业带"
+        }
+      }
+    },
+    {
+      "id": "chunk_002987",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "内容与排放清单整合方法相关，但未包含具体数据趋势或可深挖线索，提供必要的背景价值。",
+          "insight": "该文本解释MIX排放清单通过整合各地区清单解决地理区域、时间范围、来源分类等差异问题，为排放量和模型比对提供统一框架。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004599",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "图像提供了关键方法学框架，包含深挖线索如MEIC/PKU-NH3等区域清单名称和数据源，支持跟进具体区域研究。",
+          "insight": "流程图展示了MIX清单开发流程：整合MEIC/ANL-India等多区域数据集，经过重网格化(0.25°×0.25°)和月度变异处理，形成统一亚洲排放数据库。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002998",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "补充图像的技术说明，但未超出图像信息范围，适合作为方法描述保留。",
+          "insight": "描述图2的实施细节：区域清单(如CAPSS)统一处理为0.25°分辨率，月度变异数据引用见表S3-S4，非年度数据采用代理值。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004582",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "提供区域排放结构定量结果，但缺少原始数据集引用，无法直接深挖底层数据源。",
+          "insight": "多视图图表展示2010年亚洲各污染物(SO₂/NOx/PM等)的分部门(能源/工业/交通/住宅)排放强度与地理分布，突显工业部门占SO₂(50%)和PM₁₀(48%)主导。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003006",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "内容聚焦分类细节，与污染建模的核心需求相关性弱，且未提供新数据或重要洞察。",
+          "insight": "MIX清单将子部门归并为五大部门，农业仅含NH₃排放，并排除了生物质燃烧/扬尘/航空等来源分类。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000518",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "包含具体的模型参数信息，属于方法论基础数据，但未提供可深挖的新线索",
+          "insight": "该表格展示了CNN-LSTM模型在北京AQI预测中的具体参数配置"
+        }
+      }
+    },
+    {
+      "id": "chunk_000536",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "包含具体数据集规模（1440天）、训练方法和验证指标，且引用文献可直接追踪(Jin& Mao 2020-2021)",
+          "insight": "使用2016-2019年31个中国城市的空气质量数据训练CNN-LSTM模型，平均RMSE达22.06，显示模型在跨区域预测的有效性"
+        }
+      }
+    },
+    {
+      "id": "chunk_004469",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "图像明确展示模型创新架构（含卷积层/LSTM层工作流），提供专利性的特征提取方法，且元数据附10篇可深挖文献",
+          "insight": "图4展示CNN-LSTM编码器-解码器架构：CNN层提取空气质量时空特征，LSTM层进行时序预测，解决高维非线性数据的训练效率问题"
+        }
+      }
+    },
+    {
+      "id": "chunk_000496",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "说明模型设计原理但未提供新结构或性能数据，属于背景补充",
+          "insight": "CNN消除全连接网络过拟合问题，与LSTM结合形成时空协同效应，提升空气质量预测精度"
+        }
+      }
+    },
+    {
+      "id": "chunk_003109",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "数据时效性较低（2010年），且与核心研究（CNN-LSTM预测模型）直接关联弱",
+          "insight": "MIX清单以0.25度网格提供2010年亚洲10种污染物排放数据，但居民燃烧等分散源空间分布仍存在不确定性"
+        }
+      }
+    },
+    {
+      "id": "chunk_003034",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "该证据提供了排放清单开发中空间分配方法的背景信息，但没有明确可深挖的线索（如具体图表或新数据路径）。",
+          "insight": "描述了使用空间代理（如人口密度、道路网络和土地利用）来分配区域排放清单的网格化排放，表格S4总结了不同区域库存的具体代理。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002651",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "证据信息高度模糊和重复，缺乏具体洞察或进一步深挖的途径（如数据趋势或创新方法）。",
+          "insight": "内容仅提及全局排放网格图具有月度、全球性和部门特异性，但未提供细节或应用价值。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001413",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据直接关联排放时间变化的核心挑战，提供关键问题线索（不确定性传播），建议深挖源论文以探索改进方法。",
+          "insight": "突出了时间分辨率排放清单的重要性，指出从年度数据分解到精细尺度引入的不确定性（例如临时剖面选择不准），可能影响化学传输模型准确性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001486",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据展示了创新方法（CEMS应用）和未来扩展路径（如多部门整合），有明确深挖价值（源论文建议ed）。",
+          "insight": "提出了一个框架，利用CEMS（连续排放监测系统）测量改善排放清单的时间代表性，可扩展到水泥和钢铁等行业，旨在开发日尺度多部门数据集。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000684",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "证据提供监测方法的背景信息，但与核心问题弱相关（无具体时间变化分析路径），只保留作为一般上下文。",
+          "insight": "强调基于卫星观测（如热点和辐射功率）监测生物质燃烧排放，用于全球和区域空气质量系统，以应对排放的高度时空变异性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000688",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "提供关键观测技术局限性背景，但无直接深挖线索或定量数据",
+          "insight": "卫星火点观测存在重大局限性：热辐射无法穿透云层导致云区观测缺失，且MODIS产品排除了冰雪覆盖区和水体区域的观测。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004678",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "高价值地理可视化包含具体日期/系统版本，且Metadata含实时数据源链接与MACC项目引用",
+          "insight": "2011年6月4日GFASv1.0全球火点辐射功率密度地图显示非洲和西伯利亚存在显著火点活动热点，提供验证全球火情同化系统的空间基准。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002796",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "仅含论文标题无实质内容，与火点观测主题关联弱",
+          "insight": "研究标题表明工作聚焦空间代理对排放清单表征的影响，采用卫星分析方法。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004590",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心成果图展示定量验证方法并识别最优清单，含具体偏差统计（391县）和区域筛选标准",
+          "insight": "六种排放清单的县模拟与OMI卫星NO2观测比值分布显示：基于夜间灯光地图的S6清单性能最优，在391个县实现≤20%偏差，证实卫星约束评估方法的可转移性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004589",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "关键模型验证图表，直接比较六种排放情景的模拟精度，包含具体回归参数（R²=0.75-0.86）和区域分类数据，提供深挖卫星-模型关联的技术路径。",
+          "insight": "Figure 5的散点图显示：使用总人口空间代理(S1)会显著低估高密度人口区的NO2柱浓度（特别是在直辖市），而使用夜间灯光数据(S2)能更好捕捉经济发达区域的污染热点，回归斜率变化范围为0.78-1.01。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004588",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心排放分配机制可视化，明确显示不同空间代理对污染热点表征的影响，嵌源码供模型复现参考。",
+          "insight": "图4的空间分布对比揭示：基于总人口的S1方案会导致将过量排放分配至农村地区（因中国农村人口占比高），从而低估城市热点区的NO2浓度，而S2(夜间灯光)/S3(电厂位置)方案显著改善经济发达区域的模拟精度。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004487",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供跨国污染趋势基线数据，但缺乏机制分析或模型对比，适合作为区域对比背景。",
+          "insight": "2011-2017年美国夏季NO2柱浓度全域下降6.10%-7.95%，高值区集中在西雅图等大城市；HCHO高值则稳定分布于东南部生物源区，印证城市排放控制有效但自然源影响持续。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004488",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "聚焦模型背景设置差异，与核心排放分配研究关联较弱，信息重复且未提供新洞察。",
+          "insight": "CMAQ模拟显示动态边界条件和闪电NO排放(LNO)显著影响上层大气的NO2/HCHO柱浓度，尤其在美国东南部，但未揭示具体影响机制。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003088",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "提供卫星-清单交叉验证案例，但数据时效性较弱(2013年)，宜作方法学参考。",
+          "insight": "卫星反演证实2006-2010年中国NOx排放增长趋势与自下而上清单吻合，但SO2排放下降趋势在OMI观测中比清单更显著，凸显清单对硫排放变化的敏感性不足。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001458",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 5
+          },
+          "reason": "证据仅包含章节标题，未提供具体方法、数据或结论，无深挖价值",
+          "insight": "仅标记章节标题，无实质性数据或洞察"
+        }
+      }
+    },
+    {
+      "id": "chunk_001421",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心方法论描述完整，包含高时序排放估算的技术路线，可直接链接文末算法实现",
+          "insight": "开发了基于多源数据融合的中国燃煤电厂每日排放估计算法，包括CEMS数据校准、异常值筛查和缺失值填补三个关键步骤"
+        }
+      }
+    },
+    {
+      "id": "chunk_001411",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "提供论文核心关键词列表，但缺乏技术细节，需作为背景上下文保留",
+          "insight": "确认研究聚焦燃煤电厂的CO₂及空气污染物排放清单，强调高时间分辨率监测和数据融合技术"
+        }
+      }
+    },
+    {
+      "id": "chunk_001402",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "重复已知标题信息，未提供新内容或数据线索",
+          "insight": "仅包含论文标题信息"
+        }
+      }
+    },
+    {
+      "id": "chunk_004342",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "突破性发现污染积累机制，明确给出卫星数据源和分辨率改进路径，含具体技术转化方向",
+          "insight": "揭示生物质燃烧通过改变边界层气象条件加剧PM₂.₅积累的双重机制，并提出多卫星数据融合（风云4号/NOAA20/Sentinel-2A）和高分辨率建模（＜36km）的改进方案"
+        }
+      }
+    },
+    {
+      "id": "chunk_002820",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "直接提供关键技术方法（Oda2011等5项具体研究线索）解决排放空间表征问题，PaperID明确可深挖。",
+          "insight": "该证据揭示中国自下而上排放清单中空间代理存在局限，并提出卫星夜间灯光数据、燃料销售/交通数据、多元回归和化石燃料数据同化等4种改进排放空间分布的方法。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003028",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "明确提供关键方法路径(Li et al.2014)和两种化学机制处理，具备直接深挖价值。",
+          "insight": "MIX清单通过Li et al.(2014)的物种映射方法，为亚洲地区（韩国除外）提供CB05和SAPRC-99机制的模型就绪NMVOC排放数据。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003110",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "揭露核心数据源(www.meicmodel.org)和高分辨率污染物种数据，可作为实证分析基础。",
+          "insight": "MIX清单官网提供2008/2010年亚洲0.25°分辨率月尺度排放数据，涵盖PM2.5等10种污染物及CB05/SAPRC-99机制的NMVOC物种数据。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001574",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供机制对比框架但未展示具体图表结论，需结合原始图像验证其解释力。",
+          "insight": "图2对比SAPRC-07与CB05机制在人为排放混合物中的模型物种分布，突显主流机制差异。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001584",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "揭示关键对比维度但缺乏具体差异描述，需获取表格内容验证其实质性贡献。",
+          "insight": "表6系统比对SAPRC-07与CB05机制中可比较模型物种的分配方案。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001599",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "聚焦生物源排放更新（与任务方向不符）且未提供更新逻辑或结论，信息价值有限。",
+          "insight": "表7对比BEIS3/MEGAN2模型中生物源排放的SAPRC-99与CB05物种分配更新历程。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000622",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 5
+          },
+          "reason": "单纯章节标题无具体数据或方法描述，缺乏科研价值",
+          "insight": "仅提及章节标题\"探索火灾NMOGs的观测约束\"，无实质内容"
+        }
+      }
+    },
+    {
+      "id": "chunk_000687",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "明确描述FRP观测原理及其与排放的定量关系，引用多篇关键文献(Justice2002,Giglio2005,Wooster2005)",
+          "insight": "MODIS卫星通过3.9μm/11μm波段定量观测火灾辐射功率(FRP)，该指标经Wooster、Ichoku等研究证实与燃烧速率及气溶胶排放存在定量关联"
+        }
+      }
+    },
+    {
+      "id": "chunk_000638",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 5
+          },
+          "reason": "标题性文字未提供可验证信息或数据线索",
+          "insight": "章节标题\"火灾对全球NMOGs及大气反应性的贡献\"无具体内容"
+        }
+      }
+    },
+    {
+      "id": "chunk_004556",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键结果图表包含Agrawal、Moldanova等四项研究实测数据与模型对比，可能驱动模型优化",
+          "insight": "柱状图对比显示PM化学成分(SO4,EC,OC,Ash等)的实测排放因子与STEAM2模型预测存在显著差异，揭示模型在EC组分上误差达40%"
+        }
+      }
+    },
+    {
+      "id": "chunk_002826",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "对比两种常用空间代理，但未提供定量结论，需结合上下文",
+          "insight": "DMSP-OSL夜间灯光数据比LandScan人口数据更能体现城乡梯度差异证实其作为排放分配代理的优越性"
+        }
+      }
+    },
+    {
+      "id": "chunk_002872",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "该证据包含具象数值比较（NMB, slope）和具体图表引用（Fig.5c,5g），揭示空间代理选择对排放建模的关键影响。",
+          "insight": "图5c量化显示：以人口密度为空间代理导致城市NOx排放低估20.3%（斜率=0.53），而图5g证明夜间灯光数据可将模型偏差降至-1.8%（斜率=1.02）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002802",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "摘要级证据为研究提供核心框架，但未包含具体可视化数据或新方法论突破，适合保留上下文。",
+          "insight": "通过比较六种NOx排放网格数据集，验证了空间代理的敏感性：人口密度倾向高估农村排放，而夜间灯光数据更精准反映经济活动分布。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002889",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "结论性陈述强化实验发现，但未提供新图表或量化结果，作为研究锚点保留。",
+          "insight": "多代理组合（点源定位+IGDP+路网更新）可显著提升NO2模拟精度，证实空间表征优化对排放清单的关键价值。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002875",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "通过图表揭示空间代理的区域异质性，并指出风险矛盾（城区高估/低估），提供新的深化维度。",
+          "insight": "图5j/n/r证明直辖市需特殊处理：电厂位置精确定位可提效，但IGDP/路网代理可能导致城市排放高估（逆图5问题）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001941",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "与空间代理主题关联度低，属纯排放分布描述，无模型验证或新方法维度，建议剪除聚焦核心命题。",
+          "insight": "图2显示中国生物质燃烧CO2排放分布特征：森林火集中于东北/西南，农田火集中于三大平原，新僵绿洲存在特殊排放模式。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001957",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "详细揭示了中国生物质燃烧排放的时空分异机制，包含多篇可追溯文献（Li2015/Chen2017a/Jin2018），且量化了不同燃烧源对总排放的贡献比例（如灌木林仅占1%）。建议深挖引用文献的火灾驱动机制。",
+          "insight": "森林和草原火灾在1-5月达到排放峰值，主要受植被含水低和风力条件驱动；春季森林火灾与清明节祭祀活动显著相关，冬季火灾则集中在南方地区；农作物燃烧排放呈现多峰模式，夏季主导（华北平原冬小麦秸秆燃烧占6月排放84%）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001940",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "构建了完整的空间排放图谱，包含省级尺度量化数据（如CO₂当量）和土地利用归因分析，且引用Qiu2016的驱动机制，具备区域污染溯源价值。建议结合气候数据扩展分析。",
+          "insight": "中国生物质燃烧排放存在显著区域差异：黑龙江因寒带森林+农业以46%/54%比例贡献最高；华北农业带占全国排放55%；东南部森林火灾贡献56%；西北极端干旱区排放最低（宁夏0.21Tg/青海0.13Tg），且92%来自草地/农田火灾。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002855",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心图表揭示空间代理选择对排放清单准确性的关键影响，提供具体数据指标和地域分析，可深挖paper_022的Figure 5及方法对比。",
+          "insight": "模型与OMI卫星数据对比显示，使用人口分布(S1)的空间代理会显著低估中国地区的NO₂垂直柱浓度（尤其人口稠密区），而夜间灯光(S2)代理能更好捕捉经济发达区域的污染热点，回归斜率0.78-1.01，R²达0.75-0.86。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002894",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 7
+          },
+          "reason": "内容完全不包含学术洞察或技术细节，属于论文辅助信息且无扩展研究价值。",
+          "insight": "该段落为致谢声明，仅列出研究资助机构和数据来源（OMI卫星数据集），未涉及具体科学发现或方法论。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003007",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "详细说明排放清单的空间处理方法，但未提供Fig.3具体内容或结果分析，宜保留作为方法背景参考。",
+          "insight": "亚洲NMOV排放通过SAPRC-99和CB05化学机制进行物种映射（映射方法见Fig.3），最终生成0.25°×0.25°分辨率的网格化月排放数据。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003032",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "提供国家尺度的排放模型应用案例，但未包含关键结果数据或创新方法，需结合其他证据评估价值。",
+          "insight": "韩国采用SMOKE-Asia模型整合CAPSS排放清单，通过Source Classification Codes(SCCs)和FIPS编码实现NMVOC物种化排放计算。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003029",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "信息高度碎片化且缺乏独立洞察，完全依赖未提供的图表和文献，无直接分析价值。",
+          "insight": "该片段仅指出NMVOC排放计算参考Li et al. (2014)方法（详见Fig.3），未描述具体公式或量化结果。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001907",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "标题直接关联生物质燃烧排放估算，但缺乏具体数据或图表支持，建议保留作为背景参考。",
+          "insight": "标题表明该论文使用MODIS火辐射能数据估算中国生物质燃烧排放(2003-2017)，提供了时空范围和方法论框架。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004341",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接关联生物质燃烧对PM2.5的影响机制，揭示排放清单改进与辐射效应的调控作用，paper_005值得深挖模型细节。",
+          "insight": "改进的生物质燃烧排放清单显著提升区域空气质量模型模拟PM2.5的能力，气溶胶直接辐射效应通过改变气象条件影响污染物浓度。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000862",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "零碎片段未提供具体数据或定量结论，且未明确关联核心污染机制，信息价值较低。",
+          "insight": "MODIS观测显示单个火灾的辐射功率(FRP)与烟雾柱AOD存在关联，反演研究暗示较大烟雾排放量。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000881",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "通过五个AERONET站点验证揭示排放-模拟-同化的闭环机制，paper_018的模拟实验设计具有方法论参考价值。",
+          "insight": "同化MODIS AOD可部分校正排放输入缺失，但缺乏精确先验排放信息时仍会漏报烟雾事件，体现排放清单准确性对模型的关键影响。"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "0",
+      "target": "chunk_001905",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001639",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004609",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000484",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004535",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_004598",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MIX inventory grid maps for air pollution visualization in China\nReason: 节点显示MIX清单显著提升了亚洲排放模式精度并包含公开数据集，直接关联高分辨空间分布可视化。策略聚焦排放清单展示技术，与用户问题高度一致（相关9/10），避免重复已有数据源方向（新颖9/10）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002649",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MIX inventory grid maps for air pollution visualization in China\nReason: 节点显示MIX清单显著提升了亚洲排放模式精度并包含公开数据集，直接关联高分辨空间分布可视化。策略聚焦排放清单展示技术，与用户问题高度一致（相关9/10），避免重复已有数据源方向（新颖9/10）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_004695",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MIX inventory grid maps for air pollution visualization in China\nReason: 节点显示MIX清单显著提升了亚洲排放模式精度并包含公开数据集，直接关联高分辨空间分布可视化。策略聚焦排放清单展示技术，与用户问题高度一致（相关9/10），避免重复已有数据源方向（新颖9/10）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003135",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: MIX inventory grid maps for air pollution visualization in China\nReason: 节点显示MIX清单显著提升了亚洲排放模式精度并包含公开数据集，直接关联高分辨空间分布可视化。策略聚焦排放清单展示技术，与用户问题高度一致（相关9/10），避免重复已有数据源方向（新颖9/10）。"
+    },
+    {
+      "source": "chunk_004535",
+      "target": "chunk_001920",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GlobeLand30 for spatial correlation of biomass burning hotspots in China\nReason: 节点揭示土地利用类型与排放热点的地理关联，评估人员推荐的专业术语GlobeLand30可深化土地覆盖数据在生物质燃烧可视化中的应用（相关8/10），国际遥感场30米数据集能创新补充现有方法（新颖8/10）。"
+    },
+    {
+      "source": "chunk_004535",
+      "target": "chunk_004322",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GlobeLand30 for spatial correlation of biomass burning hotspots in China\nReason: 节点揭示土地利用类型与排放热点的地理关联，评估人员推荐的专业术语GlobeLand30可深化土地覆盖数据在生物质燃烧可视化中的应用（相关8/10），国际遥感场30米数据集能创新补充现有方法（新颖8/10）。"
+    },
+    {
+      "source": "chunk_004535",
+      "target": "chunk_001916",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GlobeLand30 for spatial correlation of biomass burning hotspots in China\nReason: 节点揭示土地利用类型与排放热点的地理关联，评估人员推荐的专业术语GlobeLand30可深化土地覆盖数据在生物质燃烧可视化中的应用（相关8/10），国际遥感场30米数据集能创新补充现有方法（新颖8/10）。"
+    },
+    {
+      "source": "chunk_004535",
+      "target": "chunk_001912",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GlobeLand30 for spatial correlation of biomass burning hotspots in China\nReason: 节点揭示土地利用类型与排放热点的地理关联，评估人员推荐的专业术语GlobeLand30可深化土地覆盖数据在生物质燃烧可视化中的应用（相关8/10），国际遥感场30米数据集能创新补充现有方法（新颖8/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000485",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Spatiotemporal kriging for interpolating air quality monitoring points in China\nReason: 现有结果集中于静态分布，需探索克里格插值等空间统计方法解决站点数据稀疏问题以生成全国连续污染地图（相关10/10），地理统计模型属全新切入维度（新颖9/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004160",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Spatiotemporal kriging for interpolating air quality monitoring points in China\nReason: 现有结果集中于静态分布，需探索克里格插值等空间统计方法解决站点数据稀疏问题以生成全国连续污染地图（相关10/10），地理统计模型属全新切入维度（新颖9/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004470",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Spatiotemporal kriging for interpolating air quality monitoring points in China\nReason: 现有结果集中于静态分布，需探索克里格插值等空间统计方法解决站点数据稀疏问题以生成全国连续污染地图（相关10/10），地理统计模型属全新切入维度（新颖9/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000516",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Spatiotemporal kriging for interpolating air quality monitoring points in China\nReason: 现有结果集中于静态分布，需探索克里格插值等空间统计方法解决站点数据稀疏问题以生成全国连续污染地图（相关10/10），地理统计模型属全新切入维度（新颖9/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004506",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated time-series visualization of PM2.5 trends using CMAQ model outputs in China\nReason: 当前证据缺乏时间动态表达，结合CMAQ模型输出开发时间动画可视化能直观展示污染演变过程（相关9/10），动态表达方法突破静态图表的局限性（新颖8/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004451",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated time-series visualization of PM2.5 trends using CMAQ model outputs in China\nReason: 当前证据缺乏时间动态表达，结合CMAQ模型输出开发时间动画可视化能直观展示污染演变过程（相关9/10），动态表达方法突破静态图表的局限性（新颖8/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004608",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated time-series visualization of PM2.5 trends using CMAQ model outputs in China\nReason: 当前证据缺乏时间动态表达，结合CMAQ模型输出开发时间动画可视化能直观展示污染演变过程（相关9/10），动态表达方法突破静态图表的局限性（新颖8/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004574",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated time-series visualization of PM2.5 trends using CMAQ model outputs in China\nReason: 当前证据缺乏时间动态表达，结合CMAQ模型输出开发时间动画可视化能直观展示污染演变过程（相关9/10），动态表达方法突破静态图表的局限性（新颖8/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004573",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated time-series visualization of PM2.5 trends using CMAQ model outputs in China\nReason: 当前证据缺乏时间动态表达，结合CMAQ模型输出开发时间动画可视化能直观展示污染演变过程（相关9/10），动态表达方法突破静态图表的局限性（新颖8/10）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000493",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Machine learning approaches for spatiotemporal interpolation of air quality data in China\nReason: AI相关技术实现新视角空间可视化方向尚未探索（节点chunk_000485提到气象预测插值但缺乏创新方法），符合新颖性10分/相关性9分标准。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000483",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Machine learning approaches for spatiotemporal interpolation of air quality data in China\nReason: AI相关技术实现新视角空间可视化方向尚未探索（节点chunk_000485提到气象预测插值但缺乏创新方法），符合新颖性10分/相关性9分标准。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004467",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Machine learning approaches for spatiotemporal interpolation of air quality data in China\nReason: AI相关技术实现新视角空间可视化方向尚未探索（节点chunk_000485提到气象预测插值但缺乏创新方法），符合新颖性10分/相关性9分标准。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004291",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G and GFED emission inventories comparative visualization methods in China\nReason: 源自节点chunk_004322的推荐关键词，评估报告显示排放清单比较对PM2.5空间解析具重要价值（新颖性9分/相关性8分），避免重复历史策略。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004306",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G and GFED emission inventories comparative visualization methods in China\nReason: 源自节点chunk_004322的推荐关键词，评估报告显示排放清单比较对PM2.5空间解析具重要价值（新颖性9分/相关性8分），避免重复历史策略。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004305",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G and GFED emission inventories comparative visualization methods in China\nReason: 源自节点chunk_004322的推荐关键词，评估报告显示排放清单比较对PM2.5空间解析具重要价值（新颖性9分/相关性8分），避免重复历史策略。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004304",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G and GFED emission inventories comparative visualization methods in China\nReason: 源自节点chunk_004322的推荐关键词，评估报告显示排放清单比较对PM2.5空间解析具重要价值（新颖性9分/相关性8分），避免重复历史策略。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004537",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VIIRS_G and GFED emission inventories comparative visualization methods in China\nReason: 源自节点chunk_004322的推荐关键词，评估报告显示排放清单比较对PM2.5空间解析具重要价值（新颖性9分/相关性8分），避免重复历史策略。"
+    },
+    {
+      "source": "chunk_004506",
+      "target": "chunk_004628",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-temporal-resolution visualization of point source emissions during festival events\nReason: 深度扩展节点chunk_004506的春节效应可视化（评估GROW），聚焦电厂级排放轨迹特征（新颖性8分/相关性9分），形成时间序列分析证据链。"
+    },
+    {
+      "source": "chunk_004506",
+      "target": "chunk_001456",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-temporal-resolution visualization of point source emissions during festival events\nReason: 深度扩展节点chunk_004506的春节效应可视化（评估GROW），聚焦电厂级排放轨迹特征（新颖性8分/相关性9分），形成时间序列分析证据链。"
+    },
+    {
+      "source": "chunk_004506",
+      "target": "chunk_002987",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-temporal-resolution visualization of point source emissions during festival events\nReason: 深度扩展节点chunk_004506的春节效应可视化（评估GROW），聚焦电厂级排放轨迹特征（新颖性8分/相关性9分），形成时间序列分析证据链。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_004599",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SECTOR-SPECIFIC MIX inventory visualization techniques for industry emissions\nReason: 基于节点chunk_004609的工业排放数据（SO2占比50%），深化行业细分可视化方法（新颖性9分/相关性10分），避免重复已有网格地图研究。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002998",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SECTOR-SPECIFIC MIX inventory visualization techniques for industry emissions\nReason: 基于节点chunk_004609的工业排放数据（SO2占比50%），深化行业细分可视化方法（新颖性9分/相关性10分），避免重复已有网格地图研究。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_004582",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SECTOR-SPECIFIC MIX inventory visualization techniques for industry emissions\nReason: 基于节点chunk_004609的工业排放数据（SO2占比50%），深化行业细分可视化方法（新颖性9分/相关性10分），避免重复已有网格地图研究。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003006",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SECTOR-SPECIFIC MIX inventory visualization techniques for industry emissions\nReason: 基于节点chunk_004609的工业排放数据（SO2占比50%），深化行业细分可视化方法（新颖性9分/相关性10分），避免重复已有网格地图研究。"
+    },
+    {
+      "source": "chunk_004467",
+      "target": "chunk_000518",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Deep learning-based CNN-LSTM spatiotemporal visualization frameworks for AQI prediction in China\nReason: 评估显示该架构能准确预测AQI但未深入可视化技术。探索CNN-LSTM输出结果的空间动态呈现方法（如热力图动画）可增强预测结果的可解释性与用户应用价值。相关性9（直接改进现有高价值模型），新颖性8（未见于历史策略）。"
+    },
+    {
+      "source": "chunk_004467",
+      "target": "chunk_000536",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Deep learning-based CNN-LSTM spatiotemporal visualization frameworks for AQI prediction in China\nReason: 评估显示该架构能准确预测AQI但未深入可视化技术。探索CNN-LSTM输出结果的空间动态呈现方法（如热力图动画）可增强预测结果的可解释性与用户应用价值。相关性9（直接改进现有高价值模型），新颖性8（未见于历史策略）。"
+    },
+    {
+      "source": "chunk_004467",
+      "target": "chunk_004469",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Deep learning-based CNN-LSTM spatiotemporal visualization frameworks for AQI prediction in China\nReason: 评估显示该架构能准确预测AQI但未深入可视化技术。探索CNN-LSTM输出结果的空间动态呈现方法（如热力图动画）可增强预测结果的可解释性与用户应用价值。相关性9（直接改进现有高价值模型），新颖性8（未见于历史策略）。"
+    },
+    {
+      "source": "chunk_004467",
+      "target": "chunk_000496",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Deep learning-based CNN-LSTM spatiotemporal visualization frameworks for AQI prediction in China\nReason: 评估显示该架构能准确预测AQI但未深入可视化技术。探索CNN-LSTM输出结果的空间动态呈现方法（如热力图动画）可增强预测结果的可解释性与用户应用价值。相关性9（直接改进现有高价值模型），新颖性8（未见于历史策略）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003109",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GDAL-based high-resolution grid mapping techniques for MIX inventory pollution visualization\nReason: MIX清单网格图展现工业排放结构但未说明具体技术实现。深挖地理数据处理工具（如GDAL）在0.25°网格化与多源数据融合中的应用，将提升可操作性。相关性10（核心可视化工具），新颖性9（历史策略仅关注数据未涉及技术栈）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003034",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GDAL-based high-resolution grid mapping techniques for MIX inventory pollution visualization\nReason: MIX清单网格图展现工业排放结构但未说明具体技术实现。深挖地理数据处理工具（如GDAL）在0.25°网格化与多源数据融合中的应用，将提升可操作性。相关性10（核心可视化工具），新颖性9（历史策略仅关注数据未涉及技术栈）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_002651",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GDAL-based high-resolution grid mapping techniques for MIX inventory pollution visualization\nReason: MIX清单网格图展现工业排放结构但未说明具体技术实现。深挖地理数据处理工具（如GDAL）在0.25°网格化与多源数据融合中的应用，将提升可操作性。相关性10（核心可视化工具），新颖性9（历史策略仅关注数据未涉及技术栈）。"
+    },
+    {
+      "source": "chunk_001456",
+      "target": "chunk_001413",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Python animation libraries for high-temporal-resolution pollution event visualization (e.g., Spring Festival effects)\nReason: 该节点展示日级排放趋势但未提技术实现。探索Matplotlib/Plotly等库在动画时间序列可视化中的应用，可解决中国污染事件动态呈现需求。相关性8（直接强化现有高时变数据），新颖性10（首次聚焦编程实现工具）。"
+    },
+    {
+      "source": "chunk_001456",
+      "target": "chunk_001486",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Python animation libraries for high-temporal-resolution pollution event visualization (e.g., Spring Festival effects)\nReason: 该节点展示日级排放趋势但未提技术实现。探索Matplotlib/Plotly等库在动画时间序列可视化中的应用，可解决中国污染事件动态呈现需求。相关性8（直接强化现有高时变数据），新颖性10（首次聚焦编程实现工具）。"
+    },
+    {
+      "source": "chunk_004305",
+      "target": "chunk_000684",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multi-satellite fusion visualization techniques to mitigate cloud coverage limitations in fire emission monitoring\nReason: 评估揭示VIIRS/GFED在云覆盖下检测盲区。研究Sentinel/MODIS等卫星数据融合方法的空间可视化，将优化中国生物质燃烧监测精度。相关性9（解决关键数据缺陷），新颖性8（扩展现有卫星比较维度）。"
+    },
+    {
+      "source": "chunk_004305",
+      "target": "chunk_000688",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multi-satellite fusion visualization techniques to mitigate cloud coverage limitations in fire emission monitoring\nReason: 评估揭示VIIRS/GFED在云覆盖下检测盲区。研究Sentinel/MODIS等卫星数据融合方法的空间可视化，将优化中国生物质燃烧监测精度。相关性9（解决关键数据缺陷），新颖性8（扩展现有卫星比较维度）。"
+    },
+    {
+      "source": "chunk_004305",
+      "target": "chunk_004678",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multi-satellite fusion visualization techniques to mitigate cloud coverage limitations in fire emission monitoring\nReason: 评估揭示VIIRS/GFED在云覆盖下检测盲区。研究Sentinel/MODIS等卫星数据融合方法的空间可视化，将优化中国生物质燃烧监测精度。相关性9（解决关键数据缺陷），新颖性8（扩展现有卫星比较维度）。"
+    },
+    {
+      "source": "chunk_004305",
+      "target": "chunk_002796",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multi-satellite fusion visualization techniques to mitigate cloud coverage limitations in fire emission monitoring\nReason: 评估揭示VIIRS/GFED在云覆盖下检测盲区。研究Sentinel/MODIS等卫星数据融合方法的空间可视化，将优化中国生物质燃烧监测精度。相关性9（解决关键数据缺陷），新颖性8（扩展现有卫星比较维度）。"
+    },
+    {
+      "source": "chunk_004305",
+      "target": "chunk_004590",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multi-satellite fusion visualization techniques to mitigate cloud coverage limitations in fire emission monitoring\nReason: 评估揭示VIIRS/GFED在云覆盖下检测盲区。研究Sentinel/MODIS等卫星数据融合方法的空间可视化，将优化中国生物质燃烧监测精度。相关性9（解决关键数据缺陷），新颖性8（扩展现有卫星比较维度）。"
+    },
+    {
+      "source": "chunk_004590",
+      "target": "chunk_004589",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OMI satellite NO2 column ratio visualization techniques for evaluating emission inventories in China\nReason: 节点chunk_004590展示卫星约束评估方法，验证人员推荐'OMI NO2 column'关键词。该策略探索空间分布定量校验的可视化方法（相关性10），突破现有网格地图展示形式（历史策略11），创新性达9"
+    },
+    {
+      "source": "chunk_004590",
+      "target": "chunk_004588",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OMI satellite NO2 column ratio visualization techniques for evaluating emission inventories in China\nReason: 节点chunk_004590展示卫星约束评估方法，验证人员推荐'OMI NO2 column'关键词。该策略探索空间分布定量校验的可视化方法（相关性10），突破现有网格地图展示形式（历史策略11），创新性达9"
+    },
+    {
+      "source": "chunk_004590",
+      "target": "chunk_004487",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OMI satellite NO2 column ratio visualization techniques for evaluating emission inventories in China\nReason: 节点chunk_004590展示卫星约束评估方法，验证人员推荐'OMI NO2 column'关键词。该策略探索空间分布定量校验的可视化方法（相关性10），突破现有网格地图展示形式（历史策略11），创新性达9"
+    },
+    {
+      "source": "chunk_004590",
+      "target": "chunk_004488",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OMI satellite NO2 column ratio visualization techniques for evaluating emission inventories in China\nReason: 节点chunk_004590展示卫星约束评估方法，验证人员推荐'OMI NO2 column'关键词。该策略探索空间分布定量校验的可视化方法（相关性10），突破现有网格地图展示形式（历史策略11），创新性达9"
+    },
+    {
+      "source": "chunk_004590",
+      "target": "chunk_003088",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: OMI satellite NO2 column ratio visualization techniques for evaluating emission inventories in China\nReason: 节点chunk_004590展示卫星约束评估方法，验证人员推荐'OMI NO2 column'关键词。该策略探索空间分布定量校验的可视化方法（相关性10），突破现有网格地图展示形式（历史策略11），创新性达9"
+    },
+    {
+      "source": "chunk_001486",
+      "target": "chunk_001458",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS-based daily-scale multisector emission fusion visualization frameworks\nReason: 节点chunk_001486提出CEMS测量框架，验证人员推荐'CEMS applications'关键词。聚焦水泥/钢铁等多行业数据融合可视化（相关性9），填补现有研究对工业源动态呈现的空白（历史策略9仅关注行业技术），新颖性值8"
+    },
+    {
+      "source": "chunk_001486",
+      "target": "chunk_001421",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS-based daily-scale multisector emission fusion visualization frameworks\nReason: 节点chunk_001486提出CEMS测量框架，验证人员推荐'CEMS applications'关键词。聚焦水泥/钢铁等多行业数据融合可视化（相关性9），填补现有研究对工业源动态呈现的空白（历史策略9仅关注行业技术），新颖性值8"
+    },
+    {
+      "source": "chunk_001486",
+      "target": "chunk_001411",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS-based daily-scale multisector emission fusion visualization frameworks\nReason: 节点chunk_001486提出CEMS测量框架，验证人员推荐'CEMS applications'关键词。聚焦水泥/钢铁等多行业数据融合可视化（相关性9），填补现有研究对工业源动态呈现的空白（历史策略9仅关注行业技术），新颖性值8"
+    },
+    {
+      "source": "chunk_001486",
+      "target": "chunk_001402",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS-based daily-scale multisector emission fusion visualization frameworks\nReason: 节点chunk_001486提出CEMS测量框架，验证人员推荐'CEMS applications'关键词。聚焦水泥/钢铁等多行业数据融合可视化（相关性9），填补现有研究对工业源动态呈现的空白（历史策略9仅关注行业技术），新颖性值8"
+    },
+    {
+      "source": "chunk_004678",
+      "target": "chunk_004342",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multi-satellite FRP density mapping for wildfire emission tracking in China\nReason: 节点chunk_004678提供FRP密度地图案例，验证人员推荐'FRP density mapping'关键词。该策略开发高频卫星热源活动追踪技术（相关性8），区别于当前静态污染分布研究（如历史策略13），创新性达9"
+    },
+    {
+      "source": "chunk_004678",
+      "target": "chunk_002820",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multi-satellite FRP density mapping for wildfire emission tracking in China\nReason: 节点chunk_004678提供FRP密度地图案例，验证人员推荐'FRP density mapping'关键词。该策略开发高频卫星热源活动追踪技术（相关性8），区别于当前静态污染分布研究（如历史策略13），创新性达9"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003028",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SAPRC-99 and CB05 chemical mechanisms visualization with MIX inventory in China\nReason: 父节点直接可视化排放热点与行业贡献（如工业SO2占比50%），但未深入关联SAPRC-99/CB05化学机制的网格实现。该策略相关性9（核心机制可视化），新颖性8（未覆盖历史策略）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_003110",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SAPRC-99 and CB05 chemical mechanisms visualization with MIX inventory in China\nReason: 父节点直接可视化排放热点与行业贡献（如工业SO2占比50%），但未深入关联SAPRC-99/CB05化学机制的网格实现。该策略相关性9（核心机制可视化），新颖性8（未覆盖历史策略）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_001574",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SAPRC-99 and CB05 chemical mechanisms visualization with MIX inventory in China\nReason: 父节点直接可视化排放热点与行业贡献（如工业SO2占比50%），但未深入关联SAPRC-99/CB05化学机制的网格实现。该策略相关性9（核心机制可视化），新颖性8（未覆盖历史策略）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_001584",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SAPRC-99 and CB05 chemical mechanisms visualization with MIX inventory in China\nReason: 父节点直接可视化排放热点与行业贡献（如工业SO2占比50%），但未深入关联SAPRC-99/CB05化学机制的网格实现。该策略相关性9（核心机制可视化），新颖性8（未覆盖历史策略）。"
+    },
+    {
+      "source": "chunk_004609",
+      "target": "chunk_001599",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: SAPRC-99 and CB05 chemical mechanisms visualization with MIX inventory in China\nReason: 父节点直接可视化排放热点与行业贡献（如工业SO2占比50%），但未深入关联SAPRC-99/CB05化学机制的网格实现。该策略相关性9（核心机制可视化），新颖性8（未覆盖历史策略）。"
+    },
+    {
+      "source": "chunk_004342",
+      "target": "chunk_000622",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Fengyun-4 and Sentinel-2A wildfire FRP density fusion techniques for PM2.5 feedback visualization\nReason: 父节点揭示生物质燃烧通过边界层影响PM2.5积累的双重机制，需深化高分辨率多卫星融合技术。该策略相关性10（直接提升可视化精度），新颖性9（突破现有36km分辨率限制）。"
+    },
+    {
+      "source": "chunk_004342",
+      "target": "chunk_000687",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Fengyun-4 and Sentinel-2A wildfire FRP density fusion techniques for PM2.5 feedback visualization\nReason: 父节点揭示生物质燃烧通过边界层影响PM2.5积累的双重机制，需深化高分辨率多卫星融合技术。该策略相关性10（直接提升可视化精度），新颖性9（突破现有36km分辨率限制）。"
+    },
+    {
+      "source": "chunk_004342",
+      "target": "chunk_000638",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Fengyun-4 and Sentinel-2A wildfire FRP density fusion techniques for PM2.5 feedback visualization\nReason: 父节点揭示生物质燃烧通过边界层影响PM2.5积累的双重机制，需深化高分辨率多卫星融合技术。该策略相关性10（直接提升可视化精度），新颖性9（突破现有36km分辨率限制）。"
+    },
+    {
+      "source": "chunk_004342",
+      "target": "chunk_004556",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Fengyun-4 and Sentinel-2A wildfire FRP density fusion techniques for PM2.5 feedback visualization\nReason: 父节点揭示生物质燃烧通过边界层影响PM2.5积累的双重机制，需深化高分辨率多卫星融合技术。该策略相关性10（直接提升可视化精度），新颖性9（突破现有36km分辨率限制）。"
+    },
+    {
+      "source": "chunk_004588",
+      "target": "chunk_002826",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Urban-rural emission allocation bias correction using nighttime light data in GEOS-Chem models\nReason: 父节点显示人口代理导致农村排放高估12%，需探索夜间灯光数据在城乡分配偏差修正中的可视化应用。该策略相关性9（优化空间代理），新颖性8（补充历史策略中的卫星验证）。"
+    },
+    {
+      "source": "chunk_004588",
+      "target": "chunk_002872",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Urban-rural emission allocation bias correction using nighttime light data in GEOS-Chem models\nReason: 父节点显示人口代理导致农村排放高估12%，需探索夜间灯光数据在城乡分配偏差修正中的可视化应用。该策略相关性9（优化空间代理），新颖性8（补充历史策略中的卫星验证）。"
+    },
+    {
+      "source": "chunk_004588",
+      "target": "chunk_002802",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Urban-rural emission allocation bias correction using nighttime light data in GEOS-Chem models\nReason: 父节点显示人口代理导致农村排放高估12%，需探索夜间灯光数据在城乡分配偏差修正中的可视化应用。该策略相关性9（优化空间代理），新颖性8（补充历史策略中的卫星验证）。"
+    },
+    {
+      "source": "chunk_004588",
+      "target": "chunk_002889",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Urban-rural emission allocation bias correction using nighttime light data in GEOS-Chem models\nReason: 父节点显示人口代理导致农村排放高估12%，需探索夜间灯光数据在城乡分配偏差修正中的可视化应用。该策略相关性9（优化空间代理），新颖性8（补充历史策略中的卫星验证）。"
+    },
+    {
+      "source": "chunk_004588",
+      "target": "chunk_002875",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Urban-rural emission allocation bias correction using nighttime light data in GEOS-Chem models\nReason: 父节点显示人口代理导致农村排放高估12%，需探索夜间灯光数据在城乡分配偏差修正中的可视化应用。该策略相关性9（优化空间代理），新颖性8（补充历史策略中的卫星验证）。"
+    },
+    {
+      "source": "chunk_004537",
+      "target": "chunk_001941",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated agricultural burning emission charts during Tomb-Sweeping Day festivals in North China Plain\nReason: 父节点提出农业火灾占夏季CO2排放84%，需开发特定节日（清明节）的高时态动画展示技术。该策略相关性10（时序事件可视化），新颖性7（基于月度特征深化）."
+    },
+    {
+      "source": "chunk_004537",
+      "target": "chunk_001957",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated agricultural burning emission charts during Tomb-Sweeping Day festivals in North China Plain\nReason: 父节点提出农业火灾占夏季CO2排放84%，需开发特定节日（清明节）的高时态动画展示技术。该策略相关性10（时序事件可视化），新颖性7（基于月度特征深化）."
+    },
+    {
+      "source": "chunk_004537",
+      "target": "chunk_001940",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated agricultural burning emission charts during Tomb-Sweeping Day festivals in North China Plain\nReason: 父节点提出农业火灾占夏季CO2排放84%，需开发特定节日（清明节）的高时态动画展示技术。该策略相关性10（时序事件可视化），新颖性7（基于月度特征深化）."
+    },
+    {
+      "source": "0",
+      "target": "chunk_002855",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Dynamic visualization of tropospheric NO2 columns using nighttime light data in Chinese urban-rural gradients\nReason: 节点chunk_002872和chunk_002875显示夜间灯光数据能显著提升NO2模拟精度（斜率1.02/NMB-1.8%），但缺乏具体可视化方法。该策略直接关联空间代理验证的新维度，相关性和新颖性均为9。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_002894",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Dynamic visualization of tropospheric NO2 columns using nighttime light data in Chinese urban-rural gradients\nReason: 节点chunk_002872和chunk_002875显示夜间灯光数据能显著提升NO2模拟精度（斜率1.02/NMB-1.8%），但缺乏具体可视化方法。该策略直接关联空间代理验证的新维度，相关性和新颖性均为9。"
+    },
+    {
+      "source": "chunk_003028",
+      "target": "chunk_003007",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Spatiotemporal heatmap visualization of CB05 speciated NMVOC emissions from MIX inventory\nReason: 节点chunk_003028提供MIX清单的NMVOC物种映射方法但无可视化应用。此策略将填补化学机制数据到热力图转化的空白，相关性10（直接服务污染物可视化），新颖性8（超越历史机制对比）。"
+    },
+    {
+      "source": "chunk_003028",
+      "target": "chunk_003032",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Spatiotemporal heatmap visualization of CB05 speciated NMVOC emissions from MIX inventory\nReason: 节点chunk_003028提供MIX清单的NMVOC物种映射方法但无可视化应用。此策略将填补化学机制数据到热力图转化的空白，相关性10（直接服务污染物可视化），新颖性8（超越历史机制对比）。"
+    },
+    {
+      "source": "chunk_003028",
+      "target": "chunk_003029",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Spatiotemporal heatmap visualization of CB05 speciated NMVOC emissions from MIX inventory\nReason: 节点chunk_003028提供MIX清单的NMVOC物种映射方法但无可视化应用。此策略将填补化学机制数据到热力图转化的空白，相关性10（直接服务污染物可视化），新颖性8（超越历史机制对比）。"
+    },
+    {
+      "source": "chunk_000687",
+      "target": "chunk_001907",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated PM2.5 plumes from wildfire events using MODIS FRP and aerosol emission rates in China\nReason: 节点chunk_000687确认FRP与气溶胶排放的定量关系。结合历史未覆盖的火灾动态可视化，相关性强（9），避免重复节日事件动画（历史策略12/14），新颖性达8。"
+    },
+    {
+      "source": "chunk_000687",
+      "target": "chunk_004341",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated PM2.5 plumes from wildfire events using MODIS FRP and aerosol emission rates in China\nReason: 节点chunk_000687确认FRP与气溶胶排放的定量关系。结合历史未覆盖的火灾动态可视化，相关性强（9），避免重复节日事件动画（历史策略12/14），新颖性达8。"
+    },
+    {
+      "source": "chunk_000687",
+      "target": "chunk_000862",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated PM2.5 plumes from wildfire events using MODIS FRP and aerosol emission rates in China\nReason: 节点chunk_000687确认FRP与气溶胶排放的定量关系。结合历史未覆盖的火灾动态可视化，相关性强（9），避免重复节日事件动画（历史策略12/14），新颖性达8。"
+    },
+    {
+      "source": "chunk_000687",
+      "target": "chunk_000881",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Animated PM2.5 plumes from wildfire events using MODIS FRP and aerosol emission rates in China\nReason: 节点chunk_000687确认FRP与气溶胶排放的定量关系。结合历史未覆盖的火灾动态可视化，相关性强（9），避免重复节日事件动画（历史策略12/14），新颖性达8。"
+    }
+  ]
+}

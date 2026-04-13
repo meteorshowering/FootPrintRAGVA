@@ -1,0 +1,39 @@
+# Web框架
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# AutoGen
+autogen-core>=0.2.0
+autogen-ext>=0.2.0
+autogen-ext[openai]
+
+# 向量数据库
+chromadb>=0.4.0
+chromadb[hnswlib]
+
+# LLM
+openai>=1.0.0
+
+# 深度学习
+torch>=2.0.0
+transformers>=4.30.0
+accelerate>=0.20.0
+
+# 数据
+numpy>=1.24.0
+scikit-learn>=1.3.0
+pydantic>=2.0.0
+pandas>=2.0.0
+
+# 工具
+Pillow>=10.0.0
+requests>=2.31.0
+python-multipart>=0.0.6
+aiohttp>=3.8.0
+jinja2>=3.1.0
+
+# 必选依赖（解决 chromadb 隐式依赖）
+click>=8.0
+tenacity>=8.0
+tqdm>=4.65
+protobuf>=4.23

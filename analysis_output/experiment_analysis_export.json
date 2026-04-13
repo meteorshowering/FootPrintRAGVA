@@ -1,0 +1,160 @@
+{
+  "branch_action_distribution": {
+    "KEEP": 53,
+    "PRUNE": 50,
+    "GROW": 69
+  },
+  "relevance_credibility_by_action": {
+    "KEEP": {
+      "relevance_mean": 6.981132075471698,
+      "credibility_mean": 7.943396226415095,
+      "count": 53
+    },
+    "PRUNE": {
+      "relevance_mean": 3.52,
+      "credibility_mean": 6.34,
+      "count": 50
+    },
+    "GROW": {
+      "relevance_mean": 9.043478260869565,
+      "credibility_mean": 8.318840579710145,
+      "count": 69
+    }
+  },
+  "relevance_summary": {
+    "mean": 6.8023255813953485,
+    "min": 1,
+    "max": 10
+  },
+  "credibility_summary": {
+    "mean": 7.627906976744186,
+    "min": 0,
+    "max": 9
+  },
+  "top_keywords": [
+    [
+      "Vehicle emissions",
+      4
+    ],
+    [
+      "Emission factor uncertainty",
+      3
+    ],
+    [
+      "primary anthropogenic sources",
+      3
+    ],
+    [
+      "premature death attribution",
+      2
+    ],
+    [
+      "Emission factor validation",
+      2
+    ],
+    [
+      "Ship PM composition",
+      2
+    ],
+    [
+      "Agrawal 2008a",
+      2
+    ],
+    [
+      "Emission grid maps",
+      2
+    ],
+    [
+      "OVOCs source apportionment",
+      2
+    ],
+    [
+      "MIX inventory",
+      2
+    ],
+    [
+      "speciation category assignments",
+      2
+    ],
+    [
+      "SPECIATE database",
+      2
+    ],
+    [
+      "Fleet composition",
+      2
+    ],
+    [
+      "Water-soluble ions",
+      2
+    ],
+    [
+      "MEIC model",
+      2
+    ],
+    [
+      "source apportionment",
+      2
+    ],
+    [
+      "variance contribution",
+      2
+    ],
+    [
+      "emission factors uncertainty",
+      2
+    ],
+    [
+      "Table S4",
+      2
+    ],
+    [
+      "Monte Carlo simulation",
+      2
+    ]
+  ],
+  "round_summary": [
+    {
+      "round": 0,
+      "num_queries": 1,
+      "total_results": 10,
+      "duplicate_results": 0
+    },
+    {
+      "round": 1,
+      "num_queries": 4,
+      "total_results": 40,
+      "duplicate_results": 8
+    },
+    {
+      "round": 2,
+      "num_queries": 5,
+      "total_results": 50,
+      "duplicate_results": 8
+    },
+    {
+      "round": 3,
+      "num_queries": 4,
+      "total_results": 40,
+      "duplicate_results": 5
+    },
+    {
+      "round": 4,
+      "num_queries": 4,
+      "total_results": 30,
+      "duplicate_results": 16
+    },
+    {
+      "round": 5,
+      "num_queries": 4,
+      "total_results": 40,
+      "duplicate_results": 25
+    },
+    {
+      "round": 6,
+      "num_queries": 5,
+      "total_results": 50,
+      "duplicate_results": 22
+    }
+  ]
+}

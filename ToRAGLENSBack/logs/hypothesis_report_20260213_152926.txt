@@ -1,0 +1,10 @@
+# Hypothesis Generator Team 测试报告
+
+生成时间: 2026-02-13 15:29:26
+源文件: logs/experiment_results_20260211_151405.json
+根目标: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?
+活跃节点数: 46
+
+================================================================================
+
+没有找到检索策略总结，无法生成报告。

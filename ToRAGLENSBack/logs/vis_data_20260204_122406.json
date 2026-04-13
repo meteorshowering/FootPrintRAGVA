@@ -1,0 +1,3279 @@
+{
+  "meta": {
+    "root_goal": "how to visualize the data of air pollution in China",
+    "total_rounds": 7
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 how to visualiz...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "img_165",
+      "label": "Figure 12. Grid maps...",
+      "full_title": "Figure 12. Grid maps for gaseous (a) and aerosol (b) species in the MIX Asian emission inventory, 2010.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 13,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Highly valuable for emission inventory studies; demonstrates regional variations and methodology improvements with traceable datasets and paper ID (MIX inventory). Contains definitive quantitative benchmarks for 2010 emissions.",
+          "insight": "Grid maps visualize spatial distributions of 10 gaseous and aerosol species across Asia at 0.25° resolution, showing improved emission patterns from incorporating high-resolution datasets like CPED (China) and JEI-DB/OPRF (Japan), though uncertainties persist for scattered sources like residential combustion."
+        }
+      }
+    },
+    {
+      "id": "img_26",
+      "label": "Fig. 5. AQI regional...",
+      "full_title": "Fig. 5. AQI regional spatial autocorrelation in 31 provincial cities of the Chinese mainland.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 6,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "Provides contextual evidence for regional air quality trends and policy effectiveness but lacks deep-dive pathways (e.g., specific emission sources or mechanistic analysis).",
+          "insight": "Spatial autocorrelation maps reveal persistent north-south pollution divide in China (high-high pollution clusters in north; low-low in south) from 2013-2020, showing reduced pollution in northern cities post-implementation of clean air policies."
+        }
+      }
+    },
+    {
+      "id": "img_95",
+      "label": "Fig. 2. Schematic di...",
+      "full_title": "Fig. 2. Schematic diagram of the monitoring site in the East Yan'an Road Tunnel, Shanghai.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 4,
+      "data": {
+        "paper_id": 15,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 8
+          },
+          "reason": "Limited to methodological setup; no quantitative findings or trends shown. Redundant with other tunnel emission studies referenced.",
+          "insight": "Schematic illustrates sensor placement in Shanghai's East Yan'an Road Tunnel for real-time monitoring of vehicle-emitted NO, NO₂, CO, and PM₂.₅, positioned 150m from tunnel portals."
+        }
+      }
+    },
+    {
+      "id": "img_130",
+      "label": "Fig. 2.  PM_{2.5}  d...",
+      "full_title": "Fig. 2.  PM_{2.5}  distribution at city-level in 2014 to 2020. The frequency histograms in (a)-(g) denote the frequency distribution of  PM_{2.5}  in 368 cities across mainland China. The dot lines denote the air quality targets of WHO (i.e., IT-1, IT-2, IT-3, IT-4 and AQG of annual mean concentrations of 35, 25, 15, 10, and  5\\mu gm^{-3} ).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 4,
+      "data": {
+        "paper_id": 20,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "High-value longitudinal data revealing policy gaps; actionable for targeting residual pollution hotspots. Explicitly references WHO benchmarking.",
+          "insight": "Frequency histograms track PM₂.₅ reductions in 368 Chinese cities (2014-2020), showing increased compliance with WHO-IT1 (71.82% by 2020) yet persistent failures to meet stricter IT3-4 and AQG standards, gap analyzed in APPCAP context."
+        }
+      }
+    },
+    {
+      "id": "img_199",
+      "label": "Fig. 2. Time series ...",
+      "full_title": "Fig. 2. Time series of different VOC groups (a) and their boxplots (b), and diurnal variations (c) during the observational period.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 7,
+      "data": {
+        "paper_id": 31,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "Quantifies regional VOC anomalies with statistical distributions but lacks source-specific breakdown or actionable control strategies.",
+          "insight": "Multi-panel visualization shows abnormally high VOC concentrations (alkanes dominant) in Wuhan with diurnal patterns (nocturnal peaks), exceeding levels in Beijing and Guangzhou, highlighting distinct pollution sources."
+        }
+      }
+    },
+    {
+      "id": "img_177",
+      "label": "Fig. 3. Key mileston...",
+      "full_title": "Fig. 3. Key milestones and policy evolution of air pollution control in China, including control actions on the emissions of  SO_2  and  NO_x  and on ambient concentrations of  PM_{2.5} . FYP: Five-Year Plan.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 5,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "Shows policy evolution timeline but lacks specific quantitative data for deep analysis; useful as contextual background.",
+          "insight": "Illustrates China's transition from single-pollutant (SO₂) control to comprehensive PM₂.₅ management requiring multi-sector coordination since 2013."
+        }
+      }
+    },
+    {
+      "id": "img_62",
+      "label": "Figure 2. Daily emis...",
+      "full_title": "Figure 2. Daily emission patterns of (a)  CO_{2} , (b)  PM_{2.5} , (c)  NO_{x} , and (d)  SO_{2}  from 2017 to 2020 in China. The light orange shades represent the Spring Festival. (e–g) Maps of  SO_{2}  emissions from power units on January 10, 2017 (the date of maximum daily  SO_{2}  emissions during 2017–2020), July 24, 2019 (the date of maximum daily  SO_{2}  emissions in summer of 2019), and February 9, 2020 (the date of minimum daily  SO_{2}  emissions during 2017–2020). The size and color of the circles represent the installed capacity and  SO_{2}  emissions, respectively. (h) Daily emission estimates of  CO_{2} ,  SO_{2} ,  NO_{x} , and  PM_{2.5}  from a unit of Guangdong Guohua Taishan Power Plant from 2017 to 2020 as an example.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 12,
+      "data": {
+        "paper_id": 9,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Provides concrete temporal emission patterns with geospatial mapping and plant-level examples; critical for exposure-response modeling.",
+          "insight": "Reveals seasonal patterns: CO₂, PM₂.₅, NOₓ, and SO₂ emissions peak in winter/summer due to energy demand and dip during Spring Festival."
+        }
+      }
+    },
+    {
+      "id": "img_179",
+      "label": "Fig. 5. Trend of ann...",
+      "full_title": "Fig. 5. Trend of annual average  PM_{2.5}  concentrations for the top 20 most populated cities in China from 2013 to 2018. Observed  PM_{2.5}  concentrations were obtained from the China National Environmental Monitoring Center.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 5,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "High-resolution quantified trends from national monitoring data; essential for policy effectiveness evaluation.",
+          "insight": "Documents 33–40% PM₂.₅ reductions (2013–2018) in top Chinese cities, with Beijing-Tianjin-Hebei region showing the steepest decline."
+        }
+      }
+    },
+    {
+      "id": "img_61",
+      "label": "Figure 1. Methodolog...",
+      "full_title": "Figure 1. Methodology framework for fusing multisource data to derive daily emission estimates of coal-fired power plants in China.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 13,
+      "data": {
+        "paper_id": 9,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "Methodological value but tangential to direct health impact analysis; retain for technical context on emission modeling.",
+          "insight": "Presents a data fusion framework integrating real-time CEMS with annual CPED for daily coal-plant emission estimates."
+        }
+      }
+    },
+    {
+      "id": "img_135",
+      "label": "Fig. 7. Major air po...",
+      "full_title": "Fig. 7. Major air pollution control goals, policies and specific control measures in China from the end of 2013 to 2020.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 4,
+      "data": {
+        "paper_id": 20,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "Directly addresses intervention efficacy and synergies between air quality/climate policies; includes mortality impact metrics.",
+          "insight": "Quantifies clean production as the most effective ACP measure (56% PM₂.₅ reduction), with emerging climate co-benefits since 2018."
+        }
+      }
+    },
+    {
+      "id": "img_91",
+      "label": "Figure 2. Spatial di...",
+      "full_title": "Figure 2. Spatial distribution of  CO_{2}  emissions (tonne) from each land-cover type (excluding small islands in the South China Sea).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 4,
+      "data": {
+        "paper_id": 14,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "地图直观展示不同土地利用类型的CO₂排放热点区域，为区域空气污染源分析提供直接证据；Metadata包含GlobeLand30数据集等重要技术细节。",
+          "insight": "空间分布图显示中国森林和草原火灾排放集中在东北、华南及云南-贵州高原，耕地火灾排放集中在东北平原、华北平原和长江中下游平原，且新疆因绿洲农业排放显著高于西北其他省份。"
+        }
+      }
+    },
+    {
+      "id": "img_71",
+      "label": "Fig. 4. Estimated co...",
+      "full_title": "Fig. 4. Estimated coefficients (date) prior to and following the start time of heating.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": 11,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "虽展示政策评估数据，但未提供可深挖的具体指标或异常值线索；作为背景证据保留。",
+          "insight": "条形图显示供暖开始前后15天，实验组与对照组城市的AQI变化系数均无显著趋势，表明WCHP项目未引发明显空气质量差异。"
+        }
+      }
+    },
+    {
+      "id": "img_180",
+      "label": "Fig. 6. (a) Trends i...",
+      "full_title": "Fig. 6. (a) Trends in observed annual  PM_{2.5}  concentrations for BTH and 74 key cities between 2013 and 2017; (b) trends expressed as 90th percentiles in maximum daily average  8hO_3  concentration. Shaded areas represent the 25th-75th percentile range. Data are available in Table S1 in Appendix A. Details on monthly  PM_{2.5}  concentration for 74 key cities are summarized in Tables S2-S6.  PM_{2.5}  and  O_3  concentrations in the BTH region and 74 cities were obtained from the China National Environmental Monitoring Center.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 3,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心图表明确展示PM2.5与O₃的负相关趋势，且Metadata引用中国环境监测总站官方数据，附表S1-S6提供深挖路径。",
+          "insight": "折线图显示2013-2017年京津冀及74城PM2.5浓度下降，但同期O₃(90百分位)上升20.1%-24.5%，揭示单一减排策略可能导致污染物替代效应。"
+        }
+      }
+    },
+    {
+      "id": "img_206",
+      "label": "Fig. 1. The simulati...",
+      "full_title": "Fig. 1. The simulation domain (Fig. 1a) with the red square indicating the regions of Northeast China (i.e., Heilongjiang (HLJ), Jilin (JL), Liaoning (LN)), which is zoomed in and shown in Fig. 1b, with the red and blue dots indicative of observational data for  PM_{2.5}  and meteorology. (For interpretation of the references to colour in this figure legend, the reader is referred to the Web version of this article.)",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 6,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "纯地理位置示意图，无量化分析或污染关联证据；信息价值低。",
+          "insight": "地图仅标注东北三省PM2.5与气象观测点位置，未展示数据趋势或污染机制。"
+        }
+      }
+    },
+    {
+      "id": "img_63",
+      "label": "Figure 3. (a) Daily ...",
+      "full_title": "Figure 3. (a) Daily variations in China's  NO_x  emissions from coal-fire power plants around Lunar New Year 2017-2020. The dark gray shading around the blue line shows the range of daily  NO_x  emissions during 2017-2019. The light gray shading highlights the period of the Wuhan lockdown. The  x -axis represents the number of days relative to the Lunar New Year's Day. (b) Daily reductions in power plant  NO_x  emissions in Hubei and other provinces during the Wuhan lockdown in 2020 compared to 2019. (c) Spatial distribution of the reduction rates of  NO_x  emissions from power units in 2020 relative to 2019. The shades in each province indicate the relative differences in power  NO_x  emissions, and the shaded circles represent the changes in  NO_x  emissions for each power unit. Gray shading indicates no valid data.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 9,
+      "data": {
+        "paper_id": 9,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "多重可视化直接验证突发公共事件对工业排放的影响，且包含机组级排放变化（圆圈数据点），具备深挖价值。",
+          "insight": "组合图显示2020年武汉封城期间湖北电厂NOx排放较2019年骤降，其他省份变化平缓；空间分布图进一步揭示各省级单元减排率差异。"
+        }
+      }
+    },
+    {
+      "id": "img_154",
+      "label": "Figure 1. Domain and...",
+      "full_title": "Figure 1. Domain and component of the MIX emission inventory.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "Foundational spatial visualization of inventory scope and component datasets, though primary value is contextual rather than analytical.",
+          "insight": "Map shows integration of regional emission inventories across 29 Asian countries in MIX framework, with sector-specific coverage of SO2, NOx, CO, aerosols and CO2 at 0.25° resolution."
+        }
+      }
+    },
+    {
+      "id": "img_155",
+      "label": "Figure 2. Schematic ...",
+      "full_title": "Figure 2. Schematic methodology of the MIX emission inventory development.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Core methodological visualization reveals data harmonization logic and provides concrete paper ID references for regional inventories like ANL-India.",
+          "insight": "Flowchart details the mosaic methodology: regional datasets reprocessed to consistent resolution with priority assignment hierarchy (e.g. MEIC>REAS2 for China) and gap-filling protocols."
+        }
+      }
+    },
+    {
+      "id": "img_156",
+      "label": "Figure 3. NMVOC spec...",
+      "full_title": "Figure 3. NMVOC speciation scheme used in the MIX inventory development. The mapping table is derived from Carter (2013).",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "Technical implementation detail without quantifiable results or novel insight; supported by solid methodology but tangential to core goals.",
+          "insight": "Diagram depicts NMVOC speciation to CB05/SAPRC-99 mechanisms using Carter's mapping tables, extracted from REAS2, MEIC, and CAPSS profiles."
+        }
+      }
+    },
+    {
+      "id": "img_157",
+      "label": "Figure 4. Emission d...",
+      "full_title": "Figure 4. Emission distributions among sectors in Asia in 2010.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Critical quantitative results revealing dominant pollution sources and supporting targeting of emission control policies.",
+          "insight": "Pie charts quantify 2010 sector distributions: industry dominates SO2 (50%), PM10 (48%); power plants lead NOx (29%) and CO2 (34%), with visible residential seasonality."
+        }
+      }
+    },
+    {
+      "id": "img_158",
+      "label": "Figure 5. Emissions ...",
+      "full_title": "Figure 5. Emissions distributions by Asian regions in 2010.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "High-value distribution analysis identifying emission hotspots and providing concrete geopolitical benchmarks.",
+          "insight": "Pie charts confirm China's >50% contribution to SO2, NOx, CO, PM2.5 and CO2 emissions, with India leading in NH3 (34%) and significant Southeast Asia VOC share."
+        }
+      }
+    },
+    {
+      "id": "img_159",
+      "label": "Figure 6. Per capita...",
+      "full_title": "Figure 6. Per capita emissions by sector for 2010 in MIX, ranked by GDP per capita for each country.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "Valuable visualization of economic-emission relationships but provides sector-level patterns rather than direct pollution-health correlations. Strong contextual data from MIX inventory.",
+          "insight": "Figure 6 demonstrates that per capita emissions intensity generally follows a Kuznets curve pattern for most pollutants, initially rising with GDP per capita growth before declining in high-income economies, except for BC and OC which remain elevated in low-income countries due to biofuel usage."
+        }
+      }
+    },
+    {
+      "id": "img_160",
+      "label": "Figure 7. Emission r...",
+      "full_title": "Figure 7. Emission ratios of  SO_2  to  CO_{2} , and CO to  CO_{2}  by Asian regions. CHN is China, OEA is Other East Asia, IND is India, OSA is Other South Asia, SEA is Southeast Asia, CA is Central Asia, and RA is Russia Asia.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Directly links emission ratios to combustion efficiency and control technologies. Quantitative data enables cross-regional comparison with policy implications.",
+          "insight": "Region-specific emission ratios reveal critical combustion characteristics: Lower SO₂/CO₂ ratios in Other East Asia (5.6%) indicate advanced emission controls, while India's elevated CO/CO₂ ratios (21% regional increase) reflect inefficient residential combustion."
+        }
+      }
+    },
+    {
+      "id": "img_161",
+      "label": "Figure 8. Emission c...",
+      "full_title": "Figure 8. Emission changes from 2006 to 2010 by Asian regions for  SO_2  (a) and CO (b). Left panel: emissions in 2006 and 2010 by region.  Y  axis represents emissions by region.  X  axis represents cumulative emission contribution of regions. The dotted and solid lines represent emissions in 2006 and 2010 respectively. Right panel: the shares of emissions by sectors over China and India in 2006 and 2010.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Key temporal trend analysis with mechanist insights on policy impacts. Dual-panel design effectively communicates regional and sectoral shifts.",
+          "insight": "Innovative visualization shows 17.2% SO₂ reduction in China (2006-2010) contrasts with 23.9% increases in India/South Asia, with right panel revealing China's transportation sector achieving 20% CO reduction through emission standards."
+        }
+      }
+    },
+    {
+      "id": "img_162",
+      "label": "Figure 9. Speciated ...",
+      "full_title": "Figure 9. Speciated NMVOC emissions for the year 2010 by chemical group and by Asian regions. Alkanes: ethane, propane, butanes, pentanes, hexanes, higher alkanes and their isomers. Alkenes: ethane, propene, isoprene, terpenes, higher alkenes and their isomers. Alkynes: ethyne and other alkynes. Aromatics: benzene, toluene, xylene, trimethylbenzene, other aromatics and their isomers. OVOCs: aldehydes (formaldehyde, acetaldehyde, and higher aldehydes), ketones (acetone and higher ketones), alcohols (methanol, ethanol, and higher alcohols), ethers, and acids. \"Others\": halogenated hydrocarbons, unidentified species, etc.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "Important for atmospheric chemistry modeling but focused on precursor speciation rather than direct health outcomes. Retain for contextual value.",
+          "insight": "Chemical speciation reveals industrial dominance in alkane (27%) and aromatic (17%) NMVOC emissions across Asia, while Central Asia shows differential composition (7% alkyne) due to minimal biofuel contributions."
+        }
+      }
+    },
+    {
+      "id": "img_163",
+      "label": "Figure 10. Monthly v...",
+      "full_title": "Figure 10. Monthly variations of Asian  SO_2 , CO,  PM_{2.5} , and  CO_2  emissions by sector for the year 2010. SO2 CO PM25 CO2",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Critical temporal resolution for exposure assessment and policy design. Directly links seasonal variation to emission mechanisms.",
+          "insight": "Sector-seasonal analysis shows residential PM₂.₅ emissions peak in winter (China: +70% heating demand), while transportation CO emissions increase in cold months due to enhanced cold-start processes."
+        }
+      }
+    },
+    {
+      "id": "img_164",
+      "label": "Figure 11. Monthly v...",
+      "full_title": "Figure 11. Monthly variations of SO2, CO, PM2.5, and CO2 emissions by Asian region for the year 2010. SO2 CO PM25 CO2",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "多污染物区域对比图和详细元数据（0.25°分辨率/分部门数据链接）提供深挖路径，可溯源至MIX排放清单原始数据库",
+          "insight": "图表展示了亚洲八个地区（中国、印度等）2010年SO2、CO、PM2.5和CO2排放量的月度变化趋势，揭示了不同区域污染物的季节峰值特征：东亚冬季PM2.5显著升高，南亚CO在季风季骤降，东南亚生物质燃烧导致旱季污染物同步激增。"
+        }
+      }
+    },
+    {
+      "id": "img_166",
+      "label": "Figure 13. Intercomp...",
+      "full_title": "Figure 13. Intercomparisons of emission estimates between MIX, REAS2, and EDGAR v4.2 by Asian regions and sectors. (a) Absolute differences of emission estimates. (b) Ratio of emission estimates. Grey shaded grids indicate that the comparison is not available due to absence of emission estimates in EDGAR v4.2. Abbreviations of Asian countries and regions are the same as in Fig. 7. Abbreviations of sectors are as follows: POW is power plants; INDU is industry; RES is residential; TRA is transportation; AGR is agriculture; SUM is total. Russia Asia is not included in the comparison.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "多维度排放清单对比揭示关键方法论差异，灰格标记缺失数据区域指向研究空白",
+          "insight": "热力图量化比较MIX/REAS2/EDGAR三大清单在亚洲各区域及部门（电力/工业/居民等）的排放差异，显示SO2估值最大相差74%（中亚工业部门），PM2.5在交通部门存在系统性偏差。"
+        }
+      }
+    },
+    {
+      "id": "img_167",
+      "label": "Figure 14. Compariso...",
+      "full_title": "Figure 14. Comparison of 2008 power plants emission estimates between MEIC v1.0, REAS2, and EDGAR v4.2 for Shanxi province, China. (a) Spatial distribution of  CO_{2}  emissions and (b) emission ratios of  SO_{2}  to  CO_{2} .  CO_{2}  emissions are grouped by colors.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 6,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "电厂级空间分布与排放因子关联分析为清单降不确定性提供实证",
+          "insight": "山西电厂集群分析显示：MEIC纳入134个电厂（REAS2/EDGAR仅含22/24个），且大型电厂SO2/CO2比值随装机规模增大而降低（FGD设备普及率>80%），反观EDGAR因使用固定比值导致小厂脱硫效率被高估37%。"
+        }
+      }
+    },
+    {
+      "id": "img_168",
+      "label": "Figure 15. Compariso...",
+      "full_title": "Figure 15. Comparisons of spatial distribution of  NH_3  agricultural emissions between MEIC v1.0 and PKU-NH<sub>3</sub>. Provinces that included in tropical zones are Fujian, Guangdong, Hainan, Guangxi, Guizhou, Hubei, Hunan, Yunnan, Sichuan, Jiangxi, Anhui, Zhejiang, and Jiangsu. Other provinces are treated as temperate ones.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": 23,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "气候带特异性验证有价值但未提供新方法论线索，宜作为背景参考",
+          "insight": "MEIC与PKU-NH3在中国温带省份氨排放空间分布高度一致（R²=0.91），但在热带省份出现系统性高估（福建/广东等均值偏差达63%），反映雨林区施肥模式在过程模型中的表征缺陷。"
+        }
+      }
+    },
+    {
+      "id": "img_64",
+      "label": "Figure 4. Effects of...",
+      "full_title": "Figure 4. Effects of a drought on  CO_{2}  emissions from thermal power plants in Yunnan Province are presented in panels (a) and (b). The impact of emission control measures on  SO_{2}  emissions during the 7th CISM Military World Games is shown in (c) and (d). (a) Relative changes in  CO_{2}  emissions in Yunnan Province and other provinces from 2019 to 2020. (b) Relative changes in hydropower generation and thermal power generation in Yunnan Province from 2019 to 2020. Since January and February are usually combined in the statistical data released by the National Bureau of Statistics, they are plotted as a whole here. (c) Daily  SO_{2}  emissions before, during, and after the emission control period in Wuhan, other cities in Hubei, and other provinces except Hubei. The light gray shading covers the periods of short-term emission control. The daily emissions are normalized to the value on October 6. (d) Relative changes in average  SO_{2}  emissions during the emission control period compared to the periods before and after this period.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": 9,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "极端事件与政策干预的双案例实证，揭示电力弹性与短期管控效能",
+          "insight": "云南干旱导致2019-2020年火电CO2排放激增82%（水电缺口补偿），而武汉军运会期间SO2管控使当地排放较周边骤降68%，但存在政策滞后效应（管控结束后反弹达41%）。"
+        }
+      }
+    },
+    {
+      "id": "img_65",
+      "label": "Figure 5. Comparison...",
+      "full_title": "Figure 5. Comparisons of monthly and weekly profiles based on flue gas volume or emission rates from CEMS and those widely used in previous studies. (a) Monthly temporal profiles derived from national  SO_2  emission,  NO_x  emission,  PM_{2.5}  emission, and flue gas volume data from CEMS or electricity generation. The electricity-generation data is accessed from the National Bureau of Statistics (https://data.stats.gov.cn/). (b) Weekly temporal profiles calculated by national average flue gas volume,  SO_2  emission,  NO_x  emission, and  PM_{2.5}  emission data from CEMS or from previous studies including that of He et al. ^{57}  and the EDGAR. ^1",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": 9,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表直接比较了不同时间尺度下实测排放模式与传统假设的差异，揭示了火电厂实际排放行为的突破性发现，且包含可深挖的关联数据源（国家统计局链接）。",
+          "insight": "基于CEMS的排放数据显示每月模式与发电量数据高度匹配（R=0.74-0.97），但每周模式显示与既往研究相反——未观察到明显的周末效应，推翻了火电厂工作日与周末排放差异的传统假设。"
+        }
+      }
+    },
+    {
+      "id": "img_175",
+      "label": "Fig. 1. Trends in GD...",
+      "full_title": "Fig. 1. Trends in GDP, energy consumption, and population, as well as emissions of  SO_2 ,  NO_x , primary  PM_{2.5} , non-methane volatile organic compounds (NMVOCs), and  CO_2  between 1990 and 2017, with values for 1990 taken as 1. GDP, energy consumption, and population data were obtained from the National Bureau of Statistics of China. Emission data of air pollutants ( SO_2 ,  NO_x ,  PM_{2.5} , and NMVOCs) for 2010-2017 was obtained from Tsinghua University's multi-resolution emission inventory for China (MEIC) [5].  CO_2  emission data was obtained from the International Energy Agency (IEA) [6].",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "多指标长期趋势图提供重要宏观背景，但作为基础资料需配合其他机制性研究，不包含可立即深挖的线索。",
+          "insight": "中国1990-2017年GDP增长380%同时污染物排放激增（NOx增3倍），但2010年后通过MEIC模型显示的PM2.5下降趋势表明控污政策开始生效。"
+        }
+      }
+    },
+    {
+      "id": "img_176",
+      "label": "Fig. 2. Trends in na...",
+      "full_title": "Fig. 2. Trends in national average precipitation pH and total  SO_2  emissions between 1995 and 2017. Precipitation pH data were obtained from 74 sites with continuous observations in the Acid Rain Monitoring Networks [10]; the blue belt indicates the interval within one standard deviation of the mean. Emission data for  SO_2  were derived from the MEIC model.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "明确量化了政策干预与环境污染的因果链条，蓝带标注标准差增强数据可信度，建议追踪MEIC模型方法学。",
+          "insight": "SO2排放与降水pH值呈强负相关（r=-0.90），2006年排放峰值对应pH最低值，而2010年后强制脱硫政策使排放下降50%并显著改善酸雨。"
+        }
+      }
+    },
+    {
+      "id": "img_178",
+      "label": "Fig. 4. Summary of t...",
+      "full_title": "Fig. 4. Summary of the major control regulations in China since 2013. PP: power plants; IN: industry; TR: transport; DO: domestic sector; AR: agriculture.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": 26,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "纯政策列表缺乏量化效果评估，表格形式信息密度低且与排放机制无直接关联，建议剪除以聚焦核心数据。",
+          "insight": "2013-2020年污染控制政策趋势总结表显示管控范围从单一行业(PP)扩展到五类排放源(IN/TR/DO/AR)，但未提供具体减排数据。"
+        }
+      }
+    },
+    {
+      "id": "img_81",
+      "label": "Fig. 1. Simulation d...",
+      "full_title": "Fig. 1. Simulation domain.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": 13,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "纯方法论图示未包含任何排放模式或环境影响的实质发现，与当前研究主题关联度过低。",
+          "insight": "中国BVOC模拟区域图显示青藏高原/内蒙古等地形分区，但仅包含地理边界信息而无实际排放数据或模型输出结果。"
+        }
+      }
+    },
+    {
+      "id": "img_144",
+      "label": "Figure 4. Spatial di...",
+      "full_title": "Figure 4. Spatial distributions of summer averaged tropospheric  NO_2  vertical columns modeled by GEOS-Chem based on S1-S6 emissions and scenario-specific data retrieved from the OMI for 2006.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": 21,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键空间可视化证据揭示排放清单空间代理对污染模拟准确性的影响，含具体数据场景比较(S1-S6)，且Metadata提供源论文ID(paper_id:21)可用于溯源深挖",
+          "insight": "空间地图对比六种空间代理方案（S1-S6)下GEOS-Chem模拟的2006年中国夏季对流层NO₂垂直柱浓度分布与OMI卫星观测结果，显示人口密度空间代理(S1)会低估城市污染热点，而夜间灯光数据(S2)更能准确捕捉城市排放热点。"
+        }
+      }
+    },
+    {
+      "id": "img_102",
+      "label": "Fig. 1. A schematic ...",
+      "full_title": "Fig. 1. A schematic diagram of the main components of the STEAM2 model and their inter-relations. The model input data sources are presented on the uppermost row of rectangles, and the model output data (i.e. emissions) are presented on the lowest row of rectangles. The arrows describe either the flow of information in the model, or a modelled dependency between various factors. The different colors denote the various categories of factors included in the model; dotted and solid arrows are used only for visual clarity.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": 17,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "模型原理图完整展现排放计算逻辑，Metadata包含paper_id 17可供深入追踪，且涉及船舶排放核心算法。",
+          "insight": "STEAM2模型架构图展示了船舶特性数据（来自IHS Fairplay）与AIS数据的融合路径，通过发动机功率和燃料消耗计算排放输出的完整信息流框架。"
+        }
+      }
+    },
+    {
+      "id": "img_189",
+      "label": "Fig. 2. Comparisons ...",
+      "full_title": "Fig. 2. Comparisons of emission uncertainties of coal-fired power plants in Guizhou in 2005 using sector-based and unit-based methods. The “+” represents the central value and the box represents the  95\\%  CI using the unit-based method, while the larger range line represents the  95\\%  CI using the sector-based method.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 6,
+      "data": {
+        "paper_id": 29,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "关键定量证据展示不同方法对排放不确定性的改善效果，Metadata明确指向paper_id 29的可深挖论文。",
+          "insight": "箱线图对比显示，基于单元法将PM2.5排放不确定性的95%置信区间从(-30%~108%)缩减至(-9%~18%)，单位法对SO2不确定性的降低幅度达80%。"
+        }
+      }
+    },
+    {
+      "id": "img_226",
+      "label": "Fig.7 FRP value dist...",
+      "full_title": "Fig.7 FRP value distribution map of industrial heat source from 2015 to 2020 (10 km grid)",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 34,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供区域排放的空间趋势但缺乏具体坐标，需结合论文正文验证神经网络提取方法。",
+          "insight": "2015-2020年京津冀地区工业热源FRP值分布图显示：1-18MW低强度热源持续减少，>422MW高强度热源主要分布于唐山工业区且六年减少40%。"
+        }
+      }
+    },
+    {
+      "id": "img_143",
+      "label": "Figure 3. Correlatio...",
+      "full_title": "Figure 3. Correlations between normalized provincial industrial emissions and three types of spatial proxies: (a) total population, (b) urban population, and (c) IGDP data.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 7,
+      "data": {
+        "paper_id": 21,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "代理变量相关性结果宏观，缺乏具体省份案例和应用场景支撑，信息价值有限。",
+          "insight": "散点图表明省级工业排放与IGDP相关性(r=0.78)显著高于城镇人口(r=0.42)，但未说明具体省份及数据年份。"
+        }
+      }
+    },
+    {
+      "id": "img_190",
+      "label": "Fig. 3. The distribu...",
+      "full_title": "Fig. 3. The distributions of estimated  SO_2  emissions from coal-fired power plants in Guizhou in 2005, using Monte Carlo simulation. The black and red bars represent the results from unit-based and sector-based methods, respectively.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 5,
+      "data": {
+        "paper_id": 29,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "创新性使用概率分布可视化不同方法的不确定性差异，是排放量化方法的关键证据且与paper_id 29形成证据链。",
+          "insight": "蒙特卡洛模拟直方图揭示：基于单元法（黑条）的SO2排放概率分布峰度4.2，显著高于基于部门法（红条）的峰度1.3，证明单元法降低分布离散度。"
+        }
+      }
+    },
+    {
+      "id": "img_138",
+      "label": "Figure 2. Sector-spe...",
+      "full_title": "Figure 2. Sector-specific breakdown of regional emission totals (Tg) for 2010: (a)  SO_2 , (b)  NO_x , (c) CO, (d) NMVOC, (e)  PM_{10} , (f)  PM_{2.5} , (g) BC, (h) OC and (i)  NH_3 .",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 19,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "通过复合图表清晰呈现多污染物排放结构，但缺乏具体数值和趋势分析，建议保留作为区域排放背景参考",
+          "insight": "展示2010年全球不同地区9种主要污染物(SO₂, NOx, CO等)按能源、工业、交通和居民部门的排放总量分布"
+        }
+      }
+    },
+    {
+      "id": "img_209",
+      "label": "Fig. 4. Time series ...",
+      "full_title": "Fig. 4. Time series of simulated and observed  PM_{2.5}  concentrations in Heilongjiang Province (a), Jilin Province (b) and Liaoning Province (c). Please note that only the data inside the black boxes (Fig. S1b) over these three provinces are used. The black line represents observations, the green, red and blue lines represent the scenarios, respectively, without biomass burning emissions (Case 1 in Table 1), with biomass burning emissions from GFED (Case 3 in Table 1) and VIIRS_G (Case 5 in Table 1). The statistical metrics including MFB, MFE and R (formula shown in Appendix A) among the three scenarios are listed on top of each panel. (For interpretation of the references to colour in this figure legend, the reader is referred to the Web version of this article.)",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "时间序列数据揭示生物质燃烧对PM2.5的具体影响程度，包含可深挖的对比参数(MFB, MFE, R)和案例编号(Case 1/3/5)",
+          "insight": "三种生物质燃烧排放情景下模拟与实测PM2.5浓度对比，显示VIIRS_G排放清单在中国东北省份拟合效果最佳（R值最高）"
+        }
+      }
+    },
+    {
+      "id": "img_195",
+      "label": "Fig. 3. VOC profiles...",
+      "full_title": "Fig. 3. VOC profiles of (a) stack flue gas (SFN and SFM) and (b) fugitive emissions (OLM and BLM). The ID number of each VOCs species is listed in Table S2.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 30,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "量化对比两种工艺的VOC特征污染物和排放强度，包含具体数值（SFN乙烯40.58g/Mg）和可追踪的指标表(Table S2)，具有深挖价值",
+          "insight": "非回收（SFN）与机械焦化厂（SFM）烟道气排放VOC成分显著不同，乙烯占非回收厂42.5%而苯乙烯占机械厂32.3%；非回收厂排放因子(96g/Mg焦炭)超机械厂240倍"
+        }
+      }
+    },
+    {
+      "id": "img_106",
+      "label": "Fig. 5. Organic Carb...",
+      "full_title": "Fig. 5. Organic Carbon emission factor (in  gKWh^{-1} ) as a function of engine load. Solid line indicates STEAM2, symbols represent experimental data points.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 17,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "研究范围较窄（特定来源OC排放），与广域PM2.5关联较弱，模型验证数据未展示新发现",
+          "insight": "船舶发动机负荷与有机碳排放因子的相关性模型验证"
+        }
+      }
+    },
+    {
+      "id": "img_141",
+      "label": "Figure 1. Spatial pa...",
+      "full_title": "Figure 1. Spatial patterns of (a) the total population density and (b) nighttime lights for eastern China and (c) the distributions of total population density and nighttime lights in China at a resolution of  0.1^{\\circ} \\times 0.1^{\\circ} .",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 5,
+      "data": {
+        "paper_id": 21,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "空间代理方法创新实证，直接关联排放清单精度提升，包含地理编码参数(0.1°×0.1°)和可扩展的验证框架",
+          "insight": "夜间灯光数据较人口密度更能显化中国东西部城乡经济梯度（0.1°分辨率），提升排放清单空间分配精度"
+        }
+      }
+    },
+    {
+      "id": "img_150",
+      "label": "Fig. 4. Normalized a...",
+      "full_title": "Fig. 4. Normalized average diurnal variations in  O_3  and typical VOCs during the dry and wet seasons from 2014 to 2019 (shaded part:  \\pm SD ).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 22,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "High-value quantitative data showing seasonal photochemical trends and pollution reduction efficacy; source attribution provides direct policy insights. Paper ID 22 enables further investigation.",
+          "insight": "The line chart demonstrates diurnal variations of ozone and VOCs, revealing amplified daytime peaks during wet seasons due to photochemical kinetics, with primary anthropogenic sources decreased by 50-60% through pollution controls between 2014-2019."
+        }
+      }
+    },
+    {
+      "id": "img_15",
+      "label": "Fig. 4. Brightness t...",
+      "full_title": "Fig. 4. Brightness temperatures of the residential (107 spots), vegetation (98 spots), soil (202 spots) and water body (220 spots) areas collected at night on June 2, 2017. In addition, StdDev indicates the standard deviation of the brightness temperature.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "Fundamental methodological reference but limited to background characterization without pollution-specific insights. Retains contextual value.",
+          "insight": "Brightness temperature comparisons across residential/vegetation/soil/water show linear spectral increases for non-anomalous surfaces, establishing baseline signatures for thermal anomaly detection."
+        }
+      }
+    },
+    {
+      "id": "img_42",
+      "label": "Fig. 1. Map of the s...",
+      "full_title": "Fig. 1. Map of the study domain and definition of urban (red) and rural (gray) regions over the CONUS. The yellow triangle symbols represent the location of ozonesonde stations (BLD: Boulder, HVA: Huntsville). (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 4,
+      "data": {
+        "paper_id": 7,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 8
+          },
+          "reason": "Pure geographical reference lacking substantive air quality metrics or temporal insights. Minimal standalone value.",
+          "insight": "Geospatial map delineating CONUS urban/rural zones and ozonesonde stations without pollutant distribution data or trend analysis."
+        }
+      }
+    },
+    {
+      "id": "img_184",
+      "label": "Fig. 4. Hourly avera...",
+      "full_title": "Fig. 4. Hourly average on-road vehicle emission intensities of the  10\\%  high emitters under different congestion scenarios during rush hours (from 07:00 to 09:00 and from 16:30 to 18:30 local time).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 27,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "Empirically links traffic dynamics to hyperlocal pollution with explicit quantification of high-emitter impacts; informs targeted mitigation strategies via Paper ID 27.",
+          "insight": "Emission hotspot maps identify spatial pollution disparities during congestion, showing top 10% emitters contribute >60% of total NOx/HC/CO loads under varied traffic scenarios."
+        }
+      }
+    },
+    {
+      "id": "img_46",
+      "label": "Fig. 5. Spatial dist...",
+      "full_title": "Fig. 5. Spatial distribution of the modeled  NO_2  vertical column densities with prior and posterior emissions and their relative differences with respect to the modeled column density with prior emissions in the summers (June-August) of 2011, 2014, and 2017.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 7,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "Validation of emission inventory refinements uncovering spatiotemporal limitations in pollution modeling, enabling methodological corrections via Paper ID 7.",
+          "insight": "NO₂ vertical density maps show posterior emissions increased modeled accuracy by 21.5% nationally versus OMI observations, revealing persistent underestimation biases in central/western CONUS."
+        }
+      }
+    },
+    {
+      "id": "img_186",
+      "label": "Fig. 6. (a) Vehicle ...",
+      "full_title": "Fig. 6. (a) Vehicle emission factors under different driving speeds. (b) Spatial distribution of hourly average on-road vehicle driving speeds (in km/h) during rush hours (from 07:00 to 09:00 and from 16:30 to 18:30 local time). (c) Spatial distribution of hourly average on-road vehicle driving speeds (in km/h) during off-peak hours (from 9:00 to 16:30 and from 18:30 to 7:00 local time). (d) Spatial distribution of hourly average traffic fluxes during rush hours (from 07:00 to 09:00 and from 16:30 to 18:30 local time). (e) Spatial distribution of hourly average traffic fluxes during off-peak hours (from 9:00 to 16:30 and from 18:30 to 7:00 local time).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 27,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "高分辨率排放数据建模（1.53亿记录）+ 具体驾驶工况阈值定义，含关键术语LPR（车牌识别）和I/M数据集，可深挖数据分级与控制策略",
+          "insight": "图表显示排放因子（CO/HC/NOx）与车速显著负相关，低速（0-5 km/h）排放是高速（>50 km/h）的5-9倍；图b-e展示交通拥堵热点（机场高速+主干道）占路网20%，高峰排放强度超标5倍。"
+        }
+      }
+    },
+    {
+      "id": "img_51",
+      "label": "Fig. 10. Changes in ...",
+      "full_title": "Fig. 10. Changes in the  HCHO / NO_2  ratio from urban cores for 12 main cities over (a) the western U.S. (Seattle, Portland, San Francisco, Los Angeles, Salt Lake City, and Houston), and (b) the eastern U.S. (Minneapolis, Chicago, Detroit, Pittsburgh, New York, and New Orleans).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 7,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "跨年（2011-2017）大气化学机制对比，但缺乏原始数据支持演变归因",
+          "insight": "东西部城市臭氧机制分化：西部（如旧金山/盐湖城）向NOx限制过渡，而洛杉矶/波特兰持续NOx饱和，东部（如底特律）2017年反常回归饱和态。"
+        }
+      }
+    },
+    {
+      "id": "img_43",
+      "label": "Fig. 2. Spatial dist...",
+      "full_title": "Fig. 2. Spatial distribution of (a to c) the OMI tropospheric  NO_2  vertical column density and (d to f) the OMI HCHO vertical column density in the summers (June-August) of 2011, 2014, and 2017.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 7,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "常规卫星污染分布图，未提供新分析方法或异常模式",
+          "insight": "OMI数据显示2011-2017年NO2全美下降6-8%，东南部HCHO主要来自植物源异戊二烯氧化。"
+        }
+      }
+    },
+    {
+      "id": "img_44",
+      "label": "Fig. 3. The long-ter...",
+      "full_title": "Fig. 3. The long-term trend in summertime averaged tropospheric (a-1 to h-1)  NO_2  and (a-2 to h-2) HCHO columns observed by the OMI satellite (2011-2018) and simulated by the CMAQ model (2011, 2014, and 2017), and their relative changes in the CONUS and urban, rural, and southeastern U.S. regions (shown in Fig. 1). CMAQ simulations were conducted with the prior emission and three background setups (with dynamic lateral boundary conditions and lightning emissions (LNO), with dynamic lateral boundary conditions and without lightning emissions, and with profile lateral boundary conditions and without lightning emissions).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 7,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "创新性对比3种背景设置方案，直接关联政策有效性验证",
+          "insight": "动态边界条件+LNO排放校正使CMAQ模型NO2模拟偏差降低21-29%，东南部HCHO下降1.3±1.71主要由气象驱动。"
+        }
+      }
+    },
+    {
+      "id": "img_145",
+      "label": "Figure 5. Comparison...",
+      "full_title": "Figure 5. Comparisons between county-level model simulations from the six emission cases and  OMINO_2  vertical columns for all counties (first column), urban districts in municipalities (second column), urban districts in other cities (third column), and other counties (fourth column). The color of each symbol corresponds to the population density in the county specified by that symbol. The dotted line has a slope of 1.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 5,
+      "data": {
+        "paper_id": 21,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "首次量化6种排放方案县尺度性能，含直辖市/普通市分级评价",
+          "insight": "夜间灯光代理法（S2）显著优化人口密集区NO2预测（R²=0.86），人口密度>1000人/m²地区误差降低50%。"
+        }
+      }
+    },
+    {
+      "id": "img_228",
+      "label": "Fig.9 Number of ther...",
+      "full_title": "Fig.9 Number of thermal anomaly points from January to May",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 34,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接量化COVID-19对工业生产的时空影响，提供明确对比数据（66.67%降幅），且含原始论文引用（paper_id:34）可深挖方法论。",
+          "insight": "图表显示2020年1-5月武汉工业热异常点数量同比下降66.67%，显著反映COVID-19对工业活动的抑制效应；而同期京津冀地区热异常点保持稳定，显示疫情影响的区域差异性。"
+        }
+      }
+    },
+    {
+      "id": "img_20",
+      "label": "Fig. 9. Thermal dete...",
+      "full_title": "Fig. 9. Thermal detection ability under different conditions. (a) The results effected by water vapor (unit: atm-cm) and (b) the results effected by the background temperature. In addition, the atmospheric parameters were both obtained on September 19, 2016.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "量化了热异常检测的关键阈值参数，包含可复现的MODTRAN辐射传输模型数据，对遥感监测算法优化有直接价值。",
+          "insight": "热异常检测能力曲线显示：背景温度270K时最小可检测温度380K（面积243m²），而水蒸气4000 atm-cm时最小检测温度降至380K，证明环境参数对热红外检测敏感性的显著影响。"
+        }
+      }
+    },
+    {
+      "id": "img_225",
+      "label": "Fig.6 The number dis...",
+      "full_title": "Fig.6 The number distribution map of industrial thermal anomaly points from 2015 to  2020(10km grid)",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 34,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供宏观趋势但缺乏时间连续性细节（仅年际分布图），适合作区域政策影响背景参考。",
+          "insight": "2015-2020年京津冀工业热异常点空间分布显示河北省年降幅7.44%，而天津增长86.64%，反映区域产业政策差异导致的能源消耗变化。"
+        }
+      }
+    },
+    {
+      "id": "img_14",
+      "label": "Fig. 3. Brightness t...",
+      "full_title": "Fig. 3. Brightness temperatures of the coking plant, steel plant, cement factory and mine, which definitely have existing thermal anomalies. These thermal anomalies were confirmed with the VIIRS Nightfire product, since they occurred on the same date and in the same area. These curves were derived from ASTER thermal data, with a spatial resolution of  90m , and one curve represents a single pixel. The orange circles indicate the hot spots' locations corresponding to the curves.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "定性展示热异常特征但未提供量化阈值，且与img_20存在方法学重复（同论文基础研究）。",
+          "insight": "焦化厂/钢厂等工业点的ASTER亮度温度曲线显示异常点在TIR1-3波段递增特征，与正常地物光谱特征相反。"
+        }
+      }
+    },
+    {
+      "id": "img_57",
+      "label": "Fig. 6. Hourly CO,  ...",
+      "full_title": "Fig. 6. Hourly CO,  NO_x , NMHC, and  PM_{10}  emission rates as obtained by the improved calculation stages 0-3 of the emission model: 0—data from literature and general databases; 1—traffic flow data from traffic census included; 2—speed distribution from traffic census included; 3—information about individual motors from registration plate evaluation included. Mean emission rates are given for the interval from 27 April to 27 May 2001 between 6:00 and 20:00 CEST. Data from 19 to 20 May are excluded.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 8,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "实证验证多源数据融合对排放估算的修正价值，提供时段（6:00-20:00）和污染物（CO/NOx/PM10）的精确评估维度。",
+          "insight": "排放模型阶段3整合车牌数据后，周末CO排放率较基础模型提升显著（轻型车占比98%），揭示交通源细粒度数据对排放清单的关键影响。"
+        }
+      }
+    },
+    {
+      "id": "img_19",
+      "label": "Fig. 8. Hot spots vi...",
+      "full_title": "Fig. 8. Hot spots via the VIIRS Nightfire product and hot spots derived via the TAI. (a) An example of the classification of hot spots, (b) the subset of (a), and (c) the results of the classification. Hot spots detected via the VIIRS product indicate that hot spots derived via the TAI surround the hot spots detected via the VIIRS Nightfire product, which belong to the first type of hot spot (hot-spot type details in Section 4.1). Hot spots undetected in the VIIRS indicate that the hot spots derived via the TAI do not surround the hot spots via the VIIRS Nightfire product, which include hot spots of the first and second types.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心对比数据展示了TAI方法的技术优势，包含具体检测数量和百分比数据，且metadata提供源论文ID可深度追踪",
+          "insight": "图8(c)显示TAI方法比VIIRS Nightfire产品多检出54.52%的工业热源，特别是对低温和小型热源更敏感，且能准确识别被VIIRS遗漏的热点。"
+        }
+      }
+    },
+    {
+      "id": "img_1",
+      "label": "Figure 2. The compar...",
+      "full_title": "Figure 2. The comparison of monthly anomaly of downward shortwave (DSW) radiation (a) and  2m  temperature  T2  (b) for model simulation and in situ observation, and the filled areas present the standard deviations among 98 sites for DSW and 697 sites for  T2 .",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 1,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "提供重要模型验证背景，但作为基础性验证数据缺乏新颖方法或深度洞察路径",
+          "insight": "图2显示WRF模型模拟的DSW辐射和T2温度月异常与站点观测值高度相关（相关系数0.77和0.88），标准差区域表明模型在98个辐射站和697个气象站的稳健性。"
+        }
+      }
+    },
+    {
+      "id": "img_17",
+      "label": "Fig. 6. Hot spots de...",
+      "full_title": "Fig. 6. Hot spots derived via different TAI thresholds. (a) The number of derived hot spots and (b) the number of confirmed incorrect industrial heat sources (i.e., the third type of hot spot).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "揭示关键算法参数优化过程，包含明确阈值建议和性能曲线，对方法复制具有直接指导价值",
+          "insight": "图6展示TAI阈值在1K时最佳平衡：阈值升高导致检测热点数减少（图6a），阈值降低则误检工业热源增加（图6b），实现漏检与精度的优化平衡。"
+        }
+      }
+    },
+    {
+      "id": "img_3",
+      "label": "Figure 4. Annual BVO...",
+      "full_title": "Figure 4. Annual BVOC emissions in China from 2001 to 2016 for five scenarios (S1-S5) described in Table 1. The increasing trends and the probabilities  p  using the Mann-Kendall test are shown in the legend.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": 1,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "包含五种情景的长时序排放趋势及Mann-Kendall检验结果，直接揭示驱动机制并注明数据来源表1",
+          "insight": "图4显示2001-2016年中国BVOC排放：仅考虑LAI增加的S2场景呈显著上升趋势（0.64%/年异戊二烯），而综合场景S1趋势不显著，证明植被变化是核心驱动因子。"
+        }
+      }
+    },
+    {
+      "id": "img_230",
+      "label": "Figure 2. Estimates ...",
+      "full_title": "Figure 2. Estimates of monthly Chinese NMVOC emissions. For each month, the bars from left to right represent the a priori emission estimates and the a posteriori emission estimates from IE-1, IE-2, IE-3, and IE-4. Color keys for NMVOC species are shown in the inset, with the suffixes of \"bb\", \"an\", and \"bg\" indicating emissions from biomass burning, anthropogenic, and biogenic activities, respectively.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "多反演实验对比展示季节性排放特征转变，物种分解柱状图和源类型标记提供深度分析线索",
+          "insight": "图2揭示NMVOC排放季节分化：先验估计中人为源冷季高排放（左柱），反演实验（IE1-4）增强暖季生物源排放（右柱），带bb/an/bg后缀的组分柱状图提供源解析。"
+        }
+      }
+    },
+    {
+      "id": "img_224",
+      "label": "Fig.5 Number of indu...",
+      "full_title": "Fig.5 Number of industrial heat source objects, number of industrial thermal anomaly points, Slope_NWH value and Slope_NFHWH value in each region",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": 34,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表提供关键时空趋势数据及算法性能对比，含具体下降率和精度指标，且metadata包含论文ID(34)可供深挖。区域热源变化数据对研究具有直接价值。",
+          "insight": "图5显示2015-2020年京津冀地区工业热源对象数量下降8.06%/年，热异常点数量下降7.44%/年，且通过Slope_NWH和Slope_NFHWH指标验证了所提BP神经网络提取方法的准确性达96.31%，显著优于传统时间过滤和逻辑回归方法。"
+        }
+      }
+    },
+    {
+      "id": "img_188",
+      "label": "Fig. 1. The distribu...",
+      "full_title": "Fig. 1. The distributions of  NO_{x}  emission factors for coal-fired power plants and industrial boilers. The red bars are beyond the  95\\%  CIs. The figures represent power generating units: (a) without LNB and bituminous combustion ( <300MW ); (b) without LNB and anthracite combustion ( <300MW ); (c) with LNB and bituminous combustion ( <300MW ); (d) with LNB and anthracite combustion ( <300MW ); (e) with tangential burner and bituminous combustion ( \\geq300MW ); (f) with wall-fired burner and bituminous combustion ( \\geq300MW ); (g) with tangential burner and anthracite combustion ( \\geq300MW ); (h) with wall-fired burner and anthracite combustion ( \\geq300MW ); (i) with W-flame burner and anthracite combustion ( \\geq300MW ). The last figure (j) represents industrial grate boilers.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": 29,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "高分辨展示锅炉类型/燃煤/机组容量交互影响，包含详细锅炉分类参数和309个测量点数据，可深挖Zhao et al., 2010论文",
+          "insight": "直方图展示9类煤电机组的NOx排放因子分布及置信区间异常值，揭示LNB技术对不同燃料类型(<300MW/≥300MW机组的)影响差异，为燃煤污染控制提供数据支撑。"
+        }
+      }
+    },
+    {
+      "id": "img_191",
+      "label": "Fig. 4. Comparisons ...",
+      "full_title": "Fig. 4. Comparisons of annual emissions for China from different studies. The emissions are for year 2005 unless noted. The range line represents the  95\\%  CIs around the central estimates of this study.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": 29,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "提供排放清单跨研究比对框架，但无新深挖线索；异常值分析依赖现有文献，需结合时间变异性验证",
+          "insight": "散点图比较2005年中国多污染物排放的不同研究估计，95%置信区间涵盖多数研究，但SO2/NOx/BC出现异常低估值（Ohara等研究）。"
+        }
+      }
+    },
+    {
+      "id": "img_192",
+      "label": "Fig. 5. Comparisons ...",
+      "full_title": "Fig. 5. Comparisons of emission uncertainties for different species in China from different studies, expressed as  95\\%  CIs around the central estimates.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": 29,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "量化改进关键污染物不确定性方法，揭示源分类精度对误差补偿机制影响，含Zhang et al., 2009d对比研究",
+          "insight": "条形图显示通过蒙特卡洛模拟的PM排放（PM2.5/BC/OC）不确定性显著降低，源分类细化使PM2.5置信区间从-57%~130%优化至-17%~54%。"
+        }
+      }
+    },
+    {
+      "id": "img_240",
+      "label": "Figure 12. Spatial d...",
+      "full_title": "Figure 12. Spatial distributions of the optimized scale factors for annual Chinese NMVOC emissions, relative to the a priori emission estimates, for the four inversion experiments.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "展示甲醛/乙二醛卫星约束对源解析的空间差异化修正效果，可直接验证臭氧模拟改进（表面增1-8ppb）",
+          "insight": "空间分布图揭示卫星反演实验（IE-1/IE-3）优化结果：生物源排放普遍增加（东北除外），华北秸秆燃烧增强，东北/西南人为源减少。"
+        }
+      }
+    },
+    {
+      "id": "img_229",
+      "label": "Figure 1. Spatial di...",
+      "full_title": "Figure 1. Spatial distributions of annual NMVOC emissions from China. (a-d) The a priori annual NMVOC emission estimates from (a) biomass burning, (b) anthropogenic, (c) biogenic, and (d) total sources. (e-h) The average of our four sets of top-down estimates of annual NMVOC emissions. Annual Chinese total emission estimates are shown in the inset in units of  Tgyr^{-1} . The uncertainties of the a priori emission estimates and the range of top-down emission estimates are shown in parentheses. (i-l) Scale factors for our averaged top-down estimates relative to the a priori estimates.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供先验-反演综合对比，但未包含新方法线索；卫星约束导致的排放重组需结合化学机制验证",
+          "insight": "空间对比图显示先验清单高估生物源（平均优化比值0.88），低估人为芳香烃（优化比值1.20），总排放修正幅度存在区域异质性。"
+        }
+      }
+    },
+    {
+      "id": "img_90",
+      "label": "Figure 1. (a) Source...",
+      "full_title": "Figure 1. (a) Source-specific  CO_{2}  emission in each province. Each group of bars represent a region (from left to right): northwest (Xinjiang-Shaanxi), northeast (Neimenggu-Liaoning), north (Beijing-Henan), central (Hubei-Jiangxi), southwest (Xizang-Guangxi), and southeast (Jiangsu-Taiwan). Ten provinces and municipalities with emissions lower than  1000Ggyr^{-1}  were shown in detail in (b): Gansu (GS), Ningxia (NX), Qinghai (QH), Shaanxi (SX), Beijing (BJ), Tianjin (TJ), Chongqing (CQ), Shanghai (SH), Hainan (HN), and Taiwan (TW). Macao and Hong Kong have minimal emissions:  0.5Gg  in Macao, consisting of  0.4Gg  from forest fires and  0.1Gg  from grassland fires; and  24.7Gg  in Hong Kong, consisting of  20.6Gg  ( 83\\% ) from forest fires,  2.7Gg  ( 11\\% ) from grassland fires,  0.7Gg  from shrubland, and  0.7Gg  from cropland fires.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": 14,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "此图提供全国和分区域的排放源精细化占比数据，揭示区域差异性特征，且包含可深入挖掘的源论文ID 14及表格引用。",
+          "insight": "图表显示中国省级生物质燃烧CO₂排放源分布：森林火灾占全国总排放45%（西南地区高达65%），农业火灾占39%（东北地区占47%），草原火灾占15%。香港和澳门排放最低（<25Gg），北京等10个省市排放量在1000Gg/yr以下。"
+        }
+      }
+    },
+    {
+      "id": "img_8",
+      "label": "Figure 9. Comparison...",
+      "full_title": "Figure 9. Comparison of estimated isoprene annual emission with the satellite-derived tropospheric HCHO vertical column concentration by OMI from 2005-2016. Panels (a), (b) and (c) illustrate the spatial patterns of annual mean LAIV, isoprene emission and HCHO vertical columns (VC) by OMI, respectively. Panel (d) presents the spatial distribution of the correlation coefficient between summertime isoprene emission and HCHO VC. Panels (e) and (f) show the increasing trend of isoprene and HCHO VC from 2005-2016.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": 1,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "卫星数据与模型预测的时空对比图揭示自然/人为源影响差异，趋势面板提供动态变化证据，含OMI卫星数据方法论",
+          "insight": "空间关联分析显示：植被主导区异戊二烯排放与HCHO垂直柱浓度呈正相关，但华北平原因人为源主导呈现反常高HCHO浓度（6-10×10¹⁵ molecules/cm²）。2005-2016年两者均呈上升趋势。"
+        }
+      }
+    },
+    {
+      "id": "img_7",
+      "label": "Figure 8. The annual...",
+      "full_title": "Figure 8. The annual changes of PFTs and the annual emission amount of BVOC and LAI in (a) southwestern China, (b) southern China and (c) Hainan island. The solid, dashed and marked lines represent the mean emission flux rate of total BVOC in S1, S2 and S5, respectively.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": 1,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "区域案例研究展示植被转型路径，但缺少全国尺度对比和统计显著性标注，保留作为背景证据",
+          "insight": "2001 - 2016年中国西南/华南/海南的PFT组成变化显示：木本植被替代草本趋势明显（S1，S2，S5区域的BVOC平均排放通量增长与LAI上升同步）。"
+        }
+      }
+    },
+    {
+      "id": "img_5",
+      "label": "Figure 6. Spatial di...",
+      "full_title": "Figure 6. Spatial distribution of total BVOC emission in 2001 (a) and the changing trends of annual emission flux (S1, S2 and S5) and cover fractions of the main PFTs and LAIV. The Mann-Kendall test was used to filter the grids where  p  is greater than 0.1.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": 1,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "空间分布热图结合统计检验量化植被变迁对排放的影响，论文指定了6个重点研究区域坐标范围（可深挖区域对比）",
+          "insight": "Mann-Kendall检验显示：中国东北/华中/南方地区阔叶林覆盖率显着增长（伴随草/作物减少）导致BVOC排放上升，而山西/甘肃/新疆则出现作物替代草地的反向趋势。"
+        }
+      }
+    },
+    {
+      "id": "img_93",
+      "label": "Figure 4. Monthly di...",
+      "full_title": "Figure 4. Monthly distributions of source-specific  CO_{2}  emissions (Tg) in China.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": 14,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "有效补充排放时间特征，但需结合图1的区域分析才能完整解释空间-时间耦合机制",
+          "insight": "CO₂排放呈现强季节性：森林/草原火灾峰值在1-5月（植被低含水期+清明祭祀活动），农业火灾在6月（华北冬麦焚烧）及3-5月播种季形成双峰，夏末排放最低。"
+        }
+      }
+    },
+    {
+      "id": "img_12",
+      "label": "Fig. 1. Study area. ...",
+      "full_title": "Fig. 1. Study area. The blue line encompasses the region of Jinjingji, including Beijing, Tianjin and Hebei province. (a) China's territory, (b) the study area (Tangshan); this image is obtained from the red, green, and blue bands of Landsat 8 (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "作为基础地理参考图，虽无具体数据趋势但为后续空间分析提供必要背景，需保留上下文。无深挖线索或关键方法论。",
+          "insight": "地图展示京津冀地区（含北京、天津、河北）的研究区域范围，重点标记唐山地区的地理边界，使用Landsat 8卫星的RGB波段合成影像为空间分析提供地理参考框架。"
+        }
+      }
+    },
+    {
+      "id": "img_13",
+      "label": "Fig. 2. Flowchart an...",
+      "full_title": "Fig. 2. Flowchart and method details. (a) The method flowchart for the extraction of industrial heat sources; (b) the method details and decision criteria to guide the flowchart.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心方法论图解，包含具体算法流程和验证路径（VIIRS+Google Earth交叉验证）。Metadata中提供多篇关键参考文献ID（如Giglio et al., 2003），具深度挖掘价值。",
+          "insight": "流程图展示工业热源提取的两阶段方法：(1)通过热异常指数（TAI）检测热异常；(2)结合VIIRS Nightfire产品和Google Earth高分辨率影像区分工业热源与野火/水体。决策标准详细说明分类逻辑。"
+        }
+      }
+    },
+    {
+      "id": "img_16",
+      "label": "Fig. 5. Three types ...",
+      "full_title": "Fig. 5. Three types of hot spots. (a)-(c) The first type of hot spot. (d)-(e) The second type of hot spot. (f) The third type of hot spots.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键结果验证案例，直观展示方法在真实场景的精度表现（85.13%准确率依据此分类）。图中包含VIIRS产品标点（绿/紫）与Google Earth工厂位置的空间对照。",
+          "insight": "卫星影像展示三类热源的验证标准：(a-b)VIIRS定位工厂内的高置信热源；(c)工厂内无VIIRS的热源；(d-e)工厂邻近的低置信热源；(f)非工业区误报热源，揭示坐标偏差导致的分类挑战。"
+        }
+      }
+    },
+    {
+      "id": "img_18",
+      "label": "Fig. 7. (a), (b), (c...",
+      "full_title": "Fig. 7. (a), (b), (c) and (d) show the results from June 2, 2017, November 16, 2017, September 19, 2016, and August 25, 2016, respectively. - MOD14A1 Fire Product □ASTER Image region VIIRS Nightfire Product Tangshan Hot spots from ASTER",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心性能验证图，量化展示新方法优势。包含具体日期与坐标参照（Tangshan），且metadata链接结果章节的量化结论（表1）。",
+          "insight": "地理热力图对比TAI与MODIS产品（MOD14A1/MYD14A1）在2016-2017四时段的热点检测结果，显示TAI检测到更多MODIS遗漏的热点（54.52%增量），尤其在稀疏区域。"
+        }
+      }
+    },
+    {
+      "id": "img_21",
+      "label": "Fig. 10. Hotspots de...",
+      "full_title": "Fig. 10. Hotspots detection abilities of the VIIRS Nightfire product and TAI.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": 2,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "关键技术突破的可视化证据，通过MODTRAN 5辐射传输模型验证理论优势。图中包含温度-面积检测阈值曲线，metadata提供模型参数（背景温度285K）。",
+          "insight": "线图定量对比VIIRS Nightfire与TAI的检测能力：TAI在<700K低温区灵敏度显著更高（最小检测面积8100m²），而VIIRS在>700K高温区占优，解释图8中54.52%热源增量来源。"
+        }
+      }
+    },
+    {
+      "id": "img_205",
+      "label": "Fig. 8. Scatter plot...",
+      "full_title": "Fig. 8. Scatter plots between the source profiles derived from the measured and initial VOC levels. The error bars represent the standard deviations of the bootstrap source profiles  N = 100 . The color solid lines represent the linear regression results and the filled ribbons represent the  95\\%  confidence intervals of fitting. The black solid lines represent the 1:1 line.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": 31,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供关键PMF模型源解析结果，量化相关性和差异来源，含具体统计分析（bootstrap N=100）和置信区间，是VOC溯源的核心证据，且Metadata包含paper_id=31可深挖",
+          "insight": "散点图比较测量与初始VOC水平的源剖面，显示汽油蒸发（r²=0.99）和溶剂使用（r²=0.85）高度相关，但车辆排放剖面存在显著差异，表明光化学过程对VOC组成有选择性影响。"
+        }
+      }
+    },
+    {
+      "id": "img_264",
+      "label": "Fig. 3. The  95%  CI...",
+      "full_title": "Fig. 3. The  95%  CIs of emissions in the national inventory for the whole country (a) and Jiangsu (b). Blue and green bars represent the results with the CVs of industrial (power excluded) activity data set at  20\\%  and  10\\% , respectively. (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article.)",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": 28,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "量化排放不确定性重要证据，但缺乏跨区域比较或模型机理说明，适合作为背景保留",
+          "insight": "条形图展示全国与江苏工业排放95%置信区间，当工业活动数据CV从20%降至10%时，排放不确定性显著降低，揭示活动数据质量对排放清单可信度的关键影响。"
+        }
+      }
+    },
+    {
+      "id": "img_198",
+      "label": "Fig. 1. Scatter plot...",
+      "full_title": "Fig. 1. Scatter plots between the measured VOC levels and initial levels derived from a time-resolved approach (see Section 2.2 for details). The error bars represent the 95th confidence intervals of the mean values.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": 31,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "提供关键OH氧化速率数据和三类VOC衰减量化指标，包含95%CI误差分析，是光化学过程研究的核心数据",
+          "insight": "测量与初始VOC浓度散点图显示：烯烃（含异戊二烯，kOH=100×10^12cm³/s）和芳香烃的初始/测量比高达7.90±10.3和2.58±2.37，远高于烷烃（1.13±0.12），证明高活性组分更易受光化学衰减影响。"
+        }
+      }
+    },
+    {
+      "id": "img_259",
+      "label": "Fig. 2. Concentratio...",
+      "full_title": "Fig. 2. Concentration profiles according to the distance from the tunnel entrance derived from mobile measurements. The black solid line represents the average of 12 repeated measurements, and the gray shaded area represents the standard deviation.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": 24,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "展示车辆排放空间分布规律，但因缺乏特定车型/燃料的数据分解，适用性受限",
+          "insight": "隧道污染物浓度变化曲线揭示：CO2在600m处分区（上升率从27.6升至207ppm/km），形成混合区（入口-600m）和累积区（600m-出口），SO2等主要污染物同步上升而O3例外。"
+        }
+      }
+    },
+    {
+      "id": "img_260",
+      "label": "Fig. 3. (a) The over...",
+      "full_title": "Fig. 3. (a) The overall emission factor (EF) profile excluding  CO2  and (b) the volatile organic compound (VOC) EF profile. The inner circle represents the VOC group and the outer circle represents alkane compounds.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": 24,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "仅提供静态比例数据，无新方法或关键机理解释，信息颗粒度不足且与同类研究重复",
+          "insight": "饼图显示：整体排放因子中VOC占比30%，而VOC组分中烷烃占主导；PM2.5贡献21%，高于PM10（4%）。"
+        }
+      }
+    },
+    {
+      "id": "img_142",
+      "label": "Figure 2. Comparison...",
+      "full_title": "Figure 2. Comparisons between the total population (left column), DCW road networks (middle column), and CDRM road networks (right column). (a-c) Maps of the total population and two road networks in the Beijing-Tianjin region as an example. (d-f) Comparison with county-level vehicle populations.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": 21,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心证据直接展示空间代理（道路网络）对排放估算的影响，包含定量对比（d-f子图）和地域案例（北京-天津），metadata含完整论文ID可供深挖。",
+          "insight": "通过地图和散点图对比DCW与CDRM道路网络，证明CDRM在人口密集区提供更精细道路描述，解决了DCW对城市排放的低估问题，尤其与车辆分布紧密相关。"
+        }
+      }
+    },
+    {
+      "id": "img_146",
+      "label": "Figure 6. Distributi...",
+      "full_title": "Figure 6. Distributions of the ratios between the county-level model simulations and satellite observations from the six emission inventories. The shaded region indicates a range of 0.9-1.1.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": 21,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "关键定量结果直接验证空间代理对排放清单准确性的影响，包含具体性能指标和跨污染物应用潜力，且与卫星数据交叉验证。",
+          "insight": "六种排放清单的模型模拟与卫星观测比值分布显示，S6清单性能最优（391县偏差<20%），夜间灯光数据(S2)可能导致特定区域排放高估50%以上，该方法可推广至SO₂/CO₂验证。"
+        }
+      }
+    },
+    {
+      "id": "img_23",
+      "label": "Fig. 2. The system a...",
+      "full_title": "Fig. 2. The system architecture of this study.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 3,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "纯方法论图表（预测模型架构），与空气污染源的空间表征核心主题弱相关，未提供排放清单构建或代理指标的新证据。",
+          "insight": "CNN-LSTM预测模型架构图，涵盖中国31省会的AQI数据训练流程（含Keras/TensorFlow实现），但不涉及排放源解析或空间代理。"
+        }
+      }
+    },
+    {
+      "id": "img_241",
+      "label": "Figure 13. Simulated...",
+      "full_title": "Figure 13. Simulated monthly mean afternoon (13:00-17:00 LT) surface ozone concentrations in June and December 2007 driven by (a) the a priori emissions and (b) our average top-down emissions, respectively, as well as (c) the differences. Filled circles show the afternoon surface ozone observations at several sites in China (Table S9). Mean biases (MB) of the simulated concentrations relative to surface measurements are shown in the inset.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 4,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "该卫星-地面联合验证结果直接量化排放估算对臭氧模拟影响，提供具体偏差值（Table S9）和季节变化机制，paper_id=3可供深挖化学传输建模方法",
+          "insight": "地形彩色图展示中国2007年6/12月午后地表臭氧浓度：（a）先验排放模拟结果（b）自上而下排放模拟结果（c）两者差异（红点表观测值），使用自上而下NMVOC排放估算使东部中国6月臭氧浓度增加1-8ppb、12月降低1-10ppb，模型偏差显著改善（6月MB从-3.4ppb降至-0.7ppb，12月从12ppb降至6.9ppb）"
+        }
+      }
+    },
+    {
+      "id": "img_265",
+      "label": "Fig. 4. The distribu...",
+      "full_title": "Fig. 4. The distributions of  SO_2  (a) and  NO_X  (b) emissions from power plants in Jiangsu in 2012, using Monte-Carlo simulation. The red and black bars represent the results from the national and provincial inventories, respectively. (For interpretation of the references to colour in this figure legend, the reader is referred to the web version of this article.) Fig. 5. Comparisons of Jiangsu's annual emissions from different studies. The range line represents the  95\\%  CIs around the central estimates of the provincial inventory by this work.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": 28,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "展示排放不确定性量化方法，但数据局限在2012年江苏区域性研究，缺乏跨时空扩展性",
+          "insight": "蒙特卡洛模拟显示2012年江苏电厂SO2/NOx排放分布：红色国家清单与黑色省级清单对比（图4），图5中省级清单的95%置信区间显示排放估算存在显著系统差异"
+        }
+      }
+    },
+    {
+      "id": "img_11",
+      "label": "Figure 12. Validatio...",
+      "full_title": "Figure 12. Validation of the model with flux measurements in China. Panels (a) and (b) show the performance of MEGAN with the default emission factors  N = 19 . Panels (c) and (d) show the performance of MEGAN with the emission factors derived from observations  N = 19 .",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": 1,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键生物源VOC模型验证实验（N=19站点），提供具体误差指标（MB/RMSE），paper_id=1详细描述测量方法（Bai et al. 2015-2017）",
+          "insight": "散点图验证MEGAN模型在中国通量观测表现：（a-b）默认排放因子显著高估异戊二烯通量（ME=1.60），（c-d）采用观测校正排放因子后模拟性能大幅提升（异戊二烯ME降至0.44），证明排放因子是主要误差源"
+        }
+      }
+    },
+    {
+      "id": "img_25",
+      "label": "Fig. 4. The architec...",
+      "full_title": "Fig. 4. The architecture of the tailored CNN-LSTM network.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 2,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "创新性深度学习架构（可比对Ong et al.2016基准），提供明确性能指标和城市级验证，paper_id=4含完整超参数描述",
+          "insight": "CNN-LSTM混合网络架构：卷积层提取时空特征→LSTM层预测AQI的编解码结构，通过特征降维解决高维非线性数据训练效率问题，在31省会城市实现平均RMSE=22.06的精度"
+        }
+      }
+    },
+    {
+      "id": "img_208",
+      "label": "Fig. 3. Comparison o...",
+      "full_title": "Fig. 3. Comparison of emissions of air pollutants due to agricultural fires from GFED and VIIRS in Northeast China in November 2017. (a), comparison of monthly emissions of each species reported by GFED and VIIRS over Northeast China for November 2017. (b), comparison of daily  PM_{2.5}  emissions reported by GFED and VIIRS over Northeast China in November 2017.",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "仅展示区域特定时间截面数据，缺乏排放差异归因分析，参考文献空值无法追溯方法学依据",
+          "insight": "2017年11月东北农业火灾排放对比：（a）多污染物月排放GFED vs VIIRS直方图（b）PM2.5每日排放曲线，VIIRS普遍高于GFED但无机制解释"
+        }
+      }
+    },
+    {
+      "id": "img_232",
+      "label": "Figure 4. Same as Fi...",
+      "full_title": "Figure 4. Same as Fig. 3 but for July to December. Also shown are ground-based MAX-DOAS measurements at 09:30 LT time at Back Garden (July mean, inverted triangles).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 4,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "该图直接呈现甲醛VCDs的核心观测数据与模型反演结果对比，时间维度覆盖关键季节性变化，且包含具体反演方法(IE-1/IE-3)和验证手段(MAX-DOAS)，Metadata中明确标注源论文ID(paper_id:3)可供深挖。",
+          "insight": "图4展示了中国7-12月甲醛垂直柱浓度(VCDs)的月均分布，比较GOME-2A卫星观测、模型先验估计、反演方法IE-1/IE-3的后验结果，并与后花园(Back Garden)站点的MAX-DOAS地面观测数据(7月)进行验证，揭示观测数据与模型反演结果在夏季到冬季的季节性变化中存在一致性差异。"
+        }
+      }
+    },
+    {
+      "id": "img_22",
+      "label": "Fig. 1. Timeline of ...",
+      "full_title": "Fig. 1. Timeline of CCTPs implemented in China during 2015-2020. (Note: the public information is collected from the National Energy Administration, and the illustration is made by the authors).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "作为政策背景有价值，但缺乏可直接深挖的数据线索。源信息来自国家能源局，可信度高",
+          "insight": "时间线图展示中国2015-2020年实施的清洁煤炭技术政策(CCTPs)，包括《工业领域煤炭清洁高效利用行动计划》和十三五规划的时间节点"
+        }
+      }
+    },
+    {
+      "id": "img_24",
+      "label": "Fig. 3. Procedures, ...",
+      "full_title": "Fig. 3. Procedures, the corresponding methods and principles of data preprocessing.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含深度学习预测AQI的核心方法细节（CNN-LSTM），有明确的数据处理方法链可直接复现",
+          "insight": "数据预处理流程图展示四步流程：拉格朗日插值填充缺失值、箱形图识别异常值、肯德尔相关系数筛选特征、Z-score标准化数据"
+        }
+      }
+    },
+    {
+      "id": "img_27",
+      "label": "Fig. 6. The variatio...",
+      "full_title": "Fig. 6. The variation trend of AQI in the Chinese mainland.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "核心结果图揭示CCTPs实施后18.82%的AQI平均降幅及2年政策滞后效应，包含可深挖的区域差异数据",
+          "insight": "折线图显示2013-2020年中国大陆各地区AQI下降趋势，2018年显著下降至100阈值以下，中部地区改善最大达25.61%"
+        }
+      }
+    },
+    {
+      "id": "img_28",
+      "label": "Fig. 7. The variatio...",
+      "full_title": "Fig. 7. The variation trend of AQI in four seasons.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 7
+          },
+          "reason": "揭示政策效果的季节异质性，冬季改善最明显可能与供暖燃煤相关，提供季节性分析新维度",
+          "insight": "柱状图显示冬季AQI降幅最大（东北35.46%），秋季次之，春夏改善较小；季节性差异显著"
+        }
+      }
+    },
+    {
+      "id": "img_29",
+      "label": "Fig. 8. Correlation ...",
+      "full_title": "Fig. 8. Correlation coefficients between air quality change and socioeconomic factors.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 4,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "解释空气改善机制的政策归因分析，但相关系数绝对值偏低（弱相关），需更多证据支持",
+          "insight": "热力图显示环境治理投资增加与去工业化（工业占比下降）与AQI改善正相关，方差膨胀因子<2.3排除多重共线性"
+        }
+      }
+    },
+    {
+      "id": "img_231",
+      "label": "Figure 3. Monthly me...",
+      "full_title": "Figure 3. Monthly mean formaldehyde VCDs over China from January to June. For each month, the panels from left to right show (a) formaldehyde VCDs observed by GOME-2A, (b) formaldehyde VCDs simulated by the model using a priori emission estimates, (c) the a posteriori formaldehyde VCDs from IE-1, (d) GOME-2A formaldehyde VCDs scaled by a factor of 1.7, and (e) the a posteriori formaldehyde VCDs from IE-3. All model results were sampled at GOME-2A overpass time. Also shown are ground-based MAX-DOAS measurements at 09:30 LT at Xianghe (monthly mean, circles) and Wuxi (bimonthly mean, upward triangles).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "该地图组图完整呈现甲醛柱浓度时空变化规律，包含关键反演方法(IE-1/IE-3)和地面验证数据(MAX-DOAS)，可深度挖掘排放优化算法",
+          "insight": "该图表通过五组对比面板（观测值/模拟值/后验估计）揭示甲醛VCDs在中国地区的季节性分布特征，尤其显示冬季模拟值高于观测值而夏季后验估计显著提升，反演实验IE-3有效修正了排放模型"
+        }
+      }
+    },
+    {
+      "id": "img_233",
+      "label": "Figure 5. Monthly me...",
+      "full_title": "Figure 5. Monthly mean glyoxal VCDs over China from January to June. For each month, the panels from left to right show (a) glyoxal VCDs observed by GOME-2A, (b) glyoxal VCDs simulated by the model using a priori emission estimates, (c) the a posteriori glyoxal VCDs from IE-1, and (d) the a posteriori glyoxal VCDs from IE-3. All model results were sampled at GOME-2A overpass time.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心反演实验(IE-1/IE-3)对比图揭示排放约束对感应物种的传递效应，附带模型采样时间说明",
+          "insight": "组图展示乙二醛VCDs模型优化过程，IE-3后验估计使夏季乙二醛浓度显著增加且更符合观测数据，证明未直接约束物种的反演有效性"
+        }
+      }
+    },
+    {
+      "id": "img_234",
+      "label": "Figure 6. Same as Fi...",
+      "full_title": "Figure 6. Same as Fig. 5 but for July to December. Also shown are ground-based MAX-DOAS measurements at 09:30 LT at Back Garden (July mean, inverted triangles).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "补充季节性完整数据但无新方法呈现，作为温带/亚热带区域对比重要背景",
+          "insight": "下半年甲醛VCDs分布验证模型季节性响应机理，Back Garden点位实测数据揭示南方农村地区甲醛浓度空间异质性"
+        }
+      }
+    },
+    {
+      "id": "img_235",
+      "label": "Figure 7. Monthly me...",
+      "full_title": "Figure 7. Monthly mean formaldehyde VCDs over China from January to June. For each month, the panels from left to right show (a) formaldehyde VCDs observed by OMI, (b) formaldehyde VCDs simulated by the model using a priori emission estimates, (c) the a posteriori formaldehyde VCDs from IE-2, and (d) the a posteriori formaldehyde VCDs from IE-4. All model results were sampled at OMI overpass time. Also shown are ground-based MAX-DOAS measurements at 13:30 LT at Xianghe (monthly mean, circles) and Wuxi (bimonthly mean, upward triangles).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键揭示不同卫星(GOME-2A/OMI)过境时间对浓度采样的影响，包含13:30 LT验证数据",
+          "insight": "OMI过境时段的甲醛浓度分析显示午后数值系统偏高，IE-4后验估计有效改善Wuxi工业区模型低估问题"
+        }
+      }
+    },
+    {
+      "id": "img_236",
+      "label": "Figure 8. Same as Fi...",
+      "full_title": "Figure 8. Same as Fig. 7 but for July to December. Also shown are ground-based MAX-DOAS measurements at 13:30 LT at Back Garden (July mean, inverted triangles).",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "冗余的时序补充数据，未提供新方法论或关键区域发现",
+          "insight": "延续图7的OMI数据时序扩展，南方站点12月测量值佐证甲醛冬季浓度梯度"
+        }
+      }
+    },
+    {
+      "id": "img_237",
+      "label": "Figure 9. Monthly me...",
+      "full_title": "Figure 9. Monthly mean glyoxal VCDs over China from January to June. For each month, the panels from left to right show (a) glyoxal VCDs observed by OMI, (b) glyoxal VCDs simulated by the model using a priori emission estimates, (c) the a posteriori glyoxal VCDs from IE-2, and (d) the a posteriori glyoxal VCDs from IE-4. All model results were sampled at OMI overpass time.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心图示卫星反演与模型优化的直接对比，提供具体反演方法（IE-2/IE-4）及时间维度分析，可作为排放估算验证的关键证据。",
+          "insight": "图9展示了中国1-6月每月乙二醛垂直柱浓度（VCDs）的卫星观测值（OMI）、先验模型模拟值（a priori），以及两种反演实验（IE-2和IE-4）的后验估计值对比，显示后验估算显著提升了乙二醛浓度模拟的准确性，尤其在排放源密集区。"
+        }
+      }
+    },
+    {
+      "id": "img_238",
+      "label": "Figure 10. Same as F...",
+      "full_title": "Figure 10. Same as Fig. 9 but for July to December. Also shown are ground-based MAX-DOAS measurements at 13:30 LT at Back Garden (July mean, inverted triangles).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "补充下全年数据和多源观测对比，但未提供新的方法学洞见，宜保留作区域排放季节性验证证据。",
+          "insight": "图10延续图9的分析覆盖7-12月，除卫星观测和模型数据外，新增地面MAX-DOAS测量值（倒三角标识），显示夏季甲醛VCDs峰值与生物源排放强化一致，验证了季节性变化模式。"
+        }
+      }
+    },
+    {
+      "id": "img_239",
+      "label": "Figure 11. Compariso...",
+      "full_title": "Figure 11. Comparison of estimates of annual Chinese NMVOC emissions from (a) anthropogenic, (b) biogenic, (c) biomass burning, and (d) total sources. For each panel, the bars from left to right are the a priori estimates and the a posteriori estimates from IE-1, IE-2, IE-3, and IE-4. Annual total NMVOC emissions are shown in black numbers on top of each bar. The red dashed boxes and red numbers in (a) indicate annual emissions of anthropogenic glyoxal precursors. The green dashed boxes and green numbers in (a) indicate annual emissions of anthropogenic aromatics. The grey dashed boxes and grey numbers in (b) indicate annual biogenic isoprene emissions. The orange dashed boxes and orange numbers in (b) indicate annual biogenic methanol emissions. Color keys to NMVOC species are shown at the bottom, with suffixes of “an”, “bg”, and “bb” indicating anthropogenic source, biogenic source, and biomass burning source, respectively.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 2,
+      "data": {
+        "paper_id": 3,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心定量图表提供具体排放数值和误差范围（如30.7-49.5Tg/yr），明确反演方法性能差异，含深度分析线索（如芳香烃排放占比）。",
+          "insight": "图11条形图量化比较四种反演实验（IE-1至IE-4）对中国人为源/生物源/生物质燃烧NMVOC排放的年际估算，揭示后验法显著提高人为乙二醛前体（尤其芳香烃）排放估值12.3Tg/yr，较先验值高28%。"
+        }
+      }
+    },
+    {
+      "id": "img_227",
+      "label": "Fig.8 Daily average ...",
+      "full_title": "Fig.8 Daily average number of industrial heat anomaly points in four periods of epidemic prevention and control",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 34,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "仅描述工业热异常现象，与核心研究问题（VOCs反演建模）无直接理论或数据关联，信息重复且粒度粗糙。",
+          "insight": "图8统计京津冀及武汉2019-2021年防疫期间工业热异常点日平均值，显示武汉2020年封锁期活动骤降40%，但未关联具体污染物排放或机制分析。"
+        }
+      }
+    },
+    {
+      "id": "img_212",
+      "label": "Fig. 7. a, mean diur...",
+      "full_title": "Fig. 7. a, mean diurnal cycle of simulated  PM_{2.5}  concentrations, downward surface shortwave radiation based on case 5, as well as their changes due to aerosol radiative effects ((case 5 - case 6) - (case 1 - case 2)) over Heilongjiang (top black box in Fig. S1b) from November 1 to 3, 2017. b, the same as a, but the meteorological parameters were changed to PBL height.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "展示气溶胶-气象交互作用典型案例，但区域/时间尺度局限，宜保留作辅助机理论证。",
+          "insight": "图7折线图示黑龙江2017年11月气溶胶辐射效应导致边界层高度（PBL）降低和PM2.5浓度升高的正反馈机制，白天地表短波辐射抑制触发近20% PM2.5污染加剧。"
+        }
+      }
+    },
+    {
+      "id": "img_211",
+      "label": "Fig. 6. Simulated ho...",
+      "full_title": "Fig. 6. Simulated hourly  PM_{2.5}  concentrations, as well as changes (i.e., (case 5 - case 6) - (case 1 - case 2) in Table 1) of  PM_{2.5}  concentrations, meteorological parameters including downward surface shortwave radiation, PBL height, air temperature at  2\\text{-m} , relative humidity and wind speed at  10\\text{-m}  induced by aerosol direct radiative effects over Heilongjiang (top black box in Fig. S1b) from November 1 to 7, 2017.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 32,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "实验情景对比设计精确（case1-6），包含定量气象参数联动分析，PBL高度与PM2.5的反相位变化规律具深挖价值；存在源论文ID参考",
+          "insight": "图表显示2017年11月1-7日黑龙江地区气溶胶直接辐射效应引起PM2.5浓度显著波动，边界层高度变化与温度/湿度的逆相关性揭示了雾霾形成的关键气象驱动机制"
+        }
+      }
+    },
+    {
+      "id": "img_120",
+      "label": "Fig. 7. Mean simulat...",
+      "full_title": "Fig. 7. Mean simulated (for 2009) and observed vertical distributions of methanol concentrations during the INTEX-A, NEAQS, INTEX-B, PEM-Tropics-B and TRACE-A aircraft campaigns. Regions are: North America  25 - 55^{\\circ}N,45 - 130^{\\circ}W  , Mexico  0 - 25^{\\circ}N,85 - 110^{\\circ}W  N. Pacific  25 - 55^{\\circ}N,160 - 230^{\\circ}E  , South Tropical Pacific  0 - 40^{\\circ}S,180 - 275^{\\circ}W  . Colored curves correspond to the simulations of Table 1, black for S1, blue for S2, and red for the OptS2 inversion. The number of observations available at each altitude bin is given on the right end of each plot. Error bars are standard deviations.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 18,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "垂直剖面揭示S1/S2/OptS2模型在自由对流层持续低估甲醇浓度（最高45%），指明模型源清单与OH化学机制存在系统性缺陷；多区域数据支撑结论可靠性",
+          "insight": "五种飞行任务数据显示：S1模型在边界层显著高估甲醇浓度（北美达95%），S2模型虽改进近地表精度但在自由对流层仍低估达45%，暗示迁移过程机制缺失"
+        }
+      }
+    },
+    {
+      "id": "img_121",
+      "label": "Fig. 8. Comparison b...",
+      "full_title": "Fig. 8. Comparison between data from the INTEX-A and NEAQS campaigns and model concentrations from S1, S2 and OptS2 simulations averaged between the surface and the altitude of  1km . The mean methanol concentrations over the corresponding aircraft flight domains are provided inset.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 18,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "结果补充验证img_120的边界层结论，但未提供新机理线索；地理可视化可作支撑材料",
+          "insight": "地图对比验证S2模型在北美边界层的甲醇浓度预测误差<10%，而S1模型在INTEX-A/NEAQS区域平均高估44%，佐证MEGANv2.1排放清单改进有效性"
+        }
+      }
+    },
+    {
+      "id": "img_127",
+      "label": "Fig. 14. Comparison ...",
+      "full_title": "Fig. 14. Comparison between vertical profiles measured during the INTEX-A and NEAQS aircraft missions and inferred from the OptS2 (black lines), OptS2-conv (blue), OptS2-drydep (green), and OptS2-OH (red).",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 18,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "通过控制变量法量化对流/干沉降/OH对垂直分布的影响，提供可迁移的参数化优化路径",
+          "insight": "OptS2-OH方案因引入Spivakovsky OH场导致北美甲醇垂直梯度减弱，揭示OH浓度不确定性能减少北半球中纬度排放通量达8%"
+        }
+      }
+    },
+    {
+      "id": "img_243",
+      "label": "Fig. 2. Effective nu...",
+      "full_title": "Fig. 2. Effective number of satellite observations of grid cells  \\eta_j\\tilde{\\gamma}_j  by MODIS on Terra (top) and Aqua (bottom) on 4 June 2011, 00:00-24:00 UTC. Equidistant cylindrical projection,  0.5^{\\circ}  resolution. (ECMWF experiment IDs fb15 and fb17)",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 6,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "仅描述GFAS系统观测频次，缺乏污染物浓度或排放量直接信息；与气溶胶/甲醇作用机制关联弱",
+          "insight": "等距圆柱投影显示Terra/Aqua卫星在2011年6月4日全球0.5°网格有效观测频次为1-4次/天，证实双星协同可满足日排放反演需求但受云层干扰"
+        }
+      }
+    },
+    {
+      "id": "img_249",
+      "label": "Fig. 9. Daily sums o...",
+      "full_title": "Fig. 9. Daily sums of the average aerosol optical depths (AODs) at  550nm  of black carbon and organic matter  OM + BC  during 15 July-31 December 2010 in the analysis, the model and the model enhanced by a factor 3.4.",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": 6,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "该图直接展示排放模型改进的关键验证数据，包含具体的增强因子(3.4x)和验证数据模块(MODIS AOD)，且Metadata中提供源论文ID和实验参数(ECMWF fi92/fi93)，具备深度挖掘价值",
+          "insight": "折线图显示，在2010年7月15日至12月31日期间，采用3.4倍增强因子的模型（enhanced model）显著改善了气溶胶光学厚度（AOD@550nm）的预测精度，尤其在捕捉全球五大生物质燃烧区黑碳(BC)和有机颗粒物(OM)的动态演变上，使气溶胶负荷的预测可提前达4天，验证了GFASv1.0排放模型在同化MODIS AOD数据后的可靠性提升。"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "0",
+      "target": "img_165",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_26",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_95",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_130",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_199",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_177",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_62",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_179",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_61",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_135",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_91",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_71",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_180",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_206",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "img_63",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: how to visualize the data of air pollution in China\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "img_165",
+      "target": "img_154",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_155",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_156",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_157",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_158",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_159",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_160",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_161",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_162",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_163",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_164",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_166",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_167",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_165",
+      "target": "img_168",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 23\nReason: 该节点展示高分辨率网格化排放地图（0.25°），涉及多种污染气体和气溶胶的空间可视化，方法论创新性强且评估分数高（相关性9/可信度8），GROW建议深度探索其建模技术细节。"
+    },
+    {
+      "source": "img_62",
+      "target": "img_64",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 9\nReason: 证据展示多污染物排放动态（CO₂/PM₂.₅等）的时间序列与空间分布图，包含季节效应可视化方法（如春节低点），GROW评分高（9/8），需要深挖其时空可视化框架的技术实现。"
+    },
+    {
+      "source": "img_62",
+      "target": "img_65",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 9\nReason: 证据展示多污染物排放动态（CO₂/PM₂.₅等）的时间序列与空间分布图，包含季节效应可视化方法（如春节低点），GROW评分高（9/8），需要深挖其时空可视化框架的技术实现。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_175",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 26\nReason: 该节点揭示PM₂.₅-O₃协同变化的折线图可视化，使用国家监测站数据并附带补充数据集，GROW评估优异（9/9），需系统分析其多污染物协同可视化方法。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_176",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 26\nReason: 该节点揭示PM₂.₅-O₃协同变化的折线图可视化，使用国家监测站数据并附带补充数据集，GROW评估优异（9/9），需系统分析其多污染物协同可视化方法。"
+    },
+    {
+      "source": "img_180",
+      "target": "img_178",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 26\nReason: 该节点揭示PM₂.₅-O₃协同变化的折线图可视化，使用国家监测站数据并附带补充数据集，GROW评估优异（9/9），需系统分析其多污染物协同可视化方法。"
+    },
+    {
+      "source": "0",
+      "target": "img_81",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GeoAI methods for air pollution visualization in China\nReason: 现有结果多侧重传统图表（热图/折线图等），GeoAI技术在空间数据可视化方面有显著优势（如预测建模、实时渲染），需探索机器学习赋能的创新可视化方法。"
+    },
+    {
+      "source": "0",
+      "target": "img_144",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: GeoAI methods for air pollution visualization in China\nReason: 现有结果多侧重传统图表（热图/折线图等），GeoAI技术在空间数据可视化方面有显著优势（如预测建模、实时渲染），需探索机器学习赋能的创新可视化方法。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_102",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_189",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_226",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_143",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_190",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_138",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_209",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_195",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_167",
+      "target": "img_106",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Plant-level FGD efficiency visualization methods for power plants\nReason: 从节点img_167获得电厂级脱硫效率的关键证据，需要探索专门针对电厂排放效率的可视化技术（如热力图/散点图），补充现有空间代理研究的深度。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_141",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_150",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_15",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_42",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_184",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_46",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_186",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_51",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_43",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_44",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "img_145",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Nighttime light data applications in urban pollution mapping\nReason: img_144证明夜间灯光数据提升城市排放热点捕捉能力。需系统探索该新型空间代理在污染源定位中的可视化实现模式（如栅格聚类）。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_228",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_20",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_225",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_14",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_57",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_19",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_1",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_17",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_3",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_230",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_224",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: CEMS weekly emission pattern anomaly detection\nReason: 基于节点img_65揭示的火电厂周排放模式异常（无周末效应），探索非常规时间序列可视化的诊断方法（如小波分析），完善时间维度表征。相关性8，新颖性7。"
+    },
+    {
+      "source": "img_190",
+      "target": "img_188",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 29\nReason: 评估显示img_190通过蒙特卡洛方法创新性地可视化排放不确定性分布，论文ID:29中的方法对优化中国电厂污染数据展示有高价值，需深度挖掘其技术细节和完整证据链。相关性10，新颖性10。"
+    },
+    {
+      "source": "img_190",
+      "target": "img_191",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 29\nReason: 评估显示img_190通过蒙特卡洛方法创新性地可视化排放不确定性分布，论文ID:29中的方法对优化中国电厂污染数据展示有高价值，需深度挖掘其技术细节和完整证据链。相关性10，新颖性10。"
+    },
+    {
+      "source": "img_190",
+      "target": "img_192",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 29\nReason: 评估显示img_190通过蒙特卡洛方法创新性地可视化排放不确定性分布，论文ID:29中的方法对优化中国电厂污染数据展示有高价值，需深度挖掘其技术细节和完整证据链。相关性10，新颖性10。"
+    },
+    {
+      "source": "img_141",
+      "target": "img_240",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: advanced spatial proxy methods for emission mapping in China\nReason: img_141证明夜间灯光数据优化排放空间分配精度，但尚未探索新型代理如社交媒体/交通流数据，该方向与用户问题直接相关且能补充现有关键技术。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_141",
+      "target": "img_229",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: advanced spatial proxy methods for emission mapping in China\nReason: img_141证明夜间灯光数据优化排放空间分配精度，但尚未探索新型代理如社交媒体/交通流数据，该方向与用户问题直接相关且能补充现有关键技术。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_141",
+      "target": "img_90",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: advanced spatial proxy methods for emission mapping in China\nReason: img_141证明夜间灯光数据优化排放空间分配精度，但尚未探索新型代理如社交媒体/交通流数据，该方向与用户问题直接相关且能补充现有关键技术。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_141",
+      "target": "img_8",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: advanced spatial proxy methods for emission mapping in China\nReason: img_141证明夜间灯光数据优化排放空间分配精度，但尚未探索新型代理如社交媒体/交通流数据，该方向与用户问题直接相关且能补充现有关键技术。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_141",
+      "target": "img_7",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: advanced spatial proxy methods for emission mapping in China\nReason: img_141证明夜间灯光数据优化排放空间分配精度，但尚未探索新型代理如社交媒体/交通流数据，该方向与用户问题直接相关且能补充现有关键技术。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_141",
+      "target": "img_5",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: advanced spatial proxy methods for emission mapping in China\nReason: img_141证明夜间灯光数据优化排放空间分配精度，但尚未探索新型代理如社交媒体/交通流数据，该方向与用户问题直接相关且能补充现有关键技术。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_141",
+      "target": "img_93",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: advanced spatial proxy methods for emission mapping in China\nReason: img_141证明夜间灯光数据优化排放空间分配精度，但尚未探索新型代理如社交媒体/交通流数据，该方向与用户问题直接相关且能补充现有关键技术。相关性9，新颖性8。"
+    },
+    {
+      "source": "img_17",
+      "target": "img_12",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 2\nReason: img_17的TAI阈值优化方法提供工业热源检测的可视化范式，论文ID:2中热红外遥感技术可迁移到空气污染异常监测，需完整验证其中国适用性。相关性8，新颖性9。"
+    },
+    {
+      "source": "img_17",
+      "target": "img_13",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 2\nReason: img_17的TAI阈值优化方法提供工业热源检测的可视化范式，论文ID:2中热红外遥感技术可迁移到空气污染异常监测，需完整验证其中国适用性。相关性8，新颖性9。"
+    },
+    {
+      "source": "img_17",
+      "target": "img_16",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 2\nReason: img_17的TAI阈值优化方法提供工业热源检测的可视化范式，论文ID:2中热红外遥感技术可迁移到空气污染异常监测，需完整验证其中国适用性。相关性8，新颖性9。"
+    },
+    {
+      "source": "img_17",
+      "target": "img_18",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 2\nReason: img_17的TAI阈值优化方法提供工业热源检测的可视化范式，论文ID:2中热红外遥感技术可迁移到空气污染异常监测，需完整验证其中国适用性。相关性8，新颖性9。"
+    },
+    {
+      "source": "img_17",
+      "target": "img_21",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 2\nReason: img_17的TAI阈值优化方法提供工业热源检测的可视化范式，论文ID:2中热红外遥感技术可迁移到空气污染异常监测，需完整验证其中国适用性。相关性8，新颖性9。"
+    },
+    {
+      "source": "0",
+      "target": "img_205",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: uncertainty visualization techniques for emission inventories\nReason: 多节点强调排放清单不确定性量化（如img_189/img_190），但缺乏专用可视化方法研究。该策略填补空白且直接提升污染数据呈现严谨性，避免重复现存空间代理研究。相关性9，新颖性10。"
+    },
+    {
+      "source": "0",
+      "target": "img_264",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: uncertainty visualization techniques for emission inventories\nReason: 多节点强调排放清单不确定性量化（如img_189/img_190），但缺乏专用可视化方法研究。该策略填补空白且直接提升污染数据呈现严谨性，避免重复现存空间代理研究。相关性9，新颖性10。"
+    },
+    {
+      "source": "0",
+      "target": "img_198",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: uncertainty visualization techniques for emission inventories\nReason: 多节点强调排放清单不确定性量化（如img_189/img_190），但缺乏专用可视化方法研究。该策略填补空白且直接提升污染数据呈现严谨性，避免重复现存空间代理研究。相关性9，新颖性10。"
+    },
+    {
+      "source": "0",
+      "target": "img_259",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: uncertainty visualization techniques for emission inventories\nReason: 多节点强调排放清单不确定性量化（如img_189/img_190），但缺乏专用可视化方法研究。该策略填补空白且直接提升污染数据呈现严谨性，避免重复现存空间代理研究。相关性9，新颖性10。"
+    },
+    {
+      "source": "0",
+      "target": "img_260",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: uncertainty visualization techniques for emission inventories\nReason: 多节点强调排放清单不确定性量化（如img_189/img_190），但缺乏专用可视化方法研究。该策略填补空白且直接提升污染数据呈现严谨性，避免重复现存空间代理研究。相关性9，新颖性10。"
+    },
+    {
+      "source": "img_144",
+      "target": "img_142",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 21\nReason: 深入挖掘高评分节点img_144中夜间灯光数据优化排放空间分布的可视化方法，匹配用户核心需求中的空间可视化主题，新颖性高(9/10)。"
+    },
+    {
+      "source": "img_144",
+      "target": "img_146",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 21\nReason: 深入挖掘高评分节点img_144中夜间灯光数据优化排放空间分布的可视化方法，匹配用户核心需求中的空间可视化主题，新颖性高(9/10)。"
+    },
+    {
+      "source": "img_62",
+      "target": "img_23",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: temporal animation techniques for real-time air pollution visualization in China\nReason: 扩展img_62的日排放模式研究，探索动态时间序列动画的可视化方法，与用户需求相关(8/10)且未在历史策略出现。"
+    },
+    {
+      "source": "0",
+      "target": "img_25",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multimodal deep learning for fusing ground monitoring and satellite pollution data visualization in China\nReason: 现有策略未探索AI驱动多源数据融合可视化。结合地面监测(如CNEMC)与卫星数据(如OMI)，相关性8（前沿技术应用）、新颖性9（突破传统空间代理框架）"
+    },
+    {
+      "source": "0",
+      "target": "img_208",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multimodal deep learning for fusing ground monitoring and satellite pollution data visualization in China\nReason: 现有策略未探索AI驱动多源数据融合可视化。结合地面监测(如CNEMC)与卫星数据(如OMI)，相关性8（前沿技术应用）、新颖性9（突破传统空间代理框架）"
+    },
+    {
+      "source": "0",
+      "target": "img_232",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Multimodal deep learning for fusing ground monitoring and satellite pollution data visualization in China\nReason: 现有策略未探索AI驱动多源数据融合可视化。结合地面监测(如CNEMC)与卫星数据(如OMI)，相关性8（前沿技术应用）、新颖性9（突破传统空间代理框架）"
+    },
+    {
+      "source": "img_25",
+      "target": "img_22",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 从评估结果看（相关性8/可信度8），该节点展示了CNN-LSTM模型在时空特征融合的创新可视化方法，深度挖掘可揭示更多多模态数据融合的可视化技术细节。"
+    },
+    {
+      "source": "img_25",
+      "target": "img_24",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 从评估结果看（相关性8/可信度8），该节点展示了CNN-LSTM模型在时空特征融合的创新可视化方法，深度挖掘可揭示更多多模态数据融合的可视化技术细节。"
+    },
+    {
+      "source": "img_25",
+      "target": "img_27",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 从评估结果看（相关性8/可信度8），该节点展示了CNN-LSTM模型在时空特征融合的创新可视化方法，深度挖掘可揭示更多多模态数据融合的可视化技术细节。"
+    },
+    {
+      "source": "img_25",
+      "target": "img_28",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 从评估结果看（相关性8/可信度8），该节点展示了CNN-LSTM模型在时空特征融合的创新可视化方法，深度挖掘可揭示更多多模态数据融合的可视化技术细节。"
+    },
+    {
+      "source": "img_25",
+      "target": "img_29",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 4\nReason: 从评估结果看（相关性8/可信度8），该节点展示了CNN-LSTM模型在时空特征融合的创新可视化方法，深度挖掘可揭示更多多模态数据融合的可视化技术细节。"
+    },
+    {
+      "source": "img_240",
+      "target": "img_231",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 3\nReason: 该节点（相关性9/可信度8）利用GOME-2A卫星数据优化排放分布可视化，深度挖掘能获取更先进的源解析空间映射技术，补充污染源动态呈现方法。"
+    },
+    {
+      "source": "img_240",
+      "target": "img_233",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 3\nReason: 该节点（相关性9/可信度8）利用GOME-2A卫星数据优化排放分布可视化，深度挖掘能获取更先进的源解析空间映射技术，补充污染源动态呈现方法。"
+    },
+    {
+      "source": "img_240",
+      "target": "img_234",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 3\nReason: 该节点（相关性9/可信度8）利用GOME-2A卫星数据优化排放分布可视化，深度挖掘能获取更先进的源解析空间映射技术，补充污染源动态呈现方法。"
+    },
+    {
+      "source": "img_240",
+      "target": "img_235",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 3\nReason: 该节点（相关性9/可信度8）利用GOME-2A卫星数据优化排放分布可视化，深度挖掘能获取更先进的源解析空间映射技术，补充污染源动态呈现方法。"
+    },
+    {
+      "source": "img_240",
+      "target": "img_236",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 3\nReason: 该节点（相关性9/可信度8）利用GOME-2A卫星数据优化排放分布可视化，深度挖掘能获取更先进的源解析空间映射技术，补充污染源动态呈现方法。"
+    },
+    {
+      "source": "img_240",
+      "target": "img_237",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 3\nReason: 该节点（相关性9/可信度8）利用GOME-2A卫星数据优化排放分布可视化，深度挖掘能获取更先进的源解析空间映射技术，补充污染源动态呈现方法。"
+    },
+    {
+      "source": "img_240",
+      "target": "img_238",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 3\nReason: 该节点（相关性9/可信度8）利用GOME-2A卫星数据优化排放分布可视化，深度挖掘能获取更先进的源解析空间映射技术，补充污染源动态呈现方法。"
+    },
+    {
+      "source": "img_240",
+      "target": "img_239",
+      "type": "DEEPER",
+      "label": "metadata",
+      "detail": "Args: paper_id: 3\nReason: 该节点（相关性9/可信度8）利用GOME-2A卫星数据优化排放分布可视化，深度挖掘能获取更先进的源解析空间映射技术，补充污染源动态呈现方法。"
+    },
+    {
+      "source": "img_65",
+      "target": "img_227",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Real-time anomaly detection visualization for industrial emission patterns\nReason: 基于该节点的周排放模式异常发现（相关性9/可信度8），需要探索更先进的实时异常检测可视化技术，填补现有研究中动态监控可视化的缺口。"
+    },
+    {
+      "source": "0",
+      "target": "img_212",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution 3D atmospheric dispersion modeling visualization in China\nReason: 现有证据缺乏三维污染物扩散动态可视化案例（相关性9/新颖性8），需结合GIS和流体动力学模型开发更精细的时空扩散可视化方法。"
+    },
+    {
+      "source": "0",
+      "target": "img_211",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution 3D atmospheric dispersion modeling visualization in China\nReason: 现有证据缺乏三维污染物扩散动态可视化案例（相关性9/新颖性8），需结合GIS和流体动力学模型开发更精细的时空扩散可视化方法。"
+    },
+    {
+      "source": "0",
+      "target": "img_120",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution 3D atmospheric dispersion modeling visualization in China\nReason: 现有证据缺乏三维污染物扩散动态可视化案例（相关性9/新颖性8），需结合GIS和流体动力学模型开发更精细的时空扩散可视化方法。"
+    },
+    {
+      "source": "0",
+      "target": "img_121",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution 3D atmospheric dispersion modeling visualization in China\nReason: 现有证据缺乏三维污染物扩散动态可视化案例（相关性9/新颖性8），需结合GIS和流体动力学模型开发更精细的时空扩散可视化方法。"
+    },
+    {
+      "source": "0",
+      "target": "img_127",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution 3D atmospheric dispersion modeling visualization in China\nReason: 现有证据缺乏三维污染物扩散动态可视化案例（相关性9/新颖性8），需结合GIS和流体动力学模型开发更精细的时空扩散可视化方法。"
+    },
+    {
+      "source": "0",
+      "target": "img_243",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution 3D atmospheric dispersion modeling visualization in China\nReason: 现有证据缺乏三维污染物扩散动态可视化案例（相关性9/新颖性8），需结合GIS和流体动力学模型开发更精细的时空扩散可视化方法。"
+    },
+    {
+      "source": "0",
+      "target": "img_249",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: High-resolution 3D atmospheric dispersion modeling visualization in China\nReason: 现有证据缺乏三维污染物扩散动态可视化案例（相关性9/新颖性8），需结合GIS和流体动力学模型开发更精细的时空扩散可视化方法。"
+    }
+  ]
+}

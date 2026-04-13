@@ -1,0 +1,2985 @@
+{
+  "meta": {
+    "root_goal": "What are the main sources of air pollution from industrial production and how can factories reduce their emissions?",
+    "total_rounds": 7
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 What are the ma...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_003329",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供PM2.5来源的概括性综述但无突破性数据，适用作为背景补充。",
+          "insight": "文献综述指出PM2.5三大主要来源为工业燃煤锅炉烟气（Li et al., 2017）、建筑工地扬尘（Chen et al., 2017）和车辆排放（Liu et al., 2019），其中大中城市PM2.5污染与车辆排放显著相关（Hajmohammadi et al., 2019）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003397",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "与chunk_003329内容完全重复，属冗余信息应剪除。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_003330",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "包含多地区具体贡献率数据和时空演变趋势，建议深挖Li(2019)/Manousakas(2017)等核心文献。",
+          "insight": "量化研究显示交通源占比持续上升：北京2016年车辆排放贡献率22.7%（Li et al., 2019），希腊Patras地区达34%（Manousakas et al., 2017）；中国源解析综述揭示南北差异（Zhang et al., 2017）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003398",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "与chunk_003330内容完全重复，需剪除避免信息冗余。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_003461",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 5
+          },
+          "reason": "仅为论文标题，未提供具体研究内容或数据，无实质信息价值。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004253",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 9,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "充分揭示PM2.5与源解析的定量关系（如OH损失率/OFP/SOAP变化），含具体控制策略和治理优先级证据。",
+          "insight": "燃烧源在重污染期主导VOC来源；工业源减排可同时降低VOC水平与二次有机气溶胶生成，需优先控制燃烧源。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000466",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供基础背景数据支持煤炭污染，但缺乏新机制或深挖线索，适合作为上下文补充。",
+          "insight": "燃煤相关碳排放占中国总排放量70-80%，是北方城市雾霾主要成因。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001613",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "仅重复已知宏观数据（如健康影响排名），无新机制或深度分析，信息价值较低。",
+          "insight": "中国2018年全球SO2排放量第三、PM2.5平均浓度第十二，年致700万过早死亡。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003466",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 5
+          },
+          "reason": "纯关键词枚举，无实质性内容或数据，与调研问题关联度极低。",
+          "insight": "关键词列表：大气污染控制、PM2.5、低碳发展、臭氧。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004242",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "含重要图表数据(Fig.6)及跨区域对比，明确量化排放源贡献率，指向臭氧防治关键目标。",
+          "insight": "图6显示机动车排放(27.8%)和工业源(25.4%)是臭氧生成最大贡献者，与武汉研究(23.4%)一致。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002701",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "仅泛泛提及污染源类型，缺乏具体数据或可追踪的技术参数，无深挖线索",
+          "insight": "指出PM排放源包含不完全燃烧（炉灶）及发展中国家工业锅炉过滤器效率低下问题"
+        }
+      }
+    },
+    {
+      "id": "chunk_003882",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "明确给出改善排放清单的具体技术路径（技术分类），具有方法论创新价值，且关联源论文ID",
+          "insight": "工业燃烧排放不确定性源于源分类模糊而非数据不足，建议通过锅炉技术分类精细化降低不确定性"
+        }
+      }
+    },
+    {
+      "id": "chunk_002700",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "系统化污染源归因框架，但缺乏新数据或可拓展线索，宜保留为背景知识",
+          "insight": "分污染物阐述排放主导因素：SO₂(煤依赖度/脱硫水平)、NOₓ(工业燃烧+末端催化技术)、CO/NMVOC(不完全燃烧+溶剂蒸发损失)"
+        }
+      }
+    },
+    {
+      "id": "chunk_002608",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "描述政策框架但内容不完整（尾部句子断裂），未提供政策效果量化证据",
+          "insight": "中国空气清洁计划采用源头控制（产业排放标准）+过程控制（燃煤电厂末端设备）双重减排策略"
+        }
+      }
+    },
+    {
+      "id": "chunk_003968",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "精准定位排放清单薄弱环节并提供参数级改进方向，含「plant-based method」等可拓展方法论",
+          "insight": "识别省级排放清单关键不确定性：SO₂(面源硫含量/煤耗)、NOₓ(特定锅炉技术排放因子)、颗粒物(水泥生产排放因子差异)"
+        }
+      }
+    },
+    {
+      "id": "chunk_004065",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "明确量化了不同污染物在国家级和省级排放清单中的关键不确定性来源，为改进排放清单提供了具体方向。",
+          "insight": "工业排放清单中，SO2排放不确定性的主要来源是区域源的硫含量和煤炭消耗量；NOX排放不确定性的主因是特定燃烧技术的未经处理排放因子；钢铁生产是CO、BC和OC的主要排放源；省级颗粒物清单的不确定性主要由水泥生产的排放因子主导。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003852",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供排放因子可靠性的评估背景，但未提出具体改进方案或新线索。",
+          "insight": "2005年中国工业排放清单中，由于缺乏新实测数据而采用历史排放因子引入了不确定性；研究认为污染控制技术的去除效率比原始排放因子对排放水平的决定性更强。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004250",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 8,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "揭示工业源VOC的关键特征及其对大气化学过程的非比例性影响，为制定新控制策略提供理论依据。",
+          "insight": "工业源虽对VOC混合比贡献最小（12.6%），但对OH反应活性（L_OH）和二次有机气溶胶潜势（SOAP）的贡献最大（32.8%），表明污染控制策略应基于反应活性而非浓度。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004161",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "提供详尽的源解析量化数据，包含具体贡献百分比和污染物形成路径，支撑污染控制策略转型。",
+          "insight": "PMF模型解析显示：工业源对VOC的OH反应活性（32.2%）和SOAP（32.8%）贡献最大，机动车排放对OFP贡献最大（27.8%），证实需采取基于反应活性的VOC控制策略。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004254",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "客观指出方法论缺陷，但未提供解决路径或新数据来源，作为背景参考保留。",
+          "insight": "VOC来源解析研究存在三个局限：部分物种化学性质未知（如OH速率常数）、模型低估（仅包含33种物种）、SOA产率和MIR方法可能引入计算偏差。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004266",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "提供关键定量数据展示不同污染源对VOC指标的贡献比例，尤其污染变化趋势与团队研究方向高度吻合",
+          "insight": "研究发现工业源对VOC反应性(32.2%)和SOAP(32.8%)贡献最大，车辆排放对OFP贡献最大(27.8%)；污染期间工业源对OH损失率、OFP和SOAP的贡献上升。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004252",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "明确指向关键图表Fig.7，揭示PM2.5与VOC污染的量化关联及工业源主导作用，提供多维验证数据",
+          "insight": "图7显示PM2.5污染加剧时工业源贡献显著增长(最高占SOAP的57%)，VOC浓度从40.8ppbv升至89.6ppbv且与PM2.5正相关"
+        }
+      }
+    },
+    {
+      "id": "chunk_004200",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": -1
+          },
+          "reason": "仅章节标题无实质内容，未提供任何研究数据或方法论细节",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004167",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "完整概述研究框架但缺乏具体发现，适合作为背景信息保留",
+          "insight": "研究采用PMF模型分析武汉冬季VOC源，通过监测数据计算L_OH/OFP/SOAP并比较清洁期/污染期的差异"
+        }
+      }
+    },
+    {
+      "id": "chunk_004240",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 4,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": -1
+          },
+          "reason": "纯章节标题无信息量，未补充新材料",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004217",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_001628",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_002728",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_003494",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_004265",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_004229",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_003994",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_004091",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_003927",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_004024",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供了排放因子计算方法更新的具体案例，但未提出新的研究线索或深挖路径，适合作为背景信息保留。",
+          "insight": "工业锅炉排放因子数据库更新：硫释放率从85%提升至90%（与电厂持平），灰释放率保持13%不变，反映燃煤技术改进对排放因子不确定性的影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003874",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 5,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "量化了关键排放源对总体不确定性的贡献率（84%），揭露水泥行业非燃烧工序的PM2.5排放研究缺口，具有明确深挖价值。",
+          "insight": "层燃锅炉排放因子占NOx排放不确定性的84%，水泥冷却/粉碎等非燃烧工序的未减排PM2.5排放因子是PM不确定性的主要来源。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003823",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "提供可直接追踪的精细化数据集（Table S3）和建模方法，为验证省级排放模型提供高价值线索。",
+          "insight": "基于机组层级的燃煤电厂数据库（Zhao et al.,2008）实现了锅炉/燃烧器/控制设备参数零不确定性假设，省级数据见Table S3。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003991",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "指出尺度差异对特定排放源的影响，但未解释机制或提供解决方案，宜保留作上下文补充。",
+          "insight": "多尺度排放清单中，电厂/工业锅炉的SO2/NOx不确定性在地方尺度显著降低，但多数物种的总体不确定性与国家尺度相当。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002710",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "仅描述排放分布格局，未涉及不确定性量化或方法学改进，与核心研究目标偏离。",
+          "insight": "全球NMVOC排放源分析显示中国工业部门贡献62%（溶剂使用为主），交通和生物燃料是巴西/中东的关键排放源。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000354",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "提供关键排放源季节特征但无具体数据或深挖线索",
+          "insight": "中国NMVOC排放呈现季节性差异：冬季以人为源为主，夏季以生物源为主，春秋季人为源、生物源和生物质燃烧贡献相当。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000398",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "章节标题明确指向反演实验主体内容，有高度深挖价值",
+          "insight": "指向论文第4节'中国NMVOC排放反演实验'的核心章节，包含具体实验方法设计"
+        }
+      }
+    },
+    {
+      "id": "chunk_000395",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "揭示核心研究矛盾点，直接关联反演方法论缺陷",
+          "insight": "OMI甲醛/乙二醛观测对中国NMVOC排放的约束结果存在矛盾，指出化学机制可能是关键原因"
+        }
+      }
+    },
+    {
+      "id": "chunk_000344",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "关键汇总表格包含实验参数框架，需获取完整表格内容",
+          "insight": "表1系统总结中国NMVOC排放反演实验设计方案"
+        }
+      }
+    },
+    {
+      "id": "chunk_000350",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "详述排放因子修正方法但属技术细节层面",
+          "insight": "生物质燃烧NMVOC排放估算需乘以2倍修正系数，因50%物种排放因子未测量，此方法与Stavrakou(2016)研究一致"
+        }
+      }
+    },
+    {
+      "id": "chunk_004241",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键图表提供VOC源解析的量化数据，对比多个国际研究案例揭示地域性差异，包含可深挖线索：Fig.6详细数据/Gilman2009&Borbon2013等引文。",
+          "insight": "图6定量揭示了五大VOC排放源对OH消耗率的贡献比例：工业源(32.2%)、溶剂使用(21.4%)、燃烧源(20.4%)、车辆排放(19.4%)、汽油蒸发(6.61%)；指出车辆排放的VOC反应性(2.79 s⁻¹)显著高于科罗拉多研究值(1.2 s⁻¹)，挑战了传统城市VOC源贡献认知。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004645",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供PMF源解析的关键实验数据和自举结果分布（N=100），图中明确标注五源贡献值，并与附表S5直接关联可深挖验证。",
+          "insight": "箱线图展示了PMF模型解析的五种VOC源（溶剂使用、燃烧源、车辆排放、汽油蒸发、工业源）的中值和百分位分布，揭示了工业源贡献显著变异（最大达56.2%）且大气光化学过程显著影响源识别结果。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004188",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 5
+          },
+          "reason": "仅为方法描述片段，缺乏实质性数据或分析结果，不包含可深挖线索。",
+          "insight": "文本声明使用初始VOC水平数据进行PMF建模，但未提供具体数值或比较结论。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004127",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 4
+          },
+          "reason": "无具体内容且未关联到完整分析方法或结论，信息价值极低。",
+          "insight": "仅包含章节标题'分段VOC排放及源谱'。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004262",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供多源Pearson系数关键对比数据，但未直接可视化；需结合FIG.8/S4验证结论，适合作为背景参考。",
+          "insight": "比较实测/初始数据集PMF结果：汽油蒸发相关度最高（r²=0.99），工业源相关度最低（r²=0.40）；车辆排放因光化学作用差异显著，提示VOC衰变需纳入受体模型前处理。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004648",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 4,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "图表直接揭示PM2.5浓度梯度与VOC功能贡献（OFP/SOAP）的定量关系，包含深化污染控制策略的关键趋势数据。",
+          "insight": "柱状图量化显示不同PM2.5浓度下各VOC源贡献：当PM2.5＞150μg/m³时，工业源占SOAP贡献57%，是清洁状态(PM2.5＜75μg/m³)的3.2倍，解释高污染期二次气溶胶主导机制。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004646",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键时序图表直接展示VOC来源的定量变化规律，含置信区间体现统计显著性，Metadata中明确关联Fig.4及Table S5，建议深挖源解析模型细节",
+          "insight": "图5描绘了五种VOC来源的排放贡献度日变化趋势，PMF模型结果显示交通排放源在早晚高峰时段贡献显著提升，生物排放源在午后达到峰值，且各来源置信区间揭示了数据可靠性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004164",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "阐述VOC控制政策与排放清单缺陷的核心背景，未提供新方法或具体数据，应保留作政策依据参考",
+          "insight": "文献指出中国冬季PM2.5污染控制亟需加强VOC监管，但当前OFP与SOA潜势评估受限于本地化排放清单缺失及跨区域排放因子适用性偏差。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004231",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键桥接描述：揭示图表数据链（Fig.4→Fig.5→Table S5），补充未提供的统计验证表，建议提取Table S5进一步验证",
+          "insight": "明确指向Fig.5与Table S5存在数据关联，气象参数/污染物与VOC来源的皮尔逊相关性分析可验证PMF源解析结果的可信度。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004166",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "核心方法论说明且含典型应用案例（北京OFP溯源），但未提供新数据或模型改进方案",
+          "insight": "PMF模型在VOC源解析中具有无需预设源谱优势，已成功量化汽油蒸发对OFP的显著贡献，但SOA生成潜势的关键来源仍缺乏研究。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004263",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "仅为常规研究展望陈述，未提供具体改进方案或验证数据，信息重复且冗余",
+          "insight": "受体模型评估VOC环境影响的局限性获承认，提出未来需通过排放清单精细化及受体-空气质量模型交叉验证提升可靠性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003834",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含具体污染物数值和分布类型(beta/三角形分布)，可直接用于排放模型构建且提供可追溯的研究线索。",
+          "insight": "该证据提供了住宅燃煤设备的详细排放数据，包括硫释放率(80%)、NOx排放因子(0.1-3.9 kg/t均值0.9 kg/t)和PM排放因子(11 kg/t)，并引用了多篇实测研究(SEPA, 1996; Zhang 等, 2000; Chen 等, 2005,2006)。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003959",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "揭示了不同区域尺度的不确定性差异机制，但未提供具体数值或进一步研究线索，适合作为背景补充。",
+          "insight": "识别了发电、钢铁和水泥行业排放不确定性的关键驱动因素：全国SO2不确定性主因是湿法脱硫效率，江苏省主因是煤炭硫含量；NOx不确定性主要来自链条炉排放因子。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004056",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 8
+          },
+          "reason": "冗余文本证据（在相同论文中段落索引84重复出现），可能导致信息过载，建议剪除。",
+          "insight": "内容与chunk_003959完全重复，均为描述不同行业排放不确定性的主要来源参数。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004632",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "可视化呈现关键排放因子差异与异常情况，含明确源论文(Zhao 等, 2010)和图注中10幅子图的技术分类线索。",
+          "insight": "图表展示了9类燃煤机组（涉及锅炉类型/燃料/容量）的NOx排放因子分布，红色柱标识超出95%置信区间的异常值，其中工业链条炉(图j)显示极高排放波动。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003975",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "补充了省级尺度（江苏）的验证案例，但未突破chunk_003959的框架，适合保留行业对比背景。",
+          "insight": "量化指出电力行业SO2不确定性的主因是脱硫厂效率差异，钢铁行业是烧结工序排放因子，水泥行业是分解炉排放因子。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004189",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "提供具体方法论引用但缺乏实际数据或创新点",
+          "insight": "引用Abeleira et al. (2017)提出的基于OH自由基损失速率的VOCs反应性计算方法"
+        }
+      }
+    },
+    {
+      "id": "chunk_004647",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心结果图表量化不同VOC源对关键指标贡献，揭示污染控制优先级",
+          "insight": "条形图显示工业源占L_OH的32.2%和SOAP的32.8%，交通源占OFP的27.8%，燃烧源主导MR(39%)；PM2.5污染加重时工业源贡献率激增（SOAP达57%）"
+        }
+      }
+    },
+    {
+      "id": "chunk_004381",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "泛背景陈述无新数据，与核心问题关联性弱",
+          "insight": "城市化导致中国VOCs排放增加，主要来自交通、溶剂和石化工业"
+        }
+      }
+    },
+    {
+      "id": "chunk_004649",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "模型验证图揭示源解析不确定性，为方法优化提供线索",
+          "insight": "散点图显示溶剂(r²=0.85)和汽油蒸发(r²=0.99)源解析可靠，但交通排放(r²=0.40)存在光化学过程导致的显著差异"
+        }
+      }
+    },
+    {
+      "id": "chunk_004151",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供特定工业源数据但未展示具体结果",
+          "insight": "比较非回收焦化厂与机械焦化厂的VOCs排放特征，包括源谱和化学反应性"
+        }
+      }
+    },
+    {
+      "id": "chunk_004637",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "关键工艺流程图直接比较两种焦化厂的VOCs排放路径差异，Metadata明确提供源论文ID(paper_020)及具体图表ID(img_193)，具有深度挖掘价值。",
+          "insight": "流程图详细展示了非回收与机械焦化厂的焦炭生产流程及VOCs采样点位置（A-D）, 特别强调非回收焦化厂主要通过烟囱集中排放, 而机械焦化厂存在焦炉泄漏和副产品车间泄漏等多路径排放。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004142",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "提供核心排放因子的数值化对比，引用图4具体数据支撑结论，具备战略决策价值和技术延伸性。",
+          "insight": "量化数据显示非回收焦化厂烟囱VOCs排放因子(96g/Mg-焦炭)是机械焦化厂(0.4g/Mg-焦炭)的240倍，其中烯烃占比70%（乙烯40.58g/Mg），证明工艺差异对排放强度有决定性影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004099",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "补充污染生成潜力指标，佐证工艺替代的环保必要性，但缺乏新数据突破前两条证据的深度。",
+          "insight": "非回收焦化厂烟囱废气臭氧生成潜力(OFP)达80.26mg/m³，而机械焦化厂焦炉泄漏仅7.22mg/m³，表明前者是区域性臭氧污染的关键控制对象。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004103",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "工艺背景描述与Fig1流程图内容高度重复，未提供新证据或定量支撑，信息密度低。",
+          "insight": "基础工艺描述：机械焦化采用碳化室回收焦油/苯/氨等副产品, 非回收工艺燃烧副产品回收热能, 排放路径存在结构差异。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004249",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "直接比较不同VOC来源对SOAP的贡献率，提供多国研究对比，但未给出新模型或可深挖数据源。",
+          "insight": "工业源贡献最大SOAP(32.8%)，车辆排放仅占25.8%，后者可能因VOC物种输入限制被低估；与Wu(2017)、Derwent(2010)等研究存在跨区域差异。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004139",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "揭示焦化技术差异对VOC排放特征的影响，提供具体COD量化指标，且指向U.S. EPA可延伸检索的报告ID。",
+          "insight": "非回收焦化厂VOC成分谱(COD值0.5-1)显著区别于回收式技术，U.S. EPA(2008)报告显示其排放量极低，该研究首次建立非回收焦化VOC基准。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004640",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "柱状图定量对比关键排放差异，含有具体EFs数值和优势物种数据，metadata提供源论文ID(paper_020)和图片ID(img_196)可供深挖。",
+          "insight": "图4显示非回收焦化(SFN)EFs达96g/Mg-coke，超机械焦化(SFM)240倍；烯烃占SFN排放70%(67.15g/Mg)，主要来自乙烯(40.58g/Mg)和丁烯(25.26g/Mg)。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004107",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "清晰描述实验方法论框架，但未呈现具体结果数据，适合作背景参考。",
+          "insight": "研究设计同时采集烟囱排放(非回收/机械焦化)和焦炉泄漏样本，目标涵盖VOCs源成分谱建立、排放因子计算及臭氧生成潜能评估三维度。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004147",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "仅描述研究局限性，无实质性VOC排放特征或机制洞见，信息密度低。",
+          "insight": "承认样本量和覆盖范围不足导致数据不确定性，但强调非回收焦化数据稀缺性，建议未来扩大采样规模。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004143",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "提供国际排放因子对比，但缺乏具体数据或图表支持深挖；采样局限可能导致结果偏低。",
+          "insight": "中国机械焦化厂的VOCs排放因子（0.4 g Mg⁻¹-coke）显著低于美国（68 g Mg⁻¹-coke）、英国（41 g Mg⁻¹-coke）和丹麦（47 g Mg⁻¹-coal）的数据，归因于焦化工艺升级和烟气控制措施的实施。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004146",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "填补非回收焦化厂排放数据空白，但未关联具体图表或方法论细节。",
+          "insight": "非回收焦化厂烟囱排放的VOCs排放因子此前无可用数据，本研究首次提供关键参考值（96 g Mg⁻¹-coke）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004639",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "关键对比图表揭示工艺差异对VOC组分的影响，支持用机械焦化替代非回收厂减排的结论；含定量成分数据及关联表格ID（Table S2）。",
+          "insight": "图3显示非回收焦化厂烟道气（SFN）主要含乙烯(42.51%)、1-丁烯(26.27%)和苯(12.11%)，而机械焦化厂(SFM)以苯乙烯(32.28%)和苯(25.95%)为主；无组织排放中苯系物占比突出。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004638",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "复合图表展示VOCs组分分布差异，直接支持工艺优化决策；关联臭氧潜势数据（OFP 80.26 mg m⁻³），含Fig.5可深挖。",
+          "insight": "图2表明非回收焦化厂(SFN)排放中烯烃占比70.13%，而机械焦化厂的不同排放段(SFM/OLM/BLM)以芳烃为主(45-72%)，凸显工艺差异对污染特征的影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003866",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "泛泛讨论排放清单不确定性，与焦化厂VOCs具体排放关联弱；未提供改进方法或新数据。",
+          "insight": "中国工业锅炉NOₓ排放不确定性达-31%~96%，钢铁厂烧结过程SO₂排放不确定性-51%~103%，主因排放因子数据分辨率不足。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003013",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心排放清单工具且含数据获取路径(http://www.meicmodel.org)，可直接支撑污染源分析建模。",
+          "insight": "MEIC作为清华大学开发的自下而上排放清单框架，覆盖中国700+人为排放源，提供时间序列污染源分类数据和在线数据库访问接口。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003795",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "基础分类框架但未提供量化数据，需结合图S1验证（当前无图支持）。",
+          "insight": "界定中国人为污染排放六类来源（电厂、钢铁厂、工业燃烧/非燃烧、交通、居民燃烧）的分类体系。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000311",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "提供新型监测技术路径但缺少实际排放数据验证，需结合实测案例深挖。",
+          "insight": "热异常指数(TAI)方法实现对400K+工业热源的监测能力，特别针对环境违规的小型工厂燃烧过程。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003833",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 8
+          },
+          "reason": "含具体量化排放因子和不确定性分布模型，图1j应揭示关键变化规律（需查原图）。",
+          "insight": "工业锅炉燃煤硫释放率85%、灰分释放率13-60%、NOx排放因子4.2±1.8kg/t等关键参数及其概率分布（特别图1j展示长尾不确定性）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004094",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "仅为论文标题，缺乏实质内容或深挖线索，信息不充分，无法提取关键洞察。",
+          "insight": "None"
+        }
+      }
+    },
+    {
+      "id": "chunk_004100",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 8
+          },
+          "reason": "关键词作为背景信息有用，但无具体数据或图表支持，需保留作为上下文参考。",
+          "insight": "论文提供的关键词明确了焦点：挥发有机化合物（VOCs）、源剖面、排放因子，以及焦化厂和焦化段的关联。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004153",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含具体数据和实验结论（如排放因子和臭氧潜力），提供强相关的研究线索，可深挖源剖面库和排放评估。",
+          "insight": "详细分析了焦化厂的VOCs组成和排放特性：乙酰乙烯和苯乙烯分别作为非回收和机械过程的指示物，C2-C4烃类作为副产物排放的协同指示物；排放因子显示非回收焦化厂排放强度高（SFN: 96 g Mg⁻¹-coke, SFM: 0.4 g Mg⁻¹-coke），且源反应性（SFN: 80.26 mg m⁻³）导致臭氧形成，控制措施建议转换工厂类型以减少排放并改善空气质量。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004150",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "直接引用图表（Fig. S2）和数据，提供可视化证据和研究趋势，具深挖路径（如追查补充材料图表）。",
+          "insight": "图表（Fig. S2）显示焦化厂排放段的臭氧形成潜力主要贡献者包括乙烯、丙烯、1-丁烯、苯、甲苯、二甲苯和三甲苯，这些是优先控制污染物以降低环境风险。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004131",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供理论背景和化学机制，但无新数据或可操作建议，作为上下文保留。",
+          "insight": "描述了焦化过程中VOCs生成机制：机械焦化厂通过煤的分解形成小分子（烷烃、烯烃），并通过环化和脱氢生成芳香化合物；非回收焦化厂则因气体燃烧而释放低碳烯烃。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003472",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供PM2.5治理背景但无具体技术或数据支撑，缺乏深挖线索",
+          "insight": "PM2.5治理面临复杂挑战，因其形成涉及多种前体物和污染源，推动中国空气质量管理的综合策略需求"
+        }
+      }
+    },
+    {
+      "id": "chunk_002548",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "直接引用两篇关键论文揭示研究空白，提供明确深挖线索（Li et al., 2019; Cheng et al., 2021）",
+          "insight": "研究指出碳减排路径能降低PM2.5，但Li(2019)与Cheng(2021)论文未量化CO2减排贡献度，存在研究缺口"
+        }
+      }
+    },
+    {
+      "id": "chunk_004699",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表提供关键工业源PM去除效率量化数据与方法学（bootstrap仿真），含具体参考文献(Zhao2010)和补充表S3",
+          "insight": "基于自举模拟，图2显示水泥湿法除尘(a-c)和烧结布袋除尘(d-f)对PM2.5/PM10/TSP的去除效率概率带，揭示工业除尘设备性能变异性和量化方法"
+        }
+      }
+    },
+    {
+      "id": "chunk_003879",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "指出关键不确定性来源但未提供解决方案或深挖路径，需保留作背景参考",
+          "insight": "水泥生产等工业源的PM2.5排放因子及其质量分数不确定性（C/D级）显著影响排放清单精确度"
+        }
+      }
+    },
+    {
+      "id": "chunk_003942",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "信息不完整且未特指PM2.5，工业源贡献数据在其它证据中已更好覆盖",
+          "insight": "钢铁工业为主要颗粒物排放源（截断信息）"
+        }
+      }
+    },
+    {
+      "id": "chunk_004039",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "证据仅为文本片段且不完整，缺乏定量数据或深入分析，无法提供可操作的洞察或深挖线索。",
+          "insight": "钢铁行业是颗粒物排放主要来源之一"
+        }
+      }
+    },
+    {
+      "id": "chunk_004617",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表提供车辆排放标准对无机元素的详细定量影响：揭示添加剂成分、排放标准演进效果和燃油类型差异三大关键维度。Metadata含FigID和源文献引用路径，具深度挖掘价值。",
+          "insight": "图6显示汽油车PM2.5中Na/Mg/K/Ca排放因子显著高于其他无机元素（其中柴油车的K排放因子高达100μg/km），主要源自燃料添加剂；国V标准相较国III使PM2.5排放因子降低约90%，柴油车排放因子普遍高于汽油车10倍以上。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002312",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "指出重要研究缺口，对污染物溯源建模有参考价值，但未提供解决方案或数据线索。",
+          "insight": "船舶PM成分实验数据存在显著空白，需建立发动机负载/燃料类型的跨维度排放数据库，并量化海冰等环境因子的影响机制。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003933",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提出创新性排放不确定度量化方法（Meta中提Fig.2案例但未提供），直接关联PM2.5源解析精度问题，需追踪补充图表及Table S3数据。",
+          "insight": "除尘器粒径分级去除效率数据库缺失，研究通过Bootstrap模拟构建95%CI置信区间（如湿式除尘器在水泥行业的PM2.5去除率分布），实现厂区级排放不确定性量化。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003517",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "概述污染协同控制策略方向，但未提供具体技术方案或数据支持，保留为政策背景参考。",
+          "insight": "PM2.5与O3存在协同控制挑战，需在VOC限制区域（如冬季城市）同步调控NOx/NMVOCs，区域联合控制比本地措施更有效。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003512",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心证据展示PM2.5与O3的污染控制矛盾，包含具体数据、图表索引（Fig.6）及多篇文献引用（52-57），具备深度研究价值",
+          "insight": "2013-2017年行动计划期间，中国NOx排放减少21%而VOCs增加2%，导致PM2.5下降但O3浓度上升，揭示PM2.5与O3控制的复杂权衡关系（图6数据支持）"
+        }
+      }
+    },
+    {
+      "id": "chunk_004267",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "提供具体控制策略（工业/机动车优先）及时段建议（冬季），但缺失实证数据或图表支持",
+          "insight": "工业源和机动车排放的VOC控制可同步减轻PM2.5与O3污染，冬季需优先管控高SOA和OFP贡献的VOC源"
+        }
+      }
+    },
+    {
+      "id": "chunk_004132",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 3
+          },
+          "reason": "无描述性内容、关键发现或数据支撑，仅为文档结构标记，信息价值极低",
+          "insight": "仅章节标题'基于分段的VOC物种特征分析'，未提供实质内容或数据"
+        }
+      }
+    },
+    {
+      "id": "chunk_003847",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供具体研究机构（CRAES）和实测方法（20种窑炉），包含可深挖的NOx排放因子数据，对排放清单不确定性量化具有直接价值。",
+          "insight": "中国环境科学研究院(CRAES)通过全国性调查实测20种不同技术水泥窑的NOx排放因子，用于重新评估水泥制造排放标准。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003928",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含具体文献引用(Lei2011/Huo2012)和量化排放因子(1.0kg/t)，且明确说明更新不确定性分析方法。",
+          "insight": "引用Lei和Huo的实测研究，将焦化过程的NOx排放因子更新为1.0 kg/t-生产量（均匀分布），并应用于水泥钢铁行业的不确定性分析。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004025",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 0
+          },
+          "reason": "文本与chunk_003928100%重复（相同论文相同段落），属于冗余信息，无新增价值。",
+          "insight": "内容与chunk_003928完全重复，均描述水泥钢铁行业的排放因子测量更新及焦化NOx因子(1.0kg/t)。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004072",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "系统性指出各污染物不确定性的关键参数来源，但未提供具体数据或深挖线索，宜保留作背景参考。",
+          "insight": "识别SO2不确定性主要来自电厂脱硫效率参数，NOx不确定性来自无低氮燃烧器的设备，颗粒物不确定性取决于水泥钢铁排放因子。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001994",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 5
+          },
+          "reason": "研究对象为轻型汽油车（非工业源），且未提供表格实质内容或结论，与工业排放清单不确定性主题弱相关。",
+          "insight": "仅提及存在不同车速下的排放因子调整系数表（未展示数据或结论）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000949",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "纯章节标题无实质内容，未提供具体方法或数据值，无进一步挖掘线索",
+          "insight": "仅标题提及OMI卫星NO₂和HCHO柱数据反演方法"
+        }
+      }
+    },
+    {
+      "id": "chunk_001079",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "文本内容与chunk_000949完全一致，属重复信息",
+          "insight": "与chunk_000949内容完全重复"
+        }
+      }
+    },
+    {
+      "id": "chunk_004478",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "图表揭示关键模型偏差与改进机制，包含量化对比（5倍低估）及具体改进方法（FINN1.5缩放），提供源论文数据引用线索",
+          "insight": "可视化对比显示：使用GFED4s模型的火灾cOHR贡献低估观测值5倍（观测17% vs 模型3.4%），而缩放FINN1.5排放后模型改善至17%匹配观测，证明亚马逊火灾排放低估问题"
+        }
+      }
+    },
+    {
+      "id": "chunk_002041",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "提供具体排放因子比较数据和方法学漏洞，但未包含图表或可追踪原始数据ID",
+          "insight": "隧道测量揭示中国轻型汽油车PM2.5排放因子被指南低估46%（实测34.7mg/km·veh vs 指南20.8mg/km·veh），主因是非尾气颗粒物（轮胎/刹车/道路磨损贡献8.2mg/km·veh）未被计入"
+        }
+      }
+    },
+    {
+      "id": "chunk_003221",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 6
+          },
+          "reason": "无具体方法或数据描述，标题级信息无实质内容",
+          "insight": "仅章节标题声明使用浓度梯度法计算排放因子"
+        }
+      }
+    },
+    {
+      "id": "chunk_003293",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 6,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "小节标题表明该方法论方向，但未提供具体计算过程、数据参数或图表支持。虽与车辆排放相关，缺乏深挖线索，宜保留上下文。",
+          "insight": "证据为论文第3.2节标题，指出采用浓度梯度法计算车辆排放因子(EFs)。"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "0",
+      "target": "chunk_003329",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003397",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003330",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003398",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003461",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004253",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000466",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001613",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003466",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004242",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the main sources of air pollution from industrial production and how can factories reduce their emissions?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001628",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: non-combustion industrial pollution sources and mitigation\nReason: 补充现有燃煤/燃烧源外的其他工业污染源（如化工过程排放）及治理方案，相关9/新颖8，拓宽污染源认知边界。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_002728",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: non-combustion industrial pollution sources and mitigation\nReason: 补充现有燃煤/燃烧源外的其他工业污染源（如化工过程排放）及治理方案，相关9/新颖8，拓宽污染源认知边界。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003494",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: non-combustion industrial pollution sources and mitigation\nReason: 补充现有燃煤/燃烧源外的其他工业污染源（如化工过程排放）及治理方案，相关9/新颖8，拓宽污染源认知边界。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004265",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: reactivity-based industrial VOC control technologies reducing OFP and SOAP\nReason: 该节点揭示工业VOC对OFP和SOAP的突出贡献（32.2%-32.8%），但缺乏具体控制技术细节。此意图聚焦反应活性导向的新兴技术，与减排直接相关（相关性9），历史策略未覆盖此方法论（新颖性8）。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004229",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: reactivity-based industrial VOC control technologies reducing OFP and SOAP\nReason: 该节点揭示工业VOC对OFP和SOAP的突出贡献（32.2%-32.8%），但缺乏具体控制技术细节。此意图聚焦反应活性导向的新兴技术，与减排直接相关（相关性9），历史策略未覆盖此方法论（新颖性8）。"
+    },
+    {
+      "source": "chunk_003968",
+      "target": "chunk_003994",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: plant-based emission inventory methods for quantifying bituminous combustion and grate boiler emissions\nReason: 针对排放因子不确定性高的关键工业源（燃煤锅炉），深化'plant-based'方法论研究（相关性10），此精确量化技术未被历史策略探索（新颖性9）。"
+    },
+    {
+      "source": "chunk_003968",
+      "target": "chunk_004091",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: plant-based emission inventory methods for quantifying bituminous combustion and grate boiler emissions\nReason: 针对排放因子不确定性高的关键工业源（燃煤锅炉），深化'plant-based'方法论研究（相关性10），此精确量化技术未被历史策略探索（新颖性9）。"
+    },
+    {
+      "source": "chunk_003968",
+      "target": "chunk_003927",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: plant-based emission inventory methods for quantifying bituminous combustion and grate boiler emissions\nReason: 针对排放因子不确定性高的关键工业源（燃煤锅炉），深化'plant-based'方法论研究（相关性10），此精确量化技术未被历史策略探索（新颖性9）。"
+    },
+    {
+      "source": "chunk_003968",
+      "target": "chunk_004024",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: plant-based emission inventory methods for quantifying bituminous combustion and grate boiler emissions\nReason: 针对排放因子不确定性高的关键工业源（燃煤锅炉），深化'plant-based'方法论研究（相关性10），此精确量化技术未被历史策略探索（新颖性9）。"
+    },
+    {
+      "source": "chunk_003968",
+      "target": "chunk_003874",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: plant-based emission inventory methods for quantifying bituminous combustion and grate boiler emissions\nReason: 针对排放因子不确定性高的关键工业源（燃煤锅炉），深化'plant-based'方法论研究（相关性10），此精确量化技术未被历史策略探索（新颖性9）。"
+    },
+    {
+      "source": "chunk_003968",
+      "target": "chunk_003823",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: plant-based emission inventory methods for quantifying bituminous combustion and grate boiler emissions\nReason: 针对排放因子不确定性高的关键工业源（燃煤锅炉），深化'plant-based'方法论研究（相关性10），此精确量化技术未被历史策略探索（新颖性9）。"
+    },
+    {
+      "source": "chunk_003968",
+      "target": "chunk_003991",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: plant-based emission inventory methods for quantifying bituminous combustion and grate boiler emissions\nReason: 针对排放因子不确定性高的关键工业源（燃煤锅炉），深化'plant-based'方法论研究（相关性10），此精确量化技术未被历史策略探索（新颖性9）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_002710",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: industrial process modifications reducing NMVOC evaporation and incomplete combustion\nReason: 节点指出非燃烧排放（溶剂蒸发/不完全燃烧）对VOC贡献显著，此意图探索源头工艺改造技术（相关性9），区别于已有燃烧源策略（新颖性8）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_000354",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: industrial process modifications reducing NMVOC evaporation and incomplete combustion\nReason: 节点指出非燃烧排放（溶剂蒸发/不完全燃烧）对VOC贡献显著，此意图探索源头工艺改造技术（相关性9），区别于已有燃烧源策略（新颖性8）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_000398",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: industrial process modifications reducing NMVOC evaporation and incomplete combustion\nReason: 节点指出非燃烧排放（溶剂蒸发/不完全燃烧）对VOC贡献显著，此意图探索源头工艺改造技术（相关性9），区别于已有燃烧源策略（新颖性8）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_000395",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: industrial process modifications reducing NMVOC evaporation and incomplete combustion\nReason: 节点指出非燃烧排放（溶剂蒸发/不完全燃烧）对VOC贡献显著，此意图探索源头工艺改造技术（相关性9），区别于已有燃烧源策略（新颖性8）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_000344",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: industrial process modifications reducing NMVOC evaporation and incomplete combustion\nReason: 节点指出非燃烧排放（溶剂蒸发/不完全燃烧）对VOC贡献显著，此意图探索源头工艺改造技术（相关性9），区别于已有燃烧源策略（新颖性8）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_000350",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: industrial process modifications reducing NMVOC evaporation and incomplete combustion\nReason: 节点指出非燃烧排放（溶剂蒸发/不完全燃烧）对VOC贡献显著，此意图探索源头工艺改造技术（相关性9），区别于已有燃烧源策略（新颖性8）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_004241",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: industrial process modifications reducing NMVOC evaporation and incomplete combustion\nReason: 节点指出非燃烧排放（溶剂蒸发/不完全燃烧）对VOC贡献显著，此意图探索源头工艺改造技术（相关性9），区别于已有燃烧源策略（新颖性8）。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004645",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004188",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004127",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004262",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004648",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004646",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004164",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004231",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004166",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_004161",
+      "target": "chunk_004263",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PMF model optimization techniques for industrial VOC source apportionment\nReason: 该节点显示工业源对VOC反应活性(32.2%)和SOAP(32.8%)贡献最大，但当前模型仅包含33种VOC物种导致低估。需要探索改进PMF模型以更精准量化工业VOC贡献，相关性9/新颖性8。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_003834",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: emission factor reduction strategies for industrial grate boilers\nReason: 该节点指工业燃烧中链条炉排锅炉对NOx排放不确定性的贡献率高达84%。需要聚焦改进锅炉燃烧技术与排放因子的具体方法，相关性10/新颖性9。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_003959",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: emission factor reduction strategies for industrial grate boilers\nReason: 该节点指工业燃烧中链条炉排锅炉对NOx排放不确定性的贡献率高达84%。需要聚焦改进锅炉燃烧技术与排放因子的具体方法，相关性10/新颖性9。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_004056",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: emission factor reduction strategies for industrial grate boilers\nReason: 该节点指工业燃烧中链条炉排锅炉对NOx排放不确定性的贡献率高达84%。需要聚焦改进锅炉燃烧技术与排放因子的具体方法，相关性10/新颖性9。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_004632",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: emission factor reduction strategies for industrial grate boilers\nReason: 该节点指工业燃烧中链条炉排锅炉对NOx排放不确定性的贡献率高达84%。需要聚焦改进锅炉燃烧技术与排放因子的具体方法，相关性10/新颖性9。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_003975",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: emission factor reduction strategies for industrial grate boilers\nReason: 该节点指工业燃烧中链条炉排锅炉对NOx排放不确定性的贡献率高达84%。需要聚焦改进锅炉燃烧技术与排放因子的具体方法，相关性10/新颖性9。"
+    },
+    {
+      "source": "chunk_004241",
+      "target": "chunk_004189",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: comparative analysis of VOC reactivity metrics across industrial regions\nReason: 该节点揭示车辆排放的VOC反应性(2.79 s⁻¹)显著高于科罗拉多研究值，暗示地域差异。需扩展跨国工业区VOC反应性对比研究，发现关键控制因素，相关性8/新颖性9。"
+    },
+    {
+      "source": "chunk_004241",
+      "target": "chunk_004647",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: comparative analysis of VOC reactivity metrics across industrial regions\nReason: 该节点揭示车辆排放的VOC反应性(2.79 s⁻¹)显著高于科罗拉多研究值，暗示地域差异。需扩展跨国工业区VOC反应性对比研究，发现关键控制因素，相关性8/新颖性9。"
+    },
+    {
+      "source": "chunk_004241",
+      "target": "chunk_004381",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: comparative analysis of VOC reactivity metrics across industrial regions\nReason: 该节点揭示车辆排放的VOC反应性(2.79 s⁻¹)显著高于科罗拉多研究值，暗示地域差异。需扩展跨国工业区VOC反应性对比研究，发现关键控制因素，相关性8/新颖性9。"
+    },
+    {
+      "source": "chunk_004241",
+      "target": "chunk_004649",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: comparative analysis of VOC reactivity metrics across industrial regions\nReason: 该节点揭示车辆排放的VOC反应性(2.79 s⁻¹)显著高于科罗拉多研究值，暗示地域差异。需扩展跨国工业区VOC反应性对比研究，发现关键控制因素，相关性8/新颖性9。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004151",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: non-combustion VOC abatement in chemical manufacturing processes\nReason: 现有证据集中于燃烧源，而工业非燃烧过程（如溶剂挥发）贡献27%NMVOC。需探索化工生产中的过程改性等减排技术，相关性10/新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004637",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: non-combustion VOC abatement in chemical manufacturing processes\nReason: 现有证据集中于燃烧源，而工业非燃烧过程（如溶剂挥发）贡献27%NMVOC。需探索化工生产中的过程改性等减排技术，相关性10/新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004142",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: non-combustion VOC abatement in chemical manufacturing processes\nReason: 现有证据集中于燃烧源，而工业非燃烧过程（如溶剂挥发）贡献27%NMVOC。需探索化工生产中的过程改性等减排技术，相关性10/新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004099",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: non-combustion VOC abatement in chemical manufacturing processes\nReason: 现有证据集中于燃烧源，而工业非燃烧过程（如溶剂挥发）贡献27%NMVOC。需探索化工生产中的过程改性等减排技术，相关性10/新颖性8。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004103",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: non-combustion VOC abatement in chemical manufacturing processes\nReason: 现有证据集中于燃烧源，而工业非燃烧过程（如溶剂挥发）贡献27%NMVOC。需探索化工生产中的过程改性等减排技术，相关性10/新颖性8。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_004249",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: industrial VOC source-specific SOAP reduction technologies\nReason: 当前证据显示工业源对二次有机气溶胶潜势(SOAP)贡献最大(32.8%)，但缺乏针对特定工业来源的技术解决方案。需探索行业细分的减排技术，相关性和新颖性均达到8分。"
+    },
+    {
+      "source": "chunk_004142",
+      "target": "chunk_004139",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VOC emission control efficiency between non-recovery and mechanical coking systems\nReason: 非回收焦化工艺排放因子(96g/Mg)远超机械工艺(0.4g/Mg)，但尚未系统比较两种技术的控排效率差异。聚焦技术对比可提供具体减排路径，相关度10分，新颖性8分。"
+    },
+    {
+      "source": "chunk_004142",
+      "target": "chunk_004640",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VOC emission control efficiency between non-recovery and mechanical coking systems\nReason: 非回收焦化工艺排放因子(96g/Mg)远超机械工艺(0.4g/Mg)，但尚未系统比较两种技术的控排效率差异。聚焦技术对比可提供具体减排路径，相关度10分，新颖性8分。"
+    },
+    {
+      "source": "chunk_004142",
+      "target": "chunk_004107",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VOC emission control efficiency between non-recovery and mechanical coking systems\nReason: 非回收焦化工艺排放因子(96g/Mg)远超机械工艺(0.4g/Mg)，但尚未系统比较两种技术的控排效率差异。聚焦技术对比可提供具体减排路径，相关度10分，新颖性8分。"
+    },
+    {
+      "source": "chunk_004142",
+      "target": "chunk_004147",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VOC emission control efficiency between non-recovery and mechanical coking systems\nReason: 非回收焦化工艺排放因子(96g/Mg)远超机械工艺(0.4g/Mg)，但尚未系统比较两种技术的控排效率差异。聚焦技术对比可提供具体减排路径，相关度10分，新颖性8分。"
+    },
+    {
+      "source": "chunk_004142",
+      "target": "chunk_004143",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VOC emission control efficiency between non-recovery and mechanical coking systems\nReason: 非回收焦化工艺排放因子(96g/Mg)远超机械工艺(0.4g/Mg)，但尚未系统比较两种技术的控排效率差异。聚焦技术对比可提供具体减排路径，相关度10分，新颖性8分。"
+    },
+    {
+      "source": "chunk_004142",
+      "target": "chunk_004146",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VOC emission control efficiency between non-recovery and mechanical coking systems\nReason: 非回收焦化工艺排放因子(96g/Mg)远超机械工艺(0.4g/Mg)，但尚未系统比较两种技术的控排效率差异。聚焦技术对比可提供具体减排路径，相关度10分，新颖性8分。"
+    },
+    {
+      "source": "chunk_004142",
+      "target": "chunk_004639",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VOC emission control efficiency between non-recovery and mechanical coking systems\nReason: 非回收焦化工艺排放因子(96g/Mg)远超机械工艺(0.4g/Mg)，但尚未系统比较两种技术的控排效率差异。聚焦技术对比可提供具体减排路径，相关度10分，新颖性8分。"
+    },
+    {
+      "source": "chunk_004142",
+      "target": "chunk_004638",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: VOC emission control efficiency between non-recovery and mechanical coking systems\nReason: 非回收焦化工艺排放因子(96g/Mg)远超机械工艺(0.4g/Mg)，但尚未系统比较两种技术的控排效率差异。聚焦技术对比可提供具体减排路径，相关度10分，新颖性8分。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_003866",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: technology classification framework for industrial boiler emission reduction\nReason: 证据表明工业锅炉排放不确定性源于技术分类模糊。需建立精细化技术分类体系以优化排放因子计算，填补当前研究空白，相关度9分，新颖性9分。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_003013",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: technology classification framework for industrial boiler emission reduction\nReason: 证据表明工业锅炉排放不确定性源于技术分类模糊。需建立精细化技术分类体系以优化排放因子计算，填补当前研究空白，相关度9分，新颖性9分。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_003795",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: technology classification framework for industrial boiler emission reduction\nReason: 证据表明工业锅炉排放不确定性源于技术分类模糊。需建立精细化技术分类体系以优化排放因子计算，填补当前研究空白，相关度9分，新颖性9分。"
+    },
+    {
+      "source": "chunk_003882",
+      "target": "chunk_000311",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: technology classification framework for industrial boiler emission reduction\nReason: 证据表明工业锅炉排放不确定性源于技术分类模糊。需建立精细化技术分类体系以优化排放因子计算，填补当前研究空白，相关度9分，新颖性9分。"
+    },
+    {
+      "source": "chunk_004632",
+      "target": "chunk_003833",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: low-NOx retrofitting effectiveness in industrial grate boilers\nReason: 工业链条炉存在极高NOx排放波动，需探究低氮改造技术的实际减排效果及适用边界，直接服务于工厂减排需求，相关度10分，新颖性7分。"
+    },
+    {
+      "source": "chunk_004639",
+      "target": "chunk_004094",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: ethylene and styrene emission reduction technologies in coking plants\nReason: 非回收焦化厂乙烯(42.51%)和机械焦化厂苯乙烯(32.28%)是关键污染物组分但现有减排技术研究不足。评估分数relevance=10/novelty=8，需探索针对烯烃和芳香烃的特异性控制技术。"
+    },
+    {
+      "source": "chunk_004639",
+      "target": "chunk_004100",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: ethylene and styrene emission reduction technologies in coking plants\nReason: 非回收焦化厂乙烯(42.51%)和机械焦化厂苯乙烯(32.28%)是关键污染物组分但现有减排技术研究不足。评估分数relevance=10/novelty=8，需探索针对烯烃和芳香烃的特异性控制技术。"
+    },
+    {
+      "source": "chunk_004639",
+      "target": "chunk_004153",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: ethylene and styrene emission reduction technologies in coking plants\nReason: 非回收焦化厂乙烯(42.51%)和机械焦化厂苯乙烯(32.28%)是关键污染物组分但现有减排技术研究不足。评估分数relevance=10/novelty=8，需探索针对烯烃和芳香烃的特异性控制技术。"
+    },
+    {
+      "source": "chunk_004639",
+      "target": "chunk_004150",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: ethylene and styrene emission reduction technologies in coking plants\nReason: 非回收焦化厂乙烯(42.51%)和机械焦化厂苯乙烯(32.28%)是关键污染物组分但现有减排技术研究不足。评估分数relevance=10/novelty=8，需探索针对烯烃和芳香烃的特异性控制技术。"
+    },
+    {
+      "source": "chunk_004639",
+      "target": "chunk_004131",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: ethylene and styrene emission reduction technologies in coking plants\nReason: 非回收焦化厂乙烯(42.51%)和机械焦化厂苯乙烯(32.28%)是关键污染物组分但现有减排技术研究不足。评估分数relevance=10/novelty=8，需探索针对烯烃和芳香烃的特异性控制技术。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_003472",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_002548",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_004699",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_003879",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_003942",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_004039",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_004617",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_002312",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_003874",
+      "target": "chunk_003933",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: PM2.5 reduction technologies for cement cooling and grinding processes\nReason: 水泥行业非燃烧工序贡献PM排放不确定性的84%（评估分数relevance=9/novelty=8），需聚焦冷却粉碎环节的具体减排技术，填补工业非燃烧源研究空白。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_003517",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: reactivity-based VOC control implementation case studies\nReason: 工业源对L_OH和SOAP贡献率32.8%（评估分数relevance=9），但缺乏实际应用案例。需要验证基于反应活性的控制策略在工业区的实施效果（relevance=9/novelty=7）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_003512",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: reactivity-based VOC control implementation case studies\nReason: 工业源对L_OH和SOAP贡献率32.8%（评估分数relevance=9），但缺乏实际应用案例。需要验证基于反应活性的控制策略在工业区的实施效果（relevance=9/novelty=7）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_004267",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: reactivity-based VOC control implementation case studies\nReason: 工业源对L_OH和SOAP贡献率32.8%（评估分数relevance=9），但缺乏实际应用案例。需要验证基于反应活性的控制策略在工业区的实施效果（relevance=9/novelty=7）。"
+    },
+    {
+      "source": "chunk_004250",
+      "target": "chunk_004132",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: reactivity-based VOC control implementation case studies\nReason: 工业源对L_OH和SOAP贡献率32.8%（评估分数relevance=9），但缺乏实际应用案例。需要验证基于反应活性的控制策略在工业区的实施效果（relevance=9/novelty=7）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003847",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: cement non-combustion emission abatement techniques\nReason: 水泥冷却/粉碎工序的未减排PM2.5因子（chunk_003874）是工业排放首要不确定性源，需专门研究非燃烧工序减排技术。相关性和新颖性均达8分，避开重复历史策略中的燃烧过程研究。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003928",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: cement non-combustion emission abatement techniques\nReason: 水泥冷却/粉碎工序的未减排PM2.5因子（chunk_003874）是工业排放首要不确定性源，需专门研究非燃烧工序减排技术。相关性和新颖性均达8分，避开重复历史策略中的燃烧过程研究。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004025",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: cement non-combustion emission abatement techniques\nReason: 水泥冷却/粉碎工序的未减排PM2.5因子（chunk_003874）是工业排放首要不确定性源，需专门研究非燃烧工序减排技术。相关性和新颖性均达8分，避开重复历史策略中的燃烧过程研究。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004072",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: cement non-combustion emission abatement techniques\nReason: 水泥冷却/粉碎工序的未减排PM2.5因子（chunk_003874）是工业排放首要不确定性源，需专门研究非燃烧工序减排技术。相关性和新颖性均达8分，避开重复历史策略中的燃烧过程研究。"
+    },
+    {
+      "source": "chunk_004640",
+      "target": "chunk_001994",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: coking EFs comparison database construction methodology\nReason: 非回收焦化厂排放因子（96g/Mg-coke）的超高数值（chunk_004640）显示关键知识缺口，需聚焦排放因子数据库构建方法论。相关性和新颖性均达9分，有效补充工艺比较研究空白。"
+    },
+    {
+      "source": "chunk_004640",
+      "target": "chunk_000949",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: coking EFs comparison database construction methodology\nReason: 非回收焦化厂排放因子（96g/Mg-coke）的超高数值（chunk_004640）显示关键知识缺口，需聚焦排放因子数据库构建方法论。相关性和新颖性均达9分，有效补充工艺比较研究空白。"
+    },
+    {
+      "source": "chunk_004640",
+      "target": "chunk_001079",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: coking EFs comparison database construction methodology\nReason: 非回收焦化厂排放因子（96g/Mg-coke）的超高数值（chunk_004640）显示关键知识缺口，需聚焦排放因子数据库构建方法论。相关性和新颖性均达9分，有效补充工艺比较研究空白。"
+    },
+    {
+      "source": "chunk_004640",
+      "target": "chunk_004478",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: coking EFs comparison database construction methodology\nReason: 非回收焦化厂排放因子（96g/Mg-coke）的超高数值（chunk_004640）显示关键知识缺口，需聚焦排放因子数据库构建方法论。相关性和新颖性均达9分，有效补充工艺比较研究空白。"
+    },
+    {
+      "source": "chunk_004640",
+      "target": "chunk_002041",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: coking EFs comparison database construction methodology\nReason: 非回收焦化厂排放因子（96g/Mg-coke）的超高数值（chunk_004640）显示关键知识缺口，需聚焦排放因子数据库构建方法论。相关性和新颖性均达9分，有效补充工艺比较研究空白。"
+    },
+    {
+      "source": "chunk_004640",
+      "target": "chunk_003221",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: coking EFs comparison database construction methodology\nReason: 非回收焦化厂排放因子（96g/Mg-coke）的超高数值（chunk_004640）显示关键知识缺口，需聚焦排放因子数据库构建方法论。相关性和新颖性均达9分，有效补充工艺比较研究空白。"
+    },
+    {
+      "source": "chunk_004640",
+      "target": "chunk_003293",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: coking EFs comparison database construction methodology\nReason: 非回收焦化厂排放因子（96g/Mg-coke）的超高数值（chunk_004640）显示关键知识缺口，需聚焦排放因子数据库构建方法论。相关性和新颖性均达9分，有效补充工艺比较研究空白。"
+    }
+  ]
+}

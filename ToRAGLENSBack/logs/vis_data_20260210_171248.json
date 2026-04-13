@@ -1,0 +1,1669 @@
+{
+  "meta": {
+    "root_goal": "What are the major scientific understandings of the formation mechanisms of air pollutants (e.g., secondary aerosols and ozone) in China in recent years?",
+    "total_rounds": 6
+  },
+  "nodes": [
+    {
+      "id": "0",
+      "label": "🎯 What are the ma...",
+      "full_title": "",
+      "type": "ROOT",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_000441",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "标题直接关联臭氧和SOA的核心主题，但缺乏具体数据或图表线索",
+          "insight": "该章节标题明确指向中国区域臭氧与二次有机气溶胶(SOA)的模拟影响分析"
+        }
+      }
+    },
+    {
+      "id": "chunk_001805",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 5,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "标题完整揭示研究目标，含具体研究对象（生物源VOC）和量化方法",
+          "insight": "论文核心聚焦生物源VOC对中国臭氧和SOA形成的影响量化"
+        }
+      }
+    },
+    {
+      "id": "chunk_001900",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 7,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "提供关键地域分析（BTH/YRD/PRD/SCB）、机制解释（南风传输）和图表证据（图7），深挖价值高",
+          "insight": "中国东部/西南部臭氧峰值显著受VOC排放和气象条件驱动，生物源VOC通过区域传输贡献夏季臭氧（见Fig.7），与VOC敏感区高度重叠"
+        }
+      }
+    },
+    {
+      "id": "chunk_001809",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 0,
+      "value": 5,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "含核心模型数据（MEGAN/WRF-CMAQ）、具体数值结论和政策启示（协同控制），提供充分深挖依据",
+          "insight": "MEGAN模型量化中国生物源VOC年排放23.54Tg，夏季导致臭氧增加高达47μg/m³（BTH/SCB/YRD/PRD）；SOA中70%为生物源，人为排放可协同促进60%生物源SOA形成"
+        }
+      }
+    },
+    {
+      "id": "chunk_003461",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 0,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "内容过于宏观，与臭氧/SOA形成机制无直接关联，信息价值低",
+          "insight": "标题仅泛述中国大气污染控制进展，未涉及具体污染物机制或数据"
+        }
+      }
+    },
+    {
+      "id": "chunk_004320",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "Provides relevant background on aerosol emission gaps but lacks specific data trends or deep-diving paths like Paper IDs.",
+          "insight": "Discusses uncertainties in underestimating primary organic aerosol from anthropogenic emissions and secondary organic aerosol from monoterpene oxidation, referencing recent studies."
+        }
+      }
+    },
+    {
+      "id": "chunk_004162",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "Contains high-value quantifiable metrics on PM2.5 composition and VOC impacts, offering concrete evidence with potential to explore cited sources.",
+          "insight": "During winter haze episodes, organic matter accounts for 30.5-48.0% of PM2.5 mass in Chinese cities, with secondary organic-rich sources contributing 12.2-25.8% to PM2.5, based on 2013 data."
+        }
+      }
+    },
+    {
+      "id": "chunk_000447",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 6,
+            "credibility": 7
+          },
+          "reason": "Relevant as contextual research background that discusses limitations, but lacks actionable insights or data points for expansion.",
+          "insight": "Identifies knowledge gaps in secondary organic aerosol formation pathways, such as isoprene and monoterpenes oxidation, with current models incomplete due to unresolved SOA precursor mechanisms."
+        }
+      }
+    },
+    {
+      "id": "chunk_001886",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "High-value evidence with specific percentage contributions and mechanistic links to pollution, suitable for deep diving into SOA formation processes.",
+          "insight": "Biogenic VOC emissions contribute up to 80% to secondary organic aerosol formation, with monoterpene-derived SOA mediated by SO2 and NOx, amplified by summer conditions."
+        }
+      }
+    },
+    {
+      "id": "chunk_000445",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "Offers empirical data on emission impacts but shifts focus to ozone rather than direct PM2.5/SOA analysis, serving as supportive context.",
+          "insight": "Adjusted NMVOC emission models reduced ozone simulation biases from -3.4 to -0.7 ppb in June and from 12.0 to 6.9 ppb in December, validating improved seasonal NMVOC inventories."
+        }
+      }
+    },
+    {
+      "id": "chunk_004677",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "关键对比图表显示排放估算改进对臭氧模拟精度的直接影响，且Metadata包含源论文ID paper_008及详细观测数据，建议深挖该论文验证方法学。",
+          "insight": "使用具有更强季节变化的top-down NMVOC排放估算时，模型模拟的地面臭氧浓度与观测值更吻合：6月偏差从-3.4ppb改善至-0.7ppb，12月偏差从12ppb改善至6.9ppb。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003480",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 7
+          },
+          "reason": "内容聚焦PM2.5历史背景，与当前臭氧机制研究关联度低，未提供排放-臭氧的量化关系或行动线索。",
+          "insight": "1999年北京PM2.5年均浓度达115-127μg/m³，且以二次气溶胶（如硝酸铵、硫酸盐）为主要组分，仅控制粉尘无法有效降低PM2.5。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004492",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 5,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "量化展示排放控制对臭氧的影响机制，提出HCHO/NO2作为判断化学状态的关键阈值，对制定区域控制策略具决策价值。",
+          "insight": "当HCHO/NO2比值高时，NOx减排导致臭氧浓度上升；比值低时，NMVOCs减排显著降低臭氧浓度，该比值可诊断NOx/VOC限制状态。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004495",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供城市尺度臭氧化学状态演变案例，但研究对象为美国城市，对中国参考价值有限，可作为背景比较保留。",
+          "insight": "2011-2017年美国城市HCHO/NO2比值变化显示：休斯顿、旧金山盐湖城等从NOx饱和转向过渡/限制状态，而洛杉矶、纽约持续处于NOx饱和状态。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001876",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "明确区域差异对臭氧生物源排放敏感性影响，补充空间分异机制，但未提供具体量化阈值或控制方案。",
+          "insight": "在NOx限制区（如中国南方乡村），VOC增加对臭氧生成影响微弱；但在VOC限制/过渡区（北方），生物源VOC显著促进臭氧形成。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001031",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 1,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "证据强相关，描述了美国大都市区臭氧制度变化的具体机制（如NO₂减少的数据趋势与HCHO的对比）。Metadata中包含Paper ID（paper_001）、图表参考（Fig. 9放置臭氧制度分布图，Fig. 10显示比率变化），提供了明确深挖路径，可下载原文查看图片和数据。此方法用于污染物排放中的卫星反演模型是新型且高价值的信息来源。",
+          "insight": "卫星观测显示，2011-2017年美国主要12个城市（包括西雅图、洛杉矶、达拉斯、芝加哥等）的臭氧生产制度发生了显著变化：臭氧化学制度从NOₓ饱和向过渡或NOₓ限制转变。这一变化主要由NO₂削减幅度大于HCHO削减（图S8所示）驱动，导致城市核心区域的HCHO/NO₂比率明显改变。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000443",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含关键图表数据与观测值对比，直接展示排放误差对臭氧模拟的影响，且提供补充表格S9线索。",
+          "insight": "图13显示使用反演NMVOC排放估算后，模拟的华北平原地表臭氧浓度在6月增加1-8ppb，更接近观测值（100-120ppb），表明原始排放清单低估臭氧形成潜力。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000940",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "提供排放反演的定量结果及臭氧化学机制转变，但缺乏具体图表支持深挖。",
+          "insight": "通过OMI卫星数据反演显示美国大陆NOx排放需上调1.07-1.34倍，而东南部NMVOC需下调至0.28-0.81倍，揭示臭氧生成机制由NOx饱和向过渡区转变。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001070",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 8
+          },
+          "reason": "与chunk_000940内容完全重复，无新增信息价值。",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_001037",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 9
+          },
+          "reason": "阐释反演方法论及DISCOVER-AQ验证，作为关键技术背景，但无突破性发现。",
+          "insight": "结合OMI NO2/HCHO数据与动态边界条件优化排放反演，验证显示改进高层大气NO2和O3模拟精度。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001888",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "包含关键空间分布图且明确区分排放源贡献，具有深度分析潜力和建模参考价值。",
+          "insight": "图9可视化显示2017年7月中国SOA形成：生物源VOC主导东部高值区（>20μg/m³），与人为源贡献空间分布呈明显互补特征。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004532",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心结果图直接展示排放源对SOA的影响机制，包含关键量化数据（60%/70%下降）和区域特征（中部/东部高浓度），提供paper_015深挖线索。",
+          "insight": "地理热力图揭示中国2017年7月SOA空间分布：人为与生物排放共存时SOA浓度最高（最高3μg/m³），纯人为排放导致浓度下降60%，纯生物排放导致70%下降，表明生物排放是主要贡献源且两种排放存在协同效应。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001877",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 8
+          },
+          "reason": "作为图9的文字补充，提供具体数值但无新深挖路径，需保留作上下文支撑。",
+          "insight": "定量数据证实：夏季中国中东部SOA浓度超1μg/m³，人为VOC排放移除使SOA减少60%，生物排放移除减少70%，证明生物排放同时影响人为和生物源SOA组分。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001891",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 7
+          },
+          "reason": "差异图可揭示排放敏感区域，但需结合图像分析具体空间模式，建议下载图片进一步验证。",
+          "insight": "图10通过空间差异热力图可视化生物排放对SOA浓度的净影响，单位μg/m³量级差异突出区域敏感性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001901",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "揭示关键化学机制（前体物敏感性差异）及政策意义（协同控制），提供Pye2019等延伸文献线索。",
+          "insight": "机制分析表明：生物VOC贡献70%夏季SOA，南方影响＞北方；人为排放限制可削减50%生物SOA，异戊二烯SOA比单萜烯SOA更易受人为排放影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001892",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 5,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "解释图10差异的化学基础，但属于已知模型机制保留作技术背景。",
+          "insight": "NOx浓度调控SOA生成路径：高NOx促进有机硝酸盐生成，低NOx促进IEPOX-SOA形成，CMAQ模型已整合该机制。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001815",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心内容直接关联臭氧和SOA形成机制，引用Ding et al. (2014), Mo et al. (2018)等多篇关键研究，并明确指出知识空白点，提供具体深挖线索（如论文ID paper_015）",
+          "insight": "研究指出中国生物源VOC（BVOC）排放对地表臭氧和二次有机气溶胶（SOA）形成有显著影响，其中异戊二烯是主要贡献者，但全国范围的整体影响仍不明确，存在研究缺口。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004195",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 6
+          },
+          "reason": "仅简要提及方法名称和引用文献（Derwent et al., 2010; Zhang et al., 2017），缺少具体技术细节或研究发现，信息价值有限",
+          "insight": "提到SOAP方法用于估算不同VOC物种对SOA形成的贡献，但未提供具体计算公式或实证数据。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001038",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 4,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供具体臭氧敏感性判定阈值及实验方法（CMAQ模型），对比OMI观测数据并解释阈值差异原因，含可深挖模型参数（如paper_001）",
+          "insight": "基于CMAQ模型和OMI观测数据，确立美国地区臭氧生成敏感性的HCHO/NO₂阈值：NOx饱和区（<1.6）、过渡区（1.6-2.6）、NOx限制区（>2.6），该阈值受区域气象及化学机制影响显著。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001168",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 0,
+            "credibility": 0
+          },
+          "reason": "100%重复chunk_001038内容，无新增信息价值",
+          "insight": "内容与chunk_001038完全重复：描述相同HCHO/NO₂阈值体系及与Chang et al.等研究的差异。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001026",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 9
+          },
+          "reason": "系统性整合不同研究的阈值差异（Martin/Choi/Duncan/Chang)，揭示阈值变化的核心影响因素，提供多篇文献线索（如paper_001）",
+          "insight": "多研究对比显示HCHO/NO₂阈值存在差异（Martin:1.0; Chang:1.5-2.3），阈值受卫星反演特性、CTM模型参数及气象条件综合影响，表明臭氧机制分类需考虑区域特异性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001156",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 2,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "核心价值在于指出臭氧化学状态分类的关键争议点（阈值变异性），并隐含作者团队的解决方案，同时提供三个高价值引用文献（Martin 2004, Duncan 2010, Chang 2016）作为深挖线索。",
+          "insight": "该段落揭示不同研究中 HCHO/NO₂ 比率阈值（1.0-2.3）的分歧及其对臭氧生成状态分类的关键影响，并指出作者为规避误分类问题设计实验重新定义阈值。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000147",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_000137",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_001899",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_001816",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_000008",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PENDING",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {}
+      }
+    },
+    {
+      "id": "chunk_001854",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心污染机制研究，明确实验设计和参考文献(Fig.S5)，提供可追溯数据源",
+          "insight": "通过三种CMAQ模拟方案量化BVOC排放对中国臭氧生成的影响：全排放情景、仅人为排放情景(NA)和纯人工排除情景(NB)，支持信息图S5展示具体模拟结果。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003494",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "重要历史演变背景，但Fig.1未提供图片无法深度提取数据趋势，依赖文献引用[24][25]",
+          "insight": "中国NOx排放控制滞后于SO2治理，1990-2010年间排放量增长200%，主要来源于燃煤工业与机动车，导致PM2.5中硝酸盐占比持续上升。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003522",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "宏观机制描述缺乏中国特异性数据指向，高度依赖文献综述[79-93]",
+          "insight": "气候系统与空气质量存在正反馈循环：季风减弱导致大气停滞加剧O3/PM2.5污染，而气溶胶减排可能削弱冷却效应加剧变暖。"
+        }
+      }
+    },
+    {
+      "id": "chunk_003482",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 9
+          },
+          "reason": "关键历史趋势可视化（含标准偏差带），明确数据来源（MEIC模型+酸雨监测网），提供时空维度验证",
+          "insight": "1995-2017年中国酸雨变化与SO2排放关系图：显示排放峰值对应降水pH值低谷（标准偏差带内），验证MEIC模型数据与74个监测站点观测一致性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002499",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 3,
+            "credibility": 6
+          },
+          "reason": "甲醇排放模型偏离中国空气污染核心问题，且Fig.7图片未提供无法校验具体偏差模式",
+          "insight": "全球甲醇排放模型显示自由对流层浓度低估现象，与INTEX-A/NEAQS观测数据存在偏差，可能与生物源排放测算方式有关。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004488",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心成果图含具体模型配置参数（动态边界条件/LNO）和区域对比数据，可深挖[Silvern et al., 2019]等引用论文中的政策应用线索。",
+          "insight": "该图表展示2011-2018年美国大陆对流层NO₂和HCHO柱状物长期趋势，对比OMI卫星观测与CMAQ模型在三种边界条件设定（含闪电排放LNO）下的模拟结果，揭示背景设置对污染物模拟的影响差异。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000186",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 6
+          },
+          "reason": "信息不完整（缺失相关系数值、时间段覆盖不足），且未关联具体图表或方法论，参考价值有限。",
+          "insight": "文本片段提及其使用OMI卫星HCHO数据验证2005-2016年中国异戊二烯排放，但仅提到存在正相关未展示具体数据或机制。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000121",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 8,
+            "credibility": 7
+          },
+          "reason": "包含关键跨国对比数据和空间分布量化指标，Figure 9提供可追溯的源图像支撑排放源解析。",
+          "insight": "通过图9揭示中国与美国HCHO分布差异：美国高值区在生物源主导的森林带（>10×10¹⁵ molec cm⁻²），而中国高值区在人为源主导的华北平原，植被区仅中等浓度（6-10×10¹⁵ molec cm⁻²）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001339",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 3,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "展示卫星约束有效性的量化证据但缺失方法细节，需作为背景支撑其他深度数据。",
+          "insight": "TROPOMI反演优化NMVOC排放后，HCHO垂直柱浓度模拟偏差减少75.7%，84%区域偏差<1×10¹⁵ molec cm⁻²，但未标明实施反演的具体技术参数。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000976",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供具体时空变化数据但缺乏机制分析，可作为臭氧化学机制研究的背景信息无深挖线索",
+          "insight": "美国某地区卫星观测显示2011至2017年间HCHO(甲醛)柱浓度持续下降，2014年降26.16%，2017年降33.68%，西部区域呈现高值分布。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001106",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 1,
+            "credibility": 0
+          },
+          "reason": "内容与chunk_000976完全重复，属系统抓取冗余信息",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004164",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 2,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "明确指向PM2.5-VOC作用机制与政策缺口，提供关键方法论矛盾（Zheng/Liang等7篇文献可追溯）",
+          "insight": "VOC源解析揭示：中国PM2.5冬季管控需紧缩VOC排放；臭氧生成潜势(OFP)与SOA估算存在排放清单法（依赖外域排放因子）和实地测量法之争，前者因本地数据缺失导致重大不确定性。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000826",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 5
+          },
+          "reason": "未提供具体场景的缩放因子（1.5）说明，生物质燃烧排放估算信息过于碎片化",
+          "insight": ""
+        }
+      }
+    },
+    {
+      "id": "chunk_004313",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "提供关键PM2.5组分占比数据并指向源头研究文献，对污染形成机制研究具高参考价值",
+          "insight": "PM2.5组分定量分析：二次无机气溶胶(<25%)与SOA(6-10%)远低于一次有机气溶胶(POA,28-50%)及其他一次排放源(35-42%)，验证一次排放主导假说(Appel 2008)。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001902",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 3,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "明确列出关键研究方向（模型验证、HOMs机制）并引用多个文献（Hu2016，Ehn2014等），提供可追踪的深挖路径，包含机制迁移（箱式模型→区域尺度）的创新点。",
+          "insight": "研究指出当前SOA模拟因数据局限未经验证，提出需结合AMS测量数据改进区域模型验证，并强调HOMs机制对SOA形成的关键作用，需在区域尺度评估其影响。"
+        }
+      }
+    },
+    {
+      "id": "chunk_002285",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "揭示特定污染源（船舶）排放因子的关键机制（金属催化），但仅聚焦单一污染源且未提供拓展线索，适合作为背景知识保留。",
+          "insight": "船舶燃料中钒(V)和镍(Ni)的催化作用显著影响硫向SO4转化效率，预测硫酸盐排放因子为实测值的三倍。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000444",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 4,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 10,
+            "credibility": 9
+          },
+          "reason": "图像核心价值在于展示排放反演对臭氧模拟的优化效果（含时间/空间维度），且提供具体验证数据源（Table S9），具备深挖反演算法和区域验证的完整路径。",
+          "insight": "图13通过先验与反演排放的对比，量化了中国2007年6/12月地表臭氧浓度模拟偏差，并验证反演方法显著改善模型精度（标注观测点及MB值）。"
+        }
+      }
+    },
+    {
+      "id": "chunk_004533",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "核心发现可视化证据，明确量化生物源与人为排放对SOA的交互影响，含关键地域数据和减排策略启示。",
+          "insight": "地图显示中国7月生物源排放贡献高达70%的SOA浓度，且在京津冀、四川盆地、长三角等城市区域，控制人为排放可降低生物源SOA形成。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001819",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 7,
+            "credibility": 8
+          },
+          "reason": "提供空气污染模型方法背景，但缺乏具体研究发现或数据趋势，作为技术上下文保留。",
+          "insight": "描述CMAQv5.2.1模型配置：使用CB05气相机制、AERO6气溶胶机制和二产物模型处理SOA形成。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000963",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 4,
+            "credibility": 7
+          },
+          "reason": "研究区域（美国）与核心问题（中国空气污染）失焦，且与生物源排放主题无关。",
+          "insight": "闪电NO排放占美国部分地区NOx排放16-30%，影响臭氧浓度及氮沉降。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001093",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 2,
+            "credibility": 7
+          },
+          "reason": "文本内容100%重复chunk_000963，属冗余信息。",
+          "insight": "同chunk_000963完全重复内容：闪电NO排放对NOx的贡献率。"
+        }
+      }
+    },
+    {
+      "id": "chunk_000960",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "PRUNED",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 5,
+            "credibility": 7
+          },
+          "reason": "聚焦模型反演方法偏差，与核心的污染物形成机制及健康影响关联弱。",
+          "insight": "非人为NOx排放源（土壤/闪电）被忽视会导致自由对流层NO2低估。"
+        }
+      }
+    },
+    {
+      "id": "chunk_001090",
+      "label": "No Title",
+      "full_title": "",
+      "type": "EVIDENCE",
+      "status": "ACTIVE",
+      "round": 5,
+      "value": 1,
+      "data": {
+        "paper_id": null,
+        "keywords": null,
+        "evaluation": {
+          "score": {
+            "relevance": 9,
+            "credibility": 8
+          },
+          "reason": "内容直接关联排放源解析的核心问题，提供具体缺陷（NO2低估）和解决方案（整合背景源），并包含多篇重要参考文献（Silvern2019等），具备深挖价值。",
+          "insight": "研究证实非人为源（土壤/闪电）对NOx排放贡献显著，忽略会导致自由对流层NO2混合比低估及反演建模偏差，必须整合背景排放源。"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "source": "0",
+      "target": "chunk_000441",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the major scientific understandings of the formation mechanisms of air pollutants (e.g., secondary aerosols and ozone) in China in recent years?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001805",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the major scientific understandings of the formation mechanisms of air pollutants (e.g., secondary aerosols and ozone) in China in recent years?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001900",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the major scientific understandings of the formation mechanisms of air pollutants (e.g., secondary aerosols and ozone) in China in recent years?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001809",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the major scientific understandings of the formation mechanisms of air pollutants (e.g., secondary aerosols and ozone) in China in recent years?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003461",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: What are the major scientific understandings of the formation mechanisms of air pollutants (e.g., secondary aerosols and ozone) in China in recent years?\nReason: 使用用户原始问题作为初始检索条件，获取相关文献基础"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_004320",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Mechanisms of anthropogenic-biogenic interactions in secondary organic aerosol (SOA) formation in China\nReason: 评估显示生物源SOA占70%且人为排放促进60%形成，该交互机制是核心发现。查询聚焦人为-生物源协同作用机制，关联性10，新颖性10（首次专项检索此交互机制）。"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_004162",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Mechanisms of anthropogenic-biogenic interactions in secondary organic aerosol (SOA) formation in China\nReason: 评估显示生物源SOA占70%且人为排放促进60%形成，该交互机制是核心发现。查询聚焦人为-生物源协同作用机制，关联性10，新颖性10（首次专项检索此交互机制）。"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_000447",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Mechanisms of anthropogenic-biogenic interactions in secondary organic aerosol (SOA) formation in China\nReason: 评估显示生物源SOA占70%且人为排放促进60%形成，该交互机制是核心发现。查询聚焦人为-生物源协同作用机制，关联性10，新颖性10（首次专项检索此交互机制）。"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_001886",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Mechanisms of anthropogenic-biogenic interactions in secondary organic aerosol (SOA) formation in China\nReason: 评估显示生物源SOA占70%且人为排放促进60%形成，该交互机制是核心发现。查询聚焦人为-生物源协同作用机制，关联性10，新颖性10（首次专项检索此交互机制）。"
+    },
+    {
+      "source": "chunk_001900",
+      "target": "chunk_000445",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Impacts of VOC-limited regimes and southerly wind transport on ozone spatial distribution in China\nReason: 证据揭示臭氧空间分布受VOC敏感区和南风传输驱动。查询针对区域传输对臭氧形成的影响机制，关联性9（解释地域差异），新颖性8（拓展气象驱动维度）。"
+    },
+    {
+      "source": "chunk_001900",
+      "target": "chunk_004677",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Impacts of VOC-limited regimes and southerly wind transport on ozone spatial distribution in China\nReason: 证据揭示臭氧空间分布受VOC敏感区和南风传输驱动。查询针对区域传输对臭氧形成的影响机制，关联性9（解释地域差异），新颖性8（拓展气象驱动维度）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003480",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Formation mechanisms and sources of inorganic secondary aerosols (sulfate, nitrate) in China\nReason: 当前证据集中于有机组分（SOA），需补充无机气溶胶形成机制。查询专注硫酸盐/硝酸盐等关键组分，关联性10（完整覆盖污染物类型），新颖性10（尚未探索方向）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004492",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Role of NOx in ozone formation under different chemical regimes in Chinese urban clusters\nReason: 证据显示VOC敏感区臭氧问题突出，需平衡NOx作用机制。查询探索不同化学制度下NOx贡献，关联性9（完善臭氧形成理论），新颖性9（补充氧化剂化学维度）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004495",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Role of NOx in ozone formation under different chemical regimes in Chinese urban clusters\nReason: 证据显示VOC敏感区臭氧问题突出，需平衡NOx作用机制。查询探索不同化学制度下NOx贡献，关联性9（完善臭氧形成理论），新颖性9（补充氧化剂化学维度）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001876",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Role of NOx in ozone formation under different chemical regimes in Chinese urban clusters\nReason: 证据显示VOC敏感区臭氧问题突出，需平衡NOx作用机制。查询探索不同化学制度下NOx贡献，关联性9（完善臭氧形成理论），新颖性9（补充氧化剂化学维度）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_001031",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Role of NOx in ozone formation under different chemical regimes in Chinese urban clusters\nReason: 证据显示VOC敏感区臭氧问题突出，需平衡NOx作用机制。查询探索不同化学制度下NOx贡献，关联性9（完善臭氧形成理论），新颖性9（补充氧化剂化学维度）。"
+    },
+    {
+      "source": "chunk_001900",
+      "target": "chunk_000443",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Quantitative modeling of southerly wind transport on VOC-limited ozone enhancement in BTH/YRD/PRD regions\nReason: 该节点揭示了中国东部臭氧峰值与南风传输的关键关联，提供具体地理区域数据（BTH/YRD/PRD）和机制解释（VOC限制区），相关性10分；新颖性8分（首次将风运输与区域化学制度量化结合）。"
+    },
+    {
+      "source": "chunk_001900",
+      "target": "chunk_000940",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Quantitative modeling of southerly wind transport on VOC-limited ozone enhancement in BTH/YRD/PRD regions\nReason: 该节点揭示了中国东部臭氧峰值与南风传输的关键关联，提供具体地理区域数据（BTH/YRD/PRD）和机制解释（VOC限制区），相关性10分；新颖性8分（首次将风运输与区域化学制度量化结合）。"
+    },
+    {
+      "source": "chunk_001900",
+      "target": "chunk_001070",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Quantitative modeling of southerly wind transport on VOC-limited ozone enhancement in BTH/YRD/PRD regions\nReason: 该节点揭示了中国东部臭氧峰值与南风传输的关键关联，提供具体地理区域数据（BTH/YRD/PRD）和机制解释（VOC限制区），相关性10分；新颖性8分（首次将风运输与区域化学制度量化结合）。"
+    },
+    {
+      "source": "chunk_001900",
+      "target": "chunk_001037",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Quantitative modeling of southerly wind transport on VOC-limited ozone enhancement in BTH/YRD/PRD regions\nReason: 该节点揭示了中国东部臭氧峰值与南风传输的关键关联，提供具体地理区域数据（BTH/YRD/PRD）和机制解释（VOC限制区），相关性10分；新颖性8分（首次将风运输与区域化学制度量化结合）。"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_001888",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WRF-CMAQ model validation for anthropogenic-biogenic SOA source partitioning in YRD and SCB\nReason: 该节点出示生物源贡献70%SOA的关键数据，但需验证模型在长江三角洲等敏感区域的表现，相关性10分；新颖性9分（针对最密集污染区深化模型验证）。"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_004532",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WRF-CMAQ model validation for anthropogenic-biogenic SOA source partitioning in YRD and SCB\nReason: 该节点出示生物源贡献70%SOA的关键数据，但需验证模型在长江三角洲等敏感区域的表现，相关性10分；新颖性9分（针对最密集污染区深化模型验证）。"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_001877",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WRF-CMAQ model validation for anthropogenic-biogenic SOA source partitioning in YRD and SCB\nReason: 该节点出示生物源贡献70%SOA的关键数据，但需验证模型在长江三角洲等敏感区域的表现，相关性10分；新颖性9分（针对最密集污染区深化模型验证）。"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_001891",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WRF-CMAQ model validation for anthropogenic-biogenic SOA source partitioning in YRD and SCB\nReason: 该节点出示生物源贡献70%SOA的关键数据，但需验证模型在长江三角洲等敏感区域的表现，相关性10分；新颖性9分（针对最密集污染区深化模型验证）。"
+    },
+    {
+      "source": "chunk_001809",
+      "target": "chunk_001901",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: WRF-CMAQ model validation for anthropogenic-biogenic SOA source partitioning in YRD and SCB\nReason: 该节点出示生物源贡献70%SOA的关键数据，但需验证模型在长江三角洲等敏感区域的表现，相关性10分；新颖性9分（针对最密集污染区深化模型验证）。"
+    },
+    {
+      "source": "chunk_001886",
+      "target": "chunk_001892",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Mechanistic pathways of monoterpene-derived SOA mediated by SO2/NOx under summer monsoon conditions\nReason: 该节点提出80%生物源SOA贡献的重要发现及其与夏季季风的关联，相关性9分；新颖性8分（聚焦特定前体物反应路径验证）。"
+    },
+    {
+      "source": "chunk_001886",
+      "target": "chunk_001815",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Mechanistic pathways of monoterpene-derived SOA mediated by SO2/NOx under summer monsoon conditions\nReason: 该节点提出80%生物源SOA贡献的重要发现及其与夏季季风的关联，相关性9分；新颖性8分（聚焦特定前体物反应路径验证）。"
+    },
+    {
+      "source": "chunk_001886",
+      "target": "chunk_004195",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Mechanistic pathways of monoterpene-derived SOA mediated by SO2/NOx under summer monsoon conditions\nReason: 该节点提出80%生物源SOA贡献的重要发现及其与夏季季风的关联，相关性9分；新颖性8分（聚焦特定前体物反应路径验证）。"
+    },
+    {
+      "source": "chunk_004677",
+      "target": "chunk_001038",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sensitivity analysis of HCHO/NO2 threshold for ozone chemical regime shifts in Chinese megacities\nReason: 该节点显示HCHO/NO2比值对臭氧化学状态的诊断价值，相关性9分；新颖性9分（将阈值实验应用于中国超大城市群）。"
+    },
+    {
+      "source": "chunk_004677",
+      "target": "chunk_001168",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sensitivity analysis of HCHO/NO2 threshold for ozone chemical regime shifts in Chinese megacities\nReason: 该节点显示HCHO/NO2比值对臭氧化学状态的诊断价值，相关性9分；新颖性9分（将阈值实验应用于中国超大城市群）。"
+    },
+    {
+      "source": "chunk_004677",
+      "target": "chunk_001026",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sensitivity analysis of HCHO/NO2 threshold for ozone chemical regime shifts in Chinese megacities\nReason: 该节点显示HCHO/NO2比值对臭氧化学状态的诊断价值，相关性9分；新颖性9分（将阈值实验应用于中国超大城市群）。"
+    },
+    {
+      "source": "chunk_004677",
+      "target": "chunk_001156",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sensitivity analysis of HCHO/NO2 threshold for ozone chemical regime shifts in Chinese megacities\nReason: 该节点显示HCHO/NO2比值对臭氧化学状态的诊断价值，相关性9分；新颖性9分（将阈值实验应用于中国超大城市群）。"
+    },
+    {
+      "source": "chunk_001901",
+      "target": "chunk_000147",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: NOx-dependent yield differences between isoprene SOA and monoterpene SOA in Chinese atmospheric conditions\nReason: 基于评估结果中异戊二烯SOA和单萜烯SOA对人为排放的敏感性差异（chunk_001901），该策略探究关键化学机制差异，与臭氧和SOA形成直接相关（相关性9），且尚未在历史策略中覆盖（新颖性8）。"
+    },
+    {
+      "source": "chunk_001901",
+      "target": "chunk_000137",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: NOx-dependent yield differences between isoprene SOA and monoterpene SOA in Chinese atmospheric conditions\nReason: 基于评估结果中异戊二烯SOA和单萜烯SOA对人为排放的敏感性差异（chunk_001901），该策略探究关键化学机制差异，与臭氧和SOA形成直接相关（相关性9），且尚未在历史策略中覆盖（新颖性8）。"
+    },
+    {
+      "source": "chunk_001815",
+      "target": "chunk_001899",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Interannual variability of BVOC impacts on nationwide ozone-SOA coupling in China\nReason: 响应chunk_001815关于全国尺度BVOC影响的知识缺口，设计时间序列分析弥补短期研究局限，与空气污染物形成机制强相关（相关性10），且突破历史策略的区域限制（新颖性8）。"
+    },
+    {
+      "source": "chunk_001815",
+      "target": "chunk_001816",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Interannual variability of BVOC impacts on nationwide ozone-SOA coupling in China\nReason: 响应chunk_001815关于全国尺度BVOC影响的知识缺口，设计时间序列分析弥补短期研究局限，与空气污染物形成机制强相关（相关性10），且突破历史策略的区域限制（新颖性8）。"
+    },
+    {
+      "source": "chunk_001815",
+      "target": "chunk_000008",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Interannual variability of BVOC impacts on nationwide ozone-SOA coupling in China\nReason: 响应chunk_001815关于全国尺度BVOC影响的知识缺口，设计时间序列分析弥补短期研究局限，与空气污染物形成机制强相关（相关性10），且突破历史策略的区域限制（新颖性8）。"
+    },
+    {
+      "source": "chunk_001815",
+      "target": "chunk_001854",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Interannual variability of BVOC impacts on nationwide ozone-SOA coupling in China\nReason: 响应chunk_001815关于全国尺度BVOC影响的知识缺口，设计时间序列分析弥补短期研究局限，与空气污染物形成机制强相关（相关性10），且突破历史策略的区域限制（新颖性8）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003494",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sulfate-nitrate formation pathways under synergistic effects of monsoon transport and anthropogenic emissions\nReason: 补充历史策略中无机二次气溶胶的研究不足（仅4个节点），结合南风传输与排放的协同效应（chunk_001900），服务核心问题且引入化学-气象交叉机制（相关性9，新颖性7）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003522",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sulfate-nitrate formation pathways under synergistic effects of monsoon transport and anthropogenic emissions\nReason: 补充历史策略中无机二次气溶胶的研究不足（仅4个节点），结合南风传输与排放的协同效应（chunk_001900），服务核心问题且引入化学-气象交叉机制（相关性9，新颖性7）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_003482",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sulfate-nitrate formation pathways under synergistic effects of monsoon transport and anthropogenic emissions\nReason: 补充历史策略中无机二次气溶胶的研究不足（仅4个节点），结合南风传输与排放的协同效应（chunk_001900），服务核心问题且引入化学-气象交叉机制（相关性9，新颖性7）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_002499",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sulfate-nitrate formation pathways under synergistic effects of monsoon transport and anthropogenic emissions\nReason: 补充历史策略中无机二次气溶胶的研究不足（仅4个节点），结合南风传输与排放的协同效应（chunk_001900），服务核心问题且引入化学-气象交叉机制（相关性9，新颖性7）。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_004488",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Sulfate-nitrate formation pathways under synergistic effects of monsoon transport and anthropogenic emissions\nReason: 补充历史策略中无机二次气溶胶的研究不足（仅4个节点），结合南风传输与排放的协同效应（chunk_001900），服务核心问题且引入化学-气象交叉机制（相关性9，新颖性7）。"
+    },
+    {
+      "source": "chunk_001038",
+      "target": "chunk_000186",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Validation of CMAQ-derived HCHO/NO2 thresholds against ground-based MAX-DOAS observations in China\nReason: 基于CMAQ模型阈值的不确定性（chunk_001038），设计地面观测验证方案提升臭氧机制分类可靠性，紧密服务用户问题（相关性10），并由模型向实证拓展（新颖性8）。"
+    },
+    {
+      "source": "chunk_001038",
+      "target": "chunk_000121",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Validation of CMAQ-derived HCHO/NO2 thresholds against ground-based MAX-DOAS observations in China\nReason: 基于CMAQ模型阈值的不确定性（chunk_001038），设计地面观测验证方案提升臭氧机制分类可靠性，紧密服务用户问题（相关性10），并由模型向实证拓展（新颖性8）。"
+    },
+    {
+      "source": "chunk_001038",
+      "target": "chunk_001339",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Validation of CMAQ-derived HCHO/NO2 thresholds against ground-based MAX-DOAS observations in China\nReason: 基于CMAQ模型阈值的不确定性（chunk_001038），设计地面观测验证方案提升臭氧机制分类可靠性，紧密服务用户问题（相关性10），并由模型向实证拓展（新颖性8）。"
+    },
+    {
+      "source": "chunk_001156",
+      "target": "chunk_000976",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Validation of regional HCHO/NO₂ thresholds against China-specific field measurements\nReason: 已有证据指出HCHO/NO₂阈值对臭氧机制分类的关键性（relevance:9），但多研究阈值存在差异（1.0-2.3）。需要针对中国不同城市群的实地观测数据验证阈值适用性，解决争议。"
+    },
+    {
+      "source": "chunk_001156",
+      "target": "chunk_001106",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Validation of regional HCHO/NO₂ thresholds against China-specific field measurements\nReason: 已有证据指出HCHO/NO₂阈值对臭氧机制分类的关键性（relevance:9），但多研究阈值存在差异（1.0-2.3）。需要针对中国不同城市群的实地观测数据验证阈值适用性，解决争议。"
+    },
+    {
+      "source": "chunk_004492",
+      "target": "chunk_004164",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Quantification of NOx-VOC synergistic effects on ozone formation efficiency in Chinese industrial clusters\nReason: 该节点揭示NOx/VOC控排对臭氧的相反影响（relevance:9），但未量化协同效应。需研究排放比例变化对单位减排效果的增强/减弱规律，提升模型预测精度。"
+    },
+    {
+      "source": "chunk_001886",
+      "target": "chunk_000826",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Role of sulfate-nitrate-ammonium ternary system in SOA particle growth kinetics\nReason: 证据显示SO2/NOx介导SOA生成（relevance:9），但忽略无机盐对颗粒相变的催化作用。需研究气溶胶液态水含量与酸碱度对有机/无机协同成核的动力学影响。"
+    },
+    {
+      "source": "chunk_001886",
+      "target": "chunk_004313",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Role of sulfate-nitrate-ammonium ternary system in SOA particle growth kinetics\nReason: 证据显示SO2/NOx介导SOA生成（relevance:9），但忽略无机盐对颗粒相变的催化作用。需研究气溶胶液态水含量与酸碱度对有机/无机协同成核的动力学影响。"
+    },
+    {
+      "source": "chunk_001886",
+      "target": "chunk_001902",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Role of sulfate-nitrate-ammonium ternary system in SOA particle growth kinetics\nReason: 证据显示SO2/NOx介导SOA生成（relevance:9），但忽略无机盐对颗粒相变的催化作用。需研究气溶胶液态水含量与酸碱度对有机/无机协同成核的动力学影响。"
+    },
+    {
+      "source": "chunk_001886",
+      "target": "chunk_002285",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Role of sulfate-nitrate-ammonium ternary system in SOA particle growth kinetics\nReason: 证据显示SO2/NOx介导SOA生成（relevance:9），但忽略无机盐对颗粒相变的催化作用。需研究气溶胶液态水含量与酸碱度对有机/无机协同成核的动力学影响。"
+    },
+    {
+      "source": "0",
+      "target": "chunk_000444",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Vertical profiling of ozone-precursor relationships using UAV-based observations in Chinese megacities\nReason: 现有数据多依赖地面/卫星观测（relevance:8）。边界层内臭氧前体物的垂直分异是关键知识空白，无人机原位测量可揭示输送-化学耦合机制。"
+    },
+    {
+      "source": "chunk_001902",
+      "target": "chunk_004533",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of aerosol mass spectrometry for SOA model validation in Chinese regional studies\nReason: 评估指出SOA模拟在中国缺乏AMS数据验证（relevance 9），需针对本土数据验证方法深化研究，避免重复历史策略中的模型泛化讨论。"
+    },
+    {
+      "source": "chunk_001902",
+      "target": "chunk_001819",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Application of aerosol mass spectrometry for SOA model validation in Chinese regional studies\nReason: 评估指出SOA模拟在中国缺乏AMS数据验证（relevance 9），需针对本土数据验证方法深化研究，避免重复历史策略中的模型泛化讨论。"
+    },
+    {
+      "source": "chunk_004488",
+      "target": "chunk_000963",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Impacts of lightning NOx emissions on ozone and secondary aerosol formation in East Asian monsoon region\nReason: 背景排放（LNO）对模拟精度影响被忽略（relevance 8），需量化季风区闪电氮氧化物对中国污染物形成的贡献。"
+    },
+    {
+      "source": "chunk_004488",
+      "target": "chunk_001093",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Impacts of lightning NOx emissions on ozone and secondary aerosol formation in East Asian monsoon region\nReason: 背景排放（LNO）对模拟精度影响被忽略（relevance 8），需量化季风区闪电氮氧化物对中国污染物形成的贡献。"
+    },
+    {
+      "source": "chunk_004488",
+      "target": "chunk_000960",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Impacts of lightning NOx emissions on ozone and secondary aerosol formation in East Asian monsoon region\nReason: 背景排放（LNO）对模拟精度影响被忽略（relevance 8），需量化季风区闪电氮氧化物对中国污染物形成的贡献。"
+    },
+    {
+      "source": "chunk_004488",
+      "target": "chunk_001090",
+      "type": "DEEPER",
+      "label": "semantic",
+      "detail": "Args: query_intent: Impacts of lightning NOx emissions on ozone and secondary aerosol formation in East Asian monsoon region\nReason: 背景排放（LNO）对模拟精度影响被忽略（relevance 8），需量化季风区闪电氮氧化物对中国污染物形成的贡献。"
+    }
+  ]
+}
