@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-使用新的分块逻辑更新论文向量库
+【功能】使用新的分块逻辑重建 paper_rag_collection：删除旧集合并通过 PaperRAGManager 重新加载。
+【长期价值】运维脚本可保留；论文库升级时运行。
 """
 
 import asyncio

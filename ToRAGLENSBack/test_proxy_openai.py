@@ -1,3 +1,7 @@
+"""
+【功能】向 /v1/chat/completions 发一条 Hello 测试 gemini-3-pro-image-preview。
+【长期价值】一次性连通性脚本；可删。
+"""
 import requests
 
 GEMINI_API_KEY = "sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"

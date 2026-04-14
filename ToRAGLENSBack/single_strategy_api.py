@@ -1,6 +1,6 @@
 """
-单个策略执行API
-用于前端交互，接收单个策略，执行检索、评估和总结，返回结果
+【功能】单个策略执行 API：复刻 engine 中单轮检索/评估/总结，供独立调用或前端实验；定义 SingleStrategyExecutor。
+【长期价值】辅助长期维护（与主流程 engine 重复度高）；若只保留一种入口可合并或仅保留测试。
 """
 import asyncio
 import json

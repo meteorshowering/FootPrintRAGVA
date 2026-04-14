@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-调试脚本，用于测试_format_results方法
+【功能】构造模拟 raw_results，调试 RAGService._format_results。
+【长期价值】单元调试片段；可删。
 """
 
 import json

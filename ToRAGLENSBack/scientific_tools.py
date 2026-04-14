@@ -1,3 +1,7 @@
+"""
+【功能】供 AutoGen 工具调用的「科学检索」封装：语义检索、元数据检索、本地过滤等，内部调用 rag_service 与协议中的 RawEvidenceItem；含安全解析 JSON/字面量。
+【长期价值】核心长期维护；检索策略与工具名变更时必改此文件。
+"""
 import asyncio
 import json
 import ast  # ⬅️ 新增：用于解析单引号的 Python 字典字符串

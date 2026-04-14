@@ -15,24 +15,8 @@
       ],
       "top_keywords": [
         {
-          "term": "distribution datasets",
-          "score": 0.2564601569065589
-        },
-        {
-          "term": "character distribution",
-          "score": 0.2564601569065589
-        },
-        {
-          "term": "datapoints",
-          "score": 0.21982299163419328
-        },
-        {
-          "term": "datasets datapoints",
-          "score": 0.21982299163419328
-        },
-        {
-          "term": "comparing datasets",
-          "score": 0.14654866108946218
+          "term": "Data Visualization",
+          "score": 1.0
         }
       ]
     },
@@ -45,24 +29,8 @@
       ],
       "top_keywords": [
         {
-          "term": "uncertainty",
-          "score": 0.22153951024868465
-        },
-        {
-          "term": "metric monitoring",
-          "score": 0.11076975512434233
-        },
-        {
-          "term": "networks",
-          "score": 0.11076975512434233
-        },
-        {
-          "term": "sankey",
-          "score": 0.11076975512434233
-        },
-        {
-          "term": "proceedings acm",
-          "score": 0.11076975512434233
+          "term": "Visual Model Diagnostics",
+          "score": 1.0
         }
       ]
     },
@@ -75,24 +43,8 @@
       ],
       "top_keywords": [
         {
-          "term": "number help",
-          "score": 0.19851666679418656
-        },
-        {
-          "term": "completion",
-          "score": 0.19851666679418656
-        },
-        {
-          "term": "help requests",
-          "score": 0.19851666679418656
-        },
-        {
-          "term": "task completion",
-          "score": 0.19851666679418656
-        },
-        {
-          "term": "regarding familiarity",
-          "score": 0.14888750009563992
+          "term": "XR Interaction Design",
+          "score": 1.0
         }
       ]
     },
@@ -105,24 +57,8 @@
       ],
       "top_keywords": [
         {
-          "term": "highly",
-          "score": 0.14569287935358996
-        },
-        {
-          "term": "paraphrases",
-          "score": 0.14569287935358996
-        },
-        {
-          "term": "emergence",
-          "score": 0.09712858623572665
-        },
-        {
-          "term": "calls",
-          "score": 0.09712858623572665
-        },
-        {
-          "term": "gpt-4 technical",
-          "score": 0.09712858623572665
+          "term": "Prompt Engineering",
+          "score": 1.0
         }
       ]
     },
@@ -135,24 +71,8 @@
       ],
       "top_keywords": [
         {
-          "term": "component",
-          "score": 0.2503670175697626
-        },
-        {
-          "term": "jailbreaklens",
-          "score": 0.2503670175697626
-        },
-        {
-          "term": "jailbreak attacks",
-          "score": 0.18777526317732193
-        },
-        {
-          "term": "prompt components",
-          "score": 0.15647938598110162
-        },
-        {
-          "term": "analysis jailbreak",
-          "score": 0.15647938598110162
+          "term": "Jailbreak Prompt Analysis",
+          "score": 1.0
         }
       ]
     },
@@ -165,24 +85,8 @@
       ],
       "top_keywords": [
         {
-          "term": "metk",
-          "score": 0.5751805874480179
-        },
-        {
-          "term": "medical",
-          "score": 0.30128506961562845
-        },
-        {
-          "term": "structures",
-          "score": 0.2191164142659116
-        },
-        {
-          "term": "liver",
-          "score": 0.2191164142659116
-        },
-        {
-          "term": "segmented",
-          "score": 0.19172686248267265
+          "term": "Medical Visualization",
+          "score": 1.0
         }
       ]
     },
@@ -195,24 +99,8 @@
       ],
       "top_keywords": [
         {
-          "term": "chart analysis",
-          "score": 0.23025886693600012
-        },
-        {
-          "term": "chain",
-          "score": 0.15350591129066676
-        },
-        {
-          "term": "detecting",
-          "score": 0.15350591129066676
-        },
-        {
-          "term": "chain thought",
-          "score": 0.15350591129066676
-        },
-        {
-          "term": "factual questions",
-          "score": 0.15350591129066676
+          "term": "Chart Analysis with Large Language Models",
+          "score": 1.0
         }
       ]
     },
@@ -225,24 +113,8 @@
       ],
       "top_keywords": [
         {
-          "term": "tailor-mind",
-          "score": 0.3511474936103099
-        },
-        {
-          "term": "srl",
-          "score": 0.28091799488824787
-        },
-        {
-          "term": "conceptual framework",
-          "score": 0.14045899744412393
-        },
-        {
-          "term": "personalized",
-          "score": 0.10534424808309295
-        },
-        {
-          "term": "students",
-          "score": 0.10534424808309295
+          "term": "Self-Regulated Learning (SRL) Systems",
+          "score": 1.0
         }
       ]
     },
@@ -255,24 +127,8 @@
       ],
       "top_keywords": [
         {
-          "term": "visualizationary",
-          "score": 0.49699954427398324
-        },
-        {
-          "term": "visualizationary interface",
-          "score": 0.20464687117164018
-        },
-        {
-          "term": "readability",
-          "score": 0.20464687117164018
-        },
-        {
-          "term": "title visualizationary",
-          "score": 0.14617633655117154
-        },
-        {
-          "term": "chart generation",
-          "score": 0.11694106924093724
+          "term": "Visualization Evaluation",
+          "score": 1.0
         }
       ]
     },
@@ -285,24 +141,8 @@
       ],
       "top_keywords": [
         {
-          "term": "encoder",
-          "score": 0.17708440083028643
-        },
-        {
-          "term": "material",
-          "score": 0.11805626722019096
-        },
-        {
-          "term": "technology zhejiang",
-          "score": 0.11805626722019096
-        },
-        {
-          "term": "interests",
-          "score": 0.11805626722019096
-        },
-        {
-          "term": "computer science",
-          "score": 0.11805626722019096
+          "term": "Fine-Tuning Large Language Models",
+          "score": 1.0
         }
       ]
     },
@@ -315,24 +155,8 @@
       ],
       "top_keywords": [
         {
-          "term": "photograph",
-          "score": 0.44232586846469063
-        },
-        {
-          "term": "related text-to-image",
-          "score": 0.29488391230979377
-        },
-        {
-          "term": "text-to-image generation",
-          "score": 0.22116293423234532
-        },
-        {
-          "term": "portrait",
-          "score": 0.22116293423234532
-        },
-        {
-          "term": "blurred",
-          "score": 0.22116293423234532
+          "term": "Text-to-Image Generation",
+          "score": 1.0
         }
       ]
     },
@@ -345,24 +169,8 @@
       ],
       "top_keywords": [
         {
-          "term": "prime",
-          "score": 0.28005601680560205
-        },
-        {
-          "term": "toxicity",
-          "score": 0.1867040112037347
-        },
-        {
-          "term": "red-teaming",
-          "score": 0.14002800840280102
-        },
-        {
-          "term": "geq",
-          "score": 0.14002800840280102
-        },
-        {
-          "term": "training validation",
-          "score": 0.14002800840280102
+          "term": "Adversarial Robustness",
+          "score": 1.0
         }
       ]
     },
@@ -375,24 +183,8 @@
       ],
       "top_keywords": [
         {
-          "term": "quot",
-          "score": 0.8279630710968773
-        },
-        {
-          "term": "quot quot",
-          "score": 0.2620136300939485
-        },
-        {
-          "term": "chart does",
-          "score": 0.17816926846388498
-        },
-        {
-          "term": "quot chart",
-          "score": 0.17816926846388498
-        },
-        {
-          "term": "y-axis",
-          "score": 0.1572081780563691
+          "term": "Data Visualization Critique",
+          "score": 1.0
         }
       ]
     },
@@ -405,24 +197,8 @@
       ],
       "top_keywords": [
         {
-          "term": "environments",
-          "score": 0.22958361953801304
-        },
-        {
-          "term": "extended reality",
-          "score": 0.19131968294834423
-        },
-        {
-          "term": "fusion",
-          "score": 0.19131968294834423
-        },
-        {
-          "term": "interactive extended",
-          "score": 0.1530557463586754
-        },
-        {
-          "term": "crafting interactive",
-          "score": 0.1530557463586754
+          "term": "Extended Reality (XR) Interaction Design",
+          "score": 1.0
         }
       ]
     },
@@ -435,24 +211,8 @@
       ],
       "top_keywords": [
         {
-          "term": "gary",
-          "score": 0.22252768246568447
-        },
-        {
-          "term": "canvas",
-          "score": 0.22252768246568447
-        },
-        {
-          "term": "canvas panel",
-          "score": 0.22252768246568447
-        },
-        {
-          "term": "prompt canvas",
-          "score": 0.22252768246568447
-        },
-        {
-          "term": "prompt template",
-          "score": 0.1854397353880704
+          "term": "Prompt Engineering",
+          "score": 1.0
         }
       ]
     }

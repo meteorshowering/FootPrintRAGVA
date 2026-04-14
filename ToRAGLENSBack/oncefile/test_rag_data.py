@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-测试文件，用于打印rag库中的数据示例
+【功能】get_rag_service 后重置并打印 RAG 库数据样例。
+【长期价值】调试脚本；可删。
 """
 
 import asyncio

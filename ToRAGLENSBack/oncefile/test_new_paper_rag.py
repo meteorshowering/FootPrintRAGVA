@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-测试新的论文向量库
+【功能】PaperRAGManager 加载论文集合并做简单查询测试。
+【长期价值】集成测试草稿；可删。
 """
 
 import asyncio

@@ -1,3 +1,7 @@
+"""
+【功能】遍历目录下 Markdown，删除「References」标题及其后全部内容（清洗语料）。
+【长期价值】数据预处理一次性脚本；慎用以免误删正文。
+"""
 import os
 import re
 

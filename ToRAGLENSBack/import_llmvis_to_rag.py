@@ -1,3 +1,7 @@
+"""
+【功能】从 llmvis_enhanced_afterllm.json 将图片与论文 chunk 导入 Chroma 集合 LLMvisDataset（MultimodalRAGManager / PaperRAGManager）。
+【长期价值】数据初始化/迁移脚本；库结构稳定后低频使用，可归档到 docs 或 oncefile。
+"""
 import os
 import sys
 import json

@@ -1,3 +1,7 @@
+"""
+【功能】早期工作流实验：RAG + scientific_tools + protocols 的端到端编排与日志（workflow1125）。
+【长期价值】历史快照；新开发以 engine.py / server.py 为准，本文件可只作参考或删除。
+"""
 import asyncio
 import json
 import traceback

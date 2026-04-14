@@ -1,3 +1,7 @@
+"""
+【功能】扫描 md-llmvis 下 Markdown，提取图片链接与图题，生成与 predataprocess 兼容的 images_info 类 JSON。
+【长期价值】数据准备脚本可保留；MinerU 目录结构变更时需同步更新。
+"""
 import os
 import json
 import re

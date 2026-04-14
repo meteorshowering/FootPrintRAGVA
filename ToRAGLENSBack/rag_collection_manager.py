@@ -1,3 +1,7 @@
+"""
+【功能】Chroma 持久化封装：创建/删除集合、向多模态与论文类集合写入 chunk、embedding 与 metadata；供 rag_service 与数据导入脚本使用。
+【长期价值】核心长期维护；向量库结构演进时以本模块为中心。
+"""
 import os
 import json
 import asyncio

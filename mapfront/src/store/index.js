@@ -2,11 +2,11 @@ import { createStore } from 'vuex';
 
 const store = createStore({
   state: {
-    selectedData: null,  // 当前选中的数据点（保留用于兼容）
+    selectedData: null,  // 当前选中的数据点（RiverChart 等兼容）
     dataPoints: [],      // 所有数据点
-    selectedItems: [],   // 多选列表（保存的数据点）- 必须初始化为空数组
-    pendingItems: [],    // 待保存的多选列表（临时选择）- 必须初始化为空数组
-    experimentResult: null  // 完整的实验数据，包含hypothesis
+    experimentResult: null,  // 完整的实验数据，包含hypothesis
+    // Interactive Report：版块标题 + 从策略地图拖入的点（与 ItemDetail 同结构，供后续 prompt 总结）
+    interactiveReportSections: []
   },
   getters: {
     // 从完整路径中提取相对路径
@@ -48,60 +48,30 @@ const store = createStore({
       state.selectedData = data;
       console.log("selectdatainindex",state.selectedData)
     },
-    addPendingItem(state, item) {
-      // 检查是否已存在（根据id）
-      if (!item || !item.id) {
-        console.warn('addPendingItem: 无效的item', item);
-        return;
-      }
-      const exists = state.pendingItems.some(i => i && i.id === item.id);
-      if (!exists) {
-        // 使用 push 添加，Vue 3 能检测到（响应式）
-        state.pendingItems.push(item);
-        console.log('addPendingItem: 已添加', item.id, '当前待保存数量:', state.pendingItems.length);
-      } else {
-        console.log('addPendingItem: 已存在，跳过', item.id);
-      }
-    },
-    removePendingItem(state, itemId) {
-      // 使用 filter 返回新数组（响应式）
-      state.pendingItems = state.pendingItems.filter(i => i.id !== itemId);
-    },
-    clearPendingItems(state) {
-      // 直接赋值空数组，响应式
-      state.pendingItems = [];
-    },
-    savePendingItems(state) {
-      console.log('savePendingItems mutation 开始执行');
-      console.log('当前 pendingItems:', state.pendingItems);
-      console.log('当前 selectedItems:', state.selectedItems);
-      
-      // 将pendingItems添加到selectedItems，去重
-      const newItems = state.pendingItems.filter(pending => 
-        !state.selectedItems.some(selected => selected && selected.id === pending.id)
-      );
-      
-      console.log('去重后的新项目:', newItems);
-      
-      // 用新数组替换，Vue能检测到（响应式）
-      state.selectedItems = [...state.selectedItems, ...newItems];
-      // 直接赋值空数组清空，响应式
-      state.pendingItems = [];
-      
-      console.log('savePendingItems: 已保存', newItems.length, '个项目，当前已保存总数:', state.selectedItems.length);
-      console.log('保存后的 selectedItems:', state.selectedItems);
-      console.log('保存后的 pendingItems:', state.pendingItems);
-    },
-    clearSelectedItems(state) {
-      // 直接赋值空数组，响应式
-      state.selectedItems = [];
-    },
-    removeSelectedItem(state, itemId) {
-      // 使用 filter 返回新数组（响应式）
-      state.selectedItems = state.selectedItems.filter(i => i.id !== itemId);
-    },
     setExperimentResult(state, experimentResult) {
       state.experimentResult = experimentResult;
+    },
+    addInteractiveReportSection(state, { title }) {
+      const id = `ir-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      state.interactiveReportSections.push({ id, title: title || '未命名版块', items: [] });
+    },
+    addPointToInteractiveReportSection(state, { sectionId, item }) {
+      if (!item || !item.id) return;
+      const sec = state.interactiveReportSections.find(s => s.id === sectionId);
+      if (!sec) return;
+      if (sec.items.some(i => i && i.id === item.id)) return;
+      sec.items.push(item);
+    },
+    removePointFromInteractiveReportSection(state, { sectionId, itemId }) {
+      const sec = state.interactiveReportSections.find(s => s.id === sectionId);
+      if (!sec) return;
+      sec.items = sec.items.filter(i => i && i.id !== itemId);
+    },
+    removeInteractiveReportSection(state, sectionId) {
+      state.interactiveReportSections = state.interactiveReportSections.filter(s => s.id !== sectionId);
+    },
+    clearInteractiveReport(state) {
+      state.interactiveReportSections = [];
     }
   },
   actions: {
@@ -151,7 +121,7 @@ const store = createStore({
         }
       }
       
-      // 处理河流图数据，转换为DetailView需要的格式
+      // 处理河流图数据，供右侧详情 / 兼容旧组件
       const processedData = {
         id: ragResult.id, // 添加id用于去重
         type: dataType,
@@ -178,18 +148,6 @@ const store = createStore({
       
       commit('setSelectedData', processedData);
       return Promise.resolve(processedData);
-    },
-    async addToPending({ commit, dispatch }, ragResult) {
-      console.log('addToPending action 被调用', ragResult);
-      const processedData = await dispatch('selectRiverResult', ragResult);
-      console.log('processedData:', processedData);
-      commit('addPendingItem', processedData);
-    },
-    async addMultipleToPending({ commit, dispatch }, ragResults) {
-      for (const ragResult of ragResults) {
-        const processedData = await dispatch('selectRiverResult', ragResult);
-        commit('addPendingItem', processedData);
-      }
     }
   },
 });

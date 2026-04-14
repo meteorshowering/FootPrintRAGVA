@@ -1,3 +1,7 @@
+"""
+【功能】测试 strategy_multimodal_search；内含硬编码 chdir 到旧 ToRAGLENS 路径，易失效。
+【长期价值】历史调试脚本；可删或改为相对路径/环境变量。
+"""
 import asyncio
 import os
 

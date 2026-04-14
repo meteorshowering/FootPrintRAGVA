@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-生成包含正确paper_id的JSON文件
-从save_path中提取倒数第二个目录名称作为paper_id
+【功能】从 enhanced_figures_afterllm_reassigned_ids.json 按 save_path 规则生成 enhanced_figures_with_paperid.json。
+【长期价值】历史数据修复脚本；新管线不再需要时可归档。
 """
 
 import json

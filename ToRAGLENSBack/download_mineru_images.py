@@ -1,3 +1,7 @@
+"""
+【功能】解析 Markdown 中外链图片并下载到本地 images 目录，便于离线构建 LLMvis 数据集。
+【长期价值】数据准备脚本；一次性爬取后可归档。
+"""
 import os
 import re
 import requests

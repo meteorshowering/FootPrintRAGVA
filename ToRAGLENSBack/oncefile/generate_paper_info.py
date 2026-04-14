@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-生成paper信息JSON文件，包含paperid、paper名字和图片数量
-同时更新原JSON文件，将paper_id从名称改为数字ID
+【功能】由 enhanced_figures_with_paperid.json 生成 paper_info.json，并输出数字 paper_id 版 figures JSON。
+【长期价值】历史数据修复脚本；可归档。
 """
 
 import json

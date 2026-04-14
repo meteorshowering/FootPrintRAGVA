@@ -1,3 +1,7 @@
+"""
+【功能】简化多模态检索：query_by_multimodal 与示例图片路径。
+【长期价值】调试脚本；可删。
+"""
 import asyncio
 from rag_service import get_rag_service
 

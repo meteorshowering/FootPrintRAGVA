@@ -1,6 +1,6 @@
 """
-测试 HypothesisGeneratorAgent Team 的脚本
-从 experiment_results JSON 文件解析数据，测试报告生成
+【功能】从 experiment_results JSON 加载图结构，本地测试 HypothesisGeneratorAgent 与报告生成。
+【长期价值】集成/回归测试可保留；需随 engine 协议更新路径与模型配置。
 """
 import asyncio
 import json

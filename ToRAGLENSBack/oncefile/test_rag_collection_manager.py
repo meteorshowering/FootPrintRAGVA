@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-测试集合管理功能
+【功能】创建/删除测试集合，验证 RAGCollectionManager 生命周期。
+【长期价值】集成测试草稿；可删。
 """
 
 import asyncio

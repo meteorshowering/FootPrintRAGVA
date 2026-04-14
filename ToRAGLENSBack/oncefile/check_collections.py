@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-检查现有向量库集合
+【功能】列出 Chroma 中集合名称与条目数，用于运维检查。
+【长期价值】运维小工具可保留。
 """
 
 import asyncio

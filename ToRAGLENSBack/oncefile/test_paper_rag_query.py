@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-测试论文向量库的读取和检索功能
+【功能】对 paper_rag_collection 做异步查询与结果展示。
+【长期价值】集成测试草稿；可删。
 """
 
 import asyncio

@@ -1,3 +1,7 @@
+"""
+【功能】仅针对 LLMvisDataset 集合调用 embedding 降维，写出 LLMvisDataset_embedding.json 并修正 paper_id、复制到 mapfront/public。
+【长期价值】运维可保留；功能已被 regenerate_rag_embedding_maps.py 覆盖时可只保留后者。
+"""
 import asyncio
 import os
 import sys

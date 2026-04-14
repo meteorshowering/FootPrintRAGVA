@@ -1,3 +1,7 @@
+"""
+【功能】Pydantic 模型定义：证据项、评估结果、科研图节点、用户请求、实验结果、Hypothesis 结构等——前后端与 engine 之间的契约层。
+【长期价值】核心长期维护；协议变更需同步前端与序列化逻辑。
+"""
 from typing import List, Dict, Any, Optional, Literal
 from pydantic import BaseModel, Field
 import json
@@ -118,6 +122,8 @@ class UserRequest(BaseModel):
     rag_result_per_plan: int = Field(default=10, ge=1, le=20)
     # 最大轮次：控制 OrchestratorAgent 一共跑多少轮。
     max_rounds: int = Field(default=7, ge=1, le=10)
+    # ✨ 新增：是否启用交互/可中断模式
+    interactive: bool = Field(default=False)
 
 class FollowUpRequest(BaseModel):
     """

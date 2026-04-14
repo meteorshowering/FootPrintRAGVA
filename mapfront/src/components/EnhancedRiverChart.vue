@@ -13,6 +13,13 @@
           class="question-input"
           :disabled="isSubmitting"
         />
+        <!-- 交互模式开关 -->
+        <div class="interactive-toggle">
+          <label>
+            <input type="checkbox" v-model="isInteractiveMode" :disabled="isSubmitting">
+            开启人工审批模式
+          </label>
+        </div>
         <button 
           @click="submitUserQuery" 
           class="btn btn-submit"
@@ -20,6 +27,54 @@
         >
           {{ isSubmitting ? '提交中...' : '提交查询' }}
         </button>
+      </div>
+    </div>
+
+    <!-- Interactive Review Modal -->
+    <div v-if="showReviewModal" class="modal" @click.self="closeReviewModal">
+      <div class="modal-content review-modal" style="max-width: 800px; max-height: 80vh; overflow-y: auto;">
+        <div class="modal-header">
+          <h2>检索策略审批 (轮次 {{ reviewRoundNumber }})</h2>
+        </div>
+        <div class="modal-body">
+          <p>以下是大模型为您生成的检索策略，请确认或修改后再执行：</p>
+          <div v-for="(plan, index) in reviewPlans" :key="index" class="review-plan-item" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 4px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <strong>策略 {{ index + 1 }}</strong>
+              <button @click="removeReviewPlan(index)" style="color: red; cursor: pointer; border: none; background: none;">删除此策略</button>
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label>工具:</label>
+              <select v-model="plan.tool_name" style="width: 100%; padding: 4px;">
+                <option value="strategy_semantic_search">语义检索 (strategy_semantic_search)</option>
+                <option value="strategy_exact_search">精确匹配 (strategy_exact_search)</option>
+                <option value="strategy_metadata_search">元数据/文献检索 (strategy_metadata_search)</option>
+              </select>
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label>目标节点 (ParentNode):</label>
+              <input type="text" v-model="plan.ParentNode" style="width: 100%; padding: 4px;" />
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label>搜索参数 (Args JSON):</label>
+              <textarea :value="JSON.stringify(plan.args, null, 2)" @input="updatePlanArgs(index, $event)" rows="3" style="width: 100%; padding: 4px; font-family: monospace;"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label>大模型理由:</label>
+              <div style="font-size: 12px; color: #666; background: #f9f9f9; padding: 4px;">{{ plan.reason }}</div>
+            </div>
+          </div>
+          
+          <button @click="addEmptyReviewPlan" style="margin-bottom: 15px; cursor: pointer;">+ 新增一个策略</button>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #eee; padding-top: 15px;">
+          <button @click="submitReviewDecision('abort')" class="btn" style="background: #dc3545; color: white;">终止任务</button>
+          <button @click="submitReviewDecision('replace')" class="btn btn-submit">确认并继续执行</button>
+        </div>
       </div>
     </div>
 
@@ -225,6 +280,7 @@ export default {
       // 用户输入相关
       userQuestion: '',
       isSubmitting: false,
+      isInteractiveMode: false,
       // 新增的轮次（用于追问功能）
       newRounds: {},
       // 全局地图相关
@@ -251,6 +307,12 @@ export default {
       highlightedPlanPoints: {}, // { [nodeId]: { branch_action: 'GROW'|'KEEP'|'PRUNE', ... } } 存储当前高亮的点
       // 存储 experiment_result 以便获取 plansummary
       experimentResult: null, // 存储完整的 experiment_result 数据
+      
+      // 交互模式审批相关
+      showReviewModal: false,
+      reviewCheckpoint: null, // 存储 run_id, checkpoint_id 等
+      reviewPlans: [],        // 当前正在审批的 plan 列表
+      
       // spreadsheet-like layout state
       showLegacyConnections: false,
       persistZoomTransform: null,
@@ -265,7 +327,11 @@ export default {
         hoveredCellKey: null,
         selectedCellKey: null
       },
-      gridMetrics: null
+      gridMetrics: null,
+      // Interactive Report：从策略小地图拖到右侧面板
+      reportDragGhostEl: null,
+      reportDragPayload: null,
+      suppressStrategyDotClick: false
     };
   },
   watch: {
@@ -380,6 +446,20 @@ export default {
             // 处理评估完成（第三步：给点上色）
             if (data.type === 'evaluation_complete') {
               this.handleEvaluationComplete(data.node_id, data.evaluation);
+              return;
+            }
+            
+            // 处理交互模式下的审批请求
+            if (data.type === 'awaiting_user_plan') {
+              console.log('[WS] 收到审批请求', data);
+              this.reviewCheckpoint = {
+                run_id: data.run_id,
+                checkpoint_id: data.checkpoint_id
+              };
+              this.reviewRoundNumber = data.round_number;
+              // 深拷贝，防止修改直接影响其他地方
+              this.reviewPlans = JSON.parse(JSON.stringify(data.plans || []));
+              this.showReviewModal = true;
               return;
             }
             
@@ -1094,7 +1174,6 @@ export default {
               if (this.draggingStrategy && this.draggingStrategy.roundNumber === round.round_number && this.draggingStrategy.queryIndex === queryIndex) return;
               event.stopPropagation();
               this.focusedStrategyKey = selfKey;
-              this.selectAllPointsInStrategy(query);
               this.highlightPlanPointsInGlobalMap(query);
               this.drawRiverChart();
             })
@@ -1206,23 +1285,25 @@ export default {
       // const isEmptyQuery = !query.rag_results || query.rag_results.length === 0;
       const ragPoints = [];
       const missingIds = [];
-      
+      let skippedPruneCount = 0;
+
       query.rag_results.forEach(rag => {
         // 如果启用了隐藏PRUNE，跳过PRUNE节点
         if (this.hidePrunePoints) {
           const branchAction = rag.evaluation?.branch_action || 'UNKNOWN';
           if (branchAction === 'PRUNE') {
+            skippedPruneCount += 1;
             return; // 跳过PRUNE节点
           }
         }
-        
+
         const pointId = rag.retrieval_result.id;
         const point = this.findPointById(pointId);
-        
+
         if (point) {
-          ragPoints.push({ 
-            x: point.x, 
-            y: point.y, 
+          ragPoints.push({
+            x: point.x,
+            y: point.y,
             id: point.id,
             rag: rag,
             originalPoint: point
@@ -1231,9 +1312,9 @@ export default {
           missingIds.push(pointId);
         }
       });
-      
+
       if (missingIds.length > 0) {
-        console.warn(`轮次${roundNumber}查询${queryIndex}: 未找到以下ID的点:`, missingIds);
+        console.warn(`轮次${roundNumber}查询${queryIndex}: 以下检索ID在当前底图嵌入文件中无坐标，故不绘制（仍可在列表/详情中查看）:`, missingIds);
       }
       
       if (ragPoints.length === 0) {
@@ -1645,25 +1726,73 @@ export default {
             .attr('opacity', 0.95);
           d3.selectAll('.river-tooltip').remove();
         })
+        .on('pointerdown', (event, d) => {
+          event.stopPropagation();
+          if (event.button !== 0) return;
+          const self = this;
+          const startX = event.clientX;
+          const startY = event.clientY;
+          let moved = false;
+          const threshold = 10;
+          const onMove = (e) => {
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            if (!moved && (dx * dx + dy * dy) > threshold * threshold) {
+              moved = true;
+              self._beginReportDragGhost(e, d);
+            }
+            if (moved) self._moveReportDragGhost(e);
+          };
+          const onUp = (e) => {
+            window.removeEventListener('pointermove', onMove);
+            window.removeEventListener('pointerup', onUp);
+            self._clearReportDragHover();
+            if (moved) {
+              self._finishReportDrag(e);
+              self.suppressStrategyDotClick = true;
+            }
+          };
+          window.addEventListener('pointermove', onMove);
+          window.addEventListener('pointerup', onUp);
+        })
         .on('click', (event, d) => {
+          if (this.suppressStrategyDotClick) {
+            this.suppressStrategyDotClick = false;
+            event.stopPropagation();
+            return;
+          }
           const rr = d.rag?.retrieval_result;
           if (!rr) return;
           const evaluation = d.rag?.evaluation ?? null;
-          if (event.ctrlKey || event.metaKey) {
-            event.stopPropagation();
-            this.addToPending(rr, evaluation);
-          } else {
-            this.showDetail(rr, evaluation);
-          }
+          this.showDetail(rr, evaluation);
         });
       
-      // FootprintRAG风格：底部统计信息
-      strategyGroup.append('text')
+      // FootprintRAG风格：底部统计（说明：RAG 条数 ≠ 地图点数，见文案）
+      const totalRag = query.rag_results?.length ?? 0;
+      const plotted = ragPointsData.length;
+      const noCoord = missingIds.length;
+      const footerParts = [`地图 ${plotted}/${totalRag} 条`];
+      if (this.hidePrunePoints && skippedPruneCount > 0) {
+        footerParts.push(`已隐藏PRUNE ${skippedPruneCount}`);
+      }
+      if (noCoord > 0) {
+        footerParts.push(`无嵌入坐标 ${noCoord}`);
+      }
+      const footerStr = footerParts.join(' · ');
+      const footerShort = footerStr.length > 72 ? `${footerStr.slice(0, 69)}…` : footerStr;
+      const footerG = strategyGroup.append('g').attr('class', 'strategy-map-footer');
+      footerG.append('title').text(
+        '策略返回的每条 RAG 需在左侧所选数据集的 2D 嵌入文件（如 LLMvisDataset_embedding.json）中有对应 ID，才会在地图中打点。' +
+          '查不到的 chunk 仍保留在实验 JSON 中。' +
+          (this.hidePrunePoints ? ' 开启「隐藏PRUNE」时不绘制 PRUNE 节点。' : '')
+      );
+      footerG.append('text')
         .attr('x', rectX + 14)
         .attr('y', rectY + rectHeight - 10)
         .attr('text-anchor', 'start')
-        .attr('font-size', '11px')
-        .attr('fill', 'rgba(90,100,110,0.92)') // FootprintRAG风格
+        .attr('font-size', '10px')
+        .attr('fill', 'rgba(90,100,110,0.92)')
+        .text(footerShort);
     },
 
     drawConnections() {
@@ -2408,62 +2537,73 @@ export default {
       this.showPointDetailModal = false;
       this.selectedPointDetail = null;
     },
-    
-    // 添加点到待保存列表
-    async addToPending(retrievalResult, evaluation = null) {
-      // 如果启用了隐藏PRUNE，检查是否为PRUNE节点
-      if (this.hidePrunePoints) {
-        const branchAction = evaluation?.branch_action || retrievalResult.evaluation?.branch_action || 'UNKNOWN';
-        if (branchAction === 'PRUNE') {
-          console.log('PRUNE节点已被过滤，不添加到待保存列表');
-          return;
-        }
-      }
-      
-      // 如果传入了 evaluation，将其附加到 retrievalResult 上
-      const dataWithEvaluation = {
-        ...retrievalResult,
-        evaluation: evaluation || retrievalResult.evaluation
-      };
-      await this.$store.dispatch('addToPending', dataWithEvaluation);
-      // 等待 action 完成后再检查
-      const pendingCount = this.$store.state.pendingItems.length;
-      console.log(`已添加到待保存列表，当前待保存: ${pendingCount}`);
-    },
-    
-    // 全选策略卡片内的所有点
-    async selectAllPointsInStrategy(query) {
-      if (!query.rag_results || query.rag_results.length === 0) {
-        return;
-      }
-      
-      // 将 retrieval_result 和 evaluation 合并，过滤掉PRUNE节点
-      const ragResults = query.rag_results
-        .filter(rag => {
-          // 如果启用了隐藏PRUNE，过滤掉PRUNE节点
-          if (this.hidePrunePoints) {
-            const branchAction = rag.evaluation?.branch_action || 'UNKNOWN';
-            return branchAction !== 'PRUNE';
-          }
-          return true;
-        })
-        .map(rag => ({
-          ...rag.retrieval_result,
-          evaluation: rag.evaluation
-        }));
-      
-      if (ragResults.length === 0) {
-        console.log('没有可添加的点（已过滤PRUNE节点）');
-        return;
-      }
-      
-      await this.$store.dispatch('addMultipleToPending', ragResults);
-      
-      // 等待 action 完成后再检查
-      const pendingCount = this.$store.state.pendingItems.length;
-      console.log(`已全选策略卡片内的 ${ragResults.length} 个点（已过滤PRUNE），当前待保存: ${pendingCount}`);
+
+    getBranchActionColor(action) {
+      if (action === 'GROW') return '#28a745';
+      if (action === 'PRUNE') return '#dc3545';
+      if (action === 'KEEP') return '#ffc107';
+      if (action === 'PENDING') return '#6c757d';
+      return '#9AA3AD';
     },
 
+    _clearReportDragHover() {
+      document.querySelectorAll('.interactive-report-drop-zone.interactive-report-drop-active').forEach((el) => {
+        el.classList.remove('interactive-report-drop-active');
+      });
+    },
+
+    _beginReportDragGhost(event, d) {
+      const rr = d.rag?.retrieval_result;
+      if (!rr) return;
+      const evaluation = d.rag?.evaluation ?? null;
+      const dataWithEvaluation = {
+        ...rr,
+        evaluation: evaluation || rr.evaluation
+      };
+      const processed = this.processRagResultForDetail(dataWithEvaluation);
+      this.reportDragPayload = processed;
+      this._clearReportDragHover();
+
+      const ghost = document.createElement('div');
+      ghost.className = 'interactive-report-drag-ghost';
+      const color = this.getBranchActionColor(d.action);
+      const ring = d.isPicture
+        ? '<circle cx="18" cy="18" r="13" fill="none" stroke="rgba(40,140,255,0.95)" stroke-width="1.4"/>'
+        : '';
+      ghost.innerHTML = `<svg width="36" height="36" style="overflow:visible;opacity:0.92;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.2))"><circle cx="18" cy="18" r="10" fill="${color}" stroke="rgba(40,50,60,0.35)" stroke-width="0.8"/>${ring}</svg>`;
+      ghost.style.cssText = `position:fixed;left:${event.clientX}px;top:${event.clientY}px;pointer-events:none;z-index:10050;margin-left:-18px;margin-top:-18px;`;
+      document.body.appendChild(ghost);
+      this.reportDragGhostEl = ghost;
+    },
+
+    _moveReportDragGhost(e) {
+      if (!this.reportDragGhostEl) return;
+      this.reportDragGhostEl.style.left = `${e.clientX}px`;
+      this.reportDragGhostEl.style.top = `${e.clientY}px`;
+      this._clearReportDragHover();
+      const under = document.elementFromPoint(e.clientX, e.clientY);
+      const drop = under && under.closest && under.closest('.interactive-report-drop-zone');
+      if (drop) drop.classList.add('interactive-report-drop-active');
+    },
+
+    _finishReportDrag(e) {
+      const el = this.reportDragGhostEl;
+      if (el) {
+        el.remove();
+        this.reportDragGhostEl = null;
+      }
+      const payload = this.reportDragPayload;
+      this.reportDragPayload = null;
+      this._clearReportDragHover();
+      if (!payload) return;
+      const under = document.elementFromPoint(e.clientX, e.clientY);
+      const drop = under && under.closest && under.closest('.interactive-report-drop-zone');
+      if (!drop) return;
+      const sectionId = drop.getAttribute('data-section-id');
+      if (!sectionId) return;
+      this.$store.commit('addPointToInteractiveReportSection', { sectionId, item: payload });
+    },
+    
     // 高亮全局地图中策略卡片对应的点
     highlightPlanPointsInGlobalMap(query) {
       if (!query.rag_results || query.rag_results.length === 0) {
@@ -2586,7 +2726,8 @@ export default {
                 collection_name: this.ragCollection,
                 plans_per_round: Math.max(1, Math.floor(Number(this.plansPerRound) || 3)),
                 rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
-                max_rounds: Math.max(1, Math.min(10, Math.floor(Number(this.maxRounds) || 7)))
+                max_rounds: Math.max(1, Math.min(10, Math.floor(Number(this.maxRounds) || 7))),
+                interactive: this.isInteractiveMode === true
               }));
           this.userQuestion = '';
           // 后端会通过 WebSocket 逐步推送：plan_created → retrieval_complete → evaluation_complete
@@ -2638,6 +2779,52 @@ export default {
       this.drawRiverChart();
     },
 
+
+    // 交互模式下相关方法
+    closeReviewModal() {
+      this.showReviewModal = false;
+      this.reviewPlans = [];
+      this.reviewCheckpoint = null;
+    },
+    removeReviewPlan(index) {
+      this.reviewPlans.splice(index, 1);
+    },
+    addEmptyReviewPlan() {
+      this.reviewPlans.push({
+        action: "call_tool",
+        tool_name: "strategy_semantic_search",
+        ParentNode: "0",
+        args: { query_intent: "在此处输入关键词" },
+        reason: "用户手动添加"
+      });
+    },
+    updatePlanArgs(index, event) {
+      try {
+        const val = event.target.value;
+        const parsed = JSON.parse(val);
+        this.reviewPlans[index].args = parsed;
+      } catch (e) {
+        // 用户输入非法的JSON时先不报错，保持原值或只在保存时校验
+      }
+    },
+    submitReviewDecision(decision) {
+      if (!this.wsConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        alert("WebSocket连接已断开，无法提交决策！");
+        return;
+      }
+      
+      const payload = {
+        action: "interactive_response",
+        run_id: this.reviewCheckpoint.run_id,
+        checkpoint_id: this.reviewCheckpoint.checkpoint_id,
+        decision: decision,
+        plans: decision === 'replace' ? this.reviewPlans : []
+      };
+      
+      console.log("[WS] 提交交互模式决策:", payload);
+      this.ws.send(JSON.stringify(payload));
+      this.closeReviewModal();
+    },
 
     extractRelativePath(fullPath) {
       if (!fullPath) return '';
@@ -4201,6 +4388,51 @@ svg {
   min-width: 420px;
   border: 1px solid rgba(203, 213, 225, 0.9);
   box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+}
+
+.interactive-toggle {
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+.interactive-toggle input[type="checkbox"] {
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.review-plan-item {
+  background: #fdfdfd;
+  transition: all 0.2s ease;
+}
+.review-plan-item:hover {
+  background: #f4f6f8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group select:focus,
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #4A90E2;
 }
 
 </style>

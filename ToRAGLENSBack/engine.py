@@ -1,3 +1,7 @@
+"""
+【功能】多智能体编排核心：Orchestrator / 检索与评估 / 总结与 Hypothesis 生成、交互式暂停、实验结果落盘；与 scientific_tools、protocols、connection 协同。
+【长期价值】核心长期维护（体量最大，业务逻辑主战场）。
+"""
 import asyncio
 import json
 import traceback
@@ -115,6 +119,26 @@ TOPIC_HYPOTHESIS_COORDINATOR = "HypothesisCoordinator"
 TOPIC_HYPOTHESIS_SECTION = "HypothesisSection"
 TOPIC_HYPOTHESIS_SYNTHESIZER = "HypothesisSynthesizer"
 
+class InteractivePauseGate:
+    def __init__(self):
+        self._futures: Dict[str, asyncio.Future] = {}
+        
+    def create_checkpoint(self, checkpoint_id: str) -> asyncio.Future:
+        future = asyncio.Future()
+        self._futures[checkpoint_id] = future
+        return future
+        
+    def resolve_checkpoint(self, checkpoint_id: str, decision_data: dict):
+        if checkpoint_id in self._futures:
+            future = self._futures[checkpoint_id]
+            if not future.done():
+                future.set_result(decision_data)
+            del self._futures[checkpoint_id]
+            
+    async def wait(self, checkpoint_id: str) -> dict:
+        future = self.create_checkpoint(checkpoint_id)
+        return await future
+
 # -----------------------------------------------------------------
 # 4. 智能体定义
 # -----------------------------------------------------------------
@@ -122,11 +146,15 @@ TOPIC_HYPOTHESIS_SYNTHESIZER = "HypothesisSynthesizer"
 # --- A. 首席科学家 (Orchestrator) ---
 @type_subscription(topic_type=TOPIC_ORCHESTRATOR)
 class OrchestratorAgent(RoutedAgent):
-    def __init__(self, model_client: OpenAIChatCompletionClient, websocket_manager, is_follow_up_mode: bool = False) -> None:
+    def __init__(self, model_client: OpenAIChatCompletionClient, websocket_manager, is_follow_up_mode: bool = False, pause_gate = None, interactive_mode: bool = False, run_id: str = None) -> None:
         super().__init__("Orchestrator")
         self.model_client = model_client
         self.ws_manager = websocket_manager
         self.is_follow_up_mode = is_follow_up_mode
+        self.pause_gate = pause_gate
+        self.interactive_mode = interactive_mode
+        self.run_id = run_id
+        
         self.graph = ResearchGraph(root_goal="")
         self.round_count = 0
         self.pending_tasks = 0
@@ -424,6 +452,45 @@ class OrchestratorAgent(RoutedAgent):
         self.current_iteration = IterationResult(round_number=self.round_count)
         self.current_query_results.clear()
         
+        # -----------------------------------------------------------------
+        # ⚡️ 核心交互点：初始轮次的策略审查
+        # -----------------------------------------------------------------
+        if self.interactive_mode and self.pause_gate is not None:
+            logger.log("Orchestrator", "开启了交互模式，暂停并等待用户审批初始发散计划...", "WAITING_USER")
+            # 通知前端当前计划
+            plan_dicts = [p.dict() for p in plans]
+            import uuid
+            checkpoint_id = str(uuid.uuid4())
+            await self.ws_manager.broadcast_json({
+                "type": "awaiting_user_plan",
+                "run_id": self.run_id,
+                "checkpoint_id": checkpoint_id,
+                "round_number": self.round_count,
+                "plans": plan_dicts
+            })
+            
+            # 挂起协程，等待用户指令
+            user_response = await self.pause_gate.wait(checkpoint_id)
+            
+            decision = user_response.get("decision", "abort")
+            if decision == "abort":
+                logger.log("Orchestrator", "用户选择了终止初始任务", "ABORT")
+                await self._finish_task(ctx)
+                return
+            elif decision == "replace" or decision == "approve":
+                user_plans = user_response.get("plans", [])
+                new_plans = []
+                for up in user_plans:
+                    new_plan = OrchestratorPlan(**up)
+                    new_plans.append(new_plan)
+                plans = new_plans
+                
+                if len(plans) == 0:
+                    logger.log("Orchestrator", "用户清空了所有初始任务，流程结束", "STOP")
+                    await self._finish_task(ctx)
+                    return
+                logger.log("Orchestrator", f"用户审批完成，最终下发 {len(plans)} 个初始任务", "USER_APPROVED")
+
         for plan in plans:
             # 创建QueryResult并保存原始策略信息
             query_result = QueryResult(orchestrator_plan=plan)
@@ -915,7 +982,50 @@ class OrchestratorAgent(RoutedAgent):
                     ParentNode=ParentNode,
                 )
                 plans.append(plan)
+
+            # -----------------------------------------------------------------
+            # ⚡️ 核心交互点：如果是互动模式，且有暂停门，则暂停等待用户审批
+            # -----------------------------------------------------------------
+            if self.interactive_mode and self.pause_gate is not None:
+                logger.log("Orchestrator", "开启了交互模式，暂停并等待用户审批计划...", "WAITING_USER")
+                # 通知前端当前计划
+                plan_dicts = [p.dict() for p in plans]
+                import uuid
+                checkpoint_id = str(uuid.uuid4())
+                await self.ws_manager.broadcast_json({
+                    "type": "awaiting_user_plan",
+                    "run_id": self.run_id,
+                    "checkpoint_id": checkpoint_id,
+                    "round_number": self.round_count,
+                    "plans": plan_dicts
+                })
                 
+                # 挂起协程，等待用户指令（通过 pause_gate）
+                # wait() 方法应返回用户修改后的 decision (e.g. {"decision": "approve", "plans": [...]})
+                user_response = await self.pause_gate.wait(checkpoint_id)
+                
+                decision = user_response.get("decision", "abort")
+                if decision == "abort":
+                    logger.log("Orchestrator", "用户选择了终止任务", "ABORT")
+                    await self._finish_task(ctx)
+                    return
+                elif decision == "replace" or decision == "approve":
+                    # 无论是原样批准还是修改，我们都直接采用前端回传的 plans 作为最终执行计划
+                    user_plans = user_response.get("plans", [])
+                    new_plans = []
+                    for up in user_plans:
+                        new_plan = OrchestratorPlan(**up)
+                        new_plans.append(new_plan)
+                    plans = new_plans
+                    self.pending_tasks = len(plans)
+                    
+                    if self.pending_tasks == 0:
+                        logger.log("Orchestrator", "用户清空了所有任务，流程结束", "STOP")
+                        await self._finish_task(ctx)
+                        return
+                    logger.log("Orchestrator", f"用户审批完成，最终下发 {self.pending_tasks} 个有效任务", "USER_APPROVED")
+                
+            for plan in plans:
                 # ⚡️ 优化：记录历史策略 (使用OrchestratorPlan)
                 # 直接使用plan对象，它已经包含了所有必要信息
                 self.history_strategies.append(plan)
@@ -3017,6 +3127,9 @@ async def run_rag_workflow(
     plans_per_round: int = 3,
     rag_result_per_plan: int = 10,
     max_rounds: int = 7,
+    interactive_mode: bool = False,
+    run_id: str = None,
+    pause_gate = None
 ):
     set_active_collection_name(collection_name)
     # #region agent log
@@ -3070,7 +3183,7 @@ async def run_rag_workflow(
 
         runtime = SingleThreadedAgentRuntime()
         
-        await OrchestratorAgent.register(runtime, type=TOPIC_ORCHESTRATOR, factory=lambda: OrchestratorAgent(model_client,manager))
+        await OrchestratorAgent.register(runtime, type=TOPIC_ORCHESTRATOR, factory=lambda: OrchestratorAgent(model_client, manager, pause_gate=pause_gate, interactive_mode=interactive_mode, run_id=run_id))
         await ToolExecutorAgent.register(runtime, type=TOPIC_TOOL, factory=lambda: ToolExecutorAgent())
         await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
         await HypothesisGeneratorAgent.register(runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager))
@@ -3084,7 +3197,8 @@ async def run_rag_workflow(
                 query=query,
                 plans_per_round=plans_per_round,
                 rag_result_per_plan=rag_result_per_plan,
-                max_rounds=max_rounds
+                max_rounds=max_rounds,
+                interactive=interactive_mode
             ),
             topic_id=TopicId(TOPIC_ORCHESTRATOR, source="User")
         )

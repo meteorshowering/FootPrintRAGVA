@@ -1,3 +1,7 @@
+"""
+【功能】列出代理 /v1/models 中含 qwen、deepseek 的模型名（调试用）。
+【长期价值】一次性探测；可删。
+"""
 import requests
 
 GEMINI_API_KEY = "sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"

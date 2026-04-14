@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-测试文本分块逻辑
+【功能】实例化 PaperRAGManager 并调用内部分块逻辑做长段落测试。
+【长期价值】回归片段；可删。
 """
 
 import sys

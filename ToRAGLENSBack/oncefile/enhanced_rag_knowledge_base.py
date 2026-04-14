@@ -1,15 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-增强版RAG知识库构建脚本
-
-功能：
-1. 整合论文文本内容和图片信息，创建统一的增强版RAG知识库
-2. 为文本和图片数据添加类型标记和唯一标识
-3. 生成映射关系文件，便于后续检索和管理
-
-作者：AI Assistant
-日期：2026-02-02
+【功能】整合论文 Markdown 与图片 JSON，构建增强版 RAG 语料与映射（EnhancedRAGKnowledgeBase 类）。
+【长期价值】数据管线可保留作复现；与当前 rag_collection_manager 流程是否仍一致需人工核对。
 """
 
 import json

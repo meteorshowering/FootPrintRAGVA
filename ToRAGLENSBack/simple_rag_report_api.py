@@ -1,3 +1,7 @@
+"""
+【功能】轻量 FastAPI：单问题 → 语义检索 → 拼装报告并写文件；与主 server 分离的简易演示/批注接口。
+【长期价值】辅助可保留；非主链路，产品化时可合并或删除重复能力。
+"""
 import os
 import json
 import datetime

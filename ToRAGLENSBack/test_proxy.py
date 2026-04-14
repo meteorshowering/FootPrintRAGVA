@@ -1,3 +1,7 @@
+"""
+【功能】向代理网关发 Gemini generateContent 测试请求（Hello）。
+【长期价值】连通性探测脚本；可删或并入 CI 外部检查。
+"""
 import requests
 import json
 

@@ -1,3 +1,7 @@
+"""
+【功能】FastAPI WebSocket 连接管理：维护活跃连接、broadcast 科研图状态与实验结果；登记 interactive 模式下的 pause gate，供引擎在审批点挂起/恢复。
+【长期价值】核心长期维护（与 server.py / engine 强绑定）；若弃用交互式暂停，可删减 pause_gate 相关逻辑。
+"""
 # connection.py
 from typing import List
 from fastapi import WebSocket
@@ -8,6 +12,18 @@ import traceback
 class ConnectionManager:
     def __init__(self):
         self.active_connections: List[WebSocket] = []
+        # ✨ 新增：存储 interactive 模式的 pause gates
+        self._pause_gates = {}
+
+    def register_pause_gate(self, run_id: str, pause_gate):
+        self._pause_gates[run_id] = pause_gate
+
+    def get_pause_gate(self, run_id: str):
+        return self._pause_gates.get(run_id)
+
+    def unregister_pause_gate(self, run_id: str):
+        if run_id in self._pause_gates:
+            del self._pause_gates[run_id]
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()

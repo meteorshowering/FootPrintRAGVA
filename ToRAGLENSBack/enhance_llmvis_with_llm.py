@@ -1,3 +1,7 @@
+"""
+【功能】批量调用多模态/聊天 API，根据图片与引用生成增强 JSON（llmvis_enhanced_afterllm.json）；属离线数据增强流水线。
+【长期价值】一次性或低频数据加工；密钥与端点硬编码，生产环境应改为配置；长期可归档。
+"""
 import os
 import sys
 import json

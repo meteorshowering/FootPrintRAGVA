@@ -1,16 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-将增强版RAG数据添加到现有RAG系统的脚本
-
-功能：
-1. 加载enhanced_rag_data.json数据
-2. 使用content字段作为检索内容
-3. 将metadata字段添加到RAG的metadata中
-4. 创建新的RAG集合或添加到现有集合
-
-作者：AI Assistant
-日期：2026-02-02
+【功能】从 enhanced_rag_data.json 导入增强 RAG 条目，写入 Chroma 集合（content + metadata）。
+【长期价值】histfile 历史脚本；若当前流程已不用该 JSON，可归档或删除。
 """
 
 import json

@@ -1,3 +1,7 @@
+"""
+【功能】删除名为 scientific_multimodal_collection 的旧多模态集合（路径指向 oncefile 上级 .chromadb_autogen，注意与主库路径不一致风险）。
+【长期价值】一次性清理脚本；执行前确认集合名与路径，否则可删以免误运行。
+"""
 import chromadb
 import os
 

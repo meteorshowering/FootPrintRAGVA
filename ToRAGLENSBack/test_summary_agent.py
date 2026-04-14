@@ -1,3 +1,7 @@
+"""
+【功能】无 WebSocket 直连 run_rag_workflow，验证 Summary 阶段不报错。
+【长期价值】冒烟测试可保留；与 test_single_strategy 部分重叠。
+"""
 import asyncio
 
 from connection import ConnectionManager

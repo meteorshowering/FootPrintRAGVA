@@ -1,3 +1,7 @@
+"""
+【功能】RAG Lens 后端 HTTP/WebSocket 入口：挂载静态资源（paper_md、md-llmvis 图片）、暴露 prompts 读取、启动多轮 RAG 工作流与追问/扩展等 WebSocket 动作。
+【长期价值】核心长期维护；部署与路由以本文件为边界。
+"""
 import uvicorn
 import asyncio
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
@@ -169,6 +173,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 plans_per_round = data.get("plans_per_round", 3)
                 rag_result_per_plan = data.get("rag_result_per_plan", 10)
                 max_rounds = data.get("max_rounds", 7)
+                interactive = data.get("interactive", False)
                 try:
                     plans_per_round = int(plans_per_round)
                 except Exception:
@@ -182,6 +187,15 @@ async def websocket_endpoint(websocket: WebSocket):
                 except Exception:
                     max_rounds = 7
                 if query:
+                    import uuid
+                    from engine import InteractivePauseGate
+                    
+                    run_id = str(uuid.uuid4())
+                    pause_gate = InteractivePauseGate() if interactive else None
+                    
+                    if interactive:
+                        manager.register_pause_gate(run_id, pause_gate)
+                    
                     # 4. 调用 Engine (异步任务)
                     # 关键点：把 manager 传进去，让 engine 内部可以发消息回来
                     asyncio.create_task(
@@ -191,9 +205,25 @@ async def websocket_endpoint(websocket: WebSocket):
                             collection_name=collection_name,
                             plans_per_round=plans_per_round,
                             rag_result_per_plan=rag_result_per_plan,
-                            max_rounds=max_rounds
+                            max_rounds=max_rounds,
+                            interactive_mode=interactive,
+                            run_id=run_id,
+                            pause_gate=pause_gate
                         )
                     )
+            elif data.get("action") == "interactive_response":
+                # 前端返回了审批决策
+                run_id = data.get("run_id")
+                checkpoint_id = data.get("checkpoint_id")
+                decision_data = {
+                    "decision": data.get("decision", "abort"),
+                    "plans": data.get("plans", [])
+                }
+                pause_gate = manager.get_pause_gate(run_id)
+                if pause_gate:
+                    pause_gate.resolve_checkpoint(checkpoint_id, decision_data)
+                else:
+                    print(f"⚠️ [Server] 找不到 run_id: {run_id} 对应的 PauseGate")
             elif data.get("action") == "follow_up":
                 # 追问：只做一次检索 + 评估，把结果放到前端指定的 round_number（通常是最后一轮）
                 query = data.get("query")

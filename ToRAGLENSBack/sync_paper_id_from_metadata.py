@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-将 multimodal2text_embeddings_2d.json 中每条记录的顶层 paper_id
-用 metadata.paperid 覆盖（与 RAG 本地过滤 query_by_local_filter 一致）。
+【功能】将 multimodal2text_embeddings_2d.json 中每条顶层 paper_id 用 metadata.paperid 覆盖（与 query_by_local_filter 一致），并写 .bak 备份。
 
 默认处理：
   - ToRAGLENSBack/multimodal2text_embeddings_2d.json（后端 RAG）
   - mapfront/public/multimodal2text_embeddings_2d.json（前端底图 fetch）
+
+【长期价值】运维小工具可保留；若导出流程已统一写入正确 paper_id，可少用或弃用。
 """
 from __future__ import annotations
 

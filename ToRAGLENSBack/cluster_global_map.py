@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-聚类全局地图坐标，并使用 TF-IDF 提取每簇的关键词。
-读取: LLMvisDataset_embedding.json
-输出: LLMvisDataset_cluster_keywords.json，并自动拷贝到前端 mapfront/public/
+【功能】对嵌入结果做聚类得到全局地图坐标，并用 TF-IDF 提取每簇关键词。
+读取 LLMvisDataset_embedding.json，输出 LLMvisDataset_cluster_keywords.json，并拷贝到 mapfront/public/。
+
+【长期价值】运维/数据管道可保留；底图或聚类策略变更后按需运行；与前端全局地图标签联动。
 """
 import json
 import re
@@ -104,13 +105,19 @@ def main():
     for idx, lab in enumerate(labels):
         clusters.setdefault(int(lab), []).append(idx)
 
-    print("提取全局 TF-IDF 关键词...")
+    print("使用大模型提取全局语义关键词...")
     
-    # 1. 准备全局语料库，每个簇合并为一个大文档
+    import requests
+    API_URL = "http://38.147.105.35:3030/v1/chat/completions"
+    API_KEY = "sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
+    MODEL_NAME = "gpt-4o"
+    
+    # 1. 准备每个簇的样本并计算中心
     sorted_labs = sorted(clusters.keys())
-    macro_corpus = []
     centroids = []
     sizes = []
+    
+    out_clusters = []
     
     for lab in sorted_labs:
         indices = clusters[lab]
@@ -118,48 +125,50 @@ def main():
         
         # 质心
         sub_X = X[indices]
-        centroids.append(sub_X.mean(axis=0).tolist())
+        centroid = sub_X.mean(axis=0)
+        centroids.append(centroid.tolist())
         
-        # 合并簇内的所有文本为一个大文档
-        macro_text = " ".join([texts[i] for i in indices])
-        macro_corpus.append(macro_text)
+        # 找到距离中心最近的前 10 个 chunk 作为样本
+        distances = np.linalg.norm(sub_X - centroid, axis=1)
+        closest_local_indices = distances.argsort()[:10]
+        closest_texts = [texts[indices[i]] for i in closest_local_indices]
         
-    # 2. 计算基于簇维度的 TF-IDF
-    # 用户要求：找到自己内部多而在别的聚类中少的 -> "除了自己之外所有的(都不出现)" -> max_df=1
-    vec = TfidfVectorizer(
-        max_features=5000,
-        stop_words=list(STOP),
-        token_pattern=r"(?u)\b[a-z][a-z0-9\-]{2,}\b",
-        ngram_range=(1, 2),
-        min_df=1,
-        max_df=1, # 强制要求：只在当前1个聚类中出现，其他聚类均不出现
-    )
-    
-    try:
-        tfidf_matrix = vec.fit_transform(macro_corpus)
-        terms = np.array(vec.get_feature_names_out())
-    except ValueError:
-        tfidf_matrix = None
-        terms = []
-
-    out_clusters = []
-    for i, lab in enumerate(sorted_labs):
-        if tfidf_matrix is not None:
-            # 取当前聚类的 TF-IDF 分数
-            scores = np.asarray(tfidf_matrix[i].todense()).ravel()
-            top_idx = scores.argsort()[::-1][: args.top_n]
-            top_keywords = [
-                {"term": str(terms[j]), "score": float(scores[j])}
-                for j in top_idx
-                if scores[j] > 0
-            ]
-        else:
-            top_keywords = []
-
+        sample_content = "\n\n---\n\n".join(closest_texts)
+        if len(sample_content) > 8000:
+            sample_content = sample_content[:8000]
+            
+        sys_msg = "You are an expert academic researcher. Read the following scientific paper excerpts from a specific research cluster. Summarize their core research direction or topic using exactly ONE professional English academic term or short phrase (e.g. Visual Analytics, Neural Networks, Contrastive Learning). Return ONLY the term, no quotes, no extra words."
+        
+        payload = {
+            "model": MODEL_NAME,
+            "messages": [
+                {"role": "system", "content": sys_msg},
+                {"role": "user", "content": f"Excerpts:\n{sample_content}"}
+            ],
+            "max_tokens": 15,
+            "temperature": 0.2
+        }
+        headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+        
+        top_keywords = []
+        try:
+            print(f"正在为簇 {lab} 请求大模型生成标签...")
+            resp = requests.post(API_URL, headers=headers, json=payload, timeout=20)
+            if resp.status_code == 200:
+                term = resp.json()["choices"][0]["message"]["content"].strip()
+                # 简单清理可能包含的标点或换行
+                term = term.strip("'\" \n\r")
+                top_keywords = [{"term": term, "score": 1.0}]
+                print(f"  -> 生成标签: {term}".encode('utf-8', errors='replace').decode('utf-8'))
+            else:
+                print(f"  -> 请求失败, 状态码: {resp.status_code}".encode('utf-8', errors='replace').decode('utf-8'))
+        except Exception as e:
+            print(f"  -> API异常: {e}".encode('utf-8', errors='replace').decode('utf-8'))
+            
         out_clusters.append({
             "cluster_id": lab,
-            "size": sizes[i],
-            "centroid_2d": centroids[i],
+            "size": len(indices),
+            "centroid_2d": centroid.tolist(),
             "top_keywords": top_keywords,
         })
 

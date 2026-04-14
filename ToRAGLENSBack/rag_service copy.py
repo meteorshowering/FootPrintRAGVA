@@ -1,3 +1,7 @@
+"""
+【功能】历史副本：与 rag_service.py 同类的 RAG 服务实现（旧版或分支备份）。
+【长期价值】一次性/备份性质；以 rag_service.py 为准，确认无引用后可删除本文件避免混淆。
+"""
 import re
 from typing import List, Dict, Any, Optional, Union
 import asyncio

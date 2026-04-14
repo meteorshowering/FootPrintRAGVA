@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-测试嵌入API配置
+【功能】通过 RAGCollectionManager / PaperRAGManager 测嵌入 API 是否可用。
+【长期价值】连通性/配置测试；可删或合并到正式 pytest。
 """
 
 import asyncio

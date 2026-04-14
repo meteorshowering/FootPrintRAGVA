@@ -1,3 +1,7 @@
+"""
+【功能】批量探测若干 Gemini/GPT 模型在 chat completions 上是否返回 200。
+【长期价值】一次性选型脚本；可删。
+"""
 import requests
 
 GEMINI_API_KEY = "sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"

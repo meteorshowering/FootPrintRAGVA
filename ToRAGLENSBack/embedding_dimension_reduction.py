@@ -1,3 +1,7 @@
+"""
+【功能】从本地 Chroma 读取集合全文与向量，做 t-SNE/PCA 降维，导出含 coordinates_2d 的 JSON；供前端河流图底图与 regenerate_rag_embedding_maps 调用。
+【长期价值】运维/数据管道可保留，每次向量库大更新后需重跑以同步地图。
+"""
 import asyncio
 import json
 import os
@@ -7,6 +11,20 @@ import chromadb
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 import requests
+
+
+def _normalize_embedding(emb: Any) -> Optional[List[float]]:
+    """将 Chroma/numpy 返回的嵌入转为 float 列表；无效则返回 None。"""
+    if emb is None:
+        return None
+    try:
+        if hasattr(emb, "tolist"):
+            emb = emb.tolist()
+        if not isinstance(emb, (list, tuple)) or len(emb) == 0:
+            return None
+        return [float(x) for x in emb]
+    except (TypeError, ValueError):
+        return None
 
 class RAGEmbeddingProcessor:
     def __init__(self, db_persistence_path: Optional[str] = None):
@@ -161,24 +179,35 @@ class RAGEmbeddingProcessor:
         if not embeddings:
             print("⚠️ 没有嵌入向量数据")
             return []
-        
-        # 转换为numpy数组
+
+        n = len(embeddings)
+        # t-SNE 要求 n>=2 且 perplexity < n_samples；单点无法流形降维
+        if n == 1:
+            print("ℹ️ 仅 1 条记录，坐标置为原点")
+            return [[0.0, 0.0]]
+
         embeddings_array = np.array(embeddings)
-        
+
         if method == "tsne":
-            # 使用t-SNE进行降维
-            tsne = TSNE(n_components=n_components, random_state=42, perplexity=min(30, len(embeddings)-1))
+            # perplexity 必须小于样本数；小样本时用较小 perplexity
+            perplexity = float(min(30, max(1, n - 1)))
+            tsne = TSNE(
+                n_components=n_components,
+                random_state=42,
+                perplexity=perplexity,
+                init="random",
+            )
             reduced_embeddings = tsne.fit_transform(embeddings_array)
         elif method == "pca":
-            # 使用PCA进行降维
-            pca = PCA(n_components=n_components, random_state=42)
+            pca = PCA(n_components=min(n_components, n - 1) if n > 1 else 1, random_state=42)
             reduced_embeddings = pca.fit_transform(embeddings_array)
+            if reduced_embeddings.shape[1] < n_components:
+                pad = np.zeros((n, n_components - reduced_embeddings.shape[1]))
+                reduced_embeddings = np.hstack([reduced_embeddings, pad])
         else:
             raise ValueError("不支持的降维方法，请选择 'tsne' 或 'pca'")
-        
-        # 转换为列表格式
+
         coordinates = reduced_embeddings.tolist()
-        
         print(f"✅ 使用 {method.upper()} 成功将 {len(embeddings)} 个向量降维到 {n_components} 维")
         return coordinates
     
@@ -192,26 +221,28 @@ class RAGEmbeddingProcessor:
         """
         try:
             with open(output_file, "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
+                json.dump(data, f, ensure_ascii=False, indent=2, default=str)
             print(f"✅ 结果已保存到: {output_file}")
         except Exception as e:
             print(f"❌ 保存文件失败: {e}")
     
     async def process_rag_collection(
-        self, 
+        self,
         collection_name: str = "multimodal2text",
         use_existing_embeddings: bool = True,
         reduction_method: str = "tsne",
-        output_file: str = "rag_embeddings_2d.json"
+        output_file: str = "rag_embeddings_2d.json",
+        fill_missing_embeddings: bool = True,
     ) -> List[Dict[str, Any]]:
         """
         处理RAG集合的主要流程
         
         参数:
         - collection_name: 集合名称
-        - use_existing_embeddings: 是否使用现有的嵌入向量
+        - use_existing_embeddings: 是否优先使用 Chroma 中已有的嵌入向量
         - reduction_method: 降维方法
         - output_file: 输出文件名
+        - fill_missing_embeddings: 当 Chroma 未返回嵌入时，是否调用 embedding API 补全（保证与库内条数一致）
         
         返回:
         - 处理后的数据列表
@@ -224,23 +255,33 @@ class RAGEmbeddingProcessor:
             print("❌ 无法获取集合数据，处理终止")
             return []
         
-        # 2. 获取嵌入向量
+        # 2. 获取嵌入向量（尽量每条记录一条向量，与 Chroma id 一一对应）
         embeddings = []
         valid_data = []
         
         for item in collection_data:
-            embedding_value = item.get("embedding")
-            if use_existing_embeddings and embedding_value is not None:
-                # 使用现有的嵌入向量
-                embeddings.append(embedding_value)
+            emb = _normalize_embedding(item.get("embedding"))
+            if use_existing_embeddings and emb is not None:
+                embeddings.append(emb)
+                valid_data.append(item)
+                continue
+
+            if not fill_missing_embeddings and emb is None:
+                print(f"⚠️ Chroma 未返回嵌入且未启用补全，跳过 id={item.get('id')}")
+                continue
+
+            text = (item.get("content") or "")[:12000]
+            if not text.strip():
+                print(f"⚠️ 无正文无法请求嵌入，跳过 id={item.get('id')}")
+                continue
+
+            new_emb = self.get_openai_embedding(text)
+            if new_emb is not None:
+                embeddings.append(new_emb)
+                item["embedding"] = new_emb
                 valid_data.append(item)
             else:
-                # 使用OpenAI API获取新的嵌入向量
-                embedding = self.get_openai_embedding(item["content"])
-                if embedding is not None:
-                    embeddings.append(embedding)
-                    item["embedding"] = embedding  # 更新嵌入向量
-                    valid_data.append(item)
+                print(f"⚠️ 嵌入 API 失败，跳过 id={item.get('id')}")
         
         if not embeddings:
             print("❌ 没有可用的嵌入向量数据")
@@ -275,23 +316,15 @@ class RAGEmbeddingProcessor:
 
 
 async def main():
-    """主函数"""
-    # 创建处理器实例
+    """主函数：仅重建 multimodal2text 底图；全量重建请用 regenerate_rag_embedding_maps.py"""
     processor = RAGEmbeddingProcessor()
-    
-    # # 配置API信息（请根据实际情况填写）
-    # processor.openai_config = {
-    #     "url": "https://uni-api.cstcloud.cn/v1/embeddings",  # 请替换为实际的API URL
-    #     "api_key": "your-token-here",  # 请替换为实际的Token
-    #     "model": "bge-large-zh:latest"  # 使用bge-large-zh模型
-    # }
-    
-    # 处理RAG集合
+    _script_dir = os.path.dirname(os.path.abspath(__file__))
     result = await processor.process_rag_collection(
         collection_name="multimodal2text",
-        use_existing_embeddings=True,  # 优先使用现有的嵌入向量
-        reduction_method="tsne",  # 使用t-SNE降维
-        output_file="multimodal2text_embeddings_2d.json"
+        use_existing_embeddings=True,
+        reduction_method="tsne",
+        output_file=os.path.join(_script_dir, "multimodal2text_embeddings_2d.json"),
+        fill_missing_embeddings=True,
     )
     
     # 显示前几条结果作为示例

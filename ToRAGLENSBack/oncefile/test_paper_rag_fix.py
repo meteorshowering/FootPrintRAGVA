@@ -1,3 +1,7 @@
+"""
+【功能】针对 paper_rag 检索结果做回归打印（多场景标题与摘要）。
+【长期价值】调试脚本；可删。
+"""
 import asyncio
 from rag_service import get_rag_service
 

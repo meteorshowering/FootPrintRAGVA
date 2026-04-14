@@ -1,3 +1,7 @@
+"""
+【功能】从 llmvis_images_info.json 与 md-llmvis 正文匹配图题、抽取参考文献上下文，输出 llmvis_extracted_refer.json。
+【长期价值】数据预处理脚本；管线稳定后可保留作可复现步骤，否则归档。
+"""
 import os
 import json
 import re

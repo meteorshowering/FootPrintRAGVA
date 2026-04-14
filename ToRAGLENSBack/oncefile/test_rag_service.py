@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-测试修改后的RAG服务
+【功能】对 get_rag_service 做语义/多模态查询冒烟测试。
+【长期价值】集成测试草稿；可删。
 """
 
 import asyncio

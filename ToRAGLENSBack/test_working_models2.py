@@ -1,3 +1,7 @@
+"""
+【功能】探测 qwen2.5-vl、deepseek-ocr、qwen3.5 等模型可用性。
+【长期价值】一次性脚本；可删。
+"""
 import requests
 
 GEMINI_API_KEY = "sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"

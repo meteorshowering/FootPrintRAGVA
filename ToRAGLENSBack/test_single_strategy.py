@@ -1,5 +1,6 @@
 """
-测试单个策略执行API
+【功能】调用 single_strategy_api.execute_single_strategy 做语义检索等策略的集成测试。
+【长期价值】回归测试可保留。
 """
 import asyncio
 import json

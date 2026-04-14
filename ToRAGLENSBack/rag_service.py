@@ -1,3 +1,7 @@
+"""
+【功能】高层 RAG 服务：封装 Chroma 语义查询、多模态检索、结果格式化、与 figures 坐标 JSON 联动；为 scientific_tools 与实验管线提供统一入口。
+【长期价值】核心长期维护。
+"""
 import re
 from typing import List, Dict, Any, Optional, Union
 import asyncio

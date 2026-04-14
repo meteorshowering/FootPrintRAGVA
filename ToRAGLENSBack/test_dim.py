@@ -1,3 +1,7 @@
+"""
+【功能】打印 multimodal2text 集合中一条记录的 embedding 维度（调试用）。
+【长期价值】一次性调试脚本；可删。
+"""
 import os
 import sys
 import asyncio
