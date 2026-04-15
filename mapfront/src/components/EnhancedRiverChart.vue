@@ -2595,35 +2595,41 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     
     // 全选策略卡片内的所有点
     async selectAllPointsInStrategy(query) {
-      if (!query.rag_results || query.rag_results.length === 0) {
+      if (!query || !Array.isArray(query.rag_results) || query.rag_results.length === 0) {
         return;
       }
-      
-      // 将 retrieval_result 和 evaluation 合并，过滤掉PRUNE节点
+
       const ragResults = query.rag_results
-        .filter(rag => {
-          // 如果启用了隐藏PRUNE，过滤掉PRUNE节点
+        .filter((rag) => {
+          if (!rag || !rag.retrieval_result) return false;
+
           if (this.hidePrunePoints) {
             const branchAction = rag.evaluation?.branch_action || 'UNKNOWN';
             return branchAction !== 'PRUNE';
           }
           return true;
         })
-        .map(rag => ({
+        .map((rag) => ({
           ...rag.retrieval_result,
-          evaluation: rag.evaluation
+          evaluation: rag.evaluation || null
         }));
-      
+
       if (ragResults.length === 0) {
-        console.log('没有可添加的点（已过滤PRUNE节点）');
+        console.log('没有可添加的点（已过滤 PRUNE 或数据为空）');
         return;
       }
-      
-      await this.$store.dispatch('addMultipleToPending', ragResults);
-      
-      // 等待 action 完成后再检查
-      const pendingCount = this.$store.state.pendingItems.length;
-      console.log(`已全选策略卡片内的 ${ragResults.length} 个点（已过滤PRUNE），当前待保存: ${pendingCount}`);
+
+      if (this.$store?.dispatch) {
+        await this.$store.dispatch('addMultipleToPending', ragResults);
+      } else {
+        console.warn('Vuex store 不存在，跳过 addMultipleToPending');
+      }
+
+      const pendingCount = Array.isArray(this.$store?.state?.pendingItems)
+        ? this.$store.state.pendingItems.length
+        : 0;
+
+      console.log(`已全选策略卡片内的 ${ragResults.length} 个点，当前待保存: ${pendingCount}`);
     },
 
     // 高亮全局地图中策略卡片对应的点
