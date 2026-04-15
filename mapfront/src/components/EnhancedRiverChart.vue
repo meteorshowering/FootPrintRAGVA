@@ -13,13 +13,6 @@
           class="question-input"
           :disabled="isSubmitting"
         />
-        <!-- 交互模式开关 -->
-        <div class="interactive-toggle">
-          <label>
-            <input type="checkbox" v-model="isInteractiveMode" :disabled="isSubmitting">
-            开启人工审批模式
-          </label>
-        </div>
         <button 
           @click="submitUserQuery" 
           class="btn btn-submit"
@@ -30,56 +23,146 @@
       </div>
     </div>
 
-    <!-- Interactive Review Modal -->
-    <div v-if="showReviewModal" class="modal" @click.self="closeReviewModal">
-      <div class="modal-content review-modal" style="max-width: 800px; max-height: 80vh; overflow-y: auto;">
-        <div class="modal-header">
-          <h2>检索策略审批 (轮次 {{ reviewRoundNumber }})</h2>
-        </div>
-        <div class="modal-body">
-          <p>以下是大模型为您生成的检索策略，请确认或修改后再执行：</p>
-          <div v-for="(plan, index) in reviewPlans" :key="index" class="review-plan-item" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 4px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <strong>策略 {{ index + 1 }}</strong>
-              <button @click="removeReviewPlan(index)" style="color: red; cursor: pointer; border: none; background: none;">删除此策略</button>
+    <div
+      ref="gridViewport"
+      class="river-grid-viewport"
+      @click="handleViewportClick"
+      @wheel.prevent="handleGridWheel"
+      @mousedown="startViewportPan"
+    >
+      <div v-if="!hasGridContent" class="river-empty-state">没有可用的实验数据</div>
+
+      <div
+        v-else
+        ref="gridScene"
+        class="river-grid-scene"
+        :style="sceneStyleObject"
+      >
+        <svg
+          ref="gridBgSvg"
+          class="river-bg-svg"
+          :width="sceneCanvasSize.width"
+          :height="sceneCanvasSize.height"
+        ></svg>
+
+        <svg
+          ref="connectionSvg"
+          class="river-connection-svg"
+          :width="sceneCanvasSize.width"
+          :height="sceneCanvasSize.height"
+        ></svg>
+
+        <div
+          class="river-grid-surface"
+          :style="{ width: sceneCanvasSize.width + 'px', height: sceneCanvasSize.height + 'px' }"
+        >
+          <div
+            v-for="header in headerCells"
+            :key="header.key"
+            class="grid-header-cell"
+            :style="header.style"
+          >
+            <div class="grid-header-title">Round {{ header.roundNumber }}</div>
+            <div class="grid-header-subtitle">{{ header.count }} strategy cells</div>
+          </div>
+
+          <div
+            v-for="row in rowLabelCells"
+            :key="row.key"
+            class="grid-row-label-cell"
+            :style="row.style"
+          >
+            <div class="grid-row-title">Row {{ row.index + 1 }}</div>
+            <div class="grid-row-subtitle">Strategy slot</div>
+          </div>
+
+          <div
+            v-for="slot in gridSlotCells"
+            :key="slot.slotKey"
+            class="grid-slot-cell"
+            :class="slotClass(slot)"
+            :style="slot.style"
+          ></div>
+
+          <div
+            v-for="card in strategyCards"
+            :key="card.key"
+            class="strategy-card"
+            :class="cardClass(card)"
+            :data-round="card.roundNumber"
+            :data-query="card.queryIndex"
+            :data-card-key="card.key"
+            :style="cardStyle(card)"
+            @click.stop="handleCardClick(card)"
+          >
+            <div v-if="card.edges.includes('top')" class="strategy-edge top"></div>
+            <div v-if="card.edges.includes('right')" class="strategy-edge right"></div>
+            <div v-if="card.edges.includes('bottom')" class="strategy-edge bottom"></div>
+            <div v-if="card.edges.includes('left')" class="strategy-edge left"></div>
+
+            <div
+              class="strategy-card-header"
+              @mousedown.stop.prevent="startCardDrag($event, card)"
+            >
+              <div class="strategy-card-title-wrap">
+                <div class="strategy-card-title">{{ card.title }}</div>
+                <div class="strategy-card-subtitle">{{ card.subtitle }}</div>
+              </div>
+              <div class="strategy-card-tools">
+                <button
+                  v-if="card.query?.orchestrator_plan?.plansummary"
+                  class="card-icon-btn"
+                  title="查看策略总结"
+                  @click.stop="showPlanSummary(card.planSummaryPayload)"
+                >Σ</button>
+                <button
+                  v-if="card.query?._merged_sources_data?.length"
+                  class="card-icon-btn"
+                  title="拆分合并结果"
+                  @click.stop="splitMergedStrategies(card.roundNumber, card.queryIndex)"
+                >↺</button>
+              </div>
             </div>
-            
-            <div class="form-group" style="margin-bottom: 8px;">
-              <label>工具:</label>
-              <select v-model="plan.tool_name" style="width: 100%; padding: 4px;">
-                <option value="strategy_semantic_search">语义检索 (strategy_semantic_search)</option>
-                <option value="strategy_exact_search">精确匹配 (strategy_exact_search)</option>
-                <option value="strategy_metadata_search">元数据/文献检索 (strategy_metadata_search)</option>
-              </select>
+
+            <div class="strategy-card-map-wrap">
+              <svg
+                :ref="miniMapRefName(card.roundNumber, card.queryIndex)"
+                class="strategy-mini-svg"
+              ></svg>
             </div>
-            
-            <div class="form-group" style="margin-bottom: 8px;">
-              <label>目标节点 (ParentNode):</label>
-              <input type="text" v-model="plan.ParentNode" style="width: 100%; padding: 4px;" />
-            </div>
-            
-            <div class="form-group" style="margin-bottom: 8px;">
-              <label>搜索参数 (Args JSON):</label>
-              <textarea :value="JSON.stringify(plan.args, null, 2)" @input="updatePlanArgs(index, $event)" rows="3" style="width: 100%; padding: 4px; font-family: monospace;"></textarea>
-            </div>
-            
-            <div class="form-group">
-              <label>大模型理由:</label>
-              <div style="font-size: 12px; color: #666; background: #f9f9f9; padding: 4px;">{{ plan.reason }}</div>
+
+            <div class="strategy-card-footer">
+              <span>新增: {{ card.query?.newCount || 0 }}</span>
+              <span>减少: {{ card.query?.removeCount || 0 }}</span>
             </div>
           </div>
-          
-          <button @click="addEmptyReviewPlan" style="margin-bottom: 15px; cursor: pointer;">+ 新增一个策略</button>
-        </div>
-        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid #eee; padding-top: 15px;">
-          <button @click="submitReviewDecision('abort')" class="btn" style="background: #dc3545; color: white;">终止任务</button>
-          <button @click="submitReviewDecision('replace')" class="btn btn-submit">确认并继续执行</button>
+
+          <div
+            v-for="handle in columnResizeHandles"
+            :key="`col-${handle.key}`"
+            class="grid-resize-handle col"
+            :style="columnHandleStyle(handle)"
+            @mousedown.stop.prevent="startColumnResize($event, handle.key)"
+          ></div>
+
+          <div
+            v-for="handle in rowResizeHandles"
+            :key="`row-${handle.key}`"
+            class="grid-resize-handle row"
+            :style="rowHandleStyle(handle)"
+            @mousedown.stop.prevent="startRowResize($event, handle.key)"
+          ></div>
         </div>
       </div>
-    </div>
 
-    <!-- SVG 画布 -->
-    <svg ref="svg" :width="svgWidth" :height="svgHeight"></svg>
+      <div
+        v-if="dragState.active && dragState.hoverTarget"
+        class="drag-drop-hint"
+        :style="dragHintStyle"
+      >
+        {{ dragState.hoverTarget.mode === 'merge' ? '松开以合并' : '松开以交换位置' }}
+      </div>
+    </div>
 
     <!-- PlanSummary 弹窗 -->
     <div v-if="showPlanSummaryModal" class="modal" @click.self="closePlanSummaryModal">
@@ -143,8 +226,6 @@
       </div>
     </div>
 
-    <!-- 详情弹窗已移除，详情现在在侧边栏显示 -->
-
     <!-- 全局地图卡片 -->
     <div 
       v-if="globalMapCardVisible && !globalMapMountId"
@@ -171,7 +252,6 @@
       <div class="global-map-content">
         <svg ref="globalMapSvg" class="global-map-svg"></svg>
       </div>
-      <!-- 调整大小的拖拽手柄 -->
       <div 
         class="resize-handle"
         @mousedown="startResize"
@@ -180,8 +260,10 @@
   </div>
 </template>
 
+
 <script>
 import * as d3 from 'd3';
+import * as riverGrid from '../lib/riverGridLayout';
 import ragService from '../api/ragService';
 import { marked } from 'marked';
 import katex from 'katex';
@@ -280,7 +362,6 @@ export default {
       // 用户输入相关
       userQuestion: '',
       isSubmitting: false,
-      isInteractiveMode: false,
       // 新增的轮次（用于追问功能）
       newRounds: {},
       // 全局地图相关
@@ -307,31 +388,34 @@ export default {
       highlightedPlanPoints: {}, // { [nodeId]: { branch_action: 'GROW'|'KEEP'|'PRUNE', ... } } 存储当前高亮的点
       // 存储 experiment_result 以便获取 plansummary
       experimentResult: null, // 存储完整的 experiment_result 数据
-      
-      // 交互模式审批相关
-      showReviewModal: false,
-      reviewCheckpoint: null, // 存储 run_id, checkpoint_id 等
-      reviewPlans: [],        // 当前正在审批的 plan 列表
-      
       // spreadsheet-like layout state
       showLegacyConnections: false,
-      persistZoomTransform: null,
+      persistZoomTransform: { x: 0, y: 0, k: 1 },
       focusedStrategyKey: null,
       hoveredStrategyKey: null,
       useSpreadsheetLayout: true,
-      gridState: {
-        rowHeights: {},
-        columnWidths: {},
-        rowOrder: [],
-        resizing: null,
-        hoveredCellKey: null,
-        selectedCellKey: null
-      },
+      gridState: riverGrid.createDefaultGridState(),
       gridMetrics: null,
-      // Interactive Report：从策略小地图拖到右侧面板
-      reportDragGhostEl: null,
-      reportDragPayload: null,
-      suppressStrategyDotClick: false
+      dragState: {
+        active: false,
+        cardKey: null,
+        roundNumber: null,
+        queryIndex: null,
+        startClientX: 0,
+        startClientY: 0,
+        dx: 0,
+        dy: 0,
+        hoverTarget: null,
+        moved: false
+      },
+      panState: {
+        active: false,
+        startClientX: 0,
+        startClientY: 0,
+        originX: 0,
+        originY: 0,
+        moved: false
+      }
     };
   },
   watch: {
@@ -348,6 +432,136 @@ export default {
     totalWidth() {
       const maxRound = Math.max(...this.roundsData.map(r => r.round_number), 0);
       return (maxRound + 1) * (this.strategyWidth + this.roundMargin) + this.roundMargin;
+    },
+    hasGridContent() {
+      return !!(this.roundsData && this.roundsData.length > 0 && this.gridMetrics);
+    },
+    sceneSize() {
+      return {
+        width: this.gridMetrics?.totalWidth || Math.max(this.svgWidth || 0, 1200),
+        height: this.gridMetrics?.totalHeight || Math.max(this.svgHeight || 0, 800)
+      };
+    },
+    sceneCanvasSize() {
+      const extraW = Math.max(this.svgWidth || 0, 1200);
+      const extraH = Math.max(this.svgHeight || 0, 900);
+      return {
+        width: Math.max(this.sceneSize.width + extraW, (this.svgWidth || 1200) * 2.4),
+        height: Math.max(this.sceneSize.height + extraH, (this.svgHeight || 800) * 2.2)
+      };
+    },
+    sceneStyleObject() {
+      const t = this.persistZoomTransform || { x: 0, y: 0, k: 1 };
+      return {
+        transform: `translate(${t.x}px, ${t.y}px) scale(${t.k})`,
+        transformOrigin: '0 0'
+      };
+    },
+    headerCells() {
+      if (!this.gridMetrics) return [];
+      return this.getAllRounds().map((round) => {
+        const rect = riverGrid.getRoundHeaderRect(this.gridMetrics, round.round_number);
+        return {
+          key: `header-${round.round_number}`,
+          roundNumber: round.round_number,
+          count: round.query_results?.length || 0,
+          style: rect ? {
+            left: `${rect.x}px`,
+            top: `${rect.y}px`,
+            width: `${rect.width}px`,
+            height: `${rect.height}px`
+          } : {}
+        };
+      }).filter(Boolean);
+    },
+    rowLabelCells() {
+      if (!this.gridMetrics) return [];
+      return Array.from({ length: this.gridMetrics.maxQueryCount }, (_, idx) => {
+        const rect = riverGrid.getRowLabelRect(this.gridMetrics, idx);
+        return {
+          key: `row-label-${idx}`,
+          index: idx,
+          style: rect ? {
+            left: `${rect.x}px`,
+            top: `${rect.y}px`,
+            width: `${rect.width}px`,
+            height: `${rect.height}px`
+          } : {}
+        };
+      });
+    },
+    strategyCards() {
+      if (!this.gridMetrics) return [];
+      const cards = [];
+      const allRounds = this.getAllRounds();
+      allRounds.forEach((round) => {
+        (round.query_results || []).forEach((query, queryIndex) => {
+          const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, round.round_number, queryIndex);
+          if (!rect) return;
+          const key = this.getStrategyKey(round.round_number, queryIndex);
+          cards.push({
+            key,
+            roundNumber: round.round_number,
+            queryIndex,
+            query,
+            rect,
+            title: `R${round.round_number}.${queryIndex + 1} ${query?.orchestrator_plan?.tool_name || 'strategy'}`,
+            subtitle: `${(query?.rag_results || []).length} results`,
+            edges: this.getCardHighlightEdges(round.round_number, queryIndex),
+            planSummaryPayload: {
+              roundNumber: round.round_number,
+              queryIndex,
+              parentNode: query?.orchestrator_plan?.ParentNode ?? query?.orchestrator_plan?.parentNode ?? null,
+              reason: query?.orchestrator_plan?.reason ?? '',
+              args: query?.orchestrator_plan?.args ?? null,
+              summary: query?.orchestrator_plan?.plansummary ?? ''
+            }
+          });
+        });
+      });
+      return cards;
+    },
+    gridSlotCells() {
+      if (!this.gridMetrics) return [];
+      const allRounds = this.getAllRounds();
+      const byRound = new Map(allRounds.map((r) => [r.round_number, r]));
+      const cells = [];
+      this.gridMetrics.roundNumbers.forEach((roundNumber) => {
+        const round = byRound.get(roundNumber);
+        for (let queryIndex = 0; queryIndex < this.gridMetrics.maxQueryCount; queryIndex += 1) {
+          const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, roundNumber, queryIndex);
+          if (!rect) continue;
+          const occupied = !!round?.query_results?.[queryIndex];
+          cells.push({
+            slotKey: `slot-${roundNumber}-${queryIndex}`,
+            roundNumber,
+            queryIndex,
+            occupied,
+            sceneRect: rect,
+            style: {
+              left: `${rect.x}px`,
+              top: `${rect.y}px`,
+              width: `${rect.width}px`,
+              height: `${rect.height}px`
+            }
+          });
+        }
+      });
+      return cells;
+    },
+    columnResizeHandles() {
+      return this.gridMetrics ? riverGrid.getColumnResizeHandles(this.gridMetrics) : [];
+    },
+    rowResizeHandles() {
+      return this.gridMetrics ? riverGrid.getRowResizeHandles(this.gridMetrics) : [];
+    },
+    dragHintStyle() {
+      const target = this.dragState?.hoverTarget;
+      if (!target?.rect) return {};
+      return {
+        left: `${target.rect.left + target.rect.width / 2}px`,
+        top: `${target.rect.top - 14}px`
+      };
     }
   },
   methods: {
@@ -446,20 +660,6 @@ export default {
             // 处理评估完成（第三步：给点上色）
             if (data.type === 'evaluation_complete') {
               this.handleEvaluationComplete(data.node_id, data.evaluation);
-              return;
-            }
-            
-            // 处理交互模式下的审批请求
-            if (data.type === 'awaiting_user_plan') {
-              console.log('[WS] 收到审批请求', data);
-              this.reviewCheckpoint = {
-                run_id: data.run_id,
-                checkpoint_id: data.checkpoint_id
-              };
-              this.reviewRoundNumber = data.round_number;
-              // 深拷贝，防止修改直接影响其他地方
-              this.reviewPlans = JSON.parse(JSON.stringify(data.plans || []));
-              this.showReviewModal = true;
               return;
             }
             
@@ -860,8 +1060,6 @@ export default {
         .attr('stroke', strokeInner)
         .attr('stroke-width', innerW);
     },
-
-
     getAllRounds() {
       const allRounds = [...(this.roundsData || [])];
       Object.values(this.newRounds || {}).forEach((r) => {
@@ -873,85 +1071,171 @@ export default {
       return allRounds;
     },
 
-    ensureGridSizing(allRounds) {
-      const roundNumbers = allRounds.map(r => r.round_number);
-      const maxQueryCount = Math.max(1, ...allRounds.map(r => Array.isArray(r.query_results) ? r.query_results.length : 0));
-      if (!this.gridState.columnWidths['label']) this.gridState.columnWidths['label'] = 92;
-      roundNumbers.forEach(roundNo => {
-        if (!this.gridState.columnWidths[`round-${roundNo}`]) this.gridState.columnWidths[`round-${roundNo}`] = this.strategyWidth;
-      });
-      if (!this.gridState.rowHeights['header']) this.gridState.rowHeights['header'] = 58;
-      for (let i = 0; i < maxQueryCount; i++) {
-        const key = `row-${i}`;
-        if (!this.gridState.rowHeights[key]) this.gridState.rowHeights[key] = this.strategyHeight + 24;
+    handleViewportClick() {
+      if (this.dragState.active || this.panState.moved) return;
+      this.focusedStrategyKey = null;
+      this.hoveredStrategyKey = null;
+      this.drawRiverChart();
+    },
+
+    startViewportPan(event) {
+      if (event.button !== 0) return;
+      if (event.target.closest('.strategy-card, .grid-resize-handle, .card-icon-btn, .global-map-card')) return;
+      this.panState = {
+        active: true,
+        startClientX: event.clientX,
+        startClientY: event.clientY,
+        originX: this.persistZoomTransform?.x || 0,
+        originY: this.persistZoomTransform?.y || 0,
+        moved: false
+      };
+      const move = (e) => this.onViewportPanMove(e);
+      const up = () => this.onViewportPanEnd(move, up);
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', up, { once: true });
+    },
+
+    onViewportPanMove(event) {
+      if (!this.panState.active) return;
+      const dx = event.clientX - this.panState.startClientX;
+      const dy = event.clientY - this.panState.startClientY;
+      this.panState.moved = this.panState.moved || Math.abs(dx) > 3 || Math.abs(dy) > 3;
+      this.persistZoomTransform = {
+        ...(this.persistZoomTransform || { k: 1 }),
+        x: this.panState.originX + dx,
+        y: this.panState.originY + dy
+      };
+    },
+
+    onViewportPanEnd(move, up) {
+      window.removeEventListener('mousemove', move);
+      if (up) window.removeEventListener('mouseup', up);
+      const moved = this.panState.moved;
+      this.panState = {
+        active: false,
+        startClientX: 0,
+        startClientY: 0,
+        originX: 0,
+        originY: 0,
+        moved
+      };
+      window.setTimeout(() => {
+        this.panState.moved = false;
+      }, 0);
+    },
+
+    handleGridWheel(event) {
+      const viewport = this.$refs.gridViewport;
+      if (!viewport) return;
+      const rect = viewport.getBoundingClientRect();
+      const t = this.persistZoomTransform || { x: 0, y: 0, k: 1 };
+      const factor = event.deltaY < 0 ? 1.08 : 0.92;
+      const nextK = Math.max(0.35, Math.min(3, t.k * factor));
+      const px = event.clientX - rect.left;
+      const py = event.clientY - rect.top;
+      const sceneX = (px - t.x) / t.k;
+      const sceneY = (py - t.y) / t.k;
+      this.persistZoomTransform = {
+        k: nextK,
+        x: px - sceneX * nextK,
+        y: py - sceneY * nextK
+      };
+    },
+
+    miniMapRefName(roundNumber, queryIndex) {
+      return `miniMap_${roundNumber}_${queryIndex}`;
+    },
+
+    getMiniMapEl(roundNumber, queryIndex) {
+      const raw = this.$refs[this.miniMapRefName(roundNumber, queryIndex)];
+      return Array.isArray(raw) ? raw[0] : raw;
+    },
+
+    cardClass(card) {
+      const classes = [
+        `strategy-${card.roundNumber}-${card.queryIndex}`
+      ];
+      if ((this.focusedStrategyKey || this.hoveredStrategyKey) === card.key) classes.push('is-active');
+      if (card.query?.orchestrator_plan?.tool_name === 'strategy_metadata_search') classes.push('is-metadata');
+      if (this.dragState.active && this.dragState.cardKey === card.key) classes.push('is-dragging');
+      if (this.dragState.hoverTarget?.key === card.key) classes.push(`drop-${this.dragState.hoverTarget.mode}`);
+      return classes;
+    },
+
+    slotClass(slot) {
+      const classes = [];
+      if (slot.occupied) classes.push('is-occupied');
+      else classes.push('is-empty');
+      if (this.dragState.hoverTarget?.slotKey === slot.slotKey) {
+        classes.push(`drop-${this.dragState.hoverTarget.mode}`);
       }
-      this.gridState.rowOrder = Array.from({ length: maxQueryCount }, (_, i) => i);
+      return classes;
     },
 
-    buildGridMetrics(allRounds) {
-      this.ensureGridSizing(allRounds);
-      const roundNumbers = allRounds.map(r => r.round_number);
-      const maxQueryCount = Math.max(1, ...allRounds.map(r => Array.isArray(r.query_results) ? r.query_results.length : 0));
-      const startX = this.roundMargin;
-      const startY = this.roundMargin;
-      const colPositions = {};
-      const rowPositions = {};
-      let x = startX;
-      colPositions['label'] = { x, width: this.gridState.columnWidths['label'] };
-      x += this.gridState.columnWidths['label'];
-      roundNumbers.forEach(roundNo => {
-        colPositions[`round-${roundNo}`] = { x, width: this.gridState.columnWidths[`round-${roundNo}`] };
-        x += this.gridState.columnWidths[`round-${roundNo}`] + this.strategyMargin;
-      });
-      let y = startY;
-      rowPositions['header'] = { y, height: this.gridState.rowHeights['header'] };
-      y += this.gridState.rowHeights['header'] + 10;
-      for (let i = 0; i < maxQueryCount; i++) {
-        rowPositions[`row-${i}`] = { y, height: this.gridState.rowHeights[`row-${i}`] };
-        y += this.gridState.rowHeights[`row-${i}`] + this.strategyMargin;
+    cardStyle(card) {
+      const style = {
+        left: `${card.rect.x}px`,
+        top: `${card.rect.y}px`,
+        width: `${card.rect.width}px`,
+        height: `${card.rect.height}px`
+      };
+      if (this.dragState.active && this.dragState.cardKey === card.key) {
+        if (this.dragState.hoverTarget?.sceneRect) {
+          style.transform = `translate3d(${this.dragState.hoverTarget.sceneRect.x - card.rect.x}px, ${this.dragState.hoverTarget.sceneRect.y - card.rect.y}px, 0)`;
+        } else {
+          style.transform = `translate3d(${this.dragState.dx}px, ${this.dragState.dy}px, 0)`;
+        }
+        style.zIndex = 40;
       }
-      return { roundNumbers, maxQueryCount, colPositions, rowPositions, totalWidth: x + this.roundMargin, totalHeight: y + this.roundMargin };
+      return style;
     },
 
-    getStrategyCellRect(metrics, roundNumber, queryIndex) {
-      const col = metrics.colPositions[`round-${roundNumber}`];
-      const row = metrics.rowPositions[`row-${queryIndex}`];
-      if (!col || !row) return null;
-      const padX = 10;
-      const padY = 6;
-      return { x: col.x + padX, y: row.y + padY, width: Math.max(180, col.width - padX * 2), height: Math.max(140, row.height - padY * 2) };
+    columnHandleStyle(handle) {
+      return {
+        left: `${handle.x - 4}px`,
+        top: `${handle.y}px`,
+        width: `${handle.width}px`,
+        height: `${handle.height}px`
+      };
     },
 
-    getRoundHeaderRect(metrics, roundNumber) {
-      const col = metrics.colPositions[`round-${roundNumber}`];
-      const row = metrics.rowPositions['header'];
-      if (!col || !row) return null;
-      return { x: col.x, y: row.y, width: col.width, height: row.height };
+    rowHandleStyle(handle) {
+      return {
+        left: `${handle.x}px`,
+        top: `${handle.y - 4}px`,
+        width: `${handle.width}px`,
+        height: `${handle.height}px`
+      };
     },
 
-    getRowLabelRect(metrics, queryIndex) {
-      const col = metrics.colPositions['label'];
-      const row = metrics.rowPositions[`row-${queryIndex}`];
-      if (!col || !row) return null;
-      return { x: col.x, y: row.y, width: col.width, height: row.height };
+    startColumnResize(event, colKey) {
+      const startX = event.clientX;
+      const startWidth = this.gridState.columnWidths[colKey];
+      const onMove = (e) => {
+        this.gridState.columnWidths[colKey] = Math.max(220, startWidth + (e.clientX - startX));
+        this.drawRiverChart();
+      };
+      const onUp = () => {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mouseup', onUp);
+      };
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
     },
 
-    getColumnResizeHandles(metrics) {
-      const handles = [];
-      Object.entries(metrics.colPositions).forEach(([key, col]) => {
-        if (key === 'label') return;
-        handles.push({ key, x: col.x + col.width, y: metrics.rowPositions['header'].y, width: 8, height: Object.values(metrics.rowPositions).reduce((acc, r) => Math.max(acc, r.y + r.height), 0) - metrics.rowPositions['header'].y + 20 });
-      });
-      return handles;
-    },
-
-    getRowResizeHandles(metrics) {
-      const handles = [];
-      Object.entries(metrics.rowPositions).forEach(([key, row]) => {
-        if (key === 'header') return;
-        handles.push({ key, x: metrics.colPositions['label'].x, y: row.y + row.height, width: Object.values(metrics.colPositions).reduce((acc, c) => Math.max(acc, c.x + c.width), 0) - metrics.colPositions['label'].x + 20, height: 8 });
-      });
-      return handles;
+    startRowResize(event, rowKey) {
+      const startY = event.clientY;
+      const startHeight = this.gridState.rowHeights[rowKey];
+      const onMove = (e) => {
+        this.gridState.rowHeights[rowKey] = Math.max(180, startHeight + (e.clientY - startY));
+        this.drawRiverChart();
+      };
+      const onUp = () => {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mouseup', onUp);
+      };
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
     },
 
     getStrategyKey(roundNumber, queryIndex) {
@@ -1020,290 +1304,103 @@ export default {
       return [];
     },
 
-    drawHighlightEdges(group, x, y, width, height, edges = []) {
-      const edgeColor = 'rgba(14,165,233,0.96)';
-      const shadow = 'rgba(14,165,233,0.22)';
-      if (edges.includes('top')) group.append('rect').attr('x', x).attr('y', y).attr('width', width).attr('height', 3).attr('fill', edgeColor).style('filter', `drop-shadow(0 0 4px ${shadow})`);
-      if (edges.includes('right')) group.append('rect').attr('x', x + width - 3).attr('y', y).attr('width', 3).attr('height', height).attr('fill', edgeColor).style('filter', `drop-shadow(0 0 4px ${shadow})`);
-      if (edges.includes('bottom')) group.append('rect').attr('x', x).attr('y', y + height - 3).attr('width', width).attr('height', 3).attr('fill', edgeColor).style('filter', `drop-shadow(0 0 4px ${shadow})`);
-      if (edges.includes('left')) group.append('rect').attr('x', x).attr('y', y).attr('width', 3).attr('height', height).attr('fill', edgeColor).style('filter', `drop-shadow(0 0 4px ${shadow})`);
-    },
-
-    drawGridBackground(container, metrics) {
-      const bg = container.append('g').attr('class', 'spreadsheet-grid-bg');
-      Object.entries(metrics.colPositions).forEach(([key, col]) => {
-        Object.entries(metrics.rowPositions).forEach(([rowKey, row]) => {
-          const isHeader = rowKey === 'header';
-          const isLabel = key === 'label';
-          bg.append('rect').attr('x', col.x).attr('y', row.y).attr('width', col.width).attr('height', row.height).attr('fill', isHeader ? 'rgba(248,250,252,0.96)' : isLabel ? 'rgba(250,252,255,0.96)' : '#ffffff').attr('stroke', 'rgba(203,213,225,0.85)').attr('stroke-width', 1);
-        });
-      });
-    },
-
-    drawSpreadsheetHeaders(container, allRounds, metrics) {
-      const headerRow = metrics.rowPositions['header'];
-      allRounds.forEach((round) => {
-        const rect = this.getRoundHeaderRect(metrics, round.round_number);
-        if (!rect) return;
-        const g = container.append('g').attr('class', `grid-round-header-${round.round_number}`);
-        g.append('text').attr('x', rect.x + 14).attr('y', rect.y + 25).attr('font-size', '13px').attr('font-weight', '800').attr('fill', 'rgba(51,65,85,0.98)').text(`Round ${round.round_number}`);
-        g.append('text').attr('x', rect.x + 14).attr('y', rect.y + 44).attr('font-size', '11px').attr('fill', 'rgba(100,116,139,0.95)').text(`${round.query_results?.length || 0} strategy cells`);
-      });
-      const labelCol = metrics.colPositions['label'];
-      container.append('text').attr('x', labelCol.x + 16).attr('y', headerRow.y + 34).attr('font-size', '12px').attr('font-weight', '800').attr('fill', 'rgba(71,85,105,0.95)').text('Rows');
-    },
-
-    drawSpreadsheetRowLabels(container, metrics) {
-      const rowKeys = Object.keys(metrics.rowPositions).filter(k => k !== 'header');
-      rowKeys.forEach((rowKey, idx) => {
-        const rect = this.getRowLabelRect(metrics, idx);
-        if (!rect) return;
-        container.append('text').attr('x', rect.x + 16).attr('y', rect.y + 26).attr('font-size', '12px').attr('font-weight', '700').attr('fill', 'rgba(71,85,105,0.95)').text(`Row ${idx + 1}`);
-        container.append('text').attr('x', rect.x + 16).attr('y', rect.y + 46).attr('font-size', '11px').attr('fill', 'rgba(100,116,139,0.95)').text('Strategy slot');
-      });
-    },
-
-    addGridResizeHandles(svg, metrics) {
-      const overlay = svg.append('g').attr('class', 'grid-resize-overlay');
-      this.getColumnResizeHandles(metrics).forEach(handle => {
-        overlay.append('rect').attr('x', handle.x - 4).attr('y', handle.y).attr('width', handle.width).attr('height', handle.height).attr('fill', 'transparent').style('cursor', 'col-resize').on('mousedown', (event) => {
-          event.stopPropagation();
-          const startX = event.clientX;
-          const colKey = handle.key;
-          const startWidth = this.gridState.columnWidths[colKey];
-          const onMove = (e) => { this.gridState.columnWidths[colKey] = Math.max(220, startWidth + (e.clientX - startX)); this.drawRiverChart(); };
-          const onUp = () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
-          window.addEventListener('mousemove', onMove);
-          window.addEventListener('mouseup', onUp);
-        });
-      });
-      this.getRowResizeHandles(metrics).forEach(handle => {
-        overlay.append('rect').attr('x', handle.x).attr('y', handle.y - 4).attr('width', handle.width).attr('height', handle.height).attr('fill', 'transparent').style('cursor', 'row-resize').on('mousedown', (event) => {
-          event.stopPropagation();
-          const startY = event.clientY;
-          const rowKey = handle.key;
-          const startHeight = this.gridState.rowHeights[rowKey];
-          const onMove = (e) => { this.gridState.rowHeights[rowKey] = Math.max(180, startHeight + (e.clientY - startY)); this.drawRiverChart(); };
-          const onUp = () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
-          window.addEventListener('mousemove', onMove);
-          window.addEventListener('mouseup', onUp);
-        });
-      });
+    handleCardClick(card) {
+      if (this.dragState.moved) return;
+      this.focusedStrategyKey = card.key;
+      this.selectAllPointsInStrategy(card.query);
+      this.highlightPlanPointsInGlobalMap(card.query);
+      this.drawRiverChart();
     },
 
     drawRiverChart() {
-      const svg = d3.select(this.$refs.svg);
-      svg.selectAll('*').remove();
-      svg.style('background', '#FFFFFF');
+      const viewport = this.$refs.gridViewport;
+      this.svgWidth = viewport?.clientWidth || this.$el.clientWidth;
+      this.svgHeight = viewport?.clientHeight || this.$el.clientHeight;
 
       if (!this.roundsData || this.roundsData.length === 0) {
-        svg.append('text')
-          .attr('x', '50%')
-          .attr('y', '50%')
-          .attr('text-anchor', 'middle')
-          .attr('font-size', '14px')
-          .attr('fill', 'rgba(120,130,140,0.8)')
-          .text('没有可用的实验数据');
+        this.gridMetrics = null;
+        this.strategyCanvases = {};
+        const connectionSvg = this.$refs.connectionSvg;
+        const bgSvg = this.$refs.gridBgSvg;
+        if (connectionSvg) d3.select(connectionSvg).selectAll('*').remove();
+        if (bgSvg) d3.select(bgSvg).selectAll('*').remove();
         return;
       }
 
-      this.svgWidth = this.$el.clientWidth;
-      this.svgHeight = this.$el.clientHeight;
-      svg.attr('width', this.svgWidth).attr('height', this.svgHeight);
-      this._ensureArrowhead(svg);
-
-      svg.on('click', (event) => {
-        if (event.target === svg.node()) {
-          this.focusedStrategyKey = null;
-          this.hoveredStrategyKey = null;
-          this.drawRiverChart();
-        }
-      });
-
-      this.connectionGroup = svg.append('g').attr('class', 'river-connections');
-      const container = svg.append('g').attr('class', 'river-container');
-      this.containerGroup = container;
+      const allRounds = this.getAllRounds();
+      const metrics = riverGrid.buildGridMetrics(this, allRounds);
+      this.gridMetrics = metrics;
       this.strategyCanvases = {};
 
-      const allRounds = this.getAllRounds();
-      const metrics = this.buildGridMetrics(allRounds);
-      this.gridMetrics = metrics;
-
-      this.drawGridBackground(container, metrics);
-      this.drawSpreadsheetHeaders(container, allRounds, metrics);
-      this.drawSpreadsheetRowLabels(container, metrics);
-
       allRounds.forEach((round) => {
-        if (!Array.isArray(round.query_results)) return;
-        round.query_results.forEach((query, queryIndex) => {
-          const rect = this.getStrategyCellRect(metrics, round.round_number, queryIndex);
+        (round.query_results || []).forEach((query, queryIndex) => {
+          const rect = riverGrid.getStrategyCellRect(this, metrics, round.round_number, queryIndex);
           if (!rect) return;
-
-          const isEmptyQuery = !query.rag_results || query.rag_results.length === 0;
-          const strategyGroup = container.append('g')
-            .attr('class', `strategy-${round.round_number}-${queryIndex}`)
-            .attr('data-round', round.round_number)
-            .attr('data-query', queryIndex);
-
-          const cardX = rect.x;
-          const cardY = rect.y;
-          const cardW = rect.width;
-          const cardH = rect.height;
-          
-          const col = metrics.colPositions[`round-${round.round_number}`];
-          const row = metrics.rowPositions[`row-${queryIndex}`];
-          const outerX = col ? col.x : cardX;
-          const outerY = row ? row.y : cardY;
-          const outerW = col ? col.width : cardW;
-          const outerH = row ? row.height : cardH;
-
-          const selfKey = this.getStrategyKey(round.round_number, queryIndex);
-          const activeKey = this.focusedStrategyKey || this.hoveredStrategyKey;
-          const isActive = activeKey === selfKey;
-          const highlightEdges = this.getCardHighlightEdges(round.round_number, queryIndex);
-          const toolNameForFrame = query?.orchestrator_plan?.tool_name;
-          const isMetadataSearchForFrame = toolNameForFrame === 'strategy_metadata_search';
-          const cardStroke = isActive ? 'rgba(14,165,233,0.9)' : isMetadataSearchForFrame ? 'rgba(40,167,69,0.92)' : 'rgba(191,219,254,0.95)';
-
-          const cardFrame = strategyGroup.append('g')
-            .attr('class', 'card-frame')
-            .style('cursor', 'pointer')
-            .on('mouseenter', () => { this.hoveredStrategyKey = selfKey; })
-            .on('mouseleave', () => { if (!this.focusedStrategyKey) this.hoveredStrategyKey = null; })
-            .on('click', (event) => {
-              if (this.draggingStrategy && this.draggingStrategy.roundNumber === round.round_number && this.draggingStrategy.queryIndex === queryIndex) return;
-              event.stopPropagation();
-              this.focusedStrategyKey = selfKey;
-              this.highlightPlanPointsInGlobalMap(query);
-              this.drawRiverChart();
-            })
-            .on('dblclick', () => {
-              if (this.draggingStrategy && this.draggingStrategy.roundNumber === round.round_number && this.draggingStrategy.queryIndex === queryIndex) return;
-              if (query.orchestrator_plan && query.orchestrator_plan.plansummary) {
-                let argsForModal = this.cleanPlanArgs(query.orchestrator_plan.args);
-                if (query?.orchestrator_plan?.tool_name === 'strategy_metadata_search') {
-                  const firstRag = query?.rag_results?.[0];
-                  const rr = firstRag?.retrieval_result || {};
-                  const fallbackPaperId = query?.orchestrator_plan?.args?.paper_id || query?.orchestrator_plan?.args?.paperid || rr?.source_args?.paper_id || rr?.source_args?.paperid || rr?.metadata?.paper_id || rr?.metadata?.paperid || rr?.paper_id || rr?.paperid || '';
-                  const isEmptyObj = argsForModal == null || (typeof argsForModal === 'object' && !Array.isArray(argsForModal) && Object.keys(argsForModal).length === 0);
-                  if (isEmptyObj && fallbackPaperId) argsForModal = { paper_id: fallbackPaperId };
-                }
-                this.showPlanSummary({ roundNumber: round.round_number, queryIndex, parentNode: query.orchestrator_plan.ParentNode ?? query.orchestrator_plan.parentNode ?? null, args: argsForModal, reason: query.orchestrator_plan.reason ?? '', summary: query.orchestrator_plan.plansummary });
-              }
-            });
-
-          // 外框（取代了之前的内框，外框有了颜色变化的功能）
-          cardFrame.append('rect')
-            .attr('x', outerX)
-            .attr('y', outerY)
-            .attr('width', outerW)
-            .attr('height', outerH)
-            .attr('rx', 0)
-            .attr('ry', 0)
-            .attr('fill', '#ffffff')
-            .attr('stroke', cardStroke)
-            .attr('stroke-width', isActive ? 1.8 : 1)
-            .attr('data-orig-stroke', cardStroke)
-            .attr('data-orig-stroke-width', isActive ? 1.8 : 1);
-
-          this.drawHighlightEdges(cardFrame, outerX, outerY, outerW, outerH, highlightEdges);
-
-          const dragHeaderGroup = strategyGroup.append('g').attr('class', 'drag-header').style('cursor', 'grab');
-          dragHeaderGroup.append('rect')
-            .attr('x', outerX)
-            .attr('y', outerY)
-            .attr('width', outerW)
-            .attr('height', 44) // 顶部区域作为拖动把手
-            .attr('fill', 'transparent');
-
-          if (this.showLabels) {
-            const toolNameRaw = query?.orchestrator_plan?.tool_name;
-            const args = query?.orchestrator_plan?.args || {};
-            let argSummary = args.query_intent ? String(args.query_intent) : '';
-            if (!argSummary) {
-              const entries = Object.entries(args);
-              if (entries.length > 0) argSummary = entries.map(([k, v]) => `${k}=${typeof v === 'object' ? JSON.stringify(v) : String(v)}`).join(', ');
-            }
-            
-            const mergedInfo = query.merged_from && query.merged_from.length > 0 ? ` (+ ${query.merged_from.join(' + ')})` : '';
-            
-            dragHeaderGroup.append('text').attr('x', cardX + 12).attr('y', cardY + 18).attr('font-size', '11px').attr('font-weight', '800').attr('fill', 'rgba(51,65,85,0.96)').style('pointer-events', 'none').text(`R${round.round_number}.${queryIndex + 1}${mergedInfo}`);
-            dragHeaderGroup.append('text').attr('x', cardX + 12).attr('y', cardY + 34).attr('font-size', '10px').attr('fill', 'rgba(100,116,139,0.95)').style('pointer-events', 'none').text(String(toolNameRaw || 'strategy').slice(0, 52));
-            dragHeaderGroup.append('line').attr('x1', cardX + 10).attr('y1', cardY + 44).attr('x2', cardX + cardW - 10).attr('y2', cardY + 44).attr('stroke', 'rgba(203,213,225,0.9)').attr('stroke-width', 1).style('pointer-events', 'none');
-            
-            if (argSummary) strategyGroup.append('text').attr('x', cardX + 12).attr('y', cardY + cardH - 12).attr('font-size', '10px').attr('fill', 'rgba(100,116,139,0.92)').text(String(argSummary).slice(0, 60));
-          
-            // 添加拆分按钮
-            if (query.merged_from && query.merged_from.length > 0) {
-              const splitBtn = dragHeaderGroup.append('g')
-                .attr('class', 'split-btn')
-                .style('cursor', 'pointer')
-                .attr('transform', `translate(${cardX + cardW - 36}, ${cardY + 8})`);
-                
-              splitBtn.append('rect')
-                .attr('width', 24)
-                .attr('height', 14)
-                .attr('rx', 2)
-                .attr('fill', 'rgba(239, 68, 68, 0.1)')
-                .attr('stroke', 'rgba(239, 68, 68, 0.4)');
-                
-              splitBtn.append('text')
-                .attr('x', 12)
-                .attr('y', 10)
-                .attr('text-anchor', 'middle')
-                .attr('font-size', '9px')
-                .attr('fill', '#ef4444')
-                .text('拆分');
-                
-              splitBtn.on('mousedown', (event) => {
-                event.stopPropagation(); // 阻止触发拖拽
-              });
-              splitBtn.on('click', (event) => {
-                event.stopPropagation();
-                this.splitMergedStrategies(round.round_number, queryIndex);
-              });
-            }
-          }
-
-          if (!isEmptyQuery) this.drawStrategyMap(strategyGroup, query, cardX, cardY, cardW, cardH, round.round_number, queryIndex);
-
+          const canvas = new StrategyCanvas(round.round_number, queryIndex, rect.x, rect.y, rect.width, rect.height);
+          canvas.parentNode = query?.orchestrator_plan?.ParentNode ?? query?.orchestrator_plan?.parentNode ?? null;
           if (!this.strategyCanvases[round.round_number]) this.strategyCanvases[round.round_number] = {};
-          this.strategyCanvases[round.round_number][queryIndex] = new StrategyCanvas(round.round_number, queryIndex, cardX, cardY, cardW, cardH);
-          const plan = query.orchestrator_plan || {};
-          this.strategyCanvases[round.round_number][queryIndex].parentNode = plan.ParentNode ?? plan.parentNode ?? null;
-          this.strategyCanvases[round.round_number][queryIndex].isEmptyQuery = isEmptyQuery;
-          this._addDragBehavior(dragHeaderGroup, strategyGroup, round.round_number, queryIndex);
+          this.strategyCanvases[round.round_number][queryIndex] = canvas;
         });
       });
 
-      this.addGridResizeHandles(svg, metrics);
-      this.addZoomBehavior(svg);
-      if (this.showLegacyConnections) this.drawConnections();
+      this.$nextTick(() => {
+        this.renderBackgroundSvg();
+        this.renderAllMiniMaps();
+        this.drawConnections();
+      });
+    },
+    renderBackgroundSvg() {
+      const bgSvg = this.$refs.gridBgSvg;
+      if (!bgSvg) return;
+      const svg = d3.select(bgSvg);
+      svg.selectAll('*').remove();
+      svg.attr('width', this.sceneCanvasSize.width).attr('height', this.sceneCanvasSize.height);
     },
 
-    drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, roundNumber, queryIndex) {
+    renderAllMiniMaps() {
+      this.strategyCards.forEach((card) => {
+        const svgEl = this.getMiniMapEl(card.roundNumber, card.queryIndex);
+        if (!svgEl) return;
+        const svg = d3.select(svgEl);
+        svg.selectAll('*').remove();
+        const mapHeight = Math.max(140, card.rect.height - 52 - 24);
+        svg.attr('width', card.rect.width).attr('height', mapHeight);
+        const rootG = svg.append('g');
+        if (card.query?.rag_results?.length) {
+          this.drawStrategyMap(rootG, card.query, 0, 0, card.rect.width, mapHeight, card.roundNumber, card.queryIndex);
+        } else {
+          svg.append('text')
+            .attr('x', card.rect.width / 2)
+            .attr('y', mapHeight / 2)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '12px')
+            .attr('fill', '#999')
+            .text('暂无结果');
+        }
+      });
+    },
+
+drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, roundNumber, queryIndex) {
       // const isEmptyQuery = !query.rag_results || query.rag_results.length === 0;
       const ragPoints = [];
       const missingIds = [];
-      let skippedPruneCount = 0;
-
+      
       query.rag_results.forEach(rag => {
         // 如果启用了隐藏PRUNE，跳过PRUNE节点
         if (this.hidePrunePoints) {
           const branchAction = rag.evaluation?.branch_action || 'UNKNOWN';
           if (branchAction === 'PRUNE') {
-            skippedPruneCount += 1;
             return; // 跳过PRUNE节点
           }
         }
-
+        
         const pointId = rag.retrieval_result.id;
         const point = this.findPointById(pointId);
-
+        
         if (point) {
-          ragPoints.push({
-            x: point.x,
-            y: point.y,
+          ragPoints.push({ 
+            x: point.x, 
+            y: point.y, 
             id: point.id,
             rag: rag,
             originalPoint: point
@@ -1312,9 +1409,9 @@ export default {
           missingIds.push(pointId);
         }
       });
-
+      
       if (missingIds.length > 0) {
-        console.warn(`轮次${roundNumber}查询${queryIndex}: 以下检索ID在当前底图嵌入文件中无坐标，故不绘制（仍可在列表/详情中查看）:`, missingIds);
+        console.warn(`轮次${roundNumber}查询${queryIndex}: 未找到以下ID的点:`, missingIds);
       }
       
       if (ragPoints.length === 0) {
@@ -1396,10 +1493,8 @@ export default {
                   return (ragPoint && ragPoint.id === matchId) || rag.retrieval_result.id === matchId;
                 })) {
                   // 找到了包含这个 parentNode 的卡片，高亮它的外框
-                  d3.select(`.strategy-${r.round_number}-${qIdx} .card-frame rect`)
-                    .classed('highlight-parent-source', true)
-                    .attr('stroke', '#f59e0b') // 橙色高亮
-                    .attr('stroke-width', 3);
+                  const targetCardEl = this.$el?.querySelector(`.strategy-${r.round_number}-${qIdx}`);
+                  if (targetCardEl) targetCardEl.classList.add('highlight-parent-source');
                 }
               });
             });
@@ -1407,15 +1502,9 @@ export default {
         })
         .on('mouseleave', () => {
           // 恢复所有被高亮的卡片
-          d3.selectAll('.card-frame rect.highlight-parent-source')
-            .classed('highlight-parent-source', false)
-            .each(function() {
-               const stroke = d3.select(this).attr('data-orig-stroke');
-               const width = d3.select(this).attr('data-orig-stroke-width');
-               d3.select(this)
-                 .attr('stroke', stroke || 'rgba(191,219,254,0.95)')
-                 .attr('stroke-width', width || 1);
-            });
+          this.$el?.querySelectorAll('.strategy-card.highlight-parent-source').forEach((el) => {
+            el.classList.remove('highlight-parent-source');
+          });
         });
 
       // 实际渲染内容的组（被缩放影响）
@@ -1726,83 +1815,41 @@ export default {
             .attr('opacity', 0.95);
           d3.selectAll('.river-tooltip').remove();
         })
-        .on('pointerdown', (event, d) => {
-          event.stopPropagation();
-          if (event.button !== 0) return;
-          const self = this;
-          const startX = event.clientX;
-          const startY = event.clientY;
-          let moved = false;
-          const threshold = 10;
-          const onMove = (e) => {
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
-            if (!moved && (dx * dx + dy * dy) > threshold * threshold) {
-              moved = true;
-              self._beginReportDragGhost(e, d);
-            }
-            if (moved) self._moveReportDragGhost(e);
-          };
-          const onUp = (e) => {
-            window.removeEventListener('pointermove', onMove);
-            window.removeEventListener('pointerup', onUp);
-            self._clearReportDragHover();
-            if (moved) {
-              self._finishReportDrag(e);
-              self.suppressStrategyDotClick = true;
-            }
-          };
-          window.addEventListener('pointermove', onMove);
-          window.addEventListener('pointerup', onUp);
-        })
         .on('click', (event, d) => {
-          if (this.suppressStrategyDotClick) {
-            this.suppressStrategyDotClick = false;
-            event.stopPropagation();
-            return;
-          }
           const rr = d.rag?.retrieval_result;
           if (!rr) return;
           const evaluation = d.rag?.evaluation ?? null;
-          this.showDetail(rr, evaluation);
+          if (event.ctrlKey || event.metaKey) {
+            event.stopPropagation();
+            this.addToPending(rr, evaluation);
+          } else {
+            this.showDetail(rr, evaluation);
+          }
         });
       
-      // FootprintRAG风格：底部统计（说明：RAG 条数 ≠ 地图点数，见文案）
-      const totalRag = query.rag_results?.length ?? 0;
-      const plotted = ragPointsData.length;
-      const noCoord = missingIds.length;
-      const footerParts = [`地图 ${plotted}/${totalRag} 条`];
-      if (this.hidePrunePoints && skippedPruneCount > 0) {
-        footerParts.push(`已隐藏PRUNE ${skippedPruneCount}`);
-      }
-      if (noCoord > 0) {
-        footerParts.push(`无嵌入坐标 ${noCoord}`);
-      }
-      const footerStr = footerParts.join(' · ');
-      const footerShort = footerStr.length > 72 ? `${footerStr.slice(0, 69)}…` : footerStr;
-      const footerG = strategyGroup.append('g').attr('class', 'strategy-map-footer');
-      footerG.append('title').text(
-        '策略返回的每条 RAG 需在左侧所选数据集的 2D 嵌入文件（如 LLMvisDataset_embedding.json）中有对应 ID，才会在地图中打点。' +
-          '查不到的 chunk 仍保留在实验 JSON 中。' +
-          (this.hidePrunePoints ? ' 开启「隐藏PRUNE」时不绘制 PRUNE 节点。' : '')
-      );
-      footerG.append('text')
+      // FootprintRAG风格：底部统计信息
+      strategyGroup.append('text')
         .attr('x', rectX + 14)
         .attr('y', rectY + rectHeight - 10)
         .attr('text-anchor', 'start')
-        .attr('font-size', '10px')
-        .attr('fill', 'rgba(90,100,110,0.92)')
-        .text(footerShort);
+        .attr('font-size', '11px')
+        .attr('fill', 'rgba(90,100,110,0.92)') // FootprintRAG风格
     },
 
+
     drawConnections() {
-      if (!this.showConnections || !this.showLegacyConnections) return;
-      if (this.connectionGroup) {
-        this.connectionGroup.selectAll('*').remove();
-      } else {
-        const svg = d3.select(this.$refs.svg);
-        this.connectionGroup = svg.append('g').attr('class', 'river-connections');
+      const svgEl = this.$refs.connectionSvg;
+      if (!svgEl) return;
+      const svg = d3.select(svgEl);
+      svg.selectAll('*').remove();
+
+      if (!this.showConnections || !this.showLegacyConnections) {
+        this.connectionGroup = null;
+        return;
       }
+
+      this._ensureArrowhead(svg);
+      this.connectionGroup = svg.append('g').attr('class', 'river-connections');
       const allRounds = [...this.roundsData].filter(r => r && r.round_number !== undefined);
       const roundByNum = new Map(allRounds.map(r => [r.round_number, r]));
       const activeKey = this.focusedStrategyKey || this.hoveredStrategyKey;
@@ -1851,6 +1898,7 @@ export default {
     },
 
     drawSmoothConnection(sourceCanvas, targetCanvas, related = false) {
+      if (!this.connectionGroup) return;
       const s = sourceCanvas.getRightEdge();
       const t = targetCanvas.getLeftEdge();
       const dx = t.x - s.x;
@@ -1867,208 +1915,206 @@ export default {
         .on('mouseout', function() { d3.select(this).attr('stroke-width', baseWidth).attr('stroke', baseStroke); });
     },
 
-    // 为策略卡片添加拖拽功能（交换位置模式）    // 为策略卡片上方区域添加拖拽功能（支持换位置和合并）
-    _addDragBehavior(dragHandle, strategyGroup, roundNumber, queryIndex) {
-      const self = this;
-      let dragStartX = 0;
-      let dragStartY = 0;
-      let isDragging = false;
+    startCardDrag(event, card) {
+      const t = this.persistZoomTransform || { x: 0, y: 0, k: 1 };
+      this.dragState = {
+        active: true,
+        cardKey: card.key,
+        roundNumber: card.roundNumber,
+        queryIndex: card.queryIndex,
+        startClientX: event.clientX,
+        startClientY: event.clientY,
+        dx: 0,
+        dy: 0,
+        hoverTarget: null,
+        moved: false
+      };
+      const move = (e) => this.onCardDragMove(e, t.k || 1);
+      const up = () => this.onCardDragEnd(move, up);
+      window.addEventListener('mousemove', move);
+      window.addEventListener('mouseup', up, { once: true });
+    },
 
-      const drag = d3.drag()
-        .on('start', function(event) {
-          isDragging = false;
-          const container = self.containerGroup ? self.containerGroup.node() : (self.svg ? self.svg.node() : this.parentElement);
-          if (!container) return;
-          const [x, y] = d3.pointer(event, container);
-          dragStartX = x;
-          dragStartY = y;
-          self.draggingStrategy = { roundNumber, queryIndex };
-          event.sourceEvent.stopPropagation();
-          strategyGroup.raise(); // 将整个卡片提升到最上层
-          strategyGroup.style('opacity', 0.8);
-          d3.select(this).style('cursor', 'grabbing');
-        })
-        .on('drag', function(event) {
-          if (Math.abs(event.dy) > 3 || Math.abs(event.dx) > 3) {
-            isDragging = true;
-          }
-          
-          if (!isDragging) return;
+    onCardDragMove(event, scale = 1) {
+      if (!this.dragState.active) return;
+      const dx = (event.clientX - this.dragState.startClientX) / scale;
+      const dy = (event.clientY - this.dragState.startClientY) / scale;
+      this.dragState.dx = dx;
+      this.dragState.dy = dy;
+      this.dragState.moved = this.dragState.moved || Math.abs(dx) > 4 || Math.abs(dy) > 4;
+      this.dragState.hoverTarget = this.detectDropTarget(event.clientX, event.clientY);
+    },
 
-          const offsetX = event.x - dragStartX;
-          const offsetY = event.y - dragStartY;
-          strategyGroup.attr('transform', `translate(${offsetX}, ${offsetY})`);
+    onCardDragEnd(move, up) {
+      window.removeEventListener('mousemove', move);
+      if (up) window.removeEventListener('mouseup', up);
+      const active = JSON.parse(JSON.stringify(this.dragState));
+      if (active.active && active.hoverTarget) {
+        if (active.hoverTarget.mode === 'merge' && active.cardKey !== active.hoverTarget.key) {
+          this.mergeStrategies(active.roundNumber, active.queryIndex, active.hoverTarget.roundNumber, active.hoverTarget.queryIndex);
+        } else if (active.hoverTarget.mode === 'swap' && active.cardKey !== active.hoverTarget.key) {
+          this.swapStrategies(active.roundNumber, active.queryIndex, active.hoverTarget.roundNumber, active.hoverTarget.queryIndex);
+        } else if (active.hoverTarget.mode === 'move') {
+          this.moveStrategy(active.roundNumber, active.queryIndex, active.hoverTarget.roundNumber, active.hoverTarget.queryIndex);
+        }
+      }
+      this.dragState = {
+        active: false,
+        cardKey: null,
+        roundNumber: null,
+        queryIndex: null,
+        startClientX: 0,
+        startClientY: 0,
+        dx: 0,
+        dy: 0,
+        hoverTarget: null,
+        moved: false
+      };
+      this.$nextTick(() => this.drawRiverChart());
+    },
 
-          // 获取鼠标当前位置，用于检测目标
-          const container = self.containerGroup ? self.containerGroup.node() : (self.svg ? self.svg.node() : this.parentElement);
-          if (!container) return;
-          const [mouseX, mouseY] = d3.pointer(event, container);
+    clientToScene(clientX, clientY) {
+      const viewport = this.$refs.gridViewport;
+      const rect = viewport?.getBoundingClientRect?.();
+      const t = this.persistZoomTransform || { x: 0, y: 0, k: 1 };
+      if (!rect) return { x: 0, y: 0 };
+      return {
+        x: (clientX - rect.left - t.x) / t.k,
+        y: (clientY - rect.top - t.y) / t.k
+      };
+    },
 
-          // 移除旧的视觉提示
-          d3.selectAll('.drag-indicator-line').remove();
-          d3.selectAll('.drag-indicator-plus').remove();
-          
-          self.dragTarget = null;
+    sceneRectToViewportRect(sceneRect) {
+      const viewport = this.$refs.gridViewport;
+      const rect = viewport?.getBoundingClientRect?.();
+      const t = this.persistZoomTransform || { x: 0, y: 0, k: 1 };
+      if (!rect) return { left: 0, top: 0, width: 0, height: 0 };
+      return {
+        left: rect.left + sceneRect.x * t.k + t.x,
+        top: rect.top + sceneRect.y * t.k + t.y,
+        width: sceneRect.width * t.k,
+        height: sceneRect.height * t.k
+      };
+    },
 
-          // 遍历所有 round 下的所有卡片寻找放置位置
-          for (const targetRound of self.roundsData) {
-            if (!targetRound || !targetRound.query_results) continue;
-            
-            for (let i = 0; i < targetRound.query_results.length; i++) {
-              // 跳过自己
-              if (targetRound.round_number === roundNumber && i === queryIndex) continue;
-              
-              const targetRect = self.getStrategyCellRect(self.gridMetrics, targetRound.round_number, i);
-              if (!targetRect) continue;
+    detectDropTarget(clientX, clientY) {
+      const point = this.clientToScene(clientX, clientY);
+      let contained = null;
+      let nearest = null;
 
-              const tx = targetRect.x;
-              const ty = targetRect.y;
-              const tw = targetRect.width;
-              const th = targetRect.height;
-              
-              // 判断是否在卡片区域或稍微超出边缘
-              const edgeSize = 24; 
-              
-              if (mouseX >= tx - edgeSize && mouseX <= tx + tw + edgeSize) {
-                // 如果在卡片上半部分边缘外部或内部边缘（指示插入到前面）
-                if (mouseY >= ty - edgeSize && mouseY <= ty + edgeSize) {
-                  self.dragTarget = { type: 'reorder', roundNumber: targetRound.round_number, index: i };
-                  self.containerGroup.append('line')
-                    .attr('class', 'drag-indicator-line')
-                    .attr('x1', tx).attr('y1', ty - (self.gridMetrics.rowGap ? self.gridMetrics.rowGap / 2 : 5))
-                    .attr('x2', tx + tw).attr('y2', ty - (self.gridMetrics.rowGap ? self.gridMetrics.rowGap / 2 : 5))
-                    .attr('stroke', '#0ea5e9')
-                    .attr('stroke-width', 4);
-                  break;
-                } 
-                // 如果在卡片下半部分边缘外部或内部边缘（指示插入到后面）
-                else if (mouseY >= ty + th - edgeSize && mouseY <= ty + th + edgeSize) {
-                  self.dragTarget = { type: 'reorder', roundNumber: targetRound.round_number, index: i + 1 };
-                  self.containerGroup.append('line')
-                    .attr('class', 'drag-indicator-line')
-                    .attr('x1', tx).attr('y1', ty + th + (self.gridMetrics.rowGap ? self.gridMetrics.rowGap / 2 : 5))
-                    .attr('x2', tx + tw).attr('y2', ty + th + (self.gridMetrics.rowGap ? self.gridMetrics.rowGap / 2 : 5))
-                    .attr('stroke', '#0ea5e9')
-                    .attr('stroke-width', 4);
-                  break;
-                } 
-                // 否则如果在卡片真正的内部，表示合并
-                else if (mouseY > ty + edgeSize && mouseY < ty + th - edgeSize) {
-                  self.dragTarget = { type: 'merge', roundNumber: targetRound.round_number, index: i };
-                  const plusSize = 40;
-                  const cx = tx + tw / 2;
-                  const cy = ty + th / 2;
-                  const plusG = self.containerGroup.append('g').attr('class', 'drag-indicator-plus');
-                  
-                  plusG.append('rect')
-                    .attr('x', tx).attr('y', ty)
-                    .attr('width', tw).attr('height', th)
-                    .attr('fill', 'rgba(14, 165, 233, 0.08)')
-                    .attr('rx', 0);
-                    
-                  plusG.append('circle')
-                    .attr('cx', cx).attr('cy', cy)
-                    .attr('r', plusSize / 2 + 5)
-                    .attr('fill', 'white')
-                    .attr('stroke', '#0ea5e9')
-                    .attr('stroke-width', 2);
-                  
-                  plusG.append('line')
-                    .attr('x1', cx - plusSize/2 + 5).attr('y1', cy)
-                    .attr('x2', cx + plusSize/2 - 5).attr('y2', cy)
-                    .attr('stroke', '#0ea5e9').attr('stroke-width', 4).attr('stroke-linecap', 'round');
-                  plusG.append('line')
-                    .attr('x1', cx).attr('y1', cy - plusSize/2 + 5)
-                    .attr('x2', cx).attr('y2', cy + plusSize/2 - 5)
-                    .attr('stroke', '#0ea5e9').attr('stroke-width', 4).attr('stroke-linecap', 'round');
-                  break;
-                }
-              }
-            }
-            if (self.dragTarget) break; // 如果已经找到目标，不再继续遍历其他 round
-          }
-        })
-        .on('end', function() {
-          strategyGroup.style('opacity', 1);
-          d3.select(this).style('cursor', 'grab');
-          d3.selectAll('.drag-indicator-line').remove();
-          d3.selectAll('.drag-indicator-plus').remove();
+      this.gridSlotCells.forEach((slot) => {
+        if (slot.roundNumber === this.dragState.roundNumber && slot.queryIndex === this.dragState.queryIndex) return;
+        const rect = slot.sceneRect;
+        const within = point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height;
+        const cx = rect.x + rect.width / 2;
+        const cy = rect.y + rect.height / 2;
+        const dist = Math.hypot(point.x - cx, point.y - cy);
+        if (!nearest || dist < nearest.dist) nearest = { slot, dist };
 
-          if (isDragging && self.dragTarget) {
-            const sourceRound = self.roundsData.find(r => r.round_number === roundNumber);
-            const targetRound = self.roundsData.find(r => r.round_number === self.dragTarget.roundNumber);
-            
-            if (sourceRound && sourceRound.query_results && targetRound && targetRound.query_results) {
-              const target = self.dragTarget;
-              const sourceQueryIndex = queryIndex;
-              const targetQueryIndex = target.index;
-              
-              if (target.type === 'reorder') {
-                // 处理重新排序
-                const item = sourceRound.query_results.splice(sourceQueryIndex, 1)[0];
-                
-                let newIndex = targetQueryIndex;
-                // 如果是在同一个 round 内部拖拽，并且目标在自己后面，目标索引需要减一
-                if (sourceRound.round_number === targetRound.round_number && newIndex > sourceQueryIndex) {
-                  newIndex--;
-                }
-                
-                targetRound.query_results.splice(newIndex, 0, item);
-                self.$nextTick(() => { self.drawRiverChart(); });
-              } else if (target.type === 'merge') {
-                // 处理合并
-                const targetQuery = targetRound.query_results[targetQueryIndex];
-                const sourceQuery = sourceRound.query_results[sourceQueryIndex];
-                
-                // 备份原始的 rag_results（如果还没有备份过）
-                if (!targetQuery._original_rag_results) {
-                  targetQuery._original_rag_results = targetQuery.rag_results ? [...targetQuery.rag_results] : [];
-                }
-                
-                // 将源策略的点加入目标策略
-                if (!targetQuery.rag_results) targetQuery.rag_results = [];
-                if (sourceQuery.rag_results) {
-                  targetQuery.rag_results = targetQuery.rag_results.concat(sourceQuery.rag_results);
-                }
-                
-                // 记录源 ID 到合并目标，以显示提示
-                if (!targetQuery.merged_from) targetQuery.merged_from = [];
-                targetQuery.merged_from.push(`R${roundNumber}.${sourceQueryIndex + 1}`);
-                if (sourceQuery.merged_from) {
-                  targetQuery.merged_from = targetQuery.merged_from.concat(sourceQuery.merged_from);
-                }
-                
-                // 保存原始的 sourceQuery 数据用于拆分
-                if (!targetQuery._merged_sources_data) targetQuery._merged_sources_data = [];
-                targetQuery._merged_sources_data.push({
-                   originalRound: roundNumber,
-                   originalIndex: sourceQueryIndex,
-                   queryData: sourceQuery // 保存完整的原对象
-                });
-                // 如果 sourceQuery 内部也有被合并的数据，也一并转移过去
-                if (sourceQuery._merged_sources_data) {
-                   targetQuery._merged_sources_data = targetQuery._merged_sources_data.concat(sourceQuery._merged_sources_data);
-                }
-                
-                // 移除被拖拽的源策略
-                sourceRound.query_results.splice(sourceQueryIndex, 1);
-                
-                self.$nextTick(() => { self.drawRiverChart(); });
-              }
-            }
-          } else {
-            // 没有目标或者没拖动，重置位置
-            strategyGroup.transition().duration(200).attr('transform', 'translate(0, 0)');
-          }
+        if (within) {
+          const rx = (point.x - rect.x) / rect.width;
+          const ry = (point.y - rect.y) / rect.height;
+          const centerZone = rx > 0.22 && rx < 0.78 && ry > 0.22 && ry < 0.78;
+          contained = {
+            slotKey: slot.slotKey,
+            key: slot.occupied ? this.getStrategyKey(slot.roundNumber, slot.queryIndex) : null,
+            roundNumber: slot.roundNumber,
+            queryIndex: slot.queryIndex,
+            mode: slot.occupied ? (centerZone ? 'merge' : 'swap') : 'move',
+            sceneRect: rect,
+            rect: this.sceneRectToViewportRect(rect)
+          };
+        }
+      });
 
-          setTimeout(() => {
-            self.draggingStrategy = null;
-            self.dragTarget = null;
-            isDragging = false;
-          }, 100);
-        });
+      if (contained) return contained;
+      if (nearest && nearest.dist < 90) {
+        const slot = nearest.slot;
+        return {
+          slotKey: slot.slotKey,
+          key: slot.occupied ? this.getStrategyKey(slot.roundNumber, slot.queryIndex) : null,
+          roundNumber: slot.roundNumber,
+          queryIndex: slot.queryIndex,
+          mode: slot.occupied ? 'swap' : 'move',
+          sceneRect: slot.sceneRect,
+          rect: this.sceneRectToViewportRect(slot.sceneRect)
+        };
+      }
+      return null;
+    },
 
-      dragHandle.call(drag);
+    getRoundRef(roundNumber) {
+      return this.roundsData.find(r => r.round_number === roundNumber) || this.newRounds?.[roundNumber] || null;
+    },
+
+    cloneQueryData(query) {
+      return JSON.parse(JSON.stringify(query));
+    },
+
+    dedupeRagResults(results) {
+      const seen = new Set();
+      return (results || []).filter((item) => {
+        const id = item?.retrieval_result?.id;
+        const key = String(id ?? Math.random());
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    },
+
+    mergeStrategies(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex) {
+      if (sourceRoundNumber === targetRoundNumber && sourceIndex === targetIndex) return;
+      const sourceRound = this.getRoundRef(sourceRoundNumber);
+      const targetRound = this.getRoundRef(targetRoundNumber);
+      if (!sourceRound || !targetRound) return;
+      const sourceQuery = sourceRound.query_results?.[sourceIndex];
+      const targetQuery = targetRound.query_results?.[targetIndex];
+      if (!sourceQuery || !targetQuery) return;
+
+      if (!targetQuery._original_rag_results) {
+        targetQuery._original_rag_results = this.cloneQueryData(targetQuery.rag_results || []);
+      }
+      if (!targetQuery._merged_sources_data) targetQuery._merged_sources_data = [];
+      targetQuery._merged_sources_data.push({
+        originalRound: sourceRoundNumber,
+        originalIndex: sourceIndex,
+        queryData: this.cloneQueryData(sourceQuery)
+      });
+      targetQuery.merged_from = [...(targetQuery.merged_from || []), `${sourceRoundNumber}__${sourceIndex}`];
+      targetQuery.rag_results = this.dedupeRagResults([...(targetQuery.rag_results || []), ...(sourceQuery.rag_results || [])]);
+
+      sourceRound.query_results.splice(sourceIndex, 1);
+      this.focusedStrategyKey = this.getStrategyKey(targetRoundNumber, targetIndex);
+    },
+
+    swapStrategies(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex) {
+      const sourceRound = this.getRoundRef(sourceRoundNumber);
+      const targetRound = this.getRoundRef(targetRoundNumber);
+      if (!sourceRound || !targetRound) return;
+      const sourceQuery = sourceRound.query_results?.[sourceIndex];
+      const targetQuery = targetRound.query_results?.[targetIndex];
+      if (!sourceQuery || !targetQuery) return;
+      sourceRound.query_results.splice(sourceIndex, 1, targetQuery);
+      targetRound.query_results.splice(targetIndex, 1, sourceQuery);
+      this.focusedStrategyKey = this.getStrategyKey(targetRoundNumber, targetIndex);
+    },
+
+    moveStrategy(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex) {
+      const sourceRound = this.getRoundRef(sourceRoundNumber);
+      const targetRound = this.getRoundRef(targetRoundNumber);
+      if (!sourceRound || !targetRound || !sourceRound.query_results) return;
+      const movingQuery = sourceRound.query_results[sourceIndex];
+      if (!movingQuery) return;
+
+      sourceRound.query_results.splice(sourceIndex, 1);
+
+      if (!targetRound.query_results) targetRound.query_results = [];
+      let insertIndex = Math.max(0, Math.min(targetIndex, targetRound.query_results.length));
+      if (sourceRoundNumber === targetRoundNumber && sourceIndex < insertIndex) {
+        insertIndex -= 1;
+      }
+      targetRound.query_results.splice(insertIndex, 0, movingQuery);
+      this.focusedStrategyKey = this.getStrategyKey(targetRoundNumber, insertIndex);
     },
 
     splitMergedStrategies(roundNumber, queryIndex) {
@@ -2250,27 +2296,14 @@ export default {
 
       // 4. 重新缩放定位到目标策略画布中心
       this.$nextTick(() => {
-        const svg = d3.select(this.$refs.svg);
-        const zoom = d3.zoom()
-          .scaleExtent([0.3, 4])
-          .on('zoom', (event) => {
-            const container = svg.select('.river-container');
-            container.attr('transform', event.transform);
-            if (this.connectionGroup) {
-              this.connectionGroup.attr('transform', event.transform);
-            }
-          });
-
         const refreshedTargetCanvas = this.strategyCanvases?.[targetRound]?.[targetQueryIndex];
         if (!refreshedTargetCanvas) return;
-
-        const scale = 2.0; // 放大2倍
-        const translateX = this.svgWidth / 2 - refreshedTargetCanvas.centerX * scale;
-        const translateY = this.svgHeight / 2 - refreshedTargetCanvas.centerY * scale;
-
-        svg.transition()
-          .duration(800)
-          .call(zoom.transform, d3.zoomIdentity.translate(translateX, translateY).scale(scale));
+        const scale = 2.0;
+        this.persistZoomTransform = {
+          k: scale,
+          x: this.svgWidth / 2 - refreshedTargetCanvas.centerX * scale,
+          y: this.svgHeight / 2 - refreshedTargetCanvas.centerY * scale
+        };
       });
 
       console.log(`已导航到chunk ${chunkId}，位置: 轮次${targetRound}，查询${targetQueryIndex}`);
@@ -2537,73 +2570,62 @@ export default {
       this.showPointDetailModal = false;
       this.selectedPointDetail = null;
     },
-
-    getBranchActionColor(action) {
-      if (action === 'GROW') return '#28a745';
-      if (action === 'PRUNE') return '#dc3545';
-      if (action === 'KEEP') return '#ffc107';
-      if (action === 'PENDING') return '#6c757d';
-      return '#9AA3AD';
-    },
-
-    _clearReportDragHover() {
-      document.querySelectorAll('.interactive-report-drop-zone.interactive-report-drop-active').forEach((el) => {
-        el.classList.remove('interactive-report-drop-active');
-      });
-    },
-
-    _beginReportDragGhost(event, d) {
-      const rr = d.rag?.retrieval_result;
-      if (!rr) return;
-      const evaluation = d.rag?.evaluation ?? null;
-      const dataWithEvaluation = {
-        ...rr,
-        evaluation: evaluation || rr.evaluation
-      };
-      const processed = this.processRagResultForDetail(dataWithEvaluation);
-      this.reportDragPayload = processed;
-      this._clearReportDragHover();
-
-      const ghost = document.createElement('div');
-      ghost.className = 'interactive-report-drag-ghost';
-      const color = this.getBranchActionColor(d.action);
-      const ring = d.isPicture
-        ? '<circle cx="18" cy="18" r="13" fill="none" stroke="rgba(40,140,255,0.95)" stroke-width="1.4"/>'
-        : '';
-      ghost.innerHTML = `<svg width="36" height="36" style="overflow:visible;opacity:0.92;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.2))"><circle cx="18" cy="18" r="10" fill="${color}" stroke="rgba(40,50,60,0.35)" stroke-width="0.8"/>${ring}</svg>`;
-      ghost.style.cssText = `position:fixed;left:${event.clientX}px;top:${event.clientY}px;pointer-events:none;z-index:10050;margin-left:-18px;margin-top:-18px;`;
-      document.body.appendChild(ghost);
-      this.reportDragGhostEl = ghost;
-    },
-
-    _moveReportDragGhost(e) {
-      if (!this.reportDragGhostEl) return;
-      this.reportDragGhostEl.style.left = `${e.clientX}px`;
-      this.reportDragGhostEl.style.top = `${e.clientY}px`;
-      this._clearReportDragHover();
-      const under = document.elementFromPoint(e.clientX, e.clientY);
-      const drop = under && under.closest && under.closest('.interactive-report-drop-zone');
-      if (drop) drop.classList.add('interactive-report-drop-active');
-    },
-
-    _finishReportDrag(e) {
-      const el = this.reportDragGhostEl;
-      if (el) {
-        el.remove();
-        this.reportDragGhostEl = null;
+    
+    // 添加点到待保存列表
+    async addToPending(retrievalResult, evaluation = null) {
+      // 如果启用了隐藏PRUNE，检查是否为PRUNE节点
+      if (this.hidePrunePoints) {
+        const branchAction = evaluation?.branch_action || retrievalResult.evaluation?.branch_action || 'UNKNOWN';
+        if (branchAction === 'PRUNE') {
+          console.log('PRUNE节点已被过滤，不添加到待保存列表');
+          return;
+        }
       }
-      const payload = this.reportDragPayload;
-      this.reportDragPayload = null;
-      this._clearReportDragHover();
-      if (!payload) return;
-      const under = document.elementFromPoint(e.clientX, e.clientY);
-      const drop = under && under.closest && under.closest('.interactive-report-drop-zone');
-      if (!drop) return;
-      const sectionId = drop.getAttribute('data-section-id');
-      if (!sectionId) return;
-      this.$store.commit('addPointToInteractiveReportSection', { sectionId, item: payload });
+      
+      // 如果传入了 evaluation，将其附加到 retrievalResult 上
+      const dataWithEvaluation = {
+        ...retrievalResult,
+        evaluation: evaluation || retrievalResult.evaluation
+      };
+      await this.$store.dispatch('addToPending', dataWithEvaluation);
+      // 等待 action 完成后再检查
+      const pendingCount = this.$store.state.pendingItems.length;
+      console.log(`已添加到待保存列表，当前待保存: ${pendingCount}`);
     },
     
+    // 全选策略卡片内的所有点
+    async selectAllPointsInStrategy(query) {
+      if (!query.rag_results || query.rag_results.length === 0) {
+        return;
+      }
+      
+      // 将 retrieval_result 和 evaluation 合并，过滤掉PRUNE节点
+      const ragResults = query.rag_results
+        .filter(rag => {
+          // 如果启用了隐藏PRUNE，过滤掉PRUNE节点
+          if (this.hidePrunePoints) {
+            const branchAction = rag.evaluation?.branch_action || 'UNKNOWN';
+            return branchAction !== 'PRUNE';
+          }
+          return true;
+        })
+        .map(rag => ({
+          ...rag.retrieval_result,
+          evaluation: rag.evaluation
+        }));
+      
+      if (ragResults.length === 0) {
+        console.log('没有可添加的点（已过滤PRUNE节点）');
+        return;
+      }
+      
+      await this.$store.dispatch('addMultipleToPending', ragResults);
+      
+      // 等待 action 完成后再检查
+      const pendingCount = this.$store.state.pendingItems.length;
+      console.log(`已全选策略卡片内的 ${ragResults.length} 个点（已过滤PRUNE），当前待保存: ${pendingCount}`);
+    },
+
     // 高亮全局地图中策略卡片对应的点
     highlightPlanPointsInGlobalMap(query) {
       if (!query.rag_results || query.rag_results.length === 0) {
@@ -2726,8 +2748,7 @@ export default {
                 collection_name: this.ragCollection,
                 plans_per_round: Math.max(1, Math.floor(Number(this.plansPerRound) || 3)),
                 rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
-                max_rounds: Math.max(1, Math.min(10, Math.floor(Number(this.maxRounds) || 7))),
-                interactive: this.isInteractiveMode === true
+                max_rounds: Math.max(1, Math.min(10, Math.floor(Number(this.maxRounds) || 7)))
               }));
           this.userQuestion = '';
           // 后端会通过 WebSocket 逐步推送：plan_created → retrieval_complete → evaluation_complete
@@ -2779,52 +2800,6 @@ export default {
       this.drawRiverChart();
     },
 
-
-    // 交互模式下相关方法
-    closeReviewModal() {
-      this.showReviewModal = false;
-      this.reviewPlans = [];
-      this.reviewCheckpoint = null;
-    },
-    removeReviewPlan(index) {
-      this.reviewPlans.splice(index, 1);
-    },
-    addEmptyReviewPlan() {
-      this.reviewPlans.push({
-        action: "call_tool",
-        tool_name: "strategy_semantic_search",
-        ParentNode: "0",
-        args: { query_intent: "在此处输入关键词" },
-        reason: "用户手动添加"
-      });
-    },
-    updatePlanArgs(index, event) {
-      try {
-        const val = event.target.value;
-        const parsed = JSON.parse(val);
-        this.reviewPlans[index].args = parsed;
-      } catch (e) {
-        // 用户输入非法的JSON时先不报错，保持原值或只在保存时校验
-      }
-    },
-    submitReviewDecision(decision) {
-      if (!this.wsConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
-        alert("WebSocket连接已断开，无法提交决策！");
-        return;
-      }
-      
-      const payload = {
-        action: "interactive_response",
-        run_id: this.reviewCheckpoint.run_id,
-        checkpoint_id: this.reviewCheckpoint.checkpoint_id,
-        decision: decision,
-        plans: decision === 'replace' ? this.reviewPlans : []
-      };
-      
-      console.log("[WS] 提交交互模式决策:", payload);
-      this.ws.send(JSON.stringify(payload));
-      this.closeReviewModal();
-    },
 
     extractRelativePath(fullPath) {
       if (!fullPath) return '';
@@ -3417,35 +3392,23 @@ export default {
       }
     },
 
-    addZoomBehavior(svg) {
-      const container = this.containerGroup;
-      const connectionGroup = this.connectionGroup;
-      const zoom = d3.zoom()
-        .scaleExtent([0.3, 3])
-        .on('zoom', (event) => {
-          this.persistZoomTransform = event.transform;
-          if (container) container.attr('transform', event.transform);
-          if (connectionGroup) connectionGroup.attr('transform', event.transform);
-        });
-      svg.call(zoom);
-      if (this.persistZoomTransform) {
-        svg.call(zoom.transform, this.persistZoomTransform);
-      } else {
-        const initialTransform = d3.zoomIdentity.translate(0, 0).scale(1);
-        this.persistZoomTransform = initialTransform;
-        svg.call(zoom.transform, initialTransform);
+    addZoomBehavior() {
+      if (!this.persistZoomTransform) {
+        this.persistZoomTransform = { x: 0, y: 0, k: 1 };
       }
-      this.currentZoom = zoom;
     },
 
      clearChart() {
-      const svg = d3.select(this.$refs.svg);
-      svg.selectAll('*').remove();
+      const connectionSvg = this.$refs.connectionSvg;
+      if (connectionSvg) {
+        d3.select(connectionSvg).selectAll('*').remove();
+      }
       this.roundsData = [];
       this.newRounds = {};
       this.strategyCanvases = {};
-      this.strategyOffsets = {}; // 清除拖拽偏移量
-      this.draggingStrategy = null; // 清除拖拽状态
+      this.strategyOffsets = {};
+      this.draggingStrategy = null;
+      this.gridMetrics = null;
     },
 
     toggleLabels() {
@@ -3598,6 +3561,227 @@ svg {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+.river-grid-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.river-empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgba(120,130,140,0.8);
+}
+
+.river-grid-scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.river-connection-svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.river-grid-surface {
+  position: relative;
+  z-index: 2;
+  background-image:
+    linear-gradient(to right, rgba(148,163,184,0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148,163,184,0.10) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.grid-header-cell,
+.grid-row-label-cell {
+  position: absolute;
+  box-sizing: border-box;
+  border: 1px solid rgba(203,213,225,0.85);
+  background: rgba(248,250,252,0.96);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: rgba(51,65,85,0.98);
+}
+
+.grid-row-label-cell {
+  background: rgba(250,252,255,0.96);
+}
+
+.grid-header-title,
+.grid-row-title {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.grid-header-subtitle,
+.grid-row-subtitle {
+  margin-top: 4px;
+  font-size: 11px;
+  color: rgba(100,116,139,0.95);
+}
+
+.strategy-card {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: 1px solid rgba(191,219,254,0.95);
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+  overflow: hidden;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.strategy-card.is-metadata {
+  border-color: rgba(40,167,69,0.92);
+}
+
+.strategy-card.is-active {
+  border-color: rgba(14,165,233,0.9);
+  box-shadow: 0 12px 28px rgba(14,165,233,0.18);
+}
+
+.strategy-card.highlight-parent-source {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.18), 0 12px 28px rgba(245,158,11,0.12);
+}
+
+.strategy-card.is-dragging {
+  opacity: 0.94;
+  box-shadow: 0 18px 32px rgba(15,23,42,0.18);
+}
+
+.strategy-card.drop-merge {
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.24), 0 16px 30px rgba(59,130,246,0.12);
+}
+
+.strategy-card.drop-swap {
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.24), 0 16px 30px rgba(16,185,129,0.12);
+}
+
+.strategy-edge {
+  position: absolute;
+  background: rgba(14,165,233,0.96);
+  box-shadow: 0 0 4px rgba(14,165,233,0.22);
+  z-index: 5;
+}
+.strategy-edge.top { left: 0; top: 0; width: 100%; height: 3px; }
+.strategy-edge.right { right: 0; top: 0; width: 3px; height: 100%; }
+.strategy-edge.bottom { left: 0; bottom: 0; width: 100%; height: 3px; }
+.strategy-edge.left { left: 0; top: 0; width: 3px; height: 100%; }
+
+.strategy-card-header {
+  flex: 0 0 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #f4f6f8;
+  border-bottom: 1px solid rgba(226,232,240,0.95);
+  cursor: grab;
+  user-select: none;
+}
+
+.strategy-card-header:active {
+  cursor: grabbing;
+}
+
+.strategy-card-title-wrap {
+  min-width: 0;
+  flex: 1;
+}
+
+.strategy-card-title {
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.strategy-card-subtitle {
+  margin-top: 2px;
+  font-size: 11px;
+  color: rgba(100,116,139,0.95);
+}
+
+.strategy-card-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-icon-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.92);
+  color: #475569;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(203,213,225,0.95);
+}
+
+.strategy-card-map-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 120px;
+  overflow: hidden;
+}
+
+.strategy-mini-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.strategy-card-footer {
+  flex: 0 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 10px;
+  background: #e2e8f0;
+  font-size: 10px;
+  color: #475569;
+}
+
+.grid-resize-handle {
+  position: absolute;
+  z-index: 8;
+}
+
+.grid-resize-handle.col { cursor: col-resize; }
+.grid-resize-handle.row { cursor: row-resize; }
+
+.drag-drop-hint {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  z-index: 1200;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.88);
+  color: #fff;
+  font-size: 12px;
+  pointer-events: none;
+  box-shadow: 0 10px 24px rgba(15,23,42,0.18);
 }
 
 /* 注意：不要强行让 svg rect 继承 stroke（会覆盖 d3 里对外框/内框的动态着色）。 */
@@ -4335,6 +4519,227 @@ svg {
   display: block;
 }
 
+.river-grid-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.river-empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgba(120,130,140,0.8);
+}
+
+.river-grid-scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.river-connection-svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.river-grid-surface {
+  position: relative;
+  z-index: 2;
+  background-image:
+    linear-gradient(to right, rgba(148,163,184,0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148,163,184,0.10) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.grid-header-cell,
+.grid-row-label-cell {
+  position: absolute;
+  box-sizing: border-box;
+  border: 1px solid rgba(203,213,225,0.85);
+  background: rgba(248,250,252,0.96);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: rgba(51,65,85,0.98);
+}
+
+.grid-row-label-cell {
+  background: rgba(250,252,255,0.96);
+}
+
+.grid-header-title,
+.grid-row-title {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.grid-header-subtitle,
+.grid-row-subtitle {
+  margin-top: 4px;
+  font-size: 11px;
+  color: rgba(100,116,139,0.95);
+}
+
+.strategy-card {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: 1px solid rgba(191,219,254,0.95);
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+  overflow: hidden;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.strategy-card.is-metadata {
+  border-color: rgba(40,167,69,0.92);
+}
+
+.strategy-card.is-active {
+  border-color: rgba(14,165,233,0.9);
+  box-shadow: 0 12px 28px rgba(14,165,233,0.18);
+}
+
+.strategy-card.highlight-parent-source {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.18), 0 12px 28px rgba(245,158,11,0.12);
+}
+
+.strategy-card.is-dragging {
+  opacity: 0.94;
+  box-shadow: 0 18px 32px rgba(15,23,42,0.18);
+}
+
+.strategy-card.drop-merge {
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.24), 0 16px 30px rgba(59,130,246,0.12);
+}
+
+.strategy-card.drop-swap {
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.24), 0 16px 30px rgba(16,185,129,0.12);
+}
+
+.strategy-edge {
+  position: absolute;
+  background: rgba(14,165,233,0.96);
+  box-shadow: 0 0 4px rgba(14,165,233,0.22);
+  z-index: 5;
+}
+.strategy-edge.top { left: 0; top: 0; width: 100%; height: 3px; }
+.strategy-edge.right { right: 0; top: 0; width: 3px; height: 100%; }
+.strategy-edge.bottom { left: 0; bottom: 0; width: 100%; height: 3px; }
+.strategy-edge.left { left: 0; top: 0; width: 3px; height: 100%; }
+
+.strategy-card-header {
+  flex: 0 0 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #f4f6f8;
+  border-bottom: 1px solid rgba(226,232,240,0.95);
+  cursor: grab;
+  user-select: none;
+}
+
+.strategy-card-header:active {
+  cursor: grabbing;
+}
+
+.strategy-card-title-wrap {
+  min-width: 0;
+  flex: 1;
+}
+
+.strategy-card-title {
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.strategy-card-subtitle {
+  margin-top: 2px;
+  font-size: 11px;
+  color: rgba(100,116,139,0.95);
+}
+
+.strategy-card-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-icon-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.92);
+  color: #475569;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(203,213,225,0.95);
+}
+
+.strategy-card-map-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 120px;
+  overflow: hidden;
+}
+
+.strategy-mini-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.strategy-card-footer {
+  flex: 0 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 10px;
+  background: #e2e8f0;
+  font-size: 10px;
+  color: #475569;
+}
+
+.grid-resize-handle {
+  position: absolute;
+  z-index: 8;
+}
+
+.grid-resize-handle.col { cursor: col-resize; }
+.grid-resize-handle.row { cursor: row-resize; }
+
+.drag-drop-hint {
+  position: fixed;
+  transform: translate(-50%, -100%);
+  z-index: 1200;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.88);
+  color: #fff;
+  font-size: 12px;
+  pointer-events: none;
+  box-shadow: 0 10px 24px rgba(15,23,42,0.18);
+}
+
 .global-map-content-group {
   cursor: default;
 }
@@ -4390,49 +4795,212 @@ svg {
   box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
 }
 
-.interactive-toggle {
-  display: flex;
-  align-items: center;
-  margin: 0 15px;
-  font-size: 14px;
-  color: #333;
+
+.river-bg-svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.interactive-toggle input[type="checkbox"] {
-  margin-right: 6px;
-  cursor: pointer;
+.river-grid-surface {
+  position: relative;
+  z-index: 2;
+  background: transparent !important;
 }
 
-.review-plan-item {
-  background: #fdfdfd;
-  transition: all 0.2s ease;
-}
-.review-plan-item:hover {
-  background: #f4f6f8;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.form-group label {
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  color: #555;
-  margin-bottom: 4px;
+.grid-slot-cell {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: 14px;
+  pointer-events: none;
+  transition: box-shadow 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+  z-index: 1;
 }
 
-.form-group select,
-.form-group input,
-.form-group textarea {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  outline: none;
-  transition: border-color 0.2s;
+.grid-slot-cell.is-empty {
+  border: 1px dashed rgba(203,213,225,0.72);
+  background: rgba(255,255,255,0.18);
 }
 
-.form-group select:focus,
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: #4A90E2;
+.grid-slot-cell.is-occupied {
+  border: 1px solid rgba(203,213,225,0.18);
+  background: transparent;
+}
+
+.grid-slot-cell.drop-merge {
+  border-color: rgba(59,130,246,0.9);
+  box-shadow: inset 0 0 0 2px rgba(59,130,246,0.22);
+  background: rgba(59,130,246,0.05);
+}
+
+.grid-slot-cell.drop-swap,
+.grid-slot-cell.drop-move {
+  border-color: rgba(16,185,129,0.92);
+  box-shadow: inset 0 0 0 2px rgba(16,185,129,0.20);
+  background: rgba(16,185,129,0.05);
+}
+
+.strategy-card.is-dragging {
+  transition: none !important;
+}
+
+
+
+/* ===== visual cleanup overrides ===== */
+#enhanced-river-chart {
+  background: #f8fafc !important;
+}
+
+.river-grid-viewport {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%) !important;
+}
+
+.river-bg-svg {
+  display: none !important;
+}
+
+.river-grid-surface {
+  background: none !important;
+}
+
+.grid-slot-cell {
+  opacity: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+.grid-slot-cell.drop-merge,
+.grid-slot-cell.drop-swap,
+.grid-slot-cell.drop-move {
+  opacity: 1 !important;
+  border-radius: 16px !important;
+}
+
+.grid-slot-cell.drop-merge {
+  border: 1.5px solid rgba(59,130,246,0.95) !important;
+  background: rgba(59,130,246,0.08) !important;
+  box-shadow: inset 0 0 0 2px rgba(59,130,246,0.16) !important;
+}
+
+.grid-slot-cell.drop-swap,
+.grid-slot-cell.drop-move {
+  border: 1.5px solid rgba(16,185,129,0.96) !important;
+  background: rgba(16,185,129,0.08) !important;
+  box-shadow: inset 0 0 0 2px rgba(16,185,129,0.15) !important;
+}
+
+.grid-header-cell,
+.grid-row-label-cell {
+  border: 1px solid rgba(226,232,240,0.95) !important;
+  background: rgba(255,255,255,0.88) !important;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.04) !important;
+  backdrop-filter: blur(6px);
+}
+
+.grid-header-title,
+.grid-row-title {
+  color: #334155 !important;
+}
+
+.grid-header-subtitle,
+.grid-row-subtitle {
+  color: #94a3b8 !important;
+}
+
+.strategy-card {
+  border: 1px solid rgba(226,232,240,0.96) !important;
+  border-radius: 16px !important;
+  background: rgba(255,255,255,0.98) !important;
+  box-shadow: 0 10px 28px rgba(15,23,42,0.07) !important;
+}
+
+.strategy-card:hover {
+  box-shadow: 0 14px 34px rgba(15,23,42,0.10) !important;
+}
+
+.strategy-card.is-active {
+  border-color: rgba(14,165,233,0.92) !important;
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.10), 0 14px 34px rgba(14,165,233,0.10) !important;
+}
+
+.strategy-card.is-metadata {
+  border-color: rgba(34,197,94,0.72) !important;
+}
+
+.strategy-card-header {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  border-bottom: 1px solid rgba(226,232,240,0.95) !important;
+}
+
+.strategy-card-title {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.strategy-card-subtitle {
+  color: #94a3b8 !important;
+}
+
+.strategy-card-map-wrap {
+  background: #ffffff !important;
+}
+
+.strategy-card-footer {
+  background: #f8fafc !important;
+  border-top: 1px solid rgba(226,232,240,0.9);
+  color: #64748b !important;
+}
+
+.card-icon-btn {
+  background: #ffffff !important;
+  box-shadow: inset 0 0 0 1px rgba(226,232,240,0.95) !important;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.card-icon-btn:hover {
+  background: #eff6ff !important;
+  color: #0369a1 !important;
+  transform: translateY(-1px);
+}
+
+.user-input-section {
+  background: rgba(255,255,255,0.92) !important;
+  border: 1px solid rgba(226,232,240,0.98) !important;
+  box-shadow: 0 16px 40px rgba(15,23,42,0.08) !important;
+  backdrop-filter: blur(10px);
+}
+
+.question-input {
+  border: 1px solid rgba(203,213,225,0.96) !important;
+  box-shadow: none !important;
+}
+
+.question-input:focus {
+  border-color: rgba(14,165,233,0.8) !important;
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.10) !important;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+  box-shadow: 0 10px 22px rgba(15,23,42,0.16) !important;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #111827 0%, #0f172a 100%) !important;
+}
+
+.drag-drop-hint {
+  background: rgba(15,23,42,0.92) !important;
+  box-shadow: 0 12px 26px rgba(15,23,42,0.18) !important;
+}
+
+.global-map-card {
+  border: 1px solid rgba(226,232,240,0.95);
+  box-shadow: 0 14px 36px rgba(15,23,42,0.12) !important;
 }
 
 </style>
