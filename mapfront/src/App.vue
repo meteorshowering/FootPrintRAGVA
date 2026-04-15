@@ -77,7 +77,7 @@ export default {
       ragCollection: 'multimodal2text',
       plansPerRound: 3,
       ragResultsPerPlan: 10,
-      maxRounds: 7,
+      maxRounds: 5,
     };
   },
   methods: {
@@ -108,7 +108,7 @@ export default {
     handlePlansPerRoundChange(n) {
       const value = Number(n);
       if (!Number.isFinite(value)) return;
-      this.plansPerRound = value;
+      this.plansPerRound = Math.max(1, Math.min(5, value));
     },
     handleRagResultsPerPlanChange(n) {
       const value = Number(n);
@@ -119,8 +119,8 @@ export default {
     handleMaxRoundsChange(n) {
       const value = Number(n);
       if (!Number.isFinite(value)) return;
-      // 后端约束为 1-10
-      this.maxRounds = Math.max(1, Math.min(10, value));
+      // 与左侧滑块一致：1–5
+      this.maxRounds = Math.max(1, Math.min(5, value));
     },
 
     handleRiverLoadAll() {

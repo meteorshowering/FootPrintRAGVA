@@ -231,7 +231,7 @@ export default {
     },
     maxRounds: {
       type: Number,
-      default: 7
+      default: 5
     },
     // 如果传入该容器 id，则把全局地图渲染到该 DOM 容器中，不再显示覆盖层卡片
     globalMapMountId: {
@@ -2724,9 +2724,9 @@ export default {
                 action: 'start_query',
                 query: question,
                 collection_name: this.ragCollection,
-                plans_per_round: Math.max(1, Math.floor(Number(this.plansPerRound) || 3)),
+                plans_per_round: Math.max(1, Math.min(5, Math.floor(Number(this.plansPerRound) || 3))),
                 rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
-                max_rounds: Math.max(1, Math.min(10, Math.floor(Number(this.maxRounds) || 7))),
+                max_rounds: Math.max(1, Math.min(5, Math.floor(Number(this.maxRounds) || 5))),
                 interactive: this.isInteractiveMode === true
               }));
           this.userQuestion = '';

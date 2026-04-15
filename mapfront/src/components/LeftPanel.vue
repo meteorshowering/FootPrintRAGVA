@@ -1,5 +1,71 @@
 <template>
   <div class="panel">
+    <section class="block block-compact">
+      <div class="block-title">RAG Collection</div>
+      <div class="row row-top">
+        <select class="select" v-model="selectedRagCollection" @change="$emit('rag-collection-change', selectedRagCollection)">
+          <option v-for="c in ragCollections" :key="c.value" :value="c.value">
+            {{ c.label }}
+          </option>
+        </select>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-title">全局地图</div>
+      <div class="global-map-controls-row">
+        <button class="btn small secondary" @click="$emit('global-map-clear')">清除高亮</button>
+        <button class="btn small" @click="$emit('global-map-reset')">↻ 重置</button>
+      </div>
+      <div id="left-global-map" class="global-map-embed"></div>
+    </section>
+
+    <section class="block block-compact">
+      <div class="block-title">Run Settings</div>
+
+      <div class="slider-row">
+        <div class="slider-label">Max rounds</div>
+        <input
+          class="slider"
+          type="range"
+          min="1"
+          max="5"
+          step="1"
+          v-model.number="searchPlanIteration"
+          @input="handleMaxRoundsChange"
+        />
+        <div class="slider-value">{{ searchPlanIteration }}</div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label">RAG / plan</div>
+        <input
+          class="slider"
+          type="range"
+          min="1"
+          max="20"
+          step="1"
+          v-model.number="ragResultPerPlan"
+          @input="handleRagResultPerPlanChange"
+        />
+        <div class="slider-value">{{ ragResultPerPlan }}</div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label">Plans / round</div>
+        <input
+          class="slider"
+          type="range"
+          min="1"
+          max="5"
+          step="1"
+          v-model.number="plansPerRound"
+          @input="handlePlansPerRoundChange"
+        />
+        <div class="slider-value">{{ plansPerRound }}</div>
+      </div>
+    </section>
+
     <section class="block">
       <div class="block-title">Control Panel</div>
       <details class="prompt-details" :open="openPlanPrompt">
@@ -66,22 +132,6 @@
     </section>
 
     <section class="block">
-      <div class="block-title">Add PDFs to Dataset</div>
-      <input 
-        type="file" 
-        multiple 
-        accept=".pdf"
-        @change="handleFileUpload"
-      />
-      <div v-if="uploadedFiles.length > 0" class="file-list">
-        <div v-for="(file, index) in uploadedFiles" :key="index" class="file-item">
-          <span class="file-name">{{ file.name }}</span>
-          <span class="file-status">{{ file.status }}</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="block">
       <div class="block-title">River Controls</div>
       <div class="row">
         <button class="btn small" @click="$emit('river-load-all')">加载所有轮次</button>
@@ -97,101 +147,6 @@
             {{ formatExperimentLabel(f) }}
           </option>
         </select>
-      </div>
-    </section>
-
-    <section class="block block-compact">
-      <div class="block-title">RAG Collection</div>
-      <div class="row row-top">
-        <select class="select" v-model="selectedRagCollection" @change="$emit('rag-collection-change', selectedRagCollection)">
-          <option v-for="c in ragCollections" :key="c" :value="c">
-            {{ c }}
-          </option>
-        </select>
-      </div>
-    </section>
-
-    <section class="block block-compact">
-      <div class="block-title">Run Settings</div>
-
-      <div class="slider-row">
-        <div class="slider-label">Max rounds</div>
-        <input
-          class="slider"
-          type="range"
-          min="1"
-          max="10"
-          step="1"
-          v-model.number="searchPlanIteration"
-          @input="handleMaxRoundsChange"
-        />
-        <div class="slider-value">{{ searchPlanIteration }}</div>
-      </div>
-
-      <div class="slider-row">
-        <div class="slider-label">RAG / plan</div>
-        <input
-          class="slider"
-          type="range"
-          min="1"
-          max="20"
-          step="1"
-          v-model.number="ragResultPerPlan"
-          @input="handleRagResultPerPlanChange"
-        />
-        <div class="slider-value">{{ ragResultPerPlan }}</div>
-      </div>
-
-      <div class="slider-row">
-        <div class="slider-label">Plans / round</div>
-        <input
-          class="slider"
-          type="range"
-          min="1"
-          max="10"
-          step="1"
-          v-model.number="plansPerRound"
-          @input="handlePlansPerRoundChange"
-        />
-        <div class="slider-value">{{ plansPerRound }}</div>
-      </div>
-    </section>
-
-    <section class="block">
-      <div class="block-title">Semantic Source Gallery</div>
-      <div class="empty">（占位：后续放缩略图/列表）</div>
-    </section>
-
-    <section class="block">
-      <div class="block-title">全局地图</div>
-      <div class="global-map-controls-row">
-        <button class="btn small secondary" @click="$emit('global-map-clear')">清除高亮</button>
-        <button class="btn small" @click="$emit('global-map-reset')">↻ 重置</button>
-      </div>
-      <div id="left-global-map" class="global-map-embed"></div>
-    </section>
-
-    <section class="block">
-      <div class="block-title">Chat with LLM</div>
-      <div class="chatbox">
-        <div class="chat-hint">You are chatting with an academic assistant.</div>
-        <input 
-          v-model="chatInput" 
-          class="chat-input" 
-          placeholder="Say something..."
-          @keyup.enter="handleChatSubmit"
-        />
-        <div v-if="chatMessages.length > 0" class="chat-messages">
-          <div 
-            v-for="(msg, index) in chatMessages" 
-            :key="index" 
-            class="chat-message"
-            :class="msg.role"
-          >
-            <span class="chat-role">{{ msg.role === 'user' ? 'You' : 'Assistant' }}:</span>
-            <span class="chat-text">{{ msg.text }}</span>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -217,7 +172,11 @@ export default {
   name: 'LeftPanel',
   data() {
     return {
-      ragCollections: ['multimodal2text', 'LLMvisDataset'],
+      // value 仍发给后端/子组件；label 仅用于下拉展示
+      ragCollections: [
+        { value: 'multimodal2text', label: 'AIRVisDataset' },
+        { value: 'LLMvisDataset', label: 'LLMvisDataset' },
+      ],
       selectedRagCollection: 'multimodal2text',
       planPrompt: '',
       evaluatePrompt: '',
@@ -229,12 +188,9 @@ export default {
       openEvalPrompt: false,
       experimentFiles: [],
       selectedExperimentFile: '',
-      searchPlanIteration: 7,
+      searchPlanIteration: 5,
       ragResultPerPlan: 10,
       plansPerRound: 3,
-      uploadedFiles: [],
-      chatInput: '',
-      chatMessages: [],
       followUpInput: ''
     };
   },
@@ -353,40 +309,6 @@ export default {
       const n = Number(this.ragResultPerPlan);
       if (!Number.isFinite(n)) return;
       this.$emit('rag-results-per-plan-change', n);
-    },
-    handleFileUpload(event) {
-      const files = Array.from(event.target.files);
-      files.forEach(file => {
-        this.uploadedFiles.push({
-          name: file.name,
-          status: '待处理',
-          file: file
-        });
-        // TODO: 实现文件上传逻辑
-        console.log('上传文件:', file.name);
-      });
-    },
-    handleChatSubmit() {
-      if (!this.chatInput.trim()) return;
-      
-      // 添加用户消息
-      this.chatMessages.push({
-        role: 'user',
-        text: this.chatInput
-      });
-      
-      // TODO: 发送到LLM API
-      console.log('发送聊天消息:', this.chatInput);
-      
-      // 模拟回复（实际应该调用API）
-      setTimeout(() => {
-        this.chatMessages.push({
-          role: 'assistant',
-          text: '这是一个示例回复。实际应该调用LLM API获取回复。'
-        });
-      }, 500);
-      
-      this.chatInput = '';
     },
     submitFollowUp() {
       const q = String(this.followUpInput || '').trim();
@@ -526,41 +448,6 @@ export default {
   padding: 6px 10px;
 }
 
-input[type="file"] {
-  width: 100%;
-  font-size: 12px;
-  padding: 4px;
-}
-
-.file-list {
-  margin-top: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.file-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 8px;
-  background: #f5f5f5;
-  border-radius: 4px;
-  font-size: 11px;
-}
-
-.file-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.file-status {
-  color: #666;
-  font-size: 10px;
-}
-
 .row {
   display: flex;
   align-items: center;
@@ -641,64 +528,14 @@ input[type="range"] {
   width: 100%;
 }
 
-.empty {
-  font-size: 12px;
-  color: #999;
-  padding: 8px 0;
-}
-
-.chatbox {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.chat-hint {
-  font-size: 12px;
-  color: #666;
-}
-
 .chat-input {
+  flex: 1;
+  min-width: 0;
   padding: 8px;
   border: 1px solid #e6e6e6;
   border-radius: 6px;
   font-size: 12px;
   font-family: inherit;
-}
-
-.chat-messages {
-  margin-top: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.chat-message {
-  padding: 6px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  line-height: 1.4;
-}
-
-.chat-message.user {
-  background: #e3f2fd;
-  text-align: right;
-}
-
-.chat-message.assistant {
-  background: #f5f5f5;
-  text-align: left;
-}
-
-.chat-role {
-  font-weight: 600;
-  margin-right: 4px;
-}
-
-.chat-text {
-  color: #333;
 }
 
 .global-map-embed {
