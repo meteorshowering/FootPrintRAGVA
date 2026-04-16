@@ -110,10 +110,25 @@ def process_result_item(result: Dict[str, Any], source_tool: str, source_args: D
 
 # 全局变量，用于动态切换 RAG 集合
 ACTIVE_COLLECTION_NAME = "multimodal2text"
+# 小地图框选：仅检索这些 chunk id（与 engine/server 单次 run 对齐；并发多用户需后续改为上下文传递）
+ACTIVE_RAG_ALLOWED_CHUNK_IDS: Optional[List[str]] = None
 
 def set_active_collection_name(name: str):
     global ACTIVE_COLLECTION_NAME
     ACTIVE_COLLECTION_NAME = name
+
+
+def set_rag_allowed_chunk_ids(ids: Optional[List[str]]) -> None:
+    """单次检索 run 内有效；None 或空列表表示不限定。"""
+    global ACTIVE_RAG_ALLOWED_CHUNK_IDS
+    if not ids:
+        ACTIVE_RAG_ALLOWED_CHUNK_IDS = None
+    else:
+        ACTIVE_RAG_ALLOWED_CHUNK_IDS = [str(x) for x in ids]
+
+
+def get_rag_allowed_chunk_ids() -> Optional[List[str]]:
+    return ACTIVE_RAG_ALLOWED_CHUNK_IDS
 
 async def strategy_exact_search(query_intent: str, n_results: int = 10) -> List[RawEvidenceItem]:
     print(f"\n🔍 [Tool: Left Path] 精确文本检索: '{query_intent}', n_results={n_results}, collection={ACTIVE_COLLECTION_NAME}")
@@ -122,7 +137,8 @@ async def strategy_exact_search(query_intent: str, n_results: int = 10) -> List[
     try:
         results = await service.query_by_exact_match(
             query_text=query_intent,
-            n_results=n_results
+            n_results=n_results,
+            allowed_chunk_ids=get_rag_allowed_chunk_ids(),
         )
     except Exception as e:
         print(f"❌ Exact Search Error: {e}")
@@ -207,10 +223,11 @@ async def strategy_metadata_search(
 ) -> List[RawEvidenceItem]:
     print(f"\n🏷️ [Tool: Right Path] 规则筛选: Paper={paper_id}, Type={figure_type}, Key={keywords}, collection={ACTIVE_COLLECTION_NAME}")
     
-    # 🔒 安全检查：如果所有参数都是 None，返回空列表，避免返回所有数据
+    rag_allow = get_rag_allowed_chunk_ids()
     if not paper_id and not keywords and not figure_type:
-        print(f"⚠️ [Tool: Right Path] 警告：所有过滤参数均为 None，返回空列表以避免返回所有数据")
-        return []
+        if not rag_allow:
+            print(f"⚠️ [Tool: Right Path] 警告：所有过滤参数均为 None，返回空列表以避免返回所有数据")
+            return []
     
     service = await get_rag_service(collection_name=ACTIVE_COLLECTION_NAME)
     
@@ -220,6 +237,7 @@ async def strategy_metadata_search(
             paper_id=paper_id,
             figure_type=figure_type,
             n_results=n_results,
+            allowed_chunk_ids=get_rag_allowed_chunk_ids(),
         )
     except Exception as e:
         print(f"❌ Metadata Search Error: {e}")

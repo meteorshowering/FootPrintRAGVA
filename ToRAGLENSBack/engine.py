@@ -14,7 +14,7 @@ from typing import List, Dict, Any, Optional
 # -----------------------------------------------------------------
 try:
     from rag_service import get_rag_service, rag_service
-    from scientific_tools import ALL_TOOLS_MAP, set_active_collection_name
+    from scientific_tools import ALL_TOOLS_MAP, set_active_collection_name, set_rag_allowed_chunk_ids
     from protocols import (
         UserRequest, OrchestratorPlan, OrchestratorPlanBatch, SingleToolOutput, ToolOutputBatchMessage,
         EvaluationRequest, EvaluationReportMessage, TaskComplete, ExpandSearchRequest, FollowUpRequest,
@@ -3129,9 +3129,11 @@ async def run_rag_workflow(
     max_rounds: int = 7,
     interactive_mode: bool = False,
     run_id: str = None,
-    pause_gate = None
+    pause_gate = None,
+    rag_allowed_chunk_ids: Optional[List[str]] = None,
 ):
     set_active_collection_name(collection_name)
+    set_rag_allowed_chunk_ids(rag_allowed_chunk_ids)
     # #region agent log
     try:
         import json as json_lib
@@ -3198,7 +3200,8 @@ async def run_rag_workflow(
                 plans_per_round=plans_per_round,
                 rag_result_per_plan=rag_result_per_plan,
                 max_rounds=max_rounds,
-                interactive=interactive_mode
+                interactive=interactive_mode,
+                rag_allowed_chunk_ids=rag_allowed_chunk_ids,
             ),
             topic_id=TopicId(TOPIC_ORCHESTRATOR, source="User")
         )
@@ -3208,6 +3211,7 @@ async def run_rag_workflow(
     except KeyboardInterrupt:
         print("User Interrupted.")
     finally:
+        set_rag_allowed_chunk_ids(None)
         await rag.close()
 
 async def run_rag_workflow_expand(
@@ -3274,12 +3278,14 @@ async def run_rag_workflow_follow_up(
     parent_node_id: str = "0",
     round_number: int = 0,
     rag_result_per_plan: int = 10,
+    rag_allowed_chunk_ids: Optional[List[str]] = None,
 ):
-    set_active_collection_name(collection_name)
     """
     追问工作流：只做一次检索 + 评估（不走多轮规划）。
     round_number 用于前端把小矩形放到“最后一轮 iteration”。
     """
+    set_active_collection_name(collection_name)
+    set_rag_allowed_chunk_ids(rag_allowed_chunk_ids)
     model_client = OpenAIChatCompletionClient(
         model="deepseek-r1:671b-0528",
         base_url="https://uni-api.cstcloud.cn/v1",
@@ -3302,16 +3308,20 @@ async def run_rag_workflow_follow_up(
     await InteractionSummaryAgent.register(runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager))
 
     runtime.start()
-    await runtime.publish_message(
-        FollowUpRequest(
-            query=query,
-            parent_node_id=parent_node_id,
-            round_number=round_number,
-            rag_result_per_plan=rag_result_per_plan,
-        ),
-        topic_id=TopicId(TOPIC_ORCHESTRATOR, source="User"),
-    )
-    await runtime.stop_when_idle()
+    try:
+        await runtime.publish_message(
+            FollowUpRequest(
+                query=query,
+                parent_node_id=parent_node_id,
+                round_number=round_number,
+                rag_result_per_plan=rag_result_per_plan,
+                rag_allowed_chunk_ids=rag_allowed_chunk_ids,
+            ),
+            topic_id=TopicId(TOPIC_ORCHESTRATOR, source="User"),
+        )
+        await runtime.stop_when_idle()
+    finally:
+        set_rag_allowed_chunk_ids(None)
 
 if __name__ == "__main__":
     asyncio.run(main())

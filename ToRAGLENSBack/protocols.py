@@ -124,6 +124,8 @@ class UserRequest(BaseModel):
     max_rounds: int = Field(default=7, ge=1, le=10)
     # ✨ 新增：是否启用交互/可中断模式
     interactive: bool = Field(default=False)
+    # 小地图框选：仅在这些 Chroma 文档 id（与 embedding JSON 的 id 一致）内检索；None 或空表示不限定
+    rag_allowed_chunk_ids: Optional[List[str]] = Field(default=None)
 
 class FollowUpRequest(BaseModel):
     """
@@ -134,6 +136,7 @@ class FollowUpRequest(BaseModel):
     parent_node_id: str = "0"
     round_number: int = Field(default=0, ge=0, le=9999)
     rag_result_per_plan: int = Field(default=10, ge=1, le=20)
+    rag_allowed_chunk_ids: Optional[List[str]] = Field(default=None)
 
 
 class OrchestratorPlan(BaseModel):

@@ -209,7 +209,15 @@ class RAGService:
     # =========================================================================
     #  接口 A: 语义检索 (查库)
     # =========================================================================
-    async def query_by_semantic(self, query_text: str, n_results: int = 3, score_threshold: float = 0.1, collection_name: str = None, use_multimodal: bool = False) -> List[Dict[str, Any]]:
+    async def query_by_semantic(
+        self,
+        query_text: str,
+        n_results: int = 3,
+        score_threshold: float = 0.1,
+        collection_name: str = None,
+        use_multimodal: bool = False,
+        allowed_chunk_ids: Optional[List[str]] = None,
+    ) -> List[Dict[str, Any]]:
         if not self.initialized: await self.initialize()
         
         # 智能选择集合
@@ -245,11 +253,16 @@ class RAGService:
                 local_threshold = score_threshold
                 # 直接获取所需的 n_results 数量，不再刻意放大范围
                 initial_n = int(n_results)
-                
+                where_filter = None
+                if allowed_chunk_ids is not None and len(allowed_chunk_ids) > 0:
+                    str_ids = [str(x) for x in allowed_chunk_ids]
+                    where_filter = {"id": {"$in": str_ids}}
+
                 raw_results = target_collection.query(
                     query_texts=[query_text],
                     n_results=initial_n,
-                    include=["metadatas", "documents", "distances"]
+                    include=["metadatas", "documents", "distances"],
+                    where=where_filter,
                 )
                 
                 # 如果结果数量不足，直接返回
@@ -295,7 +308,13 @@ class RAGService:
     # =========================================================================
     #  接口 C: 精确关键字检索 (非向量相似度，纯文本匹配)
     # =========================================================================
-    async def query_by_exact_match(self, query_text: str, n_results: int = 10, collection_name: str = None) -> List[Dict[str, Any]]:
+    async def query_by_exact_match(
+        self,
+        query_text: str,
+        n_results: int = 10,
+        collection_name: str = None,
+        allowed_chunk_ids: Optional[List[str]] = None,
+    ) -> List[Dict[str, Any]]:
         """
         在本地数据缓存中进行精确的子串匹配检索（非向量相似度）。
         适合需要包含特定关键词的硬性召回。
@@ -309,8 +328,13 @@ class RAGService:
         results = []
         
         print(f"⚡ [Exact Search] 在本地数据中进行文本匹配: '{search_term}'")
-        
+        allow_set = None
+        if allowed_chunk_ids is not None and len(allowed_chunk_ids) > 0:
+            allow_set = {str(x) for x in allowed_chunk_ids}
+
         for item in self.local_data_cache:
+            if allow_set is not None and str(item.get("id", "")) not in allow_set:
+                continue
             # 提取包含整个 chunk 的 content
             content_text = str(item.get("content", "")).lower()
             
@@ -366,6 +390,7 @@ class RAGService:
         paper_id: str = None,
         figure_type: str = None,
         n_results: Optional[int] = None,
+        allowed_chunk_ids: Optional[List[str]] = None,
     ) -> List[Dict[str, Any]]:
         """
         直接在 self.local_data_cache (JSON 列表) 中进行 Python 过滤。
@@ -373,16 +398,23 @@ class RAGService:
         """
         if not self.initialized: await self.initialize()
         
-        # 🔒 安全检查：如果所有参数都是 None，返回空列表，避免返回所有数据
+        allow_set = None
+        if allowed_chunk_ids is not None and len(allowed_chunk_ids) > 0:
+            allow_set = {str(x) for x in allowed_chunk_ids}
+
+        # 🔒 若未指定 paper/关键词/type 且也无 id 白名单，则避免返回全表
         if not paper_id and not keywords and not figure_type:
-            print(f"⚠️ [Local Search] 警告：所有过滤参数均为 None，返回空列表以避免返回所有数据")
-            return []
+            if allow_set is None:
+                print(f"⚠️ [Local Search] 警告：所有过滤参数均为 None，返回空列表以避免返回所有数据")
+                return []
         
         results = []
         
         print(f"⚡ [Local Search] 在 {len(self.local_data_cache)} 条数据中过滤: P={paper_id}, K={keywords}")
-        
+
         for item in self.local_data_cache:
+            if allow_set is not None and str(item.get("id", "")) not in allow_set:
+                continue
             # --- 解析真实元数据 ---
             # 因为数据可能被打包在 metadata 或 metadata.full_json 中
             real_item = item

@@ -10,6 +10,7 @@
         <!-- 左侧栏：控制面板 -->
         <aside class="left-panel">
           <LeftPanel
+            :map-toolbar="mapToolbarState"
             @system-prompt-change="handleSystemPromptChange"
             @rag-collection-change="handleRagCollectionChange"
             @plans-per-round-change="handlePlansPerRoundChange"
@@ -23,6 +24,9 @@
             @global-map-clear="handleGlobalMapClear"
             @global-map-reset="handleGlobalMapReset"
             @follow-up-submit="handleFollowUpSubmit"
+            @map-box-toggle="handleMapBoxToggle"
+            @map-box-confirm="handleMapBoxConfirm"
+            @map-box-clear-filter="handleMapBoxClearFilter"
           />
         </aside>
 
@@ -35,6 +39,7 @@
             :rag-results-per-plan="ragResultsPerPlan"
             :max-rounds="maxRounds"
             :global-map-mount-id="'left-global-map'"
+            @map-toolbar="handleMapToolbar"
           />
         </main>
 
@@ -78,6 +83,11 @@ export default {
       plansPerRound: 3,
       ragResultsPerPlan: 10,
       maxRounds: 5,
+      mapToolbarState: {
+        mapBoxSelectMode: false,
+        mapRagPendingIds: [],
+        mapRagFilterIds: [],
+      },
     };
   },
   methods: {
@@ -147,6 +157,23 @@ export default {
     handleFollowUpSubmit(query) {
       this.$refs.riverChart?.submitFollowUp?.(query);
     },
+    handleMapToolbar(payload) {
+      if (!payload || typeof payload !== 'object') return;
+      this.mapToolbarState = {
+        mapBoxSelectMode: !!payload.mapBoxSelectMode,
+        mapRagPendingIds: Array.isArray(payload.mapRagPendingIds) ? payload.mapRagPendingIds : [],
+        mapRagFilterIds: Array.isArray(payload.mapRagFilterIds) ? payload.mapRagFilterIds : [],
+      };
+    },
+    handleMapBoxToggle() {
+      this.$refs.riverChart?.toggleMapBoxSelectMode?.();
+    },
+    handleMapBoxConfirm() {
+      this.$refs.riverChart?.confirmMapRagSelection?.();
+    },
+    handleMapBoxClearFilter() {
+      this.$refs.riverChart?.clearMapRagFilter?.();
+    },
   }
 };
 </script>
@@ -194,7 +221,7 @@ export default {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 320px 1fr 540px; /* 左/中/右：右侧更宽 */
+  grid-template-columns: 320px minmax(0, 1fr) 25%; /* 左固定 | 中间自适应 | 右 25% 屏宽 */
   gap: 0;
   overflow: hidden;
   height: calc(100% - 44px); /* 减去标题栏高度 */

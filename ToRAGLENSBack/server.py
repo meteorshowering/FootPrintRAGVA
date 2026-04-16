@@ -12,9 +12,19 @@ from engine import run_rag_workflow, run_rag_workflow_expand, run_rag_workflow_f
 from fastapi.staticfiles import StaticFiles
 import os
 import re
-from typing import Optional, Dict
+from typing import Optional, Dict, List, Any
 
 app = FastAPI()
+
+
+def _normalize_rag_allowed_chunk_ids(raw: Any) -> Optional[List[str]]:
+    """小地图框选 id 列表；空列表视为不限定（返回 None）。"""
+    if raw is None:
+        return None
+    if not isinstance(raw, list):
+        return None
+    out = [str(x) for x in raw if x is not None and str(x).strip() != ""]
+    return out if len(out) > 0 else None
 
 # 2. 配置 CORS：允许所有来源访问
 app.add_middleware(
@@ -174,6 +184,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 rag_result_per_plan = data.get("rag_result_per_plan", 10)
                 max_rounds = data.get("max_rounds", 7)
                 interactive = data.get("interactive", False)
+                rag_allowed_chunk_ids = _normalize_rag_allowed_chunk_ids(data.get("rag_allowed_chunk_ids"))
                 try:
                     plans_per_round = int(plans_per_round)
                 except Exception:
@@ -208,7 +219,8 @@ async def websocket_endpoint(websocket: WebSocket):
                             max_rounds=max_rounds,
                             interactive_mode=interactive,
                             run_id=run_id,
-                            pause_gate=pause_gate
+                            pause_gate=pause_gate,
+                            rag_allowed_chunk_ids=rag_allowed_chunk_ids,
                         )
                     )
             elif data.get("action") == "interactive_response":
@@ -231,6 +243,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 parent_node_id = data.get("parent_node_id", "0")
                 round_number = data.get("round_number", 0)
                 rag_result_per_plan = data.get("rag_result_per_plan", 10)
+                rag_allowed_chunk_ids = _normalize_rag_allowed_chunk_ids(data.get("rag_allowed_chunk_ids"))
                 try:
                     round_number = int(round_number)
                 except Exception:
@@ -248,6 +261,7 @@ async def websocket_endpoint(websocket: WebSocket):
                             parent_node_id=str(parent_node_id or "0"),
                             round_number=round_number,
                             rag_result_per_plan=rag_result_per_plan,
+                            rag_allowed_chunk_ids=rag_allowed_chunk_ids,
                         )
                     )
             elif data.get("type") == "expand_search":

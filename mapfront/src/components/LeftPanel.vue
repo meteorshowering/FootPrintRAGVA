@@ -17,6 +17,38 @@
         <button class="btn small secondary" @click="$emit('global-map-clear')">清除高亮</button>
         <button class="btn small" @click="$emit('global-map-reset')">↻ 重置</button>
       </div>
+      <div class="left-global-map-toolbar embed-map-toolbar">
+        <button
+          type="button"
+          class="map-box-toggle"
+          :class="{ 'is-active': mapToolbar.mapBoxSelectMode }"
+          title="框选后确认，仅在这些点内检索"
+          @click="$emit('map-box-toggle')"
+        >框选</button>
+        <button
+          v-if="(mapToolbar.mapRagPendingIds || []).length"
+          type="button"
+          class="map-box-confirm"
+          title="将当前框选设为检索范围"
+          @click="$emit('map-box-confirm')"
+        >确认({{ (mapToolbar.mapRagPendingIds || []).length }})</button>
+        <button
+          v-if="(mapToolbar.mapRagFilterIds || []).length"
+          type="button"
+          class="map-box-clear-filter"
+          title="取消限定，恢复全库检索"
+          @click="$emit('map-box-clear-filter')"
+        >限定{{ (mapToolbar.mapRagFilterIds || []).length }}</button>
+      </div>
+      <p v-if="mapToolbar.mapBoxSelectMode" class="map-box-hint">
+        ① 在下方地图<strong>按住左键拖拽</strong>画矩形框住数据点；② 松开后点<strong>「确认」</strong>；③ 再提交查询，仅在框内检索。再次点「框选」可退出。
+      </p>
+      <p
+        v-else-if="(mapToolbar.mapRagFilterIds || []).length"
+        class="map-box-hint map-box-hint--muted"
+      >
+        当前已限定 {{ (mapToolbar.mapRagFilterIds || []).length }} 条；点「限定…」可取消。
+      </p>
       <div id="left-global-map" class="global-map-embed"></div>
     </section>
 
@@ -170,6 +202,16 @@ import { marked } from 'marked';
 
 export default {
   name: 'LeftPanel',
+  props: {
+    mapToolbar: {
+      type: Object,
+      default: () => ({
+        mapBoxSelectMode: false,
+        mapRagPendingIds: [],
+        mapRagFilterIds: [],
+      }),
+    },
+  },
   data() {
     return {
       // value 仍发给后端/子组件；label 仅用于下拉展示
@@ -551,6 +593,70 @@ input[type="range"] {
   display: flex;
   gap: 8px;
   margin-bottom: 8px;
+}
+
+.left-global-map-toolbar {
+  margin-bottom: 8px;
+  min-height: 0;
+}
+
+.embed-map-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.embed-map-toolbar .map-box-toggle,
+.embed-map-toolbar .map-box-confirm,
+.embed-map-toolbar .map-box-clear-filter {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.embed-map-toolbar .map-box-toggle.is-active {
+  background: #e67e22;
+  color: #fff;
+  border-color: #d35400;
+}
+
+.embed-map-toolbar .map-box-confirm {
+  background: #28a745;
+  color: #fff;
+  border-color: #1e7e34;
+}
+
+.embed-map-toolbar .map-box-clear-filter {
+  background: #6c757d;
+  color: #fff;
+  border-color: #545b62;
+}
+
+.map-box-hint {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #334155;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+}
+
+.map-box-hint strong {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.map-box-hint--muted {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #64748b;
 }
 
 .global-map-embed svg.global-map-svg {
