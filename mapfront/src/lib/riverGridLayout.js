@@ -19,13 +19,96 @@ export function createDefaultGridState() {
 /**
  * 确保网格尺寸
  */
-export function ensureGridSizing(vm, allRounds) {
-  const roundNumbers = allRounds.map(r => r.round_number);
-  const maxQueryCount = Math.max(1, ...allRounds.map(r => Array.isArray(r.query_results) ? r.query_results.length : 0));
+/** 列唯一键：多问题模式下为 __gridColKey，否则为 round_number */
+export function gridColumnKey(r) {
+  if (r && r.__gridColKey) return String(r.__gridColKey);
+  return `r${r.round_number}`;
+}
+
+function _queryResultPlanKey(qr) {
+  const p = qr && qr.orchestrator_plan;
+  if (!p) return '';
+  return `${p.tool_name || ''}|${JSON.stringify(p.args || {})}`;
+}
+
+function _mergeQueryResultsInRound(existing, incoming) {
+  const map = new Map();
+  (existing || []).forEach((qr) => map.set(_queryResultPlanKey(qr), qr));
+  (incoming || []).forEach((qr) => {
+    const k = _queryResultPlanKey(qr);
+    const prev = map.get(k);
+    if (!prev) {
+      map.set(k, qr);
+      return;
+    }
+    const pr = (prev.rag_results || []).length;
+    const ir = (qr.rag_results || []).length;
+    map.set(k, ir >= pr ? qr : prev);
+  });
+  return Array.from(map.values());
+}
+
+/**
+ * 同一列键（sessionId__round_number）只保留一条 round，合并 query_results。
+ * 避免重复列键导致 colPositions 覆盖、格子重叠或挤掉上一行。
+ */
+export function dedupeRoundsByGridColumnKey(rounds) {
+  const map = new Map();
+  (rounds || []).forEach((r) => {
+    if (!r || r.round_number === undefined) return;
+    const ck = gridColumnKey(r);
+    if (!map.has(ck)) {
+      map.set(ck, { ...r, query_results: [...(r.query_results || [])] });
+    } else {
+      const cur = map.get(ck);
+      cur.query_results = _mergeQueryResultsInRound(cur.query_results || [], r.query_results || []);
+    }
+  });
+  return Array.from(map.values()).sort((a, b) => {
+    if (String(a._sessionId) !== String(b._sessionId)) {
+      return String(a._sessionId).localeCompare(String(b._sessionId));
+    }
+    return a.round_number - b.round_number;
+  });
+}
+
+/** 按会话分组并保持与 getAllRounds 首次出现顺序一致；每个会话独立一条「横带」，多会话上下排列 */
+export function sessionGroupsInOrder(allRounds) {
+  const bySid = new Map();
+  (allRounds || []).forEach((r) => {
+    const sid = r._sessionId || 'default';
+    if (!bySid.has(sid)) bySid.set(sid, []);
+    bySid.get(sid).push(r);
+  });
+  const order = [];
+  const seen = new Set();
+  (allRounds || []).forEach((r) => {
+    const sid = r._sessionId || 'default';
+    if (!seen.has(sid)) {
+      seen.add(sid);
+      order.push(sid);
+    }
+  });
+  return order.map((sid) => ({
+    sessionId: sid,
+    rounds: (bySid.get(sid) || []).sort((a, b) => a.round_number - b.round_number)
+  }));
+}
+
+const SESSION_STRIP_GAP = 48;
+
+export function ensureGridSizing(vm, allRounds, maxQueryOverride) {
+  const colKeys = allRounds.map((r) => gridColumnKey(r));
+  const fromData = Math.max(
+    1,
+    ...allRounds.map((r) => (Array.isArray(r.query_results) ? r.query_results.length : 0))
+  );
+  const maxQueryCount =
+    typeof maxQueryOverride === 'number' && maxQueryOverride >= 1 ? maxQueryOverride : fromData;
 
   if (!vm.gridState.columnWidths['label']) vm.gridState.columnWidths['label'] = 92;
-  roundNumbers.forEach(roundNo => {
-    if (!vm.gridState.columnWidths[`round-${roundNo}`]) vm.gridState.columnWidths[`round-${roundNo}`] = vm.strategyWidth;
+  colKeys.forEach((ck) => {
+    if (!vm.gridState.columnWidths[`round-${ck}`]) vm.gridState.columnWidths[`round-${ck}`] = vm.strategyWidth;
   });
 
   if (!vm.gridState.rowHeights['header']) vm.gridState.rowHeights['header'] = 58;
@@ -38,52 +121,116 @@ export function ensureGridSizing(vm, allRounds) {
 }
 
 /**
- * 构建列/行位置 metrics
+ * 构建列/行位置 metrics（按 session 分条带纵向堆叠：新会话整带在下方，不再向右延伸）
  */
 export function buildGridMetrics(vm, allRounds) {
-  ensureGridSizing(vm, allRounds);
-
-  const roundNumbers = allRounds.map(r => r.round_number);
-  const maxQueryCount = Math.max(1, ...allRounds.map(r => Array.isArray(r.query_results) ? r.query_results.length : 0));
-
-  const colPositions = {};
-  const rowPositions = {};
-
-  let x = vm.roundMargin;
-  colPositions['label'] = { x, width: vm.gridState.columnWidths['label'] };
-  x += vm.gridState.columnWidths['label'];
-
-  roundNumbers.forEach(roundNo => {
-    colPositions[`round-${roundNo}`] = { x, width: vm.gridState.columnWidths[`round-${roundNo}`] };
-    x += vm.gridState.columnWidths[`round-${roundNo}`] + vm.strategyMargin;
-  });
-
-  let y = vm.roundMargin;
-  rowPositions['header'] = { y, height: vm.gridState.rowHeights['header'] };
-  y += vm.gridState.rowHeights['header'] + 10;
-
-  for (let i = 0; i < maxQueryCount; i++) {
-    rowPositions[`row-${i}`] = { y, height: vm.gridState.rowHeights[`row-${i}`] };
-    y += vm.gridState.rowHeights[`row-${i}`] + vm.strategyMargin;
+  let maxQueryCount = Math.max(
+    1,
+    ...allRounds.map((r) => (Array.isArray(r.query_results) ? r.query_results.length : 0))
+  );
+  const prev = vm.gridMetrics && vm.gridMetrics.maxQueryCount;
+  if (typeof prev === 'number' && prev > maxQueryCount && (allRounds || []).length > 0) {
+    maxQueryCount = prev;
   }
+  ensureGridSizing(vm, allRounds, maxQueryCount);
+
+  const rm = vm.roundMargin != null ? vm.roundMargin : 16;
+  const sm = vm.strategyMargin != null ? vm.strategyMargin : 10;
+  const labelW = vm.gridState.columnWidths.label || 92;
+  const headerH = vm.gridState.rowHeights.header || 58;
+
+  const groups = sessionGroupsInOrder(allRounds);
+  const colPositions = {};
+  const strips = [];
+  const roundNumbers = [];
+
+  colPositions.label = { x: rm, width: labelW };
+  const xAfterLabel = colPositions.label.x + colPositions.label.width + sm;
+
+  let yCursor = rm;
+  let maxX = colPositions.label.x + colPositions.label.width;
+
+  for (let gi = 0; gi < groups.length; gi += 1) {
+    const g = groups[gi];
+    const rounds = g.rounds;
+    if (!rounds.length) continue;
+
+    const stripTop = yCursor;
+    const headerY = stripTop;
+    yCursor += headerH + 10;
+
+    const rowYs = [];
+    for (let i = 0; i < maxQueryCount; i += 1) {
+      const rh = vm.gridState.rowHeights[`row-${i}`] || vm.strategyHeight + 24;
+      rowYs.push({ y: yCursor, height: rh });
+      yCursor += rh + sm;
+    }
+
+    const stripBottom = yCursor;
+    const stripIndex = strips.length;
+    strips.push({
+      sessionId: g.sessionId,
+      stripTop,
+      headerY,
+      headerH,
+      rowYs,
+      stripBottom
+    });
+
+    let x = xAfterLabel;
+    rounds.forEach((r) => {
+      const ck = gridColumnKey(r);
+      roundNumbers.push(ck);
+      const ww = vm.gridState.columnWidths[`round-${ck}`] || vm.strategyWidth;
+      colPositions[`round-${ck}`] = {
+        x,
+        width: ww,
+        stripIndex
+      };
+      maxX = Math.max(maxX, x + ww);
+      x += ww + sm;
+    });
+
+    yCursor += SESSION_STRIP_GAP;
+  }
+
+  const rowPositions = {};
+  if (strips.length > 0) {
+    const s0 = strips[0];
+    rowPositions.header = { y: s0.headerY, height: headerH };
+    for (let i = 0; i < maxQueryCount; i += 1) {
+      const rr = s0.rowYs[i];
+      if (rr) rowPositions[`row-${i}`] = { y: rr.y, height: rr.height };
+    }
+  } else {
+    rowPositions.header = { y: rm, height: headerH };
+  }
+
+  const totalHeight = yCursor + rm;
+  const totalWidth = maxX + rm;
 
   return {
     roundNumbers,
     maxQueryCount,
     colPositions,
     rowPositions,
-    totalWidth: x + vm.roundMargin,
-    totalHeight: y + vm.roundMargin
+    strips,
+    roundMargin: rm,
+    totalWidth,
+    totalHeight
   };
 }
 
 /**
  * 获取单元格矩形
  */
-export function getStrategyCellRect(vm, metrics, roundNumber, queryIndex) {
-  const col = metrics.colPositions[`round-${roundNumber}`];
-  const row = metrics.rowPositions[`row-${queryIndex}`];
-  if (!col || !row) return null;
+export function getStrategyCellRect(vm, metrics, roundNumber, queryIndex, gridColKey = null) {
+  const ck = gridColKey != null ? String(gridColKey) : `r${roundNumber}`;
+  const col = metrics.colPositions[`round-${ck}`];
+  if (!col || col.stripIndex === undefined || !metrics.strips) return null;
+  const strip = metrics.strips[col.stripIndex];
+  const row = strip && strip.rowYs[queryIndex];
+  if (!strip || !row) return null;
   const padX = 10;
   const padY = 6;
   return {
@@ -97,19 +244,23 @@ export function getStrategyCellRect(vm, metrics, roundNumber, queryIndex) {
 /**
  * 获取列标题矩形
  */
-export function getRoundHeaderRect(metrics, roundNumber) {
-  const col = metrics.colPositions[`round-${roundNumber}`];
-  const row = metrics.rowPositions['header'];
-  if (!col || !row) return null;
-  return { x: col.x, y: row.y, width: col.width, height: row.height };
+export function getRoundHeaderRect(metrics, roundNumber, gridColKey = null) {
+  const ck = gridColKey != null ? String(gridColKey) : `r${roundNumber}`;
+  const col = metrics.colPositions[`round-${ck}`];
+  if (!col || col.stripIndex === undefined || !metrics.strips) return null;
+  const strip = metrics.strips[col.stripIndex];
+  if (!strip) return null;
+  return { x: col.x, y: strip.headerY, width: col.width, height: strip.headerH };
 }
 
 /**
- * 获取行标签矩形
+ * 获取行标签矩形（多会话时须带 stripIndex）
  */
-export function getRowLabelRect(metrics, queryIndex) {
+export function getRowLabelRect(metrics, queryIndex, stripIndex = 0) {
   const col = metrics.colPositions['label'];
-  const row = metrics.rowPositions[`row-${queryIndex}`];
+  if (!metrics.strips || !metrics.strips[stripIndex]) return null;
+  const strip = metrics.strips[stripIndex];
+  const row = strip.rowYs[queryIndex];
   if (!col || !row) return null;
   return { x: col.x, y: row.y, width: col.width, height: row.height };
 }
@@ -121,12 +272,15 @@ export function getColumnResizeHandles(metrics) {
   const handles = [];
   Object.entries(metrics.colPositions).forEach(([key, col]) => {
     if (key === 'label') return;
+    if (col.stripIndex === undefined || !metrics.strips) return;
+    const strip = metrics.strips[col.stripIndex];
+    if (!strip) return;
     handles.push({
       key,
       x: col.x + col.width,
-      y: metrics.rowPositions['header'].y,
+      y: strip.headerY,
       width: 8,
-      height: Object.values(metrics.rowPositions).reduce((acc, r) => Math.max(acc, r.y + r.height), 0) - metrics.rowPositions['header'].y + 20
+      height: Math.max(48, strip.stripBottom - strip.headerY + 20)
     });
   });
   return handles;
@@ -137,14 +291,17 @@ export function getColumnResizeHandles(metrics) {
  */
 export function getRowResizeHandles(metrics) {
   const handles = [];
-  Object.entries(metrics.rowPositions).forEach(([key, row]) => {
-    if (key === 'header') return;
-    handles.push({
-      key,
-      x: metrics.colPositions['label'].x,
-      y: row.y + row.height,
-      width: Object.values(metrics.colPositions).reduce((acc, c) => Math.max(acc, c.x + c.width), 0) - metrics.colPositions['label'].x + 20,
-      height: 8
+  const labelX = metrics.colPositions.label.x;
+  const totalW = metrics.totalWidth || 800;
+  (metrics.strips || []).forEach((strip) => {
+    (strip.rowYs || []).forEach((row, idx) => {
+      handles.push({
+        key: `s-${strip.sessionId}-row-${idx}`,
+        x: labelX,
+        y: row.y + row.height,
+        width: totalW - labelX + 20,
+        height: 8
+      });
     });
   });
   return handles;

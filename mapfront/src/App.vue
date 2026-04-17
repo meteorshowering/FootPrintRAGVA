@@ -23,7 +23,7 @@
             @river-select-file="handleRiverSelectFile"
             @global-map-clear="handleGlobalMapClear"
             @global-map-reset="handleGlobalMapReset"
-            @follow-up-submit="handleFollowUpSubmit"
+            @skip-evaluation-change="handleSkipEvaluationChange"
             @map-box-toggle="handleMapBoxToggle"
             @map-box-confirm="handleMapBoxConfirm"
             @map-box-clear-filter="handleMapBoxClearFilter"
@@ -38,6 +38,7 @@
             :plans-per-round="plansPerRound"
             :rag-results-per-plan="ragResultsPerPlan"
             :max-rounds="maxRounds"
+            :skip-evaluation="skipEvaluation"
             :global-map-mount-id="'left-global-map'"
             @map-toolbar="handleMapToolbar"
           />
@@ -80,9 +81,10 @@ export default {
       showHypothesisView: false,
       hypothesisData: null,
       ragCollection: 'multimodal2text',
-      plansPerRound: 3,
+      plansPerRound: 2,
       ragResultsPerPlan: 10,
-      maxRounds: 5,
+      maxRounds: 3,
+      skipEvaluation: false,
       mapToolbarState: {
         mapBoxSelectMode: false,
         mapRagPendingIds: [],
@@ -118,7 +120,7 @@ export default {
     handlePlansPerRoundChange(n) {
       const value = Number(n);
       if (!Number.isFinite(value)) return;
-      this.plansPerRound = Math.max(1, Math.min(5, value));
+      this.plansPerRound = Math.max(1, Math.min(10, value));
     },
     handleRagResultsPerPlanChange(n) {
       const value = Number(n);
@@ -129,8 +131,8 @@ export default {
     handleMaxRoundsChange(n) {
       const value = Number(n);
       if (!Number.isFinite(value)) return;
-      // 与左侧滑块一致：1–5
-      this.maxRounds = Math.max(1, Math.min(5, value));
+      // 与后端一致：1–10
+      this.maxRounds = Math.max(1, Math.min(10, value));
     },
 
     handleRiverLoadAll() {
@@ -154,8 +156,8 @@ export default {
     handleGlobalMapReset() {
       this.$refs.riverChart?.resetGlobalMapSize?.();
     },
-    handleFollowUpSubmit(query) {
-      this.$refs.riverChart?.submitFollowUp?.(query);
+    handleSkipEvaluationChange(val) {
+      this.skipEvaluation = !!val;
     },
     handleMapToolbar(payload) {
       if (!payload || typeof payload !== 'object') return;

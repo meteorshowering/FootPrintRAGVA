@@ -61,7 +61,7 @@
           class="slider"
           type="range"
           min="1"
-          max="5"
+          max="10"
           step="1"
           v-model.number="searchPlanIteration"
           @input="handleMaxRoundsChange"
@@ -89,13 +89,22 @@
           class="slider"
           type="range"
           min="1"
-          max="5"
+          max="10"
           step="1"
           v-model.number="plansPerRound"
           @input="handlePlansPerRoundChange"
         />
         <div class="slider-value">{{ plansPerRound }}</div>
       </div>
+
+      <label class="skip-eval-row">
+        <input
+          type="checkbox"
+          v-model="skipEvaluation"
+          @change="$emit('skip-evaluation-change', skipEvaluation)"
+        />
+        <span>跳过评估（快速，仅检索占位 KEEP）</span>
+      </label>
     </section>
 
     <section class="block">
@@ -182,18 +191,6 @@
       </div>
     </section>
 
-    <section class="block">
-      <div class="block-title">追问（只做检索+评估）</div>
-      <div class="row">
-        <input
-          v-model="followUpInput"
-          class="chat-input"
-          placeholder="输入追问，将追加到最后一轮 iteration"
-          @keyup.enter="submitFollowUp"
-        />
-        <button class="btn small" @click="submitFollowUp">发送</button>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -230,10 +227,10 @@ export default {
       openEvalPrompt: false,
       experimentFiles: [],
       selectedExperimentFile: '',
-      searchPlanIteration: 5,
+      searchPlanIteration: 3,
       ragResultPerPlan: 10,
-      plansPerRound: 3,
-      followUpInput: ''
+      plansPerRound: 2,
+      skipEvaluation: false
     };
   },
   methods: {
@@ -352,12 +349,6 @@ export default {
       if (!Number.isFinite(n)) return;
       this.$emit('rag-results-per-plan-change', n);
     },
-    submitFollowUp() {
-      const q = String(this.followUpInput || '').trim();
-      if (!q) return;
-      this.$emit('follow-up-submit', q);
-      this.followUpInput = '';
-    }
   },
   mounted() {
     this.loadExperimentFileList();
@@ -367,6 +358,20 @@ export default {
 </script>
 
 <style scoped>
+.skip-eval-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(51, 65, 85, 0.95);
+  cursor: pointer;
+}
+.skip-eval-row input {
+  margin-top: 2px;
+}
+
 .panel {
   padding: 8px;
   height: 100%;

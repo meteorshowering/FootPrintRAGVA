@@ -20,6 +20,15 @@
         >
           {{ isSubmitting ? '提交中...' : '提交查询' }}
         </button>
+        <button
+          type="button"
+          class="btn btn-add-question"
+          :disabled="isSubmitting"
+          title="归档当前结果并添加新问题列"
+          @click="openAddQuestionPrompt"
+        >
+          + 添加问题
+        </button>
       </div>
     </div>
 
@@ -56,6 +65,42 @@
           class="river-grid-surface"
           :style="{ width: sceneCanvasSize.width + 'px', height: sceneCanvasSize.height + 'px' }"
         >
+          <div
+            v-for="sh in sessionHeaderOverlays"
+            :key="sh.key"
+            class="session-header-overlay"
+            :class="{ 'is-empty-prompt': sh.isEmptyPlaceholder }"
+            :style="sh.style"
+            :title="sh.isEmptyPlaceholder ? '点击添加问题' : ''"
+            @click="onSessionHeaderOverlayClick(sh)"
+          >{{ sh.title }}</div>
+
+          <button
+            v-for="b in sessionAddButtonsBelow"
+            :key="b.key"
+            type="button"
+            class="session-large-followup-btn"
+            :style="b.style"
+            :disabled="isSubmitting"
+            title="在当前问题下方新开一行（大追问：新会话列）"
+            @click.stop="openAddQuestionPrompt"
+          >
+            大追问
+          </button>
+
+          <button
+            v-for="b in followUpChromeButtons"
+            :key="b.key"
+            type="button"
+            class="session-add-below-btn follow-up-chrome-btn"
+            :style="b.style"
+            :disabled="isSubmitting"
+            title="追问"
+            @click.stop="openFollowUpDialog"
+          >
+            追
+          </button>
+
           <div
             v-for="header in headerCells"
             :key="header.key"
@@ -126,7 +171,7 @@
 
             <div class="strategy-card-map-wrap">
               <svg
-                :ref="miniMapRefName(card.roundNumber, card.queryIndex)"
+                :ref="miniMapRefName(card.gridColKey, card.queryIndex)"
                 class="strategy-mini-svg"
               ></svg>
             </div>
@@ -161,6 +206,50 @@
         :style="dragHintStyle"
       >
         {{ dragState.hoverTarget.mode === 'merge' ? '松开以合并' : '松开以交换位置' }}
+      </div>
+    </div>
+
+    <div v-if="addQuestionDialog" class="modal add-q-modal" @click.self="cancelAddQuestionDialog">
+      <div class="modal-content add-q-modal-inner">
+        <div class="modal-header">
+          <h2>添加新问题</h2>
+          <button type="button" class="close-btn" @click="cancelAddQuestionDialog">×</button>
+        </div>
+        <div class="modal-body">
+          <input
+            v-model="addQuestionDraft"
+            class="question-input"
+            type="text"
+            placeholder="输入新问题…"
+            @keyup.enter="confirmAddQuestionDialog"
+          />
+          <div class="add-q-actions">
+            <button type="button" class="btn btn-submit" @click="confirmAddQuestionDialog">确定</button>
+            <button type="button" class="btn" @click="cancelAddQuestionDialog">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="followUpDialog" class="modal add-q-modal" @click.self="cancelFollowUpDialog">
+      <div class="modal-content add-q-modal-inner">
+        <div class="modal-header">
+          <h2>追问</h2>
+          <button type="button" class="close-btn" @click="cancelFollowUpDialog">×</button>
+        </div>
+        <div class="modal-body">
+          <input
+            v-model="followUpDraft"
+            class="question-input"
+            type="text"
+            placeholder="输入追问内容…"
+            @keyup.enter="confirmFollowUpDialog"
+          />
+          <div class="add-q-actions">
+            <button type="button" class="btn btn-submit" @click="confirmFollowUpDialog">确定</button>
+            <button type="button" class="btn" @click="cancelFollowUpDialog">取消</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -276,7 +365,7 @@ export default {
   props: {
     plansPerRound: {
       type: Number,
-      default: 3
+      default: 2
     },
     ragResultsPerPlan: {
       type: Number,
@@ -284,7 +373,7 @@ export default {
     },
     maxRounds: {
       type: Number,
-      default: 5
+      default: 3
     },
     // 全局地图嵌入的容器 id（如 left-global-map）；未传则不绘制全局地图
     globalMapMountId: {
@@ -294,10 +383,26 @@ export default {
     ragCollection: {
       type: String,
       default: 'multimodal2text'
+    },
+    /** 与左栏「跳过评估」同步：为 true 时检索后由后端写占位 KEEP，不调用 Evaluator LLM */
+    skipEvaluation: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
+      /** 已完成归档的问题列（左侧已固化），每项含独立 sessionId 与 roundsData */
+      completedQuestionColumns: [],
+      /** 当前正在跑或刚提交的问题对应的会话 id（与后端 experiment_result.session_id 对齐） */
+      activeSessionId: '',
+      /** 多问题共用的批次 id，对应后端 logs/experiment_results_{batch_id}.json（sessions 合并） */
+      sessionBatchId: '',
+      /** 添加问题：输入框与插入位置（null | { afterColumnIndex: number }） */
+      addQuestionDialog: null,
+      addQuestionDraft: '',
+      followUpDialog: null,
+      followUpDraft: '',
       roundsData: [],
       svgWidth: 0,
       svgHeight: 0,
@@ -387,6 +492,8 @@ export default {
       mapBoxDragRect: null,
       mapRagPendingIds: [],
       mapRagFilterIds: [],
+      /** 与 embedding 二维坐标一致：[[xmin,ymin],[xmax,ymax]]，供后端 experiment JSON 记录 */
+      mapRagRect2d: null,
       globalMapZoomTransform: null,
       /** 全局地图 contentGroup（含 zoom transform），用于 d3.pointer 与圆点 cx/cy 同一坐标系 */
       globalMapContentGroupNode: null
@@ -410,8 +517,19 @@ export default {
       const maxRound = Math.max(...this.roundsData.map(r => r.round_number), 0);
       return (maxRound + 1) * (this.strategyWidth + this.roundMargin) + this.roundMargin;
     },
+    showEmptySessionChrome() {
+      return (
+        this.completedQuestionColumns.length === 0 &&
+        (!this.roundsData || this.roundsData.length === 0) &&
+        !this.isSubmitting
+      );
+    },
     hasGridContent() {
-      return !!(this.roundsData && this.roundsData.length > 0 && this.gridMetrics);
+      if (this.showEmptySessionChrome) return !!this.gridMetrics;
+      return !!(
+        this.gridMetrics &&
+        ((this.roundsData && this.roundsData.length > 0) || this.completedQuestionColumns.length > 0)
+      );
     },
     sceneSize() {
       return {
@@ -437,10 +555,13 @@ export default {
     headerCells() {
       if (!this.gridMetrics) return [];
       return this.getAllRounds().map((round) => {
-        const rect = riverGrid.getRoundHeaderRect(this.gridMetrics, round.round_number);
+        const gck = round.__gridColKey || riverGrid.gridColumnKey(round);
+        const rect = riverGrid.getRoundHeaderRect(this.gridMetrics, round.round_number, gck);
         return {
-          key: `header-${round.round_number}`,
+          key: `header-${gck}`,
           roundNumber: round.round_number,
+          sessionId: round._sessionId,
+          gridColKey: gck,
           count: round.query_results?.length || 0,
           style: rect ? {
             left: `${rect.x}px`,
@@ -451,40 +572,232 @@ export default {
         };
       }).filter(Boolean);
     },
-    rowLabelCells() {
+    /** 每个问题会话一条合并表头（横跨该问题下所有 Round 列） */
+    sessionHeaderOverlays() {
       if (!this.gridMetrics) return [];
-      return Array.from({ length: this.gridMetrics.maxQueryCount }, (_, idx) => {
-        const rect = riverGrid.getRowLabelRect(this.gridMetrics, idx);
-        return {
-          key: `row-label-${idx}`,
-          index: idx,
-          style: rect ? {
-            left: `${rect.x}px`,
-            top: `${rect.y}px`,
-            width: `${rect.width}px`,
-            height: `${rect.height}px`
-          } : {}
-        };
+      const rounds = this.getAllRounds();
+      if (!rounds.length) return [];
+      const bySid = new Map();
+      rounds.forEach((r) => {
+        const sid = r._sessionId || 'default';
+        if (!bySid.has(sid)) bySid.set(sid, []);
+        bySid.get(sid).push(r);
       });
+      const out = [];
+      bySid.forEach((list, sid) => {
+        list.sort((a, b) => a.round_number - b.round_number);
+        let minX = Infinity;
+        let maxX = -Infinity;
+        let title = '';
+        list.forEach((r) => {
+          const gck = r.__gridColKey || riverGrid.gridColumnKey(r);
+          const rect = riverGrid.getRoundHeaderRect(this.gridMetrics, r.round_number, gck);
+          if (!rect) return;
+          minX = Math.min(minX, rect.x);
+          maxX = Math.max(maxX, rect.x + rect.width);
+        });
+        if (sid === 'empty') {
+          title = '+ 添加问题';
+          const strip = this.gridMetrics.strips && this.gridMetrics.strips[0];
+          const row0 = strip && strip.rowYs && strip.rowYs[0];
+          const label = this.gridMetrics.colPositions.label;
+          const firstR = list[0];
+          const gck0 = firstR.__gridColKey || riverGrid.gridColumnKey(firstR);
+          const firstCol = this.gridMetrics.colPositions[`round-${gck0}`];
+          if (!row0 || !label || !firstCol) return;
+          out.push({
+            key: `sess-head-${sid}`,
+            sessionId: sid,
+            title,
+            isEmptyPlaceholder: true,
+            style: {
+              left: `${label.x}px`,
+              top: `${row0.y}px`,
+              width: `${firstCol.x - label.x}px`,
+              height: `${row0.height}px`
+            }
+          });
+          return;
+        }
+        const col = this.completedQuestionColumns.find((c) => c.sessionId === sid);
+        if (col && col.rootGoal) title = col.rootGoal;
+        if (sid === this.activeSessionId) {
+          title =
+            (this.experimentResult && this.experimentResult.root_goal) ||
+            title ||
+            (this.userQuestion && this.userQuestion.trim()) ||
+            '当前问题';
+        }
+        if (!title) title = '问题';
+        if (minX === Infinity) return;
+        const strip = this.gridMetrics.strips && this.gridMetrics.strips.find((s) => s.sessionId === sid);
+        const row0 = strip && strip.rowYs && strip.rowYs[0];
+        const label = this.gridMetrics.colPositions.label;
+        if (!row0 || !label) return;
+        const stripMaxW = 240;
+        const left = Math.max(label.x, minX - stripMaxW);
+        const stripW = Math.max(72, minX - left);
+        out.push({
+          key: `sess-head-${sid}`,
+          sessionId: sid,
+          title: title.length > 80 ? `${title.slice(0, 80)}…` : title,
+          isEmptyPlaceholder: false,
+          style: {
+            left: `${left}px`,
+            top: `${row0.y}px`,
+            width: `${stripW}px`,
+            height: `${row0.height}px`
+          }
+        });
+      });
+      return out;
+    },
+    /** 每个已有问题会话列组正下方居中的「+」，用于添加新问题 */
+    sessionAddButtonsBelow() {
+      if (!this.gridMetrics) return [];
+      const m = this.gridMetrics;
+      const rounds = this.getAllRounds();
+      if (!rounds.length) return [];
+      const bySid = new Map();
+      rounds.forEach((r) => {
+        const sid = r._sessionId || 'default';
+        if (!bySid.has(sid)) bySid.set(sid, []);
+        bySid.get(sid).push(r);
+      });
+      const lastRowIdx = Math.max(0, m.maxQueryCount - 1);
+      const out = [];
+      bySid.forEach((list, sid) => {
+        if (sid === 'empty') return;
+        list.sort((a, b) => a.round_number - b.round_number);
+        const strip = m.strips && m.strips.find((s) => s.sessionId === sid);
+        const rowLast = strip && strip.rowYs && strip.rowYs[lastRowIdx];
+        if (!rowLast) return;
+        const bottomY = rowLast.y + rowLast.height + 10;
+        let minX = Infinity;
+        let maxX = -Infinity;
+        list.forEach((r) => {
+          const gck = r.__gridColKey || riverGrid.gridColumnKey(r);
+          const rect = riverGrid.getRoundHeaderRect(this.gridMetrics, r.round_number, gck);
+          if (!rect) return;
+          minX = Math.min(minX, rect.x);
+          maxX = Math.max(maxX, rect.x + rect.width);
+        });
+        if (minX === Infinity) return;
+        const btnW = 88;
+        const btnH = 36;
+        const cx = (minX + maxX) / 2 - btnW / 2;
+        out.push({
+          key: `add-below-${sid}`,
+          sessionId: sid,
+          style: {
+            left: `${cx}px`,
+            top: `${bottomY}px`,
+            width: `${btnW}px`,
+            height: `${btnH}px`
+          }
+        });
+      });
+      return out;
+    },
+    /** 有策略格子数据后才显示追问按钮（非空表初始态） */
+    showFollowUpChrome() {
+      if (this.showEmptySessionChrome) return false;
+      if (!this.gridMetrics) return false;
+      const all = this.getAllRounds();
+      return all.some(
+        (r) =>
+          r._sessionId !== 'empty' &&
+          Array.isArray(r.query_results) &&
+          r.query_results.length > 0
+      );
+    },
+    /** Row 列最下方外侧 + Round 表头行最右侧外侧，各一追问入口 */
+    followUpChromeButtons() {
+      if (!this.showFollowUpChrome || !this.gridMetrics) return [];
+      const m = this.gridMetrics;
+      const label = m.colPositions.label;
+      const act = this.activeSessionId;
+      const strip = m.strips && act && m.strips.find((s) => s.sessionId === act);
+      if (!strip || !strip.rowYs || !strip.rowYs.length) return [];
+      const lastRowIdx = Math.max(0, m.maxQueryCount - 1);
+      const rowLast = strip.rowYs[lastRowIdx];
+      const header = { y: strip.headerY, height: strip.headerH };
+      if (!label || !rowLast) return [];
+      let maxRoundRight = 0;
+      this.getAllRounds()
+        .filter((r) => r._sessionId === act)
+        .forEach((r) => {
+          const gck = r.__gridColKey || riverGrid.gridColumnKey(r);
+          const rect = riverGrid.getRoundHeaderRect(m, r.round_number, gck);
+          if (rect) maxRoundRight = Math.max(maxRoundRight, rect.x + rect.width);
+        });
+      const btn = 36;
+      const gap = 10;
+      return [
+        {
+          key: 'fu-row-label',
+          style: {
+            left: `${label.x}px`,
+            top: `${rowLast.y + rowLast.height + gap}px`,
+            width: `${btn}px`,
+            height: `${btn}px`
+          }
+        },
+        {
+          key: 'fu-header-right',
+          style: {
+            left: `${maxRoundRight + gap}px`,
+            top: `${header.y + Math.max(0, (header.height - btn) / 2)}px`,
+            width: `${btn}px`,
+            height: `${btn}px`
+          }
+        }
+      ];
+    },
+    rowLabelCells() {
+      if (!this.gridMetrics || !this.gridMetrics.strips) return [];
+      const out = [];
+      this.gridMetrics.strips.forEach((strip, si) => {
+        for (let idx = 0; idx < this.gridMetrics.maxQueryCount; idx += 1) {
+          const rect = riverGrid.getRowLabelRect(this.gridMetrics, idx, si);
+          if (!rect) continue;
+          out.push({
+            key: `row-label-${strip.sessionId}-${idx}`,
+            index: idx,
+            stripIndex: si,
+            sessionId: strip.sessionId,
+            style: {
+              left: `${rect.x}px`,
+              top: `${rect.y}px`,
+              width: `${rect.width}px`,
+              height: `${rect.height}px`
+            }
+          });
+        }
+      });
+      return out;
     },
     strategyCards() {
       if (!this.gridMetrics) return [];
       const cards = [];
       const allRounds = this.getAllRounds();
       allRounds.forEach((round) => {
+        const gck = round.__gridColKey || riverGrid.gridColumnKey(round);
         (round.query_results || []).forEach((query, queryIndex) => {
-          const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, round.round_number, queryIndex);
+          const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, round.round_number, queryIndex, gck);
           if (!rect) return;
-          const key = this.getStrategyKey(round.round_number, queryIndex);
+          const key = this.getStrategyKey(round, queryIndex);
           cards.push({
             key,
+            gridColKey: gck,
+            sessionId: round._sessionId,
             roundNumber: round.round_number,
             queryIndex,
             query,
             rect,
             title: `R${round.round_number}.${queryIndex + 1} ${query?.orchestrator_plan?.tool_name || 'strategy'}`,
             subtitle: `${(query?.rag_results || []).length} results`,
-            edges: this.getCardHighlightEdges(round.round_number, queryIndex),
+            edges: this.getCardHighlightEdges(round, queryIndex),
             planSummaryPayload: {
               roundNumber: round.round_number,
               queryIndex,
@@ -501,17 +814,21 @@ export default {
     gridSlotCells() {
       if (!this.gridMetrics) return [];
       const allRounds = this.getAllRounds();
-      const byRound = new Map(allRounds.map((r) => [r.round_number, r]));
+      const byColKey = new Map(allRounds.map((r) => [r.__gridColKey || riverGrid.gridColumnKey(r), r]));
       const cells = [];
-      this.gridMetrics.roundNumbers.forEach((roundNumber) => {
-        const round = byRound.get(roundNumber);
+      this.gridMetrics.roundNumbers.forEach((roundKey) => {
+        const round = byColKey.get(roundKey);
+        if (!round) return;
+        const gck = round.__gridColKey || riverGrid.gridColumnKey(round);
         for (let queryIndex = 0; queryIndex < this.gridMetrics.maxQueryCount; queryIndex += 1) {
-          const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, roundNumber, queryIndex);
+          const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, round.round_number, queryIndex, gck);
           if (!rect) continue;
           const occupied = !!round?.query_results?.[queryIndex];
           cells.push({
-            slotKey: `slot-${roundNumber}-${queryIndex}`,
-            roundNumber,
+            slotKey: `slot-${roundKey}-${queryIndex}`,
+            roundNumber: round.round_number,
+            gridColKey: gck,
+            sessionId: round._sessionId,
             queryIndex,
             occupied,
             sceneRect: rect,
@@ -642,10 +959,16 @@ export default {
             
             // 处理 experiment_result 更新（包含 plansummary）
             if (data.type === 'experiment_result') {
-              this.experimentResult = data.data;
+              if (data.session_id && this.activeSessionId && data.session_id !== this.activeSessionId) {
+                return;
+              }
+              if (data.follow_up && this.experimentResult && Array.isArray(this.experimentResult.iterations) && data.data) {
+                this.experimentResult = this.mergeExperimentResultFromFollowUp(this.experimentResult, data.data);
+              } else {
+                this.experimentResult = data.data;
+              }
               console.log('[WS] 收到 experiment_result，包含 plansummary');
-              // 如果有 roundsData，重新绘制以显示 plansummary 按钮
-              if (this.roundsData.length > 0) {
+              if (this.roundsData.length > 0 || this.completedQuestionColumns.length > 0) {
                 this.$nextTick(() => this.drawRiverChart());
               }
               return;
@@ -653,17 +976,27 @@ export default {
             
             // 兜底：完整 graph 更新（兼容旧逻辑，也用于逐步渲染时获取节点数据）
             if (data.root_goal != null && data.nodes != null) {
+              const gsid = data.session_id;
+              if (gsid && this.activeSessionId && gsid !== this.activeSessionId) {
+                return;
+              }
               const rounds = this.graphToRoundsData(data);
+              let nextRounds = rounds;
+              // 追问单独 runtime 的图谱只有本轮新证据，必须与本地已有 rounds 合并，否则会「刷掉」前面的小矩形
+              if (data.follow_up && this.roundsData && this.roundsData.length > 0) {
+                nextRounds = this.mergeRoundsDataFromFollowUp(this.roundsData, rounds);
+              }
               // 如果使用逐步渲染，需要合并 planStates 中的状态
               if (Object.keys(this.planStates).length > 0) {
                 // 逐步渲染模式：保留 planStates，更新 roundsData
-                this.roundsData = rounds;
+                this.roundsData = nextRounds;
                 // 确保 planStates 中的节点信息与 graph 同步
                 this.syncPlanStatesWithGraph(data);
               } else {
                 // 完整更新模式
-                this.roundsData = rounds;
+                this.roundsData = nextRounds;
               }
+              this.incrementalRoundsData = JSON.parse(JSON.stringify(this.roundsData));
               this.$nextTick(() => this.drawRiverChart());
             }
           } catch (e) {
@@ -675,6 +1008,10 @@ export default {
       }
     },
     handlePlanCreated(planData) {
+      const sid = planData.session_id;
+      if (sid && this.activeSessionId && sid !== this.activeSessionId) {
+        return;
+      }
       // 第一步：创建空策略框
       const { round_number, plan_id, orchestrator_plan } = planData;
       this.planStates[plan_id] = {
@@ -803,8 +1140,13 @@ export default {
         const queryResults = Object.values(groupByPlan).map(({ plan, nodes: nodeList }) => {
           // 尝试从 experimentResult 中查找对应的 plansummary
           let plansummary = null;
-          if (this.experimentResult && this.experimentResult.iterations) {
-            const iteration = this.experimentResult.iterations.find(iter => iter.round_number === roundNum);
+          const er = this.experimentResult;
+          const erOk =
+            er &&
+            er.iterations &&
+            (!er.session_id || !this.activeSessionId || er.session_id === this.activeSessionId);
+          if (erOk) {
+            const iteration = er.iterations.find(iter => iter.round_number === roundNum);
             if (iteration && iteration.query_results) {
               // 查找匹配的 query_result（通过 tool_name 和 args 匹配）
               const matchingQuery = iteration.query_results.find(qr => {
@@ -846,6 +1188,70 @@ export default {
       rounds.sort((a, b) => a.round_number - b.round_number);
       return rounds;
     },
+
+    queryResultPlanKey(qr) {
+      const p = qr && qr.orchestrator_plan;
+      if (!p) return '';
+      return `${p.tool_name || ''}|${JSON.stringify(p.args || {})}`;
+    },
+
+    mergeQueryResultsInRound(existing, incoming) {
+      const map = new Map();
+      (existing || []).forEach((qr) => {
+        map.set(this.queryResultPlanKey(qr), qr);
+      });
+      (incoming || []).forEach((qr) => {
+        const k = this.queryResultPlanKey(qr);
+        const prev = map.get(k);
+        if (!prev) {
+          map.set(k, qr);
+          return;
+        }
+        const pr = (prev.rag_results || []).length;
+        const ir = (qr.rag_results || []).length;
+        map.set(k, ir >= pr ? qr : prev);
+      });
+      return Array.from(map.values());
+    },
+
+    mergeRoundsDataFromFollowUp(existing, incoming) {
+      const clone = (o) => JSON.parse(JSON.stringify(o));
+      const byRound = new Map();
+      (existing || []).forEach((r) => {
+        byRound.set(Number(r.round_number), clone(r));
+      });
+      (incoming || []).forEach((inc) => {
+        const rn = Number(inc.round_number);
+        if (!byRound.has(rn)) {
+          byRound.set(rn, clone(inc));
+        } else {
+          const cur = byRound.get(rn);
+          cur.query_results = this.mergeQueryResultsInRound(cur.query_results || [], inc.query_results || []);
+        }
+      });
+      return Array.from(byRound.values()).sort((a, b) => a.round_number - b.round_number);
+    },
+
+    mergeExperimentResultFromFollowUp(existing, incoming) {
+      const out = JSON.parse(JSON.stringify(existing));
+      if (!incoming || !incoming.iterations) return out;
+      incoming.iterations.forEach((it) => {
+        const rn = Number(it.round_number);
+        const idx = out.iterations.findIndex((x) => Number(x.round_number) === rn);
+        if (idx < 0) {
+          out.iterations.push(JSON.parse(JSON.stringify(it)));
+        } else {
+          const cur = out.iterations[idx];
+          cur.query_results = this.mergeQueryResultsInRound(cur.query_results || [], it.query_results || []);
+        }
+      });
+      out.iterations.sort((a, b) => a.round_number - b.round_number);
+      if (incoming.root_goal && !out.root_goal) {
+        out.root_goal = incoming.root_goal;
+      }
+      return out;
+    },
+
     async loadMapData() {
       try {
         const fileName = this.ragCollection === 'LLMvisDataset' 
@@ -978,12 +1384,25 @@ export default {
       try {
         const response = await fetch(`/${this.selectedDataFile}`);
         const experimentData = await response.json();
-        // 保存完整的 experiment_result，包括 hypothesis
-        this.experimentResult = experimentData;
-        // 同时保存到store，供DetailView使用
-        this.$store.commit('setExperimentResult', experimentData);
-        this.roundsData = (experimentData.iterations || []).filter(round => round && round.round_number !== undefined);
-        this.roundsData.sort((a, b) => a.round_number - b.round_number);
+        this.completedQuestionColumns = [];
+        this.activeSessionId = '';
+        if (experimentData.sessions && Array.isArray(experimentData.sessions)) {
+          this.experimentResult = experimentData.sessions[0] || experimentData;
+          this.$store.commit('setExperimentResult', this.experimentResult);
+          this.completedQuestionColumns = experimentData.sessions.map((s, i) => ({
+            sessionId: s.session_id || `import-${i}`,
+            rootGoal: s.root_goal || '',
+            roundsData: (s.iterations || [])
+              .filter((round) => round && round.round_number !== undefined)
+              .sort((a, b) => a.round_number - b.round_number)
+          }));
+          this.roundsData = [];
+        } else {
+          this.experimentResult = experimentData;
+          this.$store.commit('setExperimentResult', experimentData);
+          this.roundsData = (experimentData.iterations || []).filter(round => round && round.round_number !== undefined);
+          this.roundsData.sort((a, b) => a.round_number - b.round_number);
+        }
         
         console.log('加载的实验数据:', this.roundsData);
         console.log('Hypothesis 数据:', experimentData.hypothesis);
@@ -1038,14 +1457,51 @@ export default {
         .attr('stroke-width', innerW);
     },
     getAllRounds() {
-      const allRounds = [...(this.roundsData || [])];
-      Object.values(this.newRounds || {}).forEach((r) => {
-        if (!allRounds.find(x => x.round_number === r.round_number)) {
-          allRounds.push(r);
-        }
+      const out = [];
+      const pushAnnotated = (rounds, sessionId) => {
+        (rounds || []).forEach((r) => {
+          if (!r || r.round_number === undefined) return;
+          out.push({
+            ...r,
+            _sessionId: sessionId,
+            __gridColKey: `${sessionId}__${r.round_number}`
+          });
+        });
+      };
+      (this.completedQuestionColumns || []).forEach((col) => {
+        pushAnnotated(col.roundsData, col.sessionId);
       });
-      allRounds.sort((a, b) => a.round_number - b.round_number);
-      return allRounds;
+      const sid = this.activeSessionId || 'default';
+      pushAnnotated(this.roundsData, sid);
+      const orderIndex = (sessionId) => {
+        const i = (this.completedQuestionColumns || []).findIndex((c) => c.sessionId === sessionId);
+        return i >= 0 ? i : 999;
+      };
+      out.sort((a, b) => {
+        const ao = orderIndex(a._sessionId);
+        const bo = orderIndex(b._sessionId);
+        if (ao !== bo) return ao - bo;
+        if (String(a._sessionId) !== String(b._sessionId)) {
+          return String(a._sessionId).localeCompare(String(b._sessionId));
+        }
+        return a.round_number - b.round_number;
+      });
+      if (
+        out.length === 0 &&
+        this.completedQuestionColumns.length === 0 &&
+        (!this.roundsData || this.roundsData.length === 0) &&
+        !this.isSubmitting
+      ) {
+        return [
+          {
+            round_number: 0,
+            query_results: [],
+            _sessionId: 'empty',
+            __gridColKey: 'empty__0'
+          }
+        ];
+      }
+      return riverGrid.dedupeRoundsByGridColumnKey(out);
     },
 
     handleViewportClick() {
@@ -1057,7 +1513,13 @@ export default {
 
     startViewportPan(event) {
       if (event.button !== 0) return;
-      if (event.target.closest('.strategy-card, .grid-resize-handle, .card-icon-btn')) return;
+      if (
+        event.target.closest(
+          '.strategy-card, .grid-resize-handle, .card-icon-btn, .session-add-below-btn, .session-large-followup-btn, .follow-up-chrome-btn, .session-header-overlay'
+        )
+      ) {
+        return;
+      }
       this.panState = {
         active: true,
         startClientX: event.clientX,
@@ -1119,18 +1581,20 @@ export default {
       };
     },
 
-    miniMapRefName(roundNumber, queryIndex) {
-      return `miniMap_${roundNumber}_${queryIndex}`;
+    miniMapRefName(gridColKey, queryIndex) {
+      const safe = String(gridColKey || 'r').replace(/[^a-zA-Z0-9_-]/g, '_');
+      return `miniMap_${safe}_${queryIndex}`;
     },
 
-    getMiniMapEl(roundNumber, queryIndex) {
-      const raw = this.$refs[this.miniMapRefName(roundNumber, queryIndex)];
+    getMiniMapEl(gridColKey, queryIndex) {
+      const raw = this.$refs[this.miniMapRefName(gridColKey, queryIndex)];
       return Array.isArray(raw) ? raw[0] : raw;
     },
 
     cardClass(card) {
+      const safe = String(card.gridColKey || card.roundNumber).replace(/[^a-zA-Z0-9_-]/g, '_');
       const classes = [
-        `strategy-${card.roundNumber}-${card.queryIndex}`
+        `strategy-${safe}-${card.queryIndex}`
       ];
       if ((this.focusedStrategyKey || this.hoveredStrategyKey) === card.key) classes.push('is-active');
       if (card.query?.orchestrator_plan?.tool_name === 'strategy_metadata_search') classes.push('is-metadata');
@@ -1215,34 +1679,53 @@ export default {
       window.addEventListener('mouseup', onUp);
     },
 
-    getStrategyKey(roundNumber, queryIndex) {
-      return `${roundNumber}__${queryIndex}`;
+    getStrategyKey(roundOrNumber, queryIndex) {
+      if (typeof roundOrNumber === 'object' && roundOrNumber !== null) {
+        const gck = roundOrNumber.__gridColKey || riverGrid.gridColumnKey(roundOrNumber);
+        return `${gck}#${queryIndex}`;
+      }
+      const roundNumber = roundOrNumber;
+      return `r${roundNumber}#${queryIndex}`;
     },
 
     getActiveStrategyInfo() {
       const activeKey = this.focusedStrategyKey || this.hoveredStrategyKey;
       if (!activeKey) return null;
-      const [roundStr, queryStr] = activeKey.split('__');
-      const roundNumber = Number(roundStr);
-      const queryIndex = Number(queryStr);
-      const round = this.getAllRounds().find(r => r.round_number === roundNumber);
+      const hash = activeKey.lastIndexOf('#');
+      if (hash <= 0) return null;
+      const gck = activeKey.slice(0, hash);
+      const queryIndex = Number(activeKey.slice(hash + 1));
+      const round = this.getAllRounds().find(
+        (r) => (r.__gridColKey || riverGrid.gridColumnKey(r)) === gck
+      );
       const query = round?.query_results?.[queryIndex];
       if (!query) return null;
-      return { key: activeKey, roundNumber, queryIndex, query };
+      return {
+        key: activeKey,
+        roundNumber: round.round_number,
+        queryIndex,
+        query,
+        sessionId: round._sessionId,
+        gridColKey: gck
+      };
     },
 
-    findDirectParentKey(roundNumber, queryIndex, query) {
+    findDirectParentKey(round, queryIndex, query) {
+      const roundNumber = typeof round === 'object' && round !== null ? round.round_number : round;
+      const sessionId = typeof round === 'object' && round !== null ? round._sessionId : this.activeSessionId;
       const parentNode = query?.orchestrator_plan?.ParentNode ?? query?.orchestrator_plan?.parentNode ?? null;
       if (parentNode == null) return null;
       const prevRoundNumber = roundNumber - 1;
       if (prevRoundNumber < 0) return null;
-      const prevRound = this.getAllRounds().find(r => r.round_number === prevRoundNumber);
+      const prevRound = this.getAllRounds().find(
+        (r) => r.round_number === prevRoundNumber && r._sessionId === sessionId
+      );
       if (!prevRound || !Array.isArray(prevRound.query_results)) return null;
       const parentId = String(parentNode).trim();
       if (!parentId || parentId === 'ROOT' || parentId === '0') return null;
       if (/^\d+$/.test(parentId)) {
         const prevIdx = parseInt(parentId, 10) - 1;
-        if (prevIdx >= 0 && prevIdx < prevRound.query_results.length) return this.getStrategyKey(prevRoundNumber, prevIdx);
+        if (prevIdx >= 0 && prevIdx < prevRound.query_results.length) return this.getStrategyKey(prevRound, prevIdx);
       }
       for (let i = 0; i < prevRound.query_results.length; i++) {
         const prevQuery = prevRound.query_results[i];
@@ -1252,31 +1735,44 @@ export default {
           const sid = String(id);
           return sid === parentId || sid === `img_${parentId}` || (parentId.startsWith('img_') && sid === parentId.replace('img_', ''));
         });
-        if (hit) return this.getStrategyKey(prevRoundNumber, i);
+        if (hit) return this.getStrategyKey(prevRound, i);
       }
       return null;
     },
 
-    findDirectChildrenKeys(roundNumber, queryIndex) {
-      const currentKey = this.getStrategyKey(roundNumber, queryIndex);
-      const nextRound = this.getAllRounds().find(r => r.round_number === roundNumber + 1);
+    findDirectChildrenKeys(round, queryIndex) {
+      const roundNumber = typeof round === 'object' && round !== null ? round.round_number : round;
+      const sessionId = typeof round === 'object' && round !== null ? round._sessionId : this.activeSessionId;
+      const currentKey = this.getStrategyKey(round, queryIndex);
+      const nextRound = this.getAllRounds().find(
+        (r) => r.round_number === roundNumber + 1 && r._sessionId === sessionId
+      );
       if (!nextRound || !Array.isArray(nextRound.query_results)) return [];
       const children = [];
       nextRound.query_results.forEach((q, idx) => {
-        const parentKey = this.findDirectParentKey(roundNumber + 1, idx, q);
-        if (parentKey === currentKey) children.push(this.getStrategyKey(roundNumber + 1, idx));
+        const parentKey = this.findDirectParentKey(nextRound, idx, q);
+        if (parentKey === currentKey) children.push(this.getStrategyKey(nextRound, idx));
       });
       return children;
     },
 
-    getCardHighlightEdges(roundNumber, queryIndex) {
+    getCardHighlightEdges(round, queryIndex) {
       const active = this.getActiveStrategyInfo();
       if (!active) return [];
-      const selfKey = this.getStrategyKey(roundNumber, queryIndex);
+      const selfKey = this.getStrategyKey(round, queryIndex);
       if (selfKey === active.key) return ['top', 'right', 'bottom', 'left'];
-      const activeParentKey = this.findDirectParentKey(active.roundNumber, active.queryIndex, active.query);
-      if (selfKey === activeParentKey) return ['right'];
-      const activeChildrenKeys = this.findDirectChildrenKeys(active.roundNumber, active.queryIndex);
+      const activeRound = this.getAllRounds().find(
+        (r) =>
+          r.round_number === active.roundNumber &&
+          (r._sessionId || 'default') === (active.sessionId || 'default')
+      );
+      const activeParentKey = activeRound
+        ? this.findDirectParentKey(activeRound, active.queryIndex, active.query)
+        : null;
+      if (activeParentKey && selfKey === activeParentKey) return ['right'];
+      const activeChildrenKeys = activeRound
+        ? this.findDirectChildrenKeys(activeRound, active.queryIndex)
+        : [];
       if (activeChildrenKeys.includes(selfKey)) return ['left'];
       return [];
     },
@@ -1294,7 +1790,8 @@ export default {
       this.svgWidth = viewport?.clientWidth || this.$el.clientWidth;
       this.svgHeight = viewport?.clientHeight || this.$el.clientHeight;
 
-      if (!this.roundsData || this.roundsData.length === 0) {
+      const allRounds = this.getAllRounds();
+      if (allRounds.length === 0) {
         this.gridMetrics = null;
         this.strategyCanvases = {};
         const connectionSvg = this.$refs.connectionSvg;
@@ -1304,19 +1801,21 @@ export default {
         return;
       }
 
-      const allRounds = this.getAllRounds();
       const metrics = riverGrid.buildGridMetrics(this, allRounds);
       this.gridMetrics = metrics;
       this.strategyCanvases = {};
 
       allRounds.forEach((round) => {
+        const gck = round.__gridColKey || riverGrid.gridColumnKey(round);
         (round.query_results || []).forEach((query, queryIndex) => {
-          const rect = riverGrid.getStrategyCellRect(this, metrics, round.round_number, queryIndex);
+          const rect = riverGrid.getStrategyCellRect(this, metrics, round.round_number, queryIndex, gck);
           if (!rect) return;
           const canvas = new StrategyCanvas(round.round_number, queryIndex, rect.x, rect.y, rect.width, rect.height);
           canvas.parentNode = query?.orchestrator_plan?.ParentNode ?? query?.orchestrator_plan?.parentNode ?? null;
-          if (!this.strategyCanvases[round.round_number]) this.strategyCanvases[round.round_number] = {};
-          this.strategyCanvases[round.round_number][queryIndex] = canvas;
+          canvas.gridColKey = gck;
+          canvas.sessionId = round._sessionId;
+          if (!this.strategyCanvases[gck]) this.strategyCanvases[gck] = {};
+          this.strategyCanvases[gck][queryIndex] = canvas;
         });
       });
 
@@ -1336,7 +1835,7 @@ export default {
 
     renderAllMiniMaps() {
       this.strategyCards.forEach((card) => {
-        const svgEl = this.getMiniMapEl(card.roundNumber, card.queryIndex);
+        const svgEl = this.getMiniMapEl(card.gridColKey, card.queryIndex);
         if (!svgEl) return;
         const svg = d3.select(svgEl);
         svg.selectAll('*').remove();
@@ -1481,15 +1980,16 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             const matchId = point ? point.id : parentNode;
             
             // 寻找所有包含了该ID的卡片（包括被合并的）
-            this.roundsData.forEach(r => {
+            this.getAllRounds().forEach((r) => {
               if (!r.query_results) return;
+              const gck = r.__gridColKey || riverGrid.gridColumnKey(r);
+              const safe = String(gck).replace(/[^a-zA-Z0-9_-]/g, '_');
               r.query_results.forEach((q, qIdx) => {
                 if (q.rag_results && q.rag_results.some(rag => {
                   const ragPoint = this.findPointById(rag.retrieval_result.id);
                   return (ragPoint && ragPoint.id === matchId) || rag.retrieval_result.id === matchId;
                 })) {
-                  // 找到了包含这个 parentNode 的卡片，高亮它的外框
-                  const targetCardEl = this.$el?.querySelector(`.strategy-${r.round_number}-${qIdx}`);
+                  const targetCardEl = this.$el?.querySelector(`.strategy-${safe}-${qIdx}`);
                   if (targetCardEl) targetCardEl.classList.add('highlight-parent-source');
                 }
               });
@@ -1820,51 +2320,66 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
 
       this._ensureArrowhead(svg);
       this.connectionGroup = svg.append('g').attr('class', 'river-connections');
-      const allRounds = [...this.roundsData].filter(r => r && r.round_number !== undefined);
-      const roundByNum = new Map(allRounds.map(r => [r.round_number, r]));
+      const allRounds = this.getAllRounds().filter((r) => r && r.round_number !== undefined);
+      const roundBySession = new Map();
+      allRounds.forEach((r) => {
+        const sid = r._sessionId || 'default';
+        if (!roundBySession.has(sid)) roundBySession.set(sid, []);
+        roundBySession.get(sid).push(r);
+      });
       const activeKey = this.focusedStrategyKey || this.hoveredStrategyKey;
-      const maxRound = Math.max(...Object.keys(this.strategyCanvases).map(Number), 0);
-      for (let r = 1; r <= maxRound; r++) {
-        const cur = this.strategyCanvases[r];
-        const prev = this.strategyCanvases[r - 1];
-        if (!cur || !prev) continue;
-        Object.entries(cur).forEach(([curIndex, curCanvas]) => {
-          const parent = curCanvas.parentNode;
-          if (parent === null || parent === undefined) return;
-          const parentId = String(parent).trim();
-          if (parentId === '' || parentId === '0' || parentId === 'ROOT') return;
-          const curKey = this.getStrategyKey(curCanvas.roundNumber, Number(curIndex));
-          if (/^\d+$/.test(parentId)) {
-            const pqIdx = parseInt(parentId, 10) - 1;
-            if (pqIdx >= 0) {
-              const prevCanvas = prev[pqIdx];
-              if (prevCanvas) {
-                const prevKey = this.getStrategyKey(prevCanvas.roundNumber, prevCanvas.queryIndex);
-                const related = activeKey ? (curKey === activeKey || prevKey === activeKey) : false;
-                this.drawSmoothConnection(prevCanvas, curCanvas, related);
-                return;
+      roundBySession.forEach((sessionRounds) => {
+        sessionRounds.sort((a, b) => a.round_number - b.round_number);
+        const m = new Map(sessionRounds.map((r) => [r.round_number, r]));
+        const maxR = Math.max(...sessionRounds.map((x) => x.round_number), 0);
+        for (let r = 1; r <= maxR; r++) {
+          const curRound = m.get(r);
+          const prevRound = m.get(r - 1);
+          if (!curRound || !prevRound) continue;
+          const gckCur = curRound.__gridColKey || riverGrid.gridColumnKey(curRound);
+          const gckPrev = prevRound.__gridColKey || riverGrid.gridColumnKey(prevRound);
+          const cur = this.strategyCanvases[gckCur];
+          const prev = this.strategyCanvases[gckPrev];
+          if (!cur || !prev) continue;
+          const roundByNum = new Map(sessionRounds.map((rr) => [rr.round_number, rr]));
+          Object.entries(cur).forEach(([curIndex, curCanvas]) => {
+            const parent = curCanvas.parentNode;
+            if (parent === null || parent === undefined) return;
+            const parentId = String(parent).trim();
+            if (parentId === '' || parentId === '0' || parentId === 'ROOT') return;
+            const curKey = this.getStrategyKey(curRound, Number(curIndex));
+            if (/^\d+$/.test(parentId)) {
+              const pqIdx = parseInt(parentId, 10) - 1;
+              if (pqIdx >= 0) {
+                const prevCanvas = prev[pqIdx];
+                if (prevCanvas) {
+                  const prevKey = this.getStrategyKey(prevRound, prevCanvas.queryIndex);
+                  const related = activeKey ? (curKey === activeKey || prevKey === activeKey) : false;
+                  this.drawSmoothConnection(prevCanvas, curCanvas, related);
+                  return;
+                }
               }
             }
-          }
-          Object.entries(prev).forEach(([prevIndex, prevCanvas]) => {
-            const prevRound = roundByNum.get(prevCanvas.roundNumber);
-            if (!prevRound) return;
-            const prevQuery = prevRound.query_results?.[prevCanvas.queryIndex];
-            if (!prevQuery?.rag_results) return;
-            const hit = prevQuery.rag_results.some((rag) => {
-              const id = rag?.retrieval_result?.id;
-              if (id === undefined || id === null) return false;
-              const sid = String(id);
-              return sid === parentId || sid === `img_${parentId}` || (parentId.startsWith('img_') && sid === parentId.replace('img_', ''));
+            Object.entries(prev).forEach(([prevIndex, prevCanvas]) => {
+              const pr = roundByNum.get(prevCanvas.roundNumber);
+              if (!pr) return;
+              const prevQuery = pr.query_results?.[prevCanvas.queryIndex];
+              if (!prevQuery?.rag_results) return;
+              const hit = prevQuery.rag_results.some((rag) => {
+                const id = rag?.retrieval_result?.id;
+                if (id === undefined || id === null) return false;
+                const sid = String(id);
+                return sid === parentId || sid === `img_${parentId}` || (parentId.startsWith('img_') && sid === parentId.replace('img_', ''));
+              });
+              if (hit) {
+                const prevKey = this.getStrategyKey(prevRound, Number(prevIndex));
+                const related = activeKey ? (curKey === activeKey || prevKey === activeKey) : false;
+                this.drawSmoothConnection(prevCanvas, curCanvas, related);
+              }
             });
-            if (hit) {
-              const prevKey = this.getStrategyKey(prevCanvas.roundNumber, Number(prevIndex));
-              const related = activeKey ? (curKey === activeKey || prevKey === activeKey) : false;
-              this.drawSmoothConnection(prevCanvas, curCanvas, related);
-            }
           });
-        });
-      }
+        }
+      });
     },
 
     drawSmoothConnection(sourceCanvas, targetCanvas, related = false) {
@@ -1886,6 +2401,9 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     },
 
     startCardDrag(event, card) {
+      if (card.sessionId && this.activeSessionId && card.sessionId !== this.activeSessionId) {
+        return;
+      }
       const t = this.persistZoomTransform || { x: 0, y: 0, k: 1 };
       this.dragState = {
         active: true,
@@ -1987,7 +2505,12 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           const centerZone = rx > 0.22 && rx < 0.78 && ry > 0.22 && ry < 0.78;
           contained = {
             slotKey: slot.slotKey,
-            key: slot.occupied ? this.getStrategyKey(slot.roundNumber, slot.queryIndex) : null,
+            key: slot.occupied
+              ? this.getStrategyKey(
+                  { round_number: slot.roundNumber, __gridColKey: slot.gridColKey, _sessionId: slot.sessionId },
+                  slot.queryIndex
+                )
+              : null,
             roundNumber: slot.roundNumber,
             queryIndex: slot.queryIndex,
             mode: slot.occupied ? (centerZone ? 'merge' : 'swap') : 'move',
@@ -2002,7 +2525,12 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         const slot = nearest.slot;
         return {
           slotKey: slot.slotKey,
-          key: slot.occupied ? this.getStrategyKey(slot.roundNumber, slot.queryIndex) : null,
+          key: slot.occupied
+            ? this.getStrategyKey(
+                { round_number: slot.roundNumber, __gridColKey: slot.gridColKey, _sessionId: slot.sessionId },
+                slot.queryIndex
+              )
+            : null,
           roundNumber: slot.roundNumber,
           queryIndex: slot.queryIndex,
           mode: slot.occupied ? 'swap' : 'move',
@@ -2782,6 +3310,22 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       return ids;
     },
 
+    /** 将小地图绘图局部坐标中的矩形转为数据域 (x,y)，与 globalMapPoints 一致 */
+    plotRectToDataRect2d(r) {
+      if (!r || !this.globalMapXScale || !this.globalMapYScale) return null;
+      const xa = Math.min(r.x1, r.x2);
+      const xb = Math.max(r.x1, r.x2);
+      const ya = Math.min(r.y1, r.y2);
+      const yb = Math.max(r.y1, r.y2);
+      if (Math.abs(xb - xa) <= 2 || Math.abs(yb - ya) <= 2) return null;
+      const yA = this.globalMapYScale.invert(ya);
+      const yB = this.globalMapYScale.invert(yb);
+      return [
+        [this.globalMapXScale.invert(xa), Math.min(yA, yB)],
+        [this.globalMapXScale.invert(xb), Math.max(yA, yB)]
+      ];
+    },
+
     _mapBoxDragStartLocalPlot(event) {
       const p = this.globalMapPointerToLocalPlot(event);
       if (!p) return;
@@ -2806,8 +3350,10 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         const r = this.mapBoxDragRect;
         if (r && Math.abs(r.x2 - r.x1) > 2 && Math.abs(r.y2 - r.y1) > 2) {
           this.mapRagPendingIds = this.computeIdsInRect(r);
+          this.mapRagRect2d = this.plotRectToDataRect2d(r);
         } else {
           this.mapRagPendingIds = [];
+          this.mapRagRect2d = null;
         }
         this.mapBoxDragRect = null;
         this.drawGlobalMap();
@@ -2844,6 +3390,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     clearMapRagFilter() {
       this.mapRagFilterIds = [];
       this.mapRagPendingIds = [];
+      this.mapRagRect2d = null;
       this.drawGlobalMap();
       this.$nextTick(() => this.emitMapToolbar());
     },
@@ -2877,7 +3424,91 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     },
 
     // 提交用户查询到后端（优先 WebSocket，与后端一组一组收数据）
-    async submitUserQuery() {
+    ensureSessionBatchId() {
+      if (this.sessionBatchId) return;
+      try {
+        let bid = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('rag_lens_batch_id') : '';
+        if (!bid) {
+          bid =
+            typeof crypto !== 'undefined' && crypto.randomUUID
+              ? crypto.randomUUID()
+              : `b_${Date.now()}`;
+          if (typeof sessionStorage !== 'undefined') sessionStorage.setItem('rag_lens_batch_id', bid);
+        }
+        this.sessionBatchId = bid;
+      } catch (e) {
+        this.sessionBatchId = `b_${Date.now()}`;
+      }
+    },
+
+    /** 归档当前会话到左侧列并清空缓冲区，用于「添加问题」 */
+    archiveCurrentSessionColumn() {
+      if (this.roundsData && this.roundsData.length > 0 && this.activeSessionId) {
+        this.completedQuestionColumns.push({
+          sessionId: this.activeSessionId,
+          rootGoal: (this.experimentResult && this.experimentResult.root_goal) || '',
+          roundsData: JSON.parse(JSON.stringify(this.roundsData))
+        });
+      }
+      this.planStates = {};
+      this.incrementalRoundsData = [];
+      this.roundsData = [];
+      this.activeSessionId = '';
+    },
+
+    onSessionHeaderOverlayClick(sh) {
+      if (sh && sh.isEmptyPlaceholder) {
+        this.openAddQuestionPrompt();
+      }
+    },
+
+    openAddQuestionPrompt() {
+      if (this.isSubmitting) {
+        alert('请等待当前任务完成后再添加新问题');
+        return;
+      }
+      this.addQuestionDraft = '';
+      this.addQuestionDialog = { mode: 'inline' };
+    },
+
+    cancelAddQuestionDialog() {
+      this.addQuestionDialog = null;
+      this.addQuestionDraft = '';
+    },
+
+    confirmAddQuestionDialog() {
+      const q = String(this.addQuestionDraft || '').trim();
+      if (!q) return;
+      this.archiveCurrentSessionColumn();
+      this.userQuestion = q;
+      this.addQuestionDialog = null;
+      this.addQuestionDraft = '';
+      this.submitUserQuery({ skipBufferReset: true });
+    },
+
+    openFollowUpDialog() {
+      if (this.isSubmitting) {
+        alert('请等待当前任务完成后再追问');
+        return;
+      }
+      this.followUpDraft = '';
+      this.followUpDialog = true;
+    },
+
+    cancelFollowUpDialog() {
+      this.followUpDialog = null;
+      this.followUpDraft = '';
+    },
+
+    confirmFollowUpDialog() {
+      const q = String(this.followUpDraft || '').trim();
+      if (!q) return;
+      this.followUpDialog = null;
+      this.followUpDraft = '';
+      this.submitFollowUp(q);
+    },
+
+    async submitUserQuery(options = {}) {
       if (!this.userQuestion.trim() || this.isSubmitting) {
         return;
       }
@@ -2888,22 +3519,36 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       try {
         console.log('提交用户查询:', question);
         if (this.wsConnected && this.ws && this.ws.readyState === WebSocket.OPEN) {
-          // 清空之前的状态，开始新的查询
-          this.planStates = {};
-          this.incrementalRoundsData = [];
-          this.roundsData = [];
-          
-              const payload = {
-                action: 'start_query',
-                query: question,
-                collection_name: this.ragCollection,
-                plans_per_round: Math.max(1, Math.min(5, Math.floor(Number(this.plansPerRound) || 3))),
-                rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
-                max_rounds: Math.max(1, Math.min(5, Math.floor(Number(this.maxRounds) || 5))),
-                interactive: this.isInteractiveMode === true
-              };
+          this.ensureSessionBatchId();
+          if (!options.skipBufferReset) {
+            this.planStates = {};
+            this.incrementalRoundsData = [];
+            this.roundsData = [];
+            this.gridMetrics = null;
+          }
+          if (!this.activeSessionId) {
+            this.activeSessionId =
+              typeof crypto !== 'undefined' && crypto.randomUUID
+                ? crypto.randomUUID()
+                : `s_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+          }
+          const payload = {
+            action: 'start_query',
+            query: question,
+            collection_name: this.ragCollection,
+            plans_per_round: Math.max(1, Math.min(10, Math.floor(Number(this.plansPerRound) || 2))),
+            rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
+            max_rounds: Math.max(1, Math.min(10, Math.floor(Number(this.maxRounds) || 3))),
+            interactive: this.isInteractiveMode === true,
+            session_id: this.activeSessionId,
+            batch_id: this.sessionBatchId || '',
+            skip_evaluation: !!this.skipEvaluation
+          };
               if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
                 payload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
+              }
+              if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
+                payload.map_box_rect_2d = this.mapRagRect2d;
               }
               this.ws.send(JSON.stringify(payload));
           this.userQuestion = '';
@@ -2971,42 +3616,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       return `/static/${relativePath}`;
     },
 
-    handleFollowUp() {
-      if (!this.followUpQuestion.trim()) {
-        alert('请输入问题');
-        return;
-      }
-      
-      const maxRound = Math.max(...this.roundsData.map(r => r.round_number), -1);
-      const nextRoundNumber = maxRound + 1;
-      
-      if (!this.newRounds[nextRoundNumber]) {
-        this.newRounds[nextRoundNumber] = {
-          round_number: nextRoundNumber,
-          query_results: []
-        };
-      }
-      
-      this.newRounds[nextRoundNumber].query_results.push({
-        orchestrator_plan: {
-          action: 'call_tool',
-          tool_name: 'user_follow_up',
-          ParentNode: this.selectedDetailData?.original_data?.id || '0',
-          args: {
-            query_intent: this.followUpQuestion
-          },
-          reason: `用户追问: ${this.followUpQuestion}`,
-          plansummary: null
-        },
-        rag_results: []
-      });
-      
-      this.drawRiverChart();
-      this.closeDetailModal();
-      alert(`追问已添加到轮次 ${nextRoundNumber}，等待系统处理`);
-    },
-
-    // 左侧栏追问：仅执行“检索 + 评估”，结果追加到最后一个 iteration
+    // 河流图「追问」：检索 + 可选评估，结果由后端追加到指定 round
     submitFollowUp(query) {
       const q = String(query || '').trim();
       if (!q) return;
@@ -3015,19 +3625,39 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         return;
       }
 
-      const rounds = (this.roundsData && this.roundsData.length > 0) ? this.roundsData : (this.incrementalRoundsData || []);
-      const lastRound = rounds.length > 0 ? Math.max(...rounds.map(r => Number(r.round_number ?? 0))) : 0;
+      const withData = this.getAllRounds().filter(
+        (r) =>
+          r._sessionId !== 'empty' &&
+          Array.isArray(r.query_results) &&
+          r.query_results.length > 0
+      );
+      const lastRound =
+        withData.length > 0
+          ? Math.max(...withData.map((r) => Number(r.round_number ?? 0)))
+          : 0;
+      // 追问为「新一行」新迭代，避免与最后一轮共 round 导致覆盖；后端图谱仅含本轮，需配合前端 merge
+      const nextRound = lastRound + 1;
 
       const followPayload = {
         action: 'follow_up',
         query: q,
         collection_name: this.ragCollection,
         parent_node_id: '0',
-        round_number: lastRound,
+        round_number: nextRound,
         rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
+        skip_evaluation: !!this.skipEvaluation,
+        session_id: this.activeSessionId || '',
+        batch_id: this.sessionBatchId || '',
+        root_goal:
+          (this.experimentResult && this.experimentResult.root_goal) ||
+          (this.userQuestion && String(this.userQuestion).trim()) ||
+          ''
       };
       if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
         followPayload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
+      }
+      if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
+        followPayload.map_box_rect_2d = this.mapRagRect2d;
       }
       this.ws.send(JSON.stringify(followPayload));
     },
@@ -3037,6 +3667,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         this.globalMapSelectedClusterId = null;
         this.mapRagFilterIds = [];
         this.mapRagPendingIds = [];
+        this.mapRagRect2d = null;
         this.mapBoxSelectMode = false;
         this.mapBoxDragRect = null;
 
@@ -3664,6 +4295,8 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       if (connectionSvg) {
         d3.select(connectionSvg).selectAll('*').remove();
       }
+      this.completedQuestionColumns = [];
+      this.activeSessionId = '';
       this.roundsData = [];
       this.newRounds = {};
       this.strategyCanvases = {};
@@ -3699,7 +4332,11 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
 
     handleResize() {
       this.gridMetrics = null;
-      if (this.roundsData.length > 0) {
+      if (
+        this.roundsData.length > 0 ||
+        this.completedQuestionColumns.length > 0 ||
+        this.showEmptySessionChrome
+      ) {
         this.drawRiverChart();
       }
       if (this.globalMapPoints.length > 0) {
@@ -3718,11 +4355,15 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
   },
 
   mounted() {
+    this.ensureSessionBatchId();
     this.loadExperimentFileList();
     this.loadMapData();
     this.connectWebSocket();
     this.loadGlobalMapData();
-    this.$nextTick(() => this.emitMapToolbar());
+    this.$nextTick(() => {
+      this.emitMapToolbar();
+      this.drawRiverChart();
+    });
     window.addEventListener('resize', this.handleResize);
   },
 
@@ -3786,6 +4427,139 @@ svg {
     linear-gradient(to right, rgba(148,163,184,0.12) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(148,163,184,0.10) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+.btn-add-question {
+  margin-left: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(203, 213, 225, 0.95);
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.25);
+}
+.btn-add-question:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.session-header-overlay {
+  position: absolute;
+  z-index: 4;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(203, 213, 225, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.session-header-overlay.is-empty-prompt {
+  pointer-events: auto;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.98), rgba(224, 231, 255, 0.9));
+  border-color: rgba(99, 102, 241, 0.45);
+}
+.session-header-overlay.is-empty-prompt:hover {
+  border-color: rgba(99, 102, 241, 0.75);
+}
+
+.session-add-below-btn {
+  position: absolute;
+  z-index: 6;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 999px;
+  padding: 0;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  color: #4f46e5;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 0 0 2px rgba(148, 163, 184, 0.45),
+    0 10px 22px rgba(15, 23, 42, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.session-add-below-btn:hover {
+  background: rgba(99, 102, 241, 0.14);
+  transform: scale(1.06);
+  box-shadow:
+    0 0 0 2px rgba(99, 102, 241, 0.45),
+    0 12px 24px rgba(15, 23, 42, 0.12);
+}
+.session-add-below-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 加号位置改为「大追问」文案按钮；新问题条带在整网下方新行展示 */
+.session-large-followup-btn {
+  position: absolute;
+  z-index: 6;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #4f46e5;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 0 0 2px rgba(148, 163, 184, 0.45),
+    0 10px 22px rgba(15, 23, 42, 0.1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  white-space: nowrap;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.session-large-followup-btn:hover {
+  background: rgba(99, 102, 241, 0.14);
+  transform: scale(1.04);
+  box-shadow:
+    0 0 0 2px rgba(99, 102, 241, 0.45),
+    0 12px 24px rgba(15, 23, 42, 0.12);
+}
+.session-large-followup-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.add-q-modal {
+  z-index: 120;
+}
+.add-q-modal-inner {
+  max-width: 480px;
+}
+.add-q-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  justify-content: flex-end;
 }
 
 .grid-header-cell,

@@ -3,7 +3,7 @@
 【长期价值】核心长期维护（与 server.py / engine 强绑定）；若弃用交互式暂停，可删减 pause_gate 相关逻辑。
 """
 # connection.py
-from typing import List
+from typing import List, Optional
 from fastapi import WebSocket
 from protocols import ResearchGraph # 确保你有这个类定义
 import json
@@ -33,8 +33,8 @@ class ConnectionManager:
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
 
-    async def broadcast_graph(self, graph: ResearchGraph):
-        """推送 Graph 对象"""
+    async def broadcast_graph(self, graph: ResearchGraph, session_id: Optional[str] = None, follow_up: bool = False):
+        """推送 Graph 对象；可选附带 session_id；follow_up=True 时图谱仅为追问增量，前端需与已有 rounds 合并。"""
         # #region agent log
         try:
             with open(r"c:\liuxingyu\multisubspace-data\.cursor\debug.log", "a", encoding="utf-8") as f:
@@ -58,6 +58,10 @@ class ConnectionManager:
             except: pass
             # #endregion
             graph_data = graph.model_dump(mode="json")
+            if session_id:
+                graph_data["session_id"] = session_id
+            if follow_up:
+                graph_data["follow_up"] = True
             # #region agent log
             try:
                 with open(r"c:\liuxingyu\multisubspace-data\.cursor\debug.log", "a", encoding="utf-8") as f:
@@ -193,16 +197,23 @@ class ConnectionManager:
             # #endregion
             print(f"❌ WebSocket 推送总结报告失败: {e}")
     
-    async def broadcast_experiment_result(self, experiment_result):
-        """推送 ExperimentResult 对象（包含 plansummary）"""
+    async def broadcast_experiment_result(self, experiment_result, session_id: str = None, batch_id: str = None, follow_up: bool = False):
+        """推送 ExperimentResult 对象（包含 plansummary）；follow_up 时仅为追问增量，前端需合并。"""
         if not self.active_connections:
             return
         try:
             experiment_data = experiment_result.model_dump(mode="json")
-            await self.broadcast_json({
+            payload = {
                 "type": "experiment_result",
-                "data": experiment_data
-            })
+                "data": experiment_data,
+            }
+            if session_id:
+                payload["session_id"] = session_id
+            if batch_id:
+                payload["batch_id"] = batch_id
+            if follow_up:
+                payload["follow_up"] = True
+            await self.broadcast_json(payload)
             print(f"📤 [Connection] 推送 experiment_result: {len(experiment_result.iterations)} 轮迭代")
         except Exception as e:
             print(f"❌ WebSocket 推送 ExperimentResult 失败: {e}")

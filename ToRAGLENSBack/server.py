@@ -8,7 +8,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 # 导入拆分出去的模块
 from connection import ConnectionManager
-from engine import run_rag_workflow, run_rag_workflow_expand, run_rag_workflow_follow_up
+from engine import run_rag_workflow, run_rag_workflow_expand, run_rag_workflow_follow_up, normalize_map_box_rect_2d
 from fastapi.staticfiles import StaticFiles
 import os
 import re
@@ -180,15 +180,19 @@ async def websocket_endpoint(websocket: WebSocket):
             if data.get("action") == "start_query":
                 query = data.get("query")
                 collection_name = data.get("collection_name", "multimodal2text")
-                plans_per_round = data.get("plans_per_round", 3)
+                plans_per_round = data.get("plans_per_round", 2)
                 rag_result_per_plan = data.get("rag_result_per_plan", 10)
-                max_rounds = data.get("max_rounds", 7)
+                max_rounds = data.get("max_rounds", 3)
                 interactive = data.get("interactive", False)
                 rag_allowed_chunk_ids = _normalize_rag_allowed_chunk_ids(data.get("rag_allowed_chunk_ids"))
+                map_box_rect_2d = normalize_map_box_rect_2d(data.get("map_box_rect_2d"))
+                session_id = str(data.get("session_id") or "").strip()
+                batch_id = str(data.get("batch_id") or "").strip()
+                skip_evaluation = bool(data.get("skip_evaluation", False))
                 try:
                     plans_per_round = int(plans_per_round)
                 except Exception:
-                    plans_per_round = 3
+                    plans_per_round = 2
                 try:
                     rag_result_per_plan = int(rag_result_per_plan)
                 except Exception:
@@ -196,7 +200,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 try:
                     max_rounds = int(max_rounds)
                 except Exception:
-                    max_rounds = 7
+                    max_rounds = 3
                 if query:
                     import uuid
                     from engine import InteractivePauseGate
@@ -221,6 +225,10 @@ async def websocket_endpoint(websocket: WebSocket):
                             run_id=run_id,
                             pause_gate=pause_gate,
                             rag_allowed_chunk_ids=rag_allowed_chunk_ids,
+                            map_box_rect_2d=map_box_rect_2d,
+                            session_id=session_id,
+                            batch_id=batch_id,
+                            skip_evaluation=skip_evaluation,
                         )
                     )
             elif data.get("action") == "interactive_response":
@@ -237,13 +245,18 @@ async def websocket_endpoint(websocket: WebSocket):
                 else:
                     print(f"⚠️ [Server] 找不到 run_id: {run_id} 对应的 PauseGate")
             elif data.get("action") == "follow_up":
-                # 追问：只做一次检索 + 评估，把结果放到前端指定的 round_number（通常是最后一轮）
+                # 追问：只做一次检索 + 评估，round_number 为「新一行」迭代（通常 max+1）；会话字段用于前端合并
                 query = data.get("query")
                 collection_name = data.get("collection_name", "multimodal2text")
                 parent_node_id = data.get("parent_node_id", "0")
                 round_number = data.get("round_number", 0)
                 rag_result_per_plan = data.get("rag_result_per_plan", 10)
                 rag_allowed_chunk_ids = _normalize_rag_allowed_chunk_ids(data.get("rag_allowed_chunk_ids"))
+                map_box_rect_2d = normalize_map_box_rect_2d(data.get("map_box_rect_2d"))
+                skip_evaluation = bool(data.get("skip_evaluation", False))
+                session_id_fu = (data.get("session_id") or "").strip()
+                batch_id_fu = (data.get("batch_id") or "").strip()
+                root_goal_fu = (data.get("root_goal") or "").strip()
                 try:
                     round_number = int(round_number)
                 except Exception:
@@ -262,6 +275,11 @@ async def websocket_endpoint(websocket: WebSocket):
                             round_number=round_number,
                             rag_result_per_plan=rag_result_per_plan,
                             rag_allowed_chunk_ids=rag_allowed_chunk_ids,
+                            map_box_rect_2d=map_box_rect_2d,
+                            skip_evaluation=skip_evaluation,
+                            session_id=session_id_fu,
+                            batch_id=batch_id_fu,
+                            root_goal=root_goal_fu,
                         )
                     )
             elif data.get("type") == "expand_search":

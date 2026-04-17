@@ -21,12 +21,31 @@ try:
         HypothesisStep, HypothesisData,
         RawEvidenceItem, ItemEvaluation, ResearchGraph, GraphNode, ActionTrace, NodeSearchRecord,
         SummaryRequest, SummaryResponse, WordCloudData, RetrievalQualityEvaluation,
-        ExperimentResult, IterationSummary,
+        ExperimentResult, ExperimentRoundParameters, IterationSummary,
         OutlineRequest, OutlineResponse, SubTopic, SectionRequest, SectionResponse, SynthesisRequest,
     )
 except ImportError as e:
     print(f"Error importing project modules: {e}")
     exit()
+
+
+def normalize_map_box_rect_2d(raw: Any) -> Optional[List[List[float]]]:
+    """将前端传来的框选矩形规范为 [[xmin, ymin], [xmax, ymax]]，无效则返回 None。"""
+    if raw is None:
+        return None
+    if not isinstance(raw, list) or len(raw) != 2:
+        return None
+    try:
+        a, b = raw[0], raw[1]
+        if not isinstance(a, (list, tuple)) or not isinstance(b, (list, tuple)):
+            return None
+        if len(a) < 2 or len(b) < 2:
+            return None
+        x1, y1 = float(a[0]), float(a[1])
+        x2, y2 = float(b[0]), float(b[1])
+        return [[min(x1, x2), min(y1, y2)], [max(x1, x2), max(y1, y2)]]
+    except (TypeError, ValueError):
+        return None
 from autogen_core import (
     MessageContext,
     RoutedAgent,
@@ -158,7 +177,7 @@ class OrchestratorAgent(RoutedAgent):
         self.graph = ResearchGraph(root_goal="")
         self.round_count = 0
         self.pending_tasks = 0
-        self.max_rounds = 7
+        self.max_rounds = 3
         self.last_round_stats = {}
         self.current_evaluate = []
         self.report_content = ""
@@ -175,6 +194,14 @@ class OrchestratorAgent(RoutedAgent):
         self.history_strategies: List[OrchestratorPlan] = []  # 存储所有历史策略
         # 每个检索策略（plan）希望返回的结果数量（由前端传入）
         self.rag_result_per_plan: int = 10
+        self.plans_per_round: int = 2
+        self.collection_name: str = "multimodal2text"
+        self.map_box_rect_2d: Optional[List[List[float]]] = None
+        self.rag_allowed_chunk_ids: Optional[List[str]] = None
+        self.session_id: str = ""
+        self.batch_id: str = ""
+        # True：不调用 Evaluator LLM，检索后对每条证据自动写入 KEEP 占位评估
+        self.skip_evaluation: bool = False
         
         # ⚡️ 核心修改：Prompt 强制要求并发和混合策略
         self.strategyhis = ""
@@ -343,20 +370,29 @@ class OrchestratorAgent(RoutedAgent):
         """主动调用 WebSocket 推送当前 Graph 和 ExperimentResult（包含 plansummary）"""
         if self.ws_manager:
             # 注意：确保你的 connection.py / main.py 里的 manager 有 broadcast_graph 方法
-            await self.ws_manager.broadcast_graph(self.graph)
+            await self.ws_manager.broadcast_graph(
+                self.graph,
+                session_id=(self.session_id or None),
+                follow_up=bool(self.is_follow_up_mode),
+            )
             # 同时发送 experiment_result，以便前端获取 plansummary
             if self.experiment_result and self.experiment_result.iterations:
-                await self.ws_manager.broadcast_experiment_result(self.experiment_result)
+                await self.ws_manager.broadcast_experiment_result(
+                    self.experiment_result,
+                    session_id=self.session_id or None,
+                    batch_id=self.batch_id or None,
+                    follow_up=bool(self.is_follow_up_mode),
+                )
 
     @message_handler
     async def handle_user(self, message: UserRequest, ctx: MessageContext) -> None:
         logger.log("Orchestrator", f"收到目标: {message.query}", "START")
         # 控制每轮 orchestrator_plan 输出多少个策略（call_tool）
-        plans_per_round = getattr(message, "plans_per_round", 3)
+        plans_per_round = getattr(message, "plans_per_round", 2)
         try:
             plans_per_round = int(plans_per_round)
         except Exception:
-            plans_per_round = 3
+            plans_per_round = 2
         plans_per_round = max(1, min(plans_per_round, 10))
 
         # 控制每个策略希望返回多少条检索结果（由工具入参 n_results 控制）
@@ -369,22 +405,53 @@ class OrchestratorAgent(RoutedAgent):
         self.rag_result_per_plan = rag_result_per_plan
 
         # 控制最大轮次
-        max_rounds = getattr(message, "max_rounds", 7)
+        max_rounds = getattr(message, "max_rounds", 3)
         try:
             max_rounds = int(max_rounds)
         except Exception:
-            max_rounds = 7
+            max_rounds = 3
         self.max_rounds = max(1, min(max_rounds, 10))
+        self.plans_per_round = plans_per_round
+        self.collection_name = (getattr(message, "collection_name", None) or "").strip() or "multimodal2text"
+        self.map_box_rect_2d = normalize_map_box_rect_2d(getattr(message, "map_box_rect_2d", None))
+        _ids = getattr(message, "rag_allowed_chunk_ids", None)
+        self.rag_allowed_chunk_ids = list(_ids) if _ids else None
+        self.session_id = (getattr(message, "session_id", None) or "").strip()
+        self.batch_id = (getattr(message, "batch_id", None) or "").strip()
+        if self.batch_id and not self.session_id:
+            import uuid
+            self.session_id = str(uuid.uuid4())
+
+        self.skip_evaluation = bool(getattr(message, "skip_evaluation", False))
+
+        # 新用户问题：必须清空上一轮图与实验状态，否则旧证据仍留在 graph.nodes 里，
+        # 前端 graphToRoundsData 会把多轮/多问题的策略挤进同一 round、纵向堆叠，并重复显示上一题内容。
+        self.graph.root_goal = message.query
+        self.graph.nodes = {
+            "0": GraphNode(id="0", type="ROOT", status="ACTIVE", content={"goal": message.query})
+        }
+        self.graph.action_history = []
+        self.graph.evidence_fingerprints = set()
+        self.round_count = 0
+        self.pending_tasks = 0
+        self.current_iteration = None
+        self.current_query_results.clear()
+        self.history_strategies.clear()
+        self.current_round_ids.clear()
+        self.last_round_stats = {}
+        self.experiment_result = ExperimentResult(root_goal=message.query, session_id=self.session_id)
 
         # 使用模板渲染，避免多次运行时占位符被 replace 掉
         self.outputregulate = self.outputregulate_template.replace("__PLANS_PER_ROUND__", str(plans_per_round)).replace(
             "__RAG_RESULT_PER_PLAN__", str(rag_result_per_plan)
         )
 
-        self.graph.root_goal = message.query
-        self.experiment_result.root_goal = message.query
-        self._experiment_save_path = None  # 新查询使用新文件
-        self.graph.nodes["0"] = GraphNode(id="0", type="ROOT", status="ACTIVE", content={"goal": message.query})
+        # 有 batch_id 时共用同一 experiment_results 文件（按 session 合并进 sessions，不单独建 experiment_batch_*）
+        if self.batch_id:
+            safe = "".join(c for c in self.batch_id if c.isalnum() or c in "-_")[:120]
+            self._experiment_save_path = os.path.join("logs", f"experiment_results_{safe}.json")
+        else:
+            self._experiment_save_path = None  # 首次保存时新建带时间戳的 experiment_results_*.json
         await self.push_update()
         # 保存点1：用户提问后立即保存初始状态
         self._save_experiment_results_impl()
@@ -451,6 +518,7 @@ class OrchestratorAgent(RoutedAgent):
         from protocols import IterationResult, QueryResult
         self.current_iteration = IterationResult(round_number=self.round_count)
         self.current_query_results.clear()
+        self._record_round_parameters_snapshot()
         
         # -----------------------------------------------------------------
         # ⚡️ 核心交互点：初始轮次的策略审查
@@ -509,6 +577,7 @@ class OrchestratorAgent(RoutedAgent):
                 await self.ws_manager.broadcast_plan_created({
                     "round_number": self.round_count,
                     "plan_id": plan_id,
+                    "session_id": self.session_id,
                     "orchestrator_plan": plan.model_dump(mode="json") if hasattr(plan, 'model_dump') else {
                         "action": plan.action,
                         "tool_name": plan.tool_name,
@@ -671,6 +740,29 @@ class OrchestratorAgent(RoutedAgent):
             await self.handle_eval(EvaluationReportMessage(evaluations=[], global_suggestion="无需评估"), ctx)
             return
 
+        if self.skip_evaluation:
+            self.pending_eval_batches = 1
+            synth = []
+            for item in new_items_buffer:
+                synth.append(
+                    ItemEvaluation(
+                        target_evidence_id=str(item.id),
+                        branch_action="KEEP",
+                        extracted_insight="(evaluation skipped)",
+                        scores={"relevance": 8, "credibility": 8},
+                        reason="skip_evaluation enabled; default KEEP without Evaluator LLM",
+                        suggested_keywords=[],
+                    )
+                )
+            await self.handle_eval(EvaluationReportMessage(evaluations=synth, global_suggestion=""), ctx)
+            self.pending_tasks -= 1
+            logger.log(
+                "Orchestrator",
+                f"已跳过评估器，直接为 {len(synth)} 条证据写入占位 KEEP",
+                "SKIP_EVAL_APPLIED",
+            )
+            return
+
         BATCH_SIZE = 5
         chunks = [new_items_buffer[i:i + BATCH_SIZE] for i in range(0, len(new_items_buffer), BATCH_SIZE)]
         
@@ -761,33 +853,34 @@ class OrchestratorAgent(RoutedAgent):
                 # 可选地，直接发送实验数据给前端（利用现有的机制）
                 return
 
-            # 收集当前轮次的证据数据
-            current_evidence_data = []
-            for nid in self.current_round_ids:
-                if nid in self.graph.nodes:
-                    node = self.graph.nodes[nid]
-                    # 从节点创建RawEvidenceItem
-                    evidence_item = RawEvidenceItem(
-                        id=node.id,
-                        source_tool=node.source_tool,
-                        content=node.content,
-                        metadata=node.metadata,
-                        score=0.0,
-                        source_args=node.source_args
-                    )
-                    current_evidence_data.append(evidence_item)
-            
-            # 在节点评估完成之后、下一轮新策略生成之前运行InteractionSummaryAgent
-            logger.log("Orchestrator", "调用InteractionSummaryAgent进行本轮综合总结", "SUMMARY_CALL")
-            await self.publish_message(
-                SummaryRequest(
-                    experiment_result=self.experiment_result,
-                    current_evidence_data=current_evidence_data,
-                    current_question=self.graph.root_goal,
-                    user_original_input=self.graph.root_goal
-                ),
-                topic_id=TopicId(TOPIC_SUMMARY, source=self.id.key)
-            )
+            # --- InteractionSummaryAgent 整段已停用（不收集证据、不 publish SummaryRequest）；恢复时取消下面注释块 ---
+            # # 收集当前轮次的证据数据
+            # current_evidence_data = []
+            # for nid in self.current_round_ids:
+            #     if nid in self.graph.nodes:
+            #         node = self.graph.nodes[nid]
+            #         # 从节点创建RawEvidenceItem
+            #         evidence_item = RawEvidenceItem(
+            #             id=node.id,
+            #             source_tool=node.source_tool,
+            #             content=node.content,
+            #             metadata=node.metadata,
+            #             score=0.0,
+            #             source_args=node.source_args
+            #         )
+            #         current_evidence_data.append(evidence_item)
+            #
+            # # 在节点评估完成之后、下一轮新策略生成之前运行InteractionSummaryAgent
+            # logger.log("Orchestrator", "调用InteractionSummaryAgent进行本轮综合总结", "SUMMARY_CALL")
+            # await self.publish_message(
+            #     SummaryRequest(
+            #         experiment_result=self.experiment_result,
+            #         current_evidence_data=current_evidence_data,
+            #         current_question=self.graph.root_goal,
+            #         user_original_input=self.graph.root_goal
+            #     ),
+            #     topic_id=TopicId(TOPIC_SUMMARY, source=self.id.key)
+            # )
             
             # 决策：继续还是停止
             if self.round_count >= self.max_rounds:
@@ -950,6 +1043,7 @@ class OrchestratorAgent(RoutedAgent):
             from protocols import IterationResult, QueryResult
             self.current_iteration = IterationResult(round_number=self.round_count)
             self.current_query_results.clear()
+            self._record_round_parameters_snapshot()
         
             #分发消息
             plans = []
@@ -1051,6 +1145,25 @@ class OrchestratorAgent(RoutedAgent):
             self.pending_tasks = 0
             await self._finish_task(ctx)
 
+    def _record_round_parameters_snapshot(self) -> None:
+        """每轮开始时追加一条 parameters 快照（与 root_goal 同文件），并立即保存。"""
+        rn = self.current_iteration.round_number if self.current_iteration is not None else self.round_count
+        allowed = self.rag_allowed_chunk_ids
+        if allowed is not None:
+            allowed = list(allowed)
+        snap = ExperimentRoundParameters(
+            round_number=rn,
+            max_rounds=self.max_rounds,
+            plans_per_round=self.plans_per_round,
+            rag_result_per_plan=self.rag_result_per_plan,
+            collection_name=self.collection_name or "multimodal2text",
+            interactive=self.interactive_mode,
+            rag_allowed_chunk_ids=allowed,
+            map_box_rect_2d=self.map_box_rect_2d,
+        )
+        self.experiment_result.parameters.append(snap)
+        self._save_experiment_results_impl()
+
     def save_raw_round_results(self, round_number):
         """保存每一轮的原始结果"""
         # 查找当前轮次的迭代结果
@@ -1076,24 +1189,56 @@ class OrchestratorAgent(RoutedAgent):
         return self._save_experiment_results_impl()
 
     def _save_experiment_results_impl(self) -> Optional[str]:
-        """内部实现：多保存点复用同一文件，首次创建后续覆盖。"""
+        """
+        统一落盘为 experiment_results_*.json，根结构为 { "sessions": [ ... ], "batch_id"?: str }。
+        按 session_id 合并/更新对应项，保留文件中其它会话（读-合并-写，避免整文件被单次会话覆盖）。
+        """
         # 确保root_goal已设置
         if not self.experiment_result.root_goal and self.graph.root_goal:
             self.experiment_result.root_goal = self.graph.root_goal
-        
+
         import os
         if not os.path.isdir("logs"):
             os.makedirs("logs", exist_ok=True)
-        
-        # 首次保存：创建新文件并记录路径；后续保存：覆盖同一文件
+
         if self._experiment_save_path is None:
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
             self._experiment_save_path = f"logs/experiment_results_{timestamp}.json"
-        
+
         try:
+            payload = json.loads(self.experiment_result.model_dump_json())
+            sid = (self.session_id or payload.get("session_id") or "").strip()
+
+            doc: Dict[str, Any] = {"sessions": []}
+            if os.path.exists(self._experiment_save_path):
+                with open(self._experiment_save_path, "r", encoding="utf-8") as rf:
+                    raw = json.load(rf)
+                if isinstance(raw.get("sessions"), list):
+                    doc["sessions"] = raw["sessions"]
+                elif raw.get("iterations") is not None or raw.get("root_goal") is not None:
+                    # 旧版：单会话顶格存，迁入 sessions[0]
+                    doc["sessions"] = [raw]
+                else:
+                    doc["sessions"] = []
+            if self.batch_id:
+                doc["batch_id"] = self.batch_id
+
+            idx = next(
+                (
+                    i
+                    for i, s in enumerate(doc["sessions"])
+                    if isinstance(s, dict) and (s.get("session_id") or "") == sid
+                ),
+                None,
+            )
+            if idx is None:
+                doc["sessions"].append(payload)
+            else:
+                doc["sessions"][idx] = payload
+
             with open(self._experiment_save_path, "w", encoding="utf-8") as f:
-                f.write(self.experiment_result.model_dump_json(indent=2, ensure_ascii=False))
-            logger.log("Orchestrator", f"实验结果已保存到: {self._experiment_save_path}", "SAVE")
+                json.dump(doc, f, ensure_ascii=False, indent=2)
+            logger.log("Orchestrator", f"实验结果已保存（sessions 合并）: {self._experiment_save_path}", "SAVE")
             print(f"\n💾 [System] 实验结果已保存: {self._experiment_save_path}")
             return self._experiment_save_path
         except Exception as e:
@@ -1111,15 +1256,15 @@ class OrchestratorAgent(RoutedAgent):
         # 保存可视化数据和图谱状态
         vis_data = self.generate_vis_data()
         
-        # 发送任务完成消息给HypothesisGeneratorAgent，传入保存路径以便 Hypothesis 完成后覆盖保存
-        await self.publish_message(
-            TaskComplete(
-                graph_snapshot=self.graph,
-                experiment_result=self.experiment_result,
-                experiment_save_path=save_path
-            ),
-            topic_id=TopicId(TOPIC_HYPOTHESIS, source=self.id.key)
-        ) 
+        # [暂时关闭 Hypothesis：不向 Hypothesis 主题发送 TaskComplete；恢复时取消注释]
+        # await self.publish_message(
+        #     TaskComplete(
+        #         graph_snapshot=self.graph,
+        #         experiment_result=self.experiment_result,
+        #         experiment_save_path=save_path
+        #     ),
+        #     topic_id=TopicId(TOPIC_HYPOTHESIS, source=self.id.key)
+        # )
     
     @message_handler
     async def handle_expand_search(self, message: ExpandSearchRequest, ctx: MessageContext) -> None:
@@ -1162,11 +1307,34 @@ class OrchestratorAgent(RoutedAgent):
     async def handle_follow_up(self, message: FollowUpRequest, ctx: MessageContext) -> None:
         """
         处理追问：只做一次检索 + 评估。
-        关键：round_number 由前端指定，用于把小矩形放到最后一轮 iteration 中。
+        round_number 由前端指定为「新一行」的迭代编号（通常为当前最大 round + 1）。
+        追问使用独立 runtime，图谱仅含本轮新证据；前端需合并历史小矩形，见 WS follow_up 标记。
         """
         query = (message.query or "").strip()
         if not query:
             return
+
+        self.session_id = (getattr(message, "session_id", None) or "").strip()
+        self.batch_id = (getattr(message, "batch_id", None) or "").strip()
+        if self.batch_id:
+            safe_b = "".join(c for c in self.batch_id if c.isalnum() or c in "-_")[:120]
+            self._experiment_save_path = os.path.join("logs", f"experiment_results_{safe_b}.json")
+        else:
+            self._experiment_save_path = None
+        root_goal = (getattr(message, "root_goal", None) or "").strip()
+        self.graph.root_goal = root_goal or query
+        if "0" not in self.graph.nodes:
+            self.graph.nodes["0"] = GraphNode(
+                id="0", type="ROOT", status="ACTIVE", content={"goal": self.graph.root_goal}
+            )
+        else:
+            try:
+                if self.graph.nodes["0"].type == "ROOT":
+                    self.graph.nodes["0"].content = {"goal": self.graph.root_goal}
+            except Exception:
+                pass
+        self.experiment_result.root_goal = self.graph.root_goal
+        self.experiment_result.session_id = self.session_id
 
         # 把 round_count 强制设置为前端指定轮次，保证 created_at_round 和 plan_created 的 round_number 对齐
         try:
@@ -1179,7 +1347,16 @@ class OrchestratorAgent(RoutedAgent):
         except Exception:
             pass
 
+        self.collection_name = (getattr(message, "collection_name", None) or "").strip() or "multimodal2text"
+        self.map_box_rect_2d = normalize_map_box_rect_2d(getattr(message, "map_box_rect_2d", None))
+        _fu_ids = getattr(message, "rag_allowed_chunk_ids", None)
+        self.rag_allowed_chunk_ids = list(_fu_ids) if _fu_ids else None
+        self.plans_per_round = 1
+        self.max_rounds = 1
+
         parent_id = (message.parent_node_id or "0")
+
+        self.skip_evaluation = bool(getattr(message, "skip_evaluation", False))
 
         logger.log("Orchestrator", f"收到追问请求: round={self.round_count}, parent={parent_id}, query={query}", "FOLLOW_UP")
 
@@ -1196,6 +1373,7 @@ class OrchestratorAgent(RoutedAgent):
         from protocols import IterationResult, QueryResult, OrchestratorPlanBatch
         self.current_iteration = IterationResult(round_number=self.round_count)
         self.current_query_results.clear()
+        self._record_round_parameters_snapshot()
 
         query_result = QueryResult(orchestrator_plan=follow_plan)
         plan_id = json.dumps({
@@ -1212,6 +1390,8 @@ class OrchestratorAgent(RoutedAgent):
             await self.ws_manager.broadcast_plan_created({
                 "round_number": self.round_count,
                 "plan_id": plan_id,
+                "session_id": self.session_id,
+                "follow_up": True,
                 "orchestrator_plan": follow_plan.model_dump(mode="json") if hasattr(follow_plan, 'model_dump') else {
                     "action": follow_plan.action,
                     "tool_name": follow_plan.tool_name,
@@ -1403,6 +1583,8 @@ class EvaluatorAgent(RoutedAgent):
 
 
 # --- D. 总结智能体 (InteractionSummaryAgent) ---
+# [当前已停用] 不在 Orchestrator 中 publish SummaryRequest，且 run_* 中不 register 本类。
+# 以下类与 handle_summary_request / generate_* 等实现全部保留，恢复时取消上述注释即可。
 @type_subscription(topic_type=TOPIC_SUMMARY)
 class InteractionSummaryAgent(RoutedAgent):
     def __init__(self, model_client: OpenAIChatCompletionClient, websocket_manager=None) -> None:
@@ -1482,29 +1664,28 @@ class InteractionSummaryAgent(RoutedAgent):
                     "ERROR"
                 )
             
-            # 7. 为当前轮次的每个策略生成「按策略粒度」的单独总结
-            #    不再把整轮的 process_summary 直接复制给每个 plan，
-            #    而是根据各自的检索结果、参数等信息生成更贴近该策略本身的 summary。
-            if message.experiment_result.iterations:
-                latest_iteration = message.experiment_result.iterations[-1]
-                for query_result in latest_iteration.query_results:
-                    if not query_result.orchestrator_plan:
-                        continue
-                    try:
-                        plan_summary = await self.generate_plan_summary(
-                            experiment_result=message.experiment_result,
-                            query_result=query_result,
-                            current_question=message.current_question,
-                            user_original_input=message.user_original_input,
-                        )
-                        query_result.orchestrator_plan.plansummary = plan_summary
-                    except Exception as e:
-                        logger.log(
-                            "InteractionSummaryAgent",
-                            f"生成单个策略总结时出错: {e}",
-                            "ERROR"
-                        )
-                        # 失败时不影响整体流程
+            # 7. 为当前轮次的每个策略生成「按策略粒度」的单独总结（plansummary 智能体 / generate_plan_summary）
+            #    暂时整段注释以跳过 LLM 调用；恢复时取消注释即可。下方实现未删，见本类 `generate_plan_summary`。
+            # if message.experiment_result.iterations:
+            #     latest_iteration = message.experiment_result.iterations[-1]
+            #     for query_result in latest_iteration.query_results:
+            #         if not query_result.orchestrator_plan:
+            #             continue
+            #         try:
+            #             plan_summary = await self.generate_plan_summary(
+            #                 experiment_result=message.experiment_result,
+            #                 query_result=query_result,
+            #                 current_question=message.current_question,
+            #                 user_original_input=message.user_original_input,
+            #             )
+            #             query_result.orchestrator_plan.plansummary = plan_summary
+            #         except Exception as e:
+            #             logger.log(
+            #                 "InteractionSummaryAgent",
+            #                 f"生成单个策略总结时出错: {e}",
+            #                 "ERROR",
+            #             )
+            #             # 失败时不影响整体流程
             
             # 8. 实时保存总结结果到系统日志中
             logger.log("InteractionSummaryAgent", f"本轮总结: {process_summary}...", "SUMMARY_LOG")
@@ -1578,6 +1759,9 @@ class InteractionSummaryAgent(RoutedAgent):
         - 以该 plan 对应的问题 / args 为核心，聚焦“这一条策略检索到了什么内容”；
         - 主要做内容层面的归纳总结，而不是再评价整轮检索流程；
         - 上下文尽量精简，只提供该策略相关的 rag_results 及其评估信息。
+
+        注：当前主流程中 InteractionSummaryAgent 对本方法的调用已注释（见 Step 7），
+        以下实现完整保留以便恢复；未删除任何逻辑。
         """
         root_goal = experiment_result.root_goal
         plan = query_result.orchestrator_plan
@@ -3124,13 +3308,17 @@ async def run_rag_workflow(
     query: str,
     manager: ConnectionManager,
     collection_name: str = "multimodal2text",
-    plans_per_round: int = 3,
+    plans_per_round: int = 2,
     rag_result_per_plan: int = 10,
-    max_rounds: int = 7,
+    max_rounds: int = 3,
     interactive_mode: bool = False,
     run_id: str = None,
     pause_gate = None,
     rag_allowed_chunk_ids: Optional[List[str]] = None,
+    map_box_rect_2d: Optional[List[List[float]]] = None,
+    session_id: str = "",
+    batch_id: str = "",
+    skip_evaluation: bool = False,
 ):
     set_active_collection_name(collection_name)
     set_rag_allowed_chunk_ids(rag_allowed_chunk_ids)
@@ -3188,8 +3376,10 @@ async def run_rag_workflow(
         await OrchestratorAgent.register(runtime, type=TOPIC_ORCHESTRATOR, factory=lambda: OrchestratorAgent(model_client, manager, pause_gate=pause_gate, interactive_mode=interactive_mode, run_id=run_id))
         await ToolExecutorAgent.register(runtime, type=TOPIC_TOOL, factory=lambda: ToolExecutorAgent())
         await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
-        await HypothesisGeneratorAgent.register(runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager))
-        await InteractionSummaryAgent.register(runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager))
+        # [暂时关闭 Hypothesis 以加快调试；恢复时取消下面一行注释]
+        # await HypothesisGeneratorAgent.register(runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager))
+        # [InteractionSummaryAgent 已停用；恢复时取消注释并同步恢复 Orchestrator 中 SummaryRequest 发布]
+        # await InteractionSummaryAgent.register(runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager))
 
         runtime.start()
         
@@ -3202,6 +3392,11 @@ async def run_rag_workflow(
                 max_rounds=max_rounds,
                 interactive=interactive_mode,
                 rag_allowed_chunk_ids=rag_allowed_chunk_ids,
+                map_box_rect_2d=normalize_map_box_rect_2d(map_box_rect_2d),
+                collection_name=collection_name,
+                session_id=(session_id or "").strip(),
+                batch_id=(batch_id or "").strip(),
+                skip_evaluation=bool(skip_evaluation),
             ),
             topic_id=TopicId(TOPIC_ORCHESTRATOR, source="User")
         )
@@ -3250,12 +3445,14 @@ async def run_rag_workflow_expand(
         )
         await ToolExecutorAgent.register(runtime, type=TOPIC_TOOL, factory=lambda: ToolExecutorAgent())
         await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
-        await HypothesisGeneratorAgent.register(
-            runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager)
-        )
-        await InteractionSummaryAgent.register(
-            runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager)
-        )
+        # [暂时关闭 Hypothesis 以加快调试]
+        # await HypothesisGeneratorAgent.register(
+        #     runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager)
+        # )
+        # [InteractionSummaryAgent 已停用；恢复时取消注释]
+        # await InteractionSummaryAgent.register(
+        #     runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager)
+        # )
 
         runtime.start()
         await runtime.publish_message(
@@ -3279,10 +3476,15 @@ async def run_rag_workflow_follow_up(
     round_number: int = 0,
     rag_result_per_plan: int = 10,
     rag_allowed_chunk_ids: Optional[List[str]] = None,
+    map_box_rect_2d: Optional[List[List[float]]] = None,
+    skip_evaluation: bool = False,
+    session_id: str = "",
+    batch_id: str = "",
+    root_goal: str = "",
 ):
     """
     追问工作流：只做一次检索 + 评估（不走多轮规划）。
-    round_number 用于前端把小矩形放到“最后一轮 iteration”。
+    round_number 为前端「新一行」对应的 iteration 编号（通常为 max(round)+1）。
     """
     set_active_collection_name(collection_name)
     set_rag_allowed_chunk_ids(rag_allowed_chunk_ids)
@@ -3304,8 +3506,10 @@ async def run_rag_workflow_follow_up(
     await OrchestratorAgent.register(runtime, type=TOPIC_ORCHESTRATOR, factory=lambda: OrchestratorAgent(model_client, manager, is_follow_up_mode=True))
     await ToolExecutorAgent.register(runtime, type=TOPIC_TOOL, factory=lambda: ToolExecutorAgent())
     await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
-    await HypothesisGeneratorAgent.register(runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager))
-    await InteractionSummaryAgent.register(runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager))
+    # [暂时关闭 Hypothesis 以加快调试]
+    # await HypothesisGeneratorAgent.register(runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager))
+    # [InteractionSummaryAgent 已停用；恢复时取消注释]
+    # await InteractionSummaryAgent.register(runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager))
 
     runtime.start()
     try:
@@ -3316,6 +3520,12 @@ async def run_rag_workflow_follow_up(
                 round_number=round_number,
                 rag_result_per_plan=rag_result_per_plan,
                 rag_allowed_chunk_ids=rag_allowed_chunk_ids,
+                map_box_rect_2d=normalize_map_box_rect_2d(map_box_rect_2d),
+                collection_name=collection_name,
+                skip_evaluation=bool(skip_evaluation),
+                session_id=(session_id or "").strip(),
+                batch_id=(batch_id or "").strip(),
+                root_goal=(root_goal or "").strip(),
             ),
             topic_id=TopicId(TOPIC_ORCHESTRATOR, source="User"),
         )

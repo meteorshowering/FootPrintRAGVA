@@ -11,6 +11,8 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* 避免 body 出现滚动条，滚动交给三栏内部 */
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 body {
@@ -26,4 +28,22 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 仍允许在表单与可编辑区域内选中、复制（user-select:text 覆盖继承的 none） */
+input,
+textarea,
+select,
+option,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* 右侧详情/报告等长文区域保留可选中复制（继承自 body 的 none 会阻止选中） */
+.detail-container {
+  -webkit-user-select: text;
+  user-select: text;
 }

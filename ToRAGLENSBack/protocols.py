@@ -117,26 +117,43 @@ class ResearchGraph(BaseModel):
 class UserRequest(BaseModel):
     query: str
     # 每轮计划生成多少个 OrchestratorPlan（策略）。用于控制 orchestrator 输出的 call_tool 数量。
-    plans_per_round: int = Field(default=3, ge=1, le=10)
+    plans_per_round: int = Field(default=2, ge=1, le=10)
     # 每个检索策略（plan）希望返回多少条证据结果（用于 semantic/metadata 等检索的 n_results）。
     rag_result_per_plan: int = Field(default=10, ge=1, le=20)
     # 最大轮次：控制 OrchestratorAgent 一共跑多少轮。
-    max_rounds: int = Field(default=7, ge=1, le=10)
+    max_rounds: int = Field(default=3, ge=1, le=10)
     # ✨ 新增：是否启用交互/可中断模式
     interactive: bool = Field(default=False)
     # 小地图框选：仅在这些 Chroma 文档 id（与 embedding JSON 的 id 一致）内检索；None 或空表示不限定
     rag_allowed_chunk_ids: Optional[List[str]] = Field(default=None)
+    # 与 embeddings_2d / 小地图散点一致的二维数据坐标系：框选矩形对角两点 [[xmin,ymin],[xmax,ymax]]，未框选则为 null
+    map_box_rect_2d: Optional[List[List[float]]] = Field(default=None)
+    collection_name: str = Field(default="multimodal2text")
+    # 单次提问会话 id（前端生成 UUID），用于多问题并行展示与批量 JSON 合并
+    session_id: str = Field(default="")
+    # 同一会话页多问题共享的批次 id；设置时落盘 logs/experiment_results_{batch_id}.json（读入后按 session_id 合并 sessions）
+    batch_id: str = Field(default="")
+    # True 时跳过 Evaluator LLM，检索后自动 KEEP 占位评估（仍走 handle_eval 与后续规划）
+    skip_evaluation: bool = Field(default=False)
 
 class FollowUpRequest(BaseModel):
     """
     追问请求：只做一次检索 + 评估（不走多轮规划）。
-    round_number 用于指定前端希望渲染到哪一轮（通常为最后一轮）。
+    round_number 为前端「新一行」对应的迭代轮次编号（通常为当前最大 round + 1）。
     """
     query: str
     parent_node_id: str = "0"
     round_number: int = Field(default=0, ge=0, le=9999)
     rag_result_per_plan: int = Field(default=10, ge=1, le=20)
     rag_allowed_chunk_ids: Optional[List[str]] = Field(default=None)
+    map_box_rect_2d: Optional[List[List[float]]] = Field(default=None)
+    collection_name: str = Field(default="multimodal2text")
+    skip_evaluation: bool = Field(default=False)
+    # 与主会话对齐，便于前端合并 experiment_result / 过滤 WS
+    session_id: str = Field(default="")
+    batch_id: str = Field(default="")
+    # 主问题原文（与首轮 UserRequest 一致），追问单独 runtime 仍写入同一语义根目标
+    root_goal: str = Field(default="")
 
 
 class OrchestratorPlan(BaseModel):
@@ -214,6 +231,19 @@ class IterationResult(BaseModel):
     iteration_summary: Optional[IterationSummary] = None  # 本轮对应的总结
 
 
+class ExperimentRoundParameters(BaseModel):
+    """每一轮开始时落盘的运行参数快照（与当轮 IterationResult.round_number 对齐）。"""
+    round_number: int
+    max_rounds: int
+    plans_per_round: int
+    rag_result_per_plan: int
+    collection_name: str = "multimodal2text"
+    interactive: bool = False
+    rag_allowed_chunk_ids: Optional[List[str]] = Field(default=None)
+    # 嵌入二维与全局小地图一致：[[xmin, ymin], [xmax, ymax]]，未框选则为 null
+    map_box_rect_2d: Optional[List[List[float]]] = Field(default=None)
+
+
 class HypothesisStep(BaseModel):
     """Hypothesis 生成过程中的一个步骤"""
     step_name: str  # 步骤名称，如 "outline", "section_1", "synthesis"
@@ -233,9 +263,17 @@ class HypothesisData(BaseModel):
 class ExperimentResult(BaseModel):
     """整个实验的结果，包含多轮迭代"""
     root_goal: str
+    # 与前端/批量 JSON 对齐：同一 batch 内多个问题的区分键
+    session_id: str = Field(default="")
+    parameters: List[ExperimentRoundParameters] = Field(default_factory=list)
     iterations: List[IterationResult] = Field(default_factory=list)
     summary: Optional['SummaryResponse'] = None  # 整个实验的最终总结结果（通常为最后一轮）
     hypothesis: Optional[HypothesisData] = None  # Hypothesis 生成过程的完整数据
+
+
+class ExperimentBatchDocument(BaseModel):
+    """多问题同一会话落盘：sessions 每项为完整 ExperimentResult（含 root_goal / parameters / iterations）。"""
+    sessions: List[ExperimentResult] = Field(default_factory=list)
 
 
 # ==============================================================================
