@@ -253,9 +253,20 @@ const getImageUrl = () => {
   return '';
 };
 
-// 获取文本内容（原始 Markdown）
+// 获取文本内容（原始 Markdown）；与 store / processRagResultForDetail 多源兜底一致
 const getTextContent = () => {
-  return props.item.text_content || props.item.original_data?.content?.text || '';
+  const od = props.item.original_data;
+  let parsed = props.item.parsed_metadata;
+  if (!parsed && od?.metadata?.metadata) {
+    parsed = parseMetadata(od.metadata.metadata);
+  }
+  return (
+    props.item.text_content ||
+    (typeof od?.content === 'string' ? od.content : od?.content?.text) ||
+    (typeof od?.metadata?.content === 'string' ? od.metadata.content : '') ||
+    (typeof parsed?.content === 'string' ? parsed.content : '') ||
+    ''
+  );
 };
 
 // 配置 marked 以支持数学公式

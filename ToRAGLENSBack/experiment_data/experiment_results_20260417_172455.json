@@ -1,0 +1,667 @@
+{
+  "sessions": [
+    {
+      "root_goal": "traffic emission",
+      "session_id": "d5c668f0-c79a-4af0-aa02-0b6de9c7016f",
+      "parameters": [
+        {
+          "round_number": 2,
+          "max_rounds": 1,
+          "plans_per_round": 1,
+          "rag_result_per_plan": 20,
+          "collection_name": "multimodal2text",
+          "interactive": false,
+          "rag_allowed_chunk_ids": null,
+          "map_box_rect_2d": null
+        }
+      ],
+      "iterations": [
+        {
+          "round_number": 2,
+          "query_results": [
+            {
+              "orchestrator_plan": {
+                "action": "call_tool",
+                "tool_name": "strategy_semantic_search",
+                "ParentNode": "0",
+                "args": {
+                  "query_intent": "burning emission",
+                  "n_results": 20
+                },
+                "reason": "用户追问：直接检索并评估（跳过规划）",
+                "total_results": 20,
+                "duplicate_results": 0,
+                "plansummary": null
+              },
+              "rag_results": [
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001962",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "burned area product (MCD64A1), GFED4s, GFASv1.0, and FINNv1.5 (Table 3). Generally, our results were close to those derived from GFED4s and GFASv1. However, as shown in Table 3, results calculated by using data from burned area product MCD64A1 were substantially underestimated. In this method, burned area is one of the most important factors in calculating emissions, so its underestimation could be attributed to omission of fires with small areas and short durations (Song et al., 2009). Emission estimates by FINNv1.5 were higher than those of this study with a difference ranging from  $29\\%$  to  $194\\%$ ."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "paperid": "paper_023",
+                      "chunkid": "chunk_001962",
+                      "metadata": "{\"paper_title\": \"Estimation of emissions from biomass burning in China (2003-2017) based on MODIS fire radiative energy data\", \"md_filename\": \"Estimation of emissions from biomass burning in Ch.md\", \"paragraph_index\": 66, \"content_length\": 613, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_023"
+                    },
+                    "score": 0.5499866414334545,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001962",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000683",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Biomass burning occurs in all vegetated terrestrial ecosystems. Humans ignite most fires in the tropics and subtropics. Lightning strikes are another important ignition mechanism, particularly in remote boreal regions. Fires contribute to the build-up of atmospheric carbon dioxide  $\\mathrm{(CO_2)}$  through deforestation and peatland fires. There are indications that some areas are experiencing an increase in the fire frequency, which would also lead to a rise in atmospheric  $\\mathrm{CO}_{2}$  (Westerling et al., 2006). Fires also emit other greenhouse gases and are a major source of aerosols, carbon monoxide (CO), oxides of nitrogen  $(\\mathrm{NO}_{\\mathrm{x}})$  and other reactive trace gases, impacting local and regional air quality. Overall, fires impact 8 out of 13 identified radiative forcing agents (Bowman et al., 2009). In addition, they can indirectly impact the fluxes of water and energy."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "paperid": "paper_018",
+                      "metadata": "{\"paper_title\": \"Biomass burning emissions estimated with a global fire assimilation system based on observed fire radiative power\", \"md_filename\": \"Biomass burning emissions estimated with a global .md\", \"paragraph_index\": 8, \"content_length\": 913, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_000683",
+                      "paper_id": "paper_018"
+                    },
+                    "score": 0.5312184249774377,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000683",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004335",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "first three-day. The result further stresses the improved biomass burning emission inventory, particularly of identification of more small fires, plays a critical role in elucidating aerosol radiative effects on air quality."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Striking impacts of biomass burning on  $\\\\mathrm{PM}_{2.5}$  concentrations in Northeast China through the emission inventory improvement\", \"md_filename\": \"Striking impacts of biomass burning on  $_mathrm{P.md\", \"paragraph_index\": 81, \"content_length\": 224, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_005",
+                      "chunkid": "chunk_004335",
+                      "paper_id": "paper_005"
+                    },
+                    "score": 0.526341075606195,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004335",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003594",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Table 1 Emission contributions of the  $10\\%$  high emitters and the cleanest  $50\\%$  emitters to the total fleet emission."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "chunkid": "chunk_003594",
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traffic congestion using updated emission factors of light-duty gasoline vehicles and real-world traffic monitoring big data\", \"md_filename\": \"Quantifying on-road vehicle emissions during traff.md\", \"paragraph_index\": 83, \"content_length\": 124, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_002",
+                      "paper_id": "paper_002"
+                    },
+                    "score": 0.5238892547909473,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003594",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003717",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Table 1 Emission contributions of the  $10\\%$  high emitters and the cleanest  $50\\%$  emitters to the total fleet emission."
+                    },
+                    "metadata": {
+                      "paperid": "paper_002",
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traffic congestion using updated emission factors of light-duty gasoline vehicles and real-world traffic monitoring big data\", \"md_filename\": \"Quantifying on-road vehicle emissions during traff_1.md\", \"paragraph_index\": 83, \"content_length\": 124, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_003717",
+                      "type": "texture",
+                      "paper_id": "paper_002"
+                    },
+                    "score": 0.5238892547909473,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003717",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000965",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "For biomass burning emissions, we refer to the Fire Inventory from National Center for Atmospheric Research (FINN) version 1.5, which provides daily global estimates of trace gas and particulate matter emissions based on observation by the Moderate Resolution Imaging Spectroradiometer (MODIS) (Wiedinmyer et al., 2014, 2011, 2006). In this study, the gridded open fire emissions from the FINN are vertically distributed in the PBL  $(65\\%)$  and upper atmosphere  $(35\\%)$ ."
+                    },
+                    "metadata": {
+                      "paperid": "paper_001",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Changes in the ozone chemical regime over the contiguous United States inferred by the inversion of  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  and VOC emissions using satellite observation\", \"md_filename\": \"Changes in the ozone chemical regime over the cont.md\", \"paragraph_index\": 41, \"content_length\": 475, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_000965",
+                      "paper_id": "paper_001"
+                    },
+                    "score": 0.5238389717813762,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000965",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001095",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "For biomass burning emissions, we refer to the Fire Inventory from National Center for Atmospheric Research (FINN) version 1.5, which provides daily global estimates of trace gas and particulate matter emissions based on observation by the Moderate Resolution Imaging Spectroradiometer (MODIS) (Wiedinmyer et al., 2014, 2011, 2006). In this study, the gridded open fire emissions from the FINN are vertically distributed in the PBL  $(65\\%)$  and upper atmosphere  $(35\\%)$ ."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_001095",
+                      "type": "texture",
+                      "paperid": "paper_001",
+                      "metadata": "{\"paper_title\": \"Changes in the ozone chemical regime over the contiguous United States inferred by the inversion of  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  and VOC emissions using satellite observation\", \"md_filename\": \"Changes in the ozone chemical regime over the cont_1.md\", \"paragraph_index\": 41, \"content_length\": 475, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_001"
+                    },
+                    "score": 0.5238389717813762,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001095",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003582",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# 3.2. Extremely high contributions to pollutant emissions from the  $10\\%$  high-emitters"
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_003582",
+                      "paperid": "paper_002",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traffic congestion using updated emission factors of light-duty gasoline vehicles and real-world traffic monitoring big data\", \"md_filename\": \"Quantifying on-road vehicle emissions during traff.md\", \"paragraph_index\": 71, \"content_length\": 90, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_002"
+                    },
+                    "score": 0.5232243992516588,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003582",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003705",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# 3.2. Extremely high contributions to pollutant emissions from the  $10\\%$  high-emitters"
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traffic congestion using updated emission factors of light-duty gasoline vehicles and real-world traffic monitoring big data\", \"md_filename\": \"Quantifying on-road vehicle emissions during traff_1.md\", \"paragraph_index\": 71, \"content_length\": 90, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_002",
+                      "chunkid": "chunk_003705",
+                      "type": "texture",
+                      "paper_id": "paper_002"
+                    },
+                    "score": 0.5232243992516588,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003705",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000732",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# 2.1.5 Daytime and night-time fire radiative energy"
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Biomass burning emissions estimated with a global fire assimilation system based on observed fire radiative power\", \"md_filename\": \"Biomass burning emissions estimated with a global .md\", \"paragraph_index\": 64, \"content_length\": 52, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_000732",
+                      "type": "texture",
+                      "paperid": "paper_018",
+                      "paper_id": "paper_018"
+                    },
+                    "score": 0.5226792260097934,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000732",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000687",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The Moderate Resolution Imaging Spectroradiometer (MODIS) instruments on the polar orbiting satellites Aqua and Terra observe the thermal radiation from biomass burning and other sources around  $3.9\\mu \\mathrm{m}$  and  $11\\mu \\mathrm{m}$  wavelength. NASA is producing the fire product MOD14 (Justice et al., 2002; Giglio, 2005), which contains a quantitative observation of the fire radiative power (FRP) in addition to the long established binary active fire flag. FRP has been quantitatively linked to the combustion rate (Wooster et al., 2005) and aerosol emission rate (Ichoku and Kaufman, 2005) of a fire."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_000687",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Biomass burning emissions estimated with a global fire assimilation system based on observed fire radiative power\", \"md_filename\": \"Biomass burning emissions estimated with a global .md\", \"paragraph_index\": 15, \"content_length\": 613, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_018",
+                      "paper_id": "paper_018"
+                    },
+                    "score": 0.5218092754891078,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000687",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004319",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "the amount of agricultural burning emissions derived from VIIRS in this study despite of possible underestimations. The negative bias during the episode particularly of November 7 is tightly linked to the low emission amount detected by VIIRS (Fig. 2), which was explained above to be associated with high cloud cover therein. Secondly, the bias may lie in the organic aerosols. Compared to a previous version CMAQ5.1 (Appel et al., 2017), CMAQ5.2 includes several enhancement of aerosol treatment, e.g., adding a calculation of semi-volatile primary organic aerosol and an empirical representation of anthropogenic combustion SOA, and"
+                    },
+                    "metadata": {
+                      "paperid": "paper_005",
+                      "metadata": "{\"paper_title\": \"Striking impacts of biomass burning on  $\\\\mathrm{PM}_{2.5}$  concentrations in Northeast China through the emission inventory improvement\", \"md_filename\": \"Striking impacts of biomass burning on  $_mathrm{P.md\", \"paragraph_index\": 65, \"content_length\": 635, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_004319",
+                      "type": "texture",
+                      "paper_id": "paper_005"
+                    },
+                    "score": 0.5215879186410424,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004319",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000597",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "While fires emit a significant amount of NMOGs ( $\\sim 100-200\\mathrm{Tgyr}^{-1}$ ) (Akagi et al., 2011; Yokelson et al., 2008; Andreea and Merlet, 2001), second only to biogenic sources globally ( $\\sim 1000\\mathrm{Tgyr}^{-1}$ ) (Guenther et al., 2012), modeling efforts, particularly at the global scale, have historically represented only a modest subset of these emissions and their reactivity. This is in part because a large number of reactive fire NMOGs remain unidentified (Kumar et al., 2018; Hayden et al., 2022; Akagi et al., 2011). While progress has been made on measuring emissions of many fire NMOGs, these measurements have not yet been incorporated into models with global coverage. Given the significant but insufficiently characterized variability in emission with both fuel and fire characteristics, this challenges integration into fire emission inventories. To represent emitted species, fire emissions inventories generally apply emission factors (EFs) to estimates of dry matter (DM) burned. Variation among fire inventories is generally driven by differences in DM rather than EFs (Carter et al., 2020), although NMOG EFs often have greater variability amongst inventories than those for other types of species. Akagi et al. (2011) estimated both species-specific NMOC EFs and the EF for the total of identified plus unidentified NMOC mass for various ecosystems (e.g., for savannas, the fraction of NMOC emitted mass that is unidentified"
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "chunkid": "chunk_000597",
+                      "metadata": "{\"paper_title\": \"An improved representation of fire non-methane organic gases (NMOGs) in models: emissions to reactivity\", \"md_filename\": \"An improved representation of fire non-methane org.md\", \"paragraph_index\": 28, \"content_length\": 1463, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_025",
+                      "paper_id": "paper_025"
+                    },
+                    "score": 0.5215603372288563,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000597",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003634",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# 3.5. Emission profiles under the different operating modes"
+                    },
+                    "metadata": {
+                      "paperid": "paper_002",
+                      "type": "texture",
+                      "chunkid": "chunk_003634",
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traffic congestion using updated emission factors of light-duty gasoline vehicles and real-world traffic monitoring big data\", \"md_filename\": \"Quantifying on-road vehicle emissions during traff.md\", \"paragraph_index\": 123, \"content_length\": 60, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_002"
+                    },
+                    "score": 0.5210453394605348,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003634",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003757",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# 3.5. Emission profiles under the different operating modes"
+                    },
+                    "metadata": {
+                      "paperid": "paper_002",
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traffic congestion using updated emission factors of light-duty gasoline vehicles and real-world traffic monitoring big data\", \"md_filename\": \"Quantifying on-road vehicle emissions during traff_1.md\", \"paragraph_index\": 123, \"content_length\": 60, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "chunkid": "chunk_003757",
+                      "paper_id": "paper_002"
+                    },
+                    "score": 0.5210453394605348,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003757",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001462",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# 3.2. Daily Emission Patterns from the Fused Coal-Fired Emission Inventory"
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_001462",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Daily Emission Patterns of Coal-Fired Power Plants in China Based on Multisource Data Fusion\", \"md_filename\": \"Daily Emission Patterns of Coal-Fired Power Plants.md\", \"paragraph_index\": 77, \"content_length\": 75, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_029",
+                      "paper_id": "paper_029"
+                    },
+                    "score": 0.5162243180400553,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001462",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003336",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/e2deac70-4266-4e5d-a059-def38bf66669/f9c0cd3d07daf239d00e00065d2b1013a8a18c25a872431893be827420ea0bbc.jpg)  \nFig. 2. Emission factors of  $\\mathrm{PM}_{2.5}$  emitted from 10 tested vehicles."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"On-road emissions of fine particles and associated chemical components from motor vehicles in Wuhan, China\", \"md_filename\": \"On-road emissions of fine particles and associated.md\", \"paragraph_index\": 21, \"content_length\": 248, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paperid": "paper_024",
+                      "chunkid": "chunk_003336",
+                      "paper_id": "paper_024"
+                    },
+                    "score": 0.5156294852303267,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003336",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003404",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/e2deac70-4266-4e5d-a059-def38bf66669/f9c0cd3d07daf239d00e00065d2b1013a8a18c25a872431893be827420ea0bbc.jpg)\nFig. 2. Emission factors of  $\\mathrm{PM}_{2.5}$  emitted from 10 tested vehicles."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_003404",
+                      "paperid": "paper_024",
+                      "metadata": "{\"paper_title\": \"On-road emissions of fine particles and associated chemical components from motor vehicles in Wuhan, China\", \"md_filename\": \"On-road emissions of fine particles and associated_1.md\", \"paragraph_index\": 20, \"content_length\": 246, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paper_id": "paper_024"
+                    },
+                    "score": 0.5156294852303267,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003404",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000638",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# 5 Characterizing fire contribution to global NMOGs and atmospheric reactivity"
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "paperid": "paper_025",
+                      "metadata": "{\"paper_title\": \"An improved representation of fire non-methane organic gases (NMOGs) in models: emissions to reactivity\", \"md_filename\": \"An improved representation of fire non-methane org.md\", \"paragraph_index\": 72, \"content_length\": 79, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_000638",
+                      "paper_id": "paper_025"
+                    },
+                    "score": 0.5126743871088238,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000638",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001917",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "For a better estimation of biomass burning emission, an approach based on fire radiative energy (FRE) was proposed as a new tool for global studies of vegetation fires around the year 2000 (Kaufman et al., 1996; Wooster, 2002). FRE is the amount of energy radiated during the combustion process (Kaufman et al., 1996). The fuel mass consumed could be calculated by multiplying FRE by a conversion ratio, which has been demonstrated to be insensitive to vegetation type and could be treated as a constant (Freeborn et al., 2008; Wooster, 2002). The FRE method estimates biomass consumed according to energy radiated from fires, which could avoid the uncertainty caused by inaccuracy of satellite-derived burned area and therefore improve the estimation, especially for small-fire emissions. Moreover, the amount of pollutants released by biomass burning could be calculated as a product of FRE, conversion ratio, and emission factors, reducing uncertainties from multiple parameters that are not"
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "chunkid": "chunk_001917",
+                      "metadata": "{\"paper_title\": \"Estimation of emissions from biomass burning in China (2003-2017) based on MODIS fire radiative energy data\", \"md_filename\": \"Estimation of emissions from biomass burning in Ch.md\", \"paragraph_index\": 12, \"content_length\": 994, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_023",
+                      "paper_id": "paper_023"
+                    },
+                    "score": 0.5120408938909702,
+                    "source_args": {
+                      "query_intent": "burning emission"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001917",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                }
+              ]
+            }
+          ],
+          "iteration_summary": null
+        }
+      ],
+      "summary": null,
+      "hypothesis": null
+    }
+  ]
+}

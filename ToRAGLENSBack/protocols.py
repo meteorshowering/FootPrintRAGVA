@@ -131,7 +131,7 @@ class UserRequest(BaseModel):
     collection_name: str = Field(default="multimodal2text")
     # 单次提问会话 id（前端生成 UUID），用于多问题并行展示与批量 JSON 合并
     session_id: str = Field(default="")
-    # 同一会话页多问题共享的批次 id；设置时落盘 logs/experiment_results_{batch_id}.json（读入后按 session_id 合并 sessions）
+    # 同一会话页多问题共享的批次 id；server 进程内写入同一 experiment_results_*.json（由 server 启动时确定），根级 batch_id 仅作元数据
     batch_id: str = Field(default="")
     # True 时跳过 Evaluator LLM，检索后自动 KEEP 占位评估（仍走 handle_eval 与后续规划）
     skip_evaluation: bool = Field(default=False)

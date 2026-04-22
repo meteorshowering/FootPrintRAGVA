@@ -2,7 +2,7 @@
   <div class="ir-panel">
     <div class="ir-panel-head">
       <span class="ir-panel-title">Interactive Report</span>
-      <span class="ir-panel-hint">从左侧策略小地图按住数据点拖拽到下方版块中</span>
+      <span class="ir-panel-hint">先点「新版块」添加版块，再从左侧策略小地图把彩色点拖进该版块的空白区域</span>
       <button type="button" class="ir-btn-clear" @click="clearAll" :disabled="sections.length === 0">
         清空版块
       </button>
@@ -21,8 +21,8 @@
         <div
           class="interactive-report-drop-zone ir-drop-body"
           :data-section-id="section.id"
-          @dragover.prevent
-          @drop.prevent
+          @dragover.prevent="onDragOver"
+          @drop.prevent="onDrop($event, section.id)"
         >
           <div v-if="section.items.length === 0" class="ir-empty">拖入证据点（与地图中颜色、形状一致）</div>
           <div v-else class="ir-dots">
@@ -43,7 +43,7 @@
                   :class="[branchClass(item), { 'is-picture': item.type === 'picture' }]"
                 />
               </span>
-              <span class="ir-dot-label">{{ shortTitle(item) }}</span>
+              <span class="ir-dot-label">{{ displayLabel(item) }}</span>
               <button type="button" class="ir-dot-remove" @click.stop="removePoint(section.id, item.id)">×</button>
             </div>
           </div>
@@ -119,6 +119,22 @@ const clearAll = () => {
   store.commit('clearInteractiveReport');
 };
 
+const onDragOver = (e) => {
+  e.dataTransfer.dropEffect = 'copy';
+};
+
+const onDrop = (e, sectionId) => {
+  const raw = e.dataTransfer?.getData('application/json');
+  if (!raw) return;
+  try {
+    const payload = JSON.parse(raw);
+    if (payload.type !== 'interactive-report-item' || !payload.item) return;
+    store.commit('addPointToInteractiveReportSection', { sectionId, item: payload.item });
+  } catch (err) {
+    console.warn('Interactive Report drop 解析失败', err);
+  }
+};
+
 const branchClass = (item) => {
   const action = item.branch_action || 'UNKNOWN';
   if (action === 'GROW') return 'action-grow';
@@ -128,9 +144,13 @@ const branchClass = (item) => {
   return 'action-unknown';
 };
 
-const shortTitle = (item) => {
-  const t = item.title || item.id || '';
-  return t.length > 28 ? `${t.slice(0, 28)}…` : t;
+/** 列表展示：不截断；标题缺省时用正文或 id */
+const displayLabel = (item) => {
+  const raw = (item.title && String(item.title).trim()) || '';
+  const text = (item.text_content && String(item.text_content).replace(/\s+/g, ' ').trim()) || '';
+  if (raw && raw !== 'No Title') return raw;
+  if (text) return text;
+  return item.id || '';
 };
 </script>
 
@@ -334,10 +354,10 @@ const shortTitle = (item) => {
 
 .ir-dot-label {
   color: #475569;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 160px;
+  white-space: normal;
+  word-break: break-word;
+  max-width: none;
+  min-width: 0;
 }
 
 .ir-dot-remove {

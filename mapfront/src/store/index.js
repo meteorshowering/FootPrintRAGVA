@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { buildInteractiveReportItemFromRag } from './interactiveReportItem';
 
 const store = createStore({
   state: {
@@ -6,7 +7,7 @@ const store = createStore({
     dataPoints: [],      // 所有数据点
     experimentResult: null,  // 完整的实验数据，包含hypothesis
     // Interactive Report：版块标题 + 从策略地图拖入的点（与 ItemDetail 同结构，供后续 prompt 总结）
-    interactiveReportSections: []
+    interactiveReportSections: [],
   },
   getters: {
     // 从完整路径中提取相对路径
@@ -72,7 +73,7 @@ const store = createStore({
     },
     clearInteractiveReport(state) {
       state.interactiveReportSections = [];
-    }
+    },
   },
   actions: {
     loadDataPoints({ commit }, data) {
@@ -85,70 +86,13 @@ const store = createStore({
     selectRiverResult({ commit, getters }, ragResult) {
       console.log("store action - selectRiverResult:", ragResult);
       console.log("store action - evaluation:", ragResult.evaluation);
-      
-      // 解析metadata（可能是JSON字符串）
-      let parsedMetadata = null;
-      if (ragResult.metadata?.metadata) {
-        if (typeof ragResult.metadata.metadata === 'string') {
-          try {
-            parsedMetadata = JSON.parse(ragResult.metadata.metadata);
-          } catch (e) {
-            console.warn('Failed to parse metadata:', e);
-          }
-        } else {
-          parsedMetadata = ragResult.metadata.metadata;
-        }
+      const processedData = buildInteractiveReportItemFromRag(getters, ragResult);
+      if (!processedData) {
+        return Promise.resolve(null);
       }
-      
-      // 获取数据类型
-      let dataType = ragResult.metadata?.type || parsedMetadata?.type || 'unknown';
-      if (!ragResult.metadata?.type && !parsedMetadata?.type && (ragResult.metadata?.full_json || ragResult.metadata?.savepath || ragResult.metadata?.save_path)) {
-        dataType = 'picture';
-      }
-      
-      // 兼容不同数据源的 type 命名
-      if (dataType === 'text') dataType = 'texture';
-      if (dataType === 'figure' || dataType === 'image') dataType = 'picture';
-      
-      // 获取save_path（从parsedMetadata或metadata中）
-      let savePath = parsedMetadata?.save_path || ragResult.metadata?.save_path || ragResult.metadata?.savepath;
-      if (!savePath && ragResult.metadata?.full_json) {
-        try {
-          const fullJson = JSON.parse(ragResult.metadata.full_json);
-          savePath = fullJson.save_path || fullJson.savepath;
-        } catch (e) {
-          // ignore
-        }
-      }
-      
-      // 处理河流图数据，供右侧详情 / 兼容旧组件
-      const processedData = {
-        id: ragResult.id, // 添加id用于去重
-        type: dataType,
-        title: parsedMetadata?.figure_title || 
-               ragResult.content?.title || 
-               ragResult.metadata?.title || 
-               'No Title',
-        relative_path: savePath ? getters.extractRelativePath(savePath) : '',
-        key_entities: parsedMetadata?.key_entities || ragResult.metadata?.key_entities || [],
-        text_content: ragResult.content?.text || '',
-        concise_summary: parsedMetadata?.concise_summary || ragResult.metadata?.concise_summary || '',
-        inferred_insight: parsedMetadata?.inferred_insight || ragResult.metadata?.inferred_insight || '',
-        paper_title: parsedMetadata?.paper_title || '',
-        score: ragResult.score,
-        branch_action: ragResult.evaluation?.branch_action || 'UNKNOWN',
-        // 保留完整的解析后的 metadata，方便访问所有字段
-        parsed_metadata: parsedMetadata || null,
-        // 保留原始数据用于调试和访问其他字段，确保 evaluation 被包含
-        original_data: {
-          ...ragResult,
-          evaluation: ragResult.evaluation || null  // 确保 evaluation 被保留
-        }
-      };
-      
       commit('setSelectedData', processedData);
       return Promise.resolve(processedData);
-    }
+    },
   },
 });
 

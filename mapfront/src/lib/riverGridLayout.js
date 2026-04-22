@@ -95,7 +95,17 @@ export function sessionGroupsInOrder(allRounds) {
   }));
 }
 
-const SESSION_STRIP_GAP = 48;
+/** 会话条带之间的竖向间距（第二题起大追问后紧挨上一题，不再重复表头） */
+const SESSION_STRIP_GAP = 12;
+
+/**
+ * 策略格相对其网格行的上内边距（与 getStrategyCellRect 一致）。
+ * 左侧 Question 竖条顶 = 首行 y + 本值，与策略小矩形外框顶对齐；Round 表头整体下移同值、高度减去同值，底边不变、不挤占策略行。
+ */
+export const STRATEGY_CELL_PAD_Y = 6;
+
+/** Question 竖条右缘与策略列之间的视觉留白（仅缩窄竖条宽度，不改变 round 列 x / 小矩形位置） */
+const LABEL_STRIP_RIGHT_INSET = 12;
 
 export function ensureGridSizing(vm, allRounds, maxQueryOverride) {
   const colKeys = allRounds.map((r) => gridColumnKey(r));
@@ -156,8 +166,10 @@ export function buildGridMetrics(vm, allRounds) {
     if (!rounds.length) continue;
 
     const stripTop = yCursor;
-    const headerY = stripTop;
-    yCursor += headerH + 10;
+    // 仅第一条带占用表头行；后续会话直接接在上一带策略行下方，共享最顶部那一行 Round 表头
+    if (gi === 0) {
+      yCursor += headerH + 10;
+    }
 
     const rowYs = [];
     for (let i = 0; i < maxQueryCount; i += 1) {
@@ -168,11 +180,15 @@ export function buildGridMetrics(vm, allRounds) {
 
     const stripBottom = yCursor;
     const stripIndex = strips.length;
+    const headerYForStrip =
+      stripIndex === 0 ? stripTop + STRATEGY_CELL_PAD_Y : strips[0].headerY;
+    const headerHForStrip =
+      stripIndex === 0 ? headerH - STRATEGY_CELL_PAD_Y : strips[0].headerH;
     strips.push({
       sessionId: g.sessionId,
       stripTop,
-      headerY,
-      headerH,
+      headerY: headerYForStrip,
+      headerH: headerHForStrip,
       rowYs,
       stripBottom
     });
@@ -197,7 +213,7 @@ export function buildGridMetrics(vm, allRounds) {
   const rowPositions = {};
   if (strips.length > 0) {
     const s0 = strips[0];
-    rowPositions.header = { y: s0.headerY, height: headerH };
+    rowPositions.header = { y: s0.headerY, height: s0.headerH };
     for (let i = 0; i < maxQueryCount; i += 1) {
       const rr = s0.rowYs[i];
       if (rr) rowPositions[`row-${i}`] = { y: rr.y, height: rr.height };
@@ -231,8 +247,9 @@ export function getStrategyCellRect(vm, metrics, roundNumber, queryIndex, gridCo
   const strip = metrics.strips[col.stripIndex];
   const row = strip && strip.rowYs[queryIndex];
   if (!strip || !row) return null;
-  const padX = 10;
-  const padY = 6;
+  // 与 getRoundHeaderRect 同列：表头为 col.x / col.width，这里不再加 padX，避免小矩形外框与 Round 表头左右不齐
+  const padX = 0;
+  const padY = STRATEGY_CELL_PAD_Y;
   return {
     x: col.x + padX,
     y: row.y + padY,
@@ -247,10 +264,9 @@ export function getStrategyCellRect(vm, metrics, roundNumber, queryIndex, gridCo
 export function getRoundHeaderRect(metrics, roundNumber, gridColKey = null) {
   const ck = gridColKey != null ? String(gridColKey) : `r${roundNumber}`;
   const col = metrics.colPositions[`round-${ck}`];
-  if (!col || col.stripIndex === undefined || !metrics.strips) return null;
-  const strip = metrics.strips[col.stripIndex];
-  if (!strip) return null;
-  return { x: col.x, y: strip.headerY, width: col.width, height: strip.headerH };
+  if (!col || !metrics.strips || !metrics.strips.length) return null;
+  const headerStrip = metrics.strips[0];
+  return { x: col.x, y: headerStrip.headerY, width: col.width, height: headerStrip.headerH };
 }
 
 /**
@@ -266,10 +282,32 @@ export function getRowLabelRect(metrics, queryIndex, stripIndex = 0) {
 }
 
 /**
+ * 同一 session 条带内：左侧 Row 列合并为一条纵向长条（覆盖该条带全部策略行）
+ */
+export function getMergedRowLabelStripRect(metrics, stripIndex) {
+  const col = metrics.colPositions['label'];
+  if (!metrics.strips || !metrics.strips[stripIndex]) return null;
+  const strip = metrics.strips[stripIndex];
+  const rows = strip.rowYs || [];
+  if (!col || !rows.length) return null;
+  const first = rows[0];
+  const last = rows[rows.length - 1];
+  const py = STRATEGY_CELL_PAD_Y;
+  return {
+    x: col.x,
+    y: first.y + py,
+    width: Math.max(48, col.width - LABEL_STRIP_RIGHT_INSET),
+    height: last.y + last.height - first.y - py
+  };
+}
+
+/**
  * 列拖拽句柄
  */
 export function getColumnResizeHandles(metrics) {
   const handles = [];
+  const headerStrip = metrics.strips && metrics.strips[0];
+  if (!headerStrip) return handles;
   Object.entries(metrics.colPositions).forEach(([key, col]) => {
     if (key === 'label') return;
     if (col.stripIndex === undefined || !metrics.strips) return;
@@ -278,9 +316,9 @@ export function getColumnResizeHandles(metrics) {
     handles.push({
       key,
       x: col.x + col.width,
-      y: strip.headerY,
+      y: headerStrip.headerY,
       width: 8,
-      height: Math.max(48, strip.stripBottom - strip.headerY + 20)
+      height: Math.max(48, strip.stripBottom - headerStrip.headerY + 20)
     });
   });
   return handles;

@@ -108,12 +108,12 @@ class SingleStrategyExecutor:
             更新后的OrchestratorPlan，包含执行结果和总结
         """
         print(f"\n🔹 [SingleStrategyExecutor] 开始执行策略: {plan.tool_name}, 参数: {plan.args}")
-        
+
         try:
             # 1. 执行工具检索
             raw_items = await self._execute_tool(plan)
             print(f"   ✅ 检索完成，找到 {len(raw_items)} 条结果")
-            
+
             # 2. 评估检索结果
             evaluations = await self._evaluate_items(raw_items)
             print(f"   ✅ 评估完成，生成 {len(evaluations)} 条评估报告")

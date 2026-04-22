@@ -3,7 +3,10 @@
 【长期价值】核心长期维护（体量最大，业务逻辑主战场）。
 """
 import asyncio
+import copy
+import glob
 import json
+import re
 import traceback
 import os
 import datetime
@@ -46,6 +49,118 @@ def normalize_map_box_rect_2d(raw: Any) -> Optional[List[List[float]]]:
         return [[min(x1, x2), min(y1, y2)], [max(x1, x2), max(y1, y2)]]
     except (TypeError, ValueError):
         return None
+
+
+def _sessions_list_from_experiment_root(raw: Dict[str, Any]) -> List[Dict[str, Any]]:
+    if isinstance(raw.get("sessions"), list):
+        return [x for x in raw["sessions"] if isinstance(x, dict)]
+    if raw.get("iterations") is not None or raw.get("root_goal") is not None:
+        return [raw] if isinstance(raw, dict) else []
+    return []
+
+
+def _plan_key_for_session_merge(qr: Any) -> str:
+    if not isinstance(qr, dict):
+        return ""
+    p = qr.get("orchestrator_plan")
+    if not isinstance(p, dict):
+        return ""
+    try:
+        return f'{p.get("tool_name")}|{json.dumps(p.get("args") or {}, sort_keys=True, ensure_ascii=False)}'
+    except Exception:
+        return str(p.get("tool_name") or "")
+
+
+def _merge_query_results_lists_for_save(existing: List[Any], incoming: List[Any]) -> List[Any]:
+    """同轮次内按策略键合并 query_results，避免追问追加时重复键。"""
+    m: Dict[str, Any] = {}
+    for qr in existing or []:
+        if isinstance(qr, dict):
+            k = _plan_key_for_session_merge(qr)
+            if k:
+                m[k] = copy.deepcopy(qr)
+    for qr in incoming or []:
+        if not isinstance(qr, dict):
+            continue
+        k = _plan_key_for_session_merge(qr)
+        if not k:
+            m[f"__anon_{len(m)}"] = copy.deepcopy(qr)
+            continue
+        prev = m.get(k)
+        if not prev:
+            m[k] = copy.deepcopy(qr)
+        else:
+            pr = len(prev.get("rag_results") or [])
+            ir = len(qr.get("rag_results") or [])
+            m[k] = copy.deepcopy(qr) if ir >= pr else prev
+    return list(m.values())
+
+
+def _merge_iteration_lists_for_save(existing: List[Any], incoming: List[Any]) -> List[Any]:
+    """按 round_number 合并迭代；追问运行时 incoming 往往只有新轮，必须与磁盘已有轮次合并。"""
+    by_rn: Dict[Any, Dict[str, Any]] = {}
+    for it in existing or []:
+        if not isinstance(it, dict) or it.get("round_number") is None:
+            continue
+        by_rn[it["round_number"]] = copy.deepcopy(it)
+    for it in incoming or []:
+        if not isinstance(it, dict) or it.get("round_number") is None:
+            continue
+        rn = it["round_number"]
+        if rn not in by_rn:
+            by_rn[rn] = copy.deepcopy(it)
+        else:
+            cur = by_rn[rn]
+            cur["query_results"] = _merge_query_results_lists_for_save(
+                cur.get("query_results") or [], it.get("query_results") or []
+            )
+    def _rk(x: Any) -> tuple:
+        if x is None:
+            return (1, 0)
+        try:
+            return (0, int(x))
+        except Exception:
+            return (0, 0)
+
+    return [by_rn[k] for k in sorted(by_rn.keys(), key=_rk)]
+
+
+def _merge_session_dict_on_disk(existing: Optional[Dict[str, Any]], incoming: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    将本次运行产生的 session 快照合并进磁盘已有项。
+    小追问 / 单轮保存时内存里常只有新增迭代，整段替换会丢掉原 JSON 中的历史轮次，故必须合并。
+    """
+    if not existing or not isinstance(existing, dict):
+        return copy.deepcopy(incoming)
+    out = copy.deepcopy(existing)
+    in_sid = (incoming.get("session_id") or "").strip()
+    if in_sid:
+        out["session_id"] = in_sid
+    ig = (incoming.get("root_goal") or "").strip()
+    eg = (out.get("root_goal") or "").strip()
+    if len(ig) > len(eg):
+        out["root_goal"] = incoming.get("root_goal")
+    elif ig and not eg:
+        out["root_goal"] = incoming.get("root_goal")
+    out["iterations"] = _merge_iteration_lists_for_save(
+        out.get("iterations") or [], incoming.get("iterations") or []
+    )
+    ep: List[Any] = list(out.get("parameters") or [])
+    seen_rn = {p.get("round_number") for p in ep if isinstance(p, dict)}
+    for p in incoming.get("parameters") or []:
+        if isinstance(p, dict):
+            rn = p.get("round_number")
+            if rn not in seen_rn:
+                ep.append(copy.deepcopy(p))
+                seen_rn.add(rn)
+    out["parameters"] = ep
+    if incoming.get("summary") is not None:
+        out["summary"] = copy.deepcopy(incoming.get("summary"))
+    if incoming.get("hypothesis") is not None:
+        out["hypothesis"] = copy.deepcopy(incoming.get("hypothesis"))
+    return out
+
+
 from autogen_core import (
     MessageContext,
     RoutedAgent,
@@ -165,7 +280,16 @@ class InteractivePauseGate:
 # --- A. 首席科学家 (Orchestrator) ---
 @type_subscription(topic_type=TOPIC_ORCHESTRATOR)
 class OrchestratorAgent(RoutedAgent):
-    def __init__(self, model_client: OpenAIChatCompletionClient, websocket_manager, is_follow_up_mode: bool = False, pause_gate = None, interactive_mode: bool = False, run_id: str = None) -> None:
+    def __init__(
+        self,
+        model_client: OpenAIChatCompletionClient,
+        websocket_manager,
+        is_follow_up_mode: bool = False,
+        pause_gate=None,
+        interactive_mode: bool = False,
+        run_id: str = None,
+        experiment_save_path: Optional[str] = None,
+    ) -> None:
         super().__init__("Orchestrator")
         self.model_client = model_client
         self.ws_manager = websocket_manager
@@ -173,6 +297,8 @@ class OrchestratorAgent(RoutedAgent):
         self.pause_gate = pause_gate
         self.interactive_mode = interactive_mode
         self.run_id = run_id
+        # server 启动时确定的唯一文件；未传时由首次保存生成时间戳文件名（脚本/测试）
+        self._server_experiment_save_path = experiment_save_path
         
         self.graph = ResearchGraph(root_goal="")
         self.round_count = 0
@@ -446,12 +572,11 @@ class OrchestratorAgent(RoutedAgent):
             "__RAG_RESULT_PER_PLAN__", str(rag_result_per_plan)
         )
 
-        # 有 batch_id 时共用同一 experiment_results 文件（按 session 合并进 sessions，不单独建 experiment_batch_*）
-        if self.batch_id:
-            safe = "".join(c for c in self.batch_id if c.isalnum() or c in "-_")[:120]
-            self._experiment_save_path = os.path.join("logs", f"experiment_results_{safe}.json")
+        # 与 server 约定：进程内唯一 experiment_results_*.json；无 server 时首次保存再生成时间戳文件
+        if self._server_experiment_save_path:
+            self._experiment_save_path = self._server_experiment_save_path
         else:
-            self._experiment_save_path = None  # 首次保存时新建带时间戳的 experiment_results_*.json
+            self._experiment_save_path = None
         await self.push_update()
         # 保存点1：用户提问后立即保存初始状态
         self._save_experiment_results_impl()
@@ -948,7 +1073,6 @@ class OrchestratorAgent(RoutedAgent):
 
                     id = node.id
                     content = node.content
-                    print(node)
                     paperid = node.metadata.get("paper_id") if node.metadata else None
                     keywords = node.metadata.get("key_entities") if node.metadata else None
                     hitcount = node.hit_count
@@ -1213,13 +1337,13 @@ class OrchestratorAgent(RoutedAgent):
             if os.path.exists(self._experiment_save_path):
                 with open(self._experiment_save_path, "r", encoding="utf-8") as rf:
                     raw = json.load(rf)
-                if isinstance(raw.get("sessions"), list):
-                    doc["sessions"] = raw["sessions"]
-                elif raw.get("iterations") is not None or raw.get("root_goal") is not None:
-                    # 旧版：单会话顶格存，迁入 sessions[0]
-                    doc["sessions"] = [raw]
-                else:
-                    doc["sessions"] = []
+                if isinstance(raw, dict):
+                    for k, v in raw.items():
+                        if k == "sessions":
+                            continue
+                        doc[k] = v
+                    doc["sessions"] = _sessions_list_from_experiment_root(raw)
+
             if self.batch_id:
                 doc["batch_id"] = self.batch_id
 
@@ -1234,10 +1358,11 @@ class OrchestratorAgent(RoutedAgent):
             if idx is None:
                 doc["sessions"].append(payload)
             else:
-                doc["sessions"][idx] = payload
+                doc["sessions"][idx] = _merge_session_dict_on_disk(doc["sessions"][idx], payload)
 
             with open(self._experiment_save_path, "w", encoding="utf-8") as f:
                 json.dump(doc, f, ensure_ascii=False, indent=2)
+
             logger.log("Orchestrator", f"实验结果已保存（sessions 合并）: {self._experiment_save_path}", "SAVE")
             print(f"\n💾 [System] 实验结果已保存: {self._experiment_save_path}")
             return self._experiment_save_path
@@ -1316,9 +1441,8 @@ class OrchestratorAgent(RoutedAgent):
 
         self.session_id = (getattr(message, "session_id", None) or "").strip()
         self.batch_id = (getattr(message, "batch_id", None) or "").strip()
-        if self.batch_id:
-            safe_b = "".join(c for c in self.batch_id if c.isalnum() or c in "-_")[:120]
-            self._experiment_save_path = os.path.join("logs", f"experiment_results_{safe_b}.json")
+        if self._server_experiment_save_path:
+            self._experiment_save_path = self._server_experiment_save_path
         else:
             self._experiment_save_path = None
         root_goal = (getattr(message, "root_goal", None) or "").strip()
@@ -3319,6 +3443,7 @@ async def run_rag_workflow(
     session_id: str = "",
     batch_id: str = "",
     skip_evaluation: bool = False,
+    experiment_save_path: Optional[str] = None,
 ):
     set_active_collection_name(collection_name)
     set_rag_allowed_chunk_ids(rag_allowed_chunk_ids)
@@ -3372,8 +3497,19 @@ async def run_rag_workflow(
         )
 
         runtime = SingleThreadedAgentRuntime()
-        
-        await OrchestratorAgent.register(runtime, type=TOPIC_ORCHESTRATOR, factory=lambda: OrchestratorAgent(model_client, manager, pause_gate=pause_gate, interactive_mode=interactive_mode, run_id=run_id))
+        _esp = experiment_save_path
+        await OrchestratorAgent.register(
+            runtime,
+            type=TOPIC_ORCHESTRATOR,
+            factory=lambda: OrchestratorAgent(
+                model_client,
+                manager,
+                pause_gate=pause_gate,
+                interactive_mode=interactive_mode,
+                run_id=run_id,
+                experiment_save_path=_esp,
+            ),
+        )
         await ToolExecutorAgent.register(runtime, type=TOPIC_TOOL, factory=lambda: ToolExecutorAgent())
         await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
         # [暂时关闭 Hypothesis 以加快调试；恢复时取消下面一行注释]
@@ -3415,6 +3551,7 @@ async def run_rag_workflow_expand(
     search_query: str,
     manager: ConnectionManager,
     collection_name: str = "multimodal2text",
+    experiment_save_path: Optional[str] = None,
 ):
     set_active_collection_name(collection_name)
     """处理卡片扩展检索请求的工作流"""
@@ -3440,8 +3577,11 @@ async def run_rag_workflow_expand(
         )
 
         runtime = SingleThreadedAgentRuntime()
+        _esp_e = experiment_save_path
         await OrchestratorAgent.register(
-            runtime, type=TOPIC_ORCHESTRATOR, factory=lambda: OrchestratorAgent(model_client, manager)
+            runtime,
+            type=TOPIC_ORCHESTRATOR,
+            factory=lambda: OrchestratorAgent(model_client, manager, experiment_save_path=_esp_e),
         )
         await ToolExecutorAgent.register(runtime, type=TOPIC_TOOL, factory=lambda: ToolExecutorAgent())
         await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
@@ -3481,6 +3621,7 @@ async def run_rag_workflow_follow_up(
     session_id: str = "",
     batch_id: str = "",
     root_goal: str = "",
+    experiment_save_path: Optional[str] = None,
 ):
     """
     追问工作流：只做一次检索 + 评估（不走多轮规划）。
@@ -3503,7 +3644,12 @@ async def run_rag_workflow_follow_up(
     )
 
     runtime = SingleThreadedAgentRuntime()
-    await OrchestratorAgent.register(runtime, type=TOPIC_ORCHESTRATOR, factory=lambda: OrchestratorAgent(model_client, manager, is_follow_up_mode=True))
+    _esp_fu = experiment_save_path
+    await OrchestratorAgent.register(
+        runtime,
+        type=TOPIC_ORCHESTRATOR,
+        factory=lambda: OrchestratorAgent(model_client, manager, is_follow_up_mode=True, experiment_save_path=_esp_fu),
+    )
     await ToolExecutorAgent.register(runtime, type=TOPIC_TOOL, factory=lambda: ToolExecutorAgent())
     await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
     # [暂时关闭 Hypothesis 以加快调试]

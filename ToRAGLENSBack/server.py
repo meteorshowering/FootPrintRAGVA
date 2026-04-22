@@ -4,7 +4,10 @@
 """
 import uvicorn
 import asyncio
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from pathlib import Path
+
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 # 导入拆分出去的模块
 from connection import ConnectionManager
@@ -12,6 +15,8 @@ from engine import run_rag_workflow, run_rag_workflow_expand, run_rag_workflow_f
 from fastapi.staticfiles import StaticFiles
 import os
 import re
+import shutil
+import datetime
 from typing import Optional, Dict, List, Any
 
 app = FastAPI()
@@ -47,12 +52,32 @@ manager = ConnectionManager()
 # 实际图片存储在 predataprocess/paper_md 目录下
 # ✅ 已修复：自动获取当前目录下的 paper_md（Mac/Windows 通用）
 here = os.path.dirname(os.path.abspath(__file__))
+# 实验 JSON 统一目录：保存与前端读取均在此（见 /experiment-data 静态挂载与 /api/experiment-files）
+_experiment_data_dir = os.path.join(here, "experiment_data")
+os.makedirs(_experiment_data_dir, exist_ok=True)
+# 与早期行为一致：本进程启动时固定一个 experiment_results_YYYYMMDD_HHMMSS.json，所有会话/追问都写入该文件（按 session 合并）
+_logs_dir = os.path.join(here, "logs")
+os.makedirs(_logs_dir, exist_ok=True)
+SESSION_EXPERIMENT_JSON = os.path.join(
+    _experiment_data_dir,
+    f"experiment_results_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+)
+try:
+    print(f"📁 [Server] 本会话实验结果 JSON: {SESSION_EXPERIMENT_JSON}")
+except Exception:
+    print(f"[Server] SESSION_EXPERIMENT_JSON={SESSION_EXPERIMENT_JSON}")
+
 image_dir = os.path.join(here, "paper_md")
 llmvis_image_dir = os.path.join(here, "md-llmvis", "images")
 
 # 访问 http://127.0.0.1:8000/static/xxx.jpg 就会映射到 本地/predataprocess/paper_md/xxx.jpg
 app.mount("/static", StaticFiles(directory=image_dir), name="static")
 app.mount("/static-llmvis", StaticFiles(directory=llmvis_image_dir), name="static_llmvis")
+app.mount(
+    "/experiment-data",
+    StaticFiles(directory=_experiment_data_dir),
+    name="experiment_data",
+)
 
 # ==========================================
 # ⚡️ 新增：给前端展示智能体 prompts
@@ -105,14 +130,17 @@ async def get_agent_prompts():
     return _load_agent_prompts()
 
 # ==========================================
-# ⚡️ 新增：列出前端 public 下的 experiment*.json
+# 实验结果 JSON：统一目录 experiment_data（列表 + 静态读取 + 默认保存）
 # ==========================================
+def _get_experiment_data_dir() -> str:
+    """ToRAGLENSBack/experiment_data：与 SESSION_EXPERIMENT_JSON、fork 落盘同目录。"""
+    return os.path.abspath(_experiment_data_dir)
+
+
 def _get_frontend_public_dir() -> str:
     """
-    返回 mapfront/public 的绝对路径。
-    约定 server.py 位于 backandfront/ToRAGLENSBack/ 下。
+    返回 mapfront/public（仅作 fork/旧文件兼容查找，新实验请放在 experiment_data）。
     """
-    here = os.path.dirname(os.path.abspath(__file__))
     return os.path.abspath(os.path.join(here, "..", "mapfront", "public"))
 
 
@@ -130,23 +158,27 @@ def _parse_experiment_ts(path_str: str):
 @app.get("/api/experiment-files")
 async def list_experiment_files():
     """
-    返回前端 public 目录下所有 experiment*.json 文件（递归）。
-    结果为相对 public 的路径（使用 / 分隔），可直接被前端用 `fetch('/<path>')` 读取。
+    返回 experiment_data 目录下所有 experiment*.json（递归），相对该目录的路径，使用 / 分隔。
+    前端请用 `GET /experiment-data/<相对路径>` 读取（开发环境经 vue 代理到本服务）。
     """
-    public_dir = _get_frontend_public_dir()
+    exp_dir = _get_experiment_data_dir()
     files = []
     try:
-        for root, _, filenames in os.walk(public_dir):
+        for root, _, filenames in os.walk(exp_dir):
             for fn in filenames:
                 if not fn.lower().endswith(".json"):
                     continue
                 if not fn.lower().startswith("experiment"):
                     continue
                 abs_path = os.path.join(root, fn)
-                rel_path = os.path.relpath(abs_path, public_dir).replace("\\", "/")
+                rel_path = os.path.relpath(abs_path, exp_dir).replace("\\", "/")
                 files.append(rel_path)
     except Exception as e:
-        return {"public_dir": public_dir, "files": [], "error": str(e)}
+        return {
+            "experiment_data_dir": exp_dir,
+            "files": [],
+            "error": str(e),
+        }
 
     # 按时间戳倒序；未匹配到时间戳的放后面
     def sort_key(p: str):
@@ -154,7 +186,145 @@ async def list_experiment_files():
         return (0, ts) if ts else (1, p)
 
     files.sort(key=sort_key, reverse=True)
-    return {"public_dir": public_dir, "files": files}
+    return {
+        "experiment_data_dir": exp_dir,
+        "files": files,
+    }
+
+
+def _experiment_read_allowed_roots() -> List[Path]:
+    """允许通过 API 读取实验 JSON 的根目录（与 fork 源解析一致）。"""
+    return [
+        Path(_get_experiment_data_dir()).resolve(),
+        Path(_get_frontend_public_dir()).resolve(),
+        Path(_logs_dir).resolve(),
+    ]
+
+
+def _path_is_under_allowed_roots(abs_file: str, roots: List[Path]) -> bool:
+    try:
+        p = Path(abs_file).resolve()
+    except OSError:
+        return False
+    for root in roots:
+        try:
+            p.relative_to(root)
+            return True
+        except ValueError:
+            continue
+    return False
+
+
+@app.get("/api/experiment-file")
+async def read_experiment_file(
+    path: str = Query(
+        ...,
+        min_length=1,
+        description="相对 experiment_data 的路径，或仅 basename；在 experiment_data、mapfront/public、logs 中解析",
+    ),
+):
+    """
+    以 JSON 文件形式返回实验数据。与 /experiment-data 静态挂载等价，但走 /api 代理更稳（仅配了 /api 的部署也能用），
+    且与 fork 使用相同的 `_resolve_fork_source_abs` 查找顺序。
+    """
+    rel = (path or "").strip().replace("\\", "/")
+    if ".." in rel or rel.startswith("/"):
+        raise HTTPException(status_code=400, detail="invalid path")
+    bn = os.path.basename(rel)
+    if not bn.lower().endswith(".json") or not bn.lower().startswith("experiment"):
+        raise HTTPException(status_code=400, detail="invalid path")
+    abs_path = _resolve_fork_source_abs(rel)
+    if not abs_path:
+        raise HTTPException(status_code=404, detail="not found")
+    roots = _experiment_read_allowed_roots()
+    if not _path_is_under_allowed_roots(abs_path, roots):
+        raise HTTPException(status_code=403, detail="forbidden")
+    return FileResponse(
+        abs_path,
+        media_type="application/json",
+        filename=os.path.basename(abs_path),
+    )
+
+
+def _fork_dest_basename(source_rel: str) -> Optional[str]:
+    """由源 JSON 相对路径得到 experiment_data 下保存文件名：原名 + _user2（若尚未带此后缀）。"""
+    rel = (source_rel or "").strip().replace("\\", "/")
+    if ".." in rel or rel.startswith("/"):
+        return None
+    bn = os.path.basename(rel)
+    if not re.match(r"^experiment.+\.json$", bn, re.I):
+        return None
+    stem, ext = os.path.splitext(bn)
+    if ext.lower() != ".json":
+        return None
+    if stem.lower().endswith("_user2"):
+        return bn
+    return f"{stem}_user2{ext}"
+
+
+def _resolve_fork_source_abs(source_rel: str) -> Optional[str]:
+    """优先 experiment_data，其次兼容 mapfront/public、logs 下的旧路径。"""
+    exp_dir = _get_experiment_data_dir()
+    public_dir = _get_frontend_public_dir()
+    rel = (source_rel or "").strip().replace("\\", "/")
+    candidates: List[str] = []
+    if rel and ".." not in rel:
+        candidates.append(os.path.normpath(os.path.join(exp_dir, rel.replace("/", os.sep))))
+        candidates.append(os.path.normpath(os.path.join(public_dir, rel.replace("/", os.sep))))
+    bn = os.path.basename(rel) if rel else ""
+    if bn:
+        candidates.append(os.path.join(exp_dir, bn))
+        candidates.append(os.path.join(public_dir, bn))
+        candidates.append(os.path.join(_logs_dir, bn))
+    seen: set = set()
+    for p in candidates:
+        ap = os.path.abspath(p)
+        if ap in seen:
+            continue
+        seen.add(ap)
+        if os.path.isfile(ap):
+            return ap
+    return None
+
+
+def _ensure_fork_experiment_save_path(source_rel: str) -> Optional[str]:
+    """
+    将源文件复制到 experiment_data/<stem>_user2.json（若目标尚不存在），后续追问/新开会话均合并写入该文件。
+    找不到源文件时返回 None，由调用方回退到默认 SESSION_EXPERIMENT_JSON。
+    """
+    dest_bn = _fork_dest_basename(source_rel)
+    if not dest_bn:
+        return None
+    dest = os.path.abspath(os.path.join(_experiment_data_dir, dest_bn))
+    if os.path.isfile(dest):
+        return dest
+    src = _resolve_fork_source_abs(source_rel)
+    if not src:
+        try:
+            print(f"⚠️ [Server] fork_experiment_source 未找到文件: {source_rel!r}，回退默认保存路径")
+        except Exception:
+            pass
+        return None
+    try:
+        shutil.copy2(src, dest)
+        print(f"📋 [Server] 本地实验 fork 已就绪，保存至: {dest}")
+    except Exception as e:
+        try:
+            print(f"❌ [Server] 复制 fork 实验文件失败: {e}")
+        except Exception:
+            pass
+        return None
+    return dest
+
+
+def _experiment_save_path_for_ws(ws_data: Dict[str, Any]) -> str:
+    fork = str(ws_data.get("fork_experiment_source") or "").strip()
+    if fork:
+        p = _ensure_fork_experiment_save_path(fork)
+        if p:
+            return p
+    return SESSION_EXPERIMENT_JSON
+
 
 # 添加一个兼容路由，防止前端连接 /ws 时出错
 @app.websocket("/ws")
@@ -211,6 +381,7 @@ async def websocket_endpoint(websocket: WebSocket):
                     if interactive:
                         manager.register_pause_gate(run_id, pause_gate)
                     
+                    _save_path = _experiment_save_path_for_ws(data)
                     # 4. 调用 Engine (异步任务)
                     # 关键点：把 manager 传进去，让 engine 内部可以发消息回来
                     asyncio.create_task(
@@ -229,6 +400,7 @@ async def websocket_endpoint(websocket: WebSocket):
                             session_id=session_id,
                             batch_id=batch_id,
                             skip_evaluation=skip_evaluation,
+                            experiment_save_path=_save_path,
                         )
                     )
             elif data.get("action") == "interactive_response":
@@ -266,6 +438,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 except Exception:
                     rag_result_per_plan = 10
                 if query:
+                    _save_path_fu = _experiment_save_path_for_ws(data)
                     asyncio.create_task(
                         run_rag_workflow_follow_up(
                             query=str(query),
@@ -280,6 +453,7 @@ async def websocket_endpoint(websocket: WebSocket):
                             session_id=session_id_fu,
                             batch_id=batch_id_fu,
                             root_goal=root_goal_fu,
+                            experiment_save_path=_save_path_fu,
                         )
                     )
             elif data.get("type") == "expand_search":
@@ -291,12 +465,14 @@ async def websocket_endpoint(websocket: WebSocket):
                 
                 if parent_node_id and search_type and search_query:
                     # 创建一个新的工作流实例处理扩展检索
+                    _save_path_ex = _experiment_save_path_for_ws(data)
                     asyncio.create_task(run_rag_workflow_expand(
                         parent_node_id=parent_node_id,
                         search_type=search_type,
                         search_query=search_query,
                         manager=manager,
-                        collection_name=collection_name
+                        collection_name=collection_name,
+                        experiment_save_path=_save_path_ex,
                     ))
                     
     except WebSocketDisconnect:

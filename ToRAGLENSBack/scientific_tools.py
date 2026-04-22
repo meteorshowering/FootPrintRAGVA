@@ -161,7 +161,7 @@ async def strategy_exact_search(query_intent: str, n_results: int = 10) -> List[
             item.image_path = r['metadata'].get('save_path')
             
         items.append(item)
-        
+
     print(f"   ✅ 找到 {len(items)} 条精确匹配证据")
     return items
 
@@ -207,7 +207,7 @@ async def strategy_semantic_search(query_intent: str, n_results: int = 10) -> Li
             item.image_path = r['metadata'].get('save_path')
             
         items.append(item)
-        
+
     print(f"   ✅ 找到 {len(items)} 条语义证据")
     return items
 
@@ -222,7 +222,7 @@ async def strategy_metadata_search(
     n_results: Optional[int] = None,
 ) -> List[RawEvidenceItem]:
     print(f"\n🏷️ [Tool: Right Path] 规则筛选: Paper={paper_id}, Type={figure_type}, Key={keywords}, collection={ACTIVE_COLLECTION_NAME}")
-    
+
     rag_allow = get_rag_allowed_chunk_ids()
     if not paper_id and not keywords and not figure_type:
         if not rag_allow:
@@ -271,7 +271,7 @@ async def strategy_metadata_search(
             item.image_path = r['metadata'].get('save_path')
 
         items.append(item)
-        
+
     print(f"   ✅ 筛选后找到 {len(items)} 条精确匹配证据")
     return items
 
@@ -322,7 +322,7 @@ async def strategy_multimodal_search(query_image_path: str = None, n_results: in
             item.image_path = r['metadata'].get('image_path')
             
         items.append(item)
-        
+
     print(f"   ✅ 找到 {len(items)} 条多模态证据")
     return items
 
@@ -372,7 +372,7 @@ async def strategy_vector_search(vector: List[float], n_results: int = 10) -> Li
             item.image_path = r['metadata'].get('image_path')
             
         items.append(item)
-        
+
     print(f"   ✅ 找到 {len(items)} 条向量匹配证据")
     return items
 
@@ -422,7 +422,7 @@ async def strategy_evidence_similarity_search(evidence_id: str, n_results: int =
             item.image_path = r['metadata'].get('image_path')
             
         items.append(item)
-        
+
     print(f"   ✅ 找到 {len(items)} 条相似证据")
     return items
 

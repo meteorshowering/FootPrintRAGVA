@@ -9,7 +9,7 @@
         <input 
           v-model="userQuestion" 
           @keyup.enter="submitUserQuery"
-          placeholder="输入您的问题..." 
+          placeholder="Enter your question…" 
           class="question-input"
           :disabled="isSubmitting"
         />
@@ -24,10 +24,10 @@
           type="button"
           class="btn btn-add-question"
           :disabled="isSubmitting"
-          title="归档当前结果并添加新问题列"
+          title="Archive current results and add a new question column"
           @click="openAddQuestionPrompt"
         >
-          + 添加问题
+          + Add question
         </button>
       </div>
     </div>
@@ -71,7 +71,7 @@
             class="session-header-overlay"
             :class="{ 'is-empty-prompt': sh.isEmptyPlaceholder }"
             :style="sh.style"
-            :title="sh.isEmptyPlaceholder ? '点击添加问题' : ''"
+            :title="sh.isEmptyPlaceholder ? 'Click to add a question' : ''"
             @click="onSessionHeaderOverlayClick(sh)"
           >{{ sh.title }}</div>
 
@@ -112,13 +112,15 @@
           </div>
 
           <div
-            v-for="row in rowLabelCells"
-            :key="row.key"
-            class="grid-row-label-cell"
-            :style="row.style"
+            v-for="strip in rowLabelStrips"
+            :key="strip.key"
+            class="grid-row-label-strip"
+            :style="strip.style"
           >
-            <div class="grid-row-title">Row {{ row.index + 1 }}</div>
-            <div class="grid-row-subtitle">Strategy slot</div>
+            <div class="grid-row-label-segment grid-row-label-segment--full">
+              <div class="grid-row-title">Question</div>
+              <div class="grid-row-subtitle session-question-body">{{ sessionQuestionText(strip.sessionId) }}</div>
+            </div>
           </div>
 
           <div
@@ -151,6 +153,11 @@
             >
               <div class="strategy-card-title-wrap">
                 <div class="strategy-card-title">{{ card.title }}</div>
+                <div
+                  v-for="(line, i) in card.searchLines"
+                  :key="`${card.key}-sq-${i}`"
+                  class="strategy-card-subtitle"
+                >{{ line }}</div>
                 <div class="strategy-card-subtitle">{{ card.subtitle }}</div>
               </div>
               <div class="strategy-card-tools">
@@ -161,10 +168,10 @@
                   @click.stop="showPlanSummary(card.planSummaryPayload)"
                 >Σ</button>
                 <button
-                  v-if="card.query?._merged_sources_data?.length"
+                  v-if="mergeSourceCount(card.query) > 0"
                   class="card-icon-btn"
                   title="拆分合并结果"
-                  @click.stop="splitMergedStrategies(card.roundNumber, card.queryIndex)"
+                  @click.stop="splitMergedStrategies(card.roundNumber, card.queryIndex, card.sessionId)"
                 >↺</button>
               </div>
             </div>
@@ -212,20 +219,20 @@
     <div v-if="addQuestionDialog" class="modal add-q-modal" @click.self="cancelAddQuestionDialog">
       <div class="modal-content add-q-modal-inner">
         <div class="modal-header">
-          <h2>添加新问题</h2>
+          <h2>Add a new question</h2>
           <button type="button" class="close-btn" @click="cancelAddQuestionDialog">×</button>
         </div>
         <div class="modal-body">
-          <input
+          <textarea
             v-model="addQuestionDraft"
-            class="question-input"
-            type="text"
-            placeholder="输入新问题…"
-            @keyup.enter="confirmAddQuestionDialog"
-          />
+            class="question-input add-q-textarea"
+            rows="4"
+            placeholder="Enter your new question…"
+            @keydown.ctrl.enter.prevent="confirmAddQuestionDialog"
+          ></textarea>
           <div class="add-q-actions">
-            <button type="button" class="btn btn-submit" @click="confirmAddQuestionDialog">确定</button>
-            <button type="button" class="btn" @click="cancelAddQuestionDialog">取消</button>
+            <button type="button" class="btn btn-submit" @click="confirmAddQuestionDialog">OK</button>
+            <button type="button" class="btn" @click="cancelAddQuestionDialog">Cancel</button>
           </div>
         </div>
       </div>
@@ -328,6 +335,7 @@ import { marked } from 'marked';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import ItemDetail from './ItemDetail.vue';
+import { buildInteractiveReportItemFromRag } from '../store/interactiveReportItem';
 
 // 策略画布位置管理类
 class StrategyCanvas {
@@ -396,8 +404,13 @@ export default {
       completedQuestionColumns: [],
       /** 当前正在跑或刚提交的问题对应的会话 id（与后端 experiment_result.session_id 对齐） */
       activeSessionId: '',
-      /** 多问题共用的批次 id，对应后端 logs/experiment_results_{batch_id}.json（sessions 合并） */
+      /** 多问题共用的批次 id（元数据）；后端 server 在 experiment_data 下固定一个 experiment_results_*.json，按 session 合并 */
       sessionBatchId: '',
+      /**
+       * 从后端拉取的实验 JSON 相对路径（与 selectedDataFile 一致，经 /api/experiment-file 读取）。
+       * 非空时 WebSocket 会带 fork_experiment_source，后端复制为 experiment_data/<stem>_user2.json 并合并保存追问/新会话。
+       */
+      forkExperimentSource: '',
       /** 添加问题：输入框与插入位置（null | { afterColumnIndex: number }） */
       addQuestionDialog: null,
       addQuestionDraft: '',
@@ -409,8 +422,8 @@ export default {
       showLabels: true,
       showConnections: true,
       hidePrunePoints: false,  // 是否隐藏PRUNE节点
-      selectedDataFile: 'experiment_results_20260303_181558.json',
-      experimentFiles: ['experiment_results_20260303_181558.json'],
+      selectedDataFile: '',
+      experimentFiles: [],
       // 布局参数 - 重新设计更美观的布局
       strategyWidth: 400,        // 每个策略画布的宽度
       strategyHeight: 350,        // 每个策略画布的高度
@@ -428,6 +441,8 @@ export default {
       strategyCanvases: {},       // 存储所有策略画布位置
       strategyOffsets: {},        // 存储策略卡片的拖拽偏移量 { roundNumber: { queryIndex: { x: 0, y: 0 } } }
       draggingStrategy: null,     // 当前正在拖拽的策略卡片 { roundNumber, queryIndex }，用于防止点击事件
+      /** 指针拖入 Interactive Report 后抑制紧随其后的 click，避免重复打开详情 */
+      suppressNextRagDotClick: false,
       // 弹窗相关
       showPlanSummaryModal: false,
       selectedPlanSummary: null,
@@ -469,6 +484,7 @@ export default {
       dragState: {
         active: false,
         cardKey: null,
+        sessionId: null,
         roundNumber: null,
         queryIndex: null,
         startClientX: 0,
@@ -597,14 +613,18 @@ export default {
           maxX = Math.max(maxX, rect.x + rect.width);
         });
         if (sid === 'empty') {
-          title = '+ 添加问题';
+          title = '+ Add question';
           const strip = this.gridMetrics.strips && this.gridMetrics.strips[0];
-          const row0 = strip && strip.rowYs && strip.rowYs[0];
+          const rowYs = strip && strip.rowYs;
+          const row0 = rowYs && rowYs[0];
+          const lastR = rowYs && rowYs.length ? rowYs[rowYs.length - 1] : null;
           const label = this.gridMetrics.colPositions.label;
           const firstR = list[0];
           const gck0 = firstR.__gridColKey || riverGrid.gridColumnKey(firstR);
           const firstCol = this.gridMetrics.colPositions[`round-${gck0}`];
-          if (!row0 || !label || !firstCol) return;
+          if (!row0 || !lastR || !label || !firstCol) return;
+          const contentTop = row0.y;
+          const contentH = lastR.y + lastR.height - row0.y;
           out.push({
             key: `sess-head-${sid}`,
             sessionId: sid,
@@ -612,9 +632,9 @@ export default {
             isEmptyPlaceholder: true,
             style: {
               left: `${label.x}px`,
-              top: `${row0.y}px`,
+              top: `${contentTop}px`,
               width: `${firstCol.x - label.x}px`,
-              height: `${row0.height}px`
+              height: `${contentH}px`
             }
           });
           return;
@@ -626,78 +646,74 @@ export default {
             (this.experimentResult && this.experimentResult.root_goal) ||
             title ||
             (this.userQuestion && this.userQuestion.trim()) ||
-            '当前问题';
+            'Current question';
         }
-        if (!title) title = '问题';
+        if (!title) title = 'Question';
         if (minX === Infinity) return;
         const strip = this.gridMetrics.strips && this.gridMetrics.strips.find((s) => s.sessionId === sid);
-        const row0 = strip && strip.rowYs && strip.rowYs[0];
+        const rowYs = strip && strip.rowYs;
+        const row0 = rowYs && rowYs[0];
+        const lastRow = rowYs && rowYs.length ? rowYs[rowYs.length - 1] : null;
         const label = this.gridMetrics.colPositions.label;
-        if (!row0 || !label) return;
+        if (!row0 || !lastRow || !label) return;
+        const contentTop = row0.y;
+        const contentH = lastRow.y + lastRow.height - row0.y;
         const stripMaxW = 240;
         const left = Math.max(label.x, minX - stripMaxW);
         const stripW = Math.max(72, minX - left);
         out.push({
           key: `sess-head-${sid}`,
           sessionId: sid,
-          title: title.length > 80 ? `${title.slice(0, 80)}…` : title,
+          title,
           isEmptyPlaceholder: false,
           style: {
             left: `${left}px`,
-            top: `${row0.y}px`,
+            top: `${contentTop}px`,
             width: `${stripW}px`,
-            height: `${row0.height}px`
+            height: `${contentH}px`
           }
         });
       });
       return out;
     },
-    /** 每个已有问题会话列组正下方居中的「+」，用于添加新问题 */
+    /** 整张表最下方居中一个「大追问」：不在两题之间重复出现 */
     sessionAddButtonsBelow() {
       if (!this.gridMetrics) return [];
       const m = this.gridMetrics;
-      const rounds = this.getAllRounds();
+      const rounds = this.getAllRounds().filter((r) => r._sessionId && r._sessionId !== 'empty');
       if (!rounds.length) return [];
-      const bySid = new Map();
-      rounds.forEach((r) => {
-        const sid = r._sessionId || 'default';
-        if (!bySid.has(sid)) bySid.set(sid, []);
-        bySid.get(sid).push(r);
-      });
+      const strips = m.strips;
+      if (!strips || !strips.length) return [];
+      const lastStrip = strips[strips.length - 1];
       const lastRowIdx = Math.max(0, m.maxQueryCount - 1);
-      const out = [];
-      bySid.forEach((list, sid) => {
-        if (sid === 'empty') return;
-        list.sort((a, b) => a.round_number - b.round_number);
-        const strip = m.strips && m.strips.find((s) => s.sessionId === sid);
-        const rowLast = strip && strip.rowYs && strip.rowYs[lastRowIdx];
-        if (!rowLast) return;
-        const bottomY = rowLast.y + rowLast.height + 10;
-        let minX = Infinity;
-        let maxX = -Infinity;
-        list.forEach((r) => {
-          const gck = r.__gridColKey || riverGrid.gridColumnKey(r);
-          const rect = riverGrid.getRoundHeaderRect(this.gridMetrics, r.round_number, gck);
-          if (!rect) return;
-          minX = Math.min(minX, rect.x);
-          maxX = Math.max(maxX, rect.x + rect.width);
-        });
-        if (minX === Infinity) return;
-        const btnW = 88;
-        const btnH = 36;
-        const cx = (minX + maxX) / 2 - btnW / 2;
-        out.push({
-          key: `add-below-${sid}`,
-          sessionId: sid,
+      const rowLast = lastStrip.rowYs && lastStrip.rowYs[lastRowIdx];
+      if (!rowLast) return [];
+      const bottomY = rowLast.y + rowLast.height + 10;
+      let minX = Infinity;
+      let maxX = -Infinity;
+      rounds.forEach((r) => {
+        const gck = r.__gridColKey || riverGrid.gridColumnKey(r);
+        const rect = riverGrid.getRoundHeaderRect(this.gridMetrics, r.round_number, gck);
+        if (!rect) return;
+        minX = Math.min(minX, rect.x);
+        maxX = Math.max(maxX, rect.x + rect.width);
+      });
+      if (minX === Infinity) return [];
+      const btnW = 88;
+      const btnH = 36;
+      const cx = (minX + maxX) / 2 - btnW / 2;
+      return [
+        {
+          key: 'add-below-global',
+          sessionId: '__all__',
           style: {
             left: `${cx}px`,
             top: `${bottomY}px`,
             width: `${btnW}px`,
             height: `${btnH}px`
           }
-        });
-      });
-      return out;
+        }
+      ];
     },
     /** 有策略格子数据后才显示追问按钮（非空表初始态） */
     showFollowUpChrome() {
@@ -717,15 +733,18 @@ export default {
       const m = this.gridMetrics;
       const label = m.colPositions.label;
       const act = this.activeSessionId;
-      const strip = m.strips && act && m.strips.find((s) => s.sessionId === act);
+      const strip =
+        m.strips &&
+        (act ? m.strips.find((s) => s.sessionId === act) : m.strips[0]);
       if (!strip || !strip.rowYs || !strip.rowYs.length) return [];
+      const sidForFu = strip.sessionId;
       const lastRowIdx = Math.max(0, m.maxQueryCount - 1);
       const rowLast = strip.rowYs[lastRowIdx];
       const header = { y: strip.headerY, height: strip.headerH };
       if (!label || !rowLast) return [];
       let maxRoundRight = 0;
       this.getAllRounds()
-        .filter((r) => r._sessionId === act)
+        .filter((r) => r._sessionId === sidForFu)
         .forEach((r) => {
           const gck = r.__gridColKey || riverGrid.gridColumnKey(r);
           const rect = riverGrid.getRoundHeaderRect(m, r.round_number, gck);
@@ -754,31 +773,61 @@ export default {
         }
       ];
     },
-    rowLabelCells() {
+    /** 每个 session 一条左侧长条：单块铺满该条带全部策略行（与右侧 Row1–RowN 总高度一致） */
+    rowLabelStrips() {
       if (!this.gridMetrics || !this.gridMetrics.strips) return [];
       const out = [];
       this.gridMetrics.strips.forEach((strip, si) => {
-        for (let idx = 0; idx < this.gridMetrics.maxQueryCount; idx += 1) {
-          const rect = riverGrid.getRowLabelRect(this.gridMetrics, idx, si);
-          if (!rect) continue;
-          out.push({
-            key: `row-label-${strip.sessionId}-${idx}`,
-            index: idx,
-            stripIndex: si,
-            sessionId: strip.sessionId,
-            style: {
-              left: `${rect.x}px`,
-              top: `${rect.y}px`,
-              width: `${rect.width}px`,
-              height: `${rect.height}px`
-            }
-          });
-        }
+        const merged = riverGrid.getMergedRowLabelStripRect(this.gridMetrics, si);
+        if (!merged) return;
+        out.push({
+          key: `row-strip-${strip.sessionId}`,
+          sessionId: strip.sessionId,
+          stripIndex: si,
+          style: {
+            left: `${merged.x}px`,
+            top: `${merged.y}px`,
+            width: `${merged.width}px`,
+            height: `${merged.height}px`
+          }
+        });
       });
       return out;
     },
     strategyCards() {
       if (!this.gridMetrics) return [];
+      /** 单条策略：语义检索优先，否则展示 metadata 的 paper_id 等 */
+      const pickStrategySearchDisplay = (q) => {
+        const a = q?.orchestrator_plan?.args;
+        if (!a || typeof a !== 'object') return '';
+        const sem =
+          a.query_intent ??
+          a.query ??
+          a.user_question ??
+          a.userQuery ??
+          a.search_query;
+        if (sem != null && String(sem).trim()) return String(sem).trim();
+        if (a.paper_id != null && String(a.paper_id).trim()) {
+          return String(a.paper_id).trim();
+        }
+        return '';
+      };
+      /** 合并后：主策略 + mergedSourcesData 里每条来源各一行 */
+      const collectSearchLines = (query) => {
+        const lines = [];
+        const add = (s) => {
+          const t = String(s || '').trim();
+          if (t) lines.push(t);
+        };
+        add(pickStrategySearchDisplay(query));
+        const merged = query.mergedSourcesData || query._merged_sources_data;
+        if (merged && merged.length) {
+          merged.forEach((src) => {
+            if (src && src.queryData) add(pickStrategySearchDisplay(src.queryData));
+          });
+        }
+        return lines;
+      };
       const cards = [];
       const allRounds = this.getAllRounds();
       allRounds.forEach((round) => {
@@ -796,6 +845,7 @@ export default {
             query,
             rect,
             title: `R${round.round_number}.${queryIndex + 1} ${query?.orchestrator_plan?.tool_name || 'strategy'}`,
+            searchLines: collectSearchLines(query),
             subtitle: `${(query?.rag_results || []).length} results`,
             edges: this.getCardHighlightEdges(round, queryIndex),
             planSummaryPayload: {
@@ -859,11 +909,40 @@ export default {
     }
   },
   methods: {
+    /**
+     * 左侧 Question 区：与上方 session 表头同源，展示该会话完整题干（含大追问后归档到 completed 的 rootGoal）。
+     */
+    sessionQuestionText(sessionId) {
+      if (!sessionId || sessionId === 'empty') return 'Click to add a question';
+      const col = this.completedQuestionColumns.find((c) => c.sessionId === sessionId);
+      let t = '';
+      if (col && col.rootGoal) t = String(col.rootGoal).trim();
+      if (sessionId === this.activeSessionId) {
+        t =
+          (this.experimentResult && this.experimentResult.root_goal) ||
+          t ||
+          (this.userQuestion && String(this.userQuestion).trim()) ||
+          '';
+      }
+      return t || 'Question';
+    },
     // LeftPanel 控制用：切换实验文件
     setSelectedDataFile(file) {
       if (!file) return;
       this.selectedDataFile = String(file);
     },
+    /**
+     * 与 /api/experiment-files 返回的相对路径一致。
+     * 使用 GET /api/experiment-file?path=…（与 fork 同源解析），避免仅配置了 /api 代理、未代理 /experiment-data 时出现 404。
+     */
+    experimentDataFetchUrl(relPath) {
+      const p = String(relPath || '')
+        .trim()
+        .replace(/\\/g, '/');
+      if (!p || p.includes('..')) return '';
+      return `/api/experiment-file?path=${encodeURIComponent(p)}`;
+    },
+
     async loadExperimentFileList() {
       try {
         const resp = await fetch('/api/experiment-files');
@@ -982,21 +1061,22 @@ export default {
               }
               const rounds = this.graphToRoundsData(data);
               let nextRounds = rounds;
-              // 追问单独 runtime 的图谱只有本轮新证据，必须与本地已有 rounds 合并，否则会「刷掉」前面的小矩形
-              if (data.follow_up && this.roundsData && this.roundsData.length > 0) {
-                nextRounds = this.mergeRoundsDataFromFollowUp(this.roundsData, rounds);
+              // 追问单独 runtime 的图谱只有本轮新证据，必须与本地已有 rounds 合并（含从文件加载的多会话列）
+              const baseRounds = this.getActiveSessionBaseRounds();
+              if (data.follow_up && baseRounds && baseRounds.length > 0) {
+                nextRounds = this.mergeRoundsDataFromFollowUp(baseRounds, rounds);
               }
               // 如果使用逐步渲染，需要合并 planStates 中的状态
               if (Object.keys(this.planStates).length > 0) {
-                // 逐步渲染模式：保留 planStates，更新 roundsData
-                this.roundsData = nextRounds;
+                // 逐步渲染模式：保留 planStates，更新活跃会话轮次
+                this.setActiveSessionRounds(nextRounds);
                 // 确保 planStates 中的节点信息与 graph 同步
                 this.syncPlanStatesWithGraph(data);
               } else {
                 // 完整更新模式
-                this.roundsData = nextRounds;
+                this.setActiveSessionRounds(nextRounds);
               }
-              this.incrementalRoundsData = JSON.parse(JSON.stringify(this.roundsData));
+              this.incrementalRoundsData = JSON.parse(JSON.stringify(nextRounds));
               this.$nextTick(() => this.drawRiverChart());
             }
           } catch (e) {
@@ -1252,6 +1332,37 @@ export default {
       return out;
     },
 
+    /**
+     * 当前「活跃会话」的轮次数据：在线跑在 roundsData；从本地多会话 JSON 读入时在 completedQuestionColumns 中。
+     */
+    getActiveSessionBaseRounds() {
+      const sid = this.activeSessionId;
+      if (!sid) return this.roundsData || [];
+      if (this.roundsData && this.roundsData.length > 0) {
+        return this.roundsData;
+      }
+      const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
+      return col && Array.isArray(col.roundsData) ? col.roundsData : [];
+    },
+    /** 将合并后的轮次写回活跃会话（与 getActiveSessionBaseRounds 对称） */
+    setActiveSessionRounds(nextRounds) {
+      const sid = this.activeSessionId;
+      if (!sid) {
+        this.roundsData = nextRounds;
+        return;
+      }
+      if (this.roundsData && this.roundsData.length > 0) {
+        this.roundsData = nextRounds;
+        return;
+      }
+      const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
+      if (col) {
+        col.roundsData = nextRounds;
+      } else {
+        this.roundsData = nextRounds;
+      }
+    },
+
     async loadMapData() {
       try {
         const fileName = this.ragCollection === 'LLMvisDataset' 
@@ -1378,14 +1489,42 @@ export default {
     },
 
     async loadAllRounds() {
+      if (!String(this.selectedDataFile || '').trim()) {
+        await this.loadExperimentFileList();
+        if (!String(this.selectedDataFile || '').trim() && this.experimentFiles.length > 0) {
+          this.selectedDataFile = this.experimentFiles[0];
+        }
+        if (!String(this.selectedDataFile || '').trim()) {
+          alert(
+            '未选择实验文件且 experiment_data 目录下暂无 experiment*.json。\n请将 JSON 放到后端 ToRAGLENSBack/experiment_data，并确认已运行 python server.py（加载最新代码后需重启）与前端 devServer 的 /api 代理。'
+          );
+          return;
+        }
+      }
+
       this.clearChart();
       await this.loadMapData();
-      
+
       try {
-        const response = await fetch(`/${this.selectedDataFile}`);
+        const url = this.experimentDataFetchUrl(this.selectedDataFile);
+        if (!url) throw new Error('无效的实验文件路径');
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}，无法读取：${this.selectedDataFile}`);
+        }
         const experimentData = await response.json();
         this.completedQuestionColumns = [];
         this.activeSessionId = '';
+        if (experimentData.batch_id != null && String(experimentData.batch_id).trim()) {
+          this.sessionBatchId = String(experimentData.batch_id).trim();
+          try {
+            if (typeof sessionStorage !== 'undefined') {
+              sessionStorage.setItem('rag_lens_batch_id', this.sessionBatchId);
+            }
+          } catch (e) {
+            /* ignore */
+          }
+        }
         if (experimentData.sessions && Array.isArray(experimentData.sessions)) {
           this.experimentResult = experimentData.sessions[0] || experimentData;
           this.$store.commit('setExperimentResult', this.experimentResult);
@@ -1397,18 +1536,36 @@ export default {
               .sort((a, b) => a.round_number - b.round_number)
           }));
           this.roundsData = [];
+          const s0 = experimentData.sessions[0];
+          if (s0) {
+            const rawSid = s0.session_id;
+            this.activeSessionId =
+              rawSid != null && String(rawSid).trim()
+                ? String(rawSid).trim()
+                : 'import-0';
+          } else {
+            this.activeSessionId = '';
+          }
         } else {
           this.experimentResult = experimentData;
           this.$store.commit('setExperimentResult', experimentData);
           this.roundsData = (experimentData.iterations || []).filter(round => round && round.round_number !== undefined);
           this.roundsData.sort((a, b) => a.round_number - b.round_number);
+          this.activeSessionId =
+            experimentData.session_id != null && String(experimentData.session_id).trim()
+              ? String(experimentData.session_id).trim()
+              : 'default';
         }
         
         console.log('加载的实验数据:', this.roundsData);
         console.log('Hypothesis 数据:', experimentData.hypothesis);
+        this.forkExperimentSource = String(this.selectedDataFile || '')
+          .trim()
+          .replace(/\\/g, '/');
         this.drawRiverChart();
       } catch (error) {
         console.error('加载实验数据失败:', error);
+        alert(`加载实验数据失败：${error.message || error}`);
       }
     },
 
@@ -1780,7 +1937,6 @@ export default {
     handleCardClick(card) {
       if (this.dragState.moved) return;
       this.focusedStrategyKey = card.key;
-      this.selectAllPointsInStrategy(card.query);
       this.highlightPlanPointsInGlobalMap(card.query);
       this.drawRiverChart();
     },
@@ -2270,6 +2426,9 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             .style('z-index', '1000')
             .style('font-size', '12px')
             .style('pointer-events', 'none')
+            .style('max-width', 'min(92vw, 560px)')
+            .style('white-space', 'normal')
+            .style('word-break', 'break-word')
             .style('left', `${event.pageX + 14}px`)
             .style('top', `${event.pageY - 10}px`);
           
@@ -2278,7 +2437,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             <div style="margin-bottom:4px;"><strong>类型:</strong> ${typeLabel}</div>
             <div style="margin-bottom:4px;"><strong>Score:</strong> ${Number(d.score).toFixed(3)}</div>
             <div style="margin-bottom:4px;"><strong>Action:</strong> ${d.action}</div>
-            <div><strong>Title:</strong> ${String(title).slice(0, 60)}${String(title).length > 60 ? '...' : ''}</div>
+            <div><strong>Title:</strong> ${String(title)}</div>
           `);
         })
         .on('mouseout', function(event, d) {
@@ -2294,15 +2453,90 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           d3.selectAll('.river-tooltip').remove();
         })
         .on('click', (event, d) => {
+          if (this.suppressNextRagDotClick) {
+            this.suppressNextRagDotClick = false;
+            event.stopPropagation();
+            event.preventDefault();
+            return;
+          }
           const rr = d.rag?.retrieval_result;
           if (!rr) return;
           const evaluation = d.rag?.evaluation ?? null;
-          if (event.ctrlKey || event.metaKey) {
-            event.stopPropagation();
-            this.addToPending(rr, evaluation);
-          } else {
-            this.showDetail(rr, evaluation);
+          this.showDetail(rr, evaluation);
+        })
+        .on('pointerdown', (event, d) => {
+          if (event.button !== 0) return;
+          event.stopPropagation();
+          const rr = d.rag?.retrieval_result;
+          if (!rr || !rr.id) return;
+          const evaluation = d.rag?.evaluation ?? null;
+          if (this.hidePrunePoints) {
+            const branchAction = evaluation?.branch_action || rr.evaluation?.branch_action || 'UNKNOWN';
+            if (branchAction === 'PRUNE') return;
           }
+          const ragForBuild = { ...rr, evaluation: evaluation || rr.evaluation || null };
+          const item = buildInteractiveReportItemFromRag(this.$store.getters, ragForBuild);
+          if (!item) return;
+
+          const startX = event.clientX;
+          const startY = event.clientY;
+          const ptrId = event.pointerId;
+          let moved = false;
+          const IR_DRAG_THRESHOLD = 8;
+          const gNode = event.currentTarget;
+          try {
+            gNode.setPointerCapture(ptrId);
+          } catch (e) {
+            /* ignore */
+          }
+
+          const setDropZonesActive = (on) => {
+            document.querySelectorAll('.interactive-report-drop-zone').forEach((z) => {
+              if (on) z.classList.add('interactive-report-drop-active');
+              else z.classList.remove('interactive-report-drop-active');
+            });
+          };
+
+          const cleanup = () => {
+            window.removeEventListener('pointermove', onMove);
+            window.removeEventListener('pointerup', onUp);
+            setDropZonesActive(false);
+            try {
+              gNode.releasePointerCapture(ptrId);
+            } catch (e) {
+              /* ignore */
+            }
+          };
+
+          const onMove = (ev) => {
+            if (ev.pointerId !== ptrId) return;
+            if (Math.hypot(ev.clientX - startX, ev.clientY - startY) > IR_DRAG_THRESHOLD) {
+              moved = true;
+              setDropZonesActive(true);
+            }
+          };
+
+          const vm = this;
+          const onUp = (ev) => {
+            if (ev.pointerId !== ptrId) return;
+            cleanup();
+            if (moved) {
+              ev.preventDefault();
+              ev.stopPropagation();
+              const target = document.elementFromPoint(ev.clientX, ev.clientY);
+              const zone = target && target.closest && target.closest('.interactive-report-drop-zone');
+              if (zone) {
+                const sectionId = zone.getAttribute('data-section-id');
+                if (sectionId) {
+                  vm.$store.commit('addPointToInteractiveReportSection', { sectionId, item });
+                }
+              }
+              vm.suppressNextRagDotClick = true;
+            }
+          };
+
+          window.addEventListener('pointermove', onMove);
+          window.addEventListener('pointerup', onUp);
         });
     },
 
@@ -2408,6 +2642,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       this.dragState = {
         active: true,
         cardKey: card.key,
+        sessionId: card.sessionId,
         roundNumber: card.roundNumber,
         queryIndex: card.queryIndex,
         startClientX: event.clientX,
@@ -2438,17 +2673,38 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       if (up) window.removeEventListener('mouseup', up);
       const active = JSON.parse(JSON.stringify(this.dragState));
       if (active.active && active.hoverTarget) {
+        const sid =
+          active.hoverTarget.sessionId || active.sessionId || this.activeSessionId;
         if (active.hoverTarget.mode === 'merge' && active.cardKey !== active.hoverTarget.key) {
-          this.mergeStrategies(active.roundNumber, active.queryIndex, active.hoverTarget.roundNumber, active.hoverTarget.queryIndex);
+          this.mergeStrategies(
+            active.roundNumber,
+            active.queryIndex,
+            active.hoverTarget.roundNumber,
+            active.hoverTarget.queryIndex,
+            sid
+          );
         } else if (active.hoverTarget.mode === 'swap' && active.cardKey !== active.hoverTarget.key) {
-          this.swapStrategies(active.roundNumber, active.queryIndex, active.hoverTarget.roundNumber, active.hoverTarget.queryIndex);
+          this.swapStrategies(
+            active.roundNumber,
+            active.queryIndex,
+            active.hoverTarget.roundNumber,
+            active.hoverTarget.queryIndex,
+            sid
+          );
         } else if (active.hoverTarget.mode === 'move') {
-          this.moveStrategy(active.roundNumber, active.queryIndex, active.hoverTarget.roundNumber, active.hoverTarget.queryIndex);
+          this.moveStrategy(
+            active.roundNumber,
+            active.queryIndex,
+            active.hoverTarget.roundNumber,
+            active.hoverTarget.queryIndex,
+            sid
+          );
         }
       }
       this.dragState = {
         active: false,
         cardKey: null,
+        sessionId: null,
         roundNumber: null,
         queryIndex: null,
         startClientX: 0,
@@ -2513,6 +2769,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
               : null,
             roundNumber: slot.roundNumber,
             queryIndex: slot.queryIndex,
+            sessionId: slot.sessionId,
             mode: slot.occupied ? (centerZone ? 'merge' : 'swap') : 'move',
             sceneRect: rect,
             rect: this.sceneRectToViewportRect(rect)
@@ -2533,6 +2790,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             : null,
           roundNumber: slot.roundNumber,
           queryIndex: slot.queryIndex,
+          sessionId: slot.sessionId,
           mode: slot.occupied ? 'swap' : 'move',
           sceneRect: slot.sceneRect,
           rect: this.sceneRectToViewportRect(slot.sceneRect)
@@ -2541,8 +2799,24 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       return null;
     },
 
-    getRoundRef(roundNumber) {
-      return this.roundsData.find(r => r.round_number === roundNumber) || this.newRounds?.[roundNumber] || null;
+    /** 合并来源条数（兼容旧字段 _merged_sources_data） */
+    mergeSourceCount(query) {
+      if (!query) return 0;
+      const n = (query.mergedSourcesData && query.mergedSourcesData.length) || 0;
+      const legacy = (query._merged_sources_data && query._merged_sources_data.length) || 0;
+      return Math.max(n, legacy);
+    },
+
+    /** 按 session 定位 round（归档列与当前 session 的 roundsData 分开） */
+    getRoundRef(roundNumber, sessionId) {
+      const sid = sessionId || this.activeSessionId || 'default';
+      const activeSid = this.activeSessionId || 'default';
+      if (sid !== activeSid) {
+        const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
+        const r = col && (col.roundsData || []).find((x) => x.round_number === roundNumber);
+        if (r) return r;
+      }
+      return this.roundsData.find((r) => r.round_number === roundNumber) || this.newRounds?.[roundNumber] || null;
     },
 
     cloneQueryData(query) {
@@ -2560,10 +2834,11 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       });
     },
 
-    mergeStrategies(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex) {
+    mergeStrategies(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex, sessionId) {
       if (sourceRoundNumber === targetRoundNumber && sourceIndex === targetIndex) return;
-      const sourceRound = this.getRoundRef(sourceRoundNumber);
-      const targetRound = this.getRoundRef(targetRoundNumber);
+      const sid = sessionId || this.activeSessionId || 'default';
+      const sourceRound = this.getRoundRef(sourceRoundNumber, sid);
+      const targetRound = this.getRoundRef(targetRoundNumber, sid);
       if (!sourceRound || !targetRound) return;
       const sourceQuery = sourceRound.query_results?.[sourceIndex];
       const targetQuery = targetRound.query_results?.[targetIndex];
@@ -2572,8 +2847,14 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       if (!targetQuery._original_rag_results) {
         targetQuery._original_rag_results = this.cloneQueryData(targetQuery.rag_results || []);
       }
-      if (!targetQuery._merged_sources_data) targetQuery._merged_sources_data = [];
-      targetQuery._merged_sources_data.push({
+      if (!targetQuery.mergedSourcesData) {
+        targetQuery.mergedSourcesData = [];
+        if (targetQuery._merged_sources_data && targetQuery._merged_sources_data.length) {
+          targetQuery.mergedSourcesData.push(...targetQuery._merged_sources_data);
+          delete targetQuery._merged_sources_data;
+        }
+      }
+      targetQuery.mergedSourcesData.push({
         originalRound: sourceRoundNumber,
         originalIndex: sourceIndex,
         queryData: this.cloneQueryData(sourceQuery)
@@ -2583,11 +2864,13 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
 
       sourceRound.query_results.splice(sourceIndex, 1);
       this.focusedStrategyKey = this.getStrategyKey(targetRoundNumber, targetIndex);
+      this.roundsData = [...this.roundsData];
     },
 
-    swapStrategies(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex) {
-      const sourceRound = this.getRoundRef(sourceRoundNumber);
-      const targetRound = this.getRoundRef(targetRoundNumber);
+    swapStrategies(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex, sessionId) {
+      const sid = sessionId || this.activeSessionId || 'default';
+      const sourceRound = this.getRoundRef(sourceRoundNumber, sid);
+      const targetRound = this.getRoundRef(targetRoundNumber, sid);
       if (!sourceRound || !targetRound) return;
       const sourceQuery = sourceRound.query_results?.[sourceIndex];
       const targetQuery = targetRound.query_results?.[targetIndex];
@@ -2597,9 +2880,10 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       this.focusedStrategyKey = this.getStrategyKey(targetRoundNumber, targetIndex);
     },
 
-    moveStrategy(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex) {
-      const sourceRound = this.getRoundRef(sourceRoundNumber);
-      const targetRound = this.getRoundRef(targetRoundNumber);
+    moveStrategy(sourceRoundNumber, sourceIndex, targetRoundNumber, targetIndex, sessionId) {
+      const sid = sessionId || this.activeSessionId || 'default';
+      const sourceRound = this.getRoundRef(sourceRoundNumber, sid);
+      const targetRound = this.getRoundRef(targetRoundNumber, sid);
       if (!sourceRound || !targetRound || !sourceRound.query_results) return;
       const movingQuery = sourceRound.query_results[sourceIndex];
       if (!movingQuery) return;
@@ -2615,15 +2899,19 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       this.focusedStrategyKey = this.getStrategyKey(targetRoundNumber, insertIndex);
     },
 
-    splitMergedStrategies(roundNumber, queryIndex) {
-      const round = this.roundsData.find(r => r.round_number === roundNumber);
+    splitMergedStrategies(roundNumber, queryIndex, sessionId) {
+      const round = this.getRoundRef(roundNumber, sessionId);
       if (!round || !round.query_results) return;
       const targetQuery = round.query_results[queryIndex];
-      
-      if (!targetQuery._merged_sources_data || targetQuery._merged_sources_data.length === 0) return;
-      
-      const sourcesToRestore = targetQuery._merged_sources_data;
-      
+      const sourcesToRestore =
+        (targetQuery.mergedSourcesData && targetQuery.mergedSourcesData.length
+          ? targetQuery.mergedSourcesData
+          : null) ||
+        (targetQuery._merged_sources_data && targetQuery._merged_sources_data.length
+          ? targetQuery._merged_sources_data
+          : null);
+      if (!sourcesToRestore || sourcesToRestore.length === 0) return;
+
       // 恢复 targetQuery 自身的 rag_results 
       if (targetQuery._original_rag_results) {
          targetQuery.rag_results = [...targetQuery._original_rag_results];
@@ -2632,13 +2920,15 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       
       // 清除合并相关的标记
       delete targetQuery.merged_from;
+      delete targetQuery.mergedSourcesData;
       delete targetQuery._merged_sources_data;
       
       // 按原始索引从小到大排序，这样在同一个 round 插入时顺移不会出错
       sourcesToRestore.sort((a, b) => a.originalIndex - b.originalIndex);
       
+      const sid = sessionId || this.activeSessionId || 'default';
       sourcesToRestore.forEach(src => {
-         const destRound = this.roundsData.find(r => r.round_number === src.originalRound);
+         const destRound = this.getRoundRef(src.originalRound, sid);
          if (destRound && destRound.query_results) {
             // 在目标 round 的原始索引处插入被拆分出来的卡片（如果有冲突则顺移）
             const insertIndex = Math.min(src.originalIndex, destRound.query_results.length);
@@ -2646,6 +2936,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
          }
       });
       
+      this.roundsData = [...this.roundsData];
       this.$nextTick(() => {
         this.drawRiverChart();
       });
@@ -3000,15 +3291,35 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         }
       }
       
-      // chunk 正文在不同工具返回结构可能不同：
-      // - strategy_semantic_search: ragResult.content.text
-      // - strategy_metadata_search: ragResult.metadata.content（包含正文/段落）
-      const textContent =
-        ragResult.content?.text ||
-        ragResult.metadata?.content ||
-        parsedMetadata?.content ||
+      // chunk 正文在不同工具返回结构可能不同（与 interactiveReportItem.js 一致）
+      let textContent = '';
+      if (ragResult.content) {
+        if (typeof ragResult.content === 'string') {
+          textContent = ragResult.content;
+        } else if (typeof ragResult.content === 'object' && ragResult.content.text != null) {
+          textContent = String(ragResult.content.text);
+        }
+      }
+      if (!textContent && typeof ragResult.metadata?.content === 'string') {
+        textContent = ragResult.metadata.content;
+      }
+      if (!textContent && typeof parsedMetadata?.content === 'string') {
+        textContent = parsedMetadata.content;
+      }
+
+      const paperTitleForDetail = parsedMetadata?.paper_title || '';
+      const titleFromMeta =
+        parsedMetadata?.figure_title ||
+        ragResult.content?.title ||
+        ragResult.metadata?.title ||
+        paperTitleForDetail ||
         '';
-      
+      const displayTitle =
+        (titleFromMeta && String(titleFromMeta).trim()) ||
+        (textContent ? String(textContent).replace(/\s+/g, ' ').trim() : '') ||
+        ragResult.id ||
+        'No Title';
+
       // 提取相对路径
       let relativePath = '';
       if (savePath) {
@@ -3043,16 +3354,13 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       return {
         id: ragResult.id,
         type: dataType,
-        title: parsedMetadata?.figure_title || 
-               ragResult.content?.title || 
-               ragResult.metadata?.title || 
-               'No Title',
+        title: displayTitle,
         relative_path: relativePath,
         key_entities: parsedMetadata?.key_entities || ragResult.metadata?.key_entities || [],
         text_content: textContent,
         concise_summary: parsedMetadata?.concise_summary || ragResult.metadata?.concise_summary || '',
         inferred_insight: parsedMetadata?.inferred_insight || ragResult.metadata?.inferred_insight || '',
-        paper_title: parsedMetadata?.paper_title || '',
+        paper_title: paperTitleForDetail,
         score: ragResult.score,
         branch_action: ragResult.evaluation?.branch_action || 'UNKNOWN',
         parsed_metadata: parsedMetadata || null,
@@ -3068,67 +3376,6 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       this.selectedPointDetail = null;
     },
     
-    // 添加点到待保存列表
-    async addToPending(retrievalResult, evaluation = null) {
-      // 如果启用了隐藏PRUNE，检查是否为PRUNE节点
-      if (this.hidePrunePoints) {
-        const branchAction = evaluation?.branch_action || retrievalResult.evaluation?.branch_action || 'UNKNOWN';
-        if (branchAction === 'PRUNE') {
-          console.log('PRUNE节点已被过滤，不添加到待保存列表');
-          return;
-        }
-      }
-      
-      // 如果传入了 evaluation，将其附加到 retrievalResult 上
-      const dataWithEvaluation = {
-        ...retrievalResult,
-        evaluation: evaluation || retrievalResult.evaluation
-      };
-      await this.$store.dispatch('addToPending', dataWithEvaluation);
-      // 等待 action 完成后再检查
-      const pendingCount = this.$store.state.pendingItems.length;
-      console.log(`已添加到待保存列表，当前待保存: ${pendingCount}`);
-    },
-    
-    // 全选策略卡片内的所有点
-    async selectAllPointsInStrategy(query) {
-      if (!query || !Array.isArray(query.rag_results) || query.rag_results.length === 0) {
-        return;
-      }
-
-      const ragResults = query.rag_results
-        .filter((rag) => {
-          if (!rag || !rag.retrieval_result) return false;
-
-          if (this.hidePrunePoints) {
-            const branchAction = rag.evaluation?.branch_action || 'UNKNOWN';
-            return branchAction !== 'PRUNE';
-          }
-          return true;
-        })
-        .map((rag) => ({
-          ...rag.retrieval_result,
-          evaluation: rag.evaluation || null
-        }));
-
-      if (ragResults.length === 0) {
-        console.log('没有可添加的点（已过滤 PRUNE 或数据为空）');
-        return;
-      }
-
-      if (this.$store?.dispatch) {
-        await this.$store.dispatch('addMultipleToPending', ragResults);
-      } else {
-        console.warn('Vuex store 不存在，跳过 addMultipleToPending');
-      }
-
-      const pendingCount = Array.isArray(this.$store?.state?.pendingItems)
-        ? this.$store.state.pendingItems.length
-        : 0;
-
-      console.log(`已全选策略卡片内的 ${ragResults.length} 个点，当前待保存: ${pendingCount}`);
-    },
-
     // 高亮全局地图中策略卡片对应的点
     highlightPlanPointsInGlobalMap(query) {
       if (!query.rag_results || query.rag_results.length === 0) {
@@ -3444,9 +3691,13 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     /** 归档当前会话到左侧列并清空缓冲区，用于「添加问题」 */
     archiveCurrentSessionColumn() {
       if (this.roundsData && this.roundsData.length > 0 && this.activeSessionId) {
+        const goal =
+          (this.experimentResult && this.experimentResult.root_goal) ||
+          (this.userQuestion && String(this.userQuestion).trim()) ||
+          '';
         this.completedQuestionColumns.push({
           sessionId: this.activeSessionId,
-          rootGoal: (this.experimentResult && this.experimentResult.root_goal) || '',
+          rootGoal: goal,
           roundsData: JSON.parse(JSON.stringify(this.roundsData))
         });
       }
@@ -3464,7 +3715,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
 
     openAddQuestionPrompt() {
       if (this.isSubmitting) {
-        alert('请等待当前任务完成后再添加新问题');
+        alert('Please wait until the current run finishes before adding a new question.');
         return;
       }
       this.addQuestionDraft = '';
@@ -3542,7 +3793,8 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             interactive: this.isInteractiveMode === true,
             session_id: this.activeSessionId,
             batch_id: this.sessionBatchId || '',
-            skip_evaluation: !!this.skipEvaluation
+            skip_evaluation: !!this.skipEvaluation,
+            ...this.wsForkPayload()
           };
               if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
                 payload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
@@ -3616,6 +3868,13 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       return `/static/${relativePath}`;
     },
 
+    /** 本地载入实验后，追问/大追问/新查询合并保存到 experiment_data/<原名>_user2.json */
+    wsForkPayload() {
+      const s = (this.forkExperimentSource || '').trim();
+      if (!s) return {};
+      return { fork_experiment_source: s };
+    },
+
     // 河流图「追问」：检索 + 可选评估，结果由后端追加到指定 round
     submitFollowUp(query) {
       const q = String(query || '').trim();
@@ -3625,9 +3884,11 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         return;
       }
 
+      const act = this.activeSessionId;
       const withData = this.getAllRounds().filter(
         (r) =>
           r._sessionId !== 'empty' &&
+          (!act || r._sessionId === act) &&
           Array.isArray(r.query_results) &&
           r.query_results.length > 0
       );
@@ -3651,7 +3912,8 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         root_goal:
           (this.experimentResult && this.experimentResult.root_goal) ||
           (this.userQuestion && String(this.userQuestion).trim()) ||
-          ''
+          '',
+        ...this.wsForkPayload()
       };
       if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
         followPayload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
@@ -4039,13 +4301,16 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             .style('z-index', '1000')
             .style('font-size', '12px')
             .style('pointer-events', 'none')
+            .style('max-width', 'min(92vw, 560px)')
+            .style('white-space', 'normal')
+            .style('word-break', 'break-word')
             .style('left', `${event.pageX + 14}px`)
             .style('top', `${event.pageY - 10}px`);
           
           tooltip.html(`
             <div style="margin-bottom:4px;"><strong>ID:</strong> ${d.id ?? ''}</div>
             <div style="margin-bottom:4px;"><strong>类型:</strong> ${typeLabel}</div>
-            <div><strong>Title:</strong> ${String(title).slice(0, 60)}${String(title).length > 60 ? '...' : ''}</div>
+            <div><strong>Title:</strong> ${String(title)}</div>
           `);
         })
         .on('mouseout', function() {
@@ -4297,6 +4562,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       }
       this.completedQuestionColumns = [];
       this.activeSessionId = '';
+      this.forkExperimentSource = '';
       this.roundsData = [];
       this.newRounds = {};
       this.strategyCanvases = {};
@@ -4356,14 +4622,15 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
 
   mounted() {
     this.ensureSessionBatchId();
-    this.loadExperimentFileList();
+    this.loadExperimentFileList().then(() => {
+      this.$nextTick(() => {
+        this.emitMapToolbar();
+        this.drawRiverChart();
+      });
+    });
     this.loadMapData();
     this.connectWebSocket();
     this.loadGlobalMapData();
-    this.$nextTick(() => {
-      this.emitMapToolbar();
-      this.drawRiverChart();
-    });
     window.addEventListener('resize', this.handleResize);
   },
 
@@ -4461,13 +4728,26 @@ svg {
   border-radius: 10px;
   box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
   pointer-events: none;
-  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+}
+.session-header-overlay:not(.is-empty-prompt) {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 8px 10px;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+  line-height: 1.35;
+  text-align: left;
+  font-weight: 700;
 }
 .session-header-overlay.is-empty-prompt {
   pointer-events: auto;
   cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   background: linear-gradient(135deg, rgba(248, 250, 252, 0.98), rgba(224, 231, 255, 0.9));
   border-color: rgba(99, 102, 241, 0.45);
 }
@@ -4555,6 +4835,13 @@ svg {
 .add-q-modal-inner {
   max-width: 480px;
 }
+.add-q-textarea {
+  width: 100%;
+  min-height: 88px;
+  resize: vertical;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
 .add-q-actions {
   display: flex;
   gap: 10px;
@@ -4562,8 +4849,7 @@ svg {
   justify-content: flex-end;
 }
 
-.grid-header-cell,
-.grid-row-label-cell {
+.grid-header-cell {
   position: absolute;
   box-sizing: border-box;
   border: 1px solid rgba(203,213,225,0.85);
@@ -4573,8 +4859,54 @@ svg {
   color: rgba(51,65,85,0.98);
 }
 
-.grid-row-label-cell {
+.grid-row-label-strip {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid rgba(203,213,225,0.85);
   background: rgba(250,252,255,0.96);
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  color: rgba(51,65,85,0.98);
+}
+
+.grid-row-label-segment {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(226,232,240,0.85);
+}
+
+.grid-row-label-segment--full {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
+  justify-content: flex-start;
+  border-bottom: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.grid-row-label-segment--full .session-question-body {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.grid-row-label-segment:last-child {
+  border-bottom: none;
 }
 
 .grid-header-title,
@@ -5432,8 +5764,7 @@ svg {
   background-size: 40px 40px;
 }
 
-.grid-header-cell,
-.grid-row-label-cell {
+.grid-header-cell {
   position: absolute;
   box-sizing: border-box;
   border: 1px solid rgba(203,213,225,0.85);
@@ -5443,8 +5774,54 @@ svg {
   color: rgba(51,65,85,0.98);
 }
 
-.grid-row-label-cell {
+.grid-row-label-strip {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid rgba(203,213,225,0.85);
   background: rgba(250,252,255,0.96);
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  color: rgba(51,65,85,0.98);
+}
+
+.grid-row-label-segment {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(226,232,240,0.85);
+}
+
+.grid-row-label-segment--full {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
+  justify-content: flex-start;
+  border-bottom: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.grid-row-label-segment--full .session-question-body {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.grid-row-label-segment:last-child {
+  border-bottom: none;
 }
 
 .grid-header-title,
@@ -5736,12 +6113,26 @@ svg {
   box-shadow: inset 0 0 0 2px rgba(16,185,129,0.15) !important;
 }
 
-.grid-header-cell,
-.grid-row-label-cell {
+.grid-header-cell {
   border: 1px solid rgba(226,232,240,0.95) !important;
   background: rgba(255,255,255,0.88) !important;
   box-shadow: 0 4px 12px rgba(15,23,42,0.04) !important;
   backdrop-filter: blur(6px);
+}
+
+.grid-row-label-strip {
+  border: 1px solid rgba(226,232,240,0.95) !important;
+  background: rgba(255,255,255,0.88) !important;
+  box-shadow: 0 4px 12px rgba(15,23,42,0.04) !important;
+  backdrop-filter: blur(6px);
+}
+
+.grid-row-label-segment {
+  border-bottom-color: rgba(226,232,240,0.75) !important;
+}
+
+.grid-row-label-segment--full {
+  border-bottom: none !important;
 }
 
 .grid-header-title,

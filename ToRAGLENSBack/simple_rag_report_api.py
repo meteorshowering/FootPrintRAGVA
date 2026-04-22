@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field
 from autogen_core.models import ModelInfo, SystemMessage, UserMessage
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from scientific_tools import strategy_semantic_search
+from rag_llm_api_config import get_rag_llm_api_settings
 
 
 app = FastAPI(title="Simple RAG Report API")
@@ -45,19 +46,14 @@ class SimpleRagReportResponse(BaseModel):
 def create_model_client() -> OpenAIChatCompletionClient:
     """
     独立接口专用模型客户端。
-    可通过环境变量覆盖默认配置：
-      - RAG_REPORT_MODEL
-      - RAG_REPORT_BASE_URL
-      - RAG_REPORT_API_KEY
+    网关与模型见 rag_llm_api_config（RAG_REPORT_* / RAG_SEMANTIC_*）。
     """
-    model = os.getenv("RAG_REPORT_MODEL", "gpt-oss-120b")
-    base_url = os.getenv("RAG_REPORT_BASE_URL", "https://uni-api.cstcloud.cn/v1")
-    api_key = os.getenv("RAG_REPORT_API_KEY", "f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8")
+    s = get_rag_llm_api_settings()
 
     return OpenAIChatCompletionClient(
-        model=model,
-        base_url=base_url,
-        api_key=api_key,
+        model=s.report_model,
+        base_url=s.base_url,
+        api_key=s.api_key,
         model_info=ModelInfo(
             vision=False,
             structured_output=False,

@@ -1,0 +1,722 @@
+{
+  "sessions": [
+    {
+      "root_goal": "How does aerosol liquid water (ALW) mediate the heterogeneous multiphase reactions that drive the explosive growth of secondary organic/inorganic aerosols (SOA/SIA) during severe winter haze episodes?",
+      "session_id": "5f2c24c3-9c62-4864-b999-d442a9925c8c",
+      "parameters": [
+        {
+          "round_number": 4,
+          "max_rounds": 1,
+          "plans_per_round": 1,
+          "rag_result_per_plan": 20,
+          "collection_name": "multimodal2text",
+          "interactive": false,
+          "rag_allowed_chunk_ids": null,
+          "map_box_rect_2d": null
+        }
+      ],
+      "iterations": [
+        {
+          "round_number": 4,
+          "query_results": [
+            {
+              "orchestrator_plan": {
+                "action": "call_tool",
+                "tool_name": "strategy_semantic_search",
+                "ParentNode": "0",
+                "args": {
+                  "query_intent": "VOC",
+                  "n_results": 20
+                },
+                "reason": "用户追问：直接检索并评估（跳过规划）",
+                "total_results": 20,
+                "duplicate_results": 0,
+                "plansummary": null
+              },
+              "rag_results": [
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001496",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "To cite this article: William P.L. Carter (2015) Development of a database for chemical mechanism assignments for volatile organic emissions, Journal of the Air & Waste Management Association, 65:10, 1171-1184, DOI: 10.1080/10962247.2015.1013646"
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "chunkid": "chunk_001496",
+                      "metadata": "{\"paper_title\": \"Development of a database for chemical mechanism assignments for volatile organic emissions\", \"md_filename\": \"Development of a database for chemical mechanism a.md\", \"paragraph_index\": 2, \"content_length\": 245, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_030",
+                      "paper_id": "paper_030"
+                    },
+                    "score": 0.7942309975624084,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001496",
+                    "branch_action": "PRUNE",
+                    "extracted_insight": "",
+                    "scores": {
+                      "relevance": 1,
+                      "credibility": 6
+                    },
+                    "reason": "Pure citation snippet without substantive scientific content or insight.",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004192",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The ozone formation potential of VOCs species was estimated using maximum incremental reactivity (MIR) method:"
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Source apportionment of volatile organic compounds: Implications to reactivity, ozone formation, and secondary organic aerosol potential\", \"md_filename\": \"Source apportionment of volatile organic compounds.md\", \"paragraph_index\": 49, \"content_length\": 110, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_004192",
+                      "paperid": "paper_006",
+                      "paper_id": "paper_006"
+                    },
+                    "score": 0.7599494457244873,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004192",
+                    "branch_action": "GROW",
+                    "extracted_insight": "Maximum Incremental Reactivity (MIR) is the method used for quantifying ozone formation potential from VOCs.",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 8
+                    },
+                    "reason": "High-value methodological insight for VOC reactivity assessment with clear modeling application.",
+                    "suggested_keywords": [
+                      "MIR method",
+                      "ozone formation potential"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004170",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "A time-resolved approach was used to evaluate the influence of photochemical processing on the measured VOC levels since emissions (Yuan et al., 2013; Ait-Helal et al., 2014; Han et al., 2017; He et al., 2019). The first-order kinetic reaction was used to describe the relationship for VOCs reacting with OH- radical:"
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Source apportionment of volatile organic compounds: Implications to reactivity, ozone formation, and secondary organic aerosol potential\", \"md_filename\": \"Source apportionment of volatile organic compounds.md\", \"paragraph_index\": 24, \"content_length\": 317, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_004170",
+                      "paperid": "paper_006",
+                      "type": "texture",
+                      "paper_id": "paper_006"
+                    },
+                    "score": 0.759101152420044,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004170",
+                    "branch_action": "GROW",
+                    "extracted_insight": "VOC-OH radical reactions follow first-order kinetics, enabling quantification of photochemical aging effects.",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 8
+                    },
+                    "reason": "Core kinetic model describing VOC transformation pathways, essential for reactivity analysis.",
+                    "suggested_keywords": [
+                      "first-order kinetics",
+                      "OH- radical reaction",
+                      "photochemical aging"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004124",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The ozone formation potential (OFP) is typically used to assess the reactivity of VOCs' transformation to ozone under optimal photochemical conditions. It was calculated by multiplying the mass concentration of individual VOCs by the corresponding maximum incremental reactivity according to Formula (3):"
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_004124",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Segment-based Volatile Organic Compound Emission Characteristics from Different Types of Coking Plants in China\", \"md_filename\": \"Segment-based Volatile Organic Compound Emission C.md\", \"paragraph_index\": 49, \"content_length\": 304, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_020",
+                      "paper_id": "paper_020"
+                    },
+                    "score": 0.7550686597824097,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004124",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "Ozone formation potential (OFP) is calculated as: VOC mass concentration × MIR coefficient.",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 7
+                    },
+                    "reason": "Reinforces standard OFP calculation method but adds limited new information beyond preceding items.",
+                    "suggested_keywords": [
+                      "OFP calculation",
+                      "reactivity coefficient"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002895",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# Long-term observations of oxygenated volatile organic compounds (OVOCs) in an urban atmosphere in southern China, 2014-2019\\*"
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_002895",
+                      "paperid": "paper_014",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Long-term observations of oxygenated volatile organic compounds (OVOCs) in an urban atmosphere in southern China, 2014-2019\\\\*\", \"md_filename\": \"Long-term observations of oxygenated volatile orga.md\", \"paragraph_index\": 0, \"content_length\": 127, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_014"
+                    },
+                    "score": 0.7541034817695618,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002895",
+                    "branch_action": "PRUNE",
+                    "extracted_insight": "",
+                    "scores": {
+                      "relevance": 3,
+                      "credibility": 5
+                    },
+                    "reason": "Title-only snippet lacking scientific insight or quantitative data. Requires full-text retrieval.",
+                    "suggested_keywords": [
+                      "OVOC monitoring"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004157",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# Source apportionment of volatile organic compounds: Implications to reactivity, ozone formation, and secondary organic aerosol potential"
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Source apportionment of volatile organic compounds: Implications to reactivity, ozone formation, and secondary organic aerosol potential\", \"md_filename\": \"Source apportionment of volatile organic compounds.md\", \"paragraph_index\": 0, \"content_length\": 138, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_004157",
+                      "paperid": "paper_006",
+                      "paper_id": "paper_006"
+                    },
+                    "score": 0.6604416340006108,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004157",
+                    "branch_action": "PRUNE",
+                    "extracted_insight": "",
+                    "scores": {
+                      "relevance": 3,
+                      "credibility": 6
+                    },
+                    "reason": "Title provides no analytical insight or technical substance beyond basic VOC identification.",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001810",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Biogenic volatile organic compounds (BVOCs) emitted from terrestrial ecosystems have substantial effects on the global climate and environmental chemistry. Previous studies have shown that up to  $90\\%$  of the total VOC emissions are derived from biogenic sources (Guenther et al. 1995). BVOCs such as isoprene, monoterpenes and sesquiterpenes participate in oxidative chemical reactions in the atmosphere with oxidants such as ozone, OH and  $\\mathrm{NO}_3$  radicals. In addition, BVOCs are major sources of secondary organic aerosols (SOA) and new particle formation (Hallquist et al. 2009; Kulmala et al. 2004; Paasonen et al. 2013; Kota et al. 2015). Measurements and modeling of BVOC emissions are of vital importance to understand the carbon cycle, biosphere-atmosphere interactions and climate change (Gu et al. 2017; Hantson et al. 2017)."
+                    },
+                    "metadata": {
+                      "paperid": "paper_015",
+                      "metadata": "{\"paper_title\": \"Estimation of biogenic VOC emissions and their corresponding impact on ozone and secondary organic aerosol formation in China\", \"md_filename\": \"Estimation of biogenic VOC emissions and their cor.md\", \"paragraph_index\": 14, \"content_length\": 848, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "chunkid": "chunk_001810",
+                      "paper_id": "paper_015"
+                    },
+                    "score": 0.644412810824736,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001810",
+                    "branch_action": "GROW",
+                    "extracted_insight": "Biogenic VOCs constitute up to 90% of global VOC emissions and drive secondary organic aerosol formation through oxidative reactions with atmospheric radicals.",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 8
+                    },
+                    "reason": "Quantifies BVOC dominance, explains SOA formation mechanism via oxidation chemistry, and cites key references.",
+                    "suggested_keywords": [
+                      "biogenic VOCs",
+                      "SOA formation pathways",
+                      "atmospheric oxidation reactions"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000321",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Non-methane volatile organic compounds (NMVOCs) are emitted into the atmosphere from surface anthropogenic, biogenic, and biomass burning sources. NMVOCs are precursors to tropospheric ozone and secondary organic aerosols, both of which are climate forcers and major air pollutants. NMVOCs also affect the oxidation capacity of the atmosphere, which in turn changes the lifetimes of greenhouse gases and other pollutants. It is thus crucial to quantify NMVOC emissions in order to understand their impacts on atmospheric chemistry and climate on both global and regional scales. Here we used satellite observations and a chemical transport model to constrain NMVOC emissions from China and assessed their impacts on seasonal surface ozone."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "chunkid": "chunk_000321",
+                      "paperid": "paper_008",
+                      "metadata": "{\"paper_title\": \"Adjoint inversion of Chinese non-methane volatile organic compound emissions using space-based observations of formaldehyde and glyoxal\", \"md_filename\": \"Adjoint inversion of Chinese non-methane volatile .md\", \"paragraph_index\": 9, \"content_length\": 739, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_008"
+                    },
+                    "score": 0.628552034742891,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000321",
+                    "branch_action": "GROW",
+                    "extracted_insight": "NMVOC emissions from Chinese sources directly influence seasonal surface ozone patterns through atmospheric oxidation capacity modulation.",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 8
+                    },
+                    "reason": "Region-specific (China) NMVOC impact assessment linking emissions to ozone chemistry with satellite-constrained modeling.",
+                    "suggested_keywords": [
+                      "NMVOC emission inversion",
+                      "regional oxidation capacity",
+                      "satellite-constrained modeling"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002901",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Volatile organic compounds (VOCs) are important precursors that can undergo atmospheric photochemical reactions with nitrogen oxides  $\\left(\\mathrm{NO}_{\\mathrm{x}}\\right)$  under ultraviolet radiation to produce secondary products such as ozone  $\\left(\\mathrm{O}_{3}\\right)$  and peroxyacetyl nitrate (PAN) and form photochemical smog (Derwent et al., 2003; Seinfeld and Pandis, 2016). Oxygenated volatile organic compounds (OVOCs) are a class of VOCs with oxygen-containing functional groups, mainly composed of aldehydes, ketones, and alcohols. The concentrations of atmospheric OVOCs vary greatly in different regions. Studies in clean marine areas showed that although phytoplankton in the marine may release OVOCs, such as methanol, acetaldehyde and acetone, their ambient air mixing ratios were usually only a few"
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Long-term observations of oxygenated volatile organic compounds (OVOCs) in an urban atmosphere in southern China, 2014-2019\\\\*\", \"md_filename\": \"Long-term observations of oxygenated volatile orga.md\", \"paragraph_index\": 23, \"content_length\": 822, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paperid": "paper_014",
+                      "chunkid": "chunk_002901",
+                      "paper_id": "paper_014"
+                    },
+                    "score": 0.6212375565242249,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002901",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "Oxygenated VOCs (aldehydes/ketones/alcohols) demonstrate significant spatial heterogeneity in concentrations and contribute uniquely to photochemical smog mechanisms.",
+                    "scores": {
+                      "relevance": 7,
+                      "credibility": 8
+                    },
+                    "reason": "Defines OVOC sub-classes and spatial variability but lacks region-specific or quantitative implications.",
+                    "suggested_keywords": [
+                      "oxygenated VOC speciation",
+                      "photochemical smog mechanisms",
+                      "OVOC spatial gradients"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004320",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "improving properties of SOA species such as the ratio of aerosol organic mass to organic carbon (Pye et al., 2017; Appel et al., 2018). However, there still might be underestimates of primary organic aerosol resulting from uncertainties in anthropogenic emissions (Gao et al., 2022), as well as underestimates of secondary organic aerosol such as monoterpene oxidation (Appel et al., 2021)."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "chunkid": "chunk_004320",
+                      "metadata": "{\"paper_title\": \"Striking impacts of biomass burning on  $\\\\mathrm{PM}_{2.5}$  concentrations in Northeast China through the emission inventory improvement\", \"md_filename\": \"Striking impacts of biomass burning on  $_mathrm{P.md\", \"paragraph_index\": 66, \"content_length\": 390, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_005",
+                      "paper_id": "paper_005"
+                    },
+                    "score": 0.610823698824286,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004320",
+                    "branch_action": "GROW",
+                    "extracted_insight": "Current SOA models likely underestimate organic aerosol from monoterpene oxidation and primary anthropogenic emissions.",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "Identifies critical blind spots in SOA modeling for regional pollution studies with recent citations.",
+                    "suggested_keywords": [
+                      "SOA model uncertainties",
+                      "monoterpene oxidation",
+                      "primary aerosol underestimation"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002899",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Oxygenated volatile organic compounds (OVOCs) are important precursors and intermediate products of atmospheric photochemical reactions, which can promote the formation of secondary pollutants such as ozone  $(\\mathrm{O}_3)$  and secondary organic aerosol (SOA). However, there have been few studies on the sources of and long-term variation in ambient OVOCs. This study combined sensitive, near real-time measurements of VOCs by proton transfer reaction-mass spectrometry (PTR-MS) with an improved photochemical age parameterization method to quantify daytime sources of OVOCs in an urban atmosphere in China from 2014 to 2019, permitting the observation of the impacts of emission control strategies that were implemented during this period. Temporal variation in six key OVOCs (methanol, acetaldehyde, acetone, methyl ethyl ketone (MEK), formic acid, and acetic acid) were observed. The sum of concentrations of OVOCs was averagely  $13\\%$  higher during the dry season (November to April), when winds transported polluted air masses to Shenzhen from the continent, than during the wet season, and peak diurnal levels occurred during the daytime year-round due to photochemical production and higher daytime anthropogenic emissions. The average dry season concentration of OVOCs declined from a peak of 30.3 ppb in 2015 to 18.7 ppb in 2019. The results of source apportionment showed that primary anthropogenic sources contributed the most to methanol, MEK, and acetic acid  $(32 - 51\\%)$ ; the dominant sources of acetaldehyde and formic acid were both primary and secondary anthropogenic sources; and biomass burning contributed a small fraction  $(5 - 11\\%)$  to the six OVOCs. From 2014 to 2019, contributions from primary anthropogenic sources of OVOCs decreased significantly by  $50 - 60\\%$  due to intensive pollution control measures in Shenzhen, whereas pollution control measures had no observable impact on secondary OVOCs, indicating their formation was not limited by availability of their primary VOC precursors."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "chunkid": "chunk_002899",
+                      "paperid": "paper_014",
+                      "metadata": "{\"paper_title\": \"Long-term observations of oxygenated volatile organic compounds (OVOCs) in an urban atmosphere in southern China, 2014-2019\\\\*\", \"md_filename\": \"Long-term observations of oxygenated volatile orga.md\", \"paragraph_index\": 18, \"content_length\": 2030, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_014"
+                    },
+                    "score": 0.6065260962835218,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002899",
+                    "branch_action": "GROW",
+                    "extracted_insight": "OVOC concentrations decreased 38% from 2015-2019 due to pollution controls on primary anthropogenic sources (50-60% reduction), but secondary OVOCs showed no decrease, indicating precursor availability doesn't limit their formation.",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 9
+                    },
+                    "reason": "Provides quantifiable long-term trend data on OVOC sources and effectiveness of pollution controls with clear atmospheric chemistry implications.",
+                    "suggested_keywords": [
+                      "secondary OVOCs formation",
+                      "pollution control efficacy",
+                      "source apportionment methods"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004644",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The figure presents the contributions of different VOC species to the OH loss rate, ozone formation potential, and secondary organic aerosol potential using circular bar plots and inner donut charts. The chart illustrates how alkanes, alkenes, acetylene, and aromatics contribute differently to atmospheric processes, highlighting specific VOC impacts on air quality and climate phenomena."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_004644",
+                      "metadata": "{\"paper_title\": \"Source apportionment of volatile organic compounds\", \"figure_id\": \"img_200\", \"figure_title\": \"Fig. 3. Individual contributions  \\\\%  of different VOC species (outer circular bar plots) and mean contributions  \\\\%  (inner donut charts) of alkanes, alkenes, acetylene, and aromatics to the OH loss rate (a), ozone formation potential (b), and secondary organic aerosol potential (c).\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Source apportionment of volatile organic compounds\\\\figure_3.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Quantitative Results\"]}, \"visual_type\": {\"main_type\": \"Composite & Multi-view\", \"sub_types\": [\"Donut Chart\", \"Circular Bar Plot\"]}, \"key_entities\": [\"VOC species\", \"OH loss rate\", \"ozone formation potential\", \"secondary organic aerosol potential\", \"alkanes\", \"alkenes\", \"acetylene\", \"aromatics\"], \"concise_summary\": \"The figure presents the contributions of different VOC species to the OH loss rate, ozone formation potential, and secondary organic aerosol potential using circular bar plots and inner donut charts.\", \"inferred_insight\": \"The chart illustrates how alkanes, alkenes, acetylene, and aromatics contribute differently to atmospheric processes, highlighting specific VOC impacts on air quality and climate phenomena.\", \"references\": [], \"chunk_type\": \"figure\"}",
+                      "type": "picture",
+                      "paperid": "paper_006",
+                      "paper_id": "paper_006"
+                    },
+                    "score": 0.6016607876063992,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004644",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "Aromatics show highest contribution to secondary organic aerosol potential while alkenes dominate ozone formation potential based on speciation analysis.",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "Visual evidence of differential VOC reactivity impacts but lacks quantitative values; useful for understanding vulnerability points.",
+                    "suggested_keywords": [
+                      "VOC speciation reactivity",
+                      "aromatics SOA potential",
+                      "alkenes ozone potential"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001902",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "It should be noted that the simulated SOA concentrations in this study have not been compared with direct measurements of organic particulate matter and SOA because of the data limitations. Extensive measurements of organic components have been conducted in megacities and major clusters in China by aerosol mass spectrometers (AMS), which provides details about various organic aerosols (Hu et al. 2016; Yang et al., 2016). And these data can be used as model validation for future local scale SOA modeling studies which can promote the understanding of SOA formation. Besides, a great deal of additional research is needed to further address the remaining questions. For example, to better quantify the separate and synergistic effects of anthropogenic and VOC emissions based on sensitivity testing, it is necessary to investigate the spatial distribution of ozone changes by comparing NOx and VOC emissions. Both chamber studies and field measurements have shown that HOMs (highly oxygenated molecules) can substantially increase the SOA mass because of their low volatility (Ehn et al. 2014). This mechanism has already been incorporated into box models (Öström et al. 2017) with detailed chemistry, and it would be interesting to observe the impact of this mechanism on SOA formation from BVOCs at the regional scale."
+                    },
+                    "metadata": {
+                      "paperid": "paper_015",
+                      "chunkid": "chunk_001902",
+                      "metadata": "{\"paper_title\": \"Estimation of biogenic VOC emissions and their corresponding impact on ozone and secondary organic aerosol formation in China\", \"md_filename\": \"Estimation of biogenic VOC emissions and their cor.md\", \"paragraph_index\": 118, \"content_length\": 1323, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paper_id": "paper_015"
+                    },
+                    "score": 0.5991420347954302,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001902",
+                    "branch_action": "GROW",
+                    "extracted_insight": "HOMs (highly oxygenated molecules) significantly enhance SOA mass formation due to low volatility, a mechanism confirmed in chamber studies but lacking regional-scale validation.",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 7
+                    },
+                    "reason": "Identifies critical research gap in SOA formation mechanisms with explicit challenge for model incorporation.",
+                    "suggested_keywords": [
+                      "HOMs SOA formation",
+                      "regional-scale oxidation modeling",
+                      "organic aerosol validation"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001805",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# Estimation of biogenic VOC emissions and their corresponding impact on ozone and secondary organic aerosol formation in China"
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_001805",
+                      "paperid": "paper_015",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Estimation of biogenic VOC emissions and their corresponding impact on ozone and secondary organic aerosol formation in China\", \"md_filename\": \"Estimation of biogenic VOC emissions and their cor.md\", \"paragraph_index\": 0, \"content_length\": 127, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_015"
+                    },
+                    "score": 0.5983308008827664,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": null
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004162",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Urban areas in China always suffer from serious haze problems due to high fine particle  $\\mathrm{(PM_{2.5})}$  concentration during wintertime (Zhang and Cao, 2015; Yin et al., 2017; Song et al., 2017). Organic matter (OM) is one of the most important chemical components of  $\\mathrm{PM}_{2.5}$  during winter haze episodes. During the long-lasting haze period in 2013, OM accounted for  $30.5 - 48.0\\%$  of  $\\mathrm{PM}_{2.5}$  masses and secondary organic-rich sources contributed  $12.2 - 25.8\\%$  to  $\\mathrm{PM}_{2.5}$  at four megacities (Huang et al., 2014). As important precursor gases of secondary organic aerosol (SOA), high concentrations of volatile organic compounds (VOCs) were also observed in haze episodes (Zhang et al., 2014; Wu et al., 2016; Liu et al., 2017; Han et al., 2017). SOA is mainly formed by atmospheric oxidation and condensation of low-volatility VOCs from both anthropogenic and biogenic sources (Hallquist et al., 2016; Chen et al., 2017). The urban ambient VOCs are from anthropogenic activities such as oil and natural gas operations (Gilman et al., 2013; Zheng et al., 2018), fossil fuel combustion (Rodolfo Sosa et al., 2009; Liu et al., 2017), solvent use (Yuan et al., 2010), and chemical manufacturing (Mo et al.,"
+                    },
+                    "metadata": {
+                      "paperid": "paper_006",
+                      "metadata": "{\"paper_title\": \"Source apportionment of volatile organic compounds: Implications to reactivity, ozone formation, and secondary organic aerosol potential\", \"md_filename\": \"Source apportionment of volatile organic compounds.md\", \"paragraph_index\": 13, \"content_length\": 1259, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "chunkid": "chunk_004162",
+                      "paper_id": "paper_006"
+                    },
+                    "score": 0.5971771046733659,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004162",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "Organic matter comprises 30-48% of winter PM2.5 during haze episodes, with secondary organic sources contributing 12-26% to total PM2.5 mass.",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "Provides specific aerosol composition context but overlaps with known patterns of haze formation.",
+                    "suggested_keywords": [
+                      "winter organic aerosols",
+                      "SOA-PM2.5 contribution",
+                      "haze episode composition"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000447",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "isoprene, monoterpenes, and aromatics formation pathways (Liao et al., 2007; Henze et al., 2008) and (2) the irreversible uptake of dicarbonyl by aqueous aerosols and cloud drops (Fu et al., 2008). Other pathways, such as the atmospheric aging of semi-volatile and intermediate-volatility organic compounds, have been shown to be an important source of secondary organic aerosol (Robinson et al., 2007; Pye and Seinfeld, 2010) but they were not included in our version of the GEOS-Chem model. Regardless, the precursors and formation pathways of secondary organic aerosols in China are still poorly understood (Fu et al., 2012), such that no quantitative conclusions can be drawn regarding the impacts of our top-down NMVOC emission estimates on regional secondary organic aerosol formation."
+                    },
+                    "metadata": {
+                      "paperid": "paper_008",
+                      "chunkid": "chunk_000447",
+                      "metadata": "{\"paper_title\": \"Adjoint inversion of Chinese non-methane volatile organic compound emissions using space-based observations of formaldehyde and glyoxal\", \"md_filename\": \"Adjoint inversion of Chinese non-methane volatile .md\", \"paragraph_index\": 138, \"content_length\": 791, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paper_id": "paper_008"
+                    },
+                    "score": 0.5930647140971403,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000447",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "Major formation pathways for secondary organic aerosols include isoprene/monoterpenes oxidation and dicarbonyl uptake by aerosols, but quantitative impacts of NMVOC emissions on regional SOA formation remain unassessed due to poor mechanistic understanding.",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 7
+                    },
+                    "reason": "Identifies key SOA formation mechanisms but acknowledges unresolved uncertainties in regional modeling.",
+                    "suggested_keywords": [
+                      "SOA formation pathways",
+                      "dicarbonyl aerosol uptake",
+                      "NMVOC-SOA quantification"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001509",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Air quality models need to take differences in how volatile organic compounds (VOCs) react in the atmosphere when predicting effects of their emissions on secondary pollutants such as ozone or secondary organic aerosol. The chemical mechanism is the component of the models that represents how emitted compounds react and form secondary pollutants. Different mechanisms use different model species to represent how organic compounds react, with the number of species in different mechanisms varying by more than an order of magnitude. An important but often overlooked part of the air quality modeling process is determining which model species to use when representing the hundreds of organic compounds that are emitted."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "paperid": "paper_030",
+                      "metadata": "{\"paper_title\": \"Development of a database for chemical mechanism assignments for volatile organic emissions\", \"md_filename\": \"Development of a database for chemical mechanism a.md\", \"paragraph_index\": 24, \"content_length\": 721, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_001509",
+                      "paper_id": "paper_030"
+                    },
+                    "score": 0.590662810409079,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001509",
+                    "branch_action": "PRUNE",
+                    "extracted_insight": "Chemical mechanism assignment complexity hinders accurate prediction of VOC impacts on secondary pollutants due to variable representation of organic compound reactions across models.",
+                    "scores": {
+                      "relevance": 5,
+                      "credibility": 8
+                    },
+                    "reason": "Describes general modeling challenges without China-specific insights or empirical data.",
+                    "suggested_keywords": [
+                      "VOC chemical mechanisms",
+                      "model speciation",
+                      "secondary pollutant prediction"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004648",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The figure shows percentage contributions of various VOC sources to VOC mixing ratio, reactivity, ozone formation potential, and secondary organic aerosol potential over different PM2.5 concentration ranges. The analysis demonstrates the rising significance of industrial sources of VOCs in conditions of high PM2.5 pollution, highlighting their impact on chemical reactivity and pollution potential."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Source apportionment of volatile organic compounds\", \"figure_id\": \"img_204\", \"figure_title\": \"Fig. 7. Percentages  \\\\%  of different VOC sources to the total VOC mixing ratio (MR), reactivity  (L_{OH)} , ozone formation potential (OFP), and secondary organic aerosol potential (SOAP) under different  PM_{2.5}  concentration ranges.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Source apportionment of volatile organic compounds\\\\figure_7.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Quantitative Results\", \"Compare Experimental Performance\"]}, \"visual_type\": {\"main_type\": \"Quantitative Charts\", \"sub_types\": [\"Bar Chart\"]}, \"key_entities\": [\"VOC sources\", \"mixing ratio\", \"reactivity\", \"ozone formation potential\", \"secondary organic aerosol potential\", \"PM2.5 concentration\"], \"concise_summary\": \"The figure shows percentage contributions of various VOC sources to VOC mixing ratio, reactivity, ozone formation potential, and secondary organic aerosol potential over different PM2.5 concentration ranges.\", \"inferred_insight\": \"The analysis demonstrates the rising significance of industrial sources of VOCs in conditions of high PM2.5 pollution, highlighting their impact on chemical reactivity and pollution potential.\", \"references\": [\"To better understand the differences in levels and reactivity of VOC sources under different air quality, the  $\\\\mathrm{PM}_{2.5}$  levels were classified into several groups and the source contributions, OH loss rate, OFP, and SOAP of VOCs were summarized in Fig. 7. Generally, with the increase of  $\\\\mathrm{PM}_{2.5}$  levels from clean to heavy pollution, the VOC levels also increased from  $40.8 \\\\pm 17.6$  ppbv to  $89.6 \\\\pm 26.3$  ppbv. The same phenomenon was also reported elsewhere (Han et al., 2017; Liu et al., 2017; Hui et al., 2019). Fig. 7 clearly shows that the high  $\\\\mathrm{PM}_{2.5}$  pollution was characterized by an increase of industrial sources, which accounted for up to  $27.3\\\\%$ ,  $56.2\\\\%$ ,  $48.4\\\\%$ , and  $57.0\\\\%$  of VOCs mixing ratio, OH loss rate, OFP, and SOAP, respectively. The results here were similar to a previous study that the percentage of industrial sources increased significantly with the increase in VOC levels and this source dominated the VOC origins during an entire severe pollution episode (Hui et al.,\", \"Volatile organic compounds (VOCs) are important contributors to atmospheric chemical reactivity rate  $(\\\\mathrm{L_{OH}})$ , ozone formation potential (OFP), and secondary organic aerosol formation potential (SOAP). The purpose of this study was to determine the contributions of different VOC sources to  $\\\\mathrm{L_{OH}}$ , OFP, and SOAP using positive matrix factorization (PMF) model. Hourly observation of ambient VOCs at a megacity of Central China was conducted for one month in winter. The  $\\\\mathrm{L_{OH}}$ , OFP, and SOAP of VOC species were firstly estimated. The PMF model was then used to apportion their sources. Five VOC sources including solvent usage, gasoline evaporation, combustion sources, vehicle emissions, and industrial sources were apportioned with their average contributions of  $11.6\\\\%$ ,  $14.2\\\\%$ ,  $39.0\\\\%$ ,  $22.5\\\\%$ , and  $12.6\\\\%$ , respectively. Industrial sources were the highest contributors to the  $\\\\mathrm{L_{OH}}$  and SOAP with average contributions of  $32.2\\\\%$  and  $32.8\\\\%$ , respectively, while vehicle emissions contributed most to the OFP  $(27.8\\\\%)$ . This study highlighted that the VOCs and ozone pollution control should give priority to the reactivity (OFP and SOAP) based strategies rather than concentration contribution-based strategies.\", \"Fig. 6. Percentages  $(\\\\%)$  of different VOC sources to the total VOC mixing ratio (MR), OH loss rate  $\\\\mathrm{(L_{OH})}$ , ozone formation potential (OFP), and secondary organic aerosol potential (SOAP).\", \"The limitations of this study were from several aspects: one is the limited known chemistry properties of VOC species; the other is the underestimation of the current modelling; and the third is the assumption of the PMF model. For instance, the ozone reactivity scales for 118 VOC species under different  $\\\\mathrm{NO}_x$  conditions were summarized by Carter (2013). Similarly, Atkinson and Arey (2003) summarized the atmospheric degradation of about 190 VOC species (known as the rate constant  $k_{OH}$ ). A list of the SOAPs relative to toluene for 113 VOC species was also reported by Derwent et al. (2010). Despite the great efforts have been made to study the photochemical characteristics of the VOC species, some VOC species' properties are still unknown. They may be important to the atmospheric reactivity, ozone, and secondary aerosol formation potentials. Limited species (i.e., 33 species in this study) introduced into the PMF model suggested the underestimation of  $\\\\mathrm{L_{OH}}$ , OFP, and SOAP. For SOA modelling, the SOA yield method using chamber study or simulation using volatility basis sets (VBS) underestimated the SOA mass (Chen et al., 2017). For the estimation of OFP, despite the MIR method considers the chemical mechanisms and impacts of the  $\\\\mathrm{VOC} / \\\\mathrm{NO}_x$  ratio on ozone production, it may also introduce simulation uncertainties (Ran et al., 2009).\", \"the flaws and uncertainty existed, this study also provided an additional approach to understand the contributions of various VOC sources to the reactivity of OH loss rate, ozone formation potential (OFP), and secondary organic aerosol potential (SOAP) using the PMF model.\", \"Dumanoglu, Y., Kara, M., Altiok, H., Odabasi, M., Elbir, T., Bayram, A., 2014. Spatial and seasonal variation and source apportionment of volatile organic compounds (VOCs) in a heavily industrialized region. Atmos. Environ. 98, 168-178. https://doi.org/10.1016/j.atmosenv.2014.08.048.  \\nGilman, J.B., Kuster, W.C., Goldan, P.D., Herndon, S.C., Zahniser, M.S., Tucker, S.C., Brewer, W.A., Lerner, B.M., Williams, E.J., Harley, R.A., Fehsenfeld, F.C., Warneke, C., de Gouw, J.A., 2009. Measurements of volatile organic compounds during the 2006 TexAQS/GoMACCS campaign: industrial influences, regional characteristics, and diurnal dependencies of the OH reactivity. J. Geophys. Res. 114 https://doi.org/10.1029/2008JD011525.  \\nGilman, J.B., Lerner, B.M., Kuster, W.C., de Gouw, J.A., 2013. Source signature of volatile organic compounds from oil and natural gas operations in northeastern Colorado. Environ. Sci. Technol. 47, 1297-1305. https://doi.org/10.1021/es304119a.  \\nGuo, H., So, K.L., Simpson, I.J., Barletta, B., Meinardi, S., Blake, D.R., 2007. C1-C8 volatile organic compounds in the atmosphere of Hong Kong: overview of atmospheric processing and source apportionment. Atmos. Environ. 41, 1456-1472. https://doi.org/10.1016/j.atmosenv.2006.10.011.  \\nGuo, H., Cheng, H.R., Ling, Z.H., Louie, P.K.K., Ayoko, G.A., 2011. Which emission sources are responsible for the volatile organic compounds in the atmosphere of Pearl River Delta? J. Hazard. Mater. 188, 116-124. https://doi.org/10.1016/j.jhazmat.2011.01.081.  \\nHallquist, M., Munthe, J., Hu, M., Wang, T., Chan, C.K., Gao, J., Boman, J., Guo, S., Hallquist, A.M., Mellqvist, J., Moldanova, J., Pathak, R.K., Pettersson, J.B., Pleijel, H., Simpson, D., Thynell, M., 2016. Photochemical smog in China: scientific challenges and implications for air-quality policies. Natl. Sci. Rev. 3, 401-403. https://doi.org/10.1093/nsr/nww080.  \\nHan, D., Wang, Z., Cheng, J., Wang, Q., Chen, X., Wang, H., 2017. Volatile organic compounds (VOCs) during non-haze and haze days in Shanghai: characterization and secondary organic aerosol (SOA) formation. Environ. Sci. Pollut. Res. 24, 18619-18629. https://doi.org/10.1007/s11356-017-9433-3.  \\nHe, Q., Yan, Y., Li, H., Zhang, Y., Chen, L., Wang, Y., 2015. Characteristics and reactivity of volatile organic compounds from non-coal emission sources in China. Atmos. Environ. 115, 153-162. https://doi.org/10.1016/j.atmosenv.2015.05.066.  \\nHe, Z., Wang, X., Ling, Z., Zhao, J., Guo, H., Shao, M., Wang, Z., 2019. Contributions of different anthropogenic volatile organic compound sources to ozone formation at a receptor site in the Pearl River Delta region and its policy implications. Atmos. Chem. Phys. Discuss. 1-34. https://doi.org/10.5194/acp-2018-1293.  \\nHuang, R.J., Zhang, Y., Bozzetti, C., Ho, K.F., Cao, J.J., Han, Y., Daellenbach, K.R., Slowik, J.G., Platt, S.M., Canonaco, F., Zotter, P., Wolf, R., Pieber, S.M., Bruns, E.A., Crippa, M., Ciarelli, G., Piazzalunga, A., Schwikowski, M., Abbaszade, G., Schnelle-Kreis, J., Zimmermann, R., An, Z., Szidat, S., Baltensperger, U., Haddad, I.E., Prévot, A.S.H., 2014. High secondary aerosol contribution to particulate pollution during haze events in China. Nature 514, 218-222. https://doi.org/10.1038/nature13774.  \\nHui, L., Liu, X., Tan, Q., Feng, M., An, J., Qu, Y., Zhang, Y., Cheng, N., 2019. VOC characteristics, sources and contributions to SOA formation during haze events in Wuhan, Central China. Sci. Total Environ. 650, 2624-2639. https://doi.org/10.1016/j.scitotenv.2018.10.029.  \\nLi, M., Liu, H., Geng, G., Hong, C., Liu, F., Song, Y., Tong, D., Zheng, B., Cui, H., Man, H., Zhang, Q., He, K., 2017. Anthropogenic emission inventories in China: a review. Natl. Sci. Rev. 4, 834-866. https://doi.org/10.1093/nsr/nwx150.  \\nLiang, X., Chen, X., Zhang, J., Shi, T., Sun, X., Fan, L., Wang, L., Ye, D., 2017. Reactivity-based industrial volatile organic compounds emission inventory and its implications for ozone control strategies in China. Atmos. Environ. 162, 115-126. https://doi.org/10.1016/j.atmosenv.2017.04.036.  \\nLing, Z.H., Guo, H., Cheng, H.R., Yu, Y.F., 2011. Sources of ambient volatile organic compounds and their contributions to photochemical ozone formation at a site in the Pearl River Delta, southern China. Environ. Pollut. 159, 2310-2319. https://doi.org/10.1016/j.envpol.2011.05.001.  \\nLiu, Y., Shao, M., Fu, L., Lu, S., Zeng, L., Tang, D., 2008. Source profiles of volatile organic compounds (VOCs) measured in China: part I. Atmos. Environ. 42, 6247-6260. https://doi.org/10.1016/j.atmosenv.2008.01.070.  \\nLiu, B., Liang, D., Yang, J., Dai, Q., Bi, X., Feng, Y., Yuan, J., Xiao, Z., Zhang, Y., Xu, H., 2016. Characterization and source apportionment of volatile organic compounds based on 1-year of observational data in Tianjin, China. Environ. Pollut. 218, 757-769. https://doi.org/10.1016/j.envpol.2016.07.072.  \\nLiu, C., Ma, Z., Mu, Y., Liu, J., Zhang, C., Zhang, Y., Liu, P., Zhang, H., 2017. The levels, variation characteristics, and sources of atmospheric non-methane hydrocarbon compounds during wintertime in Beijing, China. Atmos. Chem. Phys. 17, 10633-10649. https://doi.org/10.5194/acp-17-10633-2017.  \\nLyu, X.P., Chen, N., Guo, H., Zhang, W.H., Wang, N., Wang, Y., Liu, M., 2016. Ambient volatile organic compounds and their effect on ozone production in Wuhan, central China. Sci. Total Environ. 541, 200-209. https://doi.org/10.1016/j.scitotenv.2015.09.093.  \\nMo, Z., Shao, M., Lu, S., Niu, H., Zhou, M., Sun, J., 2017. Characterization of nonmethane hydrocarbons and their sources in an industrialized coastal city, Yangtze River Delta, China. Sci. Total Environ. 593-594, 641-653. https://doi.org/10.1016/j.scitotenv.2017.03.123.  \\nOu, J., Guo, H., Zheng, J., Cheung, K., Louie, P.K.K., Ling, Z., Wang, D., 2015. Concentrations and sources of non-methane hydrocarbons (NMHCs) from 2005 to 2013 in Hong Kong: a multi-year real-time data analysis. Atmos. Environ. 103, 196-206. https://doi.org/10.1016/j.atmosenv.2014.12.048.  \\nPaatero, P., Tapper, U., 1994. Positive matrix factorization: a non-negative factor model with optimal utilization of error estimates of data values. Environmetrics 5, 111-126. https://doi.org/10.1002/environment.3170050203.\", \"Ran, L., Zhao, C., Geng, F., Tie, X., Tang, X., Peng, L., Zhou, G., Yu, Q., Xu, J., Guenther, A., 2009. Ozone photochemical production in urban Shanghai, China: analysis based on ground level observations. J. Geophys. Res. 114 https://doi.org/10.1029/2008JD010752.  \\nRodolfo Sosa, E., Humberto Bravo, A., Violeta Mugica, A., Pablo Sanchez, A., Emma Bueno, L., Krupa, S., 2009. Levels and source apportionment of volatile organic compounds in southwestern area of Mexico City. Environ. Pollut. 157, 1038-1044. https://doi.org/10.1016/j.envpol.2008.09.051.  \\nShao, P., An, J., Xin, J., Wu, F., Wang, J., Ji, D., Wang, Y., 2016. Source apportionment of VOCs and the contribution to photochemical ozone formation during summer in the typical industrial area in the Yangtze River Delta, China. Atmos. Res. 176-177, 64-74. https://doi.org/10.1016/j.atmosres.2016.02.015.  \\nShen, L., Xiang, P., Liang, S., Chen, W., Wang, M., Lu, S., Wang, Z., 2018. Sources profiles of volatile organic compounds (VOCs) measured in a typical industrial process in Wuhan, Central China. Atmos. 9, 297. https://doi.org/10.3390/atmos9080297.  \\nSong, Y., Shao, M., Liu, Y., Lu, S., Kuster, W., Goldan, P., Xie, S., 2007. Source apportionment of ambient volatile organic compounds in Beijing. Environ. Sci. Technol. 41, 4348-4353. https://doi.org/10.1021/es0625982.  \\nSong, C., Wu, L., Xie, Y., He, J., Chen, X., Wang, T., Lin, Y., Jin, T., Wang, A., Liu, Y., Dai, Q., Liu, B., Wang, Y., Mao, H., 2017. Air pollution in China: status and spatiotemporal variations. Environ. Pollut. 227, 334-347. https://doi.org/10.1016/j.envpol.2017.04.075.  \\nSong, M., Tan, Q., Feng, M., Qu, Y., Liu, X., An, J., Zhang, Y., 2018. Source apportionment and secondary transformation of atmospheric nonmethane hydrocarbons in Chengdu, Southwest China. J. Geophys. Res. Atmos. https://doi.org/10.1029/2018JD028479.  \\nWang, H., 2014. Source profiles and chemical reactivity of volatile organic compounds from solvent use in Shanghai, China. Aerosol Air Qual. Res. 14, 301-310. https://doi.org/10.4209/aaqr.2013.03.0064.  \\nWang, N., Li, N., Liu, Z., Evans, E., 2016. Investigation of chemical reactivity and active components of ambient VOCs in Jinan, China. Air Qual. Atmos. Health 9, 785-793. https://doi.org/10.1007/s11869-015-0380-1.  \\nWu, R., Xie, S., 2017. Spatial distribution of ozone formation in China derived from emissions of speciated volatile organic compounds. Environ. Sci. Technol. 51, 2574-2583. https://doi.org/10.1021/acs.est.6b03634.  \\nWu, R., Li, J., Hao, Y., Li, Y., Zeng, L., Xie, S., 2016. Evolution process and sources of ambient volatile organic compounds during a severe haze event in Beijing, China. Sci. Total Environ. 560-561, 62-72. https://doi.org/10.1016/j.scitotenv.2016.04.030.  \\nWu, W., Zhao, B., Wang, S., Hao, J., 2017. Ozone and secondary organic aerosol formation potential from anthropogenic volatile organic compounds emissions in China. J. Environ. Sci. 53, 224-237. https://doi.org/10.1016/j.jes.2016.03.025.  \\nXue, Y., Ho, S.S.H., Huang, Y., Li, B., Wang, L., Dai, W., Cao, J., Lee, S., 2017. Source apportionment of VOCs and their impacts on surface ozone in an industry city of Baoji, northwestern China. Sci. Rep. 7 https://doi.org/10.1038/s41598-017-10631-4.  \\nYan, Y., Peng, L., Li, R., Li, Y., Li, L., Bai, H., 2017. Concentration, ozone formation potential and source analysis of volatile organic compounds (VOCs) in a thermal power station centralized area: a study in Shuozhou, China. Environ. Pollut. 223, 295-304. https://doi.org/10.1016/j.envpol.2017.01.026.  \\nYin, Z., Wang, H., Chen, H., 2017. Understanding severe winter haze events in the North China Plain in 2014: roles of climate anomalies. Atmos. Chem. Phys. 17, 1641-1651. https://doi.org/10.5194/acp-17-1641-2017.\", \"Yuan, Z., Lau, A.K.H., Shao, M., Louie, P.K.K., Liu, S.C., Zhu, T., 2009. Source analysis of volatile organic compounds by positive matrix factorization in urban and rural environments in Beijing. J. Geophys. Res. 114 https://doi.org/10.1029/2008JD011190.  \\nYuan, B., Shao, M., Lu, S., Wang, B., 2010. Source profiles of volatile organic compounds associated with solvent use in Beijing, China. Atmos. Environ. 44, 1919-1926. https://doi.org/10.1016/j.atmosenv.2010.02.014.  \\nYuan, B., Shao, M., de Gouw, J., Parrish, D.D., Lu, S., Wang, M., Zeng, L., Zhang, Q., Song, Y., Zhang, J., Hu, M., 2012. Volatile organic compounds (VOCs) in urban air: how chemistry affects the interpretation of positive matrix factorization (PMF) analysis. J. Geophys. Res. Atmos. 117 https://doi.org/10.1029/2012JD018236.  \\nYuan, B., Hu, W.W., Shao, M., Wang, M., Chen, W.T., Lu, S.H., Zeng, L.M., Hu, M., 2013. VOC emissions, evolutions and contributions to SOA formation at a receptor site in eastern China. Atmos. Chem. Phys. 13, 8815-8832. https://doi.org/10.5194/acp-13-8815-2013.  \\nZhang, Y.L., Cao, F., 2015. Fine particulate matter  $(\\\\mathrm{PM}_{2.5})$  in China at a city level. Sci. Rep. 5 https://doi.org/10.1038/srep14884.  \\nZhang, Y., Wang, X., Zhang, Z., Liu, S., Shao, M., Lee, F.S.C., Yu, J., 2013. Species profiles and normalized reactivity of volatile organic compounds from gasoline evaporation in China. Atmos. Environ. 79, 110-118. https://doi.org/10.1016/j.atmosenv.2013.06.029.  \\nZhang, Y., Mu, Y., Meng, F., Li, H., Wang, X., Zhang, W., Mellouki, A., Gao, J., Zhang, X., Wang, S., Chai, F., 2014. The pollution levels of BTEX and carbonyls under haze and non-haze days in Beijing, China. Sci. Total Environ. 490, 391-396. https://doi.org/10.1016/j.scitotenv.2014.05.025.  \\nZhang, Z., Wang, H., Chen, D., Li, Q., Thai, P., Gong, D., Li, Y., Zhang, C., Gu, Y., Zhou, L., Morawska, L., Wang, B., 2017. Emission characteristics of volatile organic compounds and their secondary organic aerosol formation potentials from a petroleum refinery in Pearl River Delta, China. Sci. Total Environ. 584, 1162-1174. https://doi.org/10.1016/j.scitotenv.2017.01.179.  \\nZhao, Q., Bi, J., Liu, Q., Ling, Z., Shen, G., Chen, F., Qiao, Y., Li, C., Ma, Z., 2020. Sources of volatile organic compounds and policy implications for regional ozone pollution control in an urban location of Nanjing, East China. Atmos. Chem. Phys. 20, 3905-3919. https://doi.org/10.5194/acp-20-3905-2020.  \\nZheng, J., Shao, M., Che, W., Zhang, L., Zhong, L., Zhang, Y., Streets, D., 2009. Speciated VOC emission inventory and spatial patterns of ozone formation potential in the Pearl River Delta, China. Environ. Sci. Technol. 43, 8580-8586. https://doi.org/10.1021/es901688e.  \\nZheng, H., Kong, S., Xing, X., Mao, Y., Hu, T., Ding, Y., Li, G., Liu, D., Li, S., Qi, S., 2018. Monitoring of volatile organic compounds (VOCs) from an oil and gas station in Northwest China for 1 year. Atmos. Chem. Phys. 18, 4567-4595. https://doi.org/10.5194/acp-18-4567-2018.  \\nZheng, H., Kong, S., Yan, Y., Chen, N., Yao, L., Liu, X., Wu, F., Cheng, Y., Niu, Z., Zheng, S., Zeng, X., Yan, Q., Wu, J., Zheng, M., Liu, D., Zhao, D., Qi, S., 2019. Compositions, sources and health risks of ambient volatile organic compounds (VOCs) at a petrochemical industrial park along the Yangtze River. Sci. Total Environ. 135505 https://doi.org/10.1016/j.scitotenv.2019.135505.  \\nZou, Y., Deng, X.J., Zhu, D., Gong, D.C., Wang, H., Li, F., Tan, H.B., Deng, T., Mai, B.R., Liu, X.T., Wang, B.G., 2015. Characteristics of 1 year of observational data of VOCs,  $\\\\mathrm{NO}_x$  and  $\\\\mathrm{O_3}$  at a suburban site in Guangzhou, China. Atmos. Chem. Phys. 15, 6625-6636. https://doi.org/10.5194/acp-15-6625-2015.\"], \"chunk_type\": \"figure\"}",
+                      "paperid": "paper_006",
+                      "chunkid": "chunk_004648",
+                      "type": "picture",
+                      "paper_id": "paper_006"
+                    },
+                    "score": 0.587824807828575,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004648",
+                    "branch_action": "GROW",
+                    "extracted_insight": "Industrial VOC sources exhibit disproportionate growth in secondary organic aerosol potential (SOAP) contribution during high PM₂.₅ pollution, accounting for 57% of SOAP under heavy haze conditions in Central China.",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 9
+                    },
+                    "reason": "Visual quantification reveals industry-specific SOA formation mechanisms and pollution-dependent source contributions with follow-up research clues.",
+                    "suggested_keywords": [
+                      "SOAP contribution",
+                      "industrial VOC sources",
+                      "PM₂.₅-SOA coupling"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002970",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "sources to OVOCs did not decrease significantly over the six-year study period, which indicated the OVOC formation was not limited by availability of their primary VOC precursors. Previous studies have shown that atmospheric oxidizing capacity was strong in the PRD region, and the concentration of  $\\mathrm{O}_3$ , one of important atmospheric oxidizing substances, was on the rise in this region in recent years, which may strongly transform VOC to OVOCs and SOA (Wang et al., 2020; Gong et al., 2018; Xue et al., 2014). Therefore, the relatively stable contribution of secondary anthropogenic sources over the six years could be explained by a net effect of the increased atmospheric oxidizing capacity and decreased primary VOC precursors."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_002970",
+                      "paperid": "paper_014",
+                      "metadata": "{\"paper_title\": \"Long-term observations of oxygenated volatile organic compounds (OVOCs) in an urban atmosphere in southern China, 2014-2019\\\\*\", \"md_filename\": \"Long-term observations of oxygenated volatile orga.md\", \"paragraph_index\": 104, \"content_length\": 744, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paper_id": "paper_014"
+                    },
+                    "score": 0.5847657533907578,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002970",
+                    "branch_action": "GROW",
+                    "extracted_insight": "OVOC formation in southern China maintains stable anthropogenic secondary contribution despite reduced VOC precursors, driven by compensatory increases in atmospheric oxidizing capacity (particularly rising O₃ levels).",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 8
+                    },
+                    "reason": "Reveals dynamic atmospheric chemistry feedback with policy implications for OVOC/SOA control.",
+                    "suggested_keywords": [
+                      "oxidizing capacity-OVOC coupling",
+                      "long-term OVOC trend",
+                      "anthropogenic secondary formation"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000326",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "More recently, satellite measurements of tropospheric glyoxal columns emerged as an additional constraint on NMVOC emissions (Stavrakou et al., 2009a). Like formaldehyde, glyoxal is produced during the oxidation of many NMVOCs (including most importantly isoprene), as well as emitted directly from biomass burning (Fu et al., 2008; Myriokefalitakis et al., 2008). In particular, glyoxal is produced at high yields at the initial ring-cleaving stage during the oxidation of aromatics (Volkamer, 2001; Nishino et al., 2010), which are mainly anthropogenic. In contrast, the production of formaldehyde from the oxidation of aromatics is further downstream and thus spatially diffuse (Volkamer, 2001). As such, simultaneous analyses of formaldehyde and glyoxal observations can help differentiate between biogenic and anthropogenic NMVOC emissions. Stavrakou et al. (2009a) pioneered a two-compound inversion using tropospheric glyoxal and formaldehyde column observations from the Scanning Imaging Absorption spectrometer for Atmospheric CHartographY (SCIAMACHY) satellite instrument to constrain the global sources of glyoxal. They estimated that the anthropogenic NMVOC fluxes over East Asia for the year 2005 were a factor of 2 to 3 larger than the bottom-up estimates of the Emission Database for Global Atmospheric Research (EDGAR, v3.3) inventory (Olivier et al., 2001, 2002) and the REanalysis TROpospheric (RETRO) emission inventory (Schultz et al., 2007). In addition, they inferred a large missing source of glyoxal over the global continents, which they attributed to production from an unknown biogenic precursor."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_000326",
+                      "paperid": "paper_008",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Adjoint inversion of Chinese non-methane volatile organic compound emissions using space-based observations of formaldehyde and glyoxal\", \"md_filename\": \"Adjoint inversion of Chinese non-methane volatile .md\", \"paragraph_index\": 14, \"content_length\": 1623, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_008"
+                    },
+                    "score": 0.5841680145440886,
+                    "source_args": {
+                      "query_intent": "VOC"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000326",
+                    "branch_action": "GROW",
+                    "extracted_insight": "Glyoxal satellite observations enable differentiation of anthropogenic aromatic NMVOC emissions due to unique ring-cleavage chemistry, revealing East Asian anthropogenic fluxes 2-3 times higher than inventory estimates.",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 9
+                    },
+                    "reason": "Introduces novel satellite constraint method with significant emission adjustment implications.",
+                    "suggested_keywords": [
+                      "glyoxal inversion",
+                      "aromatic NMVOC tracers",
+                      "top-down emission validation"
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
+          "iteration_summary": null
+        }
+      ],
+      "summary": null,
+      "hypothesis": null
+    }
+  ],
+  "batch_id": "efc65e7c-5115-4002-809f-8c858dae432b"
+}

@@ -317,7 +317,10 @@ export default {
         this.experimentFiles = filtered;
         if (!this.selectedExperimentFile && this.experimentFiles.length > 0) {
           this.selectedExperimentFile = this.experimentFiles[0];
-          this.$emit('river-select-file', this.selectedExperimentFile);
+          // 父组件 ref 可能尚未就绪，下一帧再同步到 EnhancedRiverChart.selectedDataFile
+          this.$nextTick(() => {
+            this.$emit('river-select-file', this.selectedExperimentFile);
+          });
         }
       } catch (e) {
         console.warn('LeftPanel: 加载 experiment 文件列表失败', e);

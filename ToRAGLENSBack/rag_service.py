@@ -46,6 +46,228 @@ except ImportError as e:
 
 # 导入集合管理器
 from rag_collection_manager import get_rag_collection_manager
+from rag_llm_api_config import (
+    env_flag,
+    get_rag_llm_api_settings,
+    semantic_chroma_pool_size,
+    semantic_vector_threshold,
+)
+
+try:
+    import aiohttp
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    aiohttp = None  # type: ignore
+    AIOHTTP_AVAILABLE = False
+
+
+def _log_rag_semantic_pipeline_to_run_md(payload: Dict[str, Any]) -> None:
+    """
+    将 HyDE / Rerank 追踪写入 engine 的 logs/run_*.md（与编排日志同文件）。
+    使用惰性 import，避免 rag_service 与 engine 顶层循环依赖。
+    """
+    try:
+        from engine import logger  # noqa: WPS433 (runtime import)
+
+        detail = json.dumps(payload, ensure_ascii=False, indent=2)
+        uq = payload.get("user_query") or ""
+        summary = (
+            f"HyDE_used={payload.get('hyde_used_hypothetical_paragraph')} "
+            f"rerank_applied={payload.get('rerank_applied_to_results')} "
+            f"user_query_len={len(uq)}"
+        )
+        logger.log("RAGSemantic", summary, "RAG_PIPELINE", detail_data=detail)
+    except Exception as e:
+        print(f"[RAG] 无法写入 run.md（HyDE/Rerank 追踪）: {e}")
+
+
+async def _openai_chat_completion_text(
+    messages: List[Dict[str, str]],
+    *,
+    model: str,
+    temperature: float = 0.35,
+    max_tokens: int = 512,
+) -> str:
+    if not AIOHTTP_AVAILABLE:
+        raise RuntimeError("aiohttp 未安装，无法调用 HyDE")
+    cfg = get_rag_llm_api_settings()
+    url = cfg.chat_completions_url()
+    headers = {
+        "Authorization": f"Bearer {cfg.api_key}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": model,
+        "messages": messages,
+        "temperature": temperature,
+        "max_tokens": max_tokens,
+    }
+    timeout = aiohttp.ClientTimeout(total=120)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
+        async with session.post(url, headers=headers, json=payload) as resp:
+            text_body = await resp.text()
+            if resp.status != 200:
+                raise RuntimeError(f"chat/completions HTTP {resp.status}: {text_body[:500]}")
+            data = json.loads(text_body)
+    choices = data.get("choices") or []
+    if not choices:
+        return ""
+    msg = choices[0].get("message") or {}
+    content = msg.get("content", "")
+    if isinstance(content, str):
+        return content.strip()
+    if isinstance(content, list):
+        parts = []
+        for p in content:
+            if isinstance(p, dict) and p.get("text"):
+                parts.append(str(p["text"]))
+            elif isinstance(p, str):
+                parts.append(p)
+        return "\n".join(parts).strip()
+    return str(content or "").strip()
+
+
+async def _hyde_hypothetical_paragraph(user_query: str) -> Optional[str]:
+    """HyDE：生成与短查询对齐的假想学术段落，用于向量检索。"""
+    q = (user_query or "").strip()
+    if len(q) < 3:
+        return None
+    cfg = get_rag_llm_api_settings()
+    system = (
+        "You help scientific literature retrieval. Write ONE short paragraph (3–6 sentences) "
+        "that could appear in a research paper and that directly addresses the user's topic. "
+        "Use precise technical terms. Output only the paragraph: no title, no quotes, no preamble."
+    )
+    messages = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": f"Topic / question:\n{q}"},
+    ]
+    try:
+        hypo = await _openai_chat_completion_text(
+            messages,
+            model=cfg.hyde_model,
+            temperature=0.35,
+            max_tokens=480,
+        )
+        if len(hypo) < 24:
+            return None
+        return hypo[:6000]
+    except Exception as e:
+        print(f"⚠️ [HyDE] 生成失败，将使用原查询检索: {e}")
+        return None
+
+
+def _item_to_rerank_document_text(item: Dict[str, Any]) -> str:
+    c = item.get("content") if isinstance(item.get("content"), dict) else {}
+    parts: List[str] = []
+    for k in ("title", "summary", "insight", "text"):
+        v = c.get(k) if isinstance(c, dict) else None
+        if v:
+            parts.append(str(v))
+    if not parts:
+        try:
+            return json.dumps(c, ensure_ascii=False)[:8000]
+        except Exception:
+            return str(item.get("content", ""))[:8000]
+    return "\n".join(parts)[:8000]
+
+
+def _parse_rerank_response(data: Any) -> List[tuple]:
+    """解析常见 rerank JSON：results[{index, relevance_score|score}] 或 data 同结构。"""
+    rows: List[tuple] = []
+    if not isinstance(data, dict):
+        return rows
+    blob = data.get("results") or data.get("data") or data.get("output") or []
+    if isinstance(blob, dict) and "results" in blob:
+        blob = blob["results"]
+    if not isinstance(blob, list):
+        return rows
+    for entry in blob:
+        if not isinstance(entry, dict):
+            continue
+        idx = entry.get("index")
+        if idx is None:
+            continue
+        try:
+            idx = int(idx)
+        except (TypeError, ValueError):
+            continue
+        sc = entry.get("relevance_score")
+        if sc is None:
+            sc = entry.get("score")
+        try:
+            sc = float(sc)
+        except (TypeError, ValueError):
+            sc = 0.0
+        rows.append((idx, sc))
+    rows.sort(key=lambda x: -x[1])
+    return rows
+
+
+async def _rerank_semantic_items(
+    original_query: str,
+    items: List[Dict[str, Any]],
+    top_n: int,
+) -> List[Dict[str, Any]]:
+    """调用 rerank API，按相关性重排并截断为 top_n。"""
+    if not items or top_n <= 0:
+        return items
+    if not AIOHTTP_AVAILABLE:
+        print("⚠️ [Rerank] aiohttp 未安装，跳过重排")
+        return items[:top_n]
+    cfg = get_rag_llm_api_settings()
+    documents = [_item_to_rerank_document_text(it) for it in items]
+    payload = {
+        "model": cfg.rerank_model,
+        "query": original_query.strip(),
+        "documents": documents,
+    }
+    headers = {
+        "Authorization": f"Bearer {cfg.rerank_api_key}",
+        "Content-Type": "application/json",
+    }
+    try:
+        timeout = aiohttp.ClientTimeout(total=120)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.post(cfg.rerank_url, headers=headers, json=payload) as resp:
+                body = await resp.text()
+                if resp.status != 200:
+                    print(f"⚠️ [Rerank] HTTP {resp.status}: {body[:400]}")
+                    return items[:top_n]
+                data = json.loads(body)
+    except Exception as e:
+        print(f"⚠️ [Rerank] 请求失败，保持向量顺序: {e}")
+        return items[:top_n]
+
+    order = _parse_rerank_response(data)
+    if not order:
+        print("⚠️ [Rerank] 响应中无有效排序，保持向量顺序")
+        return items[:top_n]
+
+    ranked: List[Dict[str, Any]] = []
+    seen: set = set()
+    for idx, sc in order:
+        if 0 <= idx < len(items):
+            it = dict(items[idx])
+            it["score"] = float(sc)
+            iid = str(it.get("id", idx))
+            if iid in seen:
+                continue
+            seen.add(iid)
+            ranked.append(it)
+            if len(ranked) >= top_n:
+                break
+    if len(ranked) < top_n:
+        for it in items:
+            iid = str(it.get("id", ""))
+            if iid in seen:
+                continue
+            ranked.append(dict(it))
+            seen.add(iid)
+            if len(ranked) >= top_n:
+                break
+    return ranked[:top_n]
+
 
 class RAGService:
     def __init__(self, collection_name: str = None, multimodal_collection_name: str = None):
@@ -246,64 +468,132 @@ class RAGService:
         if not target_collection:
             print("❌ 集合不可用，请先确保集合已创建")
             return []
-        
+
+        user_query_for_rerank = (query_text or "").strip()
+        if not user_query_for_rerank:
+            return []
+
+        use_hyde = env_flag("RAG_HYDE_ENABLED", "true")
+        use_rerank = env_flag("RAG_RERANK_ENABLED", "true")
+        effective_query = user_query_for_rerank
+        hyde_hypothetical_paragraph: Optional[str] = None
+        if use_hyde and AIOHTTP_AVAILABLE:
+            hypo = await _hyde_hypothetical_paragraph(user_query_for_rerank)
+            if hypo:
+                effective_query = hypo
+                hyde_hypothetical_paragraph = hypo
+                print(f"🧪 [HyDE] 使用假想段落做向量查询（前 100 字）: {hypo[:100]}...")
+        elif use_hyde and not AIOHTTP_AVAILABLE:
+            print("⚠️ [HyDE] 已启用但 aiohttp 不可用，跳过 HyDE")
+
+        n_out = max(1, int(n_results))
+        fetch_n, cap_after_filter = semantic_chroma_pool_size(n_out, use_rerank)
+        recall_threshold = semantic_vector_threshold(score_threshold, use_rerank)
+        if use_rerank and abs(recall_threshold - float(score_threshold)) > 1e-9:
+            print(
+                f"📉 [Semantic+Rerank] 向量分数门槛: {score_threshold} → {recall_threshold} "
+                f"（候选池 top-{fetch_n}，最终仍返回 {n_out} 条）"
+            )
+
         def _sync_semantic():
             try:
-                # 使用局部变量避免闭包问题
-                local_threshold = score_threshold
-                # 直接获取所需的 n_results 数量，不再刻意放大范围
-                initial_n = int(n_results)
+                local_threshold = recall_threshold
+                initial_n = int(fetch_n)
                 where_filter = None
                 if allowed_chunk_ids is not None and len(allowed_chunk_ids) > 0:
                     str_ids = [str(x) for x in allowed_chunk_ids]
                     where_filter = {"id": {"$in": str_ids}}
 
                 raw_results = target_collection.query(
-                    query_texts=[query_text],
+                    query_texts=[effective_query],
                     n_results=initial_n,
                     include=["metadatas", "documents", "distances"],
                     where=where_filter,
                 )
-                
-                # 如果结果数量不足，直接返回
+
                 if not raw_results or not raw_results.get("ids") or not raw_results["ids"][0]:
                     return raw_results
-                
-                # 应用分数阈值过滤
+
                 filtered_results = {
                     "ids": [[]],
                     "metadatas": [[]],
                     "documents": [[]],
                     "distances": [[]]
                 }
-                
+
                 ids = raw_results["ids"][0]
                 metadatas = raw_results["metadatas"][0]
                 documents = raw_results["documents"][0]
                 distances = raw_results["distances"][0]
-                
+
                 for i, (id, metadata, document, distance) in enumerate(zip(ids, metadatas, documents, distances)):
-                    # 计算分数：1/(1+distance)
                     score = 1.0 / (1.0 + float(distance))
                     if score >= local_threshold:
                         filtered_results["ids"][0].append(id)
                         filtered_results["metadatas"][0].append(metadata)
                         filtered_results["documents"][0].append(document)
                         filtered_results["distances"][0].append(distance)
-                
-                # 只返回前n_results个结果
-                if len(filtered_results["ids"][0]) > int(n_results):
-                    filtered_results["ids"][0] = filtered_results["ids"][0][:int(n_results)]
-                    filtered_results["metadatas"][0] = filtered_results["metadatas"][0][:int(n_results)]
-                    filtered_results["documents"][0] = filtered_results["documents"][0][:int(n_results)]
-                    filtered_results["distances"][0] = filtered_results["distances"][0][:int(n_results)]
-                
+
+                cap = int(cap_after_filter)
+                if len(filtered_results["ids"][0]) > cap:
+                    filtered_results["ids"][0] = filtered_results["ids"][0][:cap]
+                    filtered_results["metadatas"][0] = filtered_results["metadatas"][0][:cap]
+                    filtered_results["documents"][0] = filtered_results["documents"][0][:cap]
+                    filtered_results["distances"][0] = filtered_results["distances"][0][:cap]
+
                 return filtered_results
             except Exception as e:
                 print(f"❌ Semantic Query Error: {e}")
                 return None
+
         results = await asyncio.to_thread(_sync_semantic)
-        return self._format_results(results, is_semantic=True)
+        formatted = self._format_results(results, is_semantic=True)
+        before_rerank = [
+            {"id": str(x.get("id", "")), "score": float(x.get("score") or 0.0)}
+            for x in formatted
+        ]
+        rerank_applied = False
+        if use_rerank and len(formatted) >= 2 and AIOHTTP_AVAILABLE:
+            formatted = await _rerank_semantic_items(
+                user_query_for_rerank, formatted, n_out
+            )
+            rerank_applied = True
+            print(f"📊 [Rerank] 已对 {len(formatted)} 条结果重排（目标 top {n_out}）")
+        elif use_rerank and not AIOHTTP_AVAILABLE:
+            print("⚠️ [Rerank] 已启用但 aiohttp 不可用，跳过重排")
+            formatted = formatted[:n_out]
+        else:
+            formatted = formatted[:n_out]
+        after_rerank = [
+            {"id": str(x.get("id", "")), "score": float(x.get("score") or 0.0)}
+            for x in formatted
+        ]
+        ids_b = [x["id"] for x in before_rerank]
+        ids_a = [x["id"] for x in after_rerank]
+        ncmp = min(len(ids_b), len(ids_a))
+        order_changed = bool(
+            rerank_applied and ncmp > 0 and ids_b[:ncmp] != ids_a[:ncmp]
+        )
+        _log_rag_semantic_pipeline_to_run_md(
+            {
+                "user_query": user_query_for_rerank,
+                "hyde_env_enabled": use_hyde,
+                "hyde_aiohttp_available": AIOHTTP_AVAILABLE,
+                "hyde_used_hypothetical_paragraph": hyde_hypothetical_paragraph is not None,
+                "hyde_hypothetical_paragraph_full_text": hyde_hypothetical_paragraph or "",
+                "effective_query_embedded_in_chroma": effective_query,
+                "vector_recall_threshold": float(recall_threshold),
+                "chroma_pool_fetch_n": int(fetch_n),
+                "chroma_cap_after_filter": int(cap_after_filter),
+                "n_results_requested": int(n_out),
+                "rerank_env_enabled": use_rerank,
+                "rerank_applied_to_results": rerank_applied,
+                "before_rerank_ids_and_vector_scores": before_rerank,
+                "after_rerank_ids_and_scores": after_rerank,
+                "rerank_order_changed_vs_vector_stage": order_changed,
+            }
+        )
+        return formatted
 
     # =========================================================================
     #  接口 C: 精确关键字检索 (非向量相似度，纯文本匹配)
@@ -326,7 +616,7 @@ class RAGService:
             
         search_term = query_text.strip().lower()
         results = []
-        
+
         print(f"⚡ [Exact Search] 在本地数据中进行文本匹配: '{search_term}'")
         allow_set = None
         if allowed_chunk_ids is not None and len(allowed_chunk_ids) > 0:
@@ -377,7 +667,7 @@ class RAGService:
         # 按需截断
         if n_results and n_results > 0:
             results = results[:n_results]
-            
+
         print(f"   ✅ 精确匹配到 {len(results)} 条数据")
         return results
 
@@ -409,7 +699,7 @@ class RAGService:
                 return []
         
         results = []
-        
+
         print(f"⚡ [Local Search] 在 {len(self.local_data_cache)} 条数据中过滤: P={paper_id}, K={keywords}")
 
         for item in self.local_data_cache:
