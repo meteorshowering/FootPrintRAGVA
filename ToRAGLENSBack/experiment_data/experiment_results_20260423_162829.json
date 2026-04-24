@@ -1,0 +1,1202 @@
+{
+  "sessions": [
+    {
+      "root_goal": "how to visualize air pollution",
+      "session_id": "9a542f3a-6a64-42f8-bbb5-2b2ea78f560d",
+      "parameters": [
+        {
+          "round_number": 0,
+          "max_rounds": 3,
+          "plans_per_round": 2,
+          "rag_result_per_plan": 10,
+          "collection_name": "multimodal2text",
+          "interactive": false,
+          "rag_allowed_chunk_ids": null,
+          "map_box_rect_2d": null
+        }
+      ],
+      "iterations": [
+        {
+          "round_number": 0,
+          "query_results": [
+            {
+              "orchestrator_plan": {
+                "action": "call_tool",
+                "tool_name": "strategy_semantic_search",
+                "ParentNode": "0",
+                "args": {
+                  "query_intent": "how to visualize air pollution",
+                  "n_results": 10
+                },
+                "reason": "使用用户原始问题作为初始检索条件，获取相关文献基础",
+                "total_results": 10,
+                "duplicate_results": 0,
+                "plansummary": null,
+                "hyde_hypothetical_paragraph_full_text": "Effective visualization of air‑pollution data integrates spatial, temporal, and chemical dimensions through geostatistical mapping and interactive graphics. High‑resolution satellite retrievals (e.g., Sentinel‑5P NO₂ columns) and ground‑based sensor networks are first harmonized via kriging or Bayesian hierarchical models to generate continuous concentration fields, which are then rendered as choropleth or heat‑map layers in GIS platforms (ArcGIS, QGIS) or web‑based frameworks (Leaflet, kepler.gl). To convey diurnal and seasonal dynamics, animated time‑series maps or 3‑D volumetric renderings (e.g., using Plotly or Cesium) are coupled with particle‑size–specific isopleths (PM₂.₅, PM₁₀) and source‑attribution markers. Multivariate visual encodings, such as glyphs or linked scatter‑plot matrices, enable simultaneous assessment of pollutant co‑variability and health‑impact indices. Validation of these visualizations against independent monitoring stations ensures that the depicted patterns reflect true exposure gradients and support evidence‑based policy decisions.",
+                "rerank_before_ids": [
+                  "chunk_004609",
+                  "chunk_002662",
+                  "chunk_000684",
+                  "chunk_004475",
+                  "chunk_002642",
+                  "chunk_004687",
+                  "chunk_004342",
+                  "chunk_004500",
+                  "chunk_004695",
+                  "chunk_002649",
+                  "chunk_002699",
+                  "chunk_001413",
+                  "chunk_004582",
+                  "chunk_002652",
+                  "chunk_000979",
+                  "chunk_001109",
+                  "chunk_001319",
+                  "chunk_002654",
+                  "chunk_004486",
+                  "chunk_002803",
+                  "chunk_004608",
+                  "chunk_000955",
+                  "chunk_001085",
+                  "chunk_002790",
+                  "chunk_002855",
+                  "chunk_004583",
+                  "chunk_004515",
+                  "chunk_002810",
+                  "chunk_000939",
+                  "chunk_001069",
+                  "chunk_002802",
+                  "chunk_003135",
+                  "chunk_002808",
+                  "chunk_002796",
+                  "chunk_002660",
+                  "chunk_002888",
+                  "chunk_004476",
+                  "chunk_003783",
+                  "chunk_000593",
+                  "chunk_004308",
+                  "chunk_004628",
+                  "chunk_004697",
+                  "chunk_004643",
+                  "chunk_004490",
+                  "chunk_004537",
+                  "chunk_000452",
+                  "chunk_004506",
+                  "chunk_002820",
+                  "chunk_001639",
+                  "chunk_004535"
+                ],
+                "rerank_after_ids": [
+                  "chunk_002642",
+                  "chunk_002699",
+                  "chunk_004308",
+                  "chunk_002796",
+                  "chunk_000939",
+                  "chunk_004609",
+                  "chunk_002662",
+                  "chunk_000684",
+                  "chunk_004475",
+                  "chunk_004687"
+                ]
+              },
+              "rag_results": [
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002642",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution"
+                    },
+                    "metadata": {
+                      "paperid": "paper_011",
+                      "metadata": "{\"paper_title\": \"HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution\", \"md_filename\": \"HTAP_v2.2_ a mosaic of regional and global emissio.md\", \"paragraph_index\": 0, \"content_length\": 129, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "chunkid": "chunk_002642",
+                      "paper_id": "paper_011"
+                    },
+                    "score": 0.9259473085403442,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002642",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002699",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Generally, higher emissions are observed for populated areas and coastal regions, but specific features can be highlighted depending on the pollutant and activity for specific countries per substance. The differences of the Figs. 2a-i in the sector-specific composition (pie charts) of the emission sources for world regions (represented by the colour scale) vary strongly between compounds. Some of the factors include:"
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution\", \"md_filename\": \"HTAP_v2.2_ a mosaic of regional and global emissio.md\", \"paragraph_index\": 64, \"content_length\": 420, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_011",
+                      "chunkid": "chunk_002699",
+                      "type": "texture",
+                      "paper_id": "paper_011"
+                    },
+                    "score": 0.9211707711219788,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002699",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004308",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "To evaluate how well the model reproduces the meteorological conditions, the simulated T2, Q2 and WS10 are compared with observational data of NCDC. The statistical metrics are shown in Table S3 indicating a satisfactory performance in comparison to the benchmarks proposed by Emery et al. (2001). For air pollutants, hourly  $\\mathrm{PM}_{2.5}$  concentrations between observations and three simulated cases averaged"
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Striking impacts of biomass burning on  $\\\\mathrm{PM}_{2.5}$  concentrations in Northeast China through the emission inventory improvement\", \"md_filename\": \"Striking impacts of biomass burning on  $_mathrm{P.md\", \"paragraph_index\": 54, \"content_length\": 417, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_004308",
+                      "paperid": "paper_005",
+                      "paper_id": "paper_005"
+                    },
+                    "score": 0.9203247427940369,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004308",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002796",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# Impact of spatial proxies on the representation of bottom-up emission inventories: A satellite-based analysis"
+                    },
+                    "metadata": {
+                      "paperid": "paper_022",
+                      "type": "texture",
+                      "chunkid": "chunk_002796",
+                      "metadata": "{\"paper_title\": \"Impact of spatial proxies on the representation of bottom-up emission inventories: A satellite-based analysis\", \"md_filename\": \"Impact of spatial proxies on the representation of.md\", \"paragraph_index\": 0, \"content_length\": 111, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_022"
+                    },
+                    "score": 0.9202237129211426,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002796",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000939",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "$^{a}$  Department of Earth and Atmospheric Sciences, University of Houston, TX, USA  \n<sup>b</sup> Center for Environmental Measurement and Modeling, US Environmental Protection Agency, Research Triangle Park, NC, USA  \n$^{\\mathrm{c}}$  Air Resources Laboratory, National Oceanic and Atmospheric Administration, College Park, MD, USA  \n$^{\\mathrm{d}}$  Cooperative Institute for Satellite Earth System Studies, University of Maryland, College Park, MD, USA"
+                    },
+                    "metadata": {
+                      "paperid": "paper_001",
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Changes in the ozone chemical regime over the contiguous United States inferred by the inversion of  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  and VOC emissions using satellite observation\", \"md_filename\": \"Changes in the ozone chemical regime over the cont.md\", \"paragraph_index\": 3, \"content_length\": 457, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_000939",
+                      "paper_id": "paper_001"
+                    },
+                    "score": 0.9035529494285583,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000939",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004609",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The figure displays grid maps for gaseous and aerosol species based on the MIX Asian emission inventory in 2010, highlighting spatial emission patterns. The maps illustrate improved spatial emission patterns due to the incorporation of high-resolution datasets, assisting in better understanding and management of emissions across Asia."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"MIX_ a mosaic Asian anthropogenic emission invento\", \"figure_id\": \"img_165\", \"figure_title\": \"Figure 12. Grid maps for gaseous (a) and aerosol (b) species in the MIX Asian emission inventory, 2010.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\MIX_ a mosaic Asian anthropogenic emission invento\\\\figure_12.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Core Findings\", \"Showcase Prediction Results\"]}, \"visual_type\": {\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}, \"key_entities\": [\"MIX Asian emission inventory\", \"gaseous species\", \"aerosol species\", \"2010\", \"CPED\", \"JEI-DB\", \"OPRF\"], \"concise_summary\": \"The figure displays grid maps for gaseous and aerosol species based on the MIX Asian emission inventory in 2010, highlighting spatial emission patterns.\", \"inferred_insight\": \"The maps illustrate improved spatial emission patterns due to the incorporation of high-resolution datasets, assisting in better understanding and management of emissions across Asia.\", \"references\": [\"In the MIX inventory, gridded emissions for 10 gaseous and aerosol species were developed at  $0.25 \\\\times 0.25^{\\\\circ}$  resolution. Emission maps of all species in 2010 are shown in Fig. 12. Compared to the previous gridded Asian emission inventories, we believe the spatial patterns are improved because several local high-resolution emission datasets are incorporated, such as CPED for China and JEI-DB and OPRF for Japan. However, for sectors in which emissions are dominated by spatially scattered sources (e.g., residential combustion, solvent use), the spatial distributions in emissions are still uncertain.\", \"Figure 12.\", \"Abstract. The MIX inventory is developed for the years 2008 and 2010 to support the Model Inter-Comparison Study for Asia (MICS-Asia) and the Task Force on Hemispheric Transport of Air Pollution (TF HTAP) by a mosaic of up-to-date regional emission inventories. Emissions are estimated for all major anthropogenic sources in 29 countries and regions in Asia. We conducted detailed comparisons of different regional emission inventories and incorporated the best available ones for each region into the mosaic inventory at a uniform spatial and temporal resolution. Emissions are aggregated to five anthropogenic sectors: power, industry, residential, transportation, and agriculture. We estimate the total Asian emissions of 10 species in 2010 as follows:  $51.3\\\\mathrm{TgSO}_2$ ,  $52.1\\\\mathrm{TgNO}_x$ ,  $336.6\\\\mathrm{TgCO}$ ,  $67.0\\\\mathrm{TgNMVOC}$  (non-methane volatile organic compounds),  $28.8\\\\mathrm{TgNH}_3$\", \"Generally, there are two common approaches to develop a bottom-up emission inventory at regional level. One is using a unified framework of source categories, calculating method, chemical speciation scheme (if applicable), and spatial and temporal allocations (e.g., Streets et al., 2003; Ohara et al., 2007; Lu et al., 2011). Using the unified approach, emissions are estimated in a consistent way with attainable resources. Several Asian emission inventories widely used in the community were developed by the unified approach. Streets et al. (2003) first developed a comprehensive Asian emission inventory for a variety of gaseous and aerosol species for the year 2000 to support the TRACE-P (Transport and Chemical Evolution over the Pacific) campaign (Carmichael et al., 2003), which was subsequently used for MICS-Asia Phase II. Ohara et al. (2007) developed the Regional Emission inventory in Asia (REAS) version 1.1 covering emissions of major species over Asia from 1980 to 2003, which provides estimates of Asian emissions for a long-term period. However, with the unified approach, many region-dependent parameters are shared among different regions due to lack of resources and local knowledge (e.g., emission factors, chemical profiles, spatial proxies, and temporal profiles, etc.), introducing large uncertainties in emission estimates for a specific region (He et al., 2007; Kurokawa et al., 2009).\", \"The MIX inventory is developed for 2008 and 2010, in accordance with base year simulations in MICS-Asia III and the Task Force on Hemispheric Transport of Air Pollution (TF HTAP). It should be noted that MIX is not comparable to INTEX-B and TRACE-P to derive an emission trend due to differences in methodology and underlying data. In this paper, we also provided Asian emissions for 2006 using the same methodology, partly resolving the problems of trend analysis in mosaic inventories. The gridded MIX emission data for the years 2008 and 2010 are then incorporated\", \"Figure 1 presents the definition of the MIX domain and emission datasets used for each country and region. The domain of MIX covers 29 countries and regions (the full list of country and region names are listed in Table 1), stretching from Kazakhstan in the west to Russia Far East in the east and from Indonesia in the south to Siberia in the north. Emissions are aggregated into five sectors: power, industry, residential, transportation, and agriculture. Ten chemical species are included in the MIX inventory, including both gaseous and aerosol species:  $\\\\mathrm{SO}_2$ ,  $\\\\mathrm{NO}_x$ , CO, NMVOC (non-methane volatile organic compounds),  $\\\\mathrm{NH}_3$  (ammonia),  $\\\\mathrm{PM}_{10}$  (particulate matter with diameter less than or equal to  $10\\\\mu \\\\mathrm{m}$ ),  $\\\\mathrm{PM}_{2.5}$  (particulate matter with diameter less than or equal to  $2.5\\\\mu \\\\mathrm{m}$ ), BC (black carbon), OC (organic carbon), and  $\\\\mathrm{CO}_2$ . Only emissions from anthropogenic sources are included in MIX. NMVOC emissions are speciated into model-ready inputs for two chemical mechanisms: CB05 (the Carbon Bond mechanism; Yarwood et al., 2005) and SAPRC-99 (the State Air Pollution Research Center 1999 version; Carter, 2000) (see Tables S1 and S2 in the Supplement). Monthly emissions are provided by sector at  $0.25^{\\\\circ} \\\\times 0.25^{\\\\circ}$  resolution. Gridded emissions are available from http://www.meicmodel.org/dataset-mix. The key features of the MIX inventory are summarized in Table 1.\", \"This paper documents the methodology and emission datasets of the MIX Asian anthropogenic emission inventory. The regional and national inventories used to develop MIX gridded datasets and the mosaic methodology are presented in Sect. 2. Section 3 presents Asian emissions in 2010 and spatial and temporal variations in emissions. Changes in Asian emissions between 2006 and 2010 are also discussed. Section 4 highlights the major improvements in the new inventory by comparing MIX with other Asian emission in\", \"NMVOC emissions were speciated to SAPRC-99 and CB05 mechanisms following the explicit species mapping approach documented in Li et al. (2014) (see Fig. 3). Finally, emissions were aggregated to the five MIX sectors and then assembled to monthly emission grid maps over Asia with a uniform spatial resolution of  $0.25^{\\\\circ} \\\\times 0.25^{\\\\circ}$ .\", \"Based on the mosaic approach and candidate inventories described in Sect. 2, gridded anthropogenic emissions for 10 species were generated over Asia and called the MIX emission inventory. In the MIX inventory, Asian anthropogenic emissions in 2010 are estimated as follows:  $51.3\\\\mathrm{TgSO}_2$ $52.1\\\\mathrm{TgNO}_x$ $336.6\\\\mathrm{TgCO}$ $67.0\\\\mathrm{TgNMVOC}$ $28.8\\\\mathrm{TgNH_3}$ $31.7\\\\mathrm{TgPM}_{10}$ $22.7\\\\mathrm{TgPM}_{2.5}$ $3.5\\\\mathrm{TgBC}$ $8.3\\\\mathrm{TgOC}$ , and  $17.3\\\\mathrm{PgCO}_2$ . Figure 4 presents the emission distributions among sectors over Asia in 2010. Among the different sectors, the industrial sector has the largest contribution to  $\\\\mathrm{SO}_2$  (50% of total), NMVOC (38%),  $\\\\mathrm{PM}_{10}$  (48%), and  $\\\\mathrm{CO}_2$  (40%) emissions. Power plants have significant contributions for  $\\\\mathrm{SO}_2$  (38% of total),  $\\\\mathrm{NO}_x$  (29%), and  $\\\\mathrm{CO}_2$  (34%) emissions.\", \"Table 3. National anthropogenic emissions in the MIX emission inventory in 2010 (units: Tg for  $\\\\mathrm{CO}_{2}$  and Gg for other species). Bold values are the total emissions for Asian regions.\", \"Ratios of different species were widely used to inform emission characteristics. For example,  $\\\\mathrm{SO}_2 / \\\\mathrm{CO}_2$  ratio was used as an indicator of coal combustion and emission control levels (Li et al., 2007), and ratios of  $\\\\mathrm{CO} / \\\\mathrm{CO}_2$  were used to inform combustion efficiency (Wang et al., 2010). Figure 7 compares regional emission ratios of  $\\\\mathrm{SO}_2 / \\\\mathrm{CO}_2$  and  $\\\\mathrm{CO} / \\\\mathrm{CO}_2$  estimated by the MIX inventory. Emission ratios of  $\\\\mathrm{SO}_2 / \\\\mathrm{CO}_2$  are lowest in Other East Asia among different regions, which could be attributed to small share of coal use\", \"In this work, we also developed Asian emissions for 2006 and 2008 following the same approach of MIX, to illustrate the changes in Asian emissions from 2006 to 2010. Table 5 presents Asian emissions in 2006 and emission ratios of 2010 to 2016 by country. For the whole of Asia, emission growth rates from 2006 to 2010 are estimated as follows:  $-8.1\\\\%$  for  $\\\\mathrm{SO}_2$ ,  $+19.2\\\\%$  for  $\\\\mathrm{NO}_x$ ,  $+3.9\\\\%$  for  $\\\\mathrm{CO}$ ,  $+15.5\\\\%$  for NMVOC,  $+1.7\\\\%$  for  $\\\\mathrm{NH}_3$ ,  $-3.4\\\\%$  for  $\\\\mathrm{PM}_{10}$ ,  $-1.6\\\\%$  for  $\\\\mathrm{PM}_{2.5}$ ,  $+5.5\\\\%$  for BC,  $+1.8\\\\%$  for OC, and  $+19.9\\\\%$  for  $\\\\mathrm{CO}_2$ . Growth in  $\\\\mathrm{CO}_2$  emissions represent the continuously increasing energy use across Asia during 2006-2010, while different trends among species represents differences in the emission control level among sectors and regions. Compared to the increasing emission trends of all species during 2001-2006 (Zhang et al., 2009), the relatively flat or even decreasing emission trends in many species indicate the effectiveness of emission control measures in recent years (Gu et al., 2013; Lin et al., 2010; Wang et al., 2013).\", \"MIX emission inventory can be accessed publicly from the website of http://www.meicmodel.org/dataset-mix. Both 2008 and 2010 emissions of 10 species with monthly variation at a spatial resolution of  $0.25 \\\\times 0.25^{\\\\circ}$  are available from the website, including  $\\\\mathrm{SO}_2$ ,  $\\\\mathrm{NO}_x$ , CO,  $\\\\mathrm{NH}_3$ , NMVOC,  $\\\\mathrm{PM}_{10}$ ,  $\\\\mathrm{PM}_{2.5}$ , BC, OC, and  $\\\\mathrm{CO}_2$ . Speciated NMVOC Emissions for CB05 and SAPRC-99 chemical mechanisms are provided at the same spatial and temporal resolution. The MIX in\", \"with REAS2 and EDGAR v4.2 (EC-JRC/PBL, 2011), two widely used inventories, to highlight the new findings from the mosaic inventory and identify the potential sources of uncertainties. We choose the year of 2008 to conduct the comparison because emissions after 2008 are not available in either REAS2 or EDGAR v4.2. Russian Asia was excluded from comparison. Asian anthropogenic emissions of MIX, REAS2, and EDGAR v4.2 in 2008 are tabulated in Table 7. Over Asia, MIX and REAS differ within  $10\\\\%$  for most species, except for  $\\\\mathrm{NH}_3$  ( $18\\\\%$  higher in REAS),  $\\\\mathrm{PM}_{10}$  ( $13\\\\%$  higher), and BC ( $13\\\\%$  lower). It is not surprising that the total Asian emission budgets in MIX and REAS2 are simi\", \"The MIX emission inventory subjects to uncertainties and several limitations. Emission estimates from bottom-up inventories are uncertain due to lack of complete knowledge of human activities and emission from different sources. Uncertainty ranges of an emission inventory could be estimated using propagation of error or Monte Carlo approaches (e.g., Streets et al., 2003; Zhao et al., 2011). However, in a mosaic emission inventory like MIX, a normalized quantitative assessment of uncertainty ranges is difficult because detailed information for emission inventory development is not collected. Table 9 summarized the uncertainty range estimates for China, India, and other Asian regions in different regional emission inventories. It should be noted that those ranges are not directly comparable due to differences in methods (propagation of error or Monte Carlo simulation). However, those numbers might roughly represent the uncertainty ranges in the MIX inventory as it was compiled from several inventories listed in Table 9. In general, uncertainty ranges are relatively small for species which emissions are dominated my large-scale combustion sources (e.g.,  $\\\\mathrm{SO}_2$ ,  $\\\\mathrm{NO}_x$ , and  $\\\\mathrm{CO}_2$ ) but larger for species whose emissions are mainly from small-scale and scattered sources (e.g., CO, NMVOC, and carbonaceous aerosols). More detailed discussions on the uncertainty sources of Asian emission inventories can be found in previous literatures (e.g., Lu et al., 2011; Zhao et al., 2011; Kurokawa et al., 2013).\", \"When species in a specific inventory were missing, alternative estimates or datasets were used to fill the gap in which may involve additional uncertainties. In the MIX inventory,  $\\\\mathrm{PM}_{2.5}$ , BC, and OC emissions for Republic of Korea were roughly estimates from  $\\\\mathrm{PM}_{10}$  emissions in the CAPSS inventory and sector-specific emission ratios between  $\\\\mathrm{PM}_{10}$  and other aerosol components from Lei et al. (2011). For India, we used ANL-India for  $\\\\mathrm{SO}_2$ , BC, and OC for all sectors and  $\\\\mathrm{NO}_x$  for power plants. REAS2 was used to fill the gap where emissions from ANL-India were absent (see Sect. 2.3 for detailed process procedure). For above cases where estimates of different species in the same country were obtained from\", \"In this work, we developed a new anthropogenic emission inventory for Asia for the years of 2008 and 2010 by constructing a mosaic of several regional and national emission inventories. MEIC, PKU-NH $_3$ , ANL-India, and CAPSS inventories are used to represent the best available emission data for China, India, and Korea, supplemented with REAS2 to fill gaps. By harmonizing these inventories, monthly emission grids maps for 10 species over Asia were generated for five sectors (power, industry, residential, transportation, and agriculture) at a uniform spatial resolution of  $0.25^{\\\\circ} \\\\times 0.25^{\\\\circ}$ . Gridded speciated NMVOC emissions for SAPRC-99 and CB05 mechanisms were also developed at the same temporal and spatial resolution. This new Asian emission inventory, named MIX, provides model-ready anthropogenic emissions for the MICS-Asia Phase III assessment. The MIX inventory has been also incorporated into the HTAP v2 gridded emission inventory (Janssens-Maenhout et al., 2015) to support the TF HTAP assessment. Gridded emissions are available from the following website: http://www.meicmodel.org/dataset-mix.\", \"Guan, D., Liu, Z., Geng, Y., Lindner, S., and Hubacek, K.: The gigatonne gap in China's carbon dioxide inventories, Nature Clim. Change, 2, 672-675, 2012.  \\nHabib, G., Venkataraman, C., Shrivastava, M., Banerjee, R., Stehr, J. W., and Dickerson, R. R.: New methodology for estimating biofuel consumption for cooking: Atmospheric emissions of black carbon and sulfur dioxide from India, Global Biogeochem. Cy., 18, GB3007, doi:10.1029/2003GB002157, 2004.  \\nHan, Z., Sakurai, T., Ueda, H., Carmichael, G. R., Streets, D., Hayami, H., Wang, Z., Holloway, T., Engardt, M., Hozumi, Y., Park, S. U., Kajino, M., Sartelet, K., Fung, C., Bennet, C., Thongboonchoo, N., Tang, Y., Chang, A., Matsuda, K., and Amann, M.: MICS-Asia II: Model intercomparison and evaluation of ozone and relevant species, Atmos. Environ., 42, 3491-3509, doi:10.1016/j.atmosenv.2007.07.031, 2008.  \\nHayami, H., Sakurai, T., Han, Z., Ueda, H., Carmichael, G. R., Streets, D., Holloway, T., Wang, Z., Thongboonchoo, N., Engardt, M., Bennet, C., Fung, C., Chang, A., Park, S. U., Kajino, M., Sartelet, K., Matsuda, K., and Amann, M.: MICS-Asia II: Model intercomparison and evaluation of particulate sulfate, nitrate and ammonium, Atmos. Environ., 42, 3510-3527, doi:10.1016/j.atmosenv.2007.08.057, 2008.  \\nHe, Y., Uno, I., Wang, Z., Ohara, T., Sugimoto, N., Shimizu, A., Richter, A., and Burrows, J. P.: Variations of the increasing trend of tropospheric  $\\\\mathrm{NO}_2$  over central east China during the past decade, Atmos. Environ., 41, 4865-4876, 2007.  \\nHolloway, T., Sakurai, T., Han, Z., Ehlers, S., Spak, S. N., Horowitz, L. W., Carmichael, G. R., Streets, D. G., Hozumi, Y., Ueda, H., Park, S. U., Fung, C., Kajino, M., Thongboonchoo, N., Engardt, M., Bennet, C., Hayami, H., Sartelet, K., Wang, Z., Matsuda, K., and Amann, M.: MICS-Asia II: Impact of global emissions on regional air quality in Asia, Atmos. Environ., 42, 3543-3561, doi:10.1016/j.atmosenv.2007.10.022, 2008.  \\nHong, C., Zhang, Q., He, K., Guan, D., Li, M., Liu, F., and Zheng, B.: Variations of China's emission estimates response to uncertainties in energy statistics, Atmos. Chem. Phys. Discuss., doi:10.5194/ACP-2016-459, in review, 2016.  \\nHsu, Y. and Divita, F.: SPECIATE 4.2, speciation database development documentation, final report, EPA/600-R-09/-38, 2009.  \\nHuang, X., Song, Y., Li, M., Li, J., Huo, Q., Cai, X., Zhu, T., Hu, M., and Zhang, H.: A high-resolution ammonia emission inventory in China, Global Biogeochem. Cy., 26, GB1030, doi:10.1029/2011GB004161, 2012.  \\nIEA (International Energy Agency): Energy balances of OECD countries and energy balances of non-OECD countries, CD-ROM, IEA, Paris, 2013.  \\nItahashi, S., Uno, I., Irie, H., Kurokawa, J.-I., and Ohara, T.: Regional modeling of tropospheric  $\\\\mathrm{NO}_2$  vertical column density over East Asia during the period 2000-2010: comparison with multisatellite observations, Atmos. Chem. Phys., 14, 3623-3635, doi:10.5194/ACP-14-3623-2014, 2014.  \\nJanssens-Maenhout, G., Crippa, M., Guizzardi, D., Dentener, F., Muntean, M., Pouliot, G., Keating, T., Zhang, Q., Kurokawa, J., Wankmuller, R., Denier van der Gon, H., Kuenen, J. J. P., Klimont, Z., Frost, G., Darras, S., Koffi, B., and Li, M.: HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution, Atmos. Chem. Phys., 15, 11411-11432, doi:10.5194/acp-15-11411-2015, 2015.\", \"JPEC (Japan Petroleum Energy Center): Emission inventory of road transport in Japan, JPEC Technical Report, JPEC-2011AQ-02-06, 136 pp., 2012a (in Japanese).  \\nJPEC: Emission inventory of sources other than road transport in Japan, JPEC Technical Report, JPEC-2011AQ-02-07, 288 pp., 2012b (in Japanese).  \\nJPEC: Speciation profiles of VOC, PM, and NOx emissions for atmospheric simulations of PM2.5, JPEC Technical Report, JPEC-2011AQ-02-08, 69 pp., 2012c (in Japanese).  \\nKannari, A., Tonooka, Y., Baba, T., and Murano, K.: Development of multiple-species  $1\\\\mathrm{km} \\\\times 1\\\\mathrm{km}$  resolution hourly basis emissions inventory for Japan, Atmos. Environ., 41, 3428-3439, 2007.  \\nKeller, C. A., Long, M. S., Yantosca, R. M., Da Silva, A. M., Pawson, S., and Jacob, D. J.: HEMCO v1.0: a versatile, ESMF-compliant component for calculating emissions in atmospheric models, Geosci. Model Dev., 7, 1409-1417, doi:10.5194/gmd-7-1409-2014, 2014.  \\nKlimont, Z.: Current and future emissions of ammonia in China, in: Proceedings of 10th International Emission Inventory Conference - \\\"One Atmosphere, One Inventory, Many Challenges\\\", Denver, US, 1-3 May, Sect. 1, 5, 2001.  \\nKlimont, Z., Streets, D. G., Gupta, S., Cofala, J., Fu, L. X., and Ichikawa, Y.: Anthropogenic emissions of non-methane volatile organic compounds in China, Atmos. Environ., 36, 1309-1322, doi:10.1016/s1352-2310(01)00529-5, 2002.  \\nKrotkov, N. A., McLinden, C. A., Li, C., Lamsal, L. N., Celarier, E. A., Marchenko, S. V., Swartz, W. H., Bucsela, E. J., Joiner, J., Duncan, B. N., Boersma, K. F., Veefkind, J. P., Levelt, P. F., Fioletov, V. E., Dickerson, R. R., He, H., Lu, Z., and Streets, D. G.: Aura OMI observations of regional  $\\\\mathrm{SO}_2$  and  $\\\\mathrm{NO}_2$  pollution changes from 2005 to 2015, Atmos. Chem. Phys., 16, 4605-4629, doi:10.5194/ACP-16-4605-2016, 2016.  \\nKurokawa, J.-I., Yumimoto, K., Uno, I., and Ohara, T.: Adjoint inverse modeling of NOx emissions over eastern China using satellite observations of NO2 vertical column densities, Atmos. Environ., 43, 1878-1887, 2009.  \\nKurokawa, J., Ohara, T., Morikawa, T., Hanayama, S., Janssens-Maenhout, G., Fukui, T., Kawashima, K., and Akimoto, H.: Emissions of air pollutants and greenhouse gases over Asian regions during 2000-2008: Regional Emission inventory in ASia (REAS) version 2, Atmos. Chem. Phys., 13, 11019-11058, doi:10.5194/acp-13-11019-2013, 2013.  \\nLee, D. G., Lee, Y.-M., Jang, K.-W., Yoo, C., Kang, K.-H., Lee, J.-H., Jung, S.-W., Park, J.-M., Lee, S.-B., Han, J.-S., Hong, J.-H., and Lee, S.-J.: Korean national emissions inventory system and 2007 air pollutant emissions, Asian J. Atmos. Environ., 5, 278-291, 2011.  \\nLei, Y., Zhang, Q., He, K. B., and Streets, D. G.: Primary anthropogenic aerosol emission trends for China, 1990-2005, Atmos. Chem. Phys., 11, 931-954, doi:10.5194/acp-11-931-2011, 2011.  \\nLi, C., Marufu, L. T., Dickerson, R. R., Li, Z., Wen, T., Wang, Y., Wang, P., Chen, H., and Stehr, J. W.: In situ measurements of trace gases and aerosol optical properties at a rural site in northern China during East Asian Study of Tropospheric Aerosols: An International Regional Experiment 2005, J. Geophys. Res., 112, D22S04, doi:10.1029/2006JD007592, 2007.  \\nLi, M., Zhang, Q., Streets, D. G., He, K. B., Cheng, Y. F., Emmons, L. K., Huo, H., Kang, S. C., Lu, Z., Shao, M., Su, H., Yu, X.,\", \"and Zhang, Y.: Mapping Asian anthropogenic emissions of nonmethane volatile organic compounds to multiple chemical mechanisms, Atmos. Chem. Phys., 14, 5617-5638, doi:10.5194/ACP-14-5617-2014, 2014.  \\nLin, J. T., Nielsen, C. P., Zhao, Y., Lei, Y., Liu, Y., and McElroy, M. B.: Recent changes in particulate air pollution over China observation from space and the ground: effectiveness of emission control, Environ. Sci. Technol., 44, 7771-7776, 2010.  \\nLiu, F., Zhang, Q., Tong, D., Zheng, B., Li, M., Huo, H., and He, K. B.: High-resolution inventory of technologies, activities, and emissions of coal-fired power plants in China from 1990 to 2010, Atmos. Chem. Phys., 15, 13299-13317, doi:10.5194/ACP-15-13299-2015, 2015.  \\nLu, Z. and Streets, D. G.: Increase in NOx Emissions from Indian Thermal Power Plants during 1996-2010: Unit-Based Inventories and Multisatellite Observations, Environ. Sci. Technol., 46, 7463-7470, doi:10.1021/es300831w, 2012.  \\nLu, Z., Zhang, Q., and Streets, D. G.: Sulfur dioxide and primary carbonaceous aerosol emissions in China and India, 1996-2010, Atmos. Chem. Phys., 11, 9839-9864, doi:10.5194/ACP-11-9839-2011, 2011.  \\nMijling, B., van der A, R. J., and Zhang, Q.: Regional nitrogen oxides emission trends in East Asia observed from space, Atmos. Chem. Phys., 13, 12003-12012, doi:10.5194/acp-13-12003-2013, 2013.  \\nMiyazaki, K., Eskes, H., Sudo, K., Boersma, K. F., Bowman, K., and Kanaya, Y.: Decadal changes in global surface  $\\\\mathrm{NO}_x$  emissions from multi-constituent satellite data assimilation, Atmos. Chem. Phys. Discuss., doi:10.5194/ACP-2016-529, in review, 2016.  \\nOhara, T., Akimoto, H., Kurokawa, J., Horii, N., Yamaji, K., Yan, X., and Hayasaka, T.: An Asian emission inventory of anthropogenic emission sources for the period 1980-2020, Atmos. Chem. Phys., 7, 4419-4444, doi:10.5194/ACP-7-4419-2007, 2007.  \\nOPRF (Ocean Policy Research Foundation (Ship and Ocean Foundation)): Report for comprehensive study for environmental impact lead by the establishment of emission control area in Japan, ISBN-13: 978-4-88404-282-0, 524 pp., 2012 (in Japanese).  \\nPaulot, F., Jacob, D. J., Pinder, R. W., Bash, J. O., Travis, K., and Henze, D. K.: Ammonia emissions in the United States, European Union, and China derived by high-resolution inversion of ammonium wet deposition data: Interpretation with a new agricultural emissions inventory (MASAGE_NH3), J. Geophys. Res., 119, 4343-4364, doi:10.1002/2013JD021130, 2014.  \\nPetron, G., Granier, C., Khattatov, B., Yudin, V., Lamarque, J.-F., Emmons, L., Gille, J., and Edwards, D. P.: Monthly CO surface sources inventory based on the 2000-2001 MOPITT satellite data, Geophys. Res. Lett., 31, L21107, doi:10.1029/2004GL020560, 2004.  \\nPlatts: The UDI Word Electric Power Plants Database, CD-ROM data, Platts, A division of the McGraw-Hill Companies, New York, 2009.  \\nReddy, M. S. and Venkataraman, C.: Inventory of aerosol and sulphur dioxide emissions from India: I - Fossil fuel combustion, Atmos. Environ., 36, 677-697, 2002a.  \\nReddy, M. S. and Venkataraman, C.: Inventory of aerosol and sulphur dioxide emissions from India. Part II - biomass combustion, Atmos. Environ., 36, 699-712, 2002b.\", \"Simon, H., Beck, L., Bhave, P. V., Divita, F., Hsu, Y., Luecken, D., Mobley, J. D., Pouliot, G. A., Reff, A., Sarwar, G., and Strum, M.: The development and uses of EPA's SPECIATE database, Atmos. Pollut. Res., 1, 196-206, 2010.  \\nStreets, D. G., Bond, T. C., Carmichael, G. R., Fernandes, S. D., Fu, Q., He, D., Klimont, Z., Nelson, S. M., Tsai, N. Y., Wang, M. Q., Woo, J. H., and Yarber, K. F.: An inventory of gaseous and primary aerosol emissions in Asia in the year 2000, J. Geophys. Res., 108, 8809, doi:10.1029/2002JD003093, 2003.  \\nStreets, D. G., Zhang, Q., Wang, L., He, K., Hao, J., Wu, Y., Tang, Y., and Carmichael, G. R.: Revisiting China's CO emissions after the Transport and Chemical Evolution over the Pacific (TRACE-P) mission: Synthesis of inventories, atmospheric modeling, and observations, J. Geophys. Res.-Atmos., 111, D14306, doi:10.1029/2006JD007118, 2006.  \\nStreets, D. G., Canty, T., Carmichael, G. R., de Foy, B., Dickerson, R. R., Duncan, B. N., Edwards, D. P., Haynes, J. A., Henze, D. K., Houyoux, M. R., Jacob, D. J., Krotkov, N. A., Lamsal, L. N., Liu, Y., Lu, Z., Martin, R. V., Pfister, G. G., Pinder, R. W., Salawitch, R. J., and Wecht, K. J.: Emissions estimation from satellite retrievals: A review of current capability, Atmos. Environ., 77, 1011-1042, doi:10.1016/j.atmosenv.2013.05.051, 2013.  \\nUnited Nations: Monthly Bulletin of Statistics (MBS), United Nations Publications, New York, 341 pp., 2011.  \\nvan Donkelaar, A., Martin, R. V., Leaitch, W. R., Macdonald, A. M., Walker, T. W., Streets, D. G., Zhang, Q., Dunlea, E. J., Jimenez, J. L., Dibb, J. E., Huey, L. G., Weber, R., and Andreae, M. O.: Analysis of aircraft and satellite measurements from the Intercontinental Chemical Transport Experiment (INTEX-B) to quantify long-range transport of East Asian sulfur to Canada, Atmos. Chem. Phys., 8, 2999-3014, doi:10.5194/ACP-8-2999-2008, 2008.  \\nVenkataraman, C., Habib, G., Eiguren-Fernandez, A., Miguel, A. H., and Friedlander, S. K.: Residential biofuels in South Asia: carbonaceous aerosol emissions and climate impacts, Science, 307, 1454-1456, 2005.  \\nWang, S. W., Zhang, Q., Streets, D. G., He, K. B., Martin, R. V., Lamsal, L. N., Chen, D., Lei, Y., and Lu, Z.: Growth in NOx emissions from power plants in China: bottom-up estimates and satellite observations, Atmos. Chem. Phys., 12, 4429-4447, doi:10.5194/acp-12-4429-2012, 2012.  \\nWang, Y., Munger, J. W., Xu, S., McElroy, M. B., Hao, J., Nielsen, C. P., and Ma, H.:  $\\\\mathrm{CO}_{2}$  and its correlation with CO at a rural site near Beijing: implications for combustion efficiency in China, Atmos. Chem. Phys., 10, 8881-8897, doi:10.5194/acf-10-8881-2010, 2010.  \\nWang, Y., Zhang, Q. Q., He, K., Zhang, Q., and Chai, L.: Sulfate-nitrate-ammonium aerosols over China: response to 2000-2015 emission changes of sulfur dioxide, nitrogen oxides, and ammonia, Atmos. Chem. Phys., 13, 2635-2652, doi:10.5194/acp-13-2635-2013, 2013.  \\nWang, Z., Xie, F., Sakurai, T., Ueda, H., Han, Z., Carmichael, G. R., Streets, D., Engardt, M., Holloway, T., Hayami, H., Kajino, M., Thongboonchoo, N., Bennet, C., Park, S. U., Fung, C., Chang, A., Sartelet, K., and Amann, M.: MICS-Asia II: Model intercomparison and evaluation of acid deposition, Atmos. Environ., 42, 3528-3542, doi:10.1016/j.atmosenv.2007.12.071, 2008.\"], \"chunk_type\": \"figure\"}",
+                      "chunkid": "chunk_004609",
+                      "type": "picture",
+                      "paperid": "paper_013",
+                      "paper_id": "paper_013"
+                    },
+                    "score": 0.5532321007796064,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004609",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002662",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The resulting data set, named HTAP_v2.2, is a compilation of annual and monthly grid maps of anthropogenic air pollution emissions (with a  $0.1^{\\circ} \\times 0.1^{\\circ}$  grid resolution). It contains region-specific information on human activity (concerning intensity and geospatial distribution) and on fuel, technology- and process-dependent emission factors and end-of-pipe abatement, but it is not as consistent as a globally consistent emission inventory using international statistics and global geospatial distributions. With the perspective of being used in chemical transport models, this inventory includes the atmospheric gaseous pollutants  $\\mathrm{(SO_2, NO_x, CO, NMVOC^4, NH_3)}$  and particulate matter with carbonaceous speciation  $\\mathrm{(PM_{10}, PM_{2.5}, BC}$  and OC)5."
+                    },
+                    "metadata": {
+                      "paperid": "paper_011",
+                      "type": "texture",
+                      "chunkid": "chunk_002662",
+                      "metadata": "{\"paper_title\": \"HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution\", \"md_filename\": \"HTAP_v2.2_ a mosaic of regional and global emissio.md\", \"paragraph_index\": 21, \"content_length\": 798, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_011"
+                    },
+                    "score": 0.530388495323935,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002662",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000684",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Because of the large spatial and temporal variability of biomass burning, emissions monitoring and forecasting must be based on satellite observations of the currently active fires (Kaiser et al., 2006). Several systems that monitor and forecast global and regional air quality and visibility include modules that calculate fire emissions from satellite-based observations of burnt area or hot spots (Freitas et al., 2005; Reid et al., 2009; Sofiev et al., 2009)."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_000684",
+                      "metadata": "{\"paper_title\": \"Biomass burning emissions estimated with a global fire assimilation system based on observed fire radiative power\", \"md_filename\": \"Biomass burning emissions estimated with a global .md\", \"paragraph_index\": 9, \"content_length\": 463, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paperid": "paper_018",
+                      "paper_id": "paper_018"
+                    },
+                    "score": 0.5271338142609462,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000684",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004475",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The figure displays global measurement locations overlaid with annual mean NMOG emissions from fires between 1997-2019, highlighting specific campaigns like ARCTAS, FIREX-AQ, DC3, and ATTO. The map underscores the scope of fire influence on NMOG emissions, providing a geographical foundation for analyzing data from air mass sampling campaigns."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"An improved representation of fire non-methane org\", \"figure_id\": \"img_31\", \"figure_title\": \"Figure 2. Measurement locations of campaigns used in this analysis overlaid on annual mean NMOG emissions from fires across 1997-2019 from GFED4s. Boreal ARCTAS is in light blue, FIREX-AQ in dark blue, DC3 in dark green, and ATTO in purple.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\An improved representation of fire non-methane org\\\\figure_2.jpg\", \"functional_roles\": {\"main_role\": \"Data & Experimental Setup\", \"sub_roles\": [\"Introduce Experimental Setup\", \"Describe Data Distribution\"]}, \"visual_type\": {\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}, \"key_entities\": [\"NMOG emissions\", \"GFED4s\", \"Boreal ARCTAS\", \"FIREX-AQ\", \"DC3\", \"ATTO\", \"Fire-influenced air masses\", \"Measurement locations\"], \"concise_summary\": \"The figure displays global measurement locations overlaid with annual mean NMOG emissions from fires between 1997-2019, highlighting specific campaigns like ARCTAS, FIREX-AQ, DC3, and ATTO.\", \"inferred_insight\": \"The map underscores the scope of fire influence on NMOG emissions, providing a geographical foundation for analyzing data from air mass sampling campaigns.\", \"references\": [\"We use observations from campaigns that sampled fire-influenced air masses in different regions around the world (Fig. 2). For tower and aircraft campaigns, the model is sampled to the nearest grid box of the measurements both temporally and spatially using the entire  $1\\\\mathrm{min}$  merge of observational data. We then average both the model and the observations to the model grid box.\"], \"chunk_type\": \"figure\"}",
+                      "type": "picture",
+                      "paperid": "paper_025",
+                      "chunkid": "chunk_004475",
+                      "paper_id": "paper_025"
+                    },
+                    "score": 0.5248129113137346,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004475",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004687",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The figure shows the geographical distribution of carbon combustion rates on August 4, 2010, highlighting regions with severe fires using GFASv1.0 data. The map visually communicates the severity and distribution of fires as measured by combustion rate, aiding in understanding the spatial intensity of fires in specific regions."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_004687",
+                      "metadata": "{\"paper_title\": \"Biomass burning emissions estimated with a global \", \"figure_id\": \"img_251\", \"figure_title\": \"Fig. 11. GFASv1.0 combustion rate  \\\\left[g(C)m^{-2}d^{-1}\\\\right]  on 4 August 2010.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Biomass burning emissions estimated with a global\\\\figure_11.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Core Findings\", \"Present Quantitative Results\"]}, \"visual_type\": {\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}, \"key_entities\": [\"GFASv1.0\", \"carbon combustion rate\", \"grid cells\", \"fire radiative power\", \"GFEDv3.1\"], \"concise_summary\": \"The figure shows the geographical distribution of carbon combustion rates on August 4, 2010, highlighting regions with severe fires using GFASv1.0 data.\", \"inferred_insight\": \"The map visually communicates the severity and distribution of fires as measured by combustion rate, aiding in understanding the spatial intensity of fires in specific regions.\", \"references\": [\"The geographical distribution of the calculated carbon combustion rate is shown at the example of 4 August in Fig. 11. It shows that the most severe fires were located in five  $0.5^{\\\\circ}$  grid cells with carbon combustion rates of more than  $50\\\\mathrm{g}\\\\mathrm{d}^{-1}\\\\mathrm{m}^{-2}$ .\", \"Fig. 11. GFASv1.0 combustion rate  $\\\\left[\\\\mathrm{g}(\\\\mathrm{C})\\\\mathrm{m}^{-2}\\\\mathrm{d}^{-1}\\\\right]$  on 4 August 2010.\", \"Table 2. Land cover classes  $l$  used in GFASv1.0 (Col. 1), their abbreviation in this manuscript (Col. 2), the associated conversion factor  ${\\\\beta }_{l}\\\\left\\\\lbrack  {\\\\mathrm{\\\\;{kg}}\\\\text{(dry matter)}{\\\\mathrm{{MJ}}}^{-1}}\\\\right\\\\rbrack$  linking fire radiative power in GFASv1.0 and dry matter combustion rate in GFEDv3.1 (Col. 3), and fuel type used for species emission calculations in Eq. (36) (Col. 4).  ${\\\\beta }_{l}$  is used in Eq. (35) to calculate the dry matter combustion rate estimate of GFASv1.0.\", \"Heil et al. (2010, 2012) have analysed linear regressions between the FRP of GFASv1.0 from Eq. (32) and the dry matter combustion rate of GFEDv3.1. They find that the conversion factor linking GFAS FRP and GFED dry matter combustion rate depends on the land cover type and have determined conversion factor values  $\\\\beta_{l}$  for eight land cover classes  $l$ . We assume that GFED describes the real fire activity sufficiently accurately to interpret the conversion factors  $\\\\beta_{l}$  as link between the FRP of GFAS and the real dry matter combustion rate. The dry matter combustion rate  $f(\\\\mathrm{DM})$  for each grid cell is thus calculated as\", \"The combustion rate density expressed in terms of burning carbon  $\\\\left[\\\\mathrm{g}(\\\\mathrm{C})\\\\mathrm{s}^{-1}\\\\mathrm{m}^{-2}\\\\right]$  is finally calculated from the emission rate densities of the five dominant species, using the atomic masses of the involved elements:\", \"Table 4. Average global and regional combustion budgets  $\\\\left\\\\lbrack  {\\\\mathrm{{Tg}}\\\\left( \\\\mathrm{C}\\\\right) {\\\\mathrm{a}}^{-1}}\\\\right\\\\rbrack$  during 2003-2008 in GFED3.1 and GFASv1.0.\", \"Fig. 5. Average distribution of carbon combustion  $\\\\left[\\\\mathrm{g}(\\\\mathrm{C})\\\\mathrm{a}^{-1}\\\\mathrm{m}^{-2}\\\\right]$  during 2003-2008 in GFED3.1 (top) and GFASv1.0 (bottom). Equidistant cylindrical projection,  $0.5^{\\\\circ}$  resolution. (ECMWF experiment IDs fhhh and ffxr)\"], \"chunk_type\": \"figure\"}",
+                      "paperid": "paper_018",
+                      "type": "picture",
+                      "paper_id": "paper_018"
+                    },
+                    "score": 0.5186999000919624,
+                    "source_args": {
+                      "query_intent": "how to visualize air pollution"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004687",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                }
+              ]
+            },
+            {
+              "orchestrator_plan": {
+                "action": "call_tool",
+                "tool_name": "strategy_semantic_search",
+                "ParentNode": "0",
+                "args": {
+                  "query_intent": "innovative visualization techniques for air pollution data",
+                  "n_results": 10
+                },
+                "reason": "大模型发散的扩展搜索角度 1",
+                "total_results": 10,
+                "duplicate_results": 3,
+                "plansummary": null,
+                "hyde_hypothetical_paragraph_full_text": "Recent advances in spatiotemporal visualization have enabled more nuanced interpretation of air pollution datasets by integrating multivariate glyphs with interactive, web‑based dashboards. Leveraging WebGL‑accelerated volume rendering, researchers can overlay high‑resolution particulate matter (PM₂.₅) concentration fields onto three‑dimensional cityscape models, while dynamic opacity mapping highlights episodic emission events. Coupling these visual encodings with machine‑learning–driven anomaly detection pipelines facilitates real‑time identification of pollution hotspots and supports scenario‑based forecasting. Moreover, the incorporation of immersive virtual reality environments allows stakeholders to experience pollutant dispersion patterns at street‑level scale, fostering more informed policy decisions.",
+                "rerank_before_ids": [
+                  "chunk_000493",
+                  "chunk_004609",
+                  "chunk_002642",
+                  "chunk_004695",
+                  "chunk_004469",
+                  "chunk_004486",
+                  "chunk_002803",
+                  "chunk_004685",
+                  "chunk_004687",
+                  "chunk_002889",
+                  "chunk_003109",
+                  "chunk_004500",
+                  "chunk_002660",
+                  "chunk_002649",
+                  "chunk_004582",
+                  "chunk_002662",
+                  "chunk_000682",
+                  "chunk_004628",
+                  "chunk_001486",
+                  "chunk_004581",
+                  "chunk_002652",
+                  "chunk_002790",
+                  "chunk_002654",
+                  "chunk_004475",
+                  "chunk_004467",
+                  "chunk_000496",
+                  "chunk_004494",
+                  "chunk_002820",
+                  "chunk_004587",
+                  "chunk_004583",
+                  "chunk_000483",
+                  "chunk_004489",
+                  "chunk_004470",
+                  "chunk_000516",
+                  "chunk_000979",
+                  "chunk_001109",
+                  "chunk_000855",
+                  "chunk_004684",
+                  "chunk_003135",
+                  "chunk_003034",
+                  "chunk_002837",
+                  "chunk_002796",
+                  "chunk_004630",
+                  "chunk_002804",
+                  "chunk_004487",
+                  "chunk_002888",
+                  "chunk_002854",
+                  "chunk_002764",
+                  "chunk_000932",
+                  "chunk_004584"
+                ],
+                "rerank_after_ids": [
+                  "chunk_002642",
+                  "chunk_002796",
+                  "chunk_002804",
+                  "chunk_000855",
+                  "chunk_000493",
+                  "chunk_004609",
+                  "chunk_004695",
+                  "chunk_004469",
+                  "chunk_004486",
+                  "chunk_002803"
+                ]
+              },
+              "rag_results": [
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002642",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution"
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_002642",
+                      "metadata": "{\"paper_title\": \"HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution\", \"md_filename\": \"HTAP_v2.2_ a mosaic of regional and global emissio.md\", \"paragraph_index\": 0, \"content_length\": 129, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paperid": "paper_011"
+                    },
+                    "score": 0.9390497803688049,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002642",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002796",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# Impact of spatial proxies on the representation of bottom-up emission inventories: A satellite-based analysis"
+                    },
+                    "metadata": {
+                      "paperid": "paper_022",
+                      "metadata": "{\"paper_title\": \"Impact of spatial proxies on the representation of bottom-up emission inventories: A satellite-based analysis\", \"md_filename\": \"Impact of spatial proxies on the representation of.md\", \"paragraph_index\": 0, \"content_length\": 111, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "chunkid": "chunk_002796"
+                    },
+                    "score": 0.9308863282203674,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002796",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002804",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Emission inventories are essential for predicting spatial and temporal variations in air pollutants and for helping policy makers develop pollution control strategies. The traditional way of developing an emission inventory is the bottom-up approach, whereby activity rates and emission factors are aggregated for all known sources (e.g., Streets et al., 2003; Zhang et al., 2009). Emission inventories are most commonly estimated as emission totals of municipal districts"
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Impact of spatial proxies on the representation of bottom-up emission inventories: A satellite-based analysis\", \"md_filename\": \"Impact of spatial proxies on the representation of.md\", \"paragraph_index\": 9, \"content_length\": 472, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_022",
+                      "chunkid": "chunk_002804",
+                      "paper_id": "paper_022"
+                    },
+                    "score": 0.9085944294929504,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002804",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000855",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "2009). Colarco (2011) find that enhancement factors of 1.8 (savannah and grasslands), 2.5 (tropical forest) and 4.5 (extra-tropical forest) are needed to raise the AOD in the NASA GEOS-5 aerosol forecasting system to the AOD values observed by MODIS. Sofiev et al. (2009) have derived empirical emission coefficients for smoke particulate matter valid in Europe using MODIS FRP and ground-based AOD and particulate matter concentration observations in conjunction with the SILAM air quality forecasting system. They conclude that  $35\\mathrm{g}$  smoke aerosols are emitted per MJ FRP by forest fires and  $18\\mathrm{gMJ}^{-1}$  by grassland and agricultural fires. This is even more than the enhanced values of  $24\\mathrm{gMJ}^{-1}$  and"
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Biomass burning emissions estimated with a global fire assimilation system based on observed fire radiative power\", \"md_filename\": \"Biomass burning emissions estimated with a global .md\", \"paragraph_index\": 199, \"content_length\": 739, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paperid": "paper_018",
+                      "chunkid": "chunk_000855",
+                      "paper_id": "paper_018"
+                    },
+                    "score": 0.9077741503715515,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000855",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000493",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Compared with traditional techniques for forecasting air pollution, namely empirical approaches and simple statistical models, deep learning approaches can handle complex and non-linear relationships among air quality variables which allow them to better capture the pollution episode forecasts. Therefore, deep learning has been identified as a vital tool for air quality modelling and forecasting, which helps in recognizing pollution hot spots (Schmidhuber, 2015; Ong et al., 2016; Li et al., 2017)."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "paperid": "paper_031",
+                      "metadata": "{\"paper_title\": \"Air quality changes in China 2013-2020: Effectiveness of clean coal technology policies\", \"md_filename\": \"Air quality changes in China 2013-2020_ Effectiven.md\", \"paragraph_index\": 52, \"content_length\": 502, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_000493",
+                      "paper_id": "paper_031"
+                    },
+                    "score": 0.9058150053024292,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000493",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004609",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The figure displays grid maps for gaseous and aerosol species based on the MIX Asian emission inventory in 2010, highlighting spatial emission patterns. The maps illustrate improved spatial emission patterns due to the incorporation of high-resolution datasets, assisting in better understanding and management of emissions across Asia."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_004609",
+                      "paperid": "paper_013",
+                      "type": "picture",
+                      "metadata": "{\"paper_title\": \"MIX_ a mosaic Asian anthropogenic emission invento\", \"figure_id\": \"img_165\", \"figure_title\": \"Figure 12. Grid maps for gaseous (a) and aerosol (b) species in the MIX Asian emission inventory, 2010.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\MIX_ a mosaic Asian anthropogenic emission invento\\\\figure_12.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Core Findings\", \"Showcase Prediction Results\"]}, \"visual_type\": {\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}, \"key_entities\": [\"MIX Asian emission inventory\", \"gaseous species\", \"aerosol species\", \"2010\", \"CPED\", \"JEI-DB\", \"OPRF\"], \"concise_summary\": \"The figure displays grid maps for gaseous and aerosol species based on the MIX Asian emission inventory in 2010, highlighting spatial emission patterns.\", \"inferred_insight\": \"The maps illustrate improved spatial emission patterns due to the incorporation of high-resolution datasets, assisting in better understanding and management of emissions across Asia.\", \"references\": [\"In the MIX inventory, gridded emissions for 10 gaseous and aerosol species were developed at  $0.25 \\\\times 0.25^{\\\\circ}$  resolution. Emission maps of all species in 2010 are shown in Fig. 12. Compared to the previous gridded Asian emission inventories, we believe the spatial patterns are improved because several local high-resolution emission datasets are incorporated, such as CPED for China and JEI-DB and OPRF for Japan. However, for sectors in which emissions are dominated by spatially scattered sources (e.g., residential combustion, solvent use), the spatial distributions in emissions are still uncertain.\", \"Figure 12.\", \"Abstract. The MIX inventory is developed for the years 2008 and 2010 to support the Model Inter-Comparison Study for Asia (MICS-Asia) and the Task Force on Hemispheric Transport of Air Pollution (TF HTAP) by a mosaic of up-to-date regional emission inventories. Emissions are estimated for all major anthropogenic sources in 29 countries and regions in Asia. We conducted detailed comparisons of different regional emission inventories and incorporated the best available ones for each region into the mosaic inventory at a uniform spatial and temporal resolution. Emissions are aggregated to five anthropogenic sectors: power, industry, residential, transportation, and agriculture. We estimate the total Asian emissions of 10 species in 2010 as follows:  $51.3\\\\mathrm{TgSO}_2$ ,  $52.1\\\\mathrm{TgNO}_x$ ,  $336.6\\\\mathrm{TgCO}$ ,  $67.0\\\\mathrm{TgNMVOC}$  (non-methane volatile organic compounds),  $28.8\\\\mathrm{TgNH}_3$\", \"Generally, there are two common approaches to develop a bottom-up emission inventory at regional level. One is using a unified framework of source categories, calculating method, chemical speciation scheme (if applicable), and spatial and temporal allocations (e.g., Streets et al., 2003; Ohara et al., 2007; Lu et al., 2011). Using the unified approach, emissions are estimated in a consistent way with attainable resources. Several Asian emission inventories widely used in the community were developed by the unified approach. Streets et al. (2003) first developed a comprehensive Asian emission inventory for a variety of gaseous and aerosol species for the year 2000 to support the TRACE-P (Transport and Chemical Evolution over the Pacific) campaign (Carmichael et al., 2003), which was subsequently used for MICS-Asia Phase II. Ohara et al. (2007) developed the Regional Emission inventory in Asia (REAS) version 1.1 covering emissions of major species over Asia from 1980 to 2003, which provides estimates of Asian emissions for a long-term period. However, with the unified approach, many region-dependent parameters are shared among different regions due to lack of resources and local knowledge (e.g., emission factors, chemical profiles, spatial proxies, and temporal profiles, etc.), introducing large uncertainties in emission estimates for a specific region (He et al., 2007; Kurokawa et al., 2009).\", \"The MIX inventory is developed for 2008 and 2010, in accordance with base year simulations in MICS-Asia III and the Task Force on Hemispheric Transport of Air Pollution (TF HTAP). It should be noted that MIX is not comparable to INTEX-B and TRACE-P to derive an emission trend due to differences in methodology and underlying data. In this paper, we also provided Asian emissions for 2006 using the same methodology, partly resolving the problems of trend analysis in mosaic inventories. The gridded MIX emission data for the years 2008 and 2010 are then incorporated\", \"Figure 1 presents the definition of the MIX domain and emission datasets used for each country and region. The domain of MIX covers 29 countries and regions (the full list of country and region names are listed in Table 1), stretching from Kazakhstan in the west to Russia Far East in the east and from Indonesia in the south to Siberia in the north. Emissions are aggregated into five sectors: power, industry, residential, transportation, and agriculture. Ten chemical species are included in the MIX inventory, including both gaseous and aerosol species:  $\\\\mathrm{SO}_2$ ,  $\\\\mathrm{NO}_x$ , CO, NMVOC (non-methane volatile organic compounds),  $\\\\mathrm{NH}_3$  (ammonia),  $\\\\mathrm{PM}_{10}$  (particulate matter with diameter less than or equal to  $10\\\\mu \\\\mathrm{m}$ ),  $\\\\mathrm{PM}_{2.5}$  (particulate matter with diameter less than or equal to  $2.5\\\\mu \\\\mathrm{m}$ ), BC (black carbon), OC (organic carbon), and  $\\\\mathrm{CO}_2$ . Only emissions from anthropogenic sources are included in MIX. NMVOC emissions are speciated into model-ready inputs for two chemical mechanisms: CB05 (the Carbon Bond mechanism; Yarwood et al., 2005) and SAPRC-99 (the State Air Pollution Research Center 1999 version; Carter, 2000) (see Tables S1 and S2 in the Supplement). Monthly emissions are provided by sector at  $0.25^{\\\\circ} \\\\times 0.25^{\\\\circ}$  resolution. Gridded emissions are available from http://www.meicmodel.org/dataset-mix. The key features of the MIX inventory are summarized in Table 1.\", \"This paper documents the methodology and emission datasets of the MIX Asian anthropogenic emission inventory. The regional and national inventories used to develop MIX gridded datasets and the mosaic methodology are presented in Sect. 2. Section 3 presents Asian emissions in 2010 and spatial and temporal variations in emissions. Changes in Asian emissions between 2006 and 2010 are also discussed. Section 4 highlights the major improvements in the new inventory by comparing MIX with other Asian emission in\", \"NMVOC emissions were speciated to SAPRC-99 and CB05 mechanisms following the explicit species mapping approach documented in Li et al. (2014) (see Fig. 3). Finally, emissions were aggregated to the five MIX sectors and then assembled to monthly emission grid maps over Asia with a uniform spatial resolution of  $0.25^{\\\\circ} \\\\times 0.25^{\\\\circ}$ .\", \"Based on the mosaic approach and candidate inventories described in Sect. 2, gridded anthropogenic emissions for 10 species were generated over Asia and called the MIX emission inventory. In the MIX inventory, Asian anthropogenic emissions in 2010 are estimated as follows:  $51.3\\\\mathrm{TgSO}_2$ $52.1\\\\mathrm{TgNO}_x$ $336.6\\\\mathrm{TgCO}$ $67.0\\\\mathrm{TgNMVOC}$ $28.8\\\\mathrm{TgNH_3}$ $31.7\\\\mathrm{TgPM}_{10}$ $22.7\\\\mathrm{TgPM}_{2.5}$ $3.5\\\\mathrm{TgBC}$ $8.3\\\\mathrm{TgOC}$ , and  $17.3\\\\mathrm{PgCO}_2$ . Figure 4 presents the emission distributions among sectors over Asia in 2010. Among the different sectors, the industrial sector has the largest contribution to  $\\\\mathrm{SO}_2$  (50% of total), NMVOC (38%),  $\\\\mathrm{PM}_{10}$  (48%), and  $\\\\mathrm{CO}_2$  (40%) emissions. Power plants have significant contributions for  $\\\\mathrm{SO}_2$  (38% of total),  $\\\\mathrm{NO}_x$  (29%), and  $\\\\mathrm{CO}_2$  (34%) emissions.\", \"Table 3. National anthropogenic emissions in the MIX emission inventory in 2010 (units: Tg for  $\\\\mathrm{CO}_{2}$  and Gg for other species). Bold values are the total emissions for Asian regions.\", \"Ratios of different species were widely used to inform emission characteristics. For example,  $\\\\mathrm{SO}_2 / \\\\mathrm{CO}_2$  ratio was used as an indicator of coal combustion and emission control levels (Li et al., 2007), and ratios of  $\\\\mathrm{CO} / \\\\mathrm{CO}_2$  were used to inform combustion efficiency (Wang et al., 2010). Figure 7 compares regional emission ratios of  $\\\\mathrm{SO}_2 / \\\\mathrm{CO}_2$  and  $\\\\mathrm{CO} / \\\\mathrm{CO}_2$  estimated by the MIX inventory. Emission ratios of  $\\\\mathrm{SO}_2 / \\\\mathrm{CO}_2$  are lowest in Other East Asia among different regions, which could be attributed to small share of coal use\", \"In this work, we also developed Asian emissions for 2006 and 2008 following the same approach of MIX, to illustrate the changes in Asian emissions from 2006 to 2010. Table 5 presents Asian emissions in 2006 and emission ratios of 2010 to 2016 by country. For the whole of Asia, emission growth rates from 2006 to 2010 are estimated as follows:  $-8.1\\\\%$  for  $\\\\mathrm{SO}_2$ ,  $+19.2\\\\%$  for  $\\\\mathrm{NO}_x$ ,  $+3.9\\\\%$  for  $\\\\mathrm{CO}$ ,  $+15.5\\\\%$  for NMVOC,  $+1.7\\\\%$  for  $\\\\mathrm{NH}_3$ ,  $-3.4\\\\%$  for  $\\\\mathrm{PM}_{10}$ ,  $-1.6\\\\%$  for  $\\\\mathrm{PM}_{2.5}$ ,  $+5.5\\\\%$  for BC,  $+1.8\\\\%$  for OC, and  $+19.9\\\\%$  for  $\\\\mathrm{CO}_2$ . Growth in  $\\\\mathrm{CO}_2$  emissions represent the continuously increasing energy use across Asia during 2006-2010, while different trends among species represents differences in the emission control level among sectors and regions. Compared to the increasing emission trends of all species during 2001-2006 (Zhang et al., 2009), the relatively flat or even decreasing emission trends in many species indicate the effectiveness of emission control measures in recent years (Gu et al., 2013; Lin et al., 2010; Wang et al., 2013).\", \"MIX emission inventory can be accessed publicly from the website of http://www.meicmodel.org/dataset-mix. Both 2008 and 2010 emissions of 10 species with monthly variation at a spatial resolution of  $0.25 \\\\times 0.25^{\\\\circ}$  are available from the website, including  $\\\\mathrm{SO}_2$ ,  $\\\\mathrm{NO}_x$ , CO,  $\\\\mathrm{NH}_3$ , NMVOC,  $\\\\mathrm{PM}_{10}$ ,  $\\\\mathrm{PM}_{2.5}$ , BC, OC, and  $\\\\mathrm{CO}_2$ . Speciated NMVOC Emissions for CB05 and SAPRC-99 chemical mechanisms are provided at the same spatial and temporal resolution. The MIX in\", \"with REAS2 and EDGAR v4.2 (EC-JRC/PBL, 2011), two widely used inventories, to highlight the new findings from the mosaic inventory and identify the potential sources of uncertainties. We choose the year of 2008 to conduct the comparison because emissions after 2008 are not available in either REAS2 or EDGAR v4.2. Russian Asia was excluded from comparison. Asian anthropogenic emissions of MIX, REAS2, and EDGAR v4.2 in 2008 are tabulated in Table 7. Over Asia, MIX and REAS differ within  $10\\\\%$  for most species, except for  $\\\\mathrm{NH}_3$  ( $18\\\\%$  higher in REAS),  $\\\\mathrm{PM}_{10}$  ( $13\\\\%$  higher), and BC ( $13\\\\%$  lower). It is not surprising that the total Asian emission budgets in MIX and REAS2 are simi\", \"The MIX emission inventory subjects to uncertainties and several limitations. Emission estimates from bottom-up inventories are uncertain due to lack of complete knowledge of human activities and emission from different sources. Uncertainty ranges of an emission inventory could be estimated using propagation of error or Monte Carlo approaches (e.g., Streets et al., 2003; Zhao et al., 2011). However, in a mosaic emission inventory like MIX, a normalized quantitative assessment of uncertainty ranges is difficult because detailed information for emission inventory development is not collected. Table 9 summarized the uncertainty range estimates for China, India, and other Asian regions in different regional emission inventories. It should be noted that those ranges are not directly comparable due to differences in methods (propagation of error or Monte Carlo simulation). However, those numbers might roughly represent the uncertainty ranges in the MIX inventory as it was compiled from several inventories listed in Table 9. In general, uncertainty ranges are relatively small for species which emissions are dominated my large-scale combustion sources (e.g.,  $\\\\mathrm{SO}_2$ ,  $\\\\mathrm{NO}_x$ , and  $\\\\mathrm{CO}_2$ ) but larger for species whose emissions are mainly from small-scale and scattered sources (e.g., CO, NMVOC, and carbonaceous aerosols). More detailed discussions on the uncertainty sources of Asian emission inventories can be found in previous literatures (e.g., Lu et al., 2011; Zhao et al., 2011; Kurokawa et al., 2013).\", \"When species in a specific inventory were missing, alternative estimates or datasets were used to fill the gap in which may involve additional uncertainties. In the MIX inventory,  $\\\\mathrm{PM}_{2.5}$ , BC, and OC emissions for Republic of Korea were roughly estimates from  $\\\\mathrm{PM}_{10}$  emissions in the CAPSS inventory and sector-specific emission ratios between  $\\\\mathrm{PM}_{10}$  and other aerosol components from Lei et al. (2011). For India, we used ANL-India for  $\\\\mathrm{SO}_2$ , BC, and OC for all sectors and  $\\\\mathrm{NO}_x$  for power plants. REAS2 was used to fill the gap where emissions from ANL-India were absent (see Sect. 2.3 for detailed process procedure). For above cases where estimates of different species in the same country were obtained from\", \"In this work, we developed a new anthropogenic emission inventory for Asia for the years of 2008 and 2010 by constructing a mosaic of several regional and national emission inventories. MEIC, PKU-NH $_3$ , ANL-India, and CAPSS inventories are used to represent the best available emission data for China, India, and Korea, supplemented with REAS2 to fill gaps. By harmonizing these inventories, monthly emission grids maps for 10 species over Asia were generated for five sectors (power, industry, residential, transportation, and agriculture) at a uniform spatial resolution of  $0.25^{\\\\circ} \\\\times 0.25^{\\\\circ}$ . Gridded speciated NMVOC emissions for SAPRC-99 and CB05 mechanisms were also developed at the same temporal and spatial resolution. This new Asian emission inventory, named MIX, provides model-ready anthropogenic emissions for the MICS-Asia Phase III assessment. The MIX inventory has been also incorporated into the HTAP v2 gridded emission inventory (Janssens-Maenhout et al., 2015) to support the TF HTAP assessment. Gridded emissions are available from the following website: http://www.meicmodel.org/dataset-mix.\", \"Guan, D., Liu, Z., Geng, Y., Lindner, S., and Hubacek, K.: The gigatonne gap in China's carbon dioxide inventories, Nature Clim. Change, 2, 672-675, 2012.  \\nHabib, G., Venkataraman, C., Shrivastava, M., Banerjee, R., Stehr, J. W., and Dickerson, R. R.: New methodology for estimating biofuel consumption for cooking: Atmospheric emissions of black carbon and sulfur dioxide from India, Global Biogeochem. Cy., 18, GB3007, doi:10.1029/2003GB002157, 2004.  \\nHan, Z., Sakurai, T., Ueda, H., Carmichael, G. R., Streets, D., Hayami, H., Wang, Z., Holloway, T., Engardt, M., Hozumi, Y., Park, S. U., Kajino, M., Sartelet, K., Fung, C., Bennet, C., Thongboonchoo, N., Tang, Y., Chang, A., Matsuda, K., and Amann, M.: MICS-Asia II: Model intercomparison and evaluation of ozone and relevant species, Atmos. Environ., 42, 3491-3509, doi:10.1016/j.atmosenv.2007.07.031, 2008.  \\nHayami, H., Sakurai, T., Han, Z., Ueda, H., Carmichael, G. R., Streets, D., Holloway, T., Wang, Z., Thongboonchoo, N., Engardt, M., Bennet, C., Fung, C., Chang, A., Park, S. U., Kajino, M., Sartelet, K., Matsuda, K., and Amann, M.: MICS-Asia II: Model intercomparison and evaluation of particulate sulfate, nitrate and ammonium, Atmos. Environ., 42, 3510-3527, doi:10.1016/j.atmosenv.2007.08.057, 2008.  \\nHe, Y., Uno, I., Wang, Z., Ohara, T., Sugimoto, N., Shimizu, A., Richter, A., and Burrows, J. P.: Variations of the increasing trend of tropospheric  $\\\\mathrm{NO}_2$  over central east China during the past decade, Atmos. Environ., 41, 4865-4876, 2007.  \\nHolloway, T., Sakurai, T., Han, Z., Ehlers, S., Spak, S. N., Horowitz, L. W., Carmichael, G. R., Streets, D. G., Hozumi, Y., Ueda, H., Park, S. U., Fung, C., Kajino, M., Thongboonchoo, N., Engardt, M., Bennet, C., Hayami, H., Sartelet, K., Wang, Z., Matsuda, K., and Amann, M.: MICS-Asia II: Impact of global emissions on regional air quality in Asia, Atmos. Environ., 42, 3543-3561, doi:10.1016/j.atmosenv.2007.10.022, 2008.  \\nHong, C., Zhang, Q., He, K., Guan, D., Li, M., Liu, F., and Zheng, B.: Variations of China's emission estimates response to uncertainties in energy statistics, Atmos. Chem. Phys. Discuss., doi:10.5194/ACP-2016-459, in review, 2016.  \\nHsu, Y. and Divita, F.: SPECIATE 4.2, speciation database development documentation, final report, EPA/600-R-09/-38, 2009.  \\nHuang, X., Song, Y., Li, M., Li, J., Huo, Q., Cai, X., Zhu, T., Hu, M., and Zhang, H.: A high-resolution ammonia emission inventory in China, Global Biogeochem. Cy., 26, GB1030, doi:10.1029/2011GB004161, 2012.  \\nIEA (International Energy Agency): Energy balances of OECD countries and energy balances of non-OECD countries, CD-ROM, IEA, Paris, 2013.  \\nItahashi, S., Uno, I., Irie, H., Kurokawa, J.-I., and Ohara, T.: Regional modeling of tropospheric  $\\\\mathrm{NO}_2$  vertical column density over East Asia during the period 2000-2010: comparison with multisatellite observations, Atmos. Chem. Phys., 14, 3623-3635, doi:10.5194/ACP-14-3623-2014, 2014.  \\nJanssens-Maenhout, G., Crippa, M., Guizzardi, D., Dentener, F., Muntean, M., Pouliot, G., Keating, T., Zhang, Q., Kurokawa, J., Wankmuller, R., Denier van der Gon, H., Kuenen, J. J. P., Klimont, Z., Frost, G., Darras, S., Koffi, B., and Li, M.: HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution, Atmos. Chem. Phys., 15, 11411-11432, doi:10.5194/acp-15-11411-2015, 2015.\", \"JPEC (Japan Petroleum Energy Center): Emission inventory of road transport in Japan, JPEC Technical Report, JPEC-2011AQ-02-06, 136 pp., 2012a (in Japanese).  \\nJPEC: Emission inventory of sources other than road transport in Japan, JPEC Technical Report, JPEC-2011AQ-02-07, 288 pp., 2012b (in Japanese).  \\nJPEC: Speciation profiles of VOC, PM, and NOx emissions for atmospheric simulations of PM2.5, JPEC Technical Report, JPEC-2011AQ-02-08, 69 pp., 2012c (in Japanese).  \\nKannari, A., Tonooka, Y., Baba, T., and Murano, K.: Development of multiple-species  $1\\\\mathrm{km} \\\\times 1\\\\mathrm{km}$  resolution hourly basis emissions inventory for Japan, Atmos. Environ., 41, 3428-3439, 2007.  \\nKeller, C. A., Long, M. S., Yantosca, R. M., Da Silva, A. M., Pawson, S., and Jacob, D. J.: HEMCO v1.0: a versatile, ESMF-compliant component for calculating emissions in atmospheric models, Geosci. Model Dev., 7, 1409-1417, doi:10.5194/gmd-7-1409-2014, 2014.  \\nKlimont, Z.: Current and future emissions of ammonia in China, in: Proceedings of 10th International Emission Inventory Conference - \\\"One Atmosphere, One Inventory, Many Challenges\\\", Denver, US, 1-3 May, Sect. 1, 5, 2001.  \\nKlimont, Z., Streets, D. G., Gupta, S., Cofala, J., Fu, L. X., and Ichikawa, Y.: Anthropogenic emissions of non-methane volatile organic compounds in China, Atmos. Environ., 36, 1309-1322, doi:10.1016/s1352-2310(01)00529-5, 2002.  \\nKrotkov, N. A., McLinden, C. A., Li, C., Lamsal, L. N., Celarier, E. A., Marchenko, S. V., Swartz, W. H., Bucsela, E. J., Joiner, J., Duncan, B. N., Boersma, K. F., Veefkind, J. P., Levelt, P. F., Fioletov, V. E., Dickerson, R. R., He, H., Lu, Z., and Streets, D. G.: Aura OMI observations of regional  $\\\\mathrm{SO}_2$  and  $\\\\mathrm{NO}_2$  pollution changes from 2005 to 2015, Atmos. Chem. Phys., 16, 4605-4629, doi:10.5194/ACP-16-4605-2016, 2016.  \\nKurokawa, J.-I., Yumimoto, K., Uno, I., and Ohara, T.: Adjoint inverse modeling of NOx emissions over eastern China using satellite observations of NO2 vertical column densities, Atmos. Environ., 43, 1878-1887, 2009.  \\nKurokawa, J., Ohara, T., Morikawa, T., Hanayama, S., Janssens-Maenhout, G., Fukui, T., Kawashima, K., and Akimoto, H.: Emissions of air pollutants and greenhouse gases over Asian regions during 2000-2008: Regional Emission inventory in ASia (REAS) version 2, Atmos. Chem. Phys., 13, 11019-11058, doi:10.5194/acp-13-11019-2013, 2013.  \\nLee, D. G., Lee, Y.-M., Jang, K.-W., Yoo, C., Kang, K.-H., Lee, J.-H., Jung, S.-W., Park, J.-M., Lee, S.-B., Han, J.-S., Hong, J.-H., and Lee, S.-J.: Korean national emissions inventory system and 2007 air pollutant emissions, Asian J. Atmos. Environ., 5, 278-291, 2011.  \\nLei, Y., Zhang, Q., He, K. B., and Streets, D. G.: Primary anthropogenic aerosol emission trends for China, 1990-2005, Atmos. Chem. Phys., 11, 931-954, doi:10.5194/acp-11-931-2011, 2011.  \\nLi, C., Marufu, L. T., Dickerson, R. R., Li, Z., Wen, T., Wang, Y., Wang, P., Chen, H., and Stehr, J. W.: In situ measurements of trace gases and aerosol optical properties at a rural site in northern China during East Asian Study of Tropospheric Aerosols: An International Regional Experiment 2005, J. Geophys. Res., 112, D22S04, doi:10.1029/2006JD007592, 2007.  \\nLi, M., Zhang, Q., Streets, D. G., He, K. B., Cheng, Y. F., Emmons, L. K., Huo, H., Kang, S. C., Lu, Z., Shao, M., Su, H., Yu, X.,\", \"and Zhang, Y.: Mapping Asian anthropogenic emissions of nonmethane volatile organic compounds to multiple chemical mechanisms, Atmos. Chem. Phys., 14, 5617-5638, doi:10.5194/ACP-14-5617-2014, 2014.  \\nLin, J. T., Nielsen, C. P., Zhao, Y., Lei, Y., Liu, Y., and McElroy, M. B.: Recent changes in particulate air pollution over China observation from space and the ground: effectiveness of emission control, Environ. Sci. Technol., 44, 7771-7776, 2010.  \\nLiu, F., Zhang, Q., Tong, D., Zheng, B., Li, M., Huo, H., and He, K. B.: High-resolution inventory of technologies, activities, and emissions of coal-fired power plants in China from 1990 to 2010, Atmos. Chem. Phys., 15, 13299-13317, doi:10.5194/ACP-15-13299-2015, 2015.  \\nLu, Z. and Streets, D. G.: Increase in NOx Emissions from Indian Thermal Power Plants during 1996-2010: Unit-Based Inventories and Multisatellite Observations, Environ. Sci. Technol., 46, 7463-7470, doi:10.1021/es300831w, 2012.  \\nLu, Z., Zhang, Q., and Streets, D. G.: Sulfur dioxide and primary carbonaceous aerosol emissions in China and India, 1996-2010, Atmos. Chem. Phys., 11, 9839-9864, doi:10.5194/ACP-11-9839-2011, 2011.  \\nMijling, B., van der A, R. J., and Zhang, Q.: Regional nitrogen oxides emission trends in East Asia observed from space, Atmos. Chem. Phys., 13, 12003-12012, doi:10.5194/acp-13-12003-2013, 2013.  \\nMiyazaki, K., Eskes, H., Sudo, K., Boersma, K. F., Bowman, K., and Kanaya, Y.: Decadal changes in global surface  $\\\\mathrm{NO}_x$  emissions from multi-constituent satellite data assimilation, Atmos. Chem. Phys. Discuss., doi:10.5194/ACP-2016-529, in review, 2016.  \\nOhara, T., Akimoto, H., Kurokawa, J., Horii, N., Yamaji, K., Yan, X., and Hayasaka, T.: An Asian emission inventory of anthropogenic emission sources for the period 1980-2020, Atmos. Chem. Phys., 7, 4419-4444, doi:10.5194/ACP-7-4419-2007, 2007.  \\nOPRF (Ocean Policy Research Foundation (Ship and Ocean Foundation)): Report for comprehensive study for environmental impact lead by the establishment of emission control area in Japan, ISBN-13: 978-4-88404-282-0, 524 pp., 2012 (in Japanese).  \\nPaulot, F., Jacob, D. J., Pinder, R. W., Bash, J. O., Travis, K., and Henze, D. K.: Ammonia emissions in the United States, European Union, and China derived by high-resolution inversion of ammonium wet deposition data: Interpretation with a new agricultural emissions inventory (MASAGE_NH3), J. Geophys. Res., 119, 4343-4364, doi:10.1002/2013JD021130, 2014.  \\nPetron, G., Granier, C., Khattatov, B., Yudin, V., Lamarque, J.-F., Emmons, L., Gille, J., and Edwards, D. P.: Monthly CO surface sources inventory based on the 2000-2001 MOPITT satellite data, Geophys. Res. Lett., 31, L21107, doi:10.1029/2004GL020560, 2004.  \\nPlatts: The UDI Word Electric Power Plants Database, CD-ROM data, Platts, A division of the McGraw-Hill Companies, New York, 2009.  \\nReddy, M. S. and Venkataraman, C.: Inventory of aerosol and sulphur dioxide emissions from India: I - Fossil fuel combustion, Atmos. Environ., 36, 677-697, 2002a.  \\nReddy, M. S. and Venkataraman, C.: Inventory of aerosol and sulphur dioxide emissions from India. Part II - biomass combustion, Atmos. Environ., 36, 699-712, 2002b.\", \"Simon, H., Beck, L., Bhave, P. V., Divita, F., Hsu, Y., Luecken, D., Mobley, J. D., Pouliot, G. A., Reff, A., Sarwar, G., and Strum, M.: The development and uses of EPA's SPECIATE database, Atmos. Pollut. Res., 1, 196-206, 2010.  \\nStreets, D. G., Bond, T. C., Carmichael, G. R., Fernandes, S. D., Fu, Q., He, D., Klimont, Z., Nelson, S. M., Tsai, N. Y., Wang, M. Q., Woo, J. H., and Yarber, K. F.: An inventory of gaseous and primary aerosol emissions in Asia in the year 2000, J. Geophys. Res., 108, 8809, doi:10.1029/2002JD003093, 2003.  \\nStreets, D. G., Zhang, Q., Wang, L., He, K., Hao, J., Wu, Y., Tang, Y., and Carmichael, G. R.: Revisiting China's CO emissions after the Transport and Chemical Evolution over the Pacific (TRACE-P) mission: Synthesis of inventories, atmospheric modeling, and observations, J. Geophys. Res.-Atmos., 111, D14306, doi:10.1029/2006JD007118, 2006.  \\nStreets, D. G., Canty, T., Carmichael, G. R., de Foy, B., Dickerson, R. R., Duncan, B. N., Edwards, D. P., Haynes, J. A., Henze, D. K., Houyoux, M. R., Jacob, D. J., Krotkov, N. A., Lamsal, L. N., Liu, Y., Lu, Z., Martin, R. V., Pfister, G. G., Pinder, R. W., Salawitch, R. J., and Wecht, K. J.: Emissions estimation from satellite retrievals: A review of current capability, Atmos. Environ., 77, 1011-1042, doi:10.1016/j.atmosenv.2013.05.051, 2013.  \\nUnited Nations: Monthly Bulletin of Statistics (MBS), United Nations Publications, New York, 341 pp., 2011.  \\nvan Donkelaar, A., Martin, R. V., Leaitch, W. R., Macdonald, A. M., Walker, T. W., Streets, D. G., Zhang, Q., Dunlea, E. J., Jimenez, J. L., Dibb, J. E., Huey, L. G., Weber, R., and Andreae, M. O.: Analysis of aircraft and satellite measurements from the Intercontinental Chemical Transport Experiment (INTEX-B) to quantify long-range transport of East Asian sulfur to Canada, Atmos. Chem. Phys., 8, 2999-3014, doi:10.5194/ACP-8-2999-2008, 2008.  \\nVenkataraman, C., Habib, G., Eiguren-Fernandez, A., Miguel, A. H., and Friedlander, S. K.: Residential biofuels in South Asia: carbonaceous aerosol emissions and climate impacts, Science, 307, 1454-1456, 2005.  \\nWang, S. W., Zhang, Q., Streets, D. G., He, K. B., Martin, R. V., Lamsal, L. N., Chen, D., Lei, Y., and Lu, Z.: Growth in NOx emissions from power plants in China: bottom-up estimates and satellite observations, Atmos. Chem. Phys., 12, 4429-4447, doi:10.5194/acp-12-4429-2012, 2012.  \\nWang, Y., Munger, J. W., Xu, S., McElroy, M. B., Hao, J., Nielsen, C. P., and Ma, H.:  $\\\\mathrm{CO}_{2}$  and its correlation with CO at a rural site near Beijing: implications for combustion efficiency in China, Atmos. Chem. Phys., 10, 8881-8897, doi:10.5194/acf-10-8881-2010, 2010.  \\nWang, Y., Zhang, Q. Q., He, K., Zhang, Q., and Chai, L.: Sulfate-nitrate-ammonium aerosols over China: response to 2000-2015 emission changes of sulfur dioxide, nitrogen oxides, and ammonia, Atmos. Chem. Phys., 13, 2635-2652, doi:10.5194/acp-13-2635-2013, 2013.  \\nWang, Z., Xie, F., Sakurai, T., Ueda, H., Han, Z., Carmichael, G. R., Streets, D., Engardt, M., Holloway, T., Hayami, H., Kajino, M., Thongboonchoo, N., Bennet, C., Park, S. U., Fung, C., Chang, A., Sartelet, K., and Amann, M.: MICS-Asia II: Model intercomparison and evaluation of acid deposition, Atmos. Environ., 42, 3528-3542, doi:10.1016/j.atmosenv.2007.12.071, 2008.\"], \"chunk_type\": \"figure\"}"
+                    },
+                    "score": 0.5350941596677197,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004609",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004695",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Visual representation of concentration profiles for multiple pollutants measured at varying distances within a tunnel, showing trends of accumulation and mixing. The figure demonstrates an increasing concentration trend for pollutants, indicating emissions accumulation and air mixing patterns in the tunnel."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Mobile measurement of vehicle emission factors in\", \"figure_id\": \"img_259\", \"figure_title\": \"Fig. 2. Concentration profiles according to the distance from the tunnel entrance derived from mobile measurements. The black solid line represents the average of 12 repeated measurements, and the gray shaded area represents the standard deviation.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Mobile measurement of vehicle emission factors in\\\\figure_2.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Core Findings\", \"Present Quantitative Results\"]}, \"visual_type\": {\"main_type\": \"Quantitative Charts\", \"sub_types\": [\"Line Chart\"]}, \"key_entities\": [\"CO2\", \"SO2\", \"NO\", \"NO2\", \"O3\", \"SVOCs\", \"PM10\", \"PM2.5\"], \"concise_summary\": \"Visual representation of concentration profiles for multiple pollutants measured at varying distances within a tunnel, showing trends of accumulation and mixing.\", \"inferred_insight\": \"The figure demonstrates an increasing concentration trend for pollutants, indicating emissions accumulation and air mixing patterns in the tunnel.\", \"references\": [\"All target pollutants, except  $\\\\mathrm{O_3}$ , displayed an increasing trend from the entrance to the exit of the tunnel (Fig. 2). According to the  $\\\\mathrm{CO}_{2}, \\\\mathrm{SO}_{2}$  and  $\\\\mathrm{NO_X}$  results, a zonation of the tunnel could be established: mixing zone (entrance to  $600\\\\mathrm{m}$ ) and accumulation zone ( $600\\\\mathrm{m}$  to exit). The  $\\\\mathrm{CO}_{2}$  concentration ranged from 457 to  $823~\\\\mathrm{ppm}$ , with a slow increase from the entrance to about  $600\\\\mathrm{m}$  (rate of increase:  $27.6~\\\\mathrm{ppm~km}^{-1}$ ) and a rapid increase from  $600\\\\mathrm{m}$  to the exit (rate of increase:  $207~\\\\mathrm{ppm~km}^{-1}$ ). The  $\\\\mathrm{CO}_{2}$  profile reflected an accumulation of vehicle emissions in the tunnel (Gamnitzer et al., 2006), and indicated the physical mixing of the external air inflow with vehicle exhaust until around  $600\\\\mathrm{m}$  from the entrance (Fig. 2a). The  $\\\\mathrm{SO}_2$  concentration ranged from 3.06 to  $53.2~\\\\mathrm{ppb}$  and the rate of increase in the mixing and accumulation zone was 5.42\"], \"chunk_type\": \"figure\"}",
+                      "type": "picture",
+                      "paperid": "paper_027",
+                      "chunkid": "chunk_004695",
+                      "paper_id": "paper_027"
+                    },
+                    "score": 0.507765331965509,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004695",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004469",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The figure illustrates the CNN-LSTM architecture used for air quality prediction, showcasing the model's encoder-decoder structure and workflow for feature extraction and forecasting. The tailored CNN-LSTM model is designed to effectively capture temporal-spatial correlations in air quality data, reducing training issues and improving prediction accuracy."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_004469",
+                      "paperid": "paper_031",
+                      "metadata": "{\"paper_title\": \"Air quality changes in China 2013-2020_ Effectiven\", \"figure_id\": \"img_25\", \"figure_title\": \"Fig. 4. The architecture of the tailored CNN-LSTM network.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Air quality changes in China 2013-2020_ Effectiven\\\\figure_4.jpg\", \"functional_roles\": {\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Elucidate Model Architecture\", \"Illustrate Algorithm Process\"]}, \"visual_type\": {\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Architecture Diagram\"]}, \"key_entities\": [\"CNN-LSTM\", \"predictive model\", \"encoder-decoder structure\", \"air quality forecasting\", \"convolution layer\", \"LSTM\", \"AQI\"], \"concise_summary\": \"The figure illustrates the CNN-LSTM architecture used for air quality prediction, showcasing the model's encoder-decoder structure and workflow for feature extraction and forecasting.\", \"inferred_insight\": \"The tailored CNN-LSTM model is designed to effectively capture temporal-spatial correlations in air quality data, reducing training issues and improving prediction accuracy.\", \"references\": [\"Considering the data features of high-dimension, multivariable, nonlinearity and temporal-spatial correlation, and with the application of Keras and TensorFlow, a predictive model combining CNN and LSTM is applied and tailored in this study. The architecture and workflows are shown in Fig. 4 and summarized as follows.\", \"As shown in Fig. 4, the general architecture of the predictive model is an encoder-decoder structure. The first half of the network is CNN and is utilized for feature extraction of input data. The latter half is LSTM, analyzing the features extracted by CNN and then forecasting the AQI of the next point in time.\", \"backpropagation and learning the input sequence with longer time steps. Further, Convolutional Neural Networks (CNN) have a remarkable advantage in extracting data features and reducing dimensions, which could alleviate the problems of slow training and overfitting in fully connected networks (Alzubaidi et al., 2021). Correspondingly, many variants of the CNN-LSTM combination have been constructed for capturing the spatiotemporal dependencies in air quality forecasting tasks (Donahue et al., 2015; Vinyals et al., 2015; Qin et al., 2019), as it would create a great synergy than the individual models on their own. Specifically, first performing feature extraction using CNN, and then inputting the feature values into the LSTM architecture.\", \"The study obtained the data including a total of 1440 daily air quality and meteorological data (January 22, 2016, to December 31, 2019) from 31 provincial capital cities in the Chinese mainland,  $60\\\\%$  of which are chosen as the training set,  $20\\\\%$  as the validation set and  $20\\\\%$  as the test set. After determining the best basic network architecture for the current prediction tasks, models are set up in units of cities, and the training set is used to train the tailored CNN-LSTM models. The accuracy indicators of the model prediction results of 31 cities, namely RMSE values averaging 22.06, models perform well overall, indicating that the applied CNN-LSTM network has good capabilities for AQI prediction (Jin et al., 2020; Mao et al., 2021).\", \"Renew. Sustain. Energy Rev. 59, 1101-1110. https://doi.org/10.1016/j.rser.2016.01.054.  \\nLi, J., Zhang, Y., Tian, Y., Cheng, W., Yang, J., Xu, D., Wang, Y., Xie, K., Ku, A.Y., 2020. Reduction of carbon emissions from China's coal-fired power industry: insights from the province-level data. J. Clean. Prod. 242, 118518 https://doi.org/10.1016/j.jclepro.2019.118518.  \\nLi, M., Patino-Echeverri, D., 2017. Estimating benefits and costs of policies proposed in the 13th FYP to improve energy efficiency and reduce air emissions of China's electric power sector. Energy Pol. 111, 222-234. https://doi.org/10.1016/j.enpol.2017.09.011.  \\nLi, T., Li, Y., An, D., Han, Y., Xu, S., Lu, Z., Crittenden, J., 2019. Mining of the association rules between industrialization level and air quality to inform high-quality development in China. J. Environ. Manag. 246, 564-574. https://doi.org/10.1016/j.jenvman.2019.06.022.  \\nLi, X., Peng, L., Yao, X., Cui, S., Hu, Y., You, C., Chi, T., 2017. Long short-term memory neural network for air pollutant concentration predictions: method development and evaluation. Environ. Pollut. 23 (1), 997-1004. https://doi.org/10.1016/j.envpol.2017.08.114.  \\nLi, X., Wu, J., Elser, M., Feng, T., Cao, J., El-Haddad, I., Huang, R., Tie, X., Prévôt, A., Li, G., 2018. Contributions of residential coal combustion to the air quality in Beijing-Tianjin-Hebei (BTH), China: a case study. Atmos. Chem. Phys. 18 (14), 10675-10691. https://doi.org/10.5194/acp-18-10675-2018.  \\nLin, B., Jia, Z., 2020. Economic, energy and environmental impact of coal-to-electricity policy in China: a dynamic recursive CGE study. Sci. Total Environ. 698, 134241 https://doi.org/10.1016/j.scitotenv.2019.134241.  \\nLiu, C., Zhu, B., Ni, J., Wei, C., 2021. Residential coal-switch policy in China: development, achievement, and challenge. Energy Pol. 151, 112165 https://doi.org/10.1016/j.enpol.2021.112165, 2021.  \\nLiu, F., Page, A., Strode, S.A., Yoshida, Y., Choi, S., Zheng, B., Lamsal, L.N., Li, C., Krotkov, N.A., Eskes, H., Van Der A, R., Veefkind, P., Levelt, P.F., Hauser, O.P., Joiner, J., 2020. Abrupt decline in tropospheric nitrogen dioxide over China after the outbreak of COVID-19. Sci. Adv. 2992 https://doi.org/10.1126/sciadv.abc2992.  \\nLiu, Q., Wang, S., Zhang, W., Li, J., Dong, G., 2019. The effect of natural and anthropogenic factors on  $\\\\mathrm{PM}_{2.5}$ : empirical evidence from Chinese cities with different income levels. Sci. Total Environ. 653, 157-167. https://doi.org/10.1016/j.scitotenv.2018.10.367.  \\nMao, W., Wang, W., Jiao, L., Zhao, S., Liu, A., 2021. Modeling air quality prediction using a deep learning approach: method optimization and evaluation. Sustain. Cities Soc. 65, 102567 https://doi.org/10.1016/j.scs.2020.102567.  \\nMarkard, J., 2018. The next phase of the energy transition and its implications for research and policy. Nat. Energy 3, 628-633. https://doi.org/10.1038/s41560-018-0171-7.  \\nOng, B.T., Sugiura, K., Zettsu, K., 2016. Dynamically pre-trained deep recurrent neural networks using environmental monitoring data for predicting  $\\\\mathrm{PM}_{2.5}$ . Neural Comput. Appl. 27 (6), 1553-1566. https://doi.org/10.1007/s00521-015-1955-3.  \\nOuyang, X., Shao, Q., Zhu, X., He, Q., Xiang, C., Wei, G., 2019. Environmental regulation, economic growth and air pollution: panel threshold analysis for OECD countries. Sci. Total Environ. 657, 234-241. https://doi.org/10.1016/j.scitotenv.2018.12.056.  \\nQin, D., Yu, J., Zou, G., Yong, R., Zhao, Q., Zhang, B., 2019. A novel combined prediction scheme based on CNN and LSTM for urban  $\\\\mathrm{PM}_{2.5}$  concentration. IEEE Access 7, 20050-20059. https://10.1109/ACCESS.2019.2897028.  \\nQi, Y., Li, Q., Karimian, H., Liu, D., 2019. A hybrid model for spatiotemporal forecasting of  $\\\\mathrm{PM}_{2.5}$  based on graph convolutional neural network and long short-term memory. Sci. Total Environ. 664, 1-10. https://doi.org/10.1016/j.scitotenv.2019.01.333.  \\nRen, K., Zhang, T., Tan, X., Zhai, Y., Bai, Y., Shen, X., Jia, Y., Hong, J., 2021. Life cycle assessment of ammonia synthesis based on pulverized coal entrained flow gasification technology in China. J. Clean. Prod. 328, 129658 https://doi.org/10.1016/j.jclepro.2021.129658.  \\nSchmidhuber, J., 2015. Deep learning in neural networks: an overview. Neural Network. 61, 85-117. https://doi.org/10.1016/j.neunet.2014.09.003.  \\nSun, D., Fang, J., Sun, J., 2018. Health-related benefits of air quality improvement from coal control in China: evidence from the Jing-Jin-Ji region. Resour. Conserv. Recycl. 129, 416-423. https://doi.org/10.1016/j.resconrec.2016.09.021.  \\nTang, B., Li, R., Li, X., Chen, H., 2017. An optimal production planning model of coal-fired power industry in China: considering the process of closing down inefficient units and developing CCS technologies. Appl. Energy 206, 519-530. https://doi.org/10.1016/j.apenergy.2017.08.215.  \\nTang, D., Wang, C., Nie, J., Chen, R., Niu, Q., Kan, H., Chen, B., Perera, F., Taiyuan, C.D. C., 2014. Health benefits of improving air quality in Taiyuan, China. Environ. Int. 73, 235-242. https://doi.org/10.1016/j.envint.2014.07.016.  \\nTang, X., Snowden, S., McLellan, B.C., Hoek, M., 2015. Clean coal use in China: challenges and policy implications. Energy Pol. 87, 517-523. https://doi.org/10.1016/j.enpol.2015.09.041.  \\nVan der, A.R.J., Mijling, B., Ding, J., Koukouli, M.E., Liu, F., Li, Q., Mao, H., Theys, N., 2017. Cleaning up the air: effectiveness of air quality policy for  $\\\\mathrm{SO}_2$  and  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  emissions in China. Atmos. Chem. Phys. 17 (3), 1775-1789. https://doi.org/10.5194/acp-17-1775-2017.  \\nVinyals, O., Toshev, A., Bengio, S., Erhan, D., 2015. Show and tell: a neural image caption generator. Proceed. IEEE conf. comp. vision and pattern recog. 3156-3164.  \\nWang, X., Wang, L., Liu, Y., Hu, S., Liu, X., Dong, Z., 2021. A data-driven air quality assessment method based on unsupervised machine learning and median statistical analysis: the case of China. J. Clean. Prod. 328, 129531 https://doi.org/10.1016/j.jclepro.2021.129531.  \\nWei, W., Li, P., Wang, H., Song, M., 2018. Quantifying the effects of air pollution control policies: a case of Shanxi province in China. Atmos. Pollut. Res. 9 (3), 429-438. https://doi.org/10.1016/j.apr.2017.11.010.\"], \"chunk_type\": \"figure\"}",
+                      "type": "picture",
+                      "paper_id": "paper_031"
+                    },
+                    "score": 0.5064125394062936,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004469",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004486",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The map displays the study domain over the CONUS, highlighting urban, rural regions, and ozonesonde station locations (Boulder and Huntsville). Figure 1 provides a spatial overview of the modeling domain, serving as a reference for understanding spatial distribution and modeling setups for atmospheric analysis."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_004486",
+                      "metadata": "{\"paper_title\": \"Changes in the ozone chemical regime over the cont\", \"figure_id\": \"img_42\", \"figure_title\": \"Fig. 1. Map of the study domain and definition of urban (red) and rural (gray) regions over the CONUS. The yellow triangle symbols represent the location of ozonesonde stations (BLD: Boulder, HVA: Huntsville). (For interpretation of the references to color in this figure legend, the reader is referred to the web version of this article.)\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Changes in the ozone chemical regime over the cont\\\\figure_1.jpg\", \"functional_roles\": {\"main_role\": \"Data & Experimental Setup\", \"sub_roles\": [\"Introduce Experimental Setup\", \"Describe Data Distribution\"]}, \"visual_type\": {\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}, \"key_entities\": [\"CONUS\", \"ozonesonde stations\", \"CMAQ\", \"WRF\", \"urban regions\", \"rural regions\", \"Boulder\", \"Huntsville\"], \"concise_summary\": \"The map displays the study domain over the CONUS, highlighting urban, rural regions, and ozonesonde station locations (Boulder and Huntsville).\", \"inferred_insight\": \"Figure 1 provides a spatial overview of the modeling domain, serving as a reference for understanding spatial distribution and modeling setups for atmospheric analysis.\", \"references\": [\"To compute both atmospheric concentrations of gaseous and particulate pollutants and first-order sensitivity coefficients, required for conducting inverse modeling, we use the Community Multiscale Air Quality model configured with the decoupled direct method in three dimensions (CMAQ DDM-3D) based on CMAQ model version 5.2 (Cohan et al., 2005; Napelenok et al., 2006), developed and released by the EPA. Our study domain covering the CONUS utilizes  $12\\\\mathrm{km}$  grid spacing with  $459\\\\times 299$  grid points (shown in Fig. 1), while the vertical extent between the surface and  $100\\\\mathrm{hPa}$  is discretized with 27 layers of variable thickness. We use carbon bond (CB6r3) for the gas phase and AERO6 for the aerosol chemical mechanism. We obtained the chemical initial and boundary conditions from the CMAQ model with the in-line dust model covering the entire Northern Hemisphere (HCMAQ) (Mathur et al., 2017), providing dynamic chemical lateral boundary conditions in a consistent physical configuration. Details of the HCMAQ simulation and its emission data can be found in Jung et al. (2021) and Vukovich et al. (2018). Since the HCMAQ simulation was based on the year 2016, we applied seasonal scaling for gaseous species based on the comparison\", \"Using the Weather Research and Forecasting (WRF) model version 4.0, we estimated meteorological fields over the U.S.  $12\\\\mathrm{km}$  modeling domain (shown in Fig. 1) with the initial and boundary conditions from the National Centers for Environmental Prediction (NCEP) North American Regional Reanalysis (NARR), which has a  $32\\\\mathrm{km}$  horizontal resolution and  $3\\\\mathrm{h}$  of temporal resolution. Detailed configurations of both the CMAQ and WRF models can be found in Table 1. In an effort to enhance model performance in simulating meteorological fields, we applied indirect soil moisture and temperature nudging technique (Pleim and Gilliam, 2009; Pleim and Xiu, 2003) together with a four-\", \"The variability of satellite-observed  $\\\\mathrm{NO}_2$  and HCHO columns reflects changes in bottom-up emissions and the contribution of background sources in the upper troposphere (Silvern et al., 2019). In Fig. 3, we plotted seasonal averaged changes in observed and simulated tropospheric  $\\\\mathrm{NO}_2$  and total HCHO column densities in four regions: domainwide (i.e., CONUS), urban and rural regions, and southeastern (SE) areas. We defined an urban area based on the U.S. census-based surrogate, where population density is at least 1000 people per square mile, denoted in red in Fig. 1; and we defined a rural region, designated by gray in Fig. 1, as more than  $20\\\\mathrm{km}$  away from both urban regions and power plants with a capacity of 1 MW or more, based on the U.S. Energy Information Administration. The southeastern (SE) area (a blue rectangle shown in Fig. 1) denotes an area with dominant lightning-induced (to the total  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  emissions) and biogenic emissions (to the total NMVOCs emissions) over the CONUS. In SE, NMVOCs emissions from biogenic sources are dominant, so we excluded the SE area when we analyzed modeled and observed HCHO columns over urban and rural regions in Fig. 3.\", \"Fig. 3. The long-term trend in summertime averaged tropospheric (a-1 to h-1)  $\\\\mathrm{NO}_2$  and (a-2 to h-2) HCHO columns observed by the OMI satellite (2011-2018) and simulated by the CMAQ model (2011, 2014, and 2017), and their relative changes in the CONUS and urban, rural, and southeastern U.S. regions (shown in Fig. 1). CMAQ simulations were conducted with the prior emission and three background setups (with dynamic lateral boundary conditions and lightning emissions (LNO), with dynamic lateral boundary conditions and without lightning emissions, and with profile lateral boundary conditions and without lightning emissions).\"], \"chunk_type\": \"figure\"}",
+                      "paperid": "paper_001",
+                      "type": "picture",
+                      "paper_id": "paper_001"
+                    },
+                    "score": 0.49841102893919526,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004486",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002803",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "hance urban emissions and improve the model performance. When further applying industrial gross domestic product (IGDP) values for the industrial sector, modeled  $\\mathrm{NO}_2$  vertical columns could better capture pollution hotspots in urban areas and exhibit the best performance of the six cases compared to satellite-based  $\\mathrm{NO}_2$  vertical columns (slope  $= 1.01$  and  $R^2 = 0.85$ ). This analysis provides a framework for information from satellite observations to inform bottom-up inventory development. In the future, more effort should be devoted to the representation of spatial proxies to improve spatial patterns in bottom-up emission inventories."
+                    },
+                    "metadata": {
+                      "paperid": "paper_022",
+                      "metadata": "{\"paper_title\": \"Impact of spatial proxies on the representation of bottom-up emission inventories: A satellite-based analysis\", \"md_filename\": \"Impact of spatial proxies on the representation of.md\", \"paragraph_index\": 7, \"content_length\": 674, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_002803",
+                      "type": "texture",
+                      "paper_id": "paper_022"
+                    },
+                    "score": 0.4972172551518833,
+                    "source_args": {
+                      "query_intent": "innovative visualization techniques for air pollution data"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002803",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                }
+              ]
+            },
+            {
+              "orchestrator_plan": {
+                "action": "call_tool",
+                "tool_name": "strategy_semantic_search",
+                "ParentNode": "0",
+                "args": {
+                  "query_intent": "real-time air quality monitoring systems with visual analytics",
+                  "n_results": 10
+                },
+                "reason": "大模型发散的扩展搜索角度 2",
+                "total_results": 10,
+                "duplicate_results": 2,
+                "plansummary": null,
+                "hyde_hypothetical_paragraph_full_text": "Real-time air quality monitoring systems integrate heterogeneous sensor networks, edge computing, and streaming data pipelines to deliver sub‑second latency in pollutant concentration estimates across urban microenvironments. By employing spatiotemporal aggregation and adaptive Kalman filtering, the platform mitigates sensor drift and missing data while preserving high‑frequency dynamics of PM₂.₅, NO₂, and O₃. The processed streams are visualized through interactive, multi‑scale dashboards that combine heat‑map overlays, glyph‑based glyphs, and linked time‑series plots, enabling domain experts to detect anomalous emission events and assess mitigation strategies on the fly. User‑centered design principles guide the incorporation of coordinated multiple views and brushing‑linking techniques, which support hypothesis generation and rapid decision making in environmental management contexts.",
+                "rerank_before_ids": [
+                  "chunk_001486",
+                  "chunk_004505",
+                  "chunk_002649",
+                  "chunk_002652",
+                  "chunk_004628",
+                  "chunk_004489",
+                  "chunk_001413",
+                  "chunk_002660",
+                  "chunk_004609",
+                  "chunk_002803",
+                  "chunk_002642",
+                  "chunk_004515",
+                  "chunk_002662",
+                  "chunk_000202",
+                  "chunk_000684",
+                  "chunk_003525",
+                  "chunk_002790",
+                  "chunk_004475",
+                  "chunk_000979",
+                  "chunk_001109",
+                  "chunk_004539",
+                  "chunk_001419",
+                  "chunk_004487",
+                  "chunk_004623",
+                  "chunk_001905",
+                  "chunk_001639",
+                  "chunk_004624",
+                  "chunk_001023",
+                  "chunk_001153",
+                  "chunk_002654",
+                  "chunk_004308",
+                  "chunk_003500",
+                  "chunk_004500",
+                  "chunk_001491",
+                  "chunk_003908",
+                  "chunk_004005",
+                  "chunk_002820",
+                  "chunk_002804",
+                  "chunk_002889",
+                  "chunk_001298",
+                  "chunk_002791",
+                  "chunk_002888",
+                  "chunk_004160",
+                  "chunk_000483",
+                  "chunk_004697",
+                  "chunk_002011",
+                  "chunk_003542",
+                  "chunk_003665",
+                  "chunk_003541",
+                  "chunk_003664"
+                ],
+                "rerank_after_ids": [
+                  "chunk_004160",
+                  "chunk_002642",
+                  "chunk_001905",
+                  "chunk_002803",
+                  "chunk_003525",
+                  "chunk_001486",
+                  "chunk_004505",
+                  "chunk_002649",
+                  "chunk_002652",
+                  "chunk_004628"
+                ]
+              },
+              "rag_results": [
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004160",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "$^{a}$  Department of Atmospheric Sciences, School of Environmental Studies, China University of Geosciences, Wuhan 430078, China  \n$^{\\mathrm{b}}$  Department of Environmental Science and Engineering, School of Environmental Studies, China University of Geosciences, Wuhan 430078, China  \n$^{c}$  Eco-Environmental Monitoring Centre of Hubei Province, Wuhan 430072, China  \n$^{\\mathrm{d}}$  Research Centre for Complex Air Pollution of Hubei Province, Wuhan 430078, China"
+                    },
+                    "metadata": {
+                      "paperid": "paper_006",
+                      "metadata": "{\"paper_title\": \"Source apportionment of volatile organic compounds: Implications to reactivity, ozone formation, and secondary organic aerosol potential\", \"md_filename\": \"Source apportionment of volatile organic compounds.md\", \"paragraph_index\": 3, \"content_length\": 472, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_004160",
+                      "type": "texture",
+                      "paper_id": "paper_006"
+                    },
+                    "score": 0.9389795064926147,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004160",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002642",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "# HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution"
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_002642",
+                      "paperid": "paper_011",
+                      "metadata": "{\"paper_title\": \"HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution\", \"md_filename\": \"HTAP_v2.2_ a mosaic of regional and global emissio.md\", \"paragraph_index\": 0, \"content_length\": 129, \"chunk_type\": \"text\"}",
+                      "type": "texture"
+                    },
+                    "score": 0.9317818284034729,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002642",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001905",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "(No.KYTZ201731 and KYTZ201814). The meteorological dataset was provided by the China Meteorological Data Sharing Service System (http://cdc.cma.gov.cn). Additionally, the air pollutant data were downloaded from the National Urban Air Quality Real-time Publishing Platform (http://106.37.208.233:20035/). The datasets generated during and/or analyzed in this study are publicly available as referenced within the article. All data and scripts are available from the corresponding author upon request."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_001905",
+                      "metadata": "{\"paper_title\": \"Estimation of biogenic VOC emissions and their corresponding impact on ozone and secondary organic aerosol formation in China\", \"md_filename\": \"Estimation of biogenic VOC emissions and their cor.md\", \"paragraph_index\": 123, \"content_length\": 499, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "paperid": "paper_015",
+                      "paper_id": "paper_015"
+                    },
+                    "score": 0.9029059410095215,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001905",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002803",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "hance urban emissions and improve the model performance. When further applying industrial gross domestic product (IGDP) values for the industrial sector, modeled  $\\mathrm{NO}_2$  vertical columns could better capture pollution hotspots in urban areas and exhibit the best performance of the six cases compared to satellite-based  $\\mathrm{NO}_2$  vertical columns (slope  $= 1.01$  and  $R^2 = 0.85$ ). This analysis provides a framework for information from satellite observations to inform bottom-up inventory development. In the future, more effort should be devoted to the representation of spatial proxies to improve spatial patterns in bottom-up emission inventories."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Impact of spatial proxies on the representation of bottom-up emission inventories: A satellite-based analysis\", \"md_filename\": \"Impact of spatial proxies on the representation of.md\", \"paragraph_index\": 7, \"content_length\": 674, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_002803",
+                      "type": "texture",
+                      "paperid": "paper_022"
+                    },
+                    "score": 0.9024874567985535,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002803",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003525",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Despite these achievements in air quality management, China is facing both challenges and opportunities to realize \"beautiful China\" targets and to absolutely decouple emissions of  $\\mathrm{CO}_{2}$  and air pollutants from economic growth in the ecological civilization era. On the one hand,  $\\mathrm{O}_{3}$  pollution is emerging and could be more challenging in future. On the other hand, the coupling of climate mitigation and air pollution control exhibits significant co-benefits that can lead to a win-win opportunity. An integrated management framework linking energy, environment, health, and climate units should be established for the synergistic mitigation of  $\\mathrm{PM}_{2.5}, \\mathrm{O}_{3}$ , and GHGs. Such a framework is expected to consist of three core components: a precise and dynamic system to reproduce the condition of the regional and global atmospheric environment; a coordinated and highly efficient treatment system to simultaneously mitigate the emissions of air pollutants and GHGs; and a comprehensive decision-supporting platform to form a synergistic mitigation pathway and optimal technical combination. Ultimately, a multi-objective and multi-benefit roadmap is required in order for China to attain air quality standards domestically and to fulfill international agreements concerning GHGs, and so forth."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Progress of Air Pollution Control in China and Its Challenges and Opportunities in the Ecological Civilization Era\", \"md_filename\": \"Progress of Air Pollution Control in China and Its.md\", \"paragraph_index\": 71, \"content_length\": 1346, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_017",
+                      "type": "texture",
+                      "chunkid": "chunk_003525",
+                      "paper_id": "paper_017"
+                    },
+                    "score": 0.8922671675682068,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_003525",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_001486",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Despite the limitations, our study offers a framework to apply emission measurements from CEMS to improving the temporal representation of emission inventories. Insight obtained from this work could be extended to other sectors (e.g., cement, iron, and steel). In the future, we expect to develop a multisector dataset at the daily scale via data fusion to facilitate atmospheric research and clean air policy formation in China."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Daily Emission Patterns of Coal-Fired Power Plants in China Based on Multisource Data Fusion\", \"md_filename\": \"Daily Emission Patterns of Coal-Fired Power Plants.md\", \"paragraph_index\": 103, \"content_length\": 429, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_029",
+                      "chunkid": "chunk_001486",
+                      "paper_id": "paper_029"
+                    },
+                    "score": 0.5244035162620666,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_001486",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004505",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The figure illustrates the methodology framework for fusing multisource data to estimate daily emissions from coal-fired power plants in China, detailing processes like outlier detection and imputation. The framework effectively combines real-time emission data with annual figures to generate accurate daily emissions, compensating for data gaps and variations across plants."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_004505",
+                      "paperid": "paper_029",
+                      "type": "picture",
+                      "metadata": "{\"paper_title\": \"Daily Emission Patterns of Coal-Fired Power Plants\", \"figure_id\": \"img_61\", \"figure_title\": \"Figure 1. Methodology framework for fusing multisource data to derive daily emission estimates of coal-fired power plants in China.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Daily Emission Patterns of Coal-Fired Power Plants\\\\figure_1.jpg\", \"functional_roles\": {\"main_role\": \"Methodology & Design\", \"sub_roles\": [\"Elucidate Model Architecture\", \"Illustrate Algorithm Process\"]}, \"visual_type\": {\"main_type\": \"Diagrams & Schematics\", \"sub_types\": [\"Flowchart\"]}, \"key_entities\": [\"CEMS\", \"CPED\", \"emission rates\", \"flue gas volume\", \"outlier detection\", \"imputation\"], \"concise_summary\": \"The figure illustrates the methodology framework for fusing multisource data to estimate daily emissions from coal-fired power plants in China, detailing processes like outlier detection and imputation.\", \"inferred_insight\": \"The framework effectively combines real-time emission data with annual figures to generate accurate daily emissions, compensating for data gaps and variations across plants.\", \"references\": [\"Figure 1 shows the methodology framework in this study, including the input database and processes to fuse multisource data to derive daily emission estimates of coal-fired power plant emissions.\", \"In this work, we develop a framework that fuses plant-level daily profiles from CEMS with yearly emission estimates from CPED to obtain daily emissions (Figure 1). According to guideline HJ/T 75-2017, the maximum volume fraction of  $\\\\mathrm{CO}_{2}$  emissions from the combustion of specific fuels remains stable, so we use daily profiles of flue gas volume that takes the oxygen content into account to describe daily variations in  $\\\\mathrm{CO}_{2}$  emissions. Daily profiles of emission rates from CEMS are used for major air pollutants of  $\\\\mathrm{SO}_{2}, \\\\mathrm{NO}_{x},$  and  $\\\\mathrm{PM}_{2.5}$ .\", \"# Daily Emission Patterns of Coal-Fired Power Plants in China Based on Multisource Data Fusion\", \"ABSTRACT: Daily emission estimates are essential for tracking the dynamic changes in emission sources. In this work, we estimate daily emissions of coal-fired power plants in China during 2017-2020 by combining information from the unit-based China coal-fired Power plant Emissions Database (CPED) and real-time measurements from continuous emission monitoring systems (CEMS). We develop a step-by-step method to screen outliers and impute missing values for data from CEMS. Then, plant-level daily profiles of flue gas volume and emissions obtained from CEMS are coupled with annual emissions from CPED to derive daily emissions. Reasonable agreement is found between emission variations and available statistics (i.e., monthly power generation and daily coal consumption). Daily power emissions are in the range of 6267-12,994, 0.4-1.3, 6.5-12.0, and  $2.5 - 6.8\\\\mathrm{Gg}$  for  $\\\\mathrm{CO}_{2}$ ,  $\\\\mathrm{PM}_{2.5}$ ,  $\\\\mathrm{NO}_{x}$ , and  $\\\\mathrm{SO}_2$ , respectively, with high emissions in winter and summer caused\", \"is used to quantify monthly variations in power emissions in a unit-level power plant emission inventory in China.17 Indicator data such as power load curves are employed to indicate daily or hourly dynamics of power emissions.1,18 Recent studies have also attempted to estimate dynamically updated daily power emissions,19-22 which are largely stimulated by the demand for quantifying the evolution of emissions during fast-evolving events (e.g., COVID-19 pandemic). Liu et al.19,20 used daily coal consumption from six major power generation groups in China to estimate daily updated power emissions. However, the daily coal consumption data only covers 62 power plants in China, and the activity indicator-based method is relatively indirect and lacks independent evaluations against observations. Studies utilizing satellite observations to estimate daily emission changes are faced with the challenges of differentiating power emissions from the total21,23 or deriving daily power emissions on continuous time scales.24,25 For example, Ding et al.23 used the  $\\\\mathrm{NO}_x$  emission reductions derived from\", \"In this work, taking advantage of a well-validated unit-based power emission database covering China and the high temporal resolution of CEMS data, we attempt to construct daily emission estimates of coal-fired power plants in China based on multisource data fusion. Careful screening of outliers and imputation of missing values are conducted for the flue gas volume and emission data. Then, the plant-level daily profiles (i.e., coefficients for day-to-day variations in a year) from CEMS are combined with the unit-level annual emissions from\", \"2.1.1. Unit-Level Emission Database of Coal-Fired Power Plants in China. The CPED, $^{17}$  developed by Tsinghua University, is a high-resolution emission inventory that provides year-by-year emissions from coal-fired power plants since 1990 in China. Established based on detailed and unit-level information from the Ministry of Ecology and Environment (MEE, undisclosed data), CPED contains unit locations, operational status, unit capacity, coal consumption, control technologies, and emission factors, which enable accurate spatial allocation and emission estimates for power plants. More details about CPED can be found in the paper by Liu et al. $^{16}$  Previous studies have verified that the magnitude and trends of power emissions in CPED are in good agreement with top-down estimates from satellite measurements. $^{43,50}$  Liu et al. $^{43}$  compared  $\\\\mathrm{NO}_x$  emissions in CPED with those based on satellite data and found rather good agreement with the relative differences of  $4 \\\\pm 18\\\\%$ . CPED used here covers 30 provinces (except Hong Kong, Macao, Taiwan, and Tibet), 3948 power plants, and 8722 in-use electricity-generating units from 2017 to 2020.\", \"In this study, data from CPED and CEMS are fused to improve the daily estimation of emissions from coal-fired power units in China. The comprehensive, highly resolved emission database could capture the dynamic changes in emissions during typical socioeconomic events and could be applied to providing more accurate inputs for CTMs and guiding future policies.\", \"In previous studies, monthly activity data (e.g., electricity generation and fuel consumption) $^{4}$  and invariable parameters considering factors such as working times $^{1,57}$  have been widely used to disaggregate annual power emissions into monthly and daily scales, respectively. Figure 5 shows comparisons of the multiscale temporal profiles from CEMS with the widely used temporal profiles. At the monthly scale (Figure 5a), the comparison between national average profiles obtained from CEMS and electricity generation shows good agreement ( $R$  between 0.74 and 0.97). The results imply that the commonly used activity indicators are reliable at monthly scale when direct emission measurements are unavailable. At the weekly scale, previous studies $^{1,57}$  use fixed parameters that do not vary over time to allocate emissions from weekly totals to daily scales, considering the empirical production schedule and a few observations, which tend to fail to reflect fluctuations caused by unexpected events. Distinct weekly patterns of power emissions in previous studies $^{1,57}$  are presented in Figure 5b, which are manifested as strong intensity of production activities on weekdays and weak intensity on weekends. Conversely, the weekly profiles from CEMS exhibit no obvious weekend effects, showing that the widely used profiles might exaggerate the differences between weekdays and weekends. Indeed, in many developed countries, $^{58}$  power demand on working days is usually higher than that on weekends. However, owing to different lifestyle, economic, and cultural background, there is no significant difference in electricity demand and power generation between weekdays and weekends in China. And unlike peaking power plants (e.g., natural gas power plants and hydroelectric facilities), coal-fired\", \"In this work, we estimate daily emissions from coal-fired power plants in China during 2017-2020 through data fusion of a well-validated unit-based power emission database and high-temporal-resolution measurements from CEMS. A step-by-step method is developed to screen outliers and impute missing values for data from CEMS, and sensitivity tests show that monthly and weekly temporal profiles by different imputation methods are in good agreement ( $R = 0.90 - 0.98$  for national scale,  $R = 0.61 - 0.92$  for provincial level). We find that the temporal profiles from CEMS agree well with available statistical data like monthly power generation and daily coal consumption, with  $R$  greater than 0.7 for 16-27 out of 30 provinces at the monthly scale and  $R$  up to 0.83 at the daily scale. Daily power emissions from the fused database are in the range of 6267-12,994, 0.4-1.3, 6.5-12.0, and  $2.5 - 6.8\\\\mathrm{Gg}$  for  $\\\\mathrm{CO}_{2}$ ,  $\\\\mathrm{PM}_{2.5}$ ,  $\\\\mathrm{NO}_x$ , and  $\\\\mathrm{SO}_2$ , respectively, during 2017-2020, reflecting higher emissions in winter and summer caused by heating and cooling demand and lower ones resulting from holidays. Our estimates are also able to capture the sudden changes in daily power emissions during typical socioeconomic events, including the much slower rebound of power emissions after the Spring Festival holiday due to the impact of COVID-19, higher daily  $\\\\mathrm{CO}_{2}$  emissions from thermal power generation in Yunnan owing to a severe drought, and significant decline of power emissions in Wuhan caused by a short-term emission control during the 7th CISM Military World Games. We also find that previous studies (e.g.,  $\\\\mathrm{EDGAR}^1$ ) that apply fixed parameters to allocate weekly power emission totals to daily scales exaggerate the differences between weekdays and weekends. This work provides a framework to propagate information from real-time emission measurements to high-temporal-resolution emission estimates, which will support dynamic emission tracking and air pollution modeling.\", \"(6) Nassar, R.; Napier-Linton, L.; Gurney, K. R.; Andres, R. J.; Oda, T.; Vogel, F. R.; Deng, F. Improving the temporal and spatial distribution of CO2 emissions from global fossil fuel emission data sets. J. Geophys. Res.: Atmos. 2013, 118, 917-933.  \\n(7) Houyoux, M. R.; Vukovich, J. M. Updates to the Sparse Matrix Operator Kernel Emissions (SMOKE) Modeling System and Integration with Models-3. The Emission Inventory: Regional Strategies for the Future, 1999; Vol. 1461, pp 1-11.  \\n(8) Zheng, B.; Zhang, Q.; Geng, G.; Chen, C.; Shi, Q.; Cui, M.; Lei, Y.; He, K. Changes in China's anthropogenic emissions and air quality during the COVID-19 pandemic in 2020. Earth Syst. Sci. Data 2021, 13, 2895–2907.  \\n(9) Baldasano, J. M.; Güereca, L. P.; López, E.; Gasso, S.; Jimenez-Guerrero, P. Development of a high-resolution  $(1\\\\mathrm{km} \\\\times 1\\\\mathrm{km}, 1\\\\mathrm{h})$  emission model for Spain: The High-Elective Resolution Modelling Emission System (HERMES). Atmos. Environ. 2008, 42, 7215-7233.  \\n(10) Wang, X.; Liang, X.-Z.; Jiang, W.; Tao, Z.; Wang, J. X. L.; Liu, H.; Han, Z.; Liu, S.; Zhang, Y.; Grell, G. A. WRF-Chem simulation of East Asian air quality: Sensitivity to temporal and vertical emissions distributions. Atmos. Environ. 2010, 44, 660-669.  \\n(11) Ge, X.; Schaap, M.; Kranenburg, R.; Segers, A.; Reinds, G. J.; Kros, H.; de Vries, W. Modeling atmospheric ammonia using agricultural emissions with improved spatial variability and temporal dynamics. Atmos. Chem. Phys. 2020, 20, 16055-16087.  \\n(12) Menut, L.; Goussebaile, A.; Bessagnet, B.; Khvorostiyanov, D.; Ung, A. Impact of realistic hourly emissions profiles on air pollutants concentrations modelled with CHIMERE. Atmos. Environ. 2012, 49, 233-244.  \\n(13) Georgiou, G. K.; Kushta, J.; Christoudias, T.; Proestos, Y.; Lelieveld, J. Air quality modelling over the Eastern Mediterranean: Seasonal sensitivity to anthropogenic emissions. Atmos. Environ. 2020, 222, No. 117119.  \\n(14) British Petroleum. BP Statistical Review of World Energy Report, BP: London, U.K.; 2019.  \\n(15) Tong, D.; Zhang, Q.; Liu, F.; Geng, G.; Zheng, Y.; Xue, T.; Hong, C.; Wu, R.; Qin, Y.; Zhao, H.; Yan, L.; He, K. Current Emissions and Future Mitigation Pathways of Coal-Fired Power Plants in China from 2010 to 2030. Environ. Sci. Technol. 2018, 52, 12905-12914.  \\n(16) Zheng, B.; Tong, D.; Li, M.; Liu, F.; Hong, C.; Geng, G.; Li, H.; Li, X.; Peng, L.; Qi, J.; Yan, L.; Zhang, Y.; Zhao, H.; Zheng, Y.; He, K.; Zhang, Q. Trends in China's anthropogenic emissions since 2010 as the consequence of clean air actions. Atmos. Chem. Phys. 2018, 18, 14095-14111.  \\n(17) Liu, F.; Zhang, Q.; Tong, D.; Zheng, B.; Li, M.; Huo, H.; He, K. B. High-resolution inventory of technologies, activities, and emissions of coal-fired power plants in China from 1990 to 2010. Atmos. Chem. Phys. 2015, 15, 13299-13317.  \\n(18) Ma, L.; Cai, B.; Wu, F.; Zeng, H. Hourly disaggregation of industrial CO2 emissions from Shenzhen, China. Environ. Pollut. 2018, 236, 396-404.  \\n(19) Liu, Z.; Ciais, P.; Deng, Z.; Lei, R.; Davis, S. J.; Feng, S.; Zheng, B.; Cui, D.; Dou, X.; Zhu, B.; Guo, R.; Ke, P.; Sun, T.; Lu, C.; He, P.; Wang, Y.; Yue, X.; Wang, Y.; Lei, Y.; Zhou, H.; Cai, Z.; Wu, Y.; Guo, R.; Han, T.; Xue, J.; Boucher, O.; Boucher, E.; Chevallier, F.; Tanaka, K.; Wei, Y.; Zhong, H.; Kang, C.; Zhang, N.; Chen, B.; Xi, F.; Liu, M.; Breon, F. M.; Lu, Y.; Zhang, Q.; Guan, D.; Gong, P.; Kammen, D. M.; He, K.; Schellnhuber, H. J. Near-real-time monitoring of global CO(2) emissions reveals the effects of the COVID-19 pandemic. Nat. Commun. 2020, 11, No. 5172.  \\n(20) Liu, Z.; Ciais, P.; Deng, Z.; Davis, S. J.; Zheng, B.; Wang, Y.; Cui, D.; Zhu, B.; Dou, X.; Ke, P.; Sun, T.; Guo, R.; Zhong, H.; Boucher, O.; Breon, F.-M.; Lu, C.; Guo, R.; Xue, J.; Boucher, E.; Tanaka, K.; Chevallier, F. Carbon Monitor, a near-real-time daily dataset of global CO2 emission from fossil fuel and cement production. Sci. Data 2020, 7, No. 392.  \\n(21) Zheng, B.; Geng, G.; Ciais, P.; Davis, S. J.; Martin, R. V.; Meng, J.; Wu, N.; Chevallier, F.; Broquet, G.; Boersma, F.; van der, A. R.; Lin, J.; Guan, D.; Lei, Y.; He, K.; Zhang, Q. Satellite-based estimates\", \"of decline and rebound in China's CO(2) emissions during COVID-19 pandemic. Sci. Adv. 2020, 6, No. eabd4998.  \\n(22) Wang, Q.; Lu, M.; Bai, Z.; Wang, K. Coronavirus pandemic reduced China's CO2 emissions in short-term, while stimulus packages may lead to emissions growth in medium- and long-term. Appl. Energy 2020, 278, No. 115735.  \\n(23) Ding J.; van der A, R. J.; Eskes, H. J.; Mijling, B.; Stavrakou, T.; van Geffen, J. H. G. M.; Veefkind, J. P. NOx Emissions Reduction and Rebound in China Due to the COVID-19 Crisis. Geophys. Res. Lett. 2020, 47, No. e2020GL089912.  \\n(24) Nassar, R.; Hill, T. G.; McLinden, C. A.; Wunch, D.; Jones, D. B. A.; Crisp, D. Quantifying CO2 Emissions From Individual Power Plants From Space. Geophys. Res. Lett. 2017, 44, 10045-10053.  \\n(25) Nassar, R.; Mastrogiacomo, J.-P.; Bateman-Hemphill, W.; McCracken, C.; MacDonald, C. G.; Hill, T.; O'Dell, C. W.; Kiel, M.; Crisp, D. Advances in quantifying power plant CO2 emissions with OCO-2. Remote Sens. Environ. 2021, 264, No. 112579.  \\n(26) Karplus, V. J.; Zhang, S.; Almond, D. Quantifying coal power plant responses to tighter SO2 emissions standards in China. Proc. Natl. Acad. Sci. U.S.A. 2018, 115, 7004-7009.  \\n(27) Zhang, X.; Schreibels, J. Continuous emission monitoring systems at power plants in China: Improving SO2 emission measurement. Energy Policy 2011, 39 (11), 7432-7438.  \\n(28) Frost, G. J.; McKeen, S. A.; Trainer, M.; Ryerson, T. B.; Neuman, J. A.; Roberts, J. M.; Swanson, A.; Holloway, J. S.; Sueper, D. T.; Fortin, T.; Parrish, D. D.; Fehsenfeld, F. C.; Flocke, F.; Peckham, S. E.; Grell, G. A.; Kowal, D.; Cartwright, J.; Auerbach, N.; Habermann, T. Effects of changing power plant NOx emissions on ozone in the eastern United States: Proof of concept. J. Geophys. Res.: Atmos. 2006, 111, D12306.  \\n(29) Peischl, J.; Ryerson, T. B.; Holloway, J. S.; Parrish, D. D.; Trainer, M.; Frost, G. J.; Aikin, K. C.; Brown, S. S.; Dubé, W. P.; Stark, H.; Fehsenfeld, F. C. A top-down analysis of emissions from selected Texas power plants during TexAQS 2000 and 2006 J. Geophys. Res.: Atmos. 2010, 115D16 DOI: 10.1029/2009JD013527.  \\n(30) Pouliot, G.; Denier van der Gon, H. A. C.; Kuenen, J.; Zhang, J.; Moran, M. D.; Makar, P. A. Analysis of the emission inventories and model-ready emission datasets of Europe and North America for phase 2 of the AQMEII project. Atmos. Environ. 2015, 115, 345-360.  \\n(31) He, H.; Stehr, J. W.; Hains, J. C.; Krask, D. J.; Doddridge, B. G.; Vinnikov, K. Y.; Canty, T. P.; Hosley, K. M.; Salawitch, R. J.; Worden, H. M.; Dickerson, R. R. Trends in emissions and concentrations of air pollutants in the lower troposphere in the Baltimore/Washington airshed from 1997 to 2011. Atmos. Chem. Phys. 2013, 13, 7859-7874.  \\n(32) He, H.; Hembeck, L.; Hosley, K. M.; Canty, T. P.; Salawitch, R. J.; Dickerson, R. R. High ozone concentrations on hot days: The role of electric power demand and NOx emissions. Geophys. Res. Lett. 2013, 40, 5291-5294.  \\n(33) Liu, F.; Duncan, B. N.; Krotkov, N. A.; Lamsal, L. N.; Beirle, S.; Griffin, D.; McLinden, C. A.; Goldberg, D. L.; Lu, Z. A methodology to constrain carbon dioxide emissions from coal-fired power plants using satellite observations of co-emitted nitrogen dioxide. Atmos. Chem. Phys. 2020, 20, 99-116.  \\n(34) Farkas, C. M.; Moeller, M. D.; Felder, F. A.; Baker, K. R.; Rodgers, M.; Carlton, A. G. Temporalization of Peak Electric Generation Particulate Matter Emissions during High Energy Demand Days. Environ. Sci. Technol. 2015, 49, 4696-4704.  \\n(35) Karplus, V. J. Clearing the air in China. Nat. Energy 2019, 4, 904-905.  \\n(36) Tang, L.; Xue, X.; Qu, J.; Mi, Z.; Bo, X.; Chang, X.; Wang, S.; Li, S.; Cui, W.; Dong, G. Air pollution emissions from Chinese power plants based on the continuous emission monitoring systems network. Sci. Data 2020, 7, No. 325.  \\n(37) Tang, L.; Qu, J.; Mi, Z.; Bo, X.; Chang, X.; Anadon, L. D.; Wang, S.; Xue, X.; Li, S.; Wang, X.; Zhao, X. Substantial emission reductions from Chinese power plants after the introduction of ultralow emissions standards. Nat. Energy 2019, 4, 929-938.  \\n(38) Zhang, Y.; Bo, X.; Zhao, Y.; Nielsen, C. P. Benefits of current and future policies on emissions of China's coal-fired power sector\", \"indicated by continuous emission monitoring. Environ. Pollut. 2019, 251, 415-424.  \\n(39) Zhang, Y.; Zhao, Y.; Gao, M.; Bo, X.; Nielsen, C. P. Air quality and health benefits from ultra-low emission control policy indicated by continuous emission monitoring: a case study in the Yangtze River Delta region, China. Atmos. Chem. Phys. 2021, 21, 6411-6430.  \\n(40) Hu, X.; Liu, Q.; Fu, Q.; Xu, H.; Shen, Y.; Liu, D.; Wang, Y.; Jia, H.; Cheng, J. A high-resolution typical pollution source emission inventory and pollution source changes during the COVID-19 lockdown in a megacity, China. Environ. Sci. Pollut. Res. 2021, 28, 45344-45352.  \\n(41) Liu, X.; Gao, X.; Wu, X.; Yu, W.; Chen, L.; Ni, R.; Zhao, Y.; Duan, H.; Zhao, F.; Chen, L.; Gao, S.; Xu, K.; Lin, J.; Ku, A. Y. Updated Hourly Emissions Factors for Chinese Power Plants Showing the Impact of Widespread Ultralow Emissions Technology Deployment. Environ. Sci. Technol. 2019, 53, 2570-2578.  \\n(42) Zhang, L.; Zhao, T.; Gong, S.; Kong, S.; Tang, L.; Liu, D.; Wang, Y.; Jin, L.; Shan, Y.; Tan, C.; Zhang, Y.; Guo, X. Updated emission inventories of power plants in simulating air quality during haze periods over East China. Atmos. Chem. Phys. 2018, 18, 2065-2079.  \\n(43) Liu, F.; Beirle, S.; Zhang, Q.; Dörner, S.; He, K.; Wagner, T. NOx lifetimes and emissions of cities and power plants in polluted background estimated by satellite observations. Atmos. Chem. Phys. 2016, 16, 5283-5298.  \\n(44) Wang, S.; Zhang, Q.; Martin, R. V.; Philip, S.; Liu, F.; Li, M.; Jiang, X.; He, K. Satellite measurements oversee China's sulfur dioxide emission reductions from coal-fired power plants. Environ. Res. Lett. 2015, 10, No. 114015.  \\n(45) Zhao, Y.; Xia, Y.; Zhou, Y. Assessment of a high-resolution NOX emission inventory using satellite observations: A case study of southern Jiangsu, China. Atmos. Environ. 2018, 190, 135-145.  \\n(46) Han, P.; Zeng, N.; Oda, T.; Lin, X.; Crippa, M.; Guan, D.; Janssens-Maenhout, G.; Ma, X.; Liu, Z.; Shan, Y.; Tao, S.; Wang, H.; Wang, R.; Wu, L.; Yun, X.; Zhang, Q.; Zhao, F.; Zheng, B. Evaluating China's fossil-fuel CO2 emissions from a comprehensive dataset of nine inventories. Atmos. Chem. Phys. 2020, 20, 11371-11385.  \\n(47) Chen, X.; Liu, Q.; Sheng, T.; Li, F.; Xu, Z.; Han, D.; Zhang, X.; Huang, X.; Fu, Q.; Cheng, J. A high temporal-spatial emission inventory and updated emission factors for coal-fired power plants in Shanghai, China. Sci. Total Environ. 2019, 688, 94-102.  \\n(48) Zhong, Z.; Zheng, J.; Zhu, M.; Huang, Z.; Zhang, Z.; Jia, G.; Wang, X.; Bian, Y.; Wang, Y.; Li, N. Recent developments of anthropogenic air pollutant emission inventories in Guangdong province, China. Sci. Total Environ. 2018, 627, 1080-1092.  \\n(49) Huang, Z.; Zhong, Z.; Sha, Q.; Xu, Y.; Zhang, Z.; Wu, L.; Wang, Y.; Zhang, L.; Cui, X.; Tang, M.; Shi, B.; Zheng, C.; Li, Z.; Hu, M.; Bi, L.; Zheng, J.; Yan, M. An updated model-ready emission inventory for Guangdong Province by incorporating big data and mapping onto multiple chemical mechanisms. Sci. Total Environ. 2021, 769, No. 144535.  \\n(50) Liu, F.; Beirle, S.; Zhang, Q.; van der, A. R.; Zheng, B.; Tong, D.; He, K. NOx emission trends over Chinese cities estimated from OMI observations during 2005 to 2015. Atmos. Chem. Phys. 2017, 17, 9261-9275.  \\n(51) Ministry of Ecology and Environment of the People's Republic of China, Specifications for continuous emissions monitoring of SO2, NOx, and particulate matter in the flue gas emitted from stationary sources, HJ 75-2017 (in Chinese), Ministry of Ecology and Environment of the People's Republic of China, 2017, https://www.mee.gov.cn/ywgz/fgbz/bz/bzwjcfbz/201801/W020180322535566350157.pdf (accessed 2022-04-15).  \\n(52) Ministry of Ecology and Environment of the People's Republic of China, Specifications and test procedures for a continuous emission monitoring system for SO2, NOx, and particulate matter in flue gas emitted from stationary sources, HJ 76-2017 (in Chinese), Ministry of Ecology and Environment of the People's Republic of China, 2017, https://www.mee.gov.cn/ywgz/fgbz/bz/bzwb/jcffbz/201801/W020180108591018226127.pdf (accessed 2022-04-15).\"], \"chunk_type\": \"figure\"}",
+                      "paper_id": "paper_029"
+                    },
+                    "score": 0.5236478078269435,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004505",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002649",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The harmonization and improvement of regional emission inventories is imperative to obtain consolidated estimates on the formation of global-scale air pollution. An emissions data set has been constructed using regional emission grid maps (annual and monthly) for  $\\mathrm{SO}_2$ ,  $\\mathrm{NO}_x$ , CO, NMVOC,  $\\mathrm{NH}_3$ ,  $\\mathrm{PM}_{10}$ ,  $\\mathrm{PM}_{2.5}$ , BC and OC for the years 2008 and 2010, with the purpose of providing consistent information to global and regional scale modelling efforts."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_002649",
+                      "metadata": "{\"paper_title\": \"HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution\", \"md_filename\": \"HTAP_v2.2_ a mosaic of regional and global emissio.md\", \"paragraph_index\": 7, \"content_length\": 516, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_011",
+                      "type": "texture",
+                      "paper_id": "paper_011"
+                    },
+                    "score": 0.5224936425360469,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002649",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_002652",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "The HTAP_v2.2 air pollutant grid maps are considered to combine latest available regional information within a complete global data set. The disaggregation by sectors, high spatial and temporal resolution and detailed information on the data sources and references used will provide the user the required transparency. Because HTAP_v2.2 contains primarily official and/or widely used regional emission grid maps, it can be recommended as a global baseline emission inventory, which is regionally accepted as a reference and from which different scenarios assessing emission reduction policies at a global scale could start."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_002652",
+                      "type": "texture",
+                      "paperid": "paper_011",
+                      "metadata": "{\"paper_title\": \"HTAP_v2.2: a mosaic of regional and global emission grid maps for 2008 and 2010 to study hemispheric transport of air pollution\", \"md_filename\": \"HTAP_v2.2_ a mosaic of regional and global emissio.md\", \"paragraph_index\": 10, \"content_length\": 623, \"chunk_type\": \"text\"}",
+                      "paper_id": "paper_011"
+                    },
+                    "score": 0.5219077418854299,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_002652",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004628",
+                    "source_tool": "Left_Path(Semantic)",
+                    "content": {
+                      "text": "Spatial maps illustrate hourly average emissions (NOx, HC, CO) of the top 10% vehicle emitters under varying congestion scenarios in rush hours. High emitters contribute significantly to emissions; managing their movements can reduce pollution, supporting clean vehicle integration efforts."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traff\", \"figure_id\": \"img_184\", \"figure_title\": \"Fig. 4. Hourly average on-road vehicle emission intensities of the  10\\\\%  high emitters under different congestion scenarios during rush hours (from 07:00 to 09:00 and from 16:30 to 18:30 local time).\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Quantifying on-road vehicle emissions during traff\\\\figure_4.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Core Findings\", \"Showcase Prediction Results\"]}, \"visual_type\": {\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}, \"key_entities\": [\"vehicle emissions\", \"rush hours\", \"high emitters\", \"NOx\", \"HC\", \"CO\", \"congestion scenarios\"], \"concise_summary\": \"Spatial maps illustrate hourly average emissions (NOx, HC, CO) of the top 10% vehicle emitters under varying congestion scenarios in rush hours.\", \"inferred_insight\": \"High emitters contribute significantly to emissions; managing their movements can reduce pollution, supporting clean vehicle integration efforts.\", \"references\": [\"On this basis, the spatial distributions of vehicle emissions from the  $10\\\\%$  high emitters were depicted in detail (Fig. 4, Figs. S5-S6). Scenarios M1-5 and M6-10 represented vehicle emissions during rush hours and off-peak hours, respectively, with the accumulated mileages of the  $10\\\\%$  high emitters corresponding to M1-M5 in Table 1. It was found that the emissions of the target high emitters decreased sharply from M1 to M5, or M6 to M10. Thus, strict restrictions on the travels of these high emitters can effectively reduce road vehicle emissions, implying that accelerating clean substitution of these high emitters will be a feasible approach. As shown in Fig. S7, pre-China 3 vehicles made up around  $50\\\\%$  of these  $10\\\\%$  high emitters. We designed four different clean alternative scenarios\", \"This study aims to study the current status of vehicle emissions in China from a big data perspective. A newly updated dataset of 159,051 light-duty gasoline vehicles from Xiaoshan District, Hangzhou, were used, believed to be the best available sample of real emissions to conduct an analysis. Vehicle-specific emission factors were calculated on the basis of the high-resolution big data of vehicle emission measurements. As a result, the high contributions from target high emitters and significant differences among different manufacturers were quantified. Real-time online traffic monitoring big data in Xiaoshan District provide strong support to quantify road vehicle exhaust emissions. Consequently, the hyper-fine maps of on-road vehicle emissions were obtained. Thus, environmental effects of traffic congestion and to what extent it will offset the benefits of emission standards upgrading were further illustrated. Finally, practical approaches to vehicle emission controls under realistic conditions were proposed, providing new insights for urban vehicle emission management.\", \"Xiaoshan District is at the forefront of the country in the digital transformation and upgrading of the government. It is one of the few areas that have achieved full coverage of integrated traffic monitoring, and has been interconnected through its intelligent transportation system (called \\\"city brain\\\") since 2017 (Hua, 2018). This provide the opportunity to obtain detailed road traffic and road network information. According to 2021 China Urban Transportation Report released by Baidu Map (Baidu Map, 2021), the congestion index during rush hours of Hangzhou ranks top 9 among cities with  $>3$  million motor vehicles. As the transportation hub of Hangzhou, Xiaoshan District, with dense road network, its speed and traffic flow distribution characteristics can well represent the traffic conditions of large cities. Equipped with real-time online traffic monitoring facilities, the core road network in Xiaoshan District is divided into 4585 road segments. Traffic video records, together with image recognition algorithms (Redmon et al., 2016), were applied to detect vehicle license plates and thus monitor traffic fluxes, vehicle categories and driving speeds. These license plate recognition (LPR) data include the records of traffic fluxes and vehicle-specific speeds of on-road vehicles in Xiaoshan District. The average daily detection records were 4.23 million. As a result, we constructed a dataset of total  $1.53 \\\\times 10^{9}$  records from 1 January 2021 to 31 December 2021.\", \"from 07:00 to 09:00 and from 16:30 to 18:30 local time) and off-peak hours (from 9:00 to 16:30 and from 18:30 to 7:00 local time), respectively. On this basis, two smooth traffic (all speeds  $>25\\\\mathrm{km / h}$ ) scenarios (S1 and S4) and two severe congested scenarios (S3 and S6) were designed to represent different traffic conditions. Fleet composition scenario F0 was designed based on the local official vehicle Inspect/Maintenance (I/M) dataset, representing the current composition of road vehicles. On this basis, F1 and F2 scenarios were designed by considering the upgrading of emission standards and the increasing proportion of electric vehicles, respectively. Combining traffic congestion scenarios S1-S6 and fleet composition scenarios F0-F3, a total of 18 scenarios were studied (Table 2 and Table 3). For example, scenario S2F0 quantified the vehicle emissions when the traffic condition is S2 and the fleet composition is F0, which represents the current rush-hour traffic condition and current on-road fleet compositions. Similarly, scenario S5F0 quantified the vehicle emissions when the traffic condition is S5 and the fleet composition is F0, which represents the current traffic condition during off-peak hours and current on-road fleet compositions. In the subsequent comparison, scenarios S2F0 and S5F0 were used as the benchmark scenarios for rush hour and off-peak hours, respectively. Overall, our results show that under the ideal situations of no traffic congestion (i.e., S1 and S4), the emissions of CO, HC, and  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  will be significantly reduced with the continuous upgrading of fleet composition (from F0 to F2). However, the impacts of traffic\", \"Fig. 6. (a) Vehicle emission factors under different driving speeds. (b) Spatial distribution of hourly average on-road vehicle driving speeds (in km/h) during rush hours (from 07:00 to 09:00 and from 16:30 to 18:30 local time). (c) Spatial distribution of hourly average on-road vehicle driving speeds (in km/h) during off-peak hours (from 9:00 to 16:30 and from 18:30 to 7:00 local time). (d) Spatial distribution of hourly average traffic fluxes during rush hours (from 07:00 to 09:00 and from 16:30 to 18:30 local time). (e) Spatial distribution of hourly average traffic fluxes during off-peak hours (from 9:00 to 16:30 and from 18:30 to 7:00 local time).\", \"Table 2 Scenarios during rush hours (from 07:00 to 09:00 and from 16:30 to 18:30 local time) and their relative percentage changes in on-road vehicle emissions compared to S2F0.\", \"standard upgrading, and even increased on-road vehicle emissions instead (see S1F2, S2F2, S3F2 in Table 2). Similarly, if the traffic congestion were effectively alleviated (S4F0) during the off-peak hours, the hourly emissions of CO, HC, and  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  could be reduced by  $-14.2\\\\%$ ,  $-21.4\\\\%$ , and  $-9.6\\\\%$  respectively, but increased by  $7.8\\\\%$ ,  $11.4\\\\%$ , and  $5.2\\\\%$  if the congestions were aggravated (S6F0) (Figs. S11-S13, Table 3). Note that, in the southern areas of the district, the emission intensities in the arterial and residential streets far exceeded ( $\\\\sim 5$  times) those in the northern areas (Fig. 7, Fig. S11). These high emission hotspots were mainly attributed to the high traffic fluxes and low traffic speeds. Frequent traffic congestion, accelerations and decelerations led to significant increases in vehicles' fuel consumption. Thus, better traffic management policies should be applied to reduce vehicles' energy consumption and mitigate pollutant emissions as well (Huang et al., 2020b).\", \"Based on the newly updated big data of high-resolution vehicle emission profiles, the emission characteristics of light gasoline vehicles were analyzed in this study. The extent to which pollutant emission factors varied with different emission standards, vehicle manufactures and operating modes were illustrated in detail. The significant influence of traffic congestion on vehicle emissions was addressed with the support of the real-time on-road traffic monitoring system in Xiaoshan District. Additionally, several approaches to reducing on-road vehicle emissions under realistic conditions were proposed from a big data perspective. The results showed that the emissions of LDGVs in China have decreased significantly (75.7–86.2 %) with the continuous upgrading of emission standards (i.e., from China 2 to China 5) in the past 13 years. Heavy-tailed distributions were found in CO, HC, and  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  emission factors. The results showed that the  $10\\\\%$  high emitters contributed  $>60\\\\%$  to the total fleet emissions, significantly higher than previous studies. In order to achieve greater emission reductions in the future, it is necessary to strengthen the gradual replacements of pre-China 3 vehicles, especially those in the  $10\\\\%$  high emitters. Large differences were found in the emissions of vehicles produced by different manufacturers. It was found that the emission factors of the cleanest and most polluted vehicles produced by different manufacturers differed by 33–49 times. Therefore, in the future, the supervision of\", \"Alobaidi, M.K., Badri, R.M., Salman, M.M., 2020. Evaluating the negative impact of traffic congestion on air pollution at signalized intersection. IOP Conf. Ser. Mater. Sci. Eng. 737, 012146. https://doi.org/10.1088/1757-899X/737/1/012146.  \\nBaidu Map, 2021. 2021 China urban transportation report. Available from: https://huiyan.baidu.com/reports/landing?id=111&role=traffic.  \\nBeaton, S.P., Bishop, G.A., Zhang, Y., Ashbaugh, L.L., Lawson, D.R., Stedman, D.H., 1995. On-road vehicle emissions: regulations, costs, and benefits. Science 268, 991-993. https://doi.org/10.1126/science.268.5213.991.  \\nBernard, Y., Tietge, U., German, J., Muncrief, R., 2018. Determination of real-world emissions from passenger vehicles using remote sensing data. https://www.theicct.org/publications/real-world-Emis.  \\nBishop, G.A., Hauge, M.J., 2018. The story of ever diminishing vehicle tailpipe emissions as observed in the Chicago, Illinois area. Environ. Sci. Technol. 52, 7587-7593. https://doi.org/10.1021/acs.est.8b00926.  \\nCao, X., Yao, Z., Shen, X., Ye, Y., Jiang, X., 2016. On-road emission characteristics of VOCs from light-duty gasoline vehicles in Beijing, China. Atmos. Environ. 124, 146-155. https://doi.org/10.1016/j.atmosenv.2015.06.019.  \\nChang, Y., Zou, Z., Deng, C., Huang, K., Collett, J.L., Lin, J., Zhuang, G., 2016. The importance of vehicle emissions as a source of atmospheric ammonia in the megacity of Shanghai. Atmos. Chem. Phys. 16, 3577-3594. https://doi.org/10.5194/acp-16-3577-2016.  \\nChen, Y., Borken-Kleefeld, J., 2016.  $\\\\mathrm{NO}_{\\\\mathrm{x}}$  emissions from diesel passenger cars worsen with age. Environ. Sci. Technol. 50, 3327-3332. https://doi.org/10.1021/acs.est.5b04704.  \\nChen, Y., Zhang, Y., Borken-Kleefeld, J., 2019. When is enough? Minimum sample sizes for on-road measurements of car emissions. Environ. Sci. Technol. 53, 13284-13292. https://doi.org/10.1021/acs.est.9b04123.  \\nChoudhary, A., Gokhale, S., 2016. Urban real-world driving traffic emissions during interruption and congestion. Transp. Res. Part D: Transp. Environ. 43, 59-70. https://doi.org/10.1016/j.trd.2015.12.006.  \\nChoudhary, A., Gokhale, S., 2019. On-road measurements and modelling of vehicular emissions during traffic interruption and congestion events in an urban traffic corridor. Atmos. Pollut. Res. 10, 480-492. https://doi.org/10.1016/j.apr.2018.09.008.  \\nDavison, J., Rose, R.A., Farren, N.J., Wagner, R.L., Murrells, T.P., Carslaw, D.C., 2021. Verification of a National Emission Inventory and influence of on-road vehicle manufacturer-level emissions. Environ. Sci. Technol. 55, 4452-4461. https://doi.org/10.1021/acs.est.0c08363.  \\nDeng, F., Lv, Z., Qi, L., Wang, X., Shi, M., Liu, H., 2020. A big data approach to improving the vehicle emission inventory in China. Nat. Commun. 11, 1-12. https://doi.org/10.1038/s41467-020-16579-w.  \\nFarren, N.J., Davison, J., Rose, R.A., Wagner, R.L., Carslaw, D.C., 2020. Underestimated ammonia emissions from road vehicles. Environ. Sci. Technol. 54, 15689-15697. https://doi.org/10.1021/acs.est.0c05839.  \\nFeng, L., Liao, W., 2016. Legislation, plans, and policies for prevention and control of air pollution in China: achievements, challenges, and improvements. J. Clean. Prod. 112, 1549-1558. https://doi.org/10.1016/j.jclepro.2015.08.013.  \\nFeng, J., Zhang, Y., Song, W., Deng, W., Zhu, M., Fang, Z., Ye, Y., Fang, H., Wu, Z., Lowther, S., Jones, K.C., Wang, X., 2020. Emissions of nitrogen oxides and volatile organic compounds from liquefied petroleum gas-fueled taxis under idle and cruising modes. Environ. Pollut. 267, 115623. https://doi.org/10.1016/j.envpol.2020.115623.  \\nFranco, V., Kousoulidou, M., Muntean, M., NtziaChristos, L., Hausberger, S., Dilara, P., 2013. Road vehicle emission factors development: a review. Atmos. Environ. 70, 84-97. https://doi.org/10.1016/j.atmosenv.2013.01.006.  \\nFu, M., Ge, Y., Tan, J., Zeng, T., Liang, B., 2012. Characteristics of typical non-road machinery emissions in China by using portable emission measurement system. Sci. Total Environ. 437, 255-261. https://doi.org/10.1016/j.scitotenv.2012.07.095.  \\nHe, L., Hu, J., Yang, L., Li, Z., Zheng, X., Xie, S., Zu, L., Chen, J., Li, Y., Wu, Y., 2019. Realworld gaseous emissions of high-mileage taxi fleets in China. Sci. Total Environ. 659, 267-274. https://doi.org/10.1016/j.scitotenv.2018.12.336.  \\nHua, X.-S., 2018. The city brain: towards real-time search for the real-world. The 41st International ACM SIGIR Conference on Research & Development in Information Retrieval. Association for Computing Machinery, New York, NY, USA, pp. 1343-1344. https://doi.org/10.1145/3209978.3210214.  \\nHuang, C., Tao, S., Lou, S., Hu, Q., Wang, Hongli, Wang, Q., Li, L., Wang, Hongyu, Liu, J., Quan, Y., Zhou, L., 2017. Evaluation of emission factors for light-duty gasoline vehicles based on chassis dynamometer and tunnel studies in Shanghai, China. Atmos. Environ. 169, 193-203. https://doi.org/10.1016/j.atmosenv.2017.09.020.  \\nHuang, Y., Organ, B., Zhou, J.L., Surawski, N.C., Hong, G., Chan, E.F.C., Yam, Y.S., 2018a. Remote sensing of on-road vehicle emissions: mechanism, applications and a case study from Hong Kong. Atmos. Environ. 182, 58-74. https://doi.org/10.1016/j.atmosenv.2018.03.035.  \\nHuang, Y., Organ, B., Zhou, J.L., Surawski, N.C., Hong, G., Chan, E.F.C., Yam, Y.S., 2018b. Emission measurement of diesel vehicles in Hong Kong through on-road remote sensing: performance review and identification of high-emitters. Environ. Pollut. 237, 133-142. https://doi.org/10.1016/j.envpol.2018.02.043.  \\nHuang, Y., Surawski, N.C., Yam, Y.S., Lee, C.K.C., Zhou, J.L., Organ, B., Chan, E.F.C., 2020a. Re-evaluating effectiveness of vehicle emission control programmes targeting high-emitters. Nat. Sustain. 3, 904-907. https://doi.org/10.1038/s41893-020-0573-y.\", \"Huang, W., Guo, Y., Xu, X., 2020b. Evaluation of real-time vehicle energy consumption and related emissions in China: a case study of the Guangdong-Hong Kong-Macao greater Bay Area. J. Clean. Prod. 263, 121583. https://doi.org/10.1016/j.jclepro.2020.121583.  \\nJiang, L., Xia, Y., Wang, L., Chen, X., Ye, J., Hou, T., Wang, L., Zhang, Y., Li, M., Li, Z., Song, Z., Jiang, Y., Liu, W., Li, P., Rosenfeld, D., Seinfeld, J.H., Yu, S., 2021. Hyperfine-resolution mapping of on-road vehicle emissions with comprehensive traffic monitoring and an intelligent transportation system. Atmos. Chem. Phys. 21, 16985-17002. https://doi.org/10.5194/acp-21-16985-2021.  \\nJing, B., Wu, L., Mao, H., Gong, S., He, J., Zou, C., Song, G., Li, X., Wu, Z., 2016. Development of a vehicle emission inventory with high temporal-spatial resolution based on NRT traffic data and its impact on air pollution in Beijing - part 1: development and evaluation of vehicle emission inventory. Atmos. Chem. Phys. 16, 3161-3170. https://doi.org/10.5194/acp-16-3161-2016.  \\nKo, Y.W., Cho, C.H., 2006. Characterization of large fleets of vehicle exhaust emissions in middle Taiwan by remote sensing. Sci. Total Environ. 354, 75-82. https://doi.org/10.1016/j.scitotenv.2005.05.040.  \\nKo, J., Myung, C.L., Park, S., 2019. Impacts of ambient temperature, DPF regeneration, and traffic congestion on  $\\\\mathrm{NO}_x$  emissions from a euro 6-compliant diesel vehicle equipped with an LNT under real-world driving conditions. Atmos. Environ. 200, 1-14. https://doi.org/10.1016/j.atmosenv.2018.11.029.  \\nKumar, R., Parida, P., Shukla, S., Saleh, W., 2015. MOVES model for idling emission of signalised junction in developing country. World J. Sci. Technol. Sustain. Dev. 12, 25-38. https://doi.org/10.1108/wjstds-06-2014-0009.  \\nLawrence, S., Sokhi, R., Ravindra, K., 2016. Quantification of vehicle fleet  $\\\\mathrm{PM}_{10}$  particulate matter emission factors from exhaust and non-exhaust sources using tunnel measurement techniques. Environ. Pollut. 210, 419-428. https://doi.org/10.1016/j.envpol.2016.01.011.  \\nLi, M., Yu, L., Asce, M., Zhai, Z., He, W., Song, G., 2016. Development of emission factors for an urban road network based on speed distributions. J. Transp. Eng. 04016036, 1-9. https://doi.org/10.1061/(ASCE)TE.1943-5436.0000858.  \\nLiu, Y., Ma, J., Li, L., Lin, X., Xu, W., Ding, H., 2018. A high temporal-spatial vehicle emission inventory based on detailed hourly traffic data in a medium-sized city of China. Environ. Pollut. 236, 324-333. https://doi.org/10.1016/j.envpol.2018.01.068.  \\nLu, J., Li, B., Li, H., Al-Barakani, A., 2021. Expansion of city scale, traffic modes, traffic congestion, and air pollution. Cities 108, 102974. https://doi.org/10.1016/j.cities.2020.102974.  \\nMinistry of Ecology and Environment of the People's Republic of China (MEEPRC), 2014, National Technical Guidelines of the On-Road Vehicle Emissions Inventory, pp. 26-49. Available from: https://www.mee.gov.cn/gkml/hbbb/bbg/201501/t20150107_293955.htm.  \\nMinistry of Ecology and Environment of the People's Republic of China (MEEPRC), 2018. GB 18285-2018 emission limits and measuring methods of pollutants from gasoline vehicles. Available from: http://mee.gov.cn/ywgz/fgbz/bz/bzwb/dqhjhbh/dqdydwwpfbz/201811/t20181113_673593.shtml.  \\nMinistry of Ecology and Environment of the People's Republic of China (MEEPRC), 2019. China mobile source environmental management annual report. Available from: https://www.mee.gov.cn/hjzl/sthjk/ydyhgl/201909/P020190905586230826402.pdf.  \\nMinistry of Ecology and Environment of the People's Republic of China (MEEPRC), 2021. China Mobile Source Environmental Management Annual Report (2021). Available from https://www.mee.gov.cn/hjzl/sthjk/ydyhjlq/202109/W020210910400449015882.pdf.  \\nMera, Z., Fonseca, N., López, J., Casanova, J., 2019. Analysis of the high instantaneous  $\\\\mathrm{NO}_x$  emissions from euro 6 diesel passenger cars under real driving conditions. Appl. Energy 242, 1074-1089. https://doi.org/10.1016/j.apenergy.2019.03.120.  \\nPu, Y., Yang, C., Liu, H., Chen, Z., Chen, A., 2015. Impact of license plate restriction policy on emission reduction in Hangzhou using a bottom-up approach. Transp. Res. Part D Transp. Environ. 34, 281-292. https://doi.org/10.1016/j.trd.2014.11.007.  \\nRedmon, J., Divvala, S., Girshick, R., Farhadi, A., 2016. You only look once: unified, real-time object detection. 2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016, pp. 779-788. https://doi.org/10.1109/CVPR.2016.91.  \\nSaikawa, E., Kurokawa, J., Takigawa, M., Borken-Kleefeld, J., Mauzerall, D.L., Horowitz, L.W., Ohara, T., 2011. The impact of China's vehicle emissions on regional air quality in 2000 and 2020: a scenario analysis. Atmos. Chem. Phys. 11, 9465-9484. https://doi.org/10.5194/acp-11-9465-2011.  \\nSaliba, G., Saleh, R., Zhao, Y., Presto, A.A., Lambe, A.T., Frodin, B., Sardar, S., Maldonado, H., Maddox, C., May, A.A., Drozd, G.T., Goldstein, A.H., Russell, L.M., Hagen, F., Robinson,\"], \"chunk_type\": \"figure\"}",
+                      "paperid": "paper_002",
+                      "chunkid": "chunk_004628",
+                      "type": "picture",
+                      "paper_id": "paper_002"
+                    },
+                    "score": 0.5164957099267892,
+                    "source_args": {
+                      "query_intent": "real-time air quality monitoring systems with visual analytics"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004628",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "(evaluation skipped)",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 8
+                    },
+                    "reason": "skip_evaluation enabled; default KEEP without Evaluator LLM",
+                    "suggested_keywords": []
+                  }
+                }
+              ]
+            }
+          ],
+          "iteration_summary": null
+        }
+      ],
+      "summary": null,
+      "hypothesis": null
+    }
+  ],
+  "batch_id": "efc65e7c-5115-4002-809f-8c858dae432b"
+}

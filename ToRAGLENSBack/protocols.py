@@ -169,7 +169,12 @@ class OrchestratorPlan(BaseModel):
     # ⚡️ 新增：策略执行结果统计
     total_results: int = 0  # 总共搜索到的条目数
     duplicate_results: int = 0  # 重复的条目数
-    plansummary: Optional[str] = None  # 策略总结结果
+    # 策略级 Plan 摘要：JSON 字符串 {"answer": "基于检索的回答", "suggestion": "对策略选择的评价"}；旧数据可能为纯文本
+    plansummary: Optional[str] = None
+    # 语义检索（HyDE + rerank）追踪：每个 plan 一份，供实验 JSON 与前端可选可视化
+    hyde_hypothetical_paragraph_full_text: Optional[str] = None
+    rerank_before_ids: Optional[List[str]] = None
+    rerank_after_ids: Optional[List[str]] = None
 
     # ✨ 新增：计划批次 (Orchestrator -> ToolExecutor)
 class OrchestratorPlanBatch(BaseModel):
@@ -242,6 +247,8 @@ class ExperimentRoundParameters(BaseModel):
     rag_allowed_chunk_ids: Optional[List[str]] = Field(default=None)
     # 嵌入二维与全局小地图一致：[[xmin, ymin], [xmax, ymax]]，未框选则为 null
     map_box_rect_2d: Optional[List[List[float]]] = Field(default=None)
+    # 与左栏「跳过评估」一致：true 时不跑 Evaluator LLM；前端小地图用 rerank 着色而非评估分支色
+    skip_evaluation: bool = False
 
 
 class HypothesisStep(BaseModel):

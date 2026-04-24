@@ -44,56 +44,58 @@ class SingleStrategyExecutor:
         
         # 评估器的系统消息
         self.evaluator_system_message = SystemMessage(content="""
-        # 角色定义
-        你是团队中的【验证人员】（实验室研究生），你们团队正在进行针对某个问题的科学文献调研。
-        你们的首席科学家会制定调研的方向，根据那个方向已经搜索出了许多证据，你的任务是对搜索出来的每一条证据进行【单点评估】。
-        你的证据会被提交给首席科学家，首席科学家会根据你的评估结果，进行下一步的决策。如果做的好，首席科学家会给你涨工资，你要好好工作。
-        
-        # 评估逻辑
-        请仔细阅读证据的标题、总结和洞察，**如果有图片，请务必结合图片内容进行视觉判断**。
-        
-        1. **判定动作 (branch_action)**:
-           - **GROW**: 高价值证据。与问题强相关，且包含进一步深挖的线索（如具体的 Paper ID，关联表格，或者图表展示了极具价值的数据趋势）。
-           - **KEEP**: 中等价值。与问题相关，但可能只是背景介绍，或者没有明显的深挖路径。保留作为上下文。
-           - **PRUNE**: 低价值。与问题无关，或者信息过于模糊/重复/低质。直接剪除。
-        
-        2. **信息提取 (extracted_insight)**:
-           - 不要只说"这张图很好"。要说"这张图展示了 PM2.5 在冬季与呼吸道疾病发病率呈正相关"。
-        
-        3. **术语猎捕 (suggested_keywords)**:
-           - 如果发现文中使用了特殊的专有名词（如 "VolumeSTCube", "CNN-LSTM"），请提取出来，供首席科学家扩展搜索。
-        
-        # 输出格式 (JSON List)
-        必须返回一个 JSON 列表，包含所有传入证据的评估结果。不要包含 Markdown 标记。
-        
+        # Role
+        You are the **Evaluator** on a scientific literature investigation team.
+        The lead scientist sets retrieval directions; many evidence items have already been retrieved.
+        Your job is to **evaluate each evidence item independently** and return structured feedback for planning.
+
+        # Evaluation logic
+        Read title, summary, and insight carefully. **If an image is available, incorporate visual judgment.**
+
+        1. **branch_action**
+           - **GROW**: high-value, strongly relevant, with clear follow-up clues (paper IDs, linked tables, or charts showing important trends).
+           - **KEEP**: medium-value, relevant but limited expansion value; keep as context.
+           - **PRUNE**: low-value, irrelevant, vague, duplicated, or noisy—drop.
+
+        2. **extracted_insight**
+           - Give a concrete scientific observation (not generic praise).
+
+        3. **suggested_keywords**
+           - Extract useful technical terms for follow-up search (e.g., model names, methods).
+
+        # Output format (JSON list only, no Markdown)
+        Return one JSON list covering all provided items.
+
         [
           {
             "target_evidence_id": "fig_001",
             "branch_action": "GROW",
-            "extracted_insight": "图表显示 2018 年北京地区 PM2.5 浓度峰值对应哮喘急诊人数峰值。",
+            "extracted_insight": "The chart links winter PM2.5 peaks with asthma emergency-visit peaks.",
             "scores":{"relevance": 9, "credibility": 8},
-            "reason": "这是一张关键趋势图，且 Metadata 中包含源论文 ID, 建议深挖该论文。",
-            "suggested_keywords": ["Time-series analysis", "Asthma emergency visits"]
+            "reason": "High-value trend evidence with traceable paper metadata.",
+            "suggested_keywords": ["time-series analysis", "asthma emergency visits"]
           }
         ]
+
+        # Language
+        - Write **all** narrative string fields in **English**.
         """)
         
         # 总结器的系统消息
         self.summary_system_message = SystemMessage(content="""
-        # 角色定义
-        你是【总结专家】，负责对整个问答过程进行系统性总结与深度分析。
-        你的任务是从复杂的实验结果中提取关键信息，生成清晰、准确的总结报告。
-        
-        # 核心职责
-        1. 过程分析与总结：对问答过程中产生的问题及搜索到的内容进行系统性总结与深度分析
-        2. 内容可视化支持：为问题的所有结果生成词云数据，直观展示关键主题与高频词汇
-        3. 检索质量评估：评估问题提出的积极意义和价值，分析其对知识获取的贡献度
-        
-        # 输出要求
-        - 生成简洁的过程总结，准确反映问答交互中产生的关键问题
-        - 确保总结内容逻辑清晰、重点突出，便于用户快速掌握问答核心
-        - 提供详细的检索质量评估，包括相关性、准确性、权威性和完整性等维度
-        - 生成高质量的词云数据，便于前端可视化展示
+        # Role
+        You are a **Summary Specialist** for a retrieval-driven Q&A workflow.
+        Extract the key information from the experiment trace and write a clear, accurate narrative summary.
+
+        # Responsibilities
+        1. Process analysis: what was asked, how it was searched, and what was found.
+        2. (Optional context) Support visualization with keyword-oriented takeaways when relevant.
+        3. Briefly comment on retrieval quality dimensions (relevance, accuracy, authority, completeness) when evidence allows.
+
+        # Output requirements
+        - Concise but informative; highlight the main findings and limitations.
+        - Logical flow; avoid mechanical bullet dumps unless helpful.
+        - Write the final summary in **English**, even if the user question is in another language.
         """)
     
     async def execute_strategy(self, plan: OrchestratorPlan, root_goal: str = "") -> OrchestratorPlan:
@@ -141,7 +143,7 @@ class SingleStrategyExecutor:
             )
             
             experiment_result = ExperimentResult(
-                root_goal=root_goal or plan.reason or "单策略检索",
+                root_goal=root_goal or plan.reason or "Single-strategy retrieval",
                 iterations=[iteration_result]
             )
             
@@ -162,7 +164,7 @@ class SingleStrategyExecutor:
             # 返回带有错误信息的plan
             plan.total_results = 0
             plan.duplicate_results = 0
-            plan.plansummary = f"执行失败: {str(e)}"
+            plan.plansummary = f"Execution failed: {str(e)}"
             return plan
     
     async def _execute_tool(self, plan: OrchestratorPlan) -> List[RawEvidenceItem]:
@@ -185,7 +187,7 @@ class SingleStrategyExecutor:
             return []
         
         # 构建评估提示
-        prompt_text = "请对以下新检索到的证据进行单点评估（JSON List 格式）：\n"
+        prompt_text = "Please evaluate the following newly retrieved evidence items (JSON list format):\n"
         
         for item in items:
             meta_preview = {k: v for k, v in item.metadata.items() if k not in ['full_json', 'embedding']}
@@ -232,25 +234,25 @@ class SingleStrategyExecutor:
     async def _generate_summary(self, experiment_result: ExperimentResult, evidence_data: List[RawEvidenceItem]) -> str:
         """生成策略总结（复刻InteractionSummaryAgent的逻辑）"""
         if not experiment_result.iterations:
-            return "本次检索未产生任何结果。"
+            return "This retrieval returned no results."
         
         # 构建总结提示
         summary_parts = []
-        summary_parts.append(f"# 检索过程总结\n")
-        summary_parts.append(f"**根目标**: {experiment_result.root_goal}\n")
-        summary_parts.append(f"**检索轮次**: {len(experiment_result.iterations)}\n\n")
+        summary_parts.append("# Retrieval process summary\n")
+        summary_parts.append(f"**Root goal**: {experiment_result.root_goal}\n")
+        summary_parts.append(f"**Iterations**: {len(experiment_result.iterations)}\n\n")
         
         # 分析策略和结果
         if experiment_result.iterations:
             latest_iteration = experiment_result.iterations[-1]
-            summary_parts.append(f"## 策略执行总结\n")
-            
+            summary_parts.append("## Strategy execution\n")
+
             for j, query_result in enumerate(latest_iteration.query_results):
                 plan = query_result.orchestrator_plan
-                summary_parts.append(f"- **策略**: {plan.tool_name}\n")
-                summary_parts.append(f"  - **参数**: {plan.args}\n")
-                summary_parts.append(f"  - **原因**: {plan.reason}\n")
-                summary_parts.append(f"  - **结果**: 找到 {len(query_result.rag_results)} 条\n")
+                summary_parts.append(f"- **Strategy**: {plan.tool_name}\n")
+                summary_parts.append(f"  - **Args**: {plan.args}\n")
+                summary_parts.append(f"  - **Reason**: {plan.reason}\n")
+                summary_parts.append(f"  - **Hits**: {len(query_result.rag_results)}\n")
                 
                 # 统计评估结果
                 grow_count = sum(1 for r in query_result.rag_results 
@@ -260,10 +262,11 @@ class SingleStrategyExecutor:
                 prune_count = sum(1 for r in query_result.rag_results 
                                 if r.evaluation and r.evaluation.branch_action == "PRUNE")
                 
-                summary_parts.append(f"  - **评估**: 高价值 {grow_count} 条，中等价值 {keep_count} 条，低价值 {prune_count} 条\n")
-        
-        # 提取关键洞察
-        summary_parts.append("\n## 关键洞察\n")
+                summary_parts.append(
+                    f"  - **Eval counts**: GROW={grow_count}, KEEP={keep_count}, PRUNE={prune_count}\n"
+                )
+
+        summary_parts.append("\n## Key insights\n")
         key_insights = []
         
         for iteration in experiment_result.iterations:
@@ -278,47 +281,45 @@ class SingleStrategyExecutor:
             summary_parts.append(f"{i+1}. {insight}\n")
         
         # 构建大模型提示
-        prompt = f"# 检索过程总结任务\n\n"
-        prompt += f"## 输入信息\n"
-        prompt += f"**根目标**: {experiment_result.root_goal}\n"
-        prompt += f"**检索轮次**: {len(experiment_result.iterations)}\n\n"
+        prompt = "# Retrieval process summary task\n\n"
+        prompt += "## Input\n"
+        prompt += f"**Root goal**: {experiment_result.root_goal}\n"
+        prompt += f"**Iterations**: {len(experiment_result.iterations)}\n\n"
         
         # 添加策略和结果信息
         if experiment_result.iterations:
             latest_iteration = experiment_result.iterations[-1]
-            prompt += f"## 策略执行信息\n"
+            prompt += "## Strategy execution\n"
             for j, query_result in enumerate(latest_iteration.query_results):
                 plan = query_result.orchestrator_plan
-                prompt += f"- **策略**: {plan.tool_name}\n"
-                prompt += f"  - **参数**: {plan.args}\n"
-                prompt += f"  - **原因**: {plan.reason}\n"
-                prompt += f"  - **结果数量**: {len(query_result.rag_results)} 条\n"
-                
-                # 添加前3个结果的详细信息
+                prompt += f"- **Strategy**: {plan.tool_name}\n"
+                prompt += f"  - **Args**: {plan.args}\n"
+                prompt += f"  - **Reason**: {plan.reason}\n"
+                prompt += f"  - **Hit count**: {len(query_result.rag_results)}\n"
+
                 if query_result.rag_results:
-                    prompt += f"  - **详细结果**:\n"
+                    prompt += "  - **Sample results**:\n"
                     for k, rag_result in enumerate(query_result.rag_results[:3]):
                         content = rag_result.retrieval_result.content
-                        content_str = str(content) if content else "无内容"
-                        prompt += f"    - **结果 {k+1}**: {content_str[:100]}...\n"
+                        content_str = str(content) if content else "(no content)"
+                        prompt += f"    - **Result {k + 1}**: {content_str[:100]}...\n"
                         if rag_result.evaluation:
-                            prompt += f"      - **评估**: {rag_result.evaluation.branch_action}\n"
-                            prompt += f"      - **分数**: {rag_result.evaluation.scores}\n"
+                            prompt += f"      - **Evaluation**: {rag_result.evaluation.branch_action}\n"
+                            prompt += f"      - **Scores**: {rag_result.evaluation.scores}\n"
                             insight = rag_result.evaluation.extracted_insight
-                            insight_str = str(insight) if insight else "无洞察"
-                            prompt += f"      - **洞察**: {insight_str[:150]}...\n"
-        
-        # 添加关键洞察
-        prompt += "\n## 关键洞察\n"
+                            insight_str = str(insight) if insight else "(no insight)"
+                            prompt += f"      - **Insight**: {insight_str[:150]}...\n"
+
+        prompt += "\n## Key insights\n"
         for insight in unique_insights:
             prompt += f"- {insight}\n"
-        
-        prompt += "\n## 任务要求\n"
-        prompt += "1. 基于以上信息，生成一个全面、连贯的检索过程总结\n"
-        prompt += "2. 总结应包括策略信息、检索结果、评估分析和关键洞察\n"
-        prompt += "3. 总结应逻辑清晰、重点突出，便于用户快速掌握核心内容\n"
-        prompt += "4. 使用自然、流畅的语言，避免过于技术性的表达\n"
-        prompt += "5. 总结长度适中，控制在500-1000字左右\n"
+
+        prompt += "\n## Task requirements\n"
+        prompt += "1. Produce a coherent end-to-end retrieval summary from the information above.\n"
+        prompt += "2. Cover strategies, retrieval outcomes, evaluation mix, and key insights.\n"
+        prompt += "3. Keep logic clear and emphasize what matters for the root goal.\n"
+        prompt += "4. Use fluent **English** even if the root goal is not in English.\n"
+        prompt += "5. Target about 500–900 English words.\n"
         
         # 调用大模型生成总结
         try:

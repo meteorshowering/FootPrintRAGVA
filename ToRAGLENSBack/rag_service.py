@@ -3,6 +3,7 @@
 【长期价值】核心长期维护。
 """
 import re
+import contextvars
 from typing import List, Dict, Any, Optional, Union
 import asyncio
 import os
@@ -59,6 +60,21 @@ try:
 except ImportError:
     aiohttp = None  # type: ignore
     AIOHTTP_AVAILABLE = False
+
+# 与 asyncio.Task 绑定的语义检索 trace，避免同一 RAGService 上并发 plan 互相覆盖
+_semantic_pipeline_trace_cv: contextvars.ContextVar[Optional[Dict[str, Any]]] = contextvars.ContextVar(
+    "_semantic_pipeline_trace_cv", default=None
+)
+
+
+def consume_semantic_pipeline_trace() -> Optional[Dict[str, Any]]:
+    """由 ToolExecutor 在同一次 await 工具链结束后读取并清空，供写回 OrchestratorPlan。"""
+    try:
+        cur = _semantic_pipeline_trace_cv.get()
+    except LookupError:
+        return None
+    _semantic_pipeline_trace_cv.set(None)
+    return cur
 
 
 def _log_rag_semantic_pipeline_to_run_md(payload: Dict[str, Any]) -> None:
@@ -374,6 +390,33 @@ class RAGService:
         if isinstance(value, (list, dict, tuple)):
             return json.dumps(value, ensure_ascii=False)
         return value
+
+    def _lookup_coordinates_2d_from_local_cache(self, item_id: str) -> Optional[List[float]]:
+        """
+        用当前 figures_file_path 加载的 local_data_cache（与前端底图同源）覆盖二维坐标，
+        避免 Chroma 里 full_json 仍为旧降维结果而地图已更新 embeddings JSON。
+        """
+        if not item_id or not self.local_data_cache:
+            return None
+        sid = str(item_id).strip()
+        if not sid:
+            return None
+        for row in self.local_data_cache:
+            if not isinstance(row, dict):
+                continue
+            rid = row.get("id") or row.get("chunk_id")
+            if rid is None:
+                continue
+            if str(rid).strip() != sid:
+                continue
+            c = row.get("coordinates_2d")
+            if isinstance(c, (list, tuple)) and len(c) >= 2:
+                try:
+                    return [float(c[0]), float(c[1])]
+                except (TypeError, ValueError):
+                    return None
+            return None
+        return None
     
     # ... _load_data_to_memory 保持不变 ...
     async def _load_data_to_memory(self):
@@ -441,7 +484,8 @@ class RAGService:
         allowed_chunk_ids: Optional[List[str]] = None,
     ) -> List[Dict[str, Any]]:
         if not self.initialized: await self.initialize()
-        
+        _semantic_pipeline_trace_cv.set(None)
+
         # 智能选择集合
         target_collection = None
         
@@ -591,6 +635,13 @@ class RAGService:
                 "before_rerank_ids_and_vector_scores": before_rerank,
                 "after_rerank_ids_and_scores": after_rerank,
                 "rerank_order_changed_vs_vector_stage": order_changed,
+            }
+        )
+        _semantic_pipeline_trace_cv.set(
+            {
+                "hyde_hypothetical_paragraph_full_text": hyde_hypothetical_paragraph or "",
+                "rerank_before_ids": ids_b,
+                "rerank_after_ids": ids_a,
             }
         )
         return formatted
@@ -1053,6 +1104,20 @@ class RAGService:
                 # 其他情况，使用文档文本
                 content_obj = {"text": doc if doc else ""}
             
+            fresh_coords = self._lookup_coordinates_2d_from_local_cache(str(img_id))
+            if fresh_coords is not None and isinstance(full_obj, dict):
+                if full_obj is meta_dict:
+                    full_obj = dict(meta_dict)
+                else:
+                    full_obj = dict(full_obj)
+                full_obj["coordinates_2d"] = fresh_coords
+                if meta_dict.get("full_json"):
+                    try:
+                        meta_dict = dict(meta_dict)
+                        meta_dict["full_json"] = json.dumps(full_obj, ensure_ascii=False)
+                    except Exception:
+                        pass
+
             # 确保返回的格式统一，包含所有必要的字段
             formatted.append({
                 "id": img_id, 

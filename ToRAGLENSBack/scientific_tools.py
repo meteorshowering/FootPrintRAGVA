@@ -175,7 +175,8 @@ async def strategy_semantic_search(query_intent: str, n_results: int = 10) -> Li
     try:
         results = await service.query_by_semantic(
             query_text=query_intent,
-            n_results=n_results
+            n_results=n_results,
+            allowed_chunk_ids=get_rag_allowed_chunk_ids(),
         )
     except Exception as e:
         print(f"❌ Semantic Search Error: {e}")

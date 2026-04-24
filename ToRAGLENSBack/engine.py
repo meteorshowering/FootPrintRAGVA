@@ -10,13 +10,13 @@ import re
 import traceback
 import os
 import datetime
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 
 # -----------------------------------------------------------------
 # 1. 导入模块
 # -----------------------------------------------------------------
 try:
-    from rag_service import get_rag_service, rag_service
+    from rag_service import get_rag_service, rag_service, consume_semantic_pipeline_trace
     from scientific_tools import ALL_TOOLS_MAP, set_active_collection_name, set_rag_allowed_chunk_ids
     from protocols import (
         UserRequest, OrchestratorPlan, OrchestratorPlanBatch, SingleToolOutput, ToolOutputBatchMessage,
@@ -24,12 +24,111 @@ try:
         HypothesisStep, HypothesisData,
         RawEvidenceItem, ItemEvaluation, ResearchGraph, GraphNode, ActionTrace, NodeSearchRecord,
         SummaryRequest, SummaryResponse, WordCloudData, RetrievalQualityEvaluation,
-        ExperimentResult, ExperimentRoundParameters, IterationSummary,
+        ExperimentResult, ExperimentRoundParameters,
         OutlineRequest, OutlineResponse, SubTopic, SectionRequest, SectionResponse, SynthesisRequest,
     )
 except ImportError as e:
     print(f"Error importing project modules: {e}")
     exit()
+
+
+def apply_rag_result_per_plan_to_plans(
+    plans: List[OrchestratorPlan], rag_result_per_plan: int
+) -> List[OrchestratorPlan]:
+    """每条工具计划在执行前强制对齐 n_results：交互审批回传的 plans 常丢失该字段，会回落到 LLM 自带的 3 等小值。"""
+    try:
+        n = int(rag_result_per_plan)
+    except (TypeError, ValueError):
+        n = 10
+    n = max(1, min(n, 20))
+    out: List[OrchestratorPlan] = []
+    for plan in plans:
+        args = dict(plan.args) if isinstance(plan.args, dict) else {}
+        tn = plan.tool_name or ""
+        if tn in ("strategy_semantic_search", "strategy_exact_search"):
+            args["n_results"] = n
+        else:
+            args.pop("n_results", None)
+        out.append(plan.model_copy(update={"args": args}))
+    return out
+
+
+def _normalize_plan_summary_llm_output(raw: str) -> str:
+    """将 Plan Summary 模型输出规范为 JSON 字符串：{\"answer\": str, \"suggestion\": str}。"""
+    text = (raw or "").strip()
+    text = re.sub(r"^```(?:json)?\s*", "", text, flags=re.I | re.MULTILINE)
+    text = re.sub(r"\s*```\s*$", "", text)
+    text = text.strip()
+    try:
+        obj = json.loads(text)
+        if isinstance(obj, dict):
+            ans = obj.get("answer", "")
+            sug = obj.get("suggestion", "")
+            if not isinstance(ans, str):
+                ans = json.dumps(ans, ensure_ascii=False) if ans is not None else ""
+            if not isinstance(sug, str):
+                sug = json.dumps(sug, ensure_ascii=False) if sug is not None else ""
+            return json.dumps({"answer": ans, "suggestion": sug}, ensure_ascii=False)
+    except Exception:
+        pass
+    raw_stripped = (raw or "").strip()
+    return json.dumps(
+        {
+            "answer": raw_stripped[:12000] if raw_stripped else "",
+            "suggestion": "The model did not return parseable JSON; the answer field contains an excerpt of the raw output.",
+        },
+        ensure_ascii=False,
+    )
+
+
+def _plan_summary_rag_id_and_content_text(rr: Any) -> Tuple[str, str]:
+    """
+    plansummary 输入里每条 RAG 只保留 id + 一段正文：
+    - 优先 content-text：content 中的 text / content_text / markdown / body 等；
+    - 若无正文（如多模态图片块），用 content-title 与 content-summary 合并（兼容 title/summary、concise_summary 及 metadata 兜底）。
+    """
+    rid = str(getattr(rr, "id", "") or "").strip()
+    raw_c = getattr(rr, "content", None)
+    c: Dict[str, Any] = raw_c if isinstance(raw_c, dict) else {}
+
+    def _norm(v: Any) -> str:
+        if v is None:
+            return ""
+        if isinstance(v, list):
+            return " ".join(str(x) for x in v).strip()
+        return str(v).strip()
+
+    for key in ("text", "content_text", "content-text", "markdown", "body"):
+        t = _norm(c.get(key))
+        if t:
+            return rid, t
+
+    title = _norm(
+        c.get("title")
+        or c.get("content_title")
+        or c.get("content-title")
+    )
+    summary = _norm(
+        c.get("summary")
+        or c.get("content_summary")
+        or c.get("content-summary")
+        or c.get("concise_summary")
+    )
+
+    meta = getattr(rr, "metadata", None)
+    md: Dict[str, Any] = meta if isinstance(meta, dict) else {}
+    if not title:
+        title = _norm(md.get("title") or md.get("paper_name"))
+    if not summary:
+        summary = _norm(md.get("summary") or md.get("concise_summary"))
+
+    if title and summary:
+        return rid, f"{title}\n{summary}"
+    if title:
+        return rid, title
+    if summary:
+        return rid, summary
+    return rid, ""
 
 
 def normalize_map_box_rect_2d(raw: Any) -> Optional[List[List[float]]]:
@@ -240,6 +339,67 @@ class WorkflowLogger:
 
 logger = WorkflowLogger()
 
+
+def _is_retryable_llm_transport_error(exc: BaseException) -> bool:
+    """网关 502/503、限流、超时等可重试；4xx 客户端错误不重试。"""
+    code = getattr(exc, "status_code", None)
+    if code is None:
+        code = getattr(exc, "code", None)
+    if isinstance(code, int):
+        if code == 429:
+            return True
+        if code >= 500:
+            return True
+        return False
+    name = type(exc).__name__
+    if name in (
+        "InternalServerError",
+        "APIConnectionError",
+        "APITimeoutError",
+        "RateLimitError",
+        "ServiceUnavailableError",
+    ):
+        return True
+    s = str(exc).lower()
+    if "502" in s or "503" in s or "504" in s or "500" in s or "timeout" in s or "connection" in s:
+        return True
+    return False
+
+
+async def model_create_with_retry(
+    model_client,
+    *,
+    messages,
+    cancellation_token,
+    source: str = "Orchestrator",
+    max_retries: int = 5,
+    base_delay: float = 1.8,
+):
+    """对 OpenAI 兼容网关的瞬时 5xx/429 做退避重试（与 autogen OpenAIChatCompletionClient.create 签名一致）。"""
+    last_exc: Optional[BaseException] = None
+    for attempt in range(max_retries):
+        try:
+            return await model_client.create(
+                messages=messages,
+                cancellation_token=cancellation_token,
+            )
+        except BaseException as e:
+            last_exc = e
+            if attempt >= max_retries - 1 or not _is_retryable_llm_transport_error(e):
+                raise
+            delay = min(48.0, base_delay * (2**attempt))
+            logger.log(
+                source,
+                f"LLM 调用失败（{type(e).__name__}），{delay:.1f}s 后重试 ({attempt + 2}/{max_retries}）",
+                "RETRY",
+                detail_data=str(e)[:1200],
+            )
+            await asyncio.sleep(delay)
+    if last_exc is not None:
+        raise last_exc
+    raise RuntimeError("model_create_with_retry: no attempt executed")
+
+
 # -----------------------------------------------------------------
 # 3. 主题定义
 # -----------------------------------------------------------------
@@ -345,7 +505,7 @@ class OrchestratorAgent(RoutedAgent):
 
         # Your Core Responsibilities
         1. **Initial planning**: for a new user question, propose multiple (3-5) search angles.
-        2. **Dynamic decisions**: adapt based on evaluator feedback.
+        2. **Dynamic decisions**: adapt using **prior rounds' strategies and plan summaries** (`answer` / `suggestion` per plan). Do not rely on raw evidence text in the prompt.
         3. **Direction control**: balance **breadth** (new directions) and **depth** (evidence-chain validation).
 
         # Decision Rules
@@ -365,15 +525,18 @@ class OrchestratorAgent(RoutedAgent):
         2. **Search Methods**:
            - `strategy_semantic_search`: Used for semantic similarity retrieval. Parameter: `query_intent` (a natural language phrase or sentence describing what you are looking for).
            - `strategy_metadata_search`: Used for retrieving a specific paper to explore its context. Parameter: `paper_id` (the ID of the paper).
-           - `strategy_exact_search`: Used for exact text matching in the database. Parameter: `query_intent`. **IMPORTANT**: For exact search, you MUST use ONLY one or two specific proper nouns (e.g. "PM2.5" or "CNN-LSTM") rather than long phrases or sentences to prevent getting zero results. You should heavily refer to the `suggested_keywords` provided in the evaluation feedback.
+           - `strategy_exact_search`: Used for exact text matching in the database. Parameter: `query_intent`. **IMPORTANT**: For exact search, you MUST use ONLY one or two specific proper nouns (e.g. "PM2.5" or "CNN-LSTM") rather than long phrases or sentences to prevent getting zero results. Prefer terms implied by prior `plansummary.answer` / `plansummary.suggestion` or plan `args`, not raw evidence text.
 
         Before outputting each strategy, internally check:
         - Relevance to the original user question (0-10)
         - Novelty vs historical strategies (0-10)
         Only output if both are >= 7.
 
-        # Historical Strategies
-        Use historical strategies to avoid duplication and to improve novelty.
+        # Prior rounds (structured)
+        The user message will include completed iterations: each plan's tool/args/reason plus `plansummary.answer` and `plansummary.suggestion`. Use them to avoid repeating failed angles and to pursue under-covered directions.
+
+        # Language
+        - Write every natural-language field **you output** (especially each strategy's `reason`) in **English**, even if the user's question is in another language.
         """)
         self.outputregulate = '''
         In this round, you must output about __PLANS_PER_ROUND__ distinct retrieval strategies.
@@ -389,28 +552,28 @@ class OrchestratorAgent(RoutedAgent):
                 "ParentNode": "0",
                 "tool_name": "strategy_semantic_search", 
                 "args": { "query_intent": "PM2.5 chemical composition and source analysis" },
-                "reason": "我查看了当前的检索结果，发现已有研究关注PM2.5的浓度变化，但对其化学组成和具体来源的研究还不够深入。我认为有必要探索其他关于PM2.5化学组成分析和来源解析的研究，以获得更全面的理解。"
+                "reason": "Prior work already covers PM2.5 concentration trends, but chemical composition and sources are under-explored; we should retrieve studies on PM2.5 composition apportionment and source analysis for a fuller picture."
             },
             {
                 "action": "call_tool",
                 "ParentNode": "chunk_003329",
                 "tool_name": "strategy_metadata_search", 
                 "args": { "paper_id": "3" },
-                "reason": "这个结果详细讨论了大气污染物的监测方法，评估者对其高度评价。我认为有必要深入查看这篇论文的完整内容，了解其研究方法和具体发现，以便进一步验证和扩展相关研究。"
+                "reason": "This hit discusses air-pollutant monitoring methods and was rated highly by the evaluator; opening the full paper should clarify methods and findings for follow-up validation."
             },
             {
                 "action": "call_tool",
                 "ParentNode": "0",
                 "tool_name": "strategy_exact_search", 
                 "args": { "query_intent": "VOC" },
-                "reason": "需要精确查找文献中明确提到'VOC'的段落，不希望引入过于宽泛的语义结果，因此采用精确文本匹配检索。"
+                "reason": "We need passages that explicitly mention VOC; exact match avoids overly broad semantic noise."
             },
             {
                 "action": "call_tool",
                 "ParentNode": "chunk_002431",
                 "tool_name": "strategy_semantic_search", 
-                "args": { "query_intent": "大气扩散模型的改进与应用研究" },
-                "reason": "当前结果中提到了大气污染物的扩散，但对扩散模型的具体应用和改进研究还不够深入。我认为探索大气扩散模型的最新改进和应用，对提高污染物预测的准确性非常重要。"
+                "args": { "query_intent": "Atmospheric dispersion model improvements and applications" },
+                "reason": "Results mention pollutant dispersion but not model advances; retrieving dispersion-model improvements should strengthen prediction-oriented evidence."
             }
         ]
         Or when evidence is already sufficient:
@@ -491,6 +654,70 @@ class OrchestratorAgent(RoutedAgent):
             "nodes": vis_nodes,
             "links": vis_links
         }
+
+    def _build_orchestrator_prior_rounds_context(self, max_answer_chars: int = 3500, max_suggestion_chars: int = 2000) -> str:
+        """
+        为下一轮规划构造上下文：仅包含已结束轮次中每条策略的元信息 + plansummary 的 answer/suggestion，
+        不再注入证据节点全文（避免低质量噪声）。
+        """
+        lines: List[str] = []
+        lines.append("\n## Prior completed rounds: strategies + plan summaries\n")
+        lines.append(
+            "Below lists each **executed** retrieval plan from finished iterations. "
+            "For each plan, `answer` is the data-grounded response to what that strategy found; "
+            "`suggestion` critiques whether that strategy angle was good. "
+            "Use this (not raw passages) to decide broader vs deeper next steps. "
+            "Do **not** repeat identical tool+args combinations unless you have a clearly new rationale.\n"
+        )
+        iters = getattr(self.experiment_result, "iterations", None) or []
+        if not iters:
+            lines.append("(No completed iterations recorded yet.)\n")
+            return "".join(lines)
+        for it in iters:
+            rn = getattr(it, "round_number", "?")
+            lines.append(f"\n### Iteration round_number={rn}\n")
+            qrs = it.query_results or []
+            if not qrs:
+                lines.append("(No query_results in this iteration.)\n")
+                continue
+            for qi, qr in enumerate(qrs):
+                op = qr.orchestrator_plan
+                if not op:
+                    continue
+                ps = op.plansummary
+                ps_str = ps.strip() if isinstance(ps, str) else ""
+                answer_txt, suggestion_txt = "", ""
+                if ps_str.startswith("{"):
+                    try:
+                        obj = json.loads(ps_str)
+                        if isinstance(obj, dict):
+                            a = obj.get("answer", "")
+                            s = obj.get("suggestion", "")
+                            answer_txt = str(a) if a is not None else ""
+                            suggestion_txt = str(s) if s is not None else ""
+                    except Exception:
+                        answer_txt = ps_str[:max_answer_chars]
+                        suggestion_txt = "(plansummary JSON parse failed; truncated raw in answer.)"
+                elif ps_str:
+                    answer_txt = ps_str[:max_answer_chars]
+                    suggestion_txt = "(legacy free-text plansummary; no separate suggestion field.)"
+                if len(answer_txt) > max_answer_chars:
+                    answer_txt = answer_txt[:max_answer_chars] + "\n…(truncated)"
+                if len(suggestion_txt) > max_suggestion_chars:
+                    suggestion_txt = suggestion_txt[:max_suggestion_chars] + "\n…(truncated)"
+                lines.append(f"- Plan index {qi + 1} in this iteration:\n")
+                lines.append(
+                    f"  - ParentNode: {op.ParentNode or '0'}, tool_name: {op.tool_name!r}, "
+                    f"total_results: {op.total_results}, duplicate_results: {op.duplicate_results}\n"
+                )
+                lines.append(f"  - args: {json.dumps(op.args, ensure_ascii=False)}\n")
+                lines.append(f"  - reason: {op.reason}\n")
+                if answer_txt or suggestion_txt:
+                    lines.append(f"  - plansummary.answer: {answer_txt or '(empty)'}\n")
+                    lines.append(f"  - plansummary.suggestion: {suggestion_txt or '(empty)'}\n")
+                else:
+                    lines.append("  - plansummary: (not available yet for this plan)\n")
+        return "".join(lines)
 
     async def push_update(self):
         """主动调用 WebSocket 推送当前 Graph 和 ExperimentResult（包含 plansummary）"""
@@ -592,16 +819,20 @@ class OrchestratorAgent(RoutedAgent):
         
         # 1. 尝试使用大模型生成两个相关的发散问题
         rewrite_prompt = f"""
-        用户提出了一个科学问题："{query}"
-        请你基于这个问题，生成另外2个不同的、发散的搜索查询短语（query intent），用于文献的语义检索。
-        这些查询短语应该探索问题的不同侧面或相关概念。
-        请仅返回一个包含这两个查询短语的JSON数组，格式如下：
-        [
-            "查询短语1",
-            "查询短语2"
-        ]
-        不要输出任何其他解释性文字。
-        """
+The user asked this scientific question (verbatim; language may vary):
+"{query}"
+
+Produce **two additional** distinct, diverse **query intents** (short phrases or sentences) for semantic literature retrieval.
+Each intent should explore a **different** angle or related concept.
+
+Return **only** a JSON array of exactly two strings, for example:
+[
+  "first query intent",
+  "second query intent"
+]
+
+No markdown fences, no explanations, no extra keys—only the JSON array.
+"""
         
         rewritten_queries = []
         try:
@@ -626,7 +857,7 @@ class OrchestratorAgent(RoutedAgent):
             tool_name="strategy_semantic_search",
             ParentNode="0",
             args={"query_intent": query, "n_results": self.rag_result_per_plan},
-            reason="使用用户原始问题作为初始检索条件，获取相关文献基础"
+            reason="Initial retrieval using the user's original question to establish a baseline evidence set."
         ))
         
         # 改写问题策略
@@ -636,7 +867,7 @@ class OrchestratorAgent(RoutedAgent):
                 tool_name="strategy_semantic_search",
                 ParentNode="0",
                 args={"query_intent": rw_query, "n_results": self.rag_result_per_plan},
-                reason=f"大模型发散的扩展搜索角度 {i+1}"
+                reason=f"LLM-diverged exploratory search angle {i + 1}"
             ))
 
         # 3. 准备迭代结果
@@ -684,6 +915,7 @@ class OrchestratorAgent(RoutedAgent):
                     return
                 logger.log("Orchestrator", f"用户审批完成，最终下发 {len(plans)} 个初始任务", "USER_APPROVED")
 
+        plans = apply_rag_result_per_plan_to_plans(plans, self.rag_result_per_plan)
         for plan in plans:
             # 创建QueryResult并保存原始策略信息
             query_result = QueryResult(orchestrator_plan=plan)
@@ -862,7 +1094,7 @@ class OrchestratorAgent(RoutedAgent):
         if not new_items_buffer:
             logger.log("Orchestrator", "本轮无新数据，直接进入下一轮", "SKIP_EVAL")
             self.pending_eval_batches = 1
-            await self.handle_eval(EvaluationReportMessage(evaluations=[], global_suggestion="无需评估"), ctx)
+            await self.handle_eval(EvaluationReportMessage(evaluations=[], global_suggestion="No evaluation needed."), ctx)
             return
 
         if self.skip_evaluation:
@@ -978,35 +1210,38 @@ class OrchestratorAgent(RoutedAgent):
                 # 可选地，直接发送实验数据给前端（利用现有的机制）
                 return
 
-            # --- InteractionSummaryAgent 整段已停用（不收集证据、不 publish SummaryRequest）；恢复时取消下面注释块 ---
-            # # 收集当前轮次的证据数据
-            # current_evidence_data = []
-            # for nid in self.current_round_ids:
-            #     if nid in self.graph.nodes:
-            #         node = self.graph.nodes[nid]
-            #         # 从节点创建RawEvidenceItem
-            #         evidence_item = RawEvidenceItem(
-            #             id=node.id,
-            #             source_tool=node.source_tool,
-            #             content=node.content,
-            #             metadata=node.metadata,
-            #             score=0.0,
-            #             source_args=node.source_args
-            #         )
-            #         current_evidence_data.append(evidence_item)
-            #
-            # # 在节点评估完成之后、下一轮新策略生成之前运行InteractionSummaryAgent
-            # logger.log("Orchestrator", "调用InteractionSummaryAgent进行本轮综合总结", "SUMMARY_CALL")
-            # await self.publish_message(
-            #     SummaryRequest(
-            #         experiment_result=self.experiment_result,
-            #         current_evidence_data=current_evidence_data,
-            #         current_question=self.graph.root_goal,
-            #         user_original_input=self.graph.root_goal
-            #     ),
-            #     topic_id=TopicId(TOPIC_SUMMARY, source=self.id.key)
-            # )
-            
+            # 收集当前轮次的证据数据；内联 await InteractionSummaryAgent 直至所有 plansummary 完成后再进入下一轮规划
+            current_evidence_data = []
+            for nid in self.current_round_ids:
+                if nid in self.graph.nodes:
+                    node = self.graph.nodes[nid]
+                    evidence_item = RawEvidenceItem(
+                        id=node.id,
+                        source_tool=node.source_tool,
+                        content=node.content,
+                        metadata=node.metadata,
+                        score=0.0,
+                        source_args=node.source_args,
+                    )
+                    current_evidence_data.append(evidence_item)
+
+            logger.log(
+                "Orchestrator",
+                "内联调用 InteractionSummaryAgent（仅 per-plan plansummary；完成后才进入下一轮规划）",
+                "SUMMARY_CALL",
+            )
+            # 必须 await 在本协程内跑完：保证本轮所有 plansummary 写完后再 _plan_next_move；勿用 publish_message 以免与 runtime 顺序不确定
+            _summary_agent = InteractionSummaryAgent(self.model_client, self.ws_manager)
+            await _summary_agent.handle_summary_request(
+                SummaryRequest(
+                    experiment_result=self.experiment_result,
+                    current_evidence_data=current_evidence_data,
+                    current_question=self.graph.root_goal,
+                    user_original_input=self.experiment_result.root_goal or self.graph.root_goal,
+                ),
+                ctx,
+            )
+
             # 决策：继续还是停止
             if self.round_count >= self.max_rounds:
                 logger.log("Orchestrator", "达到最大轮次限制，准备生成报告。", "STOP")
@@ -1025,8 +1260,8 @@ class OrchestratorAgent(RoutedAgent):
 
         主要步骤：
         1. **上下文构建 (Context)**：
-           - 获取当前图谱中的【活跃节点】(Active Nodes) 作为深挖的潜在父节点。
-           - 注入【上一轮战况】(Last Round Stats)，特别是重复率数据，以触发 LLM 的反思机制（高重复率 -> 强制 Broader）。
+           - 从 `experiment_result.iterations` 注入【已完成轮次】中每条策略的 tool/args/reason 及 **plansummary** 的 `answer`（数据侧归纳）与 `suggestion`（策略评价）；**不再**注入证据节点全文。
+           - 结合图谱规模（节点数）与已完成的规划轮次，决定广度/深度。
         
         2. **LLM 决策 (Decision)**：
            - 调用模型生成 JSON 格式的任务列表，决定是继续深挖 (Deeper) 还是横向扩展 (Broader)。
@@ -1039,83 +1274,21 @@ class OrchestratorAgent(RoutedAgent):
            - 强制类型转换：确保 `ParentNode` 为安全的字符串 ID (0/None -> "ROOT")。
            - 封装为 `OrchestratorPlan` 消息，并行广播给 ToolExecutor。
         '''
-        # 构建历史策略信息
-        history_strategies_text = ""
-        if self.history_strategies:
-            history_strategies_text = "\n\n## 📋 历史策略回顾 (避免重复，参考创新)，不要生成重复的策略。\n"
-            for i, strategy in enumerate(self.history_strategies, 1):
-                # 使用OrchestratorPlan的属性
-                history_strategies_text += f"{i}. 父节点: {strategy.ParentNode or '0'}, 工具: {strategy.tool_name or 'unknown'}, 参数: {strategy.args}\n"
-                history_strategies_text += f" (搜到: {strategy.total_results}条, 重复: {strategy.duplicate_results}条)" if strategy.total_results > 0 else ""
-        
+        # 规划阶段不再把当前轮证据节点的全文塞进 prompt；清空 id 集合（摘要阶段已消费过）
+        self.current_round_ids.clear()
+
         # ⚡️ 修改：处理初始搜索的特殊情况
-        if self.round_count == 0 and len(self.current_round_ids) == 0:
-            # 第一次调用，还没有任何评估结果，使用用户问题本身作为基础
+        if self.round_count == 0 and len(self.graph.nodes) <= 1:
+            # 尚无图谱证据节点时的兜底（极少触发）
             self.strategyhis = f'''User question: {self.graph.root_goal}. Every strategy must directly serve this question and avoid irrelevant drift.
-            Current state: this is the first planning step after initial semantic retrieval, and the system has {len(self.graph.nodes) - 1} relevant evidence nodes.
-
-            Plan the next retrieval strategies based on these initial results. You may consider:
-            1. Deeper follow-up on specific promising nodes
-            2. Broader semantic expansion using discovered keywords
-            3. Exploration of related multimodal evidence
-
-            {history_strategies_text}'''
+            Current state: planning with little or no evidence graph yet (nodes: {len(self.graph.nodes)}).
+            Propose the next retrieval strategies using only the structured prior-round summaries below (may be empty on the very first continuation).'''
         else:
-            # 正常情况：有评估结果
             self.strategyhis = f'''User question: {self.graph.root_goal}. Every strategy must directly serve this question and avoid irrelevant drift.
-            Current interaction rounds: {self.round_count}. Current evidence nodes: {len(self.graph.nodes)}.
-            {history_strategies_text}'''
-            self.searchpro = "Below are evaluator-reviewed retrieval results. Use them to decide whether to expand along current evidence chains or explore new directions."
-            if self.current_round_ids:
-                logger.log("Orchestrator", f"当前评估节点{len(self.current_round_ids)}个:", "PLANNING")
-                for nid in self.current_round_ids:
-                    node = self.graph.nodes[nid]
+            Completed planner-evaluation cycles so far: {self.round_count}. Evidence graph nodes (including ROOT): {len(self.graph.nodes)}.
+            The next section summarizes **finished iterations only**: each plan's tool/args/reason and its plan-summary **answer** (what the data supported) and **suggestion** (how good the strategy was).'''
 
-                    id = node.id
-                    content = node.content
-                    paperid = node.metadata.get("paper_id") if node.metadata else None
-                    keywords = node.metadata.get("key_entities") if node.metadata else None
-                    hitcount = node.hit_count
-                    source_tool = node.source_tool
-                    source_args = node.source_args
-                    # evaluation = node.evaluation
-                    this_round_accesses = [
-                        acc for acc in node.search_history 
-                        if acc.round_index == self.round_count
-                    ]
-                    
-                    # 为了填入你的 Prompt，我们将多个来源合并显示
-                    if this_round_accesses:
-                        source_tool = " & ".join([acc.source_tool for acc in this_round_accesses])
-                        source_args = " & ".join([str(acc.source_args) for acc in this_round_accesses])
-                    else:
-                        # 如果是旧节点复用，回退到出生来源
-                        source_tool = node.source_tool
-                        source_args = str(node.source_args)
-
-                    evaluation = node.evaluation
-                    # --- 核心分支：防止 None 报错 ---
-                    if evaluation:
-                        # ✅ 情况 A: 有评估结果 (应用你写的 Prompt)
-                        self.searchpro += f'''Evidence node ID: {id}. Retrieved via tool(s): {source_tool}. Args: {source_args}.
-                        This is hit #{hitcount}. Evaluator result: score={evaluation.scores}, action=[{evaluation.branch_action}].
-                        Evaluator insight: {evaluation.extracted_insight}. Reason: {evaluation.reason}. Suggested keywords: {evaluation.suggested_keywords}.
-                        Node content: {content}. Paper ID: {paperid}. Keywords: {keywords}\n
-                        --------------------------------------------------\n'''
-                    
-                    else:
-                        # ✅ 情况 B: 无评估结果 (重复命中)
-                        # 使用简化版 Prompt，避免调用 evaluation.scores
-                        self.searchpro += f'''Evidence node ID: {id}. Retrieved via tool(s): {source_tool}. Args: {source_args}.
-                This is hit #{hitcount} (duplicate hit).
-                Status: ⏳ [PENDING/DUPLICATE] (no fresh detailed evaluation in this cycle; refer to historical info/metadata).
-                Node content: {content}. Paper ID: {paperid}. Keywords: {keywords}\n
---------------------------------------------------\n'''
-                self.current_round_ids.clear()
-                # prompt += f'''证据节点ID: {id}, 选择了{source_tool}工具, 工具参数为{source_args}。
-                # 本次是第{hitcount}次检索到, 评估人员已评估，评估分数为{evaluation.scores},认为其内容值得{evaluation.branch_action}。
-                # 具体而言评估人员总结条目内容为{evaluation.extracted_insight},理由是{evaluation.reason},他抽取处理一些关键词推荐给你{evaluation.suggested_keywords}。
-                # 这个条目的具体内容是: {content}, 来自论文ID: {paperid}, 关键词: {keywords}\n'''
+        self.searchpro = self._build_orchestrator_prior_rounds_context()
         # 生成规范
         prompt =""
         prompt += self.strategyhis
@@ -1126,9 +1299,11 @@ class OrchestratorAgent(RoutedAgent):
         # logger.log_prompt(self.round_count, prompt)
         
         logger.log("Orchestrator", "思考并发策略...", "PLANNING")
-        response = await self.model_client.create(
+        response = await model_create_with_retry(
+            self.model_client,
             messages=[self.system_message, UserMessage(content=prompt, source="user")],
-            cancellation_token=ctx.cancellation_token
+            cancellation_token=ctx.cancellation_token,
+            source="Orchestrator",
         )
         # 记录 LLM 交互
         logger.log_llm_interaction(
@@ -1242,7 +1417,8 @@ class OrchestratorAgent(RoutedAgent):
                         await self._finish_task(ctx)
                         return
                     logger.log("Orchestrator", f"用户审批完成，最终下发 {self.pending_tasks} 个有效任务", "USER_APPROVED")
-                
+
+            plans = apply_rag_result_per_plan_to_plans(plans, self.rag_result_per_plan)
             for plan in plans:
                 # ⚡️ 优化：记录历史策略 (使用OrchestratorPlan)
                 # 直接使用plan对象，它已经包含了所有必要信息
@@ -1284,6 +1460,7 @@ class OrchestratorAgent(RoutedAgent):
             interactive=self.interactive_mode,
             rag_allowed_chunk_ids=allowed,
             map_box_rect_2d=self.map_box_rect_2d,
+            skip_evaluation=bool(self.skip_evaluation),
         )
         self.experiment_result.parameters.append(snap)
         self._save_experiment_results_impl()
@@ -1490,7 +1667,7 @@ class OrchestratorAgent(RoutedAgent):
             tool_name="strategy_semantic_search",  # 恢复追问为语义检索
             ParentNode=parent_id,
             args={"query_intent": query, "n_results": self.rag_result_per_plan},
-            reason="用户追问：直接检索并评估（跳过规划）"
+            reason="Follow-up: run semantic retrieval and evaluation without multi-round planning."
         )
 
         # 创建 iteration/query_result 结构（让 experiment_result/前端小矩形逻辑一致）
@@ -1548,11 +1725,26 @@ class ToolExecutorAgent(RoutedAgent):
                 if tool_func:
                     items: List[RawEvidenceItem] = await tool_func(**plan.args)
                     logger.log("ToolExecutor", f"返回 {len(items)} 条数据", "RESULT")
-                    return SingleToolOutput(original_plan=plan, raw_items=items)
+                    out_plan = plan
+                    if plan.tool_name == "strategy_semantic_search":
+                        trace = consume_semantic_pipeline_trace()
+                        if trace is not None:
+                            out_plan = plan.model_copy(
+                                update={
+                                    "hyde_hypothetical_paragraph_full_text": trace.get(
+                                        "hyde_hypothetical_paragraph_full_text"
+                                    ),
+                                    "rerank_before_ids": trace.get("rerank_before_ids"),
+                                    "rerank_after_ids": trace.get("rerank_after_ids"),
+                                }
+                            )
+                    return SingleToolOutput(original_plan=out_plan, raw_items=items)
                 else:
                     logger.log("ToolExecutor", f"工具未找到: {plan.tool_name}", "ERROR")
                     return SingleToolOutput(original_plan=plan, raw_items=[], error=f"Tool {plan.tool_name} not found")
             except Exception as e:
+                if plan.tool_name == "strategy_semantic_search":
+                    consume_semantic_pipeline_trace()
                 logger.log("ToolExecutor", f"执行崩溃: {e}", "ERROR", detail_data=traceback.format_exc())
                 return SingleToolOutput(original_plan=plan, raw_items=[], error=str(e))
 
@@ -1607,6 +1799,9 @@ class EvaluatorAgent(RoutedAgent):
             "suggested_keywords": ["time-series analysis", "respiratory emergency visits"]
           }
         ]
+
+        # Language
+        - Write **all** human-readable string fields (`extracted_insight`, `reason`, `suggested_keywords` entries) in **English**, even if evidence titles/snippets are in another language.
         """)
     @message_handler 
     async def handle_request(self,message:EvaluationRequest,ctx: MessageContext) -> None:
@@ -1707,8 +1902,7 @@ class EvaluatorAgent(RoutedAgent):
 
 
 # --- D. 总结智能体 (InteractionSummaryAgent) ---
-# [当前已停用] 不在 Orchestrator 中 publish SummaryRequest，且 run_* 中不 register 本类。
-# 以下类与 handle_summary_request / generate_* 等实现全部保留，恢复时取消上述注释即可。
+# 由 Orchestrator 在每轮评估结束后内联 await handle_summary_request；不再向 runtime 注册本类。
 @type_subscription(topic_type=TOPIC_SUMMARY)
 class InteractionSummaryAgent(RoutedAgent):
     def __init__(self, model_client: OpenAIChatCompletionClient, websocket_manager=None) -> None:
@@ -1729,32 +1923,66 @@ class InteractionSummaryAgent(RoutedAgent):
         - Be concise but informative.
         - Keep logic clear and highlight key findings.
         - Provide actionable quality assessment dimensions.
+        - Write all narrative output in **English**.
         """)
+        # 单策略 plansummary：与整轮总结 system_message 分离，避免输出格式冲突
+        self.plan_summary_system_message = SystemMessage(
+            content="""You are the **per-plan Plan Summary** agent.
+
+## Role
+From the user message you receive: the user question, the current strategy (tool / args / reason), retrieved hits with per-item evaluations, and optionally an iteration-level retrieval-quality note, you must do exactly two things and output **only** the specified JSON:
+1. **answer**: Grounded in retrieved content (titles, summaries, insights, etc.), explain **what the evidence supports under this strategy's intent**; stay tied to the user question and sub-question; avoid vague repetition.
+2. **suggestion**: Critique whether this strategy was a good choice (tool type, query parameters, search direction), including strengths, risks, or improvements; if evidence is thin or evaluations are mostly PRUNE, say so honestly.
+
+## Output format (strict)
+Output a **single** JSON object only. No Markdown code fences, no preamble or postfix.
+Keys must be lowercase ASCII and both must exist:
+- "answer": string
+- "suggestion": string
+
+Both values are plain text; use \\n inside strings for line breaks if needed.
+
+## Language
+- Write **answer** and **suggestion** in **English**, even when the user question or corpus snippets are in another language.
+"""
+        )
     @message_handler 
     async def handle_summary_request(self, message: SummaryRequest, ctx: MessageContext) -> None:
         """
-        处理总结请求，生成过程总结、词云数据和检索质量评估
+        处理总结请求：已关闭整轮过程总结、词云、检索质量评估 LLM/计算；
+        仅顺序生成每条 plan 的 plansummary。
         """
         logger.log("InteractionSummaryAgent", "收到总结请求，开始分析实验结果...", "SUMMARY_START")
         
         try:
-            # 1. 生成过程总结（使用当前轮次的证据数据、当前小问题和用户原始输入）
-            process_summary = await self.generate_process_summary(
-                message.experiment_result,
-                message.current_evidence_data,
-                message.current_question,
-                message.user_original_input
+            # 1. 整轮过程总结（generate_process_summary）— 按需求关闭，不再调用 LLM、不写入 iteration_summary
+            # process_summary = await self.generate_process_summary(
+            #     message.experiment_result,
+            #     message.current_evidence_data,
+            #     message.current_question,
+            #     message.user_original_input,
+            # )
+            process_summary = ""
+
+            # 2. 词云（generate_word_cloud）— 已关闭，仅占位
+            # word_cloud_data = await self.generate_word_cloud(...)
+            word_cloud_data = WordCloudData(words=[], total_words=0, top_keywords=[])
+
+            # 3. 检索质量评估（evaluate_retrieval_quality）— 已关闭，仅占位
+            # quality_evaluation = await self.evaluate_retrieval_quality(...)
+            quality_evaluation = RetrievalQualityEvaluation(
+                relevance_score=0.0,
+                accuracy_score=0.0,
+                authority_score=0.0,
+                completeness_score=0.0,
+                overall_score=0.0,
+                positive_meaning="(disabled: iteration-level retrieval quality LLM not run)",
+                contribution_to_knowledge="(disabled)",
+                strengths=[],
+                weaknesses=[],
+                suggestions=[],
             )
-            
-            # 2. 生成词云数据
-            word_cloud_data = await self.generate_word_cloud(
-                message.experiment_result,
-                message.current_evidence_data
-            )
-            
-            # 3. 评估检索质量
-            quality_evaluation = await self.evaluate_retrieval_quality(message.experiment_result)
-            
+
             # 4. 生成时间戳
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
@@ -1766,53 +1994,41 @@ class InteractionSummaryAgent(RoutedAgent):
                 timestamp=timestamp
             )
             
-            # 6. 保存「整轮」总结结果到实验结果中：
-            #    - summary: 作为整个实验的“最新/最终总结”（保持原语义）
-            #    - latest_iteration.iteration_summary: 紧跟在该轮 round_number 后面的本轮总结
+            # 6. 保存 SummaryResponse（process_summary 已为空）；不再写入 iteration_summary（整轮文字总结已停用）
             message.experiment_result.summary = summary_response
-            try:
-                # 推断当前轮次（优先使用最新 Iteration 的 round_number）
-                if message.experiment_result.iterations:
-                    latest_iteration = message.experiment_result.iterations[-1]
-                    current_round = latest_iteration.round_number
-                    latest_iteration.iteration_summary = IterationSummary(
-                        round_number=current_round,
-                        process_summary=process_summary,
-                        timestamp=timestamp,
-                    )
-            except Exception as e:
-                # 记录但不中断主流程；即使写入 iteration_summary 失败，也至少保留 summary
-                logger.log(
-                    "InteractionSummaryAgent",
-                    f"写入iteration_summary时出错: {e}",
-                    "ERROR"
-                )
-            
-            # 7. 为当前轮次的每个策略生成「按策略粒度」的单独总结（plansummary 智能体 / generate_plan_summary）
-            #    暂时整段注释以跳过 LLM 调用；恢复时取消注释即可。下方实现未删，见本类 `generate_plan_summary`。
-            # if message.experiment_result.iterations:
-            #     latest_iteration = message.experiment_result.iterations[-1]
-            #     for query_result in latest_iteration.query_results:
-            #         if not query_result.orchestrator_plan:
-            #             continue
-            #         try:
-            #             plan_summary = await self.generate_plan_summary(
-            #                 experiment_result=message.experiment_result,
-            #                 query_result=query_result,
-            #                 current_question=message.current_question,
-            #                 user_original_input=message.user_original_input,
-            #             )
-            #             query_result.orchestrator_plan.plansummary = plan_summary
-            #         except Exception as e:
-            #             logger.log(
-            #                 "InteractionSummaryAgent",
-            #                 f"生成单个策略总结时出错: {e}",
-            #                 "ERROR",
-            #             )
-            #             # 失败时不影响整体流程
-            
+            if message.experiment_result.iterations:
+                message.experiment_result.iterations[-1].iteration_summary = None
+
+            # 7. 为当前轮次的每个策略顺序生成 plansummary（全部 await 完成后本函数才返回 → Orchestrator 再规划下一轮）
+            # 不再向单策略总结注入「整轮检索质量评估」JSON（该评估已关闭）
+            qe_for_plan = ""
+            if message.experiment_result.iterations:
+                latest_iteration = message.experiment_result.iterations[-1]
+                for query_result in latest_iteration.query_results:
+                    if not query_result.orchestrator_plan:
+                        continue
+                    try:
+                        plan_summary = await self.generate_plan_summary(
+                            experiment_result=message.experiment_result,
+                            query_result=query_result,
+                            current_question=message.current_question,
+                            user_original_input=message.user_original_input,
+                            iteration_quality_json=qe_for_plan,
+                        )
+                        query_result.orchestrator_plan.plansummary = plan_summary
+                    except Exception as e:
+                        logger.log(
+                            "InteractionSummaryAgent",
+                            f"生成单个策略总结时出错: {e}",
+                            "ERROR",
+                        )
+
             # 8. 实时保存总结结果到系统日志中
-            logger.log("InteractionSummaryAgent", f"本轮总结: {process_summary}...", "SUMMARY_LOG")
+            logger.log(
+                "InteractionSummaryAgent",
+                "本轮 per-plan plansummary 已完成（整轮过程总结 / 词云 / 检索质量评估均已关闭）",
+                "SUMMARY_LOG",
+            )
             
             # 9. 完整记录summary_response到日志
             logger.log("InteractionSummaryAgent", f"总结响应详情: {summary_response.model_dump_json()}", "SUMMARY_DETAIL")
@@ -1875,17 +2091,11 @@ class InteractionSummaryAgent(RoutedAgent):
         query_result,
         current_question: str | None = None,
         user_original_input: str | None = None,
+        iteration_quality_json: str | None = None,
     ) -> str:
         """
-        为单个 OrchestratorPlan 生成粒度为“策略级别”的总结。
-        
-        设计思路：
-        - 以该 plan 对应的问题 / args 为核心，聚焦“这一条策略检索到了什么内容”；
-        - 主要做内容层面的归纳总结，而不是再评价整轮检索流程；
-        - 上下文尽量精简，只提供该策略相关的 rag_results 及其评估信息。
-
-        注：当前主流程中 InteractionSummaryAgent 对本方法的调用已注释（见 Step 7），
-        以下实现完整保留以便恢复；未删除任何逻辑。
+        为单个 OrchestratorPlan 生成策略级总结，落盘字段 `plansummary` 为 JSON 字符串：
+        {\"answer\": \"...\", \"suggestion\": \"...\"}。
         """
         root_goal = experiment_result.root_goal
         plan = query_result.orchestrator_plan
@@ -1895,95 +2105,71 @@ class InteractionSummaryAgent(RoutedAgent):
         duplicate_results = getattr(plan, "duplicate_results", 0)
 
         prompt_lines = []
-        prompt_lines.append("# Single Strategy Summary Task\n")
-        prompt_lines.append("You are a summary specialist. Focus only on the single strategy below.")
-        prompt_lines.append("Write a concise and focused content summary of what this strategy retrieved.")
-        prompt_lines.append("Do not summarize the whole system and do not comment on other strategies.\n")
+        prompt_lines.append("# Input instructions\n")
+        prompt_lines.append(
+            "Below is one retrieval strategy with its evidence rows and evaluations. "
+            "Follow the system role and output **only** the required JSON.\n"
+        )
 
-        prompt_lines.append("## Context\n")
-        prompt_lines.append(f"- Original user question: {user_original_input or root_goal}\n")
-        prompt_lines.append(f"- Current sub-question: {current_question or root_goal}\n")
+        prompt_lines.append("## User question\n")
+        prompt_lines.append(f"- Original user input: {user_original_input or root_goal}\n")
+        prompt_lines.append(f"- Current sub-question / planning context: {current_question or root_goal}\n")
 
-        prompt_lines.append("## Strategy Information\n")
-        prompt_lines.append(f"- Tool: {plan.tool_name}\n")
-        prompt_lines.append(f"- Args: {plan.args}\n")
-        prompt_lines.append(f"- Strategy rationale: {plan.reason}\n")
-        prompt_lines.append(f"- Result stats: total {total_results}, duplicates {duplicate_results}\n\n")
+        prompt_lines.append("\n## Current plan (strategy)\n")
+        prompt_lines.append(f"- tool_name: {plan.tool_name}\n")
+        prompt_lines.append(f"- args: {json.dumps(plan.args, ensure_ascii=False)}\n")
+        prompt_lines.append(f"- reason: {plan.reason}\n")
+        prompt_lines.append(f"- stats: total retrieved {total_results}, duplicates {duplicate_results}\n")
 
-        prompt_lines.append("## Retrieved Results for This Strategy\n")
+        if iteration_quality_json and str(iteration_quality_json).strip():
+            prompt_lines.append("\n## Optional: iteration-level retrieval quality note\n")
+            prompt_lines.append(str(iteration_quality_json).strip() + "\n")
+
+        prompt_lines.append(
+            "\n## Retrieved rows and per-item evaluations\n"
+            "Each evidence row provides **id** and **content-text** (body text preferred; "
+            "if missing, title+summary are joined, common for figures/multimodal).\n"
+        )
         if not rag_results:
-            prompt_lines.append("- No results were retrieved for this strategy. Briefly explain possible reasons.\n")
+            prompt_lines.append(
+                "- This strategy returned no rows. In **answer**, explain likely causes; "
+                "in **suggestion**, judge whether the strategy should be kept or revised.\n"
+            )
         else:
             result_idx = 0
             for rag_result in rag_results:
                 rr = rag_result.retrieval_result
                 ev = rag_result.evaluation
 
-                content = rr.content or {}
-                meta = rr.metadata or {}
-                # 从 content 和 metadata 多种可能字段读取，兼容不同数据源
-                title = (
-                    content.get("title") or meta.get("title") or meta.get("paper_name") or ""
+                eid, content_text = _plan_summary_rag_id_and_content_text(rr)
+                rid = (eid or str(getattr(rr, "id", "") or "")).strip()
+                has_content = bool(
+                    rid
+                    and (
+                        content_text
+                        or (ev and (ev.branch_action or ev.extracted_insight or ev.reason))
+                    )
                 )
-                if isinstance(title, list):
-                    title = " ".join(str(x) for x in title) if title else ""
-                else:
-                    title = str(title) if title else ""
-
-                summary = content.get("summary") or meta.get("concise_summary") or meta.get("summary") or content.get("text") or ""
-                if isinstance(summary, list):
-                    summary = " ".join(str(x) for x in summary) if summary else ""
-                else:
-                    summary = str(summary) if summary else ""
-
-                insight = content.get("insight") or meta.get("inferred_insight") or meta.get("insight") or ""
-                if isinstance(insight, list):
-                    insight = " ".join(str(x) for x in insight) if insight else ""
-                else:
-                    insight = str(insight) if insight else ""
-
-                paper_id = meta.get("paper_id") or meta.get("paper_name") or meta.get("file_name") or ""
-                key_entities = meta.get("key_entities") or meta.get("keywords") or []
-                if not isinstance(key_entities, list):
-                    key_entities = [key_entities] if key_entities else []
-
-                # 若 content/metadata 为空，用评估的 extracted_insight 作为核心内容
-                if not title and not summary and not insight and ev and ev.extracted_insight:
-                    insight = ev.extracted_insight
-
-                # 跳过完全空的结果
-                has_content = bool(title or summary or insight or (ev and (ev.branch_action or ev.extracted_insight)))
                 if not has_content:
                     continue
 
                 result_idx += 1
-                prompt_lines.append(f"- Result {result_idx} (ID: {rr.id}):\n")
-                if title:
-                    prompt_lines.append(f"  - Title: {title}\n")
-                if summary:
-                    prompt_lines.append(f"  - Summary/Content: {summary}\n")
-                if insight:
-                    prompt_lines.append(f"  - Insight: {insight}\n")
-                if paper_id:
-                    prompt_lines.append(f"  - Linked paper/source: {paper_id}\n")
-                if key_entities:
-                    ent_str = ", ".join(str(e) for e in key_entities)
-                    prompt_lines.append(f"  - Keywords/Entities: {ent_str}\n")
+                prompt_lines.append(f"### Row {result_idx}\n")
+                prompt_lines.append(f"- id: {rid}\n")
+                prompt_lines.append(f"- content-text: {content_text if content_text else '(empty)'}\n")
 
                 if ev:
-                    prompt_lines.append(f"  - Eval action: {ev.branch_action}\n")
+                    prompt_lines.append(f"- evaluation branch_action: {ev.branch_action}\n")
                     if ev.extracted_insight:
-                        prompt_lines.append(f"  - Eval insight: {ev.extracted_insight}\n")
+                        prompt_lines.append(f"- evaluation extracted_insight: {ev.extracted_insight}\n")
                     if ev.reason:
-                        prompt_lines.append(f"  - Eval reason: {ev.reason}\n")
+                        prompt_lines.append(f"- evaluation reason: {ev.reason}\n")
+                    if getattr(ev, "scores", None) is not None:
+                        try:
+                            prompt_lines.append(f"- evaluation scores: {json.dumps(ev.scores, ensure_ascii=False)}\n")
+                        except Exception:
+                            prompt_lines.append(f"- evaluation scores: {ev.scores}\n")
                 prompt_lines.append("")
-
-        prompt_lines.append("## Output Requirements\n")
-        prompt_lines.append("1. Summarize only this strategy; do not discuss the overall system.")
-        prompt_lines.append("2. Center on what problem this strategy targets and what types of evidence it retrieved.")
-        prompt_lines.append("3. Highlight shared themes, critical information, and high-value leads from title/summary/insight.")
-        prompt_lines.append("4. Use 1-2 natural paragraphs, concise and clear (not bullet lists).")
-        prompt_lines.append("5. Output natural language only. No JSON or list schema.\n")
 
         prompt = "\n".join(prompt_lines)
 
@@ -1995,24 +2181,31 @@ class InteractionSummaryAgent(RoutedAgent):
 
         try:
             response = await self.model_client.create(
-                messages=[self.system_message, UserMessage(content=prompt, source="user")],
-                cancellation_token=None
+                messages=[
+                    self.plan_summary_system_message,
+                    UserMessage(content=prompt, source="user"),
+                ],
+                cancellation_token=None,
             )
-            # 记录 LLM 交互
             logger.log_llm_interaction(
                 source="InteractionSummaryAgent (Plan Summary)",
                 prompt=prompt,
                 response=response.content,
-                system_message=self.system_message.content if self.system_message else None
+                system_message=self.plan_summary_system_message.content
+                if self.plan_summary_system_message
+                else None,
             )
-            return response.content
+            return _normalize_plan_summary_llm_output(response.content)
         except Exception as e:
             logger.log(
                 "InteractionSummaryAgent",
                 f"调用大模型生成单个策略总结时出错: {e}",
-                "ERROR"
+                "ERROR",
             )
-            return "Failed to generate a detailed strategy summary. Only raw statistics/results are retained for later analysis."
+            return json.dumps(
+                {"answer": "", "suggestion": f"Error while generating plan summary: {e}"},
+                ensure_ascii=False,
+            )
 
     async def generate_process_summary(self, experiment_result: ExperimentResult, current_evidence_data=None, current_question=None, user_original_input=None) -> str:
         """
@@ -2123,14 +2316,14 @@ class InteractionSummaryAgent(RoutedAgent):
                     for k, rag_result in enumerate(query_result.rag_results[:3]):  # 限制前3个结果以避免提示过长
                         # 安全获取content
                         content = rag_result.retrieval_result.content
-                        content_str = str(content) if content else "无内容"
+                        content_str = str(content) if content else "(no content)"
                         prompt += f"    - **Result {k+1}**: {content_str[:100]}...\n"
                         if rag_result.evaluation:
                             prompt += f"      - **Evaluation**: {rag_result.evaluation.branch_action}\n"
                             prompt += f"      - **Scores**: {rag_result.evaluation.scores}\n"
                             # 安全获取extracted_insight
                             insight = rag_result.evaluation.extracted_insight
-                            insight_str = str(insight) if insight else "无洞察"
+                            insight_str = str(insight) if insight else "(no insight)"
                             prompt += f"      - **Insight**: {insight_str[:150]}...\n"
             total_rag_results = sum(len(qr.rag_results) for qr in latest_iteration.query_results)
             prompt += f"- **Total results this round**: {total_rag_results}\n\n"
@@ -2250,11 +2443,11 @@ class InteractionSummaryAgent(RoutedAgent):
                 authority_score=0.0,
                 completeness_score=0.0,
                 overall_score=0.0,
-                positive_meaning="无检索结果",
-                contribution_to_knowledge="无贡献",
+                positive_meaning="No retrieval was performed.",
+                contribution_to_knowledge="No contribution yet.",
                 strengths=[],
-                weaknesses=["未执行任何检索"],
-                suggestions=["重新执行检索"]
+                weaknesses=["No retrieval executed"],
+                suggestions=["Run retrieval again with clearer intents"],
             )
         
         # 计算各项评分
@@ -2282,34 +2475,41 @@ class InteractionSummaryAgent(RoutedAgent):
         overall_score = (relevance_score + accuracy_score + authority_score + completeness_score) / 4
         
         # 分析问题的积极意义和价值
-        positive_meaning = f"该问题针对 '{experiment_result.root_goal}' 进行了深入研究，通过多轮检索获取了相关信息。"
-        contribution_to_knowledge = "通过系统性的检索策略，获取了多方面的相关信息，对该领域的知识有一定贡献。"
-        
-        # 分析检索过程的优势和不足
-        strengths = ["采用了多轮检索策略", "综合使用了多种检索工具", "对检索结果进行了评估和筛选"]
+        positive_meaning = (
+            f"The question targets '{experiment_result.root_goal}' with multi-round retrieval to gather relevant material."
+        )
+        contribution_to_knowledge = (
+            "Systematic retrieval across tools produced a multi-faceted evidence set with moderate knowledge value."
+        )
+
+        strengths = [
+            "Multi-round retrieval",
+            "Mixed retrieval tools",
+            "Evaluator-based filtering of hits",
+        ]
         weaknesses = []
         suggestions = []
         
         # 根据评估结果分析不足和建议
         if relevance_score < 0.6:
-            weaknesses.append("检索结果与问题的相关性较低")
-            suggestions.append("优化检索关键词，提高相关性")
-        
+            weaknesses.append("Low relevance between hits and the question")
+            suggestions.append("Tighten query intents and add domain-specific terms")
+
         if accuracy_score < 0.6:
-            weaknesses.append("检索结果的准确性有待提高")
-            suggestions.append("增加权威数据源，提高结果准确性")
-        
+            weaknesses.append("Accuracy of retrieved statements is uncertain")
+            suggestions.append("Prioritize peer-reviewed sources and cross-check claims")
+
         if authority_score < 0.6:
-            weaknesses.append("检索结果的权威性不足")
-            suggestions.append("优先选择权威期刊和来源的信息")
-        
+            weaknesses.append("Limited authority of sources")
+            suggestions.append("Bias retrieval toward established venues and datasets")
+
         if completeness_score < 0.6:
-            weaknesses.append("检索结果的完整性不够")
-            suggestions.append("扩展检索范围，获取更全面的信息")
-        
+            weaknesses.append("Coverage gaps across subtopics")
+            suggestions.append("Broaden strategies (semantic + metadata + exact) to fill gaps")
+
         if not weaknesses:
-            weaknesses.append("未发现明显不足")
-            suggestions.append("继续保持当前的检索策略")
+            weaknesses.append("No major weaknesses detected heuristically")
+            suggestions.append("Keep the current retrieval mix while monitoring PRUNE rate")
         
         return RetrievalQualityEvaluation(
             relevance_score=relevance_score,
@@ -2526,14 +2726,14 @@ class HypothesisSectionAgent(RoutedAgent):
         # Tasks
         1. Analyze the sub-question and evidence deeply.
         2. Connect evidence into coherent reasoning.
-        3. Write a focused paragraph (about 200-400 Chinese chars equivalent; keep concise if writing in English).
+        3. Write a focused paragraph (about 150–280 English words unless evidence is unusually rich).
         4. Cite evidence inline using `[Evidence: node_id]`.
 
         # Writing Requirements
         1. Synthesize evidence instead of listing fragments.
         2. Every key claim must be evidence-backed.
         3. Keep structure and logic clear.
-        4. Use natural academic writing style.
+        4. Use natural academic English only (no Chinese or mixed-language prose in the section body).
         """)
     
     @message_handler
@@ -2695,7 +2895,7 @@ class HypothesisSynthesizerAgent(RoutedAgent):
         1. Keep citation format `[Evidence: node_id]`.
         2. Ensure strong logical flow and natural transitions.
         3. Target medium length (about 500-1000 English words).
-        4. Use fluent academic style.
+        4. Use fluent academic English.
         """)
     
     @message_handler
@@ -2950,9 +3150,9 @@ class HypothesisGeneratorAgent(RoutedAgent):
                 self.outline_response = OutlineResponse(
                     core_hypothesis_preview=graph.root_goal,
                     subtopics=[SubTopic(
-                        topic_name=f"主题{i+1}",
+                        topic_name=f"Topic {i + 1}",
                         description="",
-                        sub_questions=[f"子问题{i+1}"],
+                        sub_questions=[f"Sub-question {i + 1}"],
                         assigned_plan_ids=[],
                         keywords=[]
                     ) for i in range(min(3, len(plan_summaries)))]
@@ -3195,7 +3395,7 @@ class HypothesisGeneratorAgent(RoutedAgent):
             
         except Exception as e:
             logger.log("Hypothesis", f"生成报告时出错: {e}", "ERROR", detail_data=traceback.format_exc())
-            self.report_content = f"报告生成过程中出现错误: {str(e)}"
+            self.report_content = f"Report generation failed: {str(e)}"
             await self.push_summary()
     
     def _build_coordinator_prompt_from_plans(self, root_goal: str, plan_summaries: List[Dict], experiment_result: Optional[ExperimentResult]) -> str:
@@ -3514,8 +3714,7 @@ async def run_rag_workflow(
         await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
         # [暂时关闭 Hypothesis 以加快调试；恢复时取消下面一行注释]
         # await HypothesisGeneratorAgent.register(runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager))
-        # [InteractionSummaryAgent 已停用；恢复时取消注释并同步恢复 Orchestrator 中 SummaryRequest 发布]
-        # await InteractionSummaryAgent.register(runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager))
+        # InteractionSummaryAgent 改由 Orchestrator 内联 await，不再注册到 runtime（避免与 publish 双跑）
 
         runtime.start()
         
@@ -3589,10 +3788,7 @@ async def run_rag_workflow_expand(
         # await HypothesisGeneratorAgent.register(
         #     runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager)
         # )
-        # [InteractionSummaryAgent 已停用；恢复时取消注释]
-        # await InteractionSummaryAgent.register(
-        #     runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager)
-        # )
+        # InteractionSummaryAgent 改由 Orchestrator 内联 await，不再注册到 runtime（避免与 publish 双跑）
 
         runtime.start()
         await runtime.publish_message(
@@ -3654,8 +3850,7 @@ async def run_rag_workflow_follow_up(
     await EvaluatorAgent.register(runtime, type=TOPIC_EVALUATOR, factory=lambda: EvaluatorAgent(model_client))
     # [暂时关闭 Hypothesis 以加快调试]
     # await HypothesisGeneratorAgent.register(runtime, type=TOPIC_HYPOTHESIS, factory=lambda: HypothesisGeneratorAgent(model_client, manager))
-    # [InteractionSummaryAgent 已停用；恢复时取消注释]
-    # await InteractionSummaryAgent.register(runtime, type=TOPIC_SUMMARY, factory=lambda: InteractionSummaryAgent(model_client, manager))
+    # InteractionSummaryAgent 由 Orchestrator 内联 await，不注册
 
     runtime.start()
     try:

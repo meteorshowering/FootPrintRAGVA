@@ -103,7 +103,7 @@
           v-model="skipEvaluation"
           @change="$emit('skip-evaluation-change', skipEvaluation)"
         />
-        <span>跳过评估（快速，仅检索占位 KEEP）</span>
+        <span>跳过评估（快速占位 KEEP；小地图按 HyDE/Rerank 浅蓝/深蓝着色）</span>
       </label>
     </section>
 

@@ -85,6 +85,8 @@ export default {
       ragResultsPerPlan: 10,
       maxRounds: 3,
       skipEvaluation: false,
+      vizHydeRerankMapColors: false,
+      showHydeInPlanSummary: false,
       mapToolbarState: {
         mapBoxSelectMode: false,
         mapRagPendingIds: [],

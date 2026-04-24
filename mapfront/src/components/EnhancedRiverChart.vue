@@ -162,9 +162,9 @@
               </div>
               <div class="strategy-card-tools">
                 <button
-                  v-if="card.query?.orchestrator_plan?.plansummary"
+                  v-if="orchestratorPlanHasPlanSummary(card.query?.orchestrator_plan)"
                   class="card-icon-btn"
-                  title="查看策略总结"
+                  title="查看策略总结（answer / suggestion）"
                   @click.stop="showPlanSummary(card.planSummaryPayload)"
                 >Σ</button>
                 <button
@@ -282,6 +282,13 @@
             </div>
             <pre class="meta-pre">{{ formatArgs(selectedPlanSummary?.args) }}</pre>
           </div>
+          <div
+            v-if="(selectedPlanSummary?.hydeText || '').trim()"
+            class="plan-summary-hyde"
+          >
+            <div class="plan-summary-hyde-title">HyDE 假想段落</div>
+            <pre class="plan-summary-hyde-body">{{ selectedPlanSummary.hydeText }}</pre>
+          </div>
           <div class="summary-content" v-html="formatSummary(selectedPlanSummary?.summary)"></div>
         </div>
       </div>
@@ -335,7 +342,7 @@ import { marked } from 'marked';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import ItemDetail from './ItemDetail.vue';
-import { buildInteractiveReportItemFromRag } from '../store/interactiveReportItem';
+import { buildInteractiveReportItemFromRag, patchRagMetadataWithMapPoint } from '../store/interactiveReportItem';
 
 // 策略画布位置管理类
 class StrategyCanvas {
@@ -392,7 +399,10 @@ export default {
       type: String,
       default: 'multimodal2text'
     },
-    /** 与左栏「跳过评估」同步：为 true 时检索后由后端写占位 KEEP，不调用 Evaluator LLM */
+    /**
+     * 与左栏「跳过评估」同步：为 true 时后端不跑 Evaluator LLM（占位 KEEP），
+     * 小地图按 HyDE/Rerank 浅蓝/深蓝着色；为 false 时小地图按评估分支色着色。
+     */
     skipEvaluation: {
       type: Boolean,
       default: false
@@ -523,6 +533,11 @@ export default {
     },
     mapBoxSelectMode() {
       this.$nextTick(() => this.drawGlobalMap());
+    },
+    skipEvaluation() {
+      if (this.roundsData.length > 0 || this.completedQuestionColumns.length > 0) {
+        this.$nextTick(() => this.drawRiverChart());
+      }
     }
   },
   components: {
@@ -854,7 +869,11 @@ export default {
               parentNode: query?.orchestrator_plan?.ParentNode ?? query?.orchestrator_plan?.parentNode ?? null,
               reason: query?.orchestrator_plan?.reason ?? '',
               args: query?.orchestrator_plan?.args ?? null,
-              summary: query?.orchestrator_plan?.plansummary ?? ''
+              summary: query?.orchestrator_plan?.plansummary ?? '',
+              hydeText:
+                query?.orchestrator_plan?.hyde_hypothetical_paragraph_full_text ??
+                query?.orchestrator_plan?.hydeHypotheticalParagraphFullText ??
+                ''
             }
           });
         });
@@ -1047,6 +1066,7 @@ export default {
                 this.experimentResult = data.data;
               }
               console.log('[WS] 收到 experiment_result，包含 plansummary');
+              this.syncPlanSummariesFromExperimentResult();
               if (this.roundsData.length > 0 || this.completedQuestionColumns.length > 0) {
                 this.$nextTick(() => this.drawRiverChart());
               }
@@ -1076,6 +1096,7 @@ export default {
                 // 完整更新模式
                 this.setActiveSessionRounds(nextRounds);
               }
+              this.syncPlanSummariesFromExperimentResult();
               this.incrementalRoundsData = JSON.parse(JSON.stringify(nextRounds));
               this.$nextTick(() => this.drawRiverChart());
             }
@@ -1218,8 +1239,9 @@ export default {
           groupByPlan[key].nodes.push(node);
         });
         const queryResults = Object.values(groupByPlan).map(({ plan, nodes: nodeList }) => {
-          // 尝试从 experimentResult 中查找对应的 plansummary
+          // 从 experimentResult 对齐完整 orchestrator_plan（含 HyDE / rerank id，供跳过评估时小地图着色）
           let plansummary = null;
+          let matchingQuery = null;
           const er = this.experimentResult;
           const erOk =
             er &&
@@ -1228,11 +1250,10 @@ export default {
           if (erOk) {
             const iteration = er.iterations.find(iter => iter.round_number === roundNum);
             if (iteration && iteration.query_results) {
-              // 查找匹配的 query_result（通过 tool_name 和 args 匹配）
-              const matchingQuery = iteration.query_results.find(qr => {
+              matchingQuery = iteration.query_results.find(qr => {
                 const qrPlan = qr.orchestrator_plan;
-                return qrPlan && 
-                       qrPlan.tool_name === plan.tool && 
+                return qrPlan &&
+                       qrPlan.tool_name === plan.tool &&
                        JSON.stringify(qrPlan.args) === JSON.stringify(plan.args);
               });
               if (matchingQuery && matchingQuery.orchestrator_plan) {
@@ -1240,16 +1261,26 @@ export default {
               }
             }
           }
-          
+
+          const fromGraph = {
+            action: 'call_tool',
+            tool_name: plan.tool,
+            args: plan.args,
+            ParentNode: plan.ParentNode,
+            reason: plan.reason
+          };
+          let orchestrator_plan;
+          if (matchingQuery?.orchestrator_plan && typeof matchingQuery.orchestrator_plan === 'object') {
+            orchestrator_plan = { ...matchingQuery.orchestrator_plan, ...fromGraph };
+            if (plansummary != null && plansummary !== '') {
+              orchestrator_plan.plansummary = plansummary;
+            }
+          } else {
+            orchestrator_plan = { ...fromGraph, plansummary };
+          }
+
           return {
-            orchestrator_plan: {
-              action: 'call_tool',
-              tool_name: plan.tool,
-              args: plan.args,
-              ParentNode: plan.ParentNode,
-              reason: plan.reason,
-              plansummary: plansummary
-            },
+            orchestrator_plan,
           rag_results: nodeList.map(n => ({
             retrieval_result: {
               id: n.id,
@@ -1275,6 +1306,78 @@ export default {
       return `${p.tool_name || ''}|${JSON.stringify(p.args || {})}`;
     },
 
+    /**
+     * 该轮是否跳过评估：优先读 experiment_result.parameters 中与 round_number 对齐的快照（落盘 JSON），
+     * 否则回退当前左栏 prop（实时跑数时可能尚未写入 parameters）。
+     */
+    getSkipEvaluationForRound(roundNumber) {
+      const er = this.experimentResult;
+      const rn = Number(roundNumber);
+      if (er && Array.isArray(er.parameters) && er.parameters.length) {
+        const row = er.parameters.find((x) => Number(x.round_number) === rn);
+        if (row != null && typeof row.skip_evaluation === 'boolean') {
+          return !!row.skip_evaluation;
+        }
+      }
+      return !!this.skipEvaluation;
+    },
+
+    /** 小矩形 Σ 按钮：支持 plansummary 为 JSON 字符串或已解析对象 */
+    orchestratorPlanHasPlanSummary(plan) {
+      if (!plan) return false;
+      const hy = plan.hyde_hypothetical_paragraph_full_text ?? plan.hydeHypotheticalParagraphFullText;
+      if (hy != null && String(hy).trim()) return true;
+      const p = plan.plansummary;
+      if (p == null) return false;
+      if (typeof p === 'string') return p.trim().length > 0;
+      if (typeof p === 'object') {
+        return !!(p.answer || p.suggestion);
+      }
+      return true;
+    },
+
+    /**
+     * 将 experimentResult.iterations 中的 plansummary 写回当前展示的 rounds（graph 路径下曾缺此字段）。
+     */
+    syncPlanSummariesFromExperimentResult() {
+      const er = this.experimentResult;
+      if (!er || !Array.isArray(er.iterations)) return;
+      const sid = this.activeSessionId;
+      if (er.session_id && sid && er.session_id !== sid) return;
+
+      const patchRound = (round) => {
+        if (!round || round.query_results == null) return;
+        const it = er.iterations.find((i) => Number(i.round_number) === Number(round.round_number));
+        if (!it || !it.query_results) return;
+        round.query_results.forEach((qr) => {
+          const k = this.queryResultPlanKey(qr);
+          const m = it.query_results.find((x) => this.queryResultPlanKey(x) === k);
+          if (!m || !m.orchestrator_plan) return;
+          const ps = m.orchestrator_plan.plansummary;
+          const hy = m.orchestrator_plan.hyde_hypothetical_paragraph_full_text;
+          const rb = m.orchestrator_plan.rerank_before_ids;
+          const ra = m.orchestrator_plan.rerank_after_ids;
+          if ((ps == null || ps === '') && hy == null && rb == null && ra == null) return;
+          if (!qr.orchestrator_plan) qr.orchestrator_plan = { ...m.orchestrator_plan };
+          if (ps != null && ps !== '') qr.orchestrator_plan.plansummary = ps;
+          if (hy != null && (qr.orchestrator_plan.hyde_hypothetical_paragraph_full_text == null || qr.orchestrator_plan.hyde_hypothetical_paragraph_full_text === '')) {
+            qr.orchestrator_plan.hyde_hypothetical_paragraph_full_text = hy;
+          }
+          if (rb != null && qr.orchestrator_plan.rerank_before_ids == null) {
+            qr.orchestrator_plan.rerank_before_ids = rb;
+          }
+          if (ra != null && qr.orchestrator_plan.rerank_after_ids == null) {
+            qr.orchestrator_plan.rerank_after_ids = ra;
+          }
+        });
+      };
+
+      (this.roundsData || []).forEach(patchRound);
+      (this.completedQuestionColumns || []).forEach((col) => {
+        (col.roundsData || []).forEach(patchRound);
+      });
+    },
+
     mergeQueryResultsInRound(existing, incoming) {
       const map = new Map();
       (existing || []).forEach((qr) => {
@@ -1289,7 +1392,33 @@ export default {
         }
         const pr = (prev.rag_results || []).length;
         const ir = (qr.rag_results || []).length;
-        map.set(k, ir >= pr ? qr : prev);
+        const pick = ir >= pr ? qr : prev;
+        const other = ir >= pr ? prev : qr;
+        if (pick && pick.orchestrator_plan && other && other.orchestrator_plan) {
+          const psP = pick.orchestrator_plan.plansummary;
+          const psO = other.orchestrator_plan.plansummary;
+          if ((psP == null || psP === '') && psO != null && psO !== '') {
+            pick.orchestrator_plan.plansummary = psO;
+          }
+          const hyFields = [
+            ['hyde_hypothetical_paragraph_full_text', 'hydeHypotheticalParagraphFullText'],
+            ['rerank_before_ids', 'rerankBeforeIds'],
+            ['rerank_after_ids', 'rerankAfterIds']
+          ];
+          hyFields.forEach(([snake, camel]) => {
+            const cur = pick.orchestrator_plan[snake] ?? pick.orchestrator_plan[camel];
+            const inc = other.orchestrator_plan[snake] ?? other.orchestrator_plan[camel];
+            const curMissing =
+              cur == null ||
+              cur === '' ||
+              (Array.isArray(cur) && cur.length === 0);
+            const incPresent = inc != null && !(typeof inc === 'string' && inc === '');
+            if (curMissing && incPresent) {
+              pick.orchestrator_plan[snake] = inc;
+            }
+          });
+        }
+        map.set(k, pick);
       });
       return Array.from(map.values());
     },
@@ -1363,6 +1492,56 @@ export default {
       }
     },
 
+    /** 与全局底图同源：优先用 globalMapPoints 建立 id→点，避免 mapPoints 与全局 JSON 版本不一致时证据坐标错位 */
+    rebuildIdToPointMap() {
+      const src =
+        this.globalMapPoints && this.globalMapPoints.length > 0
+          ? this.globalMapPoints
+          : this.mapPoints;
+      this.idToPointMap = {};
+      (src || []).forEach((item) => {
+        const point = item;
+        if (!point) return;
+        if (point.id) {
+          this.idToPointMap[point.id] = point;
+        }
+        if (point.chunk_id) {
+          this.idToPointMap[point.chunk_id] = point;
+        }
+        try {
+          if (point.metadata) {
+            let metadataObj = point.metadata;
+            if (typeof metadataObj === 'string') {
+              metadataObj = JSON.parse(metadataObj);
+            }
+            if (metadataObj.figure_id) {
+              this.idToPointMap[metadataObj.figure_id] = point;
+            }
+            if (metadataObj.chunkid != null) {
+              this.idToPointMap[String(metadataObj.chunkid)] = point;
+            }
+            if (metadataObj.chunk_id != null) {
+              this.idToPointMap[String(metadataObj.chunk_id)] = point;
+            }
+            if (metadataObj.metadata && typeof metadataObj.metadata === 'string') {
+              const innerMetadata = JSON.parse(metadataObj.metadata);
+              if (innerMetadata.figure_id) {
+                this.idToPointMap[innerMetadata.figure_id] = point;
+              }
+              if (innerMetadata.chunkid != null) {
+                this.idToPointMap[String(innerMetadata.chunkid)] = point;
+              }
+              if (innerMetadata.chunk_id != null) {
+                this.idToPointMap[String(innerMetadata.chunk_id)] = point;
+              }
+            }
+          }
+        } catch (e) {
+          /* ignore */
+        }
+      });
+    },
+
     async loadMapData() {
       try {
         const fileName = this.ragCollection === 'LLMvisDataset' 
@@ -1371,10 +1550,7 @@ export default {
         const response = await fetch(fileName);
         const rawData = await response.json();
         
-        // 处理数据格式并建立ID映射
         this.mapPoints = [];
-        this.idToPointMap = {};
-        
         rawData.forEach((item) => {
           const coords = item.coordinates_2d || [0, 0];
           const point = {
@@ -1384,43 +1560,10 @@ export default {
             id: item.id,
             chunk_id: item.chunk_id || item.id
           };
-          
           this.mapPoints.push(point);
-          
-          // 建立多种ID格式的映射
-          // 1. 直接ID映射
-          if (item.id) {
-            this.idToPointMap[item.id] = point;
-          }
-          if (item.chunk_id) {
-            this.idToPointMap[item.chunk_id] = point;
-          }
-          
-          // 2. 从metadata中提取figure_id
-          try {
-            if (item.metadata) {
-              let metadataObj = item.metadata;
-              if (typeof metadataObj === 'string') {
-                metadataObj = JSON.parse(metadataObj);
-              }
-              
-              // 检查metadata中的figure_id
-              if (metadataObj.figure_id) {
-                this.idToPointMap[metadataObj.figure_id] = point;
-              }
-              
-              // 检查嵌套的metadata字段
-              if (metadataObj.metadata && typeof metadataObj.metadata === 'string') {
-                const innerMetadata = JSON.parse(metadataObj.metadata);
-                if (innerMetadata.figure_id) {
-                  this.idToPointMap[innerMetadata.figure_id] = point;
-                }
-              }
-            }
-          } catch (e) {
-            // 解析失败，忽略
-          }
         });
+
+        this.rebuildIdToPointMap();
         
         console.log('地图数据加载完成，共', this.mapPoints.length, '个点');
         console.log('ID映射表大小:', Object.keys(this.idToPointMap).length);
@@ -1460,9 +1603,15 @@ export default {
         }
       }
       
-      // 4. 在mapPoints中查找（通过metadata）
-      for (const point of this.mapPoints) {
+      const scanList =
+        this.globalMapPoints && this.globalMapPoints.length > 0
+          ? this.globalMapPoints
+          : this.mapPoints;
+      for (const point of scanList) {
         try {
+          if (String(point.id) === idStr || String(point.chunk_id) === idStr) {
+            return point;
+          }
           if (point.metadata) {
             let metadataObj = point.metadata;
             if (typeof metadataObj === 'string') {
@@ -1472,10 +1621,16 @@ export default {
             if (metadataObj.figure_id === idStr || metadataObj.id === idStr) {
               return point;
             }
+            if (String(metadataObj.chunkid) === idStr || String(metadataObj.chunk_id) === idStr) {
+              return point;
+            }
             
             if (metadataObj.metadata && typeof metadataObj.metadata === 'string') {
               const innerMetadata = JSON.parse(metadataObj.metadata);
               if (innerMetadata.figure_id === idStr || innerMetadata.id === idStr) {
+                return point;
+              }
+              if (String(innerMetadata.chunkid) === idStr || String(innerMetadata.chunk_id) === idStr) {
                 return point;
               }
             }
@@ -1485,6 +1640,117 @@ export default {
         }
       }
       
+      return null;
+    },
+
+    /** 与 drawStrategyMap / drawGlobalMap 底图同源的点数组（仅引用，不拷贝） */
+    getCanonicalLayoutPoints() {
+      if (this.globalMapPoints && this.globalMapPoints.length > 0) {
+        return this.globalMapPoints;
+      }
+      return this.mapPoints || [];
+    },
+
+    /** 从一条检索结果收集所有可能与 embedding 点匹配的 id（本地实验 JSON 与 Chroma 字段可能不一致） */
+    _collectEvidenceMapIdCandidates(retrievalResult) {
+      const out = [];
+      const push = (v) => {
+        if (v === null || v === undefined) return;
+        const s = String(v).trim();
+        if (s && !out.includes(s)) out.push(s);
+      };
+      if (!retrievalResult) return out;
+      const rr = retrievalResult;
+      push(rr.id);
+      const meta = rr.metadata;
+      if (meta && typeof meta === 'object') {
+        push(meta.id);
+        push(meta.chunkid);
+        push(meta.chunk_id);
+        push(meta.figure_id);
+        if (typeof meta.metadata === 'string') {
+          try {
+            const inner = JSON.parse(meta.metadata);
+            if (inner && typeof inner === 'object') {
+              push(inner.id);
+              push(inner.chunkid);
+              push(inner.chunk_id);
+              push(inner.figure_id);
+            }
+          } catch (e) {
+            /* ignore */
+          }
+        }
+        if (typeof meta.full_json === 'string') {
+          try {
+            const fj = JSON.parse(meta.full_json);
+            if (fj && typeof fj === 'object') {
+              push(fj.id);
+              push(fj.chunk_id);
+              push(fj.chunkid);
+            }
+          } catch (e) {
+            /* ignore */
+          }
+        }
+      }
+      return out;
+    },
+
+    _layoutPointRowMatchesEvidenceId(point, idStr) {
+      if (!point || !idStr) return false;
+      if (String(point.id) === idStr || String(point.chunk_id) === idStr) return true;
+      const m = point.metadata;
+      if (!m) return false;
+      let mo = m;
+      if (typeof mo === 'string') {
+        try {
+          mo = JSON.parse(mo);
+        } catch (e) {
+          return false;
+        }
+      }
+      if (!mo || typeof mo !== 'object') return false;
+      const fields = [mo.id, mo.chunkid, mo.chunk_id, mo.figure_id];
+      for (const f of fields) {
+        if (f != null && String(f) === idStr) return true;
+      }
+      if (typeof mo.metadata === 'string') {
+        try {
+          const inner = JSON.parse(mo.metadata);
+          if (inner && typeof inner === 'object') {
+            const innerFields = [inner.id, inner.chunkid, inner.chunk_id, inner.figure_id];
+            for (const f of innerFields) {
+              if (f != null && String(f) === idStr) return true;
+            }
+          }
+        } catch (e) {
+          /* ignore */
+        }
+      }
+      return false;
+    },
+
+    /**
+     * 仅在「当前全局/底图使用的 layout 点集」内解析坐标，保证策略小地图与左侧整体绘制一致。
+     */
+    findLayoutPointForRetrieval(layoutPoints, retrievalResult) {
+      if (!layoutPoints || !layoutPoints.length || !retrievalResult) return null;
+      const cands = this._collectEvidenceMapIdCandidates(retrievalResult);
+      for (const idStr of cands) {
+        for (const p of layoutPoints) {
+          if (String(p.id) === idStr || String(p.chunk_id) === idStr) {
+            return p;
+          }
+        }
+      }
+      for (const idStr of cands) {
+        for (const p of layoutPoints) {
+          if (this._layoutPointRowMatchesEvidenceId(p, idStr)) {
+            return p;
+          }
+        }
+      }
       return null;
     },
 
@@ -1562,6 +1828,7 @@ export default {
         this.forkExperimentSource = String(this.selectedDataFile || '')
           .trim()
           .replace(/\\/g, '/');
+        this.syncPlanSummariesFromExperimentResult();
         this.drawRiverChart();
       } catch (error) {
         console.error('加载实验数据失败:', error);
@@ -2034,6 +2301,7 @@ export default {
     },
 
 drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, roundNumber, queryIndex) {
+      const layoutPoints = this.getCanonicalLayoutPoints();
       // const isEmptyQuery = !query.rag_results || query.rag_results.length === 0;
       const ragPoints = [];
       const missingIds = [];
@@ -2048,7 +2316,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         }
         
         const pointId = rag.retrieval_result.id;
-        const point = this.findPointById(pointId);
+        const point = this.findLayoutPointForRetrieval(layoutPoints, rag.retrieval_result);
         
         if (point) {
           ragPoints.push({ 
@@ -2174,12 +2442,8 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
 
       // 与左栏全局图相同的「数据→像素」比例（readGlobalMapContentSizeForMiniMap 对齐 drawGlobalMap 的 content 宽高），
       // 再整体 scale+居中塞进小地图，避免策略卡偏横时把小地图拉得比全局更「扁」。
-      // 底图点集与全局一致：优先 globalMapPoints（与 drawGlobalMap 同源），未就绪时回退 mapPoints（multimodal2text 等同 JSON）；
-      // 不再对灰点降采样（原 baseDotMax=200 会导致目测远少于全局）。
-      const allPoints =
-        this.globalMapPoints && this.globalMapPoints.length > 0
-          ? this.globalMapPoints
-          : this.mapPoints;
+      // 底图点集与全局一致：与上方 rag 点解析同源（layoutPoints === getCanonicalLayoutPoints()）
+      const allPoints = layoutPoints && layoutPoints.length > 0 ? layoutPoints : this.getCanonicalLayoutPoints();
       const xExtent = d3.extent(allPoints, (d) => d.x);
       const yExtent = d3.extent(allPoints, (d) => d.y);
       const { cw: gCW, ch: gCH } = this.readGlobalMapContentSizeForMiniMap();
@@ -2256,12 +2520,77 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           .attr('fill', 'rgba(0,0,0,0.35)');
       }
 
+      const op = query?.orchestrator_plan || {};
+      const beforeIds =
+        Array.isArray(op.rerank_before_ids) ? op.rerank_before_ids
+        : Array.isArray(op.rerankBeforeIds) ? op.rerankBeforeIds
+        : null;
+      const afterIds =
+        Array.isArray(op.rerank_after_ids) ? op.rerank_after_ids
+        : Array.isArray(op.rerankAfterIds) ? op.rerankAfterIds
+        : null;
+      const skipSemanticNoEval =
+        this.getSkipEvaluationForRound(roundNumber) &&
+        op.tool_name === 'strategy_semantic_search';
+      const useRerankLayer =
+        skipSemanticNoEval &&
+        beforeIds &&
+        beforeIds.length > 0;
+
+      let beforeSet = null;
+      let afterIdSet = null;
+      if (useRerankLayer) {
+        beforeSet = new Set(beforeIds.map(String));
+        const idListAfter =
+          afterIds && afterIds.length
+            ? afterIds.map(String)
+            : (query.rag_results || []).map((r) => String(r?.retrieval_result?.id || '')).filter(Boolean);
+        afterIdSet = new Set(idListAfter);
+
+        const droppedPts = [];
+        beforeSet.forEach((sid) => {
+          if (afterIdSet.has(sid)) return;
+          const pt = this.findLayoutPointForRetrieval(layoutPoints, { id: sid });
+          if (pt && Number.isFinite(pt.x) && Number.isFinite(pt.y)) droppedPts.push(pt);
+        });
+        if (droppedPts.length) {
+          // 与 global-dots 一致：圆心在 plotG 的「参考坐标系」内用 xRef/yRef；
+          // plotG 已带 translate(tx,ty) scale(k)，切勿再写 tx+k*… 否则会双重变换飞到图外。
+          plotG
+            .append('g')
+            .attr('class', 'rerank-candidate-dropped')
+            .selectAll('circle')
+            .data(droppedPts)
+            .enter()
+            .append('circle')
+            .attr('cx', (d) => xRef(d.x))
+            .attr('cy', (d) => yRef(d.y))
+            .attr('r', 2.35)
+            .attr('fill', '#b8deff')
+            .attr('stroke', 'rgba(40,50,60,0.25)')
+            .attr('stroke-width', 0.55)
+            .attr('opacity', 0.88);
+        }
+      }
+
       // 绘制RAG结果点（FootprintRAG风格）
       const colorOf = (action) => {
         if (action === 'GROW') return '#28a745';
         if (action === 'PRUNE') return '#dc3545';
         if (action === 'KEEP') return '#ffc107';
         return '#9AA3AD'; // UNKNOWN
+      };
+
+      const resolveCoreFill = (action, evidenceId) => {
+        if (useRerankLayer && beforeSet && afterIdSet) {
+          const pid = String(evidenceId || '');
+          if (afterIdSet.has(pid)) return '#123f6e';
+          if (beforeSet.has(pid)) return '#b8deff';
+        }
+        if (skipSemanticNoEval) {
+          return '#123f6e';
+        }
+        return colorOf(action);
       };
       
       const ragPointsData = ragPoints.map(p => {
@@ -2356,6 +2685,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           action,
           isPicture,
           rag: p.rag,
+          coreFill: resolveCoreFill(action, rr.id),
         };
       });
 
@@ -2374,7 +2704,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         .attr('cx', d => d.x)
         .attr('cy', d => d.y)
         .attr('r', d => d.radius)
-        .attr('fill', d => colorOf(d.action))
+        .attr('fill', d => d.coreFill)
         .attr('stroke', 'rgba(40,50,60,0.35)') // FootprintRAG风格
         .attr('stroke-width', 0.8)
         .attr('opacity', d => (d.action === 'UNKNOWN' ? 0.45 : 0.92));
@@ -2475,7 +2805,9 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             if (branchAction === 'PRUNE') return;
           }
           const ragForBuild = { ...rr, evaluation: evaluation || rr.evaluation || null };
-          const item = buildInteractiveReportItemFromRag(this.$store.getters, ragForBuild);
+          const item = buildInteractiveReportItemFromRag(this.$store.getters, ragForBuild, {
+            mapPointForId: (id) => this.findPointById(id)
+          });
           if (!item) return;
 
           const startX = event.clientX;
@@ -3212,8 +3544,18 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       if (round.query_results) {
         round.query_results.forEach(query => {
           if (query.orchestrator_plan?.plansummary) {
-            const text = query.orchestrator_plan.plansummary;
-            const words = text.match(/[\u4e00-\u9fa5]+|[a-zA-Z]{2,}/g) || [];
+            let text = query.orchestrator_plan.plansummary;
+            if (typeof text === 'string' && text.trim().startsWith('{')) {
+              try {
+                const o = JSON.parse(text.trim());
+                if (o && typeof o === 'object') {
+                  text = [o.answer, o.suggestion].filter(Boolean).join(' ');
+                }
+              } catch (e) {
+                /* 保持原文 */
+              }
+            }
+            const words = String(text).match(/[\u4e00-\u9fa5]+|[a-zA-Z]{2,}/g) || [];
             words.forEach(word => {
               const lowerWord = word.toLowerCase();
               if (word.length > 1 && !stopWords.has(lowerWord)) {
@@ -3255,6 +3597,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     
     // 处理RAG结果为ItemDetail需要的格式（复用store中的逻辑）
     processRagResultForDetail(ragResult) {
+      ragResult = patchRagMetadataWithMapPoint(ragResult, (id) => this.findPointById(id));
       // 解析metadata（可能是JSON字符串）
       let parsedMetadata = null;
       if (ragResult.metadata?.metadata) {
@@ -3971,6 +4314,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         }
 
         this.assignClusterIdsToPoints();
+        this.rebuildIdToPointMap();
         
         console.log('全局地图数据加载完成，共', this.globalMapPoints.length, '个点');
         this.$nextTick(() => {
@@ -4473,7 +4817,21 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
 
     formatSummary(summary) {
       if (!summary) return '';
-      
+      const trimmed = String(summary).trim();
+      if (trimmed.startsWith('{')) {
+        try {
+          const o = JSON.parse(trimmed);
+          if (o && typeof o === 'object' && ('answer' in o || 'suggestion' in o)) {
+            const a = o.answer != null ? String(o.answer) : '';
+            const s = o.suggestion != null ? String(o.suggestion) : '';
+            const md = `### 基于数据的回答\n\n${a}\n\n---\n\n### 策略选择评价\n\n${s}`;
+            return this.formatSummary(md);
+          }
+        } catch (e) {
+          /* 非 JSON 或解析失败，走下方 Markdown */
+        }
+      }
+
       try {
         // 配置 marked renderer 以支持数学公式
         const renderer = new marked.Renderer();
@@ -5222,6 +5580,36 @@ svg {
 
 .plan-summary-modal {
   width: 850px;
+}
+
+.plan-summary-hyde {
+  margin: 0 0 12px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(230, 244, 255, 0.65);
+  border: 1px solid rgba(100, 170, 230, 0.45);
+}
+
+.plan-summary-hyde-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(45, 75, 105, 0.95);
+  margin-bottom: 6px;
+}
+
+.plan-summary-hyde-body {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(135, 206, 250, 0.35);
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(35, 55, 75, 0.95);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 260px;
+  overflow: auto;
 }
 
 .plan-summary-meta {
