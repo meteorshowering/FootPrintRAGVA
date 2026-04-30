@@ -11,15 +11,13 @@
         <aside class="left-panel">
           <LeftPanel
             :map-toolbar="mapToolbarState"
+            :multi-agent-rewrite-streams="useMultiAgentRewriteStreams"
             @system-prompt-change="handleSystemPromptChange"
             @rag-collection-change="handleRagCollectionChange"
             @plans-per-round-change="handlePlansPerRoundChange"
             @max-rounds-change="handleMaxRoundsChange"
             @rag-results-per-plan-change="handleRagResultsPerPlanChange"
             @river-load-all="handleRiverLoadAll"
-            @river-clear="handleRiverClear"
-            @river-toggle-prune="handleRiverTogglePrune"
-            @river-toggle-connections="handleRiverToggleConnections"
             @river-select-file="handleRiverSelectFile"
             @global-map-clear="handleGlobalMapClear"
             @global-map-reset="handleGlobalMapReset"
@@ -27,6 +25,7 @@
             @map-box-toggle="handleMapBoxToggle"
             @map-box-confirm="handleMapBoxConfirm"
             @map-box-clear-filter="handleMapBoxClearFilter"
+            @multi-agent-toggle="handleMultiAgentToggle"
           />
         </aside>
 
@@ -39,6 +38,7 @@
             :rag-results-per-plan="ragResultsPerPlan"
             :max-rounds="maxRounds"
             :skip-evaluation="skipEvaluation"
+            :use-multi-agent-rewrite-streams="useMultiAgentRewriteStreams"
             :global-map-mount-id="'left-global-map'"
             @map-toolbar="handleMapToolbar"
           />
@@ -85,6 +85,7 @@ export default {
       ragResultsPerPlan: 10,
       maxRounds: 3,
       skipEvaluation: false,
+      useMultiAgentRewriteStreams: false,
       vizHydeRerankMapColors: false,
       showHydeInPlanSummary: false,
       mapToolbarState: {
@@ -140,15 +141,6 @@ export default {
     handleRiverLoadAll() {
       this.$refs.riverChart?.loadAllRounds?.();
     },
-    handleRiverClear() {
-      this.$refs.riverChart?.clearChart?.();
-    },
-    handleRiverTogglePrune() {
-      this.$refs.riverChart?.toggleHidePrunePoints?.();
-    },
-    handleRiverToggleConnections() {
-      this.$refs.riverChart?.toggleConnections?.();
-    },
     handleRiverSelectFile(file) {
       this.$refs.riverChart?.setSelectedDataFile?.(file);
     },
@@ -160,6 +152,9 @@ export default {
     },
     handleSkipEvaluationChange(val) {
       this.skipEvaluation = !!val;
+    },
+    handleMultiAgentToggle(val) {
+      this.useMultiAgentRewriteStreams = !!val;
     },
     handleMapToolbar(payload) {
       if (!payload || typeof payload !== 'object') return;

@@ -10,15 +10,14 @@ from typing import List, Dict, Any, Optional
 
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 from autogen_core.models import SystemMessage, UserMessage
-from autogen_core.models import ModelInfo
 
-from scientific_tools import ALL_TOOLS_MAP
+from scientific_tools import ALL_TOOLS_MAP, ACTIVE_COLLECTION_NAME
 from protocols import (
     OrchestratorPlan, RawEvidenceItem, ItemEvaluation,
     RagResult, QueryResult, IterationResult, ExperimentResult,
     WordCloudData, RetrievalQualityEvaluation, SummaryResponse
 )
-from rag_service import get_rag_service
+from rag_service import get_rag_service, consume_semantic_pipeline_trace
 
 
 class SingleStrategyExecutor:
@@ -26,20 +25,11 @@ class SingleStrategyExecutor:
     
     def __init__(self):
         """初始化执行器"""
-        # 初始化模型客户端
+        # 初始化模型客户端（与 engine.run_rag_workflow 同一网关）
         self.model_client = OpenAIChatCompletionClient(
-            model="deepseek-r1:671b-0528",
-            base_url="https://uni-api.cstcloud.cn/v1",
-            api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",
-            model_info=ModelInfo(
-                vision=False,
-                structured_output=False,
-                function_calling=True,
-                streaming=True,
-                json_output=False,
-                family="deepseek",
-                context_length=65536,
-            )
+            model="gpt-4o",
+            base_url="http://38.147.105.35:3030/v1",
+            api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5",
         )
         
         # 评估器的系统消息
@@ -112,8 +102,8 @@ class SingleStrategyExecutor:
         print(f"\n🔹 [SingleStrategyExecutor] 开始执行策略: {plan.tool_name}, 参数: {plan.args}")
 
         try:
-            # 1. 执行工具检索
-            raw_items = await self._execute_tool(plan)
+            # 1. 执行工具检索（语义检索会写 context trace，需在此消费并写回 plan，与 ToolExecutorAgent 一致）
+            raw_items, plan = await self._execute_tool(plan)
             print(f"   ✅ 检索完成，找到 {len(raw_items)} 条结果")
 
             # 2. 评估检索结果
@@ -166,18 +156,97 @@ class SingleStrategyExecutor:
             plan.duplicate_results = 0
             plan.plansummary = f"Execution failed: {str(e)}"
             return plan
-    
-    async def _execute_tool(self, plan: OrchestratorPlan) -> List[RawEvidenceItem]:
-        """执行工具检索（复刻ToolExecutorAgent的逻辑）"""
+
+    async def execute_to_query_result(
+        self,
+        plan: OrchestratorPlan,
+        root_goal: str = "",
+        *,
+        skip_evaluation: bool = False,
+    ) -> QueryResult:
+        """
+        执行单条策略并返回 QueryResult（供 engine_multi_agent 等多轨编排复用，不修改 engine.py）。
+        """
+        print(f"\n🔹 [SingleStrategyExecutor] execute_to_query_result: {plan.tool_name}, args={plan.args}")
+        rag_results: List[RagResult] = []
+        try:
+            raw_items, plan = await self._execute_tool(plan)
+            if skip_evaluation:
+                evaluations = [
+                    ItemEvaluation(
+                        target_evidence_id=str(it.id),
+                        branch_action="KEEP",
+                        extracted_insight="(evaluation skipped)",
+                        scores={"relevance": 8, "credibility": 8},
+                        reason="skip_evaluation enabled (multi-agent path)",
+                        suggested_keywords=[],
+                    )
+                    for it in raw_items
+                ]
+            else:
+                evaluations = await self._evaluate_items(raw_items) if raw_items else []
+            evaluation_map = {ev.target_evidence_id: ev for ev in evaluations}
+            for item in raw_items:
+                evaluation = evaluation_map.get(item.id)
+                rag_results.append(RagResult(retrieval_result=item, evaluation=evaluation))
+            plan.total_results = len(raw_items)
+            plan.duplicate_results = 0
+            query_result = QueryResult(orchestrator_plan=plan, rag_results=rag_results)
+            iteration_result = IterationResult(
+                round_number=0,
+                query_results=[query_result],
+            )
+            experiment_result = ExperimentResult(
+                root_goal=root_goal or plan.reason or "Single-strategy retrieval",
+                iterations=[iteration_result],
+            )
+            summary = await self._generate_summary(experiment_result, raw_items)
+            plan.plansummary = summary
+            query_result.orchestrator_plan = plan
+            return query_result
+        except Exception as e:
+            print(f"   ❌ execute_to_query_result 出错: {e}")
+            print(traceback.format_exc())
+            plan.total_results = 0
+            plan.duplicate_results = 0
+            plan.plansummary = f"Execution failed: {str(e)}"
+            return QueryResult(orchestrator_plan=plan, rag_results=rag_results)
+
+    async def _execute_tool(self, plan: OrchestratorPlan) -> tuple[List[RawEvidenceItem], OrchestratorPlan]:
+        """执行工具检索（复刻 ToolExecutorAgent；语义检索后消费 HyDE/Rerank trace 写回 plan）。"""
         tool_func = ALL_TOOLS_MAP.get(plan.tool_name)
-        
+
         if not tool_func:
             raise ValueError(f"工具未找到: {plan.tool_name}")
-        
+
         try:
             items: List[RawEvidenceItem] = await tool_func(**plan.args)
-            return items
+            if plan.tool_name == "strategy_semantic_search":
+                trace = consume_semantic_pipeline_trace()
+                if trace is None:
+                    try:
+                        svc = await get_rag_service(collection_name=ACTIVE_COLLECTION_NAME)
+                        trace = getattr(svc, "_last_semantic_pipeline_trace", None)
+                    except Exception:
+                        trace = None
+                if trace:
+                    upd: Dict[str, Any] = {}
+                    hy = trace.get("hyde_hypothetical_paragraph_full_text")
+                    if hy is not None:
+                        s = str(hy).strip()
+                        upd["hyde_hypothetical_paragraph_full_text"] = s if s else None
+                    rb = trace.get("rerank_before_ids")
+                    ra = trace.get("rerank_after_ids")
+                    if rb is not None:
+                        upd["rerank_before_ids"] = rb
+                    if ra is not None:
+                        upd["rerank_after_ids"] = ra
+                    if upd:
+                        plan = plan.model_copy(update=upd)
+            return items, plan
         except Exception as e:
+            if plan.tool_name == "strategy_semantic_search":
+                consume_semantic_pipeline_trace()
             print(f"   ❌ 工具执行失败: {e}")
             raise
     

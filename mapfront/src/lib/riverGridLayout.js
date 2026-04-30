@@ -107,6 +107,16 @@ export const STRATEGY_CELL_PAD_Y = 6;
 /** Question 竖条右缘与策略列之间的视觉留白（仅缩窄竖条宽度，不改变 round 列 x / 小矩形位置） */
 const LABEL_STRIP_RIGHT_INSET = 12;
 
+/** 会话题干表头（label 列 overlay）右缘与属于该会话的首列策略格之间的横向间距 */
+export const SESSION_HEADER_TO_ROUND_GAP = 10;
+
+/**
+ * label 列逻辑右缘 → 第一列 Round 左缘：在 strategyMargin 之外再增加的间距。
+ * Round 与 Round 之间仍只用 strategyMargin，避免整网列距一起变大。
+ */
+/** 默认额外间距；可在 EnhancedRiverChart 上设置 `labelToFirstRoundGapExtra` 覆盖 */
+export const LABEL_TO_FIRST_ROUND_GAP_EXTRA = 28;
+
 export function ensureGridSizing(vm, allRounds, maxQueryOverride) {
   const colKeys = allRounds.map((r) => gridColumnKey(r));
   const fromData = Math.max(
@@ -155,7 +165,13 @@ export function buildGridMetrics(vm, allRounds) {
   const roundNumbers = [];
 
   colPositions.label = { x: rm, width: labelW };
-  const xAfterLabel = colPositions.label.x + colPositions.label.width + sm;
+  const extraAfterLabel =
+    vm != null &&
+    typeof vm.labelToFirstRoundGapExtra === 'number' &&
+    !Number.isNaN(vm.labelToFirstRoundGapExtra)
+      ? Math.max(0, vm.labelToFirstRoundGapExtra)
+      : LABEL_TO_FIRST_ROUND_GAP_EXTRA;
+  const xAfterLabel = colPositions.label.x + colPositions.label.width + sm + extraAfterLabel;
 
   let yCursor = rm;
   let maxX = colPositions.label.x + colPositions.label.width;
@@ -171,8 +187,14 @@ export function buildGridMetrics(vm, allRounds) {
       yCursor += headerH + 10;
     }
 
+    /** 本会话条带内实际策略行数（各轮 query_results 长度的最大值），与全局 maxQueryCount 解耦 */
+    const maxQueryInStrip = Math.max(
+      1,
+      ...rounds.map((r) => (Array.isArray(r.query_results) ? r.query_results.length : 0))
+    );
+
     const rowYs = [];
-    for (let i = 0; i < maxQueryCount; i += 1) {
+    for (let i = 0; i < maxQueryInStrip; i += 1) {
       const rh = vm.gridState.rowHeights[`row-${i}`] || vm.strategyHeight + 24;
       rowYs.push({ y: yCursor, height: rh });
       yCursor += rh + sm;
@@ -190,7 +212,8 @@ export function buildGridMetrics(vm, allRounds) {
       headerY: headerYForStrip,
       headerH: headerHForStrip,
       rowYs,
-      stripBottom
+      stripBottom,
+      maxQueryInStrip
     });
 
     let x = xAfterLabel;

@@ -12,17 +12,23 @@ from typing import Final, Optional
 # =============================================================================
 # 主配置 —— 直接改这里（未设置环境变量时使用）
 # =============================================================================
-GATEWAY_BASE_URL: Final[str] = "https://uni-api.cstcloud.cn/v1"
+GATEWAY_BASE_URL: Final[str] = "http://38.147.105.35:3030/v1"
 GATEWAY_API_KEY: Final[str] = (
-    "f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8"
+    "sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
 )
-REPORT_MODEL: Final[str] = "gpt-oss-120b"
+# 与主编排 / single_strategy 使用的 chat 模型对齐；可用环境变量 RAG_REPORT_MODEL 覆盖
+REPORT_MODEL: Final[str] = "gpt-4o"
 # HyDE 用的 chat 模型；空字符串表示与 REPORT_MODEL 相同
 HYDE_MODEL: Final[str] = ""
 RERANK_MODEL: Final[str] = "qwen3-reranker:8b"
-# Rerank 完整 URL；空字符串表示使用「网关 base + /rerank」
+# Rerank 与主编排网关分离：默认仍走原 uni-api（chat/HyDE/报告用 GATEWAY_*）
+RERANK_GATEWAY_URL: Final[str] = "https://uni-api.cstcloud.cn/v1/rerank"
+RERANK_GATEWAY_API_KEY: Final[str] = (
+    "f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8"
+)
+# Rerank 完整 URL；空则使用 RERANK_GATEWAY_URL（不用 GATEWAY_BASE_URL + /rerank）
 RERANK_URL: Final[str] = ""
-# Rerank 专用 Key；空字符串表示与 GATEWAY_API_KEY 相同
+# Rerank 专用 Key；空则使用 RERANK_GATEWAY_API_KEY（不用 GATEWAY_API_KEY）
 RERANK_API_KEY: Final[str] = ""
 
 # =============================================================================
@@ -41,6 +47,7 @@ SEMANTIC_VECTOR_THRESHOLD_CAP_WHEN_RERANK: Final[float] = 0.0
 #   RAG_REPORT_BASE_URL, RAG_REPORT_API_KEY, RAG_REPORT_MODEL
 #   RAG_SEMANTIC_API_BASE_URL, RAG_SEMANTIC_API_KEY
 #   RAG_HYDE_MODEL, RAG_RERANK_URL, RAG_RERANK_MODEL, RAG_RERANK_API_KEY
+#   （未设 RAG_RERANK_* 时 Rerank 默认走 uni-api，与 RERANK_GATEWAY_* 一致）
 # 开关（在 rag_service 等调用方读取）: RAG_HYDE_ENABLED, RAG_RERANK_ENABLED
 # =============================================================================
 
@@ -85,9 +92,11 @@ class RAGLLMAPISettings:
         report_model = _env_first("RAG_REPORT_MODEL") or REPORT_MODEL
         hyde_model = _env_first("RAG_HYDE_MODEL") or (HYDE_MODEL or report_model)
         rerank_model = _env_first("RAG_RERANK_MODEL") or RERANK_MODEL
-        rerank_url = _env_first("RAG_RERANK_URL") or (RERANK_URL.strip() or f"{base}/rerank")
+        rerank_url = _env_first("RAG_RERANK_URL") or (
+            RERANK_URL.strip() or RERANK_GATEWAY_URL
+        )
         rerank_key = _env_first("RAG_RERANK_API_KEY") or (
-            RERANK_API_KEY.strip() if RERANK_API_KEY.strip() else key
+            RERANK_API_KEY.strip() if RERANK_API_KEY.strip() else RERANK_GATEWAY_API_KEY
         )
         return cls(
             base_url=base,

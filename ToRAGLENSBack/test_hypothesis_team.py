@@ -14,7 +14,6 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from autogen_ext.models.openai import OpenAIChatCompletionClient
-from autogen_core.models import ModelInfo
 from protocols import ResearchGraph, GraphNode, ItemEvaluation, ExperimentResult, TaskComplete, IterationResult, QueryResult, OrchestratorPlan
 from engine import HypothesisGeneratorAgent
 from autogen_core import CancellationToken
@@ -211,21 +210,12 @@ async def test_hypothesis_team(json_path: str):
                 plan_summary_count += 1
     print(f"   - Plan summaries 数量: {plan_summary_count}")
     
-    # 初始化模型客户端
+    # 初始化模型客户端（与 engine 主流程网关一致）
     print(f"[INFO] 初始化模型客户端...")
     model_client = OpenAIChatCompletionClient(
-        model="deepseek-r1:671b-0528",
-        base_url="https://uni-api.cstcloud.cn/v1",
-        api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",
-        model_info=ModelInfo(
-            vision=False,
-            structured_output=False,
-            function_calling=True,
-            streaming=True,
-            json_output=False,
-            family="deepseek",
-            context_length=65536,
-        )
+        model="gpt-4o",
+        base_url="http://38.147.105.35:3030/v1",
+        api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5",
     )
     
     # 创建 HypothesisGeneratorAgent（作为协调者）

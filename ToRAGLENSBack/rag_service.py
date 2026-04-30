@@ -4,7 +4,7 @@
 """
 import re
 import contextvars
-from typing import List, Dict, Any, Optional, Union
+from typing import List, Dict, Any, Optional, Union, Tuple
 import asyncio
 import os
 import json
@@ -305,6 +305,8 @@ class RAGService:
         
         # ✨ 新增：本地数据缓存 (直接存 JSON 对象)
         self.local_data_cache: List[Dict[str, Any]] = []
+        # 供 single_strategy 等在 consume_semantic_pipeline_trace 之外读取最近一次语义 trace（同实例并发语义检索时仍可能竞态，主流程以 ContextVar 为准）
+        self._last_semantic_pipeline_trace: Optional[Dict[str, Any]] = None
     
     async def initialize(self, figures_file_path: Optional[str] = None, collection_name: str = None, multimodal_collection_name: str = None, reset_data: bool = False):
         if self.initialized: return
@@ -482,9 +484,10 @@ class RAGService:
         collection_name: str = None,
         use_multimodal: bool = False,
         allowed_chunk_ids: Optional[List[str]] = None,
-    ) -> List[Dict[str, Any]]:
+    ) -> Tuple[List[Dict[str, Any]], Optional[Dict[str, Any]]]:
         if not self.initialized: await self.initialize()
         _semantic_pipeline_trace_cv.set(None)
+        self._last_semantic_pipeline_trace = None
 
         # 智能选择集合
         target_collection = None
@@ -497,7 +500,7 @@ class RAGService:
                 print(f"   使用指定集合: {collection_name}")
             else:
                 print(f"❌ 集合 {collection_name} 不存在，请先创建该集合")
-                return []
+                return [], None, None
         
         # 如果没有指定集合名称，使用实例初始化时设置的默认集合
         if not target_collection:
@@ -506,16 +509,16 @@ class RAGService:
                 print(f"   使用实例默认集合: {self.collection_name}")
             else:
                 print("❌ 没有可用的集合，请先确保集合已创建")
-                return []
+                return [], None
         
         # 检查集合是否可用
         if not target_collection:
             print("❌ 集合不可用，请先确保集合已创建")
-            return []
+            return [], None
 
         user_query_for_rerank = (query_text or "").strip()
         if not user_query_for_rerank:
-            return []
+            return [], None
 
         use_hyde = env_flag("RAG_HYDE_ENABLED", "true")
         use_rerank = env_flag("RAG_RERANK_ENABLED", "true")
@@ -536,7 +539,7 @@ class RAGService:
         if use_rerank and abs(recall_threshold - float(score_threshold)) > 1e-9:
             print(
                 f"📉 [Semantic+Rerank] 向量分数门槛: {score_threshold} → {recall_threshold} "
-                f"（候选池 top-{fetch_n}，最终仍返回 {n_out} 条）"
+                f"（候选池 top-{fetch_n}，目标最多返回 {n_out} 条；实际命中数以日志末行为准）"
             )
 
         def _sync_semantic():
@@ -556,6 +559,11 @@ class RAGService:
                 )
 
                 if not raw_results or not raw_results.get("ids") or not raw_results["ids"][0]:
+                    wf = f"where id∈{len(allowed_chunk_ids)} 条" if where_filter else "无 where 过滤"
+                    print(
+                        f"⚠️ [Semantic] Chroma 未返回命中（{wf}）。"
+                        "若框选了地图：框内 id 与集合中 id 不一致、或 HyDE 向量与框内文本都不相似，会得到 0 条。"
+                    )
                     return raw_results
 
                 filtered_results = {
@@ -570,13 +578,31 @@ class RAGService:
                 documents = raw_results["documents"][0]
                 distances = raw_results["distances"][0]
 
+                below = 0
+                bad_dist = 0
                 for i, (id, metadata, document, distance) in enumerate(zip(ids, metadatas, documents, distances)):
-                    score = 1.0 / (1.0 + float(distance))
+                    if distance is None:
+                        bad_dist += 1
+                        continue
+                    try:
+                        dnum = float(distance)
+                    except (TypeError, ValueError):
+                        bad_dist += 1
+                        continue
+                    score = 1.0 / (1.0 + dnum)
                     if score >= local_threshold:
                         filtered_results["ids"][0].append(id)
                         filtered_results["metadatas"][0].append(metadata)
                         filtered_results["documents"][0].append(document)
                         filtered_results["distances"][0].append(distance)
+                    else:
+                        below += 1
+
+                if not filtered_results["ids"][0] and ids:
+                    print(
+                        f"⚠️ [Semantic] Chroma 召回 {len(ids)} 条，但向量分数过滤后 0 条 "
+                        f"(门槛={local_threshold:.4f}, 低于门槛={below}, 无效距离={bad_dist})。"
+                    )
 
                 cap = int(cap_after_filter)
                 if len(filtered_results["ids"][0]) > cap:
@@ -637,14 +663,14 @@ class RAGService:
                 "rerank_order_changed_vs_vector_stage": order_changed,
             }
         )
-        _semantic_pipeline_trace_cv.set(
-            {
-                "hyde_hypothetical_paragraph_full_text": hyde_hypothetical_paragraph or "",
-                "rerank_before_ids": ids_b,
-                "rerank_after_ids": ids_a,
-            }
-        )
-        return formatted
+        trace_dict = {
+            "hyde_hypothetical_paragraph_full_text": hyde_hypothetical_paragraph or "",
+            "rerank_before_ids": ids_b,
+            "rerank_after_ids": ids_a,
+        }
+        _semantic_pipeline_trace_cv.set(trace_dict)
+        self._last_semantic_pipeline_trace = trace_dict
+        return formatted, trace_dict
 
     # =========================================================================
     #  接口 C: 精确关键字检索 (非向量相似度，纯文本匹配)
@@ -1207,25 +1233,25 @@ if __name__ == "__main__":
         # 测试1: 基本语义搜索
         print("\n[测试1] 基本语义搜索")
         query1 = "PM2.5"
-        results1 = await service.query_by_semantic(query_text=query1, n_results=5, collection_name="multimodal2text")
+        results1, _t1 = await service.query_by_semantic(query_text=query1, n_results=5, collection_name="multimodal2text")
         print_result_summary(f"语义搜索 (Query={query1})", results1, expected_count=">=1")
         
         # 测试2: 论文标题搜索
         print("\n[测试2] 论文标题搜索")
         query2 = "biomass burning"
-        results2 = await service.query_by_semantic(query_text=query2, n_results=3, collection_name="multimodal2text")
+        results2, _t2 = await service.query_by_semantic(query_text=query2, n_results=3, collection_name="multimodal2text")
         print_result_summary(f"语义搜索 (Query={query2})", results2, expected_count=">=1")
         
         # 测试3: 图片相关搜索
         print("\n[测试3] 图片相关搜索")
         query3 = "figure chart graph"
-        results3 = await service.query_by_semantic(query_text=query3, n_results=3, collection_name="multimodal2text")
+        results3, _t3 = await service.query_by_semantic(query_text=query3, n_results=3, collection_name="multimodal2text")
         print_result_summary(f"语义搜索 (Query={query3})", results3, expected_count=">=1")
         
         # 测试4: 具体论文内容搜索
         print("\n[测试4] 具体论文内容搜索")
         query4 = "air quality China"
-        results4 = await service.query_by_semantic(query_text=query4, n_results=3, collection_name="multimodal2text")
+        results4, _t4 = await service.query_by_semantic(query_text=query4, n_results=3, collection_name="multimodal2text")
         print_result_summary(f"语义搜索 (Query={query4})", results4, expected_count=">=1")
         
         # 测试5: 验证metadata字段

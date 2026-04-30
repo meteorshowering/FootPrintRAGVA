@@ -31,7 +31,7 @@ async def test_rag_data():
         # 1. 测试语义搜索
         print("1. 测试语义搜索示例:")
         query = "SO2空气污染"
-        semantic_results = await service.query_by_semantic(query_text=query, n_results=3)
+        semantic_results, _trace = await service.query_by_semantic(query_text=query, n_results=3)
         print(f"   搜索关键词: {query}")
         print(f"   搜索结果数量: {len(semantic_results)}")
         

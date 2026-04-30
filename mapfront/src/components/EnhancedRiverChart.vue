@@ -89,17 +89,46 @@
           </button>
 
           <button
-            v-for="b in followUpChromeButtons"
+            v-for="b in miniFollowUpTriggerButtons"
             :key="b.key"
             type="button"
-            class="session-add-below-btn follow-up-chrome-btn"
+            class="mini-followup-trigger"
             :style="b.style"
             :disabled="isSubmitting"
-            title="追问"
-            @click.stop="openFollowUpDialog"
+            title="小追问：在本会话追加一次自选策略检索"
+            @click.stop="openMiniFollowUp(b.sessionId)"
           >
-            追
+            小追问
           </button>
+
+          <div
+            v-if="miniFollowUpDraft && miniFollowUpPanelLayout"
+            class="mini-followup-panel"
+            :style="miniFollowUpPanelLayout.style"
+            @click.stop
+          >
+            <div class="mini-followup-panel-title">小追问</div>
+            <label class="mini-followup-label">策略类型</label>
+            <select v-model="miniFollowUpDraft.strategy" class="mini-followup-select">
+              <option value="semantic">语义检索</option>
+              <option value="exact">精确检索</option>
+              <option value="metadata">元数据检索</option>
+            </select>
+            <label class="mini-followup-label">
+              {{ miniFollowUpDraft.strategy === 'metadata' ? 'paper_id 或关键词（逗号分隔）' : '检索内容' }}
+            </label>
+            <input
+              v-model="miniFollowUpDraft.paramText"
+              type="text"
+              class="mini-followup-input"
+              :placeholder="miniFollowUpParamPlaceholder"
+              @keyup.enter="submitMiniFollowUp"
+            />
+            <div class="mini-followup-actions">
+              <button type="button" class="btn btn-submit mini-followup-run" @click="submitMiniFollowUp">检索</button>
+              <button type="button" class="btn" @click="closeMiniFollowUp">取消</button>
+            </div>
+          </div>
 
           <div
             v-for="header in headerCells"
@@ -111,17 +140,6 @@
             <div class="grid-header-subtitle">{{ header.count }} strategy cells</div>
           </div>
 
-          <div
-            v-for="strip in rowLabelStrips"
-            :key="strip.key"
-            class="grid-row-label-strip"
-            :style="strip.style"
-          >
-            <div class="grid-row-label-segment grid-row-label-segment--full">
-              <div class="grid-row-title">Question</div>
-              <div class="grid-row-subtitle session-question-body">{{ sessionQuestionText(strip.sessionId) }}</div>
-            </div>
-          </div>
 
           <div
             v-for="slot in gridSlotCells"
@@ -233,28 +251,6 @@
           <div class="add-q-actions">
             <button type="button" class="btn btn-submit" @click="confirmAddQuestionDialog">OK</button>
             <button type="button" class="btn" @click="cancelAddQuestionDialog">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="followUpDialog" class="modal add-q-modal" @click.self="cancelFollowUpDialog">
-      <div class="modal-content add-q-modal-inner">
-        <div class="modal-header">
-          <h2>追问</h2>
-          <button type="button" class="close-btn" @click="cancelFollowUpDialog">×</button>
-        </div>
-        <div class="modal-body">
-          <input
-            v-model="followUpDraft"
-            class="question-input"
-            type="text"
-            placeholder="输入追问内容…"
-            @keyup.enter="confirmFollowUpDialog"
-          />
-          <div class="add-q-actions">
-            <button type="button" class="btn btn-submit" @click="confirmFollowUpDialog">确定</button>
-            <button type="button" class="btn" @click="cancelFollowUpDialog">取消</button>
           </div>
         </div>
       </div>
@@ -406,6 +402,11 @@ export default {
     skipEvaluation: {
       type: Boolean,
       default: false
+    },
+    /** 为 true 时 start_query 走 engine_multi_agent（多路改写 + 每轨每轮单策略） */
+    useMultiAgentRewriteStreams: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -424,8 +425,8 @@ export default {
       /** 添加问题：输入框与插入位置（null | { afterColumnIndex: number }） */
       addQuestionDialog: null,
       addQuestionDraft: '',
-      followUpDialog: null,
-      followUpDraft: '',
+      /** 小追问：在对应会话首行末列旁打开的面板 { sessionId, strategy, paramText } */
+      miniFollowUpDraft: null,
       roundsData: [],
       svgWidth: 0,
       svgHeight: 0,
@@ -439,6 +440,8 @@ export default {
       strategyHeight: 350,        // 每个策略画布的高度
       strategyMargin: 20,         // 策略之间的间距
       roundMargin: 120,           // 轮次之间的间距
+      /** label 列右缘 → 第一列 Round 的额外水平间距（px）；传给 riverGrid.buildGridMetrics */
+      labelToFirstRoundGapExtra: 28,
       roundHeaderHeight: 50,      // 轮次标题区域高度
       // 地图相关
       mapPoints: [],
@@ -638,18 +641,24 @@ export default {
           const gck0 = firstR.__gridColKey || riverGrid.gridColumnKey(firstR);
           const firstCol = this.gridMetrics.colPositions[`round-${gck0}`];
           if (!row0 || !lastR || !label || !firstCol) return;
-          const contentTop = row0.y;
-          const contentH = lastR.y + lastR.height - row0.y;
+          const contentTop = row0.y + riverGrid.STRATEGY_CELL_PAD_Y;
+          const contentH =
+            lastR.y + lastR.height - riverGrid.STRATEGY_CELL_PAD_Y - contentTop;
           out.push({
             key: `sess-head-${sid}`,
             sessionId: sid,
             title,
             isEmptyPlaceholder: true,
+            /** 与左侧 Question 条同列对齐时，下层条不再重复渲染 Question/题干 */
+            hidesLeftStripDuplicate: true,
             style: {
               left: `${label.x}px`,
               top: `${contentTop}px`,
-              width: `${firstCol.x - label.x}px`,
-              height: `${contentH}px`
+              width: `${Math.max(
+                72,
+                firstCol.x - label.x - riverGrid.SESSION_HEADER_TO_ROUND_GAP
+              )}px`,
+              height: `${Math.max(0, contentH)}px`
             }
           });
           return;
@@ -671,21 +680,26 @@ export default {
         const lastRow = rowYs && rowYs.length ? rowYs[rowYs.length - 1] : null;
         const label = this.gridMetrics.colPositions.label;
         if (!row0 || !lastRow || !label) return;
-        const contentTop = row0.y;
-        const contentH = lastRow.y + lastRow.height - row0.y;
+        const contentTop = row0.y + riverGrid.STRATEGY_CELL_PAD_Y;
+        const contentH =
+          lastRow.y + lastRow.height - riverGrid.STRATEGY_CELL_PAD_Y - contentTop;
         const stripMaxW = 240;
-        const left = Math.max(label.x, minX - stripMaxW);
-        const stripW = Math.max(72, minX - left);
+        const gap = riverGrid.SESSION_HEADER_TO_ROUND_GAP;
+        const rightEdge = minX - gap;
+        const left = Math.max(label.x, rightEdge - stripMaxW);
+        const stripW = Math.max(72, rightEdge - left);
+        const hidesLeftStripDuplicate = left <= label.x + 0.5;
         out.push({
           key: `sess-head-${sid}`,
           sessionId: sid,
           title,
           isEmptyPlaceholder: false,
+          hidesLeftStripDuplicate,
           style: {
             left: `${left}px`,
             top: `${contentTop}px`,
             width: `${stripW}px`,
-            height: `${contentH}px`
+            height: `${Math.max(0, contentH)}px`
           }
         });
       });
@@ -700,8 +714,8 @@ export default {
       const strips = m.strips;
       if (!strips || !strips.length) return [];
       const lastStrip = strips[strips.length - 1];
-      const lastRowIdx = Math.max(0, m.maxQueryCount - 1);
-      const rowLast = lastStrip.rowYs && lastStrip.rowYs[lastRowIdx];
+      const rows = (lastStrip && lastStrip.rowYs) || [];
+      const rowLast = rows.length ? rows[rows.length - 1] : null;
       if (!rowLast) return [];
       const bottomY = rowLast.y + rowLast.height + 10;
       let minX = Infinity;
@@ -730,63 +744,83 @@ export default {
         }
       ];
     },
-    /** 有策略格子数据后才显示追问按钮（非空表初始态） */
-    showFollowUpChrome() {
-      if (this.showEmptySessionChrome) return false;
-      if (!this.gridMetrics) return false;
-      const all = this.getAllRounds();
-      return all.some(
-        (r) =>
-          r._sessionId !== 'empty' &&
-          Array.isArray(r.query_results) &&
-          r.query_results.length > 0
-      );
-    },
-    /** Row 列最下方外侧 + Round 表头行最右侧外侧，各一追问入口 */
-    followUpChromeButtons() {
-      if (!this.showFollowUpChrome || !this.gridMetrics) return [];
-      const m = this.gridMetrics;
-      const label = m.colPositions.label;
-      const act = this.activeSessionId;
-      const strip =
-        m.strips &&
-        (act ? m.strips.find((s) => s.sessionId === act) : m.strips[0]);
-      if (!strip || !strip.rowYs || !strip.rowYs.length) return [];
-      const sidForFu = strip.sessionId;
-      const lastRowIdx = Math.max(0, m.maxQueryCount - 1);
-      const rowLast = strip.rowYs[lastRowIdx];
-      const header = { y: strip.headerY, height: strip.headerH };
-      if (!label || !rowLast) return [];
-      let maxRoundRight = 0;
-      this.getAllRounds()
-        .filter((r) => r._sessionId === sidForFu)
-        .forEach((r) => {
-          const gck = r.__gridColKey || riverGrid.gridColumnKey(r);
-          const rect = riverGrid.getRoundHeaderRect(m, r.round_number, gck);
-          if (rect) maxRoundRight = Math.max(maxRoundRight, rect.x + rect.width);
+    /** 每个非空会话：首行最后一列策略格右上外侧「小追问」入口 */
+    miniFollowUpTriggerButtons() {
+      if (!this.gridMetrics || this.showEmptySessionChrome) return [];
+      const sm = this.strategyMargin != null ? this.strategyMargin : 10;
+      const btnW = 52;
+      const btnH = 24;
+      const out = [];
+      (this.gridMetrics.strips || []).forEach((strip) => {
+        const sid = strip.sessionId;
+        if (!sid || sid === 'empty') return;
+        const sessionRounds = this.getAllRounds().filter((r) => r._sessionId === sid);
+        if (!sessionRounds.length) return;
+        const lastRound = sessionRounds.reduce((a, b) =>
+          Number(a.round_number) > Number(b.round_number) ? a : b
+        );
+        const gck = lastRound.__gridColKey || riverGrid.gridColumnKey(lastRound);
+        const rect = riverGrid.getStrategyCellRect(
+          this,
+          this.gridMetrics,
+          lastRound.round_number,
+          0,
+          gck
+        );
+        if (!rect) return;
+        const left = rect.x + rect.width + sm;
+        const top = Math.max((strip.stripTop || 0) + 2, rect.y - btnH - 4);
+        out.push({
+          key: `mini-fu-${sid}`,
+          sessionId: sid,
+          style: {
+            left: `${left}px`,
+            top: `${top}px`,
+            width: `${btnW}px`,
+            height: `${btnH}px`
+          }
         });
-      const btn = 36;
-      const gap = 10;
-      return [
-        {
-          key: 'fu-row-label',
-          style: {
-            left: `${label.x}px`,
-            top: `${rowLast.y + rowLast.height + gap}px`,
-            width: `${btn}px`,
-            height: `${btn}px`
-          }
-        },
-        {
-          key: 'fu-header-right',
-          style: {
-            left: `${maxRoundRight + gap}px`,
-            top: `${header.y + Math.max(0, (header.height - btn) / 2)}px`,
-            width: `${btn}px`,
-            height: `${btn}px`
-          }
+      });
+      return out;
+    },
+    miniFollowUpPanelLayout() {
+      const d = this.miniFollowUpDraft;
+      if (!d || !this.gridMetrics) return null;
+      const sid = d.sessionId;
+      const sessionRounds = this.getAllRounds().filter((r) => r._sessionId === sid);
+      if (!sessionRounds.length) return null;
+      const lastRound = sessionRounds.reduce((a, b) =>
+        Number(a.round_number) > Number(b.round_number) ? a : b
+      );
+      const gck = lastRound.__gridColKey || riverGrid.gridColumnKey(lastRound);
+      const rect = riverGrid.getStrategyCellRect(
+        this,
+        this.gridMetrics,
+        lastRound.round_number,
+        0,
+        gck
+      );
+      if (!rect) return null;
+      const sm = this.strategyMargin != null ? this.strategyMargin : 10;
+      const w = Math.min(340, Math.max(240, rect.width));
+      return {
+        style: {
+          left: `${rect.x + rect.width + sm}px`,
+          top: `${rect.y}px`,
+          width: `${w}px`
         }
-      ];
+      };
+    },
+    miniFollowUpParamPlaceholder() {
+      const d = this.miniFollowUpDraft;
+      if (!d) return '';
+      if (d.strategy === 'metadata') {
+        return '例：paper_023 或 关键词1, 关键词2';
+      }
+      if (d.strategy === 'exact') {
+        return '精确匹配短语（宜短）';
+      }
+      return '用自然语言描述检索意图';
     },
     /** 每个 session 一条左侧长条：单块铺满该条带全部策略行（与右侧 Row1–RowN 总高度一致） */
     rowLabelStrips() {
@@ -861,7 +895,7 @@ export default {
             rect,
             title: `R${round.round_number}.${queryIndex + 1} ${query?.orchestrator_plan?.tool_name || 'strategy'}`,
             searchLines: collectSearchLines(query),
-            subtitle: `${(query?.rag_results || []).length} results`,
+            subtitle: this.strategyCardSubtitleText(query, round.round_number),
             edges: this.getCardHighlightEdges(round, queryIndex),
             planSummaryPayload: {
               roundNumber: round.round_number,
@@ -889,7 +923,17 @@ export default {
         const round = byColKey.get(roundKey);
         if (!round) return;
         const gck = round.__gridColKey || riverGrid.gridColumnKey(round);
-        for (let queryIndex = 0; queryIndex < this.gridMetrics.maxQueryCount; queryIndex += 1) {
+        const colPos = this.gridMetrics.colPositions[`round-${gck}`];
+        const si = colPos && colPos.stripIndex != null ? colPos.stripIndex : 0;
+        const stripForRound =
+          this.gridMetrics.strips && this.gridMetrics.strips[si]
+            ? this.gridMetrics.strips[si]
+            : null;
+        const nRows =
+          stripForRound && stripForRound.rowYs && stripForRound.rowYs.length
+            ? stripForRound.rowYs.length
+            : this.gridMetrics.maxQueryCount;
+        for (let queryIndex = 0; queryIndex < nRows; queryIndex += 1) {
           const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, round.round_number, queryIndex, gck);
           if (!rect) continue;
           const occupied = !!round?.query_results?.[queryIndex];
@@ -944,6 +988,11 @@ export default {
           '';
       }
       return t || 'Question';
+    },
+    /** 会话标题 overlay 从 label 列左缘起铺时，与左侧 Question 条叠层，隐藏条内重复文案 */
+    overlayCoversLeftQuestionStrip(sessionId) {
+      const sh = (this.sessionHeaderOverlays || []).find((x) => x.sessionId === sessionId);
+      return !!(sh && sh.hidesLeftStripDuplicate);
     },
     // LeftPanel 控制用：切换实验文件
     setSelectedDataFile(file) {
@@ -1075,11 +1124,31 @@ export default {
             
             // 兜底：完整 graph 更新（兼容旧逻辑，也用于逐步渲染时获取节点数据）
             if (data.root_goal != null && data.nodes != null) {
-              const gsid = data.session_id;
-              if (gsid && this.activeSessionId && gsid !== this.activeSessionId) {
+              const gsid = (data.session_id || '').trim();
+              const col =
+                gsid && (this.completedQuestionColumns || []).find((c) => c.sessionId === gsid);
+              const rounds = this.graphToRoundsData(data);
+              const followMerge = !!data.follow_up;
+
+              if (followMerge && col && gsid) {
+                const baseCol = col.roundsData || [];
+                const merged =
+                  baseCol && baseCol.length > 0
+                    ? this.mergeRoundsDataFromFollowUp(baseCol, rounds)
+                    : rounds;
+                this.$set(col, 'roundsData', merged);
+                this.syncPlanStatesWithGraph(data);
+                this.syncPlanSummariesFromExperimentResult();
+                this.incrementalRoundsData = JSON.parse(
+                  JSON.stringify(this.getActiveSessionBaseRounds())
+                );
+                this.$nextTick(() => this.drawRiverChart());
                 return;
               }
-              const rounds = this.graphToRoundsData(data);
+
+              if (gsid && this.activeSessionId && gsid !== this.activeSessionId && !col) {
+                return;
+              }
               let nextRounds = rounds;
               // 追问单独 runtime 的图谱只有本轮新证据，必须与本地已有 rounds 合并（含从文件加载的多会话列）
               const baseRounds = this.getActiveSessionBaseRounds();
@@ -1108,12 +1177,7 @@ export default {
         console.error('[WS] 连接失败', e);
       }
     },
-    handlePlanCreated(planData) {
-      const sid = planData.session_id;
-      if (sid && this.activeSessionId && sid !== this.activeSessionId) {
-        return;
-      }
-      // 第一步：创建空策略框
+    _ingestPlanCreatedIntoRoundsArray(roundsArray, planData) {
       const { round_number, plan_id, orchestrator_plan } = planData;
       this.planStates[plan_id] = {
         round_number,
@@ -1121,26 +1185,45 @@ export default {
         node_ids: [],
         evaluated_nodes: {}
       };
-      
-      // 确保该轮次存在
-      let round = this.incrementalRoundsData.find(r => r.round_number === round_number);
+      let round = roundsArray.find((r) => r.round_number === round_number);
       if (!round) {
         round = { round_number, query_results: [] };
-        this.incrementalRoundsData.push(round);
-        this.incrementalRoundsData.sort((a, b) => a.round_number - b.round_number);
+        roundsArray.push(round);
+        roundsArray.sort((a, b) => a.round_number - b.round_number);
       }
-      
-      // 添加空的 query_result（只有 plan，没有 rag_results）
-      const queryResult = {
+      round.query_results.push({
         orchestrator_plan,
         rag_results: []
-      };
-      round.query_results.push(queryResult);
-      
-      // 更新 roundsData 并重绘
+      });
+    },
+    handlePlanCreated(planData) {
+      const sid = (planData.session_id || '').trim();
+      const col =
+        sid && (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
+      const useColumn =
+        col &&
+        sid &&
+        (sid !== this.activeSessionId ||
+          !this.roundsData ||
+          this.roundsData.length === 0);
+
+      if (useColumn) {
+        this._ingestPlanCreatedIntoRoundsArray(col.roundsData, planData);
+        this.$set(col, 'roundsData', [...col.roundsData]);
+        this.$nextTick(() => this.drawRiverChart());
+        console.log('[前端] 策略框已创建(归档列):', planData.plan_id);
+        return;
+      }
+
+      if (sid && this.activeSessionId && sid !== this.activeSessionId && !col) {
+        console.warn('[前端] plan_created 忽略未知 session', sid);
+        return;
+      }
+
+      this._ingestPlanCreatedIntoRoundsArray(this.incrementalRoundsData, planData);
       this.roundsData = [...this.incrementalRoundsData];
       this.$nextTick(() => this.drawRiverChart());
-      console.log('[前端] 策略框已创建:', plan_id);
+      console.log('[前端] 策略框已创建:', planData.plan_id);
     },
     
     async handleRetrievalComplete(planId, nodeIds) {
@@ -1307,6 +1390,39 @@ export default {
     },
 
     /**
+     * 小矩形副标题：结果条数以 experiment_result 为准（图推送过程中可能少于最终条数）；
+     * 若有 rerank 前候选 id 列表，附加 HyDE/向量池规模（与 rag 日志「候选池 top-K」一致）。
+     */
+    strategyCardSubtitleText(query, roundNumber) {
+      const graphN = (query?.rag_results || []).length;
+      let expN = 0;
+      const er = this.experimentResult;
+      if (er && Array.isArray(er.iterations)) {
+        const sid = this.activeSessionId;
+        if (!er.session_id || !sid || er.session_id === sid) {
+          const it = er.iterations.find((i) => Number(i.round_number) === Number(roundNumber));
+          const m = it?.query_results?.find((x) => this.queryResultPlanKey(x) === this.queryResultPlanKey(query));
+          expN = (m?.rag_results || []).length;
+        }
+      }
+      const tr = Number(query?.orchestrator_plan?.total_results);
+      const totalResults = Number.isFinite(tr) && tr > 0 ? tr : 0;
+      const n = Math.max(graphN, expN, totalResults);
+      const op = query?.orchestrator_plan || {};
+      const rb = Array.isArray(op.rerank_before_ids)
+        ? op.rerank_before_ids
+        : Array.isArray(op.rerankBeforeIds)
+          ? op.rerankBeforeIds
+          : [];
+      const pool = rb.length;
+      let s = `${n} results`;
+      if (pool > 0) {
+        s += ` · HyDE向量池 ${pool}`;
+      }
+      return s;
+    },
+
+    /**
      * 该轮是否跳过评估：优先读 experiment_result.parameters 中与 round_number 对齐的快照（落盘 JSON），
      * 否则回退当前左栏 prop（实时跑数时可能尚未写入 parameters）。
      */
@@ -1357,17 +1473,39 @@ export default {
           const hy = m.orchestrator_plan.hyde_hypothetical_paragraph_full_text;
           const rb = m.orchestrator_plan.rerank_before_ids;
           const ra = m.orchestrator_plan.rerank_after_ids;
-          if ((ps == null || ps === '') && hy == null && rb == null && ra == null) return;
+          const hasPs = ps != null && ps !== '';
+          const hasHy = hy != null && String(hy).trim() !== '';
+          const hasRb = Array.isArray(rb) && rb.length > 0;
+          const hasRa = Array.isArray(ra) && ra.length > 0;
+          if (!hasPs && !hasHy && !hasRb && !hasRa) {
+            const expRag = m.rag_results || [];
+            const curRag = qr.rag_results || [];
+            if (expRag.length <= curRag.length) return;
+            qr.rag_results = JSON.parse(JSON.stringify(expRag));
+            return;
+          }
           if (!qr.orchestrator_plan) qr.orchestrator_plan = { ...m.orchestrator_plan };
           if (ps != null && ps !== '') qr.orchestrator_plan.plansummary = ps;
+          const tr = Number(m.orchestrator_plan.total_results);
+          if (Number.isFinite(tr) && tr > 0) {
+            const curTr = Number(qr.orchestrator_plan.total_results);
+            if (!Number.isFinite(curTr) || curTr < tr) {
+              qr.orchestrator_plan.total_results = tr;
+            }
+          }
           if (hy != null && (qr.orchestrator_plan.hyde_hypothetical_paragraph_full_text == null || qr.orchestrator_plan.hyde_hypothetical_paragraph_full_text === '')) {
             qr.orchestrator_plan.hyde_hypothetical_paragraph_full_text = hy;
           }
-          if (rb != null && qr.orchestrator_plan.rerank_before_ids == null) {
-            qr.orchestrator_plan.rerank_before_ids = rb;
+          if (rb != null && (!Array.isArray(qr.orchestrator_plan.rerank_before_ids) || qr.orchestrator_plan.rerank_before_ids.length === 0)) {
+            qr.orchestrator_plan.rerank_before_ids = Array.isArray(rb) ? [...rb] : rb;
           }
-          if (ra != null && qr.orchestrator_plan.rerank_after_ids == null) {
-            qr.orchestrator_plan.rerank_after_ids = ra;
+          if (ra != null && (!Array.isArray(qr.orchestrator_plan.rerank_after_ids) || qr.orchestrator_plan.rerank_after_ids.length === 0)) {
+            qr.orchestrator_plan.rerank_after_ids = Array.isArray(ra) ? [...ra] : ra;
+          }
+          const expRag = m.rag_results || [];
+          const curRag = qr.rag_results || [];
+          if (expRag.length > curRag.length) {
+            qr.rag_results = JSON.parse(JSON.stringify(expRag));
           }
         });
       };
@@ -1939,7 +2077,7 @@ export default {
       if (event.button !== 0) return;
       if (
         event.target.closest(
-          '.strategy-card, .grid-resize-handle, .card-icon-btn, .session-add-below-btn, .session-large-followup-btn, .follow-up-chrome-btn, .session-header-overlay'
+          '.strategy-card, .grid-resize-handle, .card-icon-btn, .session-add-below-btn, .session-large-followup-btn, .mini-followup-trigger, .mini-followup-panel, .session-header-overlay'
         )
       ) {
         return;
@@ -4080,26 +4218,88 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       this.submitUserQuery({ skipBufferReset: true });
     },
 
-    openFollowUpDialog() {
+    getSessionRootGoal(sessionId) {
+      if (!sessionId) return '';
+      const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sessionId);
+      if (col && col.rootGoal) return String(col.rootGoal).trim();
+      if (sessionId === this.activeSessionId) {
+        return (
+          (this.experimentResult && this.experimentResult.root_goal) ||
+          (this.userQuestion && String(this.userQuestion).trim()) ||
+          ''
+        );
+      }
+      return '';
+    },
+    openMiniFollowUp(sessionId) {
       if (this.isSubmitting) {
-        alert('请等待当前任务完成后再追问');
+        alert('请等待当前任务完成后再使用小追问');
         return;
       }
-      this.followUpDraft = '';
-      this.followUpDialog = true;
+      const sid = String(sessionId || '').trim();
+      if (!sid || sid === 'empty') return;
+      this.miniFollowUpDraft = {
+        sessionId: sid,
+        strategy: 'semantic',
+        paramText: ''
+      };
     },
-
-    cancelFollowUpDialog() {
-      this.followUpDialog = null;
-      this.followUpDraft = '';
+    closeMiniFollowUp() {
+      this.miniFollowUpDraft = null;
     },
-
-    confirmFollowUpDialog() {
-      const q = String(this.followUpDraft || '').trim();
-      if (!q) return;
-      this.followUpDialog = null;
-      this.followUpDraft = '';
-      this.submitFollowUp(q);
+    submitMiniFollowUp() {
+      const d = this.miniFollowUpDraft;
+      if (!d) return;
+      const text = String(d.paramText || '').trim();
+      if (!text) {
+        alert('请输入检索内容');
+        return;
+      }
+      if (!this.wsConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        alert('WebSocket 未连接，无法发送小追问');
+        return;
+      }
+      const sid = String(d.sessionId || '').trim();
+      const toolMap = {
+        semantic: 'strategy_semantic_search',
+        exact: 'strategy_exact_search',
+        metadata: 'strategy_metadata_search'
+      };
+      const follow_up_tool = toolMap[d.strategy] || 'strategy_semantic_search';
+      const withData = this.getAllRounds().filter(
+        (r) =>
+          r._sessionId === sid &&
+          Array.isArray(r.query_results) &&
+          r.query_results.length > 0
+      );
+      const lastRound =
+        withData.length > 0
+          ? Math.max(...withData.map((r) => Number(r.round_number ?? 0)))
+          : 0;
+      const nextRound = lastRound + 1;
+      const root_goal = this.getSessionRootGoal(sid) || text;
+      const followPayload = {
+        action: 'follow_up',
+        query: text,
+        follow_up_tool,
+        collection_name: this.ragCollection,
+        parent_node_id: '0',
+        round_number: nextRound,
+        rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
+        skip_evaluation: !!this.skipEvaluation,
+        session_id: sid,
+        batch_id: this.sessionBatchId || '',
+        root_goal,
+        ...this.wsForkPayload()
+      };
+      if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
+        followPayload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
+      }
+      if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
+        followPayload.map_box_rect_2d = this.mapRagRect2d;
+      }
+      this.ws.send(JSON.stringify(followPayload));
+      this.miniFollowUpDraft = null;
     },
 
     async submitUserQuery(options = {}) {
@@ -4137,15 +4337,17 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             session_id: this.activeSessionId,
             batch_id: this.sessionBatchId || '',
             skip_evaluation: !!this.skipEvaluation,
+            use_multi_agent_rewrite_streams: !!this.useMultiAgentRewriteStreams,
+            rewrite_variant_count: Math.max(1, Math.min(10, Math.floor(Number(this.plansPerRound) || 2))),
             ...this.wsForkPayload()
           };
-              if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
-                payload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
-              }
-              if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
-                payload.map_box_rect_2d = this.mapRagRect2d;
-              }
-              this.ws.send(JSON.stringify(payload));
+          if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
+            payload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
+          }
+          if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
+            payload.map_box_rect_2d = this.mapRagRect2d;
+          }
+          this.ws.send(JSON.stringify(payload));
           this.userQuestion = '';
           // 后端会通过 WebSocket 逐步推送：plan_created → retrieval_complete → evaluation_complete
           return;
@@ -4216,55 +4418,6 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       const s = (this.forkExperimentSource || '').trim();
       if (!s) return {};
       return { fork_experiment_source: s };
-    },
-
-    // 河流图「追问」：检索 + 可选评估，结果由后端追加到指定 round
-    submitFollowUp(query) {
-      const q = String(query || '').trim();
-      if (!q) return;
-      if (!this.wsConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
-        alert('WebSocket 未连接，无法发送追问');
-        return;
-      }
-
-      const act = this.activeSessionId;
-      const withData = this.getAllRounds().filter(
-        (r) =>
-          r._sessionId !== 'empty' &&
-          (!act || r._sessionId === act) &&
-          Array.isArray(r.query_results) &&
-          r.query_results.length > 0
-      );
-      const lastRound =
-        withData.length > 0
-          ? Math.max(...withData.map((r) => Number(r.round_number ?? 0)))
-          : 0;
-      // 追问为「新一行」新迭代，避免与最后一轮共 round 导致覆盖；后端图谱仅含本轮，需配合前端 merge
-      const nextRound = lastRound + 1;
-
-      const followPayload = {
-        action: 'follow_up',
-        query: q,
-        collection_name: this.ragCollection,
-        parent_node_id: '0',
-        round_number: nextRound,
-        rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
-        skip_evaluation: !!this.skipEvaluation,
-        session_id: this.activeSessionId || '',
-        batch_id: this.sessionBatchId || '',
-        root_goal:
-          (this.experimentResult && this.experimentResult.root_goal) ||
-          (this.userQuestion && String(this.userQuestion).trim()) ||
-          '',
-        ...this.wsForkPayload()
-      };
-      if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
-        followPayload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
-      }
-      if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
-        followPayload.map_box_rect_2d = this.mapRagRect2d;
-      }
-      this.ws.send(JSON.stringify(followPayload));
     },
 
     async loadGlobalMapData() {
@@ -4936,24 +5089,6 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       }
     },
 
-    toggleHidePrunePoints() {
-      this.hidePrunePoints = !this.hidePrunePoints;
-      if (this.roundsData.length > 0) {
-        this.drawRiverChart();
-      }
-    },
-
-    toggleConnections() {
-      this.showConnections = !this.showConnections;
-      if (this.showConnections) {
-        this.drawConnections();
-      } else {
-        if (this.connectionGroup) {
-          this.connectionGroup.selectAll('*').remove();
-        }
-      }
-    },
-
     handleResize() {
       this.gridMetrics = null;
       if (
@@ -5077,37 +5212,32 @@ svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 10px;
+  padding: 8px;
   font-size: 11px;
   font-weight: 800;
   color: #0f172a;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(203, 213, 225, 0.95);
+  /* 与「+ Add question」占位格一致：渐变底 + 靛色边；高度由内联 style 决定，正文可多行 */
+  background: linear-gradient(135deg, rgb(248, 250, 252), rgb(224, 231, 255));
+  border: 1px solid rgba(99, 102, 241, 0.45);
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.25);
   pointer-events: none;
   overflow: hidden;
 }
 .session-header-overlay:not(.is-empty-prompt) {
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 8px 10px;
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
   overflow-x: hidden;
   overflow-y: auto;
   line-height: 1.35;
-  text-align: left;
-  font-weight: 700;
+  text-align: center;
 }
 .session-header-overlay.is-empty-prompt {
   pointer-events: auto;
   cursor: pointer;
   white-space: nowrap;
   text-overflow: ellipsis;
-  background: linear-gradient(135deg, rgba(248, 250, 252, 0.98), rgba(224, 231, 255, 0.9));
-  border-color: rgba(99, 102, 241, 0.45);
 }
 .session-header-overlay.is-empty-prompt:hover {
   border-color: rgba(99, 102, 241, 0.75);
@@ -5147,6 +5277,81 @@ svg {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
+}
+
+.mini-followup-trigger {
+  position: absolute;
+  z-index: 7;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 8px;
+  padding: 0 6px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0f172a;
+  background: linear-gradient(135deg, rgb(248, 250, 252), rgb(224, 231, 255));
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.35),
+    0 4px 12px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  pointer-events: auto;
+  white-space: nowrap;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.mini-followup-trigger:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.55),
+    0 6px 14px rgba(15, 23, 42, 0.1);
+}
+.mini-followup-trigger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.mini-followup-panel {
+  position: absolute;
+  z-index: 8;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+  pointer-events: auto;
+}
+.mini-followup-panel-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+.mini-followup-label {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  margin: 6px 0 4px;
+}
+.mini-followup-select,
+.mini-followup-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(203, 213, 225, 0.95);
+}
+.mini-followup-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  justify-content: flex-end;
+}
+.mini-followup-run {
+  padding: 6px 12px;
+  font-size: 12px;
 }
 
 /* 加号位置改为「大追问」文案按钮；新问题条带在整网下方新行展示 */
@@ -5217,19 +5422,6 @@ svg {
   color: rgba(51,65,85,0.98);
 }
 
-.grid-row-label-strip {
-  position: absolute;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  border: 1px solid rgba(203,213,225,0.85);
-  background: rgba(250,252,255,0.96);
-  border-radius: 12px;
-  padding: 0;
-  overflow: hidden;
-  color: rgba(51,65,85,0.98);
-}
 
 .grid-row-label-segment {
   box-sizing: border-box;
@@ -5237,7 +5429,7 @@ svg {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px 14px;
+  padding: 0;
   border-bottom: 1px solid rgba(226,232,240,0.85);
 }
 
@@ -5251,7 +5443,7 @@ svg {
   border-bottom: none;
   overflow-x: hidden;
   overflow-y: auto;
-  padding-top: 12px;
+  padding-top: 0;
   padding-bottom: 12px;
 }
 
@@ -6162,19 +6354,7 @@ svg {
   color: rgba(51,65,85,0.98);
 }
 
-.grid-row-label-strip {
-  position: absolute;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  border: 1px solid rgba(203,213,225,0.85);
-  background: rgba(250,252,255,0.96);
-  border-radius: 12px;
-  padding: 0;
-  overflow: hidden;
-  color: rgba(51,65,85,0.98);
-}
+
 
 .grid-row-label-segment {
   box-sizing: border-box;
@@ -6182,14 +6362,14 @@ svg {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px 14px;
+  padding: 8px;
   border-bottom: 1px solid rgba(226,232,240,0.85);
 }
 
 .grid-row-label-segment--full {
   flex: 1 1 auto;
   min-height: 0;
-  width: 100%;
+  width: 80%;
   min-width: 0;
   align-self: stretch;
   justify-content: flex-start;
@@ -6508,12 +6688,6 @@ svg {
   backdrop-filter: blur(6px);
 }
 
-.grid-row-label-strip {
-  border: 1px solid rgba(226,232,240,0.95) !important;
-  background: rgba(255,255,255,0.88) !important;
-  box-shadow: 0 4px 12px rgba(15,23,42,0.04) !important;
-  backdrop-filter: blur(6px);
-}
 
 .grid-row-label-segment {
   border-bottom-color: rgba(226,232,240,0.75) !important;

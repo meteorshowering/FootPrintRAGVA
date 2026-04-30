@@ -135,6 +135,10 @@ class UserRequest(BaseModel):
     batch_id: str = Field(default="")
     # True 时跳过 Evaluator LLM，检索后自动 KEEP 占位评估（仍走 handle_eval 与后续规划）
     skip_evaluation: bool = Field(default=False)
+    # 多路改写实验流：与 server / 前端开关一致，写入 experiment JSON
+    use_multi_agent_rewrite_streams: bool = Field(default=False)
+    # 改写条数（多路模式下为轨数）；主流程可与 plans_per_round 同源，便于 JSON 记录配置
+    rewrite_variant_count: Optional[int] = Field(default=None, ge=1, le=10)
 
 class FollowUpRequest(BaseModel):
     """
@@ -142,6 +146,11 @@ class FollowUpRequest(BaseModel):
     round_number 为前端「新一行」对应的迭代轮次编号（通常为当前最大 round + 1）。
     """
     query: str
+    # 小追问：由用户指定单次检索工具；默认语义检索
+    follow_up_tool: str = Field(
+        default="strategy_semantic_search",
+        description="strategy_semantic_search | strategy_exact_search | strategy_metadata_search",
+    )
     parent_node_id: str = "0"
     round_number: int = Field(default=0, ge=0, le=9999)
     rag_result_per_plan: int = Field(default=10, ge=1, le=20)
@@ -272,6 +281,10 @@ class ExperimentResult(BaseModel):
     root_goal: str
     # 与前端/批量 JSON 对齐：同一 batch 内多个问题的区分键
     session_id: str = Field(default="")
+    # 是否启用多路改写并行轨（与 UserRequest / server start_query 一致）
+    use_multi_agent_rewrite_streams: bool = Field(default=False)
+    # 改写轨数或前端配置的 rewrite_variant_count；旧 JSON 可无此字段
+    rewrite_variant_count: Optional[int] = Field(default=None, ge=1, le=10)
     parameters: List[ExperimentRoundParameters] = Field(default_factory=list)
     iterations: List[IterationResult] = Field(default_factory=list)
     summary: Optional['SummaryResponse'] = None  # 整个实验的最终总结结果（通常为最后一轮）

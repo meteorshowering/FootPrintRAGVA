@@ -170,6 +170,41 @@ def _plan_key_for_session_merge(qr: Any) -> str:
         return str(p.get("tool_name") or "")
 
 
+def _merge_orchestrator_plans_disk(prev_p: Any, inc_p: Any) -> Dict[str, Any]:
+    """磁盘合并 query_results 时：在保留 rag_results 较多一侧的同时，从另一侧补全 HyDE / rerank / plansummary 等。"""
+    out = copy.deepcopy(prev_p) if isinstance(prev_p, dict) else {}
+    if not isinstance(inc_p, dict):
+        return out
+    for key in ("hyde_hypothetical_paragraph_full_text",):
+        v = inc_p.get(key)
+        if v is None:
+            continue
+        s = str(v).strip()
+        if not s:
+            continue
+        cur = out.get(key)
+        if cur is None or str(cur).strip() == "":
+            out[key] = v
+    ps = inc_p.get("plansummary")
+    if ps is not None and ps != "" and (out.get("plansummary") in (None, "")):
+        out["plansummary"] = ps
+    try:
+        ti = int(inc_p.get("total_results") or 0)
+        tp = int(out.get("total_results") or 0)
+        if ti > tp:
+            out["total_results"] = ti
+    except Exception:
+        pass
+    for key in ("rerank_before_ids", "rerank_after_ids"):
+        v = inc_p.get(key)
+        if not isinstance(v, list) or len(v) == 0:
+            continue
+        cur = out.get(key)
+        if not isinstance(cur, list) or len(cur) == 0:
+            out[key] = copy.deepcopy(v)
+    return out
+
+
 def _merge_query_results_lists_for_save(existing: List[Any], incoming: List[Any]) -> List[Any]:
     """同轮次内按策略键合并 query_results，避免追问追加时重复键。"""
     m: Dict[str, Any] = {}
@@ -191,7 +226,18 @@ def _merge_query_results_lists_for_save(existing: List[Any], incoming: List[Any]
         else:
             pr = len(prev.get("rag_results") or [])
             ir = len(qr.get("rag_results") or [])
-            m[k] = copy.deepcopy(qr) if ir >= pr else prev
+            if ir >= pr:
+                chosen = copy.deepcopy(qr)
+                pp = chosen.get("orchestrator_plan") if isinstance(chosen.get("orchestrator_plan"), dict) else {}
+                ip = prev.get("orchestrator_plan") if isinstance(prev.get("orchestrator_plan"), dict) else {}
+                chosen["orchestrator_plan"] = _merge_orchestrator_plans_disk(pp, ip)
+                m[k] = chosen
+            else:
+                chosen = copy.deepcopy(prev)
+                pp = chosen.get("orchestrator_plan") if isinstance(chosen.get("orchestrator_plan"), dict) else {}
+                ip = qr.get("orchestrator_plan") if isinstance(qr.get("orchestrator_plan"), dict) else {}
+                chosen["orchestrator_plan"] = _merge_orchestrator_plans_disk(pp, ip)
+                m[k] = chosen
     return list(m.values())
 
 
@@ -257,6 +303,9 @@ def _merge_session_dict_on_disk(existing: Optional[Dict[str, Any]], incoming: Di
         out["summary"] = copy.deepcopy(incoming.get("summary"))
     if incoming.get("hypothesis") is not None:
         out["hypothesis"] = copy.deepcopy(incoming.get("hypothesis"))
+    for k in ("use_multi_agent_rewrite_streams", "rewrite_variant_count"):
+        if k in incoming:
+            out[k] = copy.deepcopy(incoming[k])
     return out
 
 
@@ -275,8 +324,8 @@ from autogen_core.models import ModelInfo
 from connection import ConnectionManager
 from openai import OpenAI
 client = OpenAI(
-    base_url = "https://uni-api.cstcloud.cn/v1//chat/completions",
-    api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8"
+    base_url="http://38.147.105.35:3030/v1",
+    api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5",
 )
 # -----------------------------------------------------------------
 # 2. 日志系统
@@ -792,7 +841,19 @@ class OrchestratorAgent(RoutedAgent):
         self.history_strategies.clear()
         self.current_round_ids.clear()
         self.last_round_stats = {}
-        self.experiment_result = ExperimentResult(root_goal=message.query, session_id=self.session_id)
+        _multi = bool(getattr(message, "use_multi_agent_rewrite_streams", False))
+        _rvc = getattr(message, "rewrite_variant_count", None)
+        try:
+            _rvc_i = int(_rvc) if _rvc is not None else int(plans_per_round)
+        except Exception:
+            _rvc_i = int(plans_per_round)
+        _rvc_i = max(1, min(10, _rvc_i))
+        self.experiment_result = ExperimentResult(
+            root_goal=message.query,
+            session_id=self.session_id,
+            use_multi_agent_rewrite_streams=_multi,
+            rewrite_variant_count=_rvc_i,
+        )
 
         # 使用模板渲染，避免多次运行时占位符被 replace 掉
         self.outputregulate = self.outputregulate_template.replace("__PLANS_PER_ROUND__", str(plans_per_round)).replace(
@@ -1661,14 +1722,38 @@ No markdown fences, no explanations, no extra keys—only the JSON array.
 
         logger.log("Orchestrator", f"收到追问请求: round={self.round_count}, parent={parent_id}, query={query}", "FOLLOW_UP")
 
-        # 构造单条精确文本检索 plan
-        follow_plan = OrchestratorPlan(
-            action="call_tool",
-            tool_name="strategy_semantic_search",  # 恢复追问为语义检索
-            ParentNode=parent_id,
-            args={"query_intent": query, "n_results": self.rag_result_per_plan},
-            reason="Follow-up: run semantic retrieval and evaluation without multi-round planning."
-        )
+        fu_tool = (getattr(message, "follow_up_tool", None) or "strategy_semantic_search").strip()
+        allowed_fu = {
+            "strategy_semantic_search",
+            "strategy_exact_search",
+            "strategy_metadata_search",
+        }
+        if fu_tool not in allowed_fu:
+            fu_tool = "strategy_semantic_search"
+
+        if fu_tool in ("strategy_semantic_search", "strategy_exact_search"):
+            follow_plan = OrchestratorPlan(
+                action="call_tool",
+                tool_name=fu_tool,
+                ParentNode=parent_id,
+                args={"query_intent": query, "n_results": self.rag_result_per_plan},
+                reason=f"Follow-up ({fu_tool}): user-specified retrieval and evaluation.",
+            )
+        else:
+            # metadata：paper_id 形如 paper_*，否则按逗号拆 keywords，否则整句作为单关键词
+            meta_args: Dict[str, Any] = {"keywords": None, "paper_id": None, "figure_type": None}
+            if re.match(r"^paper_\w+", query, re.IGNORECASE):
+                meta_args["paper_id"] = query.strip()
+            else:
+                parts = [p.strip() for p in query.split(",") if p.strip()]
+                meta_args["keywords"] = parts if parts else [query.strip()]
+            follow_plan = OrchestratorPlan(
+                action="call_tool",
+                tool_name="strategy_metadata_search",
+                ParentNode=parent_id,
+                args=meta_args,
+                reason="Follow-up (strategy_metadata_search): user-specified metadata filter.",
+            )
 
         # 创建 iteration/query_result 结构（让 experiment_result/前端小矩形逻辑一致）
         from protocols import IterationResult, QueryResult, OrchestratorPlanBatch
@@ -3644,6 +3729,8 @@ async def run_rag_workflow(
     batch_id: str = "",
     skip_evaluation: bool = False,
     experiment_save_path: Optional[str] = None,
+    use_multi_agent_rewrite_streams: bool = False,
+    rewrite_variant_count: Optional[int] = None,
 ):
     set_active_collection_name(collection_name)
     set_rag_allowed_chunk_ids(rag_allowed_chunk_ids)
@@ -3675,26 +3762,26 @@ async def run_rag_workflow(
     # #endregion
     
     try:
-        # model_client = OpenAIChatCompletionClient(
-        #     model="gpt-4o",
-        #     base_url="http://38.147.105.35:3030/v1",
-        #     api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
-        # )
         model_client = OpenAIChatCompletionClient(
-            model="deepseek-r1:671b-0528",
-            base_url="https://uni-api.cstcloud.cn/v1",
-            api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",
-            model_info=ModelInfo(
-                vision=False,                  # 根据实际情况
-                structured_output=False,
-                function_calling=True,         # 大多数支持工具调用的模型设 True
-                streaming=True,
-                json_output=False,
-                family="deepseek",
-                context_length=65536,          # 64k
-                # max_output_tokens=8192       # 可选
-            )
+            model="gpt-4o",
+            base_url="http://38.147.105.35:3030/v1",
+            api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
         )
+        # model_client = OpenAIChatCompletionClient(
+        #     model="deepseek-r1:671b-0528",
+        #     base_url="https://uni-api.cstcloud.cn/v1",
+        #     api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",
+        #     model_info=ModelInfo(
+        #         vision=False,                  # 根据实际情况
+        #         structured_output=False,
+        #         function_calling=True,         # 大多数支持工具调用的模型设 True
+        #         streaming=True,
+        #         json_output=False,
+        #         family="deepseek",
+        #         context_length=65536,          # 64k
+        #         # max_output_tokens=8192       # 可选
+        #     )
+        # )
 
         runtime = SingleThreadedAgentRuntime()
         _esp = experiment_save_path
@@ -3717,7 +3804,18 @@ async def run_rag_workflow(
         # InteractionSummaryAgent 改由 Orchestrator 内联 await，不再注册到 runtime（避免与 publish 双跑）
 
         runtime.start()
-        
+        _rvc_pub = rewrite_variant_count
+        if _rvc_pub is None:
+            try:
+                _rvc_pub = int(plans_per_round)
+            except Exception:
+                _rvc_pub = 2
+            _rvc_pub = max(1, min(10, _rvc_pub))
+        else:
+            try:
+                _rvc_pub = max(1, min(10, int(_rvc_pub)))
+            except Exception:
+                _rvc_pub = max(1, min(10, int(plans_per_round)))
         # 使用传入的查询参数，而不是硬编码的内容
         await runtime.publish_message(
             UserRequest(
@@ -3732,6 +3830,8 @@ async def run_rag_workflow(
                 session_id=(session_id or "").strip(),
                 batch_id=(batch_id or "").strip(),
                 skip_evaluation=bool(skip_evaluation),
+                use_multi_agent_rewrite_streams=bool(use_multi_agent_rewrite_streams),
+                rewrite_variant_count=_rvc_pub,
             ),
             topic_id=TopicId(TOPIC_ORCHESTRATOR, source="User")
         )
@@ -3762,18 +3862,23 @@ async def run_rag_workflow_expand(
     
     try:
         model_client = OpenAIChatCompletionClient(
-            model="deepseek-r1:671b-0528",
-            base_url="https://uni-api.cstcloud.cn/v1",
-            api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",
-            model_info=ModelInfo(
-                vision=False,
-                structured_output=False,
-                function_calling=True,
-                streaming=True,
-                json_output=False,
-                family="deepseek",
-            ),
+            model="gpt-4o",
+            base_url="http://38.147.105.35:3030/v1",
+            api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
         )
+        # model_client = OpenAIChatCompletionClient(
+        #     model="deepseek-r1:671b-0528",
+        #     base_url="https://uni-api.cstcloud.cn/v1",
+        #     api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",
+        #     model_info=ModelInfo(
+        #         vision=False,
+        #         structured_output=False,
+        #         function_calling=True,
+        #         streaming=True,
+        #         json_output=False,
+        #         family="deepseek",
+        #     ),
+        # )
 
         runtime = SingleThreadedAgentRuntime()
         _esp_e = experiment_save_path
@@ -3818,6 +3923,7 @@ async def run_rag_workflow_follow_up(
     batch_id: str = "",
     root_goal: str = "",
     experiment_save_path: Optional[str] = None,
+    follow_up_tool: str = "strategy_semantic_search",
 ):
     """
     追问工作流：只做一次检索 + 评估（不走多轮规划）。
@@ -3826,18 +3932,23 @@ async def run_rag_workflow_follow_up(
     set_active_collection_name(collection_name)
     set_rag_allowed_chunk_ids(rag_allowed_chunk_ids)
     model_client = OpenAIChatCompletionClient(
-        model="deepseek-r1:671b-0528",
-        base_url="https://uni-api.cstcloud.cn/v1",
-        api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",
-        model_info=ModelInfo(
-            vision=False,
-            structured_output=False,
-            function_calling=True,
-            streaming=True,
-            json_output=False,
-            family="deepseek",
-        )
+        model="gpt-4o",
+        base_url="http://38.147.105.35:3030/v1",
+        api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
     )
+    # model_client = OpenAIChatCompletionClient(
+    #     model="deepseek-r1:671b-0528",
+    #     base_url="https://uni-api.cstcloud.cn/v1",
+    #     api_key="f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",
+    #     model_info=ModelInfo(
+    #         vision=False,
+    #         structured_output=False,
+    #         function_calling=True,
+    #         streaming=True,
+    #         json_output=False,
+    #         family="deepseek",
+    #     )
+    # )
 
     runtime = SingleThreadedAgentRuntime()
     _esp_fu = experiment_save_path
@@ -3857,6 +3968,7 @@ async def run_rag_workflow_follow_up(
         await runtime.publish_message(
             FollowUpRequest(
                 query=query,
+                follow_up_tool=(follow_up_tool or "strategy_semantic_search").strip(),
                 parent_node_id=parent_node_id,
                 round_number=round_number,
                 rag_result_per_plan=rag_result_per_plan,

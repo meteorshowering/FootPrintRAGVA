@@ -40,11 +40,11 @@ class RAGEmbeddingProcessor:
         self.chroma_client = None
         self.initialized = False
         
-        # OpenAI格式的嵌入请求配置（需要用户填写）
+        # OpenAI 兼容嵌入（与主网关一致；若该服务无 embeddings，请改 url/model 或改用环境变量）
         self.openai_config = {
-            "url": "https://uni-api.cstcloud.cn/v1/embeddings",  # 请填写嵌入API的URL
-            "api_key": "f24a9af08a33a9649b3f149706c8c45e8602a884b8beab6abae0d608226477f8",  # 请填写API密钥
-            "model": "qwen3-embedding:8b"  # 默认模型，可根据需要修改
+            "url": "http://38.147.105.35:3030/v1/embeddings",
+            "api_key": "sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5",
+            "model": "text-embedding-3-small",
         }
     
     async def initialize(self):

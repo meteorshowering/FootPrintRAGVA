@@ -77,7 +77,7 @@ async def test_paper_rag_query():
     
     for query in test_queries:
         print(f"\n📝 查询: '{query}'")
-        results = await service.query_by_semantic(
+        results, _trace = await service.query_by_semantic(
             query_text=query,
             n_results=5,
             score_threshold=0.4

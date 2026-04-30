@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # 导入拆分出去的模块
 from connection import ConnectionManager
 from engine import run_rag_workflow, run_rag_workflow_expand, run_rag_workflow_follow_up, normalize_map_box_rect_2d
+from engine_multi_agent import run_multi_agent_parallel_rewrite_workflow
 from fastapi.staticfiles import StaticFiles
 import os
 import re
@@ -359,10 +360,17 @@ async def websocket_endpoint(websocket: WebSocket):
                 session_id = str(data.get("session_id") or "").strip()
                 batch_id = str(data.get("batch_id") or "").strip()
                 skip_evaluation = bool(data.get("skip_evaluation", False))
+                use_multi_agent_streams = bool(data.get("use_multi_agent_rewrite_streams", False))
                 try:
                     plans_per_round = int(plans_per_round)
                 except Exception:
                     plans_per_round = 2
+                rewrite_variant_count = data.get("rewrite_variant_count", plans_per_round)
+                try:
+                    rewrite_variant_count = int(rewrite_variant_count)
+                except Exception:
+                    rewrite_variant_count = plans_per_round
+                rewrite_variant_count = max(1, min(10, rewrite_variant_count))
                 try:
                     rag_result_per_plan = int(rag_result_per_plan)
                 except Exception:
@@ -374,35 +382,56 @@ async def websocket_endpoint(websocket: WebSocket):
                 if query:
                     import uuid
                     from engine import InteractivePauseGate
-                    
+
                     run_id = str(uuid.uuid4())
-                    pause_gate = InteractivePauseGate() if interactive else None
-                    
-                    if interactive:
+                    pause_gate = None
+                    if interactive and not use_multi_agent_streams:
+                        pause_gate = InteractivePauseGate()
                         manager.register_pause_gate(run_id, pause_gate)
                     
                     _save_path = _experiment_save_path_for_ws(data)
-                    # 4. 调用 Engine (异步任务)
-                    # 关键点：把 manager 传进去，让 engine 内部可以发消息回来
-                    asyncio.create_task(
-                        run_rag_workflow(
-                            query,
-                            manager,
-                            collection_name=collection_name,
-                            plans_per_round=plans_per_round,
-                            rag_result_per_plan=rag_result_per_plan,
-                            max_rounds=max_rounds,
-                            interactive_mode=interactive,
-                            run_id=run_id,
-                            pause_gate=pause_gate,
-                            rag_allowed_chunk_ids=rag_allowed_chunk_ids,
-                            map_box_rect_2d=map_box_rect_2d,
-                            session_id=session_id,
-                            batch_id=batch_id,
-                            skip_evaluation=skip_evaluation,
-                            experiment_save_path=_save_path,
+                    # 4. 调用编排：默认主 engine；可选多路改写实验流（engine_multi_agent，不改 engine.py）
+                    if use_multi_agent_streams:
+                        if interactive:
+                            print("⚠️ [Server] 多路改写模式暂不支持交互审批，已忽略 interactive")
+                        asyncio.create_task(
+                            run_multi_agent_parallel_rewrite_workflow(
+                                query,
+                                manager,
+                                collection_name=collection_name,
+                                rewrite_variant_count=rewrite_variant_count,
+                                rag_result_per_plan=rag_result_per_plan,
+                                max_rounds=max_rounds,
+                                rag_allowed_chunk_ids=rag_allowed_chunk_ids,
+                                map_box_rect_2d=map_box_rect_2d,
+                                session_id=session_id,
+                                batch_id=batch_id,
+                                skip_evaluation=skip_evaluation,
+                                experiment_save_path=_save_path,
+                            )
                         )
-                    )
+                    else:
+                        asyncio.create_task(
+                            run_rag_workflow(
+                                query,
+                                manager,
+                                collection_name=collection_name,
+                                plans_per_round=plans_per_round,
+                                rag_result_per_plan=rag_result_per_plan,
+                                max_rounds=max_rounds,
+                                interactive_mode=interactive,
+                                run_id=run_id,
+                                pause_gate=pause_gate,
+                                rag_allowed_chunk_ids=rag_allowed_chunk_ids,
+                                map_box_rect_2d=map_box_rect_2d,
+                                session_id=session_id,
+                                batch_id=batch_id,
+                                skip_evaluation=skip_evaluation,
+                                experiment_save_path=_save_path,
+                                use_multi_agent_rewrite_streams=False,
+                                rewrite_variant_count=rewrite_variant_count,
+                            )
+                        )
             elif data.get("action") == "interactive_response":
                 # 前端返回了审批决策
                 run_id = data.get("run_id")
@@ -439,6 +468,7 @@ async def websocket_endpoint(websocket: WebSocket):
                     rag_result_per_plan = 10
                 if query:
                     _save_path_fu = _experiment_save_path_for_ws(data)
+                    follow_up_tool = str(data.get("follow_up_tool") or "strategy_semantic_search").strip()
                     asyncio.create_task(
                         run_rag_workflow_follow_up(
                             query=str(query),
@@ -454,6 +484,7 @@ async def websocket_endpoint(websocket: WebSocket):
                             batch_id=batch_id_fu,
                             root_goal=root_goal_fu,
                             experiment_save_path=_save_path_fu,
+                            follow_up_tool=follow_up_tool,
                         )
                     )
             elif data.get("type") == "expand_search":

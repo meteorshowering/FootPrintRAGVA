@@ -173,7 +173,7 @@ async def strategy_semantic_search(query_intent: str, n_results: int = 10) -> Li
     service = await get_rag_service(collection_name=ACTIVE_COLLECTION_NAME)
     
     try:
-        results = await service.query_by_semantic(
+        results, _trace_unused = await service.query_by_semantic(
             query_text=query_intent,
             n_results=n_results,
             allowed_chunk_ids=get_rag_allowed_chunk_ids(),

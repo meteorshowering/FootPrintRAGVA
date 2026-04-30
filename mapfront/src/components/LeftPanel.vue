@@ -176,11 +176,6 @@
       <div class="block-title">River Controls</div>
       <div class="row">
         <button class="btn small" @click="$emit('river-load-all')">加载所有轮次</button>
-        <button class="btn small secondary" @click="$emit('river-clear')">清除图表</button>
-      </div>
-      <div class="row row-top">
-        <button class="btn small" @click="$emit('river-toggle-prune')">隐藏/显示无用证据</button>
-        <button class="btn small" @click="$emit('river-toggle-connections')">显示/隐藏连线</button>
       </div>
       <div class="row row-top">
         <select class="select" v-model="selectedExperimentFile" @change="$emit('river-select-file', selectedExperimentFile)">
@@ -189,6 +184,20 @@
           </option>
         </select>
       </div>
+    </section>
+
+    <section class="block block-compact multi-agent-footer">
+      <label class="skip-eval-row">
+        <input
+          type="checkbox"
+          :checked="multiAgentRewriteStreams"
+          @change="$emit('multi-agent-toggle', $event.target.checked)"
+        />
+        <span>多路改写并行追问（实验性，engine_multi_agent）</span>
+      </label>
+      <p class="multi-agent-hint">
+        改写条数沿用「Plans / round」；最大深度沿用「Max rounds」。各改写轨规划互不读对方上下文。
+      </p>
     </section>
 
   </div>
@@ -207,6 +216,10 @@ export default {
         mapRagPendingIds: [],
         mapRagFilterIds: [],
       }),
+    },
+    multiAgentRewriteStreams: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -373,6 +386,16 @@ export default {
 }
 .skip-eval-row input {
   margin-top: 2px;
+}
+
+.multi-agent-footer {
+  margin-top: 4px;
+}
+.multi-agent-hint {
+  margin: 6px 0 0;
+  font-size: 11px;
+  line-height: 1.35;
+  color: rgba(100, 116, 139, 0.95);
 }
 
 .panel {

@@ -27,7 +27,7 @@ async def main():
     print("查询: vehicle emission factors")
     print("-" * 30)
     
-    results1 = await rag_service.query_by_semantic("vehicle emission factors")
+    results1, _t1 = await rag_service.query_by_semantic("vehicle emission factors")
     print(f"结果数量: {len(results1)}")
     
     for i, result in enumerate(results1[:3]):
@@ -61,7 +61,7 @@ async def main():
     print("查询: climate change, 使用集合: paper_rag_collection")
     print("-" * 30)
     
-    results3 = await rag_service.query_by_semantic("climate change", collection_name="paper_rag_collection")
+    results3, _t3 = await rag_service.query_by_semantic("climate change", collection_name="paper_rag_collection")
     print(f"结果数量: {len(results3)}")
     
     for i, result in enumerate(results3[:3]):
