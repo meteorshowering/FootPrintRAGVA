@@ -97,14 +97,6 @@
         <div class="slider-value">{{ plansPerRound }}</div>
       </div>
 
-      <label class="skip-eval-row">
-        <input
-          type="checkbox"
-          v-model="skipEvaluation"
-          @change="$emit('skip-evaluation-change', skipEvaluation)"
-        />
-        <span>跳过评估（快速占位 KEEP；小地图按 HyDE/Rerank 浅蓝/深蓝着色）</span>
-      </label>
     </section>
 
     <section class="block">
@@ -186,8 +178,17 @@
       </div>
     </section>
 
-    <section class="block block-compact multi-agent-footer">
-      <label class="skip-eval-row">
+    <section class="block block-compact default-run-footer">
+      <div class="block-title">默认运行模式</div>
+      <label class="default-option-row">
+        <input
+          type="checkbox"
+          v-model="skipEvaluation"
+          @change="$emit('skip-evaluation-change', skipEvaluation)"
+        />
+        <span>不评估（小地图默认按 HyDE/Rerank：保留点深蓝，未选候选浅蓝）</span>
+      </label>
+      <label class="default-option-row">
         <input
           type="checkbox"
           :checked="multiAgentRewriteStreams"
@@ -195,7 +196,7 @@
         />
         <span>多路改写并行追问（实验性，engine_multi_agent）</span>
       </label>
-      <p class="multi-agent-hint">
+      <p class="default-run-hint">
         改写条数沿用「Plans / round」；最大深度沿用「Max rounds」。各改写轨规划互不读对方上下文。
       </p>
     </section>
@@ -219,7 +220,7 @@ export default {
     },
     multiAgentRewriteStreams: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   data() {
@@ -243,7 +244,7 @@ export default {
       searchPlanIteration: 3,
       ragResultPerPlan: 10,
       plansPerRound: 2,
-      skipEvaluation: false
+      skipEvaluation: true
     };
   },
   methods: {
@@ -374,7 +375,8 @@ export default {
 </script>
 
 <style scoped>
-.skip-eval-row {
+.skip-eval-row,
+.default-option-row {
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -384,14 +386,17 @@ export default {
   color: rgba(51, 65, 85, 0.95);
   cursor: pointer;
 }
-.skip-eval-row input {
+.skip-eval-row input,
+.default-option-row input {
   margin-top: 2px;
 }
 
-.multi-agent-footer {
+.multi-agent-footer,
+.default-run-footer {
   margin-top: 4px;
 }
-.multi-agent-hint {
+.multi-agent-hint,
+.default-run-hint {
   margin: 6px 0 0;
   font-size: 11px;
   line-height: 1.35;

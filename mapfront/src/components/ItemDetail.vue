@@ -1,19 +1,5 @@
 <template>
   <div class="item-detail">
-    <div class="item-meta-strip">
-      <span v-if="props.item.id" class="meta-chip">ID: {{ props.item.id }}</span>
-      <span v-if="getDataType()" class="meta-chip">Type: {{ getDataType() }}</span>
-    </div>
-    <!-- 顶部：论文标题 (paper_title) -->
-    <div v-if="getPaperTitle()" class="item-paper-title">
-      <h3>{{ getPaperTitle() }}</h3>
-    </div>
-
-    <!-- 类型展示（显式告诉用户是图片还是文本） -->
-    <div v-if="getTypeLabel()" class="item-type-label">
-      类型：{{ getTypeLabel() }}
-    </div>
-    
     <!-- 图片类型：显示图片 + 图标题在下方 -->
     <div v-if="isPictureType()" class="image-section">
       <img :src="getImageUrl()" alt="Figure" class="detail-image" />
@@ -23,7 +9,7 @@
     <!-- 文本类型：显示文本内容 -->
     <div v-if="shouldShowText()" class="text-section">
       <div class="info-item">
-        <h4>文本内容</h4>
+        <h4>Text content</h4>
         <div class="markdown-content" v-html="getRenderedMarkdown()"></div>
       </div>
     </div>
@@ -51,36 +37,36 @@
       
       <!-- Paper信息 (如果有) -->
       <div v-if="getPaperInfo()" class="info-item">
-        <h4>论文信息</h4>
+        <h4>Paper</h4>
         <p class="paper-info">{{ getPaperInfo() }}</p>
       </div>
       
-      <!-- Evaluation 评估信息 -->
-      <div v-if="hasEvaluation()" class="info-item evaluation-section">
-        <h4>评估信息</h4>
+      <!-- Evaluation: only when extracted_insight is present -->
+      <div v-if="shouldShowEvaluationSection()" class="info-item evaluation-section">
+        <h4>Evaluation</h4>
         
         <!-- Branch Action -->
         <div v-if="getBranchAction()" class="evaluation-field">
-          <span class="field-label">分支动作：</span>
+          <span class="field-label">Branch action:</span>
           <span class="branch-action" :class="getBranchActionClass()">{{ getBranchAction() }}</span>
         </div>
         
         <!-- Extracted Insight -->
         <div v-if="getExtractedInsight()" class="evaluation-field">
-          <span class="field-label">提取的洞察：</span>
+          <span class="field-label">Extracted insight:</span>
           <p class="evaluation-text">{{ getExtractedInsight() }}</p>
         </div>
         
         <!-- Scores -->
         <div v-if="getEvaluationScores()" class="evaluation-field">
-          <span class="field-label">评分：</span>
+          <span class="field-label">Scores:</span>
           <div class="scores-container">
             <span class="score-item">
-              <span class="score-label">相关性：</span>
+              <span class="score-label">Relevance:</span>
               <span class="score-value">{{ getEvaluationScores().relevance || 'N/A' }}</span>
             </span>
             <span class="score-item">
-              <span class="score-label">可信度：</span>
+              <span class="score-label">Credibility:</span>
               <span class="score-value">{{ getEvaluationScores().credibility || 'N/A' }}</span>
             </span>
           </div>
@@ -88,13 +74,13 @@
         
         <!-- Reason -->
         <div v-if="getEvaluationReason()" class="evaluation-field">
-          <span class="field-label">评估原因：</span>
+          <span class="field-label">Reason:</span>
           <p class="evaluation-text">{{ getEvaluationReason() }}</p>
         </div>
         
         <!-- Suggested Keywords -->
         <div v-if="getSuggestedKeywords() && getSuggestedKeywords().length > 0" class="evaluation-field">
-          <span class="field-label">建议关键词：</span>
+          <span class="field-label">Suggested keywords:</span>
           <div class="keywords-list">
             <span v-for="(keyword, idx) in getSuggestedKeywords()" :key="idx" class="keyword-tag">
               {{ keyword }}
@@ -190,16 +176,6 @@ const shouldShowText = () => {
   if (isTextureType()) return true;
   if (isPictureType()) return false;
   return !!getTextContent();
-};
-
-const getTypeLabel = () => {
-  const t = getDataType();
-  if (t === 'picture') return '图片';
-  if (t === 'texture') return '文本';
-  // type 不明确也做一个基于内容的推断
-  if (props.item.relative_path) return '图片';
-  if (props.item.text_content) return '文本';
-  return '';
 };
 
 // 获取图片URL
@@ -449,15 +425,6 @@ const getPaperInfo = () => {
 //   return metadata?.[fieldName] || null;
 // };
 
-// 检查是否有 evaluation 对象
-const hasEvaluation = () => {
-  const originalData = props.item.original_data;
-  const evaluation = originalData?.evaluation;
-  console.log('hasEvaluation - originalData:', originalData);
-  console.log('hasEvaluation - evaluation:', evaluation);
-  return !!evaluation;
-};
-
 // 获取 evaluation 对象
 const getEvaluation = () => {
   const originalData = props.item.original_data;
@@ -466,18 +433,13 @@ const getEvaluation = () => {
 
 // 获取分支动作
 const getBranchAction = () => {
-  // 优先从 item.branch_action 读取（已经在 store 中处理过的）
   if (props.item.branch_action && props.item.branch_action !== 'UNKNOWN') {
     return props.item.branch_action;
   }
-  
-  // 如果不存在，从 original_data.evaluation.branch_action 读取
   const evaluation = getEvaluation();
   if (evaluation?.branch_action) {
     return evaluation.branch_action;
   }
-  
-  // 如果都不存在，返回 null（不显示）
   return null;
 };
 
@@ -485,6 +447,20 @@ const getBranchAction = () => {
 const getExtractedInsight = () => {
   const evaluation = getEvaluation();
   return evaluation?.extracted_insight || null;
+};
+
+// 跳过评估占位（与后端占位文案一致则不展示整块 Evaluation）
+const isSkippedEvaluationPlaceholder = (insight) => {
+  const t = String(insight ?? '').trim();
+  if (!t) return true;
+  return /^\(?evaluation\s+skipped\)?$/i.test(t);
+};
+
+// 仅当存在有意义的 evaluation.extracted_insight 时显示整块 Evaluation
+const shouldShowEvaluationSection = () => {
+  const insight = getExtractedInsight();
+  if (insight == null || insight === undefined) return false;
+  return !isSkippedEvaluationPlaceholder(insight);
 };
 
 // 获取评估分数
@@ -518,35 +494,8 @@ const getBranchActionClass = () => {
 
 <style scoped>
 
-.item-meta-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.meta-chip {
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #eef6ff;
-  color: #1e40af;
-  font-size: 12px;
-  font-weight: 600;
-}
-
 .item-detail {
   font-size: 13px;
-}
-
-.item-paper-title {
-  margin-bottom: 12px;
-}
-
-.item-paper-title h3 {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-  color: #333;
 }
 
 .image-section {

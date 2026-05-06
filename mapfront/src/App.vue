@@ -41,11 +41,35 @@
             :use-multi-agent-rewrite-streams="useMultiAgentRewriteStreams"
             :global-map-mount-id="'left-global-map'"
             @map-toolbar="handleMapToolbar"
+            @user-operations-change="handleUserOperationsChange"
           />
         </main>
 
         <!-- 右侧栏：详情视图 -->
         <aside class="right-panel">
+          <section class="user-operation-panel">
+            <div class="user-operation-title">用户操作记录</div>
+            <div v-if="userOperationRows.length === 0" class="user-operation-empty">
+              暂无用户操作
+            </div>
+            <div v-else class="user-operation-list">
+              <div
+                v-for="row in userOperationRows"
+                :key="row.key"
+                class="user-operation-row"
+              >
+                <div class="strategy-square" :title="row.toolName || ''">{{ row.label }}</div>
+                <div class="operation-bars">
+                  <div
+                    v-for="op in row.operations"
+                    :key="op.key"
+                    class="operation-bar operation-bar-delete"
+                    :title="`删除 ${op.targetEvidenceId || ''}`"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </section>
           <DetailView 
             v-if="!showHypothesisView" 
             @show-hypothesis="handleShowHypothesis"
@@ -84,8 +108,8 @@ export default {
       plansPerRound: 2,
       ragResultsPerPlan: 10,
       maxRounds: 3,
-      skipEvaluation: false,
-      useMultiAgentRewriteStreams: false,
+      skipEvaluation: true,
+      useMultiAgentRewriteStreams: true,
       vizHydeRerankMapColors: false,
       showHydeInPlanSummary: false,
       mapToolbarState: {
@@ -93,6 +117,7 @@ export default {
         mapRagPendingIds: [],
         mapRagFilterIds: [],
       },
+      userOperationRows: [],
     };
   },
   methods: {
@@ -163,6 +188,9 @@ export default {
         mapRagPendingIds: Array.isArray(payload.mapRagPendingIds) ? payload.mapRagPendingIds : [],
         mapRagFilterIds: Array.isArray(payload.mapRagFilterIds) ? payload.mapRagFilterIds : [],
       };
+    },
+    handleUserOperationsChange(rows) {
+      this.userOperationRows = Array.isArray(rows) ? rows : [];
     },
     handleMapBoxToggle() {
       this.$refs.riverChart?.toggleMapBoxSelectMode?.();
@@ -251,5 +279,75 @@ export default {
 .right-panel {
   overflow-y: auto;
   background-color: #f8f9fa;
+}
+
+.user-operation-panel {
+  flex-shrink: 0;
+  padding: 12px 14px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.user-operation-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.user-operation-empty {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.user-operation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 160px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.user-operation-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+}
+
+.strategy-square {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  border-radius: 4px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+.operation-bars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.operation-bar {
+  width: 8px;
+  height: 28px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.12);
+}
+
+.operation-bar-delete {
+  background: #dc2626;
 }
 </style>

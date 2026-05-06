@@ -294,11 +294,16 @@
     <div v-if="showPointDetailModal" class="modal" @click.self="closePointDetailModal">
       <div class="modal-content point-detail-modal">
         <div class="modal-header">
-          <h2>数据点详情</h2>
+          <h2>Data point details</h2>
           <button @click="closePointDetailModal" class="close-btn">×</button>
         </div>
         <div class="modal-body">
           <ItemDetail v-if="selectedPointDetail" :item="selectedPointDetail" />
+          <div v-if="selectedPointContext" class="point-detail-actions">
+            <button type="button" class="btn danger point-delete-btn" @click="deleteSelectedRagPoint">
+              Remove point
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -401,12 +406,12 @@ export default {
      */
     skipEvaluation: {
       type: Boolean,
-      default: false
+      default: true
     },
     /** 为 true 时 start_query 走 engine_multi_agent（多路改写 + 每轨每轮单策略） */
     useMultiAgentRewriteStreams: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   data() {
@@ -463,6 +468,7 @@ export default {
       selectedRoundSummary: null,
       showPointDetailModal: false,
       selectedPointDetail: null,
+      selectedPointContext: null,
       // 用户输入相关
       userQuestion: '',
       isSubmitting: false,
@@ -972,6 +978,76 @@ export default {
     }
   },
   methods: {
+    emitUserOperationsChange() {
+      const rows = [];
+      const pushFromRounds = (rounds, sessionId = '') => {
+        (rounds || []).forEach((round) => {
+          if (!round || round.round_number === undefined) return;
+          (round.query_results || []).forEach((query, queryIndex) => {
+            const deletes = query?.orchestrator_plan?.userdo?.delete;
+            if (!Array.isArray(deletes) || deletes.length === 0) return;
+            rows.push({
+              key: `${sessionId || 'default'}-${round.round_number}-${queryIndex}`,
+              sessionId: sessionId || '',
+              roundNumber: Number(round.round_number),
+              queryIndex,
+              label: `R ${round.round_number}.${queryIndex + 1}`,
+              toolName: query?.orchestrator_plan?.tool_name || '',
+              operations: deletes.map((op, opIndex) => ({
+                key: `${sessionId || 'default'}-${round.round_number}-${queryIndex}-delete-${opIndex}`,
+                type: 'delete',
+                targetEvidenceId: op?.target_evidence_id || '',
+                timestamp: op?.timestamp || '',
+              })),
+            });
+          });
+        });
+      };
+
+      (this.completedQuestionColumns || []).forEach((col) => {
+        pushFromRounds(col.roundsData || [], col.sessionId || '');
+      });
+      pushFromRounds(this.roundsData || [], this.activeSessionId || 'default');
+
+      // 兜底：如果当前展示数据尚未同步，但 experimentResult 里已经有 userdo，也直接扫描。
+      const er = this.experimentResult;
+      if (er && Array.isArray(er.iterations)) {
+        const seen = new Set(rows.map((x) => x.key));
+        (er.iterations || []).forEach((round) => {
+          if (!round || round.round_number === undefined) return;
+        (round.query_results || []).forEach((query, queryIndex) => {
+          const deletes = query?.orchestrator_plan?.userdo?.delete;
+          if (!Array.isArray(deletes) || deletes.length === 0) return;
+            const key = `${er.session_id || this.activeSessionId || 'experiment'}-${round.round_number}-${queryIndex}`;
+            if (seen.has(key)) return;
+            seen.add(key);
+          rows.push({
+              key,
+              sessionId: er.session_id || this.activeSessionId || '',
+            roundNumber: Number(round.round_number),
+            queryIndex,
+            label: `R ${round.round_number}.${queryIndex + 1}`,
+            toolName: query?.orchestrator_plan?.tool_name || '',
+            operations: deletes.map((op, opIndex) => ({
+                key: `${key}-delete-${opIndex}`,
+              type: 'delete',
+              targetEvidenceId: op?.target_evidence_id || '',
+              timestamp: op?.timestamp || '',
+            })),
+          });
+        });
+      });
+      }
+      rows.sort((a, b) => {
+        if (String(a.sessionId) !== String(b.sessionId)) {
+          return String(a.sessionId).localeCompare(String(b.sessionId));
+        }
+        if (a.roundNumber !== b.roundNumber) return a.roundNumber - b.roundNumber;
+        return a.queryIndex - b.queryIndex;
+      });
+      this.$emit('user-operations-change', rows);
+    },
+
     /**
      * 左侧 Question 区：与上方 session 表头同源，展示该会话完整题干（含大追问后归档到 completed 的 rootGoal）。
      */
@@ -1136,7 +1212,7 @@ export default {
                   baseCol && baseCol.length > 0
                     ? this.mergeRoundsDataFromFollowUp(baseCol, rounds)
                     : rounds;
-                this.$set(col, 'roundsData', merged);
+                col.roundsData = merged;
                 this.syncPlanStatesWithGraph(data);
                 this.syncPlanSummariesFromExperimentResult();
                 this.incrementalRoundsData = JSON.parse(
@@ -1209,7 +1285,7 @@ export default {
 
       if (useColumn) {
         this._ingestPlanCreatedIntoRoundsArray(col.roundsData, planData);
-        this.$set(col, 'roundsData', [...col.roundsData]);
+        col.roundsData = [...col.roundsData];
         this.$nextTick(() => this.drawRiverChart());
         console.log('[前端] 策略框已创建(归档列):', planData.plan_id);
         return;
@@ -1352,6 +1428,7 @@ export default {
             ParentNode: plan.ParentNode,
             reason: plan.reason
           };
+          const userdo = matchingQuery?.orchestrator_plan?.userdo || null;
           let orchestrator_plan;
           if (matchingQuery?.orchestrator_plan && typeof matchingQuery.orchestrator_plan === 'object') {
             orchestrator_plan = { ...matchingQuery.orchestrator_plan, ...fromGraph };
@@ -1360,6 +1437,9 @@ export default {
             }
           } else {
             orchestrator_plan = { ...fromGraph, plansummary };
+          }
+          if (userdo) {
+            orchestrator_plan.userdo = JSON.parse(JSON.stringify(userdo));
           }
 
           return {
@@ -2347,6 +2427,7 @@ export default {
     },
 
     drawRiverChart() {
+      this.emitUserOperationsChange();
       const viewport = this.$refs.gridViewport;
       this.svgWidth = viewport?.clientWidth || this.$el.clientWidth;
       this.svgHeight = viewport?.clientHeight || this.$el.clientHeight;
@@ -2409,7 +2490,7 @@ export default {
         svg.attr('width', mapWidth).attr('height', mapHeight);
         const rootG = svg.append('g');
         if (card.query?.rag_results?.length) {
-          this.drawStrategyMap(rootG, card.query, 0, 0, mapWidth, mapHeight, card.roundNumber, card.queryIndex);
+          this.drawStrategyMap(rootG, card.query, 0, 0, mapWidth, mapHeight, card.roundNumber, card.queryIndex, card.sessionId);
         } else {
           svg.append('text')
             .attr('x', mapWidth / 2)
@@ -2438,7 +2519,7 @@ export default {
       };
     },
 
-drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, roundNumber, queryIndex) {
+drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, roundNumber, queryIndex, sessionId = '') {
       const layoutPoints = this.getCanonicalLayoutPoints();
       // const isEmptyQuery = !query.rag_results || query.rag_results.length === 0;
       const ragPoints = [];
@@ -2617,15 +2698,9 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       if (contours && contours.length > 0) {
         const path = d3.geoPath();
         const cs = [...contours].sort((a, b) => (a?.value ?? 0) - (b?.value ?? 0));
-        const vMin = d3.min(cs, (d) => d?.value) ?? 0;
-        const vMax = d3.max(cs, (d) => d?.value) ?? 1;
-        const denom = (vMax - vMin) || 1;
-        const tOf = (d) => Math.max(0, Math.min(1, ((d?.value ?? vMin) - vMin) / denom));
-        const gamma = 1.25;
-        const tAdj = (t) => Math.pow(t, gamma);
-        const STROKE_COLOR = 'rgba(120,130,140,0.75)';
-        const STROKE_W = 0.45;
-        const STROKE_OP = 0.85;
+        const color = d3
+          .scaleSequential(d3.interpolateBlues)
+          .domain([0, d3.max(cs, (d) => d.value) || 1]);
 
         const contourGroup = plotG.append('g').attr('class', 'density-contours');
         contourGroup
@@ -2634,14 +2709,9 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           .enter()
           .append('path')
           .attr('d', path)
-          .attr('fill', (d) => d3.interpolateGreys(0.02 + 0.28 * tAdj(tOf(d))))
-          .attr('fill-opacity', (d) => 0.03 + 0.1 * tAdj(tOf(d)))
-          .attr('stroke', STROKE_COLOR)
-          .attr('stroke-opacity', STROKE_OP)
-          .attr('stroke-width', STROKE_W)
-          .attr('stroke-linejoin', 'round')
-          .attr('stroke-linecap', 'round')
-          .attr('vector-effect', 'non-scaling-stroke');
+          .attr('fill', (d) => color(d.value))
+          .attr('opacity', 0.5)
+          .attr('stroke', 'none');
       }
 
       if (dotSamplePx.length > 0) {
@@ -2655,7 +2725,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           .attr('cx', (d) => d.x)
           .attr('cy', (d) => d.y)
           .attr('r', 1)
-          .attr('fill', 'rgba(0,0,0,0.35)');
+          .attr('fill', 'rgba(148,163,184,0.32)');
       }
 
       const op = query?.orchestrator_plan || {};
@@ -2868,57 +2938,22 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             .attr('r', d.radius + 2)
             .attr('stroke-width', 1.2)
             .attr('opacity', 1);
-          
+
           d3.select(this).select('.rag-dot-ring')
             .attr('r', d.radius + 4.0)
             .attr('stroke-width', 1.6)
             .attr('opacity', 1);
-          
-          const rr = d.rag?.retrieval_result || {};
-          const title = (rr.content?.title || rr.metadata?.title || 'N/A');
-          
-          let typeLabel = '未知';
-          if (d.isPicture) {
-            typeLabel = '图片';
-          } else {
-            typeLabel = '文本';
-          }
-          
-          const tooltip = d3.select('body').append('div')
-            .attr('class', 'river-tooltip')
-            .style('position', 'absolute')
-            .style('background', 'rgba(20, 24, 28, 0.88)')
-            .style('color', 'white')
-            .style('padding', '8px 10px')
-            .style('border-radius', '6px')
-            .style('z-index', '1000')
-            .style('font-size', '12px')
-            .style('pointer-events', 'none')
-            .style('max-width', 'min(92vw, 560px)')
-            .style('white-space', 'normal')
-            .style('word-break', 'break-word')
-            .style('left', `${event.pageX + 14}px`)
-            .style('top', `${event.pageY - 10}px`);
-          
-          tooltip.html(`
-            <div style="margin-bottom:4px;"><strong>ID:</strong> ${rr.id ?? ''}</div>
-            <div style="margin-bottom:4px;"><strong>类型:</strong> ${typeLabel}</div>
-            <div style="margin-bottom:4px;"><strong>Score:</strong> ${Number(d.score).toFixed(3)}</div>
-            <div style="margin-bottom:4px;"><strong>Action:</strong> ${d.action}</div>
-            <div><strong>Title:</strong> ${String(title)}</div>
-          `);
         })
         .on('mouseout', function(event, d) {
           d3.select(this).select('.rag-dot-core')
             .attr('r', d.radius)
             .attr('stroke-width', 0.8)
             .attr('opacity', (d.action === 'UNKNOWN' ? 0.45 : 0.92));
-          
+
           d3.select(this).select('.rag-dot-ring')
             .attr('r', d.radius + 2.0)
             .attr('stroke-width', 1.2)
             .attr('opacity', 0.95);
-          d3.selectAll('.river-tooltip').remove();
         })
         .on('click', (event, d) => {
           if (this.suppressNextRagDotClick) {
@@ -2930,7 +2965,13 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           const rr = d.rag?.retrieval_result;
           if (!rr) return;
           const evaluation = d.rag?.evaluation ?? null;
-          this.showDetail(rr, evaluation);
+          this.showDetail(rr, evaluation, {
+            sessionId,
+            roundNumber,
+            queryIndex,
+            query,
+            rag: d.rag,
+          });
         })
         .on('pointerdown', (event, d) => {
           if (event.button !== 0) return;
@@ -3718,7 +3759,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       return wordFreq;
     },
 
-    showDetail(retrievalResult, evaluation = null) {
+    showDetail(retrievalResult, evaluation = null, context = null) {
       // 如果传入了 evaluation，将其附加到 retrievalResult 上
       const dataWithEvaluation = {
         ...retrievalResult,
@@ -3730,6 +3771,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       
       // 显示弹窗
       this.selectedPointDetail = processedData;
+      this.selectedPointContext = context || null;
       this.showPointDetailModal = true;
     },
     
@@ -3855,6 +3897,123 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     closePointDetailModal() {
       this.showPointDetailModal = false;
       this.selectedPointDetail = null;
+      this.selectedPointContext = null;
+    },
+
+    isRagResultUserDeleted(query, rag) {
+      const id = rag?.retrieval_result?.id;
+      if (!id) return false;
+      const deletes = query?.orchestrator_plan?.userdo?.delete;
+      return Array.isArray(deletes) && deletes.some((x) => String(x?.target_evidence_id || '') === String(id));
+    },
+
+    ensurePlanUserDelete(query, resultId) {
+      if (!query || !query.orchestrator_plan || !resultId) return;
+      const op = query.orchestrator_plan;
+      if (!op.userdo || typeof op.userdo !== 'object') {
+        op.userdo = {};
+      }
+      if (!Array.isArray(op.userdo.delete)) {
+        op.userdo.delete = [];
+      }
+      if (!op.userdo.delete.some((x) => String(x?.target_evidence_id || '') === String(resultId))) {
+        op.userdo.delete.push({
+          action: 'delete',
+          target_evidence_id: String(resultId),
+          timestamp: new Date().toISOString(),
+        });
+      }
+    },
+
+    markRagResultPruned(rag, resultId) {
+      if (!rag) return;
+      if (!rag.evaluation || typeof rag.evaluation !== 'object') {
+        rag.evaluation = {
+          target_evidence_id: resultId,
+          branch_action: 'PRUNE',
+          extracted_insight: '',
+          scores: {},
+          reason: 'User deleted this evidence item.',
+          suggested_keywords: [],
+        };
+      } else {
+        rag.evaluation.branch_action = 'PRUNE';
+        if (!rag.evaluation.target_evidence_id) {
+          rag.evaluation.target_evidence_id = resultId;
+        }
+        if (!rag.evaluation.reason) {
+          rag.evaluation.reason = 'User deleted this evidence item.';
+        }
+      }
+      rag.evaluation.user_action = 'delete';
+    },
+
+    applyRagDeleteLocally(ctx, resultId) {
+      const query = ctx?.query;
+      const rag = ctx?.rag;
+      this.ensurePlanUserDelete(query, resultId);
+      this.markRagResultPruned(rag, resultId);
+      this.syncDeleteIntoExperimentResult(ctx, resultId);
+    },
+
+    syncDeleteIntoExperimentResult(ctx, resultId) {
+      const er = this.experimentResult;
+      if (!er || !Array.isArray(er.iterations) || !ctx || !ctx.query) return;
+      if (er.session_id && ctx.sessionId && er.session_id !== ctx.sessionId) return;
+      const it = er.iterations.find((x) => Number(x.round_number) === Number(ctx.roundNumber));
+      const qr = it?.query_results?.find((x) => this.queryResultPlanKey(x) === this.queryResultPlanKey(ctx.query));
+      if (!qr) return;
+      this.ensurePlanUserDelete(qr, resultId);
+      const rag = (qr.rag_results || []).find((x) => String(x?.retrieval_result?.id || '') === String(resultId));
+      if (rag) this.markRagResultPruned(rag, resultId);
+    },
+
+    async persistRagDelete(ctx, resultId) {
+      const sourcePath = (this.forkExperimentSource || this.selectedDataFile || '').trim();
+      if (!sourcePath) {
+        throw new Error('未找到当前实验 JSON 来源文件');
+      }
+      const plan = ctx?.query?.orchestrator_plan || {};
+      const resp = await fetch('/api/experiment-rag-action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'delete',
+          source_path: sourcePath,
+          session_id: ctx?.sessionId || this.activeSessionId || '',
+          round_number: ctx?.roundNumber,
+          plan_tool: plan.tool_name || '',
+          plan_args: plan.args || {},
+          result_id: resultId,
+        }),
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok || !data.ok) {
+        if (resp.status === 404) {
+          throw new Error('后端删除保存接口未生效或目标点未找到；请先重启 python server.py 后再试');
+        }
+        throw new Error(data.detail || `HTTP ${resp.status}`);
+      }
+      if (data.path) {
+        this.forkExperimentSource = data.path;
+        this.selectedDataFile = data.path;
+      }
+      return data;
+    },
+
+    async deleteSelectedRagPoint() {
+      const ctx = this.selectedPointContext;
+      const resultId = this.selectedPointDetail?.id || ctx?.rag?.retrieval_result?.id;
+      if (!ctx || !resultId) return;
+      try {
+        this.applyRagDeleteLocally(ctx, resultId);
+        await this.persistRagDelete(ctx, resultId);
+        this.closePointDetailModal();
+        this.$nextTick(() => this.drawRiverChart());
+      } catch (error) {
+        console.error('Failed to delete evidence point:', error);
+        alert(`Failed to delete evidence point: ${error.message || 'unknown error'}`);
+      }
     },
     
     // 高亮全局地图中策略卡片对应的点
@@ -4773,45 +4932,6 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             return 1.2;
           }
           return 0;
-        })
-        // 增加 tooltip 提示
-        .on('mouseover', function(event, d) {
-          const rawType = getPointType(d);
-          const typeLabel = rawType === 'picture' ? '图片' : '文本';
-          
-          // 尝试从 metadata 中提取更有用的 title
-          let title = d.id;
-          try {
-            if (d.metadata) {
-               const meta = typeof d.metadata === 'string' ? JSON.parse(d.metadata) : d.metadata;
-               title = meta.title || meta.paper_name || d.id;
-            }
-          } catch(e) { /* ignore */ }
-          
-          const tooltip = d3.select('body').append('div')
-            .attr('class', 'global-map-tooltip')
-            .style('position', 'absolute')
-            .style('background', 'rgba(20, 24, 28, 0.88)')
-            .style('color', 'white')
-            .style('padding', '8px 10px')
-            .style('border-radius', '6px')
-            .style('z-index', '1000')
-            .style('font-size', '12px')
-            .style('pointer-events', 'none')
-            .style('max-width', 'min(92vw, 560px)')
-            .style('white-space', 'normal')
-            .style('word-break', 'break-word')
-            .style('left', `${event.pageX + 14}px`)
-            .style('top', `${event.pageY - 10}px`);
-          
-          tooltip.html(`
-            <div style="margin-bottom:4px;"><strong>ID:</strong> ${d.id ?? ''}</div>
-            <div style="margin-bottom:4px;"><strong>类型:</strong> ${typeLabel}</div>
-            <div><strong>Title:</strong> ${String(title)}</div>
-          `);
-        })
-        .on('mouseout', function() {
-          d3.selectAll('.global-map-tooltip').remove();
         });
 
       // 绘制聚类关键词 (渲染在散点上层)
@@ -5870,6 +5990,43 @@ svg {
   max-height: 90vh;
 }
 
+.point-detail-modal .modal-header {
+  padding: 10px 16px;
+  border-bottom-width: 1px;
+  border-radius: 12px 12px 0 0;
+}
+
+.point-detail-modal .modal-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.point-detail-modal .close-btn {
+  font-size: 22px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.point-detail-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.btn.danger,
+.point-delete-btn {
+  background: #dc2626;
+  color: #fff;
+  border-color: #b91c1c;
+}
+
+.btn.danger:hover,
+.point-delete-btn:hover {
+  background: #b91c1c;
+}
+
 /* Hypothesis 弹窗样式 */
 .hypothesis-content {
   padding: 20px;
@@ -6295,12 +6452,6 @@ svg {
 
 .rag-dot:hover {
   filter: brightness(1.3);
-}
-
-.tooltip {
-  pointer-events: none;
-  font-size: 12px;
-  max-width: 250px;
 }
 
 .river-grid-viewport {

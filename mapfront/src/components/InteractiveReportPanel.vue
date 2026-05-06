@@ -60,7 +60,7 @@
       <div v-if="showPointDetailModal" class="ir-modal" @click.self="closePointDetailModal">
         <div class="ir-modal-content ir-point-detail-modal">
           <div class="ir-modal-header">
-            <h2>数据点详情</h2>
+            <h2>Data point details</h2>
             <button type="button" @click="closePointDetailModal" class="ir-modal-close">×</button>
           </div>
           <div class="ir-modal-body">
@@ -452,6 +452,23 @@ const displayLabel = (item) => {
   width: 800px;
   max-width: 90vw;
   max-height: 90vh;
+}
+
+.ir-point-detail-modal .ir-modal-header {
+  padding: 10px 16px;
+  border-bottom-width: 1px;
+  border-radius: 12px 12px 0 0;
+}
+
+.ir-point-detail-modal .ir-modal-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ir-point-detail-modal .ir-modal-close {
+  font-size: 22px;
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 
 .ir-modal-header {

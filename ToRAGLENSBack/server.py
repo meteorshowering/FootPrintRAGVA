@@ -18,6 +18,7 @@ import os
 import re
 import shutil
 import datetime
+import json
 from typing import Optional, Dict, List, Any
 
 app = FastAPI()
@@ -245,6 +246,129 @@ async def read_experiment_file(
         media_type="application/json",
         filename=os.path.basename(abs_path),
     )
+
+
+@app.post("/api/experiment-rag-action")
+async def update_experiment_rag_action(payload: Dict[str, Any]):
+    """
+    保存前端对单个 rag_result 的用户操作。
+    当前仅支持 delete：不物理删除 rag_result，而是在 orchestrator_plan.userdo.delete 中记录，
+    并把对应 evaluation.branch_action 标为 PRUNE，保证实验 JSON 可追溯。
+    """
+    action = str(payload.get("action") or "").strip().lower()
+    if action != "delete":
+        raise HTTPException(status_code=400, detail="unsupported action")
+
+    source_rel = str(
+        payload.get("source_path")
+        or payload.get("fork_experiment_source")
+        or ""
+    ).strip()
+    if not source_rel:
+        raise HTTPException(status_code=400, detail="missing source_path")
+    dest_path = _ensure_fork_experiment_save_path(source_rel)
+    if not dest_path:
+        raise HTTPException(status_code=404, detail="source experiment not found")
+
+    result_id = str(payload.get("result_id") or "").strip()
+    if not result_id:
+        raise HTTPException(status_code=400, detail="missing result_id")
+    session_id = str(payload.get("session_id") or "").strip()
+    round_number_raw = payload.get("round_number")
+    try:
+        round_number = int(round_number_raw)
+    except Exception:
+        round_number = None
+    plan_tool = str(payload.get("plan_tool") or "").strip()
+    plan_args = payload.get("plan_args") if isinstance(payload.get("plan_args"), dict) else None
+
+    def _same_args(a: Any, b: Any) -> bool:
+        try:
+            return json.dumps(a or {}, sort_keys=True, ensure_ascii=False) == json.dumps(
+                b or {}, sort_keys=True, ensure_ascii=False
+            )
+        except Exception:
+            return False
+
+    def _iter_session_docs(doc: Any) -> List[Dict[str, Any]]:
+        if isinstance(doc, dict) and isinstance(doc.get("sessions"), list):
+            return [s for s in doc.get("sessions") if isinstance(s, dict)]
+        return [doc] if isinstance(doc, dict) else []
+
+    try:
+        with open(dest_path, "r", encoding="utf-8") as f:
+            doc = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"read failed: {e}")
+
+    matched = False
+    now = datetime.datetime.now().isoformat(timespec="seconds")
+    for sess in _iter_session_docs(doc):
+        if session_id and str(sess.get("session_id") or "").strip() != session_id:
+            continue
+        for it in sess.get("iterations") or []:
+            if round_number is not None and int(it.get("round_number", -999999)) != round_number:
+                continue
+            for qr in it.get("query_results") or []:
+                op = qr.get("orchestrator_plan") or {}
+                if plan_tool and str(op.get("tool_name") or "") != plan_tool:
+                    continue
+                if plan_args is not None and not _same_args(op.get("args") or {}, plan_args):
+                    continue
+                target = None
+                for rag in qr.get("rag_results") or []:
+                    rr = rag.get("retrieval_result") or {}
+                    if str(rr.get("id") or "").strip() == result_id:
+                        target = rag
+                        break
+                if target is None:
+                    continue
+
+                userdo = op.get("userdo")
+                if not isinstance(userdo, dict):
+                    userdo = {}
+                deletes = userdo.get("delete")
+                if not isinstance(deletes, list):
+                    deletes = []
+                if not any(str(x.get("target_evidence_id") or "") == result_id for x in deletes if isinstance(x, dict)):
+                    deletes.append({
+                        "action": "delete",
+                        "target_evidence_id": result_id,
+                        "timestamp": now,
+                    })
+                userdo["delete"] = deletes
+                op["userdo"] = userdo
+                qr["orchestrator_plan"] = op
+
+                ev = target.get("evaluation")
+                if not isinstance(ev, dict):
+                    ev = {
+                        "target_evidence_id": result_id,
+                        "branch_action": "PRUNE",
+                        "extracted_insight": "",
+                        "scores": {},
+                        "reason": "User deleted this evidence item.",
+                        "suggested_keywords": [],
+                    }
+                else:
+                    ev["target_evidence_id"] = ev.get("target_evidence_id") or result_id
+                    ev["branch_action"] = "PRUNE"
+                    ev["reason"] = ev.get("reason") or "User deleted this evidence item."
+                ev["user_action"] = "delete"
+                target["evaluation"] = ev
+                matched = True
+
+    if not matched:
+        raise HTTPException(status_code=404, detail="target rag_result not found")
+
+    try:
+        with open(dest_path, "w", encoding="utf-8") as f:
+            json.dump(doc, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"write failed: {e}")
+
+    rel_out = os.path.relpath(dest_path, _experiment_data_dir).replace("\\", "/")
+    return {"ok": True, "path": rel_out}
 
 
 def _fork_dest_basename(source_rel: str) -> Optional[str]:
