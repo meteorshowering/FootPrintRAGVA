@@ -12,6 +12,7 @@
           <LeftPanel
             :map-toolbar="mapToolbarState"
             :multi-agent-rewrite-streams="useMultiAgentRewriteStreams"
+            :backend-connected="backendConnected"
             @system-prompt-change="handleSystemPromptChange"
             @rag-collection-change="handleRagCollectionChange"
             @plans-per-round-change="handlePlansPerRoundChange"
@@ -42,6 +43,7 @@
             :global-map-mount-id="'left-global-map'"
             @map-toolbar="handleMapToolbar"
             @user-operations-change="handleUserOperationsChange"
+            @backend-status-change="handleBackendStatusChange"
           />
         </main>
 
@@ -118,6 +120,7 @@ export default {
         mapRagFilterIds: [],
       },
       userOperationRows: [],
+      backendConnected: false,
     };
   },
   methods: {
@@ -191,6 +194,9 @@ export default {
     },
     handleUserOperationsChange(rows) {
       this.userOperationRows = Array.isArray(rows) ? rows : [];
+    },
+    handleBackendStatusChange(payload) {
+      this.backendConnected = !!(payload && payload.connected);
     },
     handleMapBoxToggle() {
       this.$refs.riverChart?.toggleMapBoxSelectMode?.();

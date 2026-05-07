@@ -1,37 +1,5 @@
 <template>
   <div id="enhanced-river-chart">
-    <!-- 用户输入区域 -->
-    <div class="user-input-section">
-      <div class="ws-status" :class="{ connected: wsConnected }">
-        {{ wsConnected ? '● 已连接后端' : '○ 未连接' }}
-      </div>
-      <div class="input-container">
-        <input 
-          v-model="userQuestion" 
-          @keyup.enter="submitUserQuery"
-          placeholder="Enter your question…" 
-          class="question-input"
-          :disabled="isSubmitting"
-        />
-        <button 
-          @click="submitUserQuery" 
-          class="btn btn-submit"
-          :disabled="isSubmitting || !userQuestion.trim()"
-        >
-          {{ isSubmitting ? '提交中...' : '提交查询' }}
-        </button>
-        <button
-          type="button"
-          class="btn btn-add-question"
-          :disabled="isSubmitting"
-          title="Archive current results and add a new question column"
-          @click="openAddQuestionPrompt"
-        >
-          + Add question
-        </button>
-      </div>
-    </div>
-
     <div
       ref="gridViewport"
       class="river-grid-viewport"
@@ -377,7 +345,7 @@ class StrategyCanvas {
 
 export default {
   name: 'EnhancedRiverChart',
-  emits: ['map-toolbar'],
+  emits: ['map-toolbar', 'user-operations-change', 'backend-status-change'],
   props: {
     plansPerRound: {
       type: Number,
@@ -1128,6 +1096,7 @@ export default {
     connectWebSocket() {
       if (this.ws && this.ws.readyState === WebSocket.OPEN) {
         console.log('[WS] 已存在连接，跳过');
+        this.emitBackendStatus();
         return;
       }
       const url = this.getWsUrl();
@@ -1136,13 +1105,17 @@ export default {
         this.ws = new WebSocket(url);
         this.ws.onopen = () => {
           this.wsConnected = true;
+          this.emitBackendStatus();
           console.log('[WS] ✅ 连接成功:', url);
         };
         this.ws.onclose = (event) => {
           this.wsConnected = false;
+          this.emitBackendStatus();
           console.log('[WS] ❌ 连接关闭:', event.code, event.reason);
         };
         this.ws.onerror = (e) => {
+          this.wsConnected = false;
+          this.emitBackendStatus();
           console.error('[WS] ❌ 连接错误:', e);
           console.error('[WS] 尝试连接的URL:', url);
         };
@@ -1250,8 +1223,16 @@ export default {
           }
         };
       } catch (e) {
+        this.wsConnected = false;
+        this.emitBackendStatus();
         console.error('[WS] 连接失败', e);
       }
+    },
+
+    emitBackendStatus() {
+      this.$emit('backend-status-change', {
+        connected: !!this.wsConnected,
+      });
     },
     _ingestPlanCreatedIntoRoundsArray(roundsArray, planData) {
       const { round_number, plan_id, orchestrator_plan } = planData;
@@ -2699,8 +2680,8 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
         const path = d3.geoPath();
         const cs = [...contours].sort((a, b) => (a?.value ?? 0) - (b?.value ?? 0));
         const color = d3
-          .scaleSequential(d3.interpolateBlues)
-          .domain([0, d3.max(cs, (d) => d.value) || 1]);
+        .scaleSequential((t) => d3.interpolateBlues(0.05 + 0.55 * t))
+        .domain([0, d3.max(cs, (d) => d.value) || 1]);
 
         const contourGroup = plotG.append('g').attr('class', 'density-contours');
         contourGroup
@@ -2710,7 +2691,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           .append('path')
           .attr('d', path)
           .attr('fill', (d) => color(d.value))
-          .attr('opacity', 0.5)
+          .attr('opacity', 0.2)
           .attr('stroke', 'none');
       }
 
@@ -2725,7 +2706,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           .attr('cx', (d) => d.x)
           .attr('cy', (d) => d.y)
           .attr('r', 1)
-          .attr('fill', 'rgba(148,163,184,0.32)');
+          .attr('fill', 'rgb(148,163,184,0.32)');
       }
 
       const op = query?.orchestrator_plan || {};
@@ -2783,9 +2764,9 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
 
       // 绘制RAG结果点（FootprintRAG风格）
       const colorOf = (action) => {
-        if (action === 'GROW') return '#28a745';
+        if (action === 'GROW') return '#379b61';
         if (action === 'PRUNE') return '#dc3545';
-        if (action === 'KEEP') return '#ffc107';
+        if (action === 'KEEP') return '#eec316';
         return '#9AA3AD'; // UNKNOWN
       };
 
@@ -4872,11 +4853,11 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
           if (highlightInfo) {
             const action = highlightInfo.branch_action;
             if (action === 'GROW') {
-              return '#28a745'; // 绿色
+              return '#379b61'; // 绿色
             } else if (action === 'PRUNE') {
               return '#dc3545'; // 红色
             } else if (action === 'KEEP') {
-              return '#ffc107'; // 黄色
+              return '#eec316'; // 黄色
             } else if (action === 'PENDING') {
               return '#6c757d'; // 灰色（待评估）
             }
@@ -5243,6 +5224,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     });
     this.loadMapData();
     this.connectWebSocket();
+    this.emitBackendStatus();
     this.loadGlobalMapData();
     window.addEventListener('resize', this.handleResize);
   },
@@ -5745,33 +5727,6 @@ svg {
 }
 
 /* 注意：不要强行让 svg rect 继承 stroke（会覆盖 d3 里对外框/内框的动态着色）。 */
-
-.user-input-section {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 15px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-  min-width: 400px;
-}
-
-.ws-status {
-  font-size: 12px;
-  color: #999;
-  margin-bottom: 8px;
-}
-.ws-status.connected {
-  color: #28a745;
-}
-.input-container {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
 
 .question-input {
   flex: 1;
@@ -6728,13 +6683,6 @@ svg {
   background: #f8fafc;
 }
 
-.user-input-section {
-  min-width: 420px;
-  border: 1px solid rgba(203, 213, 225, 0.9);
-  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
-}
-
-
 .river-bg-svg {
   position: absolute;
   inset: 0;
@@ -6912,13 +6860,6 @@ svg {
   background: #eff6ff !important;
   color: #0369a1 !important;
   transform: translateY(-1px);
-}
-
-.user-input-section {
-  background: rgba(255,255,255,0.92) !important;
-  border: 1px solid rgba(226,232,240,0.98) !important;
-  box-shadow: 0 16px 40px rgba(15,23,42,0.08) !important;
-  backdrop-filter: blur(10px);
 }
 
 .question-input {

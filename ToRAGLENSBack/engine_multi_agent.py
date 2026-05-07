@@ -75,13 +75,19 @@ _ORCHESTRATOR_LITE_SYSTEM = SystemMessage(
 Fields:
 - "action": must be "call_tool"
 - "tool_name": one of
-  strategy_semantic_search | strategy_exact_search | strategy_metadata_search |
-  strategy_multimodal_search | strategy_vector_search | strategy_evidence_similarity_search
-- "args": object — for strategy_semantic_search / strategy_exact_search include "query_intent" string; include "n_results" only if user supplies it in the task text.
+  strategy_semantic_search | strategy_exact_search
+- "args": object. Parameter rules:
+  - For strategy_semantic_search:
+    - Required: "query_intent" string.
+    - Use a natural-language retrieval question or phrase that describes the information need.
+    - Good for broad conceptual retrieval, method comparisons, dataset/model discovery, or follow-up exploration.
+  - For strategy_exact_search:
+    - Required: "query_intent" string.
+    - Use ONLY a short exact-match expression: preferably one specific proper noun, acronym, method name, model name, dataset name, pollutant name, or paper/entity term.
+    - Do NOT use a long sentence for exact search. Bad: "datasets used to model CO2 pollution in cities". Good: "AERMOD", "WRF-Chem", "CO2", "CALPUFF", "traffic census".
 - "reason": short English rationale tied to the **track question** (not other tracks).
-- "ParentNode": usually "0".
 
-Continuation rounds: if the user message includes a **previous round search query**, your new "query_intent" must **not** be the same string (nor a trivial paraphrase). Formulate a **follow-up** retrieval phrase that closes gaps, drills into methods/datasets/entities implied by the prior summaries, or pivots to what is still missing for the track question.
+Continuation rounds: if the user message includes a **previous round search query**, your new "query_intent" must **not** be the same string (nor a trivial paraphrase). Formulate a **follow-up** retrieval phrase that closes gaps, drills into methods/datasets/entities implied by the prior summaries, or pivots to what is still missing for the track question. If using exact search in a continuation round, extract one concise term from the prior summaries or track question.
 
 No markdown, no extra keys, no array wrapper — only one JSON object."""
 )

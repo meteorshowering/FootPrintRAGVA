@@ -70,20 +70,6 @@
       </div>
 
       <div class="slider-row">
-        <div class="slider-label">RAG / plan</div>
-        <input
-          class="slider"
-          type="range"
-          min="1"
-          max="20"
-          step="1"
-          v-model.number="ragResultPerPlan"
-          @input="handleRagResultPerPlanChange"
-        />
-        <div class="slider-value">{{ ragResultPerPlan }}</div>
-      </div>
-
-      <div class="slider-row">
         <div class="slider-label">Plans / round</div>
         <input
           class="slider"
@@ -95,6 +81,20 @@
           @input="handlePlansPerRoundChange"
         />
         <div class="slider-value">{{ plansPerRound }}</div>
+      </div>
+
+      <div class="slider-row">
+        <div class="slider-label">top k</div>
+        <input
+          class="slider"
+          type="range"
+          min="1"
+          max="20"
+          step="1"
+          v-model.number="ragResultPerPlan"
+          @input="handleRagResultPerPlanChange"
+        />
+        <div class="slider-value">{{ ragResultPerPlan }}</div>
       </div>
 
     </section>
@@ -201,6 +201,11 @@
       </p>
     </section>
 
+    <section class="backend-status-footer">
+      <span class="backend-status-dot" :class="{ connected: backendConnected }"></span>
+      <span>{{ backendConnected ? '已连接后端' : '未连接后端' }}</span>
+    </section>
+
   </div>
 </template>
 
@@ -221,6 +226,10 @@ export default {
     multiAgentRewriteStreams: {
       type: Boolean,
       default: true,
+    },
+    backendConnected: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -401,6 +410,29 @@ export default {
   font-size: 11px;
   line-height: 1.35;
   color: rgba(100, 116, 139, 0.95);
+}
+
+.backend-status-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(51, 65, 85, 0.95);
+}
+
+.backend-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15);
+}
+
+.backend-status-dot.connected {
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
 }
 
 .panel {
