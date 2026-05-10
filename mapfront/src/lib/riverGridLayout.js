@@ -119,9 +119,23 @@ export const LABEL_TO_FIRST_ROUND_GAP_EXTRA = 28;
 
 export function ensureGridSizing(vm, allRounds, maxQueryOverride) {
   const colKeys = allRounds.map((r) => gridColumnKey(r));
+  const roundRowCount = (r) => {
+    const qrs = r && Array.isArray(r.query_results) ? r.query_results : [];
+    let maxRow = 0;
+    qrs.forEach((qr, idx) => {
+      if (!qr) return;
+      const gp = qr.orchestrator_plan && qr.orchestrator_plan.grid_pos;
+      if (Array.isArray(gp) && gp.length >= 1 && Number.isFinite(Number(gp[0]))) {
+        maxRow = Math.max(maxRow, Number(gp[0]));
+      } else if (qr.orchestrator_plan) {
+        maxRow = Math.max(maxRow, idx + 1);
+      }
+    });
+    return Math.max(1, maxRow || qrs.length || 1);
+  };
   const fromData = Math.max(
     1,
-    ...allRounds.map((r) => (Array.isArray(r.query_results) ? r.query_results.length : 0))
+    ...allRounds.map((r) => roundRowCount(r))
   );
   const maxQueryCount =
     typeof maxQueryOverride === 'number' && maxQueryOverride >= 1 ? maxQueryOverride : fromData;
@@ -144,9 +158,23 @@ export function ensureGridSizing(vm, allRounds, maxQueryOverride) {
  * 构建列/行位置 metrics（按 session 分条带纵向堆叠：新会话整带在下方，不再向右延伸）
  */
 export function buildGridMetrics(vm, allRounds) {
+  const roundRowCount = (r) => {
+    const qrs = r && Array.isArray(r.query_results) ? r.query_results : [];
+    let maxRow = 0;
+    qrs.forEach((qr, idx) => {
+      if (!qr) return;
+      const gp = qr.orchestrator_plan && qr.orchestrator_plan.grid_pos;
+      if (Array.isArray(gp) && gp.length >= 1 && Number.isFinite(Number(gp[0]))) {
+        maxRow = Math.max(maxRow, Number(gp[0]));
+      } else if (qr.orchestrator_plan) {
+        maxRow = Math.max(maxRow, idx + 1);
+      }
+    });
+    return Math.max(1, maxRow || qrs.length || 1);
+  };
   let maxQueryCount = Math.max(
     1,
-    ...allRounds.map((r) => (Array.isArray(r.query_results) ? r.query_results.length : 0))
+    ...allRounds.map((r) => roundRowCount(r))
   );
   const prev = vm.gridMetrics && vm.gridMetrics.maxQueryCount;
   if (typeof prev === 'number' && prev > maxQueryCount && (allRounds || []).length > 0) {
@@ -190,7 +218,7 @@ export function buildGridMetrics(vm, allRounds) {
     /** 本会话条带内实际策略行数（各轮 query_results 长度的最大值），与全局 maxQueryCount 解耦 */
     const maxQueryInStrip = Math.max(
       1,
-      ...rounds.map((r) => (Array.isArray(r.query_results) ? r.query_results.length : 0))
+      ...rounds.map((r) => roundRowCount(r))
     );
 
     const rowYs = [];

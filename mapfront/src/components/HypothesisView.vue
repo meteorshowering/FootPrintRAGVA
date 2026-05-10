@@ -147,7 +147,7 @@ onMounted(() => {
 
 <style scoped>
 .hypothesis-container {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: #f8f9fa;

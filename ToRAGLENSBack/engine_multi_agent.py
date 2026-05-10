@@ -1,7 +1,9 @@
 """
 【功能】多路改写 + 独立追问轨（实验性）：与主 engine.py 并行，不修改 engine 源码。
-流程：用户问题 → LLM 生成 N 条相关且不重复的改写 → 每条改写独立多轮、每轮仅 1 个策略（1 行多格）→
-达到 max_rounds 或 LLM 判定可结束时停止；经 WebSocket 推送 graph / experiment_result 与主流程一致。
+流程：用户问题 → LLM 生成 N 条相关且不重复的改写 → 每条改写独立成一行；同一「波次」内多轨并行各跑一步检索，
+每轨在满足 **本轨 max_rounds** 或 **本轨** LLM 判定可结束时停止（不再执行检索），之后在后续波次对该轨写入占位格。
+迭代列（iteration.round_number）仍表示时间上的第几波（全局对齐），网格坐标 grid_pos[1] 表示该轨已完成的检索轮序号。
+经 WebSocket 推送 graph / experiment_result 与主流程一致。
 """
 from __future__ import annotations
 
@@ -43,8 +45,8 @@ def _make_model_client() -> OpenAIChatCompletionClient:
     """与 engine.run_rag_workflow 使用同一网关配置，便于对比实验。"""
     return OpenAIChatCompletionClient(
         model="gpt-4o",
-        base_url="http://38.147.105.35:3030/v1",
-        api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5",
+        base_url="https://ssvip.dmxapi.com/v1",
+        api_key="sk-8S92KJLEQcfF9TbjsLfSPrP3LRz6tsuzbRRpHXVH12Gp4SZc",
     )
     # return OpenAIChatCompletionClient(
     #     model="deepseek-r1:671b-0528",
@@ -105,10 +107,23 @@ No markdown."""
 )
 
 _STOP_CHECK_SYSTEM = SystemMessage(
-    content="""You decide whether further retrieval rounds are still needed.
+    content="""You decide whether further retrieval rounds are still needed globally (legacy).
 Given the original user question and short summaries of the latest round per track, respond with **only** JSON:
 {"stop": true|false, "rationale": "one short English sentence"}"""
 )
+
+_STOP_SINGLE_TRACK_SYSTEM = SystemMessage(
+    content="""You decide whether THIS ONE retrieval track needs another round after its latest summaries.
+Respond with **only** JSON:
+{"stop": true|false, "rationale": "one short English sentence"}
+Rules:
+- Judge only this track; other tracks are irrelevant.
+- If the track still has clear gaps, conflicting evidence, or missing methods/datasets/entities, set stop=false.
+- If the track already has enough evidence to answer its sub-question for the overall user goal, set stop=true."""
+)
+
+# 已结束轨在后续波次的占位策略名（不写图谱、不参与报告计划列表）
+TRACK_INACTIVE_TOOL = "_track_inactive"
 
 
 async def _llm_json_array_strings(
@@ -226,6 +241,103 @@ Sample evidence titles (if any):
     return nq
 
 
+def _log_hypothesis_prompt_and_response(agent_name: str, sys_msg: str, user_msg: str, response: str):
+    import datetime
+    import os
+    os.makedirs("logs", exist_ok=True)
+    timestamp_day = datetime.datetime.now().strftime("%Y%m%d")
+    timestamp_exact = datetime.datetime.now().strftime("%H:%M:%S")
+    filename = f"logs/hypothesis_prompts_{timestamp_day}.md"
+    with open(filename, "a", encoding="utf-8") as f:
+        f.write(f"## [{timestamp_exact}] {agent_name}\n\n")
+        f.write("### System Prompt\n```text\n" + sys_msg + "\n```\n\n")
+        f.write("### User Prompt\n```text\n" + user_msg + "\n```\n\n")
+        f.write("### LLM Response\n```text\n" + response + "\n```\n\n")
+        f.write("---\n\n")
+
+async def _llm_interactive_report_outline(client: OpenAIChatCompletionClient, plan_summaries: List[Dict]) -> List[Dict]:
+    _SYS = SystemMessage(
+        content="""You are a scientific report architect.
+You will be given a list of query strategies and their summaries (each with a plan_id).
+Group these strategies logically into a 2-level outline for a scientific review report.
+Output ONLY a JSON list, e.g.:
+[
+  {
+    "level1_title": "Broad Theme 1",
+    "subsections": [
+      {
+        "level2_title": "Specific Topic 1",
+        "assigned_plan_ids": ["plan_id_1", "plan_id_2"]
+      }
+    ]
+  }
+]
+Do NOT use markdown fences."""
+    )
+    plans_text = ""
+    for p in plan_summaries:
+        plans_text += f"Plan ID: {p['plan_id']}\nStrategy: {p['tool_name']}\nSummary: {p['plansummary']}\n---\n"
+    
+    msg = UserMessage(content=f"Plan Summaries:\n{plans_text}\nGenerate the 2-level outline JSON array.", source="user")
+    resp = await model_create_with_retry(
+        client,
+        messages=[_SYS, msg],
+        cancellation_token=None,
+        source="MultiAgentReportOutline"
+    )
+    
+    _log_hypothesis_prompt_and_response("MultiAgentReportOutline", _SYS.content, msg.content, resp.content)
+    
+    cleaned = resp.content.replace("```json", "").replace("```", "").strip()
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        return []
+
+async def _llm_interactive_report_section(client: OpenAIChatCompletionClient, title: str, rag_results: List[Dict]) -> str:
+    _SYS = SystemMessage(
+        content="""You are a scientific writer.
+You are given a subsection title and a set of retrieved evidence items (each with a CHUNK_ID).
+Write a concise, professional English literature review paragraph (3-6 sentences) synthesizing this evidence.
+CRITICAL: You MUST cite the evidence using EXACTLY the format `[CHUNK_ID]` (e.g. `[doc1_chunk4]`) where appropriate.
+Output ONLY the paragraph text. No JSON, no markdown formatting."""
+    )
+    evidence_text = ""
+    for item in rag_results:
+        chunk_id = item.get("chunk_id", "Unknown_ID")
+        content = item.get("content", "")
+        evidence_text += f"CHUNK_ID: {chunk_id}\nContent: {content}\n---\n"
+        
+    msg = UserMessage(content=f"Subsection Title: {title}\n\nEvidence:\n{evidence_text}\n\nWrite the synthesis paragraph with [CHUNK_ID] citations.", source="user")
+    resp = await model_create_with_retry(
+        client,
+        messages=[_SYS, msg],
+        cancellation_token=None,
+        source="MultiAgentReportSection"
+    )
+    
+    _log_hypothesis_prompt_and_response("MultiAgentReportSection", _SYS.content, msg.content, resp.content)
+    
+    return resp.content.strip()
+
+async def _llm_interactive_report_synthesis(client: OpenAIChatCompletionClient, root_goal: str, sections_text: str) -> str:
+    _SYS = SystemMessage(
+        content="""You are a scientific synthesizer.
+You are given the user's original question and several written sections based on retrieved evidence.
+Integrate these sections into a cohesive final scientific report.
+Write a 'Core Hypothesis', 'Evidence Analysis', 'Critical Gaps', and 'Conclusion'.
+Maintain all the [CHUNK_ID] citations from the original sections.
+Output ONLY the final report text."""
+    )
+    msg = UserMessage(content=f"Original Question: {root_goal}\n\nSections:\n{sections_text}", source="user")
+    resp = await model_create_with_retry(
+        client, messages=[_SYS, msg], cancellation_token=None, source="MultiAgentReportSynthesis"
+    )
+    
+    _log_hypothesis_prompt_and_response("MultiAgentReportSynthesis", _SYS.content, msg.content, resp.content)
+    
+    return resp.content.strip()
+
 async def _llm_should_stop(
     client: OpenAIChatCompletionClient, root_goal: str, summaries: List[str]
 ) -> bool:
@@ -247,12 +359,70 @@ async def _llm_should_stop(
     return bool(obj.get("stop"))
 
 
+async def _llm_should_stop_for_track(
+    client: OpenAIChatCompletionClient,
+    *,
+    root_goal: str,
+    track_index_one_based: int,
+    latest_summary_snippet: str,
+) -> bool:
+    """单轨停止判定（与全局 _llm_should_stop 区分）。"""
+    body = {
+        "original_question": root_goal,
+        "track_index": track_index_one_based,
+        "latest_round_summary_snippet": (latest_summary_snippet or "")[:1200],
+    }
+    resp = await model_create_with_retry(
+        client,
+        messages=[
+            _STOP_SINGLE_TRACK_SYSTEM,
+            UserMessage(content=json.dumps(body, ensure_ascii=False), source="user"),
+        ],
+        cancellation_token=None,
+        source="MultiAgentStopTrack",
+    )
+    cleaned = resp.content.replace("```json", "").replace("```", "").strip()
+    obj = json.loads(cleaned)
+    return bool(obj.get("stop"))
+
+
+def _stub_inactive_track_query_result(*, wave: int) -> QueryResult:
+    return QueryResult(
+        orchestrator_plan=OrchestratorPlan(
+            action="call_tool",
+            tool_name=TRACK_INACTIVE_TOOL,
+            ParentNode="0",
+            args={"wave": wave},
+            reason="Track finished earlier; padded cell for grid alignment.",
+        ),
+        rag_results=[],
+    )
+
+
+def _last_query_intent_for_track(experiment: ExperimentResult, track_index: int) -> Optional[str]:
+    """该轨最近一次真实检索使用的 query_intent（跳过占位格）。"""
+    for it in reversed(experiment.iterations or []):
+        qrs = it.query_results or []
+        if track_index >= len(qrs):
+            continue
+        qr = qrs[track_index]
+        if (qr.orchestrator_plan.tool_name or "") == TRACK_INACTIVE_TOOL:
+            continue
+        args0 = qr.orchestrator_plan.args if isinstance(qr.orchestrator_plan.args, dict) else {}
+        q = str(args0.get("query_intent") or "").strip()
+        if q:
+            return q
+    return None
+
+
 def _track_prior_text(experiment: ExperimentResult, track_index: int) -> str:
     """仅拼接该 track（query_results 固定下标）在各已完成轮中的 plansummary 摘要。"""
     lines: List[str] = []
     for it in experiment.iterations or []:
         qrs = it.query_results or []
         if track_index >= len(qrs):
+            continue
+        if (qrs[track_index].orchestrator_plan.tool_name or "") == TRACK_INACTIVE_TOOL:
             continue
         ps = (qrs[track_index].orchestrator_plan.plansummary or "").strip()
         if not ps:
@@ -278,6 +448,8 @@ def _merge_rag_into_graph(
     qr: QueryResult,
 ) -> None:
     """将单条 QueryResult 写入图谱（与 engine 行为简化对齐，供 graphToRoundsData）。"""
+    if (plan.tool_name or "") == TRACK_INACTIVE_TOOL:
+        return
     parent = plan.ParentNode or "0"
     if parent in ("ROOT", "", None):
         parent = "0"
@@ -368,6 +540,87 @@ def _save_experiment_merged(
     print(f"\n💾 [MultiAgent] 实验结果已保存: {path}")
 
 
+async def generate_interactive_report_for_experiment(experiment: ExperimentResult) -> ExperimentResult:
+    """给定一个完整的实验记录，重新跑一遍大纲和内容生成。"""
+    client = _make_model_client()
+    from protocols import HypothesisData, HypothesisStep
+    import json
+    
+    print("\n📝 [MultiAgent] 收集所有 plansummaries 生成交互式报告 (Interactive Report)...")
+    
+    # 1. 收集 plan_summaries
+    all_plans = []
+    plan_id_to_rag = {}
+    for it in experiment.iterations:
+        for qr_idx, qr in enumerate(it.query_results):
+            if (qr.orchestrator_plan.tool_name or "") == TRACK_INACTIVE_TOOL:
+                continue
+            pid = f"round_{it.round_number}_track_{qr_idx}"
+            all_plans.append({
+                "plan_id": pid,
+                "tool_name": qr.orchestrator_plan.tool_name,
+                "plansummary": qr.orchestrator_plan.plansummary or ""
+            })
+            plan_id_to_rag[pid] = qr.rag_results or []
+    
+    # 2. 生成大纲
+    outline_json = await _llm_interactive_report_outline(client, all_plans)
+    outline_step = HypothesisStep(
+        step_name="Outline",
+        prompt="Interactive Report Outline",
+        response=json.dumps(outline_json, ensure_ascii=False, indent=2),
+        agent_name="MultiAgentReportOutline"
+    )
+    
+    # 3. 按照大纲的二级标题，为每个小标题生成段落
+    sections = []
+    for l1 in outline_json:
+        for l2 in l1.get("subsections", []):
+            title = l2.get("level2_title", "Untitled")
+            pids = l2.get("assigned_plan_ids", [])
+            # 收集 evidence
+            rag_results = []
+            for pid in pids:
+                for rag in plan_id_to_rag.get(pid, []):
+                    ret = getattr(rag, "retrieval_result", {})
+                    if isinstance(ret, dict):
+                        chunk_id = ret.get("id", "")
+                        content = ret.get("content", "")
+                    else:
+                        chunk_id = getattr(ret, "id", "")
+                        content = getattr(ret, "content", "")
+                    rag_results.append({"chunk_id": chunk_id, "content": str(content)[:300]})
+            
+            if rag_results:
+                text = await _llm_interactive_report_section(client, title, rag_results)
+                sections.append(HypothesisStep(
+                    step_name=title,
+                    prompt="Interactive Report Subsection",
+                    response=text,
+                    agent_name="MultiAgentReportSection"
+                ))
+    
+    # 4. 生成综合报告 synthesis
+    synthesis_step = None
+    final_report_text = None
+    if sections:
+        sections_text = "\n\n".join([f"### {s.step_name}\n{s.response}" for s in sections])
+        final_report_text = await _llm_interactive_report_synthesis(client, experiment.root_goal, sections_text)
+        synthesis_step = HypothesisStep(
+            step_name="Synthesis",
+            prompt="Interactive Report Synthesis",
+            response=final_report_text,
+            agent_name="MultiAgentReportSynthesis"
+        )
+
+    experiment.hypothesis = HypothesisData(
+        outline=outline_step,
+        sections=sections,
+        synthesis=synthesis_step,
+        final_report=final_report_text
+    )
+    return experiment
+
 async def run_multi_agent_parallel_rewrite_workflow(
     query: str,
     manager,
@@ -444,12 +697,24 @@ async def run_multi_agent_parallel_rewrite_workflow(
             print(f"⚠️ [MultiAgent] 改写失败，使用均分兜底: {e}")
             variants = [f"{query} (focus angle {i + 1})" for i in range(n_variants)]
 
-        track_summaries_last: List[str] = []
+        # 每轨独立：本轨 retrieval 计数、停止标记；iteration 列为「波次」对齐整张表。
+        track_stopped = [False] * n_variants
+        track_local_round = [0] * n_variants  # 已完成的检索轮数（仅此轨）
+        wave = 0
 
-        for depth in range(1, max_depth + 1):
+        while True:
+            active = [
+                ti
+                for ti in range(n_variants)
+                if (not track_stopped[ti]) and track_local_round[ti] < max_depth
+            ]
+            if not active:
+                break
+            wave += 1
+
             experiment.parameters.append(
                 ExperimentRoundParameters(
-                    round_number=depth,
+                    round_number=wave,
                     max_rounds=max_depth,
                     plans_per_round=n_variants,
                     rag_result_per_plan=rag_n,
@@ -461,19 +726,21 @@ async def run_multi_agent_parallel_rewrite_workflow(
                 )
             )
 
-            query_results: List[QueryResult] = []
-            track_summaries_last = []
+            query_results_row: List[QueryResult] = []
 
             for ti, tq in enumerate(variants):
+                if track_stopped[ti] or track_local_round[ti] >= max_depth:
+                    query_results_row.append(_stub_inactive_track_query_result(wave=wave))
+                    continue
+
+                track_local_round[ti] += 1
+                depth = track_local_round[ti]
+
                 prior = _track_prior_text(experiment, ti)
-                prev_qi: Optional[str] = None
-                if depth > 1 and experiment.iterations:
-                    prev_it = experiment.iterations[-1]
-                    pqrs = prev_it.query_results or []
-                    if ti < len(pqrs):
-                        args0 = pqrs[ti].orchestrator_plan.args or {}
-                        if isinstance(args0, dict):
-                            prev_qi = str(args0.get("query_intent") or "").strip() or None
+                prev_qi = (
+                    _last_query_intent_for_track(experiment, ti) if depth > 1 else None
+                )
+
                 try:
                     plan = await _llm_single_plan(
                         client,
@@ -494,14 +761,44 @@ async def run_multi_agent_parallel_rewrite_workflow(
                         ParentNode="0",
                     )
                 plan = apply_rag_result_per_plan_to_plans([plan], rag_n)[0]
+                try:
+                    plan = plan.model_copy(
+                        update={"grid_pos": [int(ti) + 1, int(depth)]}
+                    )
+                except Exception:
+                    pass
                 qr = await executor.execute_to_query_result(
                     plan, root_goal=query, skip_evaluation=skip_evaluation
                 )
-                query_results.append(qr)
-                _merge_rag_into_graph(graph, round_num=depth, plan=qr.orchestrator_plan, qr=qr)
+                query_results_row.append(qr)
+                _merge_rag_into_graph(
+                    graph, round_num=wave, plan=qr.orchestrator_plan, qr=qr
+                )
                 ps = (qr.orchestrator_plan.plansummary or "")[:400]
-                track_summaries_last.append(f"Track {ti + 1}: {ps}")
-                if depth < max_depth:
+
+                if depth >= max_depth:
+                    track_stopped[ti] = True
+                    print(
+                        f"🛑 [MultiAgent] 轨道 {ti + 1} 已达 max_rounds={max_depth}，停止检索。"
+                    )
+                else:
+                    try:
+                        if await _llm_should_stop_for_track(
+                            client,
+                            root_goal=query,
+                            track_index_one_based=ti + 1,
+                            latest_summary_snippet=ps,
+                        ):
+                            track_stopped[ti] = True
+                            print(
+                                f"🛑 [MultiAgent] 轨道 {ti + 1} LLM 判定信息已足够，提前结束。"
+                            )
+                    except Exception as e:
+                        print(
+                            f"⚠️ [MultiAgent] 轨道 {ti + 1} 停止判定失败，将继续: {e}"
+                        )
+
+                if (not track_stopped[ti]) and depth < max_depth:
                     titles: List[str] = []
                     for rag_res in qr.rag_results or []:
                         item = rag_res.retrieval_result
@@ -519,23 +816,25 @@ async def run_multi_agent_parallel_rewrite_workflow(
                             rag_titles=titles,
                         )
                     except Exception as e:
-                        print(f"⚠️ [MultiAgent] track {ti} 子问题精炼失败，保留本轮 track 文案: {e}")
+                        print(
+                            f"⚠️ [MultiAgent] track {ti} 子问题精炼失败，保留本轮 track 文案: {e}"
+                        )
 
             experiment.iterations.append(
-                IterationResult(round_number=depth, query_results=query_results)
+                IterationResult(round_number=wave, query_results=query_results_row)
             )
             await _push()
             if experiment_save_path:
                 _save_experiment_merged(experiment_save_path, experiment, bid)
 
-            if depth >= max_depth:
-                break
-            try:
-                if await _llm_should_stop(client, query, track_summaries_last):
-                    print("🛑 [MultiAgent] LLM 判定信息已足够，提前结束。")
-                    break
-            except Exception as e:
-                print(f"⚠️ [MultiAgent] 停止判定失败，继续下一轮: {e}")
+        try:
+            experiment = await generate_interactive_report_for_experiment(experiment)
+            await _push()
+            if experiment_save_path:
+                _save_experiment_merged(experiment_save_path, experiment, bid)
+        except Exception as e:
+            print(f"⚠️ [MultiAgent] 交互式报告生成失败: {e}")
+            traceback.print_exc()
 
     except asyncio.CancelledError:
         raise

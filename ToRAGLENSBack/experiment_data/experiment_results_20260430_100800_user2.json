@@ -10016,6 +10016,15 @@
                       "target_evidence_id": "04e2904d-e8a1-420a-83ba-25ae5cfc544b",
                       "timestamp": "2026-05-06T11:06:16"
                     }
+                  ],
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "93919e73-fc26-4361-b8f9-becb9e74c6e8",
+                      "timestamp": "2026-05-07T09:23:02",
+                      "before": "UNKNOWN",
+                      "after": "PRUNE"
+                    }
                   ]
                 }
               },
@@ -10190,7 +10199,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "93919e73-fc26-4361-b8f9-becb9e74c6e8",
-                    "branch_action": "KEEP",
+                    "branch_action": "PRUNE",
                     "extracted_insight": "Highlights research on automated tutoring systems and visual prompt techniques, which could inform adaptation of visualization systems for learning.",
                     "scores": {
                       "relevance": 7,
@@ -10200,7 +10209,8 @@
                     "suggested_keywords": [
                       "conversational tutoring systems",
                       "visual prompt engineering"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -11147,7 +11157,18 @@
                   "4f761bcf-4b11-4d92-91dd-57ec1b2d9f68",
                   "3f6892bb-a5bd-420d-b764-748b9a53f582",
                   "2da63596-7ca0-45e3-9a37-a9dd9192aaeb"
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "93919e73-fc26-4361-b8f9-becb9e74c6e8",
+                      "timestamp": "2026-05-07T09:23:02",
+                      "before": "UNKNOWN",
+                      "after": "PRUNE"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -11320,7 +11341,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "93919e73-fc26-4361-b8f9-becb9e74c6e8",
-                    "branch_action": "KEEP",
+                    "branch_action": "PRUNE",
                     "extracted_insight": "Highlights research on automated tutoring systems and visual prompt techniques, which could inform adaptation of visualization systems for learning.",
                     "scores": {
                       "relevance": 7,
@@ -11330,7 +11351,8 @@
                     "suggested_keywords": [
                       "conversational tutoring systems",
                       "visual prompt engineering"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -11717,6 +11739,29 @@
                       "target_evidence_id": "f0e6f4fd-e45c-4298-99a8-f9ee671a1349",
                       "timestamp": "2026-05-06T15:43:31"
                     }
+                  ],
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "3123be43-42dd-45d2-ae08-0f61ec6b7ee4",
+                      "timestamp": "2026-05-07T09:10:22",
+                      "before": "GROW",
+                      "after": "PRUNE"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "1bba0450-f128-47a5-a5b9-b22e38a1187f",
+                      "timestamp": "2026-05-07T09:10:34",
+                      "before": "GROW",
+                      "after": "PRUNE"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "93919e73-fc26-4361-b8f9-becb9e74c6e8",
+                      "timestamp": "2026-05-07T09:23:02",
+                      "before": "UNKNOWN",
+                      "after": "PRUNE"
+                    }
                   ]
                 }
               },
@@ -11911,7 +11956,13 @@
                       "query_intent": "interactive use of large language models in educational or visualization systems"
                     }
                   },
-                  "evaluation": null
+                  "evaluation": {
+                    "target_evidence_id": "93919e73-fc26-4361-b8f9-becb9e74c6e8",
+                    "scores": {},
+                    "suggested_keywords": [],
+                    "branch_action": "PRUNE",
+                    "user_action": "point"
+                  }
                 },
                 {
                   "retrieval_result": {
@@ -11947,7 +11998,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "1bba0450-f128-47a5-a5b9-b22e38a1187f",
-                    "branch_action": "GROW",
+                    "branch_action": "PRUNE",
                     "extracted_insight": "PROMPTAID effectively enhances prompt engineering for non-experts by providing interactive and visual tools for improving open-source LLM performance.",
                     "scores": {
                       "relevance": 9,
@@ -11959,7 +12010,8 @@
                       "visual analytics",
                       "interactive LLM tools",
                       "open-source language models"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -12183,7 +12235,7 @@
                       "coordinated visualization",
                       "non-expert NLP users"
                     ],
-                    "user_action": "delete"
+                    "user_action": "point"
                   }
                 }
               ]
@@ -12220,6 +12272,22 @@
                       "action": "delete",
                       "target_evidence_id": "llmvis_PromptAid_Visual_Prompt_Exploration-_Perturbation-_Testing_and_Iteration_for_Large_Language_Models_2041432602401034240_49",
                       "timestamp": "2026-05-06T15:23:50"
+                    }
+                  ],
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "3123be43-42dd-45d2-ae08-0f61ec6b7ee4",
+                      "timestamp": "2026-05-07T09:10:22",
+                      "before": "GROW",
+                      "after": "PRUNE"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "1bba0450-f128-47a5-a5b9-b22e38a1187f",
+                      "timestamp": "2026-05-07T09:10:34",
+                      "before": "GROW",
+                      "after": "PRUNE"
                     }
                   ]
                 }
@@ -12577,7 +12645,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "3123be43-42dd-45d2-ae08-0f61ec6b7ee4",
-                    "branch_action": "GROW",
+                    "branch_action": "PRUNE",
                     "extracted_insight": "The PROMPTAID system aids non-expert users in creating effective prompts for LLMs via iterative visual exploration, perturbation, and testing, supported by coordinated visualizations.",
                     "scores": {
                       "relevance": 9,
@@ -12589,7 +12657,8 @@
                       "perturbation analysis",
                       "coordinated visualization",
                       "non-expert NLP users"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -12627,7 +12696,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "1bba0450-f128-47a5-a5b9-b22e38a1187f",
-                    "branch_action": "GROW",
+                    "branch_action": "PRUNE",
                     "extracted_insight": "PROMPTAID effectively enhances prompt engineering for non-experts by providing interactive and visual tools for improving open-source LLM performance.",
                     "scores": {
                       "relevance": 9,
@@ -12639,7 +12708,8 @@
                       "visual analytics",
                       "interactive LLM tools",
                       "open-source language models"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -12825,7 +12895,18 @@
                   "282c0e89-08b4-4690-af93-44b00e7a2f4f",
                   "7730cfbe-0414-4d02-a59a-0251bb27aade",
                   "9d6e11b8-ee95-4ad0-9643-39e70071b45d"
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "93919e73-fc26-4361-b8f9-becb9e74c6e8",
+                      "timestamp": "2026-05-07T09:23:02",
+                      "before": "UNKNOWN",
+                      "after": "PRUNE"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -13007,7 +13088,13 @@
                       "query_intent": "interactive frameworks for LLM-driven conversational systems"
                     }
                   },
-                  "evaluation": null
+                  "evaluation": {
+                    "target_evidence_id": "93919e73-fc26-4361-b8f9-becb9e74c6e8",
+                    "scores": {},
+                    "suggested_keywords": [],
+                    "branch_action": "PRUNE",
+                    "user_action": "point"
+                  }
                 },
                 {
                   "retrieval_result": {
@@ -13285,7 +13372,18 @@
                   "31024f7b-a1e8-4917-85a7-32b40b2f328b",
                   "3fa5f198-b941-4f40-8795-6fe8b370a9b3",
                   "d6206923-e5d4-4cac-b6f8-b40f2cba7bf3"
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "3123be43-42dd-45d2-ae08-0f61ec6b7ee4",
+                      "timestamp": "2026-05-07T09:10:22",
+                      "before": "GROW",
+                      "after": "PRUNE"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -13533,7 +13631,13 @@
                       "query_intent": "methods enhancing LLM-user interaction robustness through iterative feedback"
                     }
                   },
-                  "evaluation": null
+                  "evaluation": {
+                    "target_evidence_id": "3123be43-42dd-45d2-ae08-0f61ec6b7ee4",
+                    "scores": {},
+                    "suggested_keywords": [],
+                    "branch_action": "PRUNE",
+                    "user_action": "point"
+                  }
                 },
                 {
                   "retrieval_result": {

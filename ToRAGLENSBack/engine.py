@@ -256,6 +256,25 @@ def _merge_iteration_lists_for_save(existing: List[Any], incoming: List[Any]) ->
             by_rn[rn] = copy.deepcopy(it)
         else:
             cur = by_rn[rn]
+            # rewrite_mode：按索引就地覆盖（用于策略重写，不追加新小矩形）
+            if bool(it.get("rewrite_mode")) and it.get("rewrite_target_query_index") is not None:
+                try:
+                    idx = int(it.get("rewrite_target_query_index"))
+                except Exception:
+                    idx = None
+                inc_qrs = it.get("query_results") or []
+                if idx is not None and idx >= 0 and isinstance(inc_qrs, list) and len(inc_qrs) > 0:
+                    cur_qrs = cur.get("query_results") or []
+                    if not isinstance(cur_qrs, list):
+                        cur_qrs = []
+                    while len(cur_qrs) <= idx:
+                        cur_qrs.append({})
+                    cur_qrs[idx] = copy.deepcopy(inc_qrs[0])
+                    cur["query_results"] = cur_qrs
+                    cur["rewrite_mode"] = True
+                    cur["rewrite_target_query_index"] = idx
+                    continue
+
             cur["query_results"] = _merge_query_results_lists_for_save(
                 cur.get("query_results") or [], it.get("query_results") or []
             )
@@ -324,8 +343,8 @@ from autogen_core.models import ModelInfo
 from connection import ConnectionManager
 from openai import OpenAI
 client = OpenAI(
-    base_url="http://38.147.105.35:3030/v1",
-    api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5",
+    base_url="https://ssvip.dmxapi.com/v1",
+    api_key="sk-8S92KJLEQcfF9TbjsLfSPrP3LRz6tsuzbRRpHXVH12Gp4SZc",
 )
 # -----------------------------------------------------------------
 # 2. 日志系统
@@ -1716,6 +1735,10 @@ No markdown fences, no explanations, no extra keys—only the JSON array.
         self.plans_per_round = 1
         self.max_rounds = 1
 
+        rewrite_mode = bool(getattr(message, "rewrite_mode", False))
+        rewrite_target_query_index = getattr(message, "rewrite_target_query_index", None)
+        grid_row = getattr(message, "grid_row", None)
+
         parent_id = (message.parent_node_id or "0")
 
         self.skip_evaluation = bool(getattr(message, "skip_evaluation", False))
@@ -1727,11 +1750,152 @@ No markdown fences, no explanations, no extra keys—only the JSON array.
             "strategy_semantic_search",
             "strategy_exact_search",
             "strategy_metadata_search",
+            "auto_continue",
         }
         if fu_tool not in allowed_fu:
             fu_tool = "strategy_semantic_search"
 
-        if fu_tool in ("strategy_semantic_search", "strategy_exact_search"):
+        if fu_tool == "auto_continue":
+            try:
+                from autogen_core.models import SystemMessage, UserMessage
+                ctx_in = getattr(message, "continue_context", None) or {}
+                base_text = str(ctx_in.get("base_query_text") or query or "").strip()
+                base_plan = ctx_in.get("base_plan") or {}
+                base_tool = ""
+                base_args = {}
+                base_ps = ""
+                if isinstance(base_plan, dict):
+                    base_tool = str(base_plan.get("tool_name") or base_plan.get("tool") or "").strip()
+                    base_args = base_plan.get("args") if isinstance(base_plan.get("args"), dict) else {}
+                    base_ps = str(base_plan.get("plansummary") or "").strip()
+
+                sys = SystemMessage(content="""You are a retrieval planner continuing a multi-step investigation.
+Output ONLY one JSON object with:
+- action: "call_tool"
+- tool_name: strategy_semantic_search 
+- args:
+  - {"query_intent": "..."}
+    - reason: one short English sentence explaining why this next step continues from the previous cell.
+Rules:
+- The new query_intent must be a follow-up (not identical to the previous query).
+- Prefer being specific (methods, datasets, entities) suggested by the previous evidence/summary.
+No markdown. No extra keys.""")
+                # 注意：这里不能用 f-string 包含大量 JSON 花括号，否则会触发
+                # "Invalid format specifier ..." 并导致 md 日志里缺失 prompt/response。
+                output_example = """{
+  "action": "call_tool",
+  "tool_name": "strategy_semantic_search",
+  "args": { "query_intent": "PM2.5 chemical composition and source analysis" },
+  "reason": "Prior work already covers PM2.5 concentration trends, but chemical composition and sources are under-explored; we should retrieve studies on PM2.5 composition apportionment and source analysis for a fuller picture."
+}"""
+                user_content = "\n".join(
+                    [
+                        "Root goal:",
+                        str(self.graph.root_goal or "").strip(),
+                        "",
+                        "Previous tool/args:",
+                        f"tool_name={base_tool}",
+                        f"args={json.dumps(base_args, ensure_ascii=False)}",
+                        "",
+                        "Previous plansummary (may be long):",
+                        str(base_ps or "")[:1800],
+                        "",
+                        "OUTPUT JSON EXAMPLE:",
+                        output_example,
+                        "",
+                        "Now propose the next best retrieval step.",
+                    ]
+                )
+                user = UserMessage(content=user_content, source="user")
+                # 记录 Auto-Continue Planner 的完整上下文与输出到 md 日志
+                try:
+                    logger.log_llm_interaction(
+                        source="AutoContinuePlanner",
+                        prompt=user_content,
+                        response="(pending)",
+                        system_message=sys.content,
+                    )
+                except Exception:
+                    pass
+                resp = await model_create_with_retry(
+                    self.model_client,
+                    messages=[sys, user],
+                    cancellation_token=ctx.cancellation_token,
+                    source="Orchestrator",
+                )
+                try:
+                    logger.log_llm_interaction(
+                        source="AutoContinuePlanner",
+                        prompt=user.content,
+                        response=getattr(resp, "content", "") or "",
+                        system_message=sys.content,
+                    )
+                except Exception:
+                    pass
+                raw = (getattr(resp, "content", None) or "").strip()
+                raw = re.sub(r"^```(?:json)?\s*", "", raw, flags=re.I | re.MULTILINE)
+                raw = re.sub(r"\s*```\s*$", "", raw)
+                obj = json.loads(raw)
+                tn = str(obj.get("tool_name") or "strategy_semantic_search").strip()
+                args = obj.get("args") if isinstance(obj.get("args"), dict) else {}
+                # 清洗 planner 输出，避免工具参数不匹配（例如 metadata 策略误输出 {"metadata": {...}}）
+                try:
+                    if tn == "strategy_metadata_search":
+                        if isinstance(args.get("metadata"), dict):
+                            merged = dict(args)
+                            meta = dict(args.get("metadata") or {})
+                            merged.pop("metadata", None)
+                            merged.update(meta)
+                            args = merged
+                        cleaned: Dict[str, Any] = {}
+                        if isinstance(args.get("paper_id"), str) and args.get("paper_id").strip():
+                            cleaned["paper_id"] = args.get("paper_id").strip()
+                        kw = args.get("keywords")
+                        if isinstance(kw, str) and kw.strip():
+                            cleaned["keywords"] = [x.strip() for x in kw.split(",") if x.strip()]
+                        elif isinstance(kw, list):
+                            cleaned["keywords"] = [str(x).strip() for x in kw if str(x).strip()]
+                        if isinstance(args.get("figure_type"), str) and args.get("figure_type").strip():
+                            cleaned["figure_type"] = args.get("figure_type").strip()
+                        args = cleaned
+                    else:
+                        # semantic/exact：确保 query_intent 存在
+                        if "query_intent" not in args:
+                            qi = args.get("query") or args.get("user_question") or args.get("search_query")
+                            if isinstance(qi, str) and qi.strip():
+                                args["query_intent"] = qi.strip()
+                except Exception:
+                    pass
+                reason = str(obj.get("reason") or "Auto-continue planner step.").strip()
+                if tn not in ("strategy_semantic_search", "strategy_exact_search", "strategy_metadata_search"):
+                    tn = "strategy_semantic_search"
+                follow_plan = OrchestratorPlan(
+                    action="call_tool",
+                    tool_name=tn,
+                    ParentNode=parent_id,
+                    args=args,
+                    reason=reason,
+                )
+                follow_plan = apply_rag_result_per_plan_to_plans([follow_plan], self.rag_result_per_plan)[0]
+            except Exception as e:
+                logger.log("Orchestrator", f"auto_continue planner failed: {e}", "WARN")
+                try:
+                    logger.log_llm_interaction(
+                        source="AutoContinuePlanner",
+                        prompt=locals().get("user_content", "") or "(prompt build failed or empty)",
+                        response=f"(planner failed) {type(e).__name__}: {e}",
+                        system_message=locals().get("sys").content if "sys" in locals() else None,
+                    )
+                except Exception:
+                    pass
+                follow_plan = OrchestratorPlan(
+                    action="call_tool",
+                    tool_name="strategy_semantic_search",
+                    ParentNode=parent_id,
+                    args={"query_intent": query, "n_results": self.rag_result_per_plan},
+                    reason="Auto-continue fallback after planner failure.",
+                )
+        elif fu_tool in ("strategy_semantic_search", "strategy_exact_search"):
             follow_plan = OrchestratorPlan(
                 action="call_tool",
                 tool_name=fu_tool,
@@ -1755,9 +1919,27 @@ No markdown fences, no explanations, no extra keys—only the JSON array.
                 reason="Follow-up (strategy_metadata_search): user-specified metadata filter.",
             )
 
+        # 标记网格位置：[row, round]
+        # follow_up 默认是一轮一个策略；若为 rewrite_mode 则 row 取重写目标索引+1，否则置为 1
+        try:
+            _row = 1
+            if grid_row is not None:
+                _row = int(grid_row)
+            elif rewrite_mode and rewrite_target_query_index is not None:
+                _row = int(rewrite_target_query_index) + 1
+            follow_plan = follow_plan.model_copy(update={"grid_pos": [_row, int(self.round_count)]})
+        except Exception:
+            pass
+
         # 创建 iteration/query_result 结构（让 experiment_result/前端小矩形逻辑一致）
         from protocols import IterationResult, QueryResult, OrchestratorPlanBatch
         self.current_iteration = IterationResult(round_number=self.round_count)
+        if rewrite_mode and rewrite_target_query_index is not None:
+            try:
+                self.current_iteration.rewrite_mode = True
+                self.current_iteration.rewrite_target_query_index = int(rewrite_target_query_index)
+            except Exception:
+                pass
         self.current_query_results.clear()
         self._record_round_parameters_snapshot()
 
@@ -1778,6 +1960,8 @@ No markdown fences, no explanations, no extra keys—only the JSON array.
                 "plan_id": plan_id,
                 "session_id": self.session_id,
                 "follow_up": True,
+                "rewrite_mode": rewrite_mode,
+                "rewrite_target_query_index": rewrite_target_query_index,
                 "orchestrator_plan": follow_plan.model_dump(mode="json") if hasattr(follow_plan, 'model_dump') else {
                     "action": follow_plan.action,
                     "tool_name": follow_plan.tool_name,
@@ -2015,9 +2199,9 @@ class InteractionSummaryAgent(RoutedAgent):
             content="""You are the **per-plan Plan Summary** agent.
 
 ## Role
-From the user message you receive: the user question, the current strategy (tool / args / reason), retrieved hits with per-item evaluations, and optionally an iteration-level retrieval-quality note, you must do exactly two things and output **only** the specified JSON:
-1. **answer**: Grounded in retrieved content (titles, summaries, insights, etc.), explain **what the evidence supports under this strategy's intent**; stay tied to the user question and sub-question; avoid vague repetition.
-2. **suggestion**: Critique whether this strategy was a good choice (tool type, query parameters, search direction), including strengths, risks, or improvements; if evidence is thin or evaluations are mostly PRUNE, say so honestly.
+You receive a user question, a retrieval strategy, and retrieved evidence items with evaluations. You must do exactly two things and output **only** the specified JSON:
+1. **answer**: Using the content and evaluation results of the found evidence, directly answer the strategy's question. Be extremely concise and focus strictly on what the evidence says. Avoid vague repetition.
+2. **suggestion**: Evaluate whether this strategy's question and answer are relevant to the original user question. Consider whether the strategy was a specific narrow question or a broad question, and whether it effectively helped address the user's intent. Be concise.
 
 ## Output format (strict)
 Output a **single** JSON object only. No Markdown code fences, no preamble or postfix.
@@ -3764,8 +3948,8 @@ async def run_rag_workflow(
     try:
         model_client = OpenAIChatCompletionClient(
             model="gpt-4o",
-            base_url="http://38.147.105.35:3030/v1",
-            api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
+            base_url="https://ssvip.dmxapi.com/v1",
+            api_key="sk-8S92KJLEQcfF9TbjsLfSPrP3LRz6tsuzbRRpHXVH12Gp4SZc"
         )
         # model_client = OpenAIChatCompletionClient(
         #     model="deepseek-r1:671b-0528",
@@ -3863,8 +4047,8 @@ async def run_rag_workflow_expand(
     try:
         model_client = OpenAIChatCompletionClient(
             model="gpt-4o",
-            base_url="http://38.147.105.35:3030/v1",
-            api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
+            base_url="https://ssvip.dmxapi.com/v1",
+            api_key="sk-8S92KJLEQcfF9TbjsLfSPrP3LRz6tsuzbRRpHXVH12Gp4SZc"
         )
         # model_client = OpenAIChatCompletionClient(
         #     model="deepseek-r1:671b-0528",
@@ -3924,6 +4108,10 @@ async def run_rag_workflow_follow_up(
     root_goal: str = "",
     experiment_save_path: Optional[str] = None,
     follow_up_tool: str = "strategy_semantic_search",
+    rewrite_mode: bool = False,
+    rewrite_target_query_index: Optional[int] = None,
+    grid_row: Optional[int] = None,
+    continue_context: Optional[Dict[str, Any]] = None,
 ):
     """
     追问工作流：只做一次检索 + 评估（不走多轮规划）。
@@ -3933,8 +4121,8 @@ async def run_rag_workflow_follow_up(
     set_rag_allowed_chunk_ids(rag_allowed_chunk_ids)
     model_client = OpenAIChatCompletionClient(
         model="gpt-4o",
-        base_url="http://38.147.105.35:3030/v1",
-        api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
+        base_url="https://ssvip.dmxapi.com/v1",
+        api_key="sk-8S92KJLEQcfF9TbjsLfSPrP3LRz6tsuzbRRpHXVH12Gp4SZc"
     )
     # model_client = OpenAIChatCompletionClient(
     #     model="deepseek-r1:671b-0528",
@@ -3979,6 +4167,10 @@ async def run_rag_workflow_follow_up(
                 session_id=(session_id or "").strip(),
                 batch_id=(batch_id or "").strip(),
                 root_goal=(root_goal or "").strip(),
+                rewrite_mode=bool(rewrite_mode),
+                rewrite_target_query_index=rewrite_target_query_index,
+                grid_row=grid_row,
+                continue_context=continue_context,
             ),
             topic_id=TopicId(TOPIC_ORCHESTRATOR, source="User"),
         )

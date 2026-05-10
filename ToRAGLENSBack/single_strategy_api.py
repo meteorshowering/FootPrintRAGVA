@@ -28,8 +28,8 @@ class SingleStrategyExecutor:
         # 初始化模型客户端（与 engine.run_rag_workflow 同一网关）
         self.model_client = OpenAIChatCompletionClient(
             model="gpt-4o",
-            base_url="http://38.147.105.35:3030/v1",
-            api_key="sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5",
+            base_url="https://ssvip.dmxapi.com/v1",
+            api_key="sk-8S92KJLEQcfF9TbjsLfSPrP3LRz6tsuzbRRpHXVH12Gp4SZc",
         )
         
         # 评估器的系统消息

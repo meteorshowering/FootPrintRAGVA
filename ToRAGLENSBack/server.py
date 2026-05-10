@@ -6,7 +6,7 @@ import uvicorn
 import asyncio
 from pathlib import Path
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query, BackgroundTasks
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 # 导入拆分出去的模块
@@ -20,6 +20,7 @@ import shutil
 import datetime
 import json
 from typing import Optional, Dict, List, Any
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
@@ -248,6 +249,337 @@ async def read_experiment_file(
     )
 
 
+class LlmChatMessage(BaseModel):
+    role: str = Field(default="user")  # user | assistant
+    content: str = Field(default="")
+
+
+class LlmChatRequest(BaseModel):
+    messages: List[LlmChatMessage] = Field(default_factory=list)
+
+
+@app.post("/api/llm-chat")
+async def api_llm_chat(payload: LlmChatRequest):
+    """
+    简单对话接口：使用 engine_multi_agent 同款模型配置生成回复。
+    前端传入最近若干轮 messages（role/content），后端返回一条 assistant reply。
+    """
+    try:
+        from autogen_core.models import SystemMessage, UserMessage
+        from engine_multi_agent import _make_model_client
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"import failed: {e}")
+
+    msgs = payload.messages or []
+    msgs = msgs[-16:]
+
+    parts: List[str] = []
+    for m in msgs:
+        role = (m.role or "").strip().lower()
+        if role not in ("user", "assistant"):
+            role = "user"
+        who = "User" if role == "user" else "Assistant"
+        content = (m.content or "").strip()
+        if not content:
+            continue
+        parts.append(f"{who}: {content}")
+
+    prompt = "\n".join(parts).strip()
+    if not prompt:
+        raise HTTPException(status_code=400, detail="empty messages")
+
+    sys = SystemMessage(
+        content="You are a helpful assistant inside a research/RAG visualization tool. Be concise and concrete."
+    )
+    user = UserMessage(content=prompt + "\nAssistant:", source="user")
+    client = _make_model_client()
+    try:
+        # 这里是独立对话功能：不复用 engine.py 的 model_create_with_retry（避免写入 workflow 日志/污染编排状态）。
+        # 简单实现一个本地的退避重试即可。
+        last_exc: Optional[BaseException] = None
+        for attempt in range(5):
+            try:
+                resp = await client.create(messages=[sys, user], cancellation_token=None)
+                break
+            except BaseException as e:
+                last_exc = e
+                if attempt >= 4:
+                    raise
+                await asyncio.sleep(min(24.0, 1.6 * (2**attempt)))
+        else:
+            if last_exc is not None:
+                raise last_exc
+            raise RuntimeError("llm-chat: no attempt executed")
+        reply = (getattr(resp, "content", None) or "").strip()
+        return {"ok": True, "reply": reply}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"llm call failed: {e}")
+
+
+@app.post("/api/experiment-rag-actions-batch")
+async def update_experiment_rag_actions_batch(payload: Dict[str, Any]):
+    """
+    批量保存前端用户操作：
+    - delete / point：针对 rag_result（与既有逻辑一致）
+    - plan_continue / plan_regenerate：写入对应 query_results[query_index].orchestrator_plan.userdo（策略卡 C/R）
+    """
+    source_rel = str(payload.get("source_path") or payload.get("fork_experiment_source") or "").strip()
+    if not source_rel:
+        raise HTTPException(status_code=400, detail="missing source_path")
+    dest_path = _ensure_fork_experiment_save_path(source_rel)
+    if not dest_path:
+        raise HTTPException(status_code=404, detail="source experiment not found")
+
+    operations = payload.get("operations")
+    if not isinstance(operations, list):
+        raise HTTPException(status_code=400, detail="operations must be a list")
+
+    session_id = str(payload.get("session_id") or "").strip()
+
+    try:
+        with open(dest_path, "r", encoding="utf-8") as f:
+            doc = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"read failed: {e}")
+
+    def _iter_session_docs(doc: Any) -> List[Dict[str, Any]]:
+        if isinstance(doc, dict) and isinstance(doc.get("sessions"), list):
+            return [s for s in doc.get("sessions") if isinstance(s, dict)]
+        return [doc] if isinstance(doc, dict) else []
+
+    matched_any = False
+    for op_item in operations:
+        action = str(op_item.get("action") or "").strip().lower()
+
+        # 策略卡 userdo：Continue / Regenerate（不依赖 rag_result id）
+        if action in ("plan_continue", "plan_regenerate"):
+            try:
+                rn = int(op_item.get("round_number"))
+                qi = int(op_item.get("query_index"))
+            except Exception:
+                continue
+            sid_op = str(op_item.get("session_id") or session_id or "").strip()
+            now_ts = op_item.get("timestamp") or datetime.datetime.now().isoformat(timespec="seconds")
+
+            for sess in _iter_session_docs(doc):
+                if sid_op and str(sess.get("session_id") or "").strip() != sid_op:
+                    continue
+                for it in sess.get("iterations") or []:
+                    try:
+                        it_rn = int(it.get("round_number"))
+                    except Exception:
+                        continue
+                    if it_rn != rn:
+                        continue
+                    qrs = it.get("query_results") or []
+                    if not isinstance(qrs, list) or qi < 0 or qi >= len(qrs):
+                        continue
+                    qr = qrs[qi]
+                    op_plan = qr.get("orchestrator_plan") or {}
+                    if not isinstance(op_plan, dict):
+                        op_plan = {}
+                    userdo = op_plan.get("userdo")
+                    if not isinstance(userdo, dict):
+                        userdo = {}
+
+                    if action == "plan_continue":
+                        new_text = str(op_item.get("new") or "").strip()
+                        if not new_text:
+                            continue
+                        cont = userdo.get("continue")
+                        if not isinstance(cont, list):
+                            cont = []
+                        cont.append(
+                            {
+                                "action": "continue",
+                                "new": new_text,
+                                "timestamp": now_ts,
+                            }
+                        )
+                        userdo["continue"] = cont
+                    else:
+                        before_text = str(op_item.get("before") or "").strip()
+                        if not before_text:
+                            continue
+                        reg = userdo.get("regenerate")
+                        if not isinstance(reg, list):
+                            reg = []
+                        reg.append(
+                            {
+                                "action": "regenerate",
+                                "before": before_text,
+                                "timestamp": now_ts,
+                            }
+                        )
+                        userdo["regenerate"] = reg
+
+                    op_plan["userdo"] = userdo
+                    qr["orchestrator_plan"] = op_plan
+                    matched_any = True
+            continue
+
+        if action not in ("delete", "point"):
+            continue
+        result_id = str(op_item.get("target_evidence_id") or op_item.get("result_id") or "").strip()
+        if not result_id:
+            continue
+            
+        for sess in _iter_session_docs(doc):
+            if session_id and str(sess.get("session_id") or "").strip() != session_id:
+                continue
+            for it in sess.get("iterations") or []:
+                for qr in it.get("query_results") or []:
+                    target = None
+                    for rag in qr.get("rag_results") or []:
+                        rr = rag.get("retrieval_result") or {}
+                        if str(rr.get("id") or "").strip() == result_id:
+                            target = rag
+                            break
+                    if target is None:
+                        continue
+
+                    # Found it
+                    op_plan = qr.get("orchestrator_plan") or {}
+                    userdo = op_plan.get("userdo")
+                    if not isinstance(userdo, dict):
+                        userdo = {}
+                    
+                    if action == "delete":
+                        deletes = userdo.get("delete", [])
+                        if not isinstance(deletes, list): deletes = []
+                        if not any(str(x.get("target_evidence_id") or "") == result_id for x in deletes if isinstance(x, dict)):
+                            deletes.append({
+                                "action": "delete",
+                                "target_evidence_id": result_id,
+                                "timestamp": op_item.get("timestamp") or datetime.datetime.now().isoformat(timespec="seconds")
+                            })
+                        userdo["delete"] = deletes
+                        
+                        ev = target.get("evaluation")
+                        if not isinstance(ev, dict):
+                            ev = {"target_evidence_id": result_id, "scores": {}, "suggested_keywords": []}
+                        ev["branch_action"] = "PRUNE"
+                        ev["reason"] = "User deleted this evidence item."
+                        ev["user_action"] = "delete"
+                        target["evaluation"] = ev
+                        
+                    elif action == "point":
+                        points = userdo.get("point", [])
+                        if not isinstance(points, list): points = []
+                        existing = next((x for x in points if isinstance(x, dict) and str(x.get("target_evidence_id") or "") == result_id), None)
+                        if existing:
+                            existing["after"] = op_item.get("after")
+                            existing["timestamp"] = op_item.get("timestamp") or datetime.datetime.now().isoformat(timespec="seconds")
+                        else:
+                            points.append({
+                                "action": "point",
+                                "target_evidence_id": result_id,
+                                "timestamp": op_item.get("timestamp") or datetime.datetime.now().isoformat(timespec="seconds"),
+                                "before": op_item.get("before"),
+                                "after": op_item.get("after")
+                            })
+                        userdo["point"] = points
+                        
+                        ev = target.get("evaluation")
+                        if not isinstance(ev, dict):
+                            ev = {"target_evidence_id": result_id, "scores": {}, "suggested_keywords": []}
+                        ev["branch_action"] = op_item.get("after")
+                        ev["user_action"] = "point"
+                        target["evaluation"] = ev
+
+                    op_plan["userdo"] = userdo
+                    qr["orchestrator_plan"] = op_plan
+                    matched_any = True
+
+    try:
+        with open(dest_path, "w", encoding="utf-8") as f:
+            json.dump(doc, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"write failed: {e}")
+
+    rel_out = os.path.relpath(dest_path, _experiment_data_dir).replace("\\", "/")
+    return {"ok": True, "path": rel_out, "matched": matched_any}
+
+
+@app.post("/api/experiment-remove-strategy")
+async def experiment_remove_strategy(payload: Dict[str, Any]):
+    """
+    从某会话的某一迭代中移除一条 query_results（策略卡片），落盘至 fork JSON；同行后续策略 index 自然前移。
+    """
+    source_rel = str(payload.get("source_path") or payload.get("fork_experiment_source") or "").strip()
+    if not source_rel:
+        raise HTTPException(status_code=400, detail="missing source_path")
+    dest_path = _ensure_fork_experiment_save_path(source_rel)
+    if not dest_path:
+        raise HTTPException(status_code=404, detail="source experiment not found")
+
+    session_id = str(payload.get("session_id") or "").strip()
+    try:
+        round_number = int(payload.get("round_number"))
+    except Exception:
+        raise HTTPException(status_code=400, detail="invalid round_number")
+    try:
+        query_index = int(payload.get("query_index"))
+    except Exception:
+        raise HTTPException(status_code=400, detail="invalid query_index")
+
+    try:
+        with open(dest_path, "r", encoding="utf-8") as f:
+            doc = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"read failed: {e}")
+
+    target_sessions: List[Dict[str, Any]] = []
+    if isinstance(doc, dict) and isinstance(doc.get("sessions"), list) and len(doc["sessions"]) > 0:
+        if not session_id:
+            raise HTTPException(status_code=400, detail="multi-session document requires session_id")
+        for s in doc["sessions"]:
+            if isinstance(s, dict) and str(s.get("session_id") or "").strip() == session_id:
+                target_sessions.append(s)
+        if not target_sessions:
+            raise HTTPException(status_code=404, detail="session not found")
+    elif isinstance(doc, dict):
+        doc_sid = str(doc.get("session_id") or "").strip()
+        if session_id and doc_sid and doc_sid != session_id:
+            raise HTTPException(status_code=404, detail="session not found")
+        target_sessions = [doc]
+    else:
+        raise HTTPException(status_code=400, detail="invalid document")
+
+    removed = False
+    for sess in target_sessions:
+        for it in sess.get("iterations") or []:
+            try:
+                rn = int(it.get("round_number"))
+            except Exception:
+                continue
+            if rn != round_number:
+                continue
+            qrs = it.get("query_results")
+            if not isinstance(qrs, list):
+                qrs = []
+            if query_index < 0 or query_index >= len(qrs):
+                raise HTTPException(status_code=400, detail="query_index out of range")
+            qrs.pop(query_index)
+            it["query_results"] = qrs
+            removed = True
+            break
+        if removed:
+            break
+
+    if not removed:
+        raise HTTPException(status_code=404, detail="round not found")
+
+    try:
+        with open(dest_path, "w", encoding="utf-8") as f:
+            json.dump(doc, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"write failed: {e}")
+
+    rel_out = os.path.relpath(dest_path, _experiment_data_dir).replace("\\", "/")
+    return {"ok": True, "path": rel_out}
+
+
 @app.post("/api/experiment-rag-action")
 async def update_experiment_rag_action(payload: Dict[str, Any]):
     """
@@ -369,6 +701,77 @@ async def update_experiment_rag_action(payload: Dict[str, Any]):
 
     rel_out = os.path.relpath(dest_path, _experiment_data_dir).replace("\\", "/")
     return {"ok": True, "path": rel_out}
+
+
+@app.post("/api/generate-interactive-report")
+async def api_generate_interactive_report(payload: Dict[str, Any], background_tasks: BackgroundTasks):
+    source_rel = str(payload.get("source_path") or "").strip()
+    if not source_rel:
+        raise HTTPException(status_code=400, detail="missing source_path")
+        
+    dest_path = _ensure_fork_experiment_save_path(source_rel)
+    if not dest_path:
+        dest_path = _resolve_fork_source_abs(source_rel)
+        if not dest_path:
+            raise HTTPException(status_code=404, detail="source experiment not found")
+            
+    session_id = str(payload.get("session_id") or "").strip()
+    
+    try:
+        with open(dest_path, "r", encoding="utf-8") as f:
+            doc = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"read failed: {e}")
+
+    from engine_multi_agent import generate_interactive_report_for_experiment
+    from protocols import ExperimentResult
+    
+    # Check if doc has sessions or is single session
+    is_batch = isinstance(doc, dict) and "sessions" in doc
+    sessions = doc.get("sessions", []) if is_batch else [doc]
+    
+    target_session = None
+    target_idx = -1
+    for i, sess in enumerate(sessions):
+        if not session_id or str(sess.get("session_id") or "") == session_id:
+            target_session = sess
+            target_idx = i
+            break
+            
+    if not target_session:
+        raise HTTPException(status_code=404, detail="session not found")
+        
+    async def process_report():
+        try:
+            exp_model = ExperimentResult.model_validate(target_session)
+            exp_model = await generate_interactive_report_for_experiment(exp_model)
+            updated_sess = exp_model.model_dump(mode="json")
+            
+            if is_batch:
+                doc["sessions"][target_idx] = updated_sess
+            else:
+                doc.update(updated_sess)
+                
+            with open(dest_path, "w", encoding="utf-8") as f:
+                json.dump(doc, f, ensure_ascii=False, indent=2)
+                
+            print(f"✅ Interactive report generated and saved to {dest_path}")
+            
+            # Broadcast update
+            if manager:
+                await manager.broadcast_experiment_result(
+                    exp_model,
+                    session_id=exp_model.session_id,
+                    batch_id=doc.get("batch_id") if is_batch else None,
+                    follow_up=False
+                )
+        except Exception as e:
+            print(f"❌ Failed to generate interactive report: {e}")
+            import traceback
+            traceback.print_exc()
+
+    background_tasks.add_task(process_report)
+    return {"ok": True, "message": "Generation started in background"}
 
 
 def _fork_dest_basename(source_rel: str) -> Optional[str]:
@@ -539,23 +942,23 @@ async def websocket_endpoint(websocket: WebSocket):
                             run_rag_workflow(
                                 query,
                                 manager,
-                                collection_name=collection_name,
+                                    collection_name=collection_name,
                                 plans_per_round=plans_per_round,
                                 rag_result_per_plan=rag_result_per_plan,
-                                max_rounds=max_rounds,
-                                interactive_mode=interactive,
-                                run_id=run_id,
-                                pause_gate=pause_gate,
-                                rag_allowed_chunk_ids=rag_allowed_chunk_ids,
-                                map_box_rect_2d=map_box_rect_2d,
-                                session_id=session_id,
-                                batch_id=batch_id,
-                                skip_evaluation=skip_evaluation,
-                                experiment_save_path=_save_path,
-                                use_multi_agent_rewrite_streams=False,
-                                rewrite_variant_count=rewrite_variant_count,
+                                    max_rounds=max_rounds,
+                                    interactive_mode=interactive,
+                                    run_id=run_id,
+                                    pause_gate=pause_gate,
+                                    rag_allowed_chunk_ids=rag_allowed_chunk_ids,
+                                    map_box_rect_2d=map_box_rect_2d,
+                                    session_id=session_id,
+                                    batch_id=batch_id,
+                                    skip_evaluation=skip_evaluation,
+                                    experiment_save_path=_save_path,
+                                    use_multi_agent_rewrite_streams=False,
+                                    rewrite_variant_count=rewrite_variant_count,
+                                )
                             )
-                        )
             elif data.get("action") == "interactive_response":
                 # 前端返回了审批决策
                 run_id = data.get("run_id")
@@ -582,6 +985,10 @@ async def websocket_endpoint(websocket: WebSocket):
                 session_id_fu = (data.get("session_id") or "").strip()
                 batch_id_fu = (data.get("batch_id") or "").strip()
                 root_goal_fu = (data.get("root_goal") or "").strip()
+                rewrite_mode = bool(data.get("rewrite_mode", False))
+                rewrite_target_query_index = data.get("rewrite_target_query_index", None)
+                grid_row = data.get("grid_row", None)
+                continue_context = data.get("continue_context", None)
                 try:
                     round_number = int(round_number)
                 except Exception:
@@ -609,6 +1016,10 @@ async def websocket_endpoint(websocket: WebSocket):
                             root_goal=root_goal_fu,
                             experiment_save_path=_save_path_fu,
                             follow_up_tool=follow_up_tool,
+                            rewrite_mode=rewrite_mode,
+                            rewrite_target_query_index=rewrite_target_query_index,
+                            grid_row=grid_row,
+                            continue_context=continue_context,
                         )
                     )
             elif data.get("type") == "expand_search":

@@ -6,6 +6,7 @@ const store = createStore({
     selectedData: null,  // 当前选中的数据点（RiverChart 等兼容）
     dataPoints: [],      // 所有数据点
     experimentResult: null,  // 完整的实验数据，包含hypothesis
+    experimentSourceFile: '', // 当前加载的实验数据文件路径
     // Interactive Report：版块标题 + 从策略地图拖入的点（与 ItemDetail 同结构，供后续 prompt 总结）
     interactiveReportSections: [],
   },
@@ -52,9 +53,18 @@ const store = createStore({
     setExperimentResult(state, experimentResult) {
       state.experimentResult = experimentResult;
     },
-    addInteractiveReportSection(state, { title }) {
+    setExperimentSourceFile(state, file) {
+      state.experimentSourceFile = file;
+    },
+    addInteractiveReportSection(state, { title, text }) {
       const id = `ir-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-      state.interactiveReportSections.push({ id, title: title || '未命名版块', items: [] });
+      state.interactiveReportSections.push({ id, title: title || '未命名版块', text: text || '', showText: !!text, items: [] });
+    },
+    toggleInteractiveReportSectionText(state, sectionId) {
+      const sec = state.interactiveReportSections.find(s => s.id === sectionId);
+      if (sec) {
+        sec.showText = !sec.showText;
+      }
     },
     addPointToInteractiveReportSection(state, { sectionId, item }) {
       if (!item || !item.id) return;

@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <section class="block block-compact">
-      <div class="block-title">RAG Collection</div>
+      <div class="block-title">DataSets</div>
       <div class="row row-top">
         <select class="select" v-model="selectedRagCollection" @change="$emit('rag-collection-change', selectedRagCollection)">
           <option v-for="c in ragCollections" :key="c.value" :value="c.value">
@@ -12,43 +12,32 @@
     </section>
 
     <section class="block">
-      <div class="block-title">全局地图</div>
-      <div class="global-map-controls-row">
-        <button class="btn small secondary" @click="$emit('global-map-clear')">清除高亮</button>
-        <button class="btn small" @click="$emit('global-map-reset')">↻ 重置</button>
-      </div>
-      <div class="left-global-map-toolbar embed-map-toolbar">
+      <div class="block-title-row">
+        <div class="block-title">Global Map</div>
+        <div class="left-global-map-toolbar embed-map-toolbar">
         <button
           type="button"
           class="map-box-toggle"
           :class="{ 'is-active': mapToolbar.mapBoxSelectMode }"
-          title="框选后确认，仅在这些点内检索"
+          title="Select box to confirm, only search within these points"
           @click="$emit('map-box-toggle')"
-        >框选</button>
+        >Select Box</button>
         <button
           v-if="(mapToolbar.mapRagPendingIds || []).length"
           type="button"
           class="map-box-confirm"
           title="将当前框选设为检索范围"
           @click="$emit('map-box-confirm')"
-        >确认({{ (mapToolbar.mapRagPendingIds || []).length }})</button>
+        >Confirm({{ (mapToolbar.mapRagPendingIds || []).length }})</button>
         <button
           v-if="(mapToolbar.mapRagFilterIds || []).length"
           type="button"
           class="map-box-clear-filter"
           title="取消限定，恢复全库检索"
           @click="$emit('map-box-clear-filter')"
-        >限定{{ (mapToolbar.mapRagFilterIds || []).length }}</button>
+        >Selected({{ (mapToolbar.mapRagFilterIds || []).length }})</button>
+        </div>
       </div>
-      <p v-if="mapToolbar.mapBoxSelectMode" class="map-box-hint">
-        ① 在下方地图<strong>按住左键拖拽</strong>画矩形框住数据点；② 松开后点<strong>「确认」</strong>；③ 再提交查询，仅在框内检索。再次点「框选」可退出。
-      </p>
-      <p
-        v-else-if="(mapToolbar.mapRagFilterIds || []).length"
-        class="map-box-hint map-box-hint--muted"
-      >
-        当前已限定 {{ (mapToolbar.mapRagFilterIds || []).length }} 条；点「限定…」可取消。
-      </p>
       <div id="left-global-map" class="global-map-embed"></div>
     </section>
 
@@ -100,110 +89,60 @@
     </section>
 
     <section class="block">
-      <div class="block-title">Control Panel</div>
-      <details class="prompt-details" :open="openPlanPrompt">
-        <summary class="prompt-summary" @click.prevent="openPlanPrompt = !openPlanPrompt">
-          Plan Agent Prompt
-        </summary>
-        <div class="prompt-body">
-          <div v-if="editingPlanPrompt" class="prompt-edit-wrap">
-            <textarea
-              v-model="planPromptDraft"
-              class="prompt-textarea"
-              rows="10"
-            ></textarea>
-            <div class="prompt-edit-actions">
-              <button class="btn prompt-btn secondary" @click.stop="confirmEditPlanPrompt">
-                确认
-              </button>
-            </div>
+      <div class="block-title">LLM Chat</div>
+      <div class="llm-chat-box">
+        <div class="llm-chat-messages">
+          <div
+            v-for="(m, idx) in llmChatMessages"
+            :key="`m-${idx}`"
+            class="llm-chat-msg"
+            :class="m.role === 'user' ? 'is-user' : 'is-assistant'"
+          >
+            <div class="llm-chat-msg-role">{{ m.role === 'user' ? '你' : '模型' }}</div>
+            <div class="llm-chat-msg-text">{{ m.content }}</div>
           </div>
-
-          <div v-else>
-            <div class="prompt-view-wrap">
-              <div class="prompt-md" v-html="renderMarkdown(planPrompt || '（未加载）')"></div>
-              <div class="prompt-view-actions">
-                <button class="btn prompt-btn" @click.stop="startEditPlanPrompt">
-                  编辑
-                </button>
-              </div>
-            </div>
+          <div v-if="llmChatSending" class="llm-chat-msg is-assistant is-pending">
+            <div class="llm-chat-msg-role">模型</div>
+            <div class="llm-chat-msg-text">正在生成…</div>
           </div>
         </div>
-      </details>
-
-      <details class="prompt-details" :open="openEvalPrompt" style="margin-top:8px;">
-        <summary class="prompt-summary" @click.prevent="openEvalPrompt = !openEvalPrompt">
-          Evaluate Agent Prompt
-        </summary>
-        <div class="prompt-body">
-          <div v-if="editingEvaluatePrompt" class="prompt-edit-wrap">
-            <textarea
-              v-model="evaluatePromptDraft"
-              class="prompt-textarea"
-              rows="10"
-            ></textarea>
-            <div class="prompt-edit-actions">
-              <button class="btn prompt-btn secondary" @click.stop="confirmEditEvaluatePrompt">
-                确认
-              </button>
-            </div>
-          </div>
-
-          <div v-else>
-            <div class="prompt-view-wrap">
-              <div class="prompt-md" v-html="renderMarkdown(evaluatePrompt || '（未加载）')"></div>
-              <div class="prompt-view-actions">
-                <button class="btn prompt-btn" @click.stop="startEditEvaluatePrompt">
-                  编辑
-                </button>
-              </div>
-            </div>
+        <div class="llm-chat-input-row">
+          <textarea
+            v-model="llmChatDraft"
+            class="llm-chat-input"
+            rows="3"
+            placeholder="输入一段话，回车发送（Shift+Enter 换行）"
+            :disabled="llmChatSending"
+            @keydown.enter.exact.prevent="sendLlmChat"
+            @keydown.enter.shift.exact.stop
+          ></textarea>
+          <div class="llm-chat-actions">
+            <button type="button" class="btn btn-submit" :disabled="llmChatSending || !llmChatDraft.trim()" @click="sendLlmChat">
+              发送
+            </button>
+            <button type="button" class="btn" :disabled="llmChatSending || llmChatMessages.length === 0" @click="clearLlmChat">
+              清空
+            </button>
           </div>
         </div>
-      </details>
+      </div>
     </section>
 
     <section class="block">
-      <div class="block-title">River Controls</div>
-      <div class="row">
-        <button class="btn small" @click="$emit('river-load-all')">加载所有轮次</button>
-      </div>
-      <div class="row row-top">
+      <div class="block-title">Research History</div>
+      <div class="row row-top research-history-row">
         <select class="select" v-model="selectedExperimentFile" @change="$emit('river-select-file', selectedExperimentFile)">
           <option v-for="f in experimentFiles" :key="f" :value="f">
             {{ formatExperimentLabel(f) }}
           </option>
         </select>
+        <button class="btn research-history-load-btn" @click="$emit('river-load-all')">Load</button>
       </div>
-    </section>
-
-    <section class="block block-compact default-run-footer">
-      <div class="block-title">默认运行模式</div>
-      <label class="default-option-row">
-        <input
-          type="checkbox"
-          v-model="skipEvaluation"
-          @change="$emit('skip-evaluation-change', skipEvaluation)"
-        />
-        <span>不评估（小地图默认按 HyDE/Rerank：保留点深蓝，未选候选浅蓝）</span>
-      </label>
-      <label class="default-option-row">
-        <input
-          type="checkbox"
-          :checked="multiAgentRewriteStreams"
-          @change="$emit('multi-agent-toggle', $event.target.checked)"
-        />
-        <span>多路改写并行追问（实验性，engine_multi_agent）</span>
-      </label>
-      <p class="default-run-hint">
-        改写条数沿用「Plans / round」；最大深度沿用「Max rounds」。各改写轨规划互不读对方上下文。
-      </p>
     </section>
 
     <section class="backend-status-footer">
       <span class="backend-status-dot" :class="{ connected: backendConnected }"></span>
-      <span>{{ backendConnected ? '已连接后端' : '未连接后端' }}</span>
+      <span>{{ backendConnected ? 'Backend Connected' : 'Backend Disconnected' }}</span>
     </section>
 
   </div>
@@ -253,7 +192,11 @@ export default {
       searchPlanIteration: 3,
       ragResultPerPlan: 10,
       plansPerRound: 2,
-      skipEvaluation: true
+      // 固定为默认评估：不再提供 UI 关闭评估
+      skipEvaluation: false,
+      llmChatDraft: '',
+      llmChatSending: false,
+      llmChatMessages: [],
     };
   },
   methods: {
@@ -375,6 +318,48 @@ export default {
       if (!Number.isFinite(n)) return;
       this.$emit('rag-results-per-plan-change', n);
     },
+
+    async sendLlmChat() {
+      const text = String(this.llmChatDraft || '').trim();
+      if (!text || this.llmChatSending) return;
+      this.llmChatDraft = '';
+      if (!Array.isArray(this.llmChatMessages)) this.llmChatMessages = [];
+      this.llmChatMessages.push({ role: 'user', content: text });
+      this.llmChatSending = true;
+      try {
+        const resp = await fetch('/api/llm-chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: this.llmChatMessages.slice(-16),
+          }),
+        });
+        if (!resp.ok) {
+          const t = await resp.text();
+          throw new Error(`HTTP ${resp.status}: ${t}`);
+        }
+        const data = await resp.json();
+        const ans = String(data?.reply || '').trim();
+        this.llmChatMessages.push({ role: 'assistant', content: ans || '(empty)' });
+        this.$nextTick(() => {
+          try {
+            const el = this.$el?.querySelector?.('.llm-chat-messages');
+            if (el) el.scrollTop = el.scrollHeight;
+          } catch (e) {
+            /* ignore */
+          }
+        });
+      } catch (e) {
+        this.llmChatMessages.push({ role: 'assistant', content: `（请求失败）${e?.message || e}` });
+      } finally {
+        this.llmChatSending = false;
+      }
+    },
+
+    clearLlmChat() {
+      this.llmChatDraft = '';
+      this.llmChatMessages = [];
+    },
   },
   mounted() {
     this.loadExperimentFileList();
@@ -401,9 +386,6 @@ export default {
 }
 
 .multi-agent-footer,
-.default-run-footer {
-  margin-top: 4px;
-}
 .multi-agent-hint,
 .default-run-hint {
   margin: 6px 0 0;
@@ -452,6 +434,28 @@ export default {
   font-size: 12px;
   font-weight: 600;
   margin-bottom: 6px;
+}
+
+.block-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.block-title-row .block-title {
+  margin-bottom: 0;
+  flex: 0 0 auto;
+}
+
+.block-title-row .left-global-map-toolbar {
+  margin-bottom: 0;
+  flex: 0 0 auto;
+}
+
+.block-title-row .embed-map-toolbar {
+  justify-content: flex-end;
 }
 
 .textarea {
@@ -593,6 +597,20 @@ input[type="range"] {
   margin-top: 8px;
 }
 
+.research-history-row .select {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.research-history-load-btn {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  font-size: 11px;
+  line-height: 1.1;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
 .select {
   width: 100%;
   padding: 8px 10px;
@@ -703,6 +721,101 @@ input[type="range"] {
   background: #6c757d;
   color: #fff;
   border-color: #545b62;
+}
+
+.llm-chat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 200px;
+  min-height: 140px;
+  max-height: 240px;
+}
+
+.llm-chat-messages {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #fff;
+  padding: 8px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+
+.llm-chat-messages::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Chrome/Safari */
+}
+
+.llm-chat-msg {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 8px;
+  padding: 6px 6px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  border: 1px solid transparent;
+}
+
+.llm-chat-msg:last-child {
+  margin-bottom: 0;
+}
+
+.llm-chat-msg.is-user {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.18);
+}
+
+.llm-chat-msg.is-assistant {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: rgba(148, 163, 184, 0.22);
+}
+
+.llm-chat-msg.is-pending {
+  opacity: 0.85;
+}
+
+.llm-chat-msg-role {
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  padding-top: 1px;
+}
+
+.llm-chat-msg-text {
+  font-size: 12px;
+  line-height: 1.4;
+  color: #0f172a;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.llm-chat-input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.llm-chat-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  resize: vertical;
+  background: #fff;
+  font-family: inherit;
+}
+
+.llm-chat-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .map-box-hint {

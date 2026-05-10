@@ -123,21 +123,20 @@
                   "chunk_004695"
                 ],
                 "userdo": {
-                  "delete": [
+                  "point": [
                     {
-                      "action": "delete",
+                      "action": "point",
                       "target_evidence_id": "chunk_002651",
-                      "timestamp": "2026-05-06T14:23:31"
+                      "timestamp": "2026-05-07T08:28:55",
+                      "before": "PRUNE",
+                      "after": "GROW"
                     },
                     {
-                      "action": "delete",
-                      "target_evidence_id": "chunk_002642",
-                      "timestamp": "2026-05-06T14:23:46"
-                    },
-                    {
-                      "action": "delete",
+                      "action": "point",
                       "target_evidence_id": "chunk_004609",
-                      "timestamp": "2026-05-06T15:11:01"
+                      "timestamp": "2026-05-07T08:30:06",
+                      "before": "KEEP",
+                      "after": "GROW"
                     }
                   ]
                 }
@@ -245,8 +244,7 @@
                       "credibility": 8
                     },
                     "reason": "skip_evaluation enabled (multi-agent path)",
-                    "suggested_keywords": [],
-                    "user_action": "delete"
+                    "suggested_keywords": []
                   }
                 },
                 {
@@ -309,7 +307,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_002651",
-                    "branch_action": "PRUNE",
+                    "branch_action": "GROW",
                     "extracted_insight": "(evaluation skipped)",
                     "scores": {
                       "relevance": 8,
@@ -317,7 +315,7 @@
                     },
                     "reason": "skip_evaluation enabled (multi-agent path)",
                     "suggested_keywords": [],
-                    "user_action": "delete"
+                    "user_action": "point"
                   }
                 },
                 {
@@ -345,7 +343,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_004609",
-                    "branch_action": "PRUNE",
+                    "branch_action": "GROW",
                     "extracted_insight": "(evaluation skipped)",
                     "scores": {
                       "relevance": 8,
@@ -353,7 +351,7 @@
                     },
                     "reason": "skip_evaluation enabled (multi-agent path)",
                     "suggested_keywords": [],
-                    "user_action": "delete"
+                    "user_action": "point"
                   }
                 },
                 {
@@ -575,7 +573,18 @@
                   "chunk_004486",
                   "chunk_000516",
                   "chunk_004487"
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_004609",
+                      "timestamp": "2026-05-07T08:30:06",
+                      "before": "KEEP",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -810,14 +819,15 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_004609",
-                    "branch_action": "KEEP",
+                    "branch_action": "GROW",
                     "extracted_insight": "(evaluation skipped)",
                     "scores": {
                       "relevance": 8,
                       "credibility": 8
                     },
                     "reason": "skip_evaluation enabled (multi-agent path)",
-                    "suggested_keywords": []
+                    "suggested_keywords": [],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -1009,7 +1019,18 @@
                   "chunk_002790",
                   "chunk_002649",
                   "chunk_001905"
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_004609",
+                      "timestamp": "2026-05-07T08:30:06",
+                      "before": "KEEP",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -1208,14 +1229,15 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_004609",
-                    "branch_action": "KEEP",
+                    "branch_action": "GROW",
                     "extracted_insight": "(evaluation skipped)",
                     "scores": {
                       "relevance": 8,
                       "credibility": 8
                     },
                     "reason": "skip_evaluation enabled (multi-agent path)",
-                    "suggested_keywords": []
+                    "suggested_keywords": [],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -1437,7 +1459,18 @@
                   "chunk_002790",
                   "chunk_002662",
                   "chunk_000516"
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_004609",
+                      "timestamp": "2026-05-07T08:30:06",
+                      "before": "KEEP",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -1567,7 +1600,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_002796",
-                    "branch_action": "KEEP",
+                    "branch_action": "PRUNE",
                     "extracted_insight": "(evaluation skipped)",
                     "scores": {
                       "relevance": 8,
@@ -1635,14 +1668,15 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_004609",
-                    "branch_action": "KEEP",
+                    "branch_action": "GROW",
                     "extracted_insight": "(evaluation skipped)",
                     "scores": {
                       "relevance": 8,
                       "credibility": 8
                     },
                     "reason": "skip_evaluation enabled (multi-agent path)",
-                    "suggested_keywords": []
+                    "suggested_keywords": [],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -1831,7 +1865,59 @@
         }
       ],
       "summary": null,
-      "hypothesis": null
+      "hypothesis": {
+        "outline": {
+          "step_name": "Outline",
+          "agent_name": "MultiAgentReportOutline",
+          "prompt": "Interactive Report Outline",
+          "response": "[\n  {\n    \"level1_title\": \"Air Pollution Visualization Techniques\",\n    \"subsections\": [\n      {\n        \"level2_title\": \"Region-Specific Visualization Methods and Tools\",\n        \"assigned_plan_ids\": [\n          \"round_1_track_0\",\n          \"round_2_track_0\"\n        ]\n      },\n      {\n        \"level2_title\": \"Datasets for Temporal and Spatial Air Pollution Trends\",\n        \"assigned_plan_ids\": [\n          \"round_1_track_1\",\n          \"round_2_track_1\"\n        ]\n      }\n    ]\n  },\n  {\n    \"level1_title\": \"Challenges and Gaps in Air Pollution Visualization Strategies\",\n    \"subsections\": [\n      {\n        \"level2_title\": \"Limitations in Geographic and Dataset Diversity\",\n        \"assigned_plan_ids\": [\n          \"round_1_track_0\",\n          \"round_2_track_0\"\n        ]\n      },\n      {\n        \"level2_title\": \"Absence of Practical Visualization Frameworks\",\n        \"assigned_plan_ids\": [\n          \"round_1_track_1\",\n          \"round_2_track_1\"\n        ]\n      }\n    ]\n  },\n  {\n    \"level1_title\": \"Failed Queries and Future Directions\",\n    \"subsections\": [\n      {\n        \"level2_title\": \"Execution Errors in Advanced Search Strategies\",\n        \"assigned_plan_ids\": [\n          \"round_3_track_0\",\n          \"round_3_track_1\"\n        ]\n      }\n    ]\n  }\n]",
+          "system_message": null,
+          "timestamp": null
+        },
+        "sections": [
+          {
+            "step_name": "Region-Specific Visualization Methods and Tools",
+            "agent_name": "MultiAgentReportSection",
+            "prompt": "Interactive Report Subsection",
+            "response": "Region-specific visualization methods leverage tailored grid maps and temporal profiles to analyze and understand emissions and air quality on various scales. In North America, organizations such as the EPA and Environment Canada utilize grid maps and temporal profiles specific to the USA and Canada to enhance regional insights [chunk_002669]. Similarly, Europe benefits from the TNO grid maps and EMEP temporal trends to study emissions across the continent [chunk_002671]. The HTAP_v2.2 emission inventory provides a unified framework integrating high-resolution regional and global data for 2008 and 2010, aiding in the study of hemispheric pollution transport [chunk_002642; chunk_002652]. In Asia, the MIX emission inventory employs detailed grid maps for 2010, demonstrating improved spatial resolution to capture region-specific patterns more effectively [chunk_004609]. Such tools underline the importance of harmonizing regional and sector-specific data to support global-scale air pollution modeling [chunk_002649].",
+            "system_message": null,
+            "timestamp": null
+          },
+          {
+            "step_name": "Datasets for Temporal and Spatial Air Pollution Trends",
+            "agent_name": "MultiAgentReportSection",
+            "prompt": "Interactive Report Subsection",
+            "response": "Datasets utilized for analyzing temporal and spatial air pollution trends include high-resolution satellite measurements and detailed emission inventories. The NASA OMI/Aura vertical ozone profiles, tropospheric NO₂, total HCHO, and MOPITT CO datasets offer critical satellite-derived air quality metrics for spatial and temporal assessments [chunk_000955; chunk_001085]. The HTAP_v2.2 emission inventory provides a comprehensive global data set with fine grid resolution (0.1° × 0.1°), incorporating regional and sectoral emissions from 2008 and 2010, enabling studies on hemispheric pollution transport and aiding in consistent regional-global modeling [chunk_002642; chunk_002694; chunk_002662]. Regional high-resolution inventories like the MIX Asian emission database also support detailed spatial analysis, improving understanding of regional emission patterns [chunk_004609]. Tools like ArcGIS and GeoDa facilitate spatial autocorrelation analyses to study urban and regional air quality trends over time [chunk_000516]. As visualized in various mapping efforts, these datasets collectively enhance the ability to track pollution dynamics and inform mitigation strategies [chunk_004486; chunk_004487].",
+            "system_message": null,
+            "timestamp": null
+          },
+          {
+            "step_name": "Limitations in Geographic and Dataset Diversity",
+            "agent_name": "MultiAgentReportSection",
+            "prompt": "Interactive Report Subsection",
+            "response": "Geographic and dataset diversity in emission inventories and air quality models reveal marked limitations due to regional biases and temporal inconsistencies. Inventories such as the EPA and Environment Canada grids [chunk_002669], TNO and EMEP models in Europe [chunk_002671], and the MIX Asian emission inventory [chunk_004609] prioritize regional foci, which may hinder comprehensive global assessments. Despite efforts like the HTAP_v2.2 dataset integrating regional and global grid maps for select years [chunk_002642], the reliance on sector-specific and country-level aggregations using databases like EDGARv4.3 limits uniformity [chunk_002746]. Additionally, while models such as HTAP aim to harmonize datasets for global-scale pollution modeling [chunk_002790], challenges persist in reconciling spatial and temporal resolutions across regions [chunk_002652]. These constraints underscore the need for broader geographic representation and methodological standardization to enhance the accuracy and applicability of emission datasets globally.",
+            "system_message": null,
+            "timestamp": null
+          },
+          {
+            "step_name": "Absence of Practical Visualization Frameworks",
+            "agent_name": "MultiAgentReportSection",
+            "prompt": "Interactive Report Subsection",
+            "response": "The lack of practical frameworks for visualizing complex environmental datasets undermines the ability to effectively analyze and interpret air pollution and related phenomena. Existing visualization tools, such as grid maps and spatial distribution figures, have been used to represent spatial and temporal pollutant patterns, including high-resolution maps based on the MIX Asian emission inventory and tropospheric NO₂ and HCHO densities over the contiguous United States [chunk_004609; chunk_004487]. While these efforts assist in understanding emission patterns and trends, they frequently rely on diverse data sources and spatial proxies that can complicate interpretation [chunk_002652; chunk_002796]. Furthermore, software like ArcGIS and GeoDa is utilized for spatial autocorrelation in urban air quality studies, but such approaches benefit only specific analyses rather than offering a comprehensive, adaptable visualization framework [chunk_000516]. Consequently, there remains a critical need for an integrated and user-friendly visualization platform capable of handling heterogeneous datasets and advancing both theoretical and practical insights.",
+            "system_message": null,
+            "timestamp": null
+          }
+        ],
+        "synthesis": {
+          "step_name": "Synthesis",
+          "agent_name": "MultiAgentReportSynthesis",
+          "prompt": "Interactive Report Synthesis",
+          "response": "### Core Hypothesis\nEffective visualization of air pollution requires integrating region-specific methods, high-resolution datasets, and advanced visualization tools to comprehensively represent spatial and temporal trends. However, current limitations in geographic scope, dataset harmonization, and practical visualization frameworks undermine global applicability and user accessibility.\n\n### Evidence Analysis\nAir pollution visualization benefits from tools and datasets that focus on both regional and global scales. Region-specific tools such as the EPA and Environment Canada grid maps in North America [chunk_002669], TNO and EMEP models in Europe [chunk_002671], and the MIX emission inventory in Asia [chunk_004609] provide detailed spatial grids and temporal profiles tailored to specific socio-environmental conditions. Global frameworks, such as the HTAP_v2.2 emission inventory, successfully integrate high-resolution regional data into a broader hemispheric context, aiding in the analysis of pollution transport and cross-border impacts [chunk_002642; chunk_002652]. Additionally, the use of satellite datasets, including NASA’s OMI/Aura and MOPITT CO, has proven critical in tracking temporal and spatial pollution trends at various scales [chunk_000955; chunk_001085].\n\nMapping tools, for instance, ArcGIS and GeoDa, further enhance the ability to study urban and regional air quality trends, employing spatial autocorrelation analyses to reveal pollutant distribution patterns over time [chunk_000516; chunk_004486; chunk_004487]. These approaches effectively support region-specific research and policymaking, underscoring the pivotal role of harmonizing spatial and temporal resolutions in visualization efforts [chunk_002649; chunk_002662].\n\nHowever, significant biases and gaps persist. Regional foci in emissions databases, including those from the EPA, TNO, and MIX inventories, limit the diversity of geographic representation [chunk_002669; chunk_002671; chunk_004609]. Although datasets like HTAP_v2.2 aim at global integration, rescaling regionally aggregated models often reduces temporal consistency and spatial accuracy [chunk_002652; chunk_002746]. The absence of standardized visualization frameworks also constrains usability. For example, tools like grid maps and visualized spatial profiles assist in understanding patterns but vary in their adaptability to heterogeneous datasets, often complicating interpretation for non-technical audiences [chunk_004609; chunk_004487].\n\n### Critical Gaps\n1. **Lack of Geographic Diversity and Standardization**: Current air pollution inventories emphasize regional foci, such as those in North America, Europe, and Asia, but fail to provide comprehensive global coverage. Even integrated datasets like HTAP_v2.2 have temporal and spatial inconsistencies that limit their effective use in global pollution modeling [chunk_002642; chunk_004609; chunk_002652].\n2. **Practical Visualization Limitations**: Existing tools and frameworks do not offer unified platforms for managing and visualizing diverse datasets. For instance, while ArcGIS and GeoDa facilitate specific spatial analyses, they lack adaptability for broader applications [chunk_000516]. There is no widely available, user-friendly system for comprehensively visualizing air pollution trends that spans heterogeneous datasets and multiple geographic levels [chunk_002796].\n3. **Challenges in Harmonizing Datasets**: Despite advancements in integrating regional and global data, efforts to reconcile differences in temporal resolution, emission sources, and sectoral classifications remain inadequate. This lack of consistency hinders the effective visualization of air pollution patterns across scales [chunk_002746; chunk_002649].\n\n### Conclusion\nVisualizing air pollution demands robust methodologies that amalgamate region-specific strengths, global frameworks, and high-resolution datasets into a unified platform. Tools such as grid maps and satellite data offer rich insights, but fragmentation in database foci and visualization frameworks complicates their widespread applicability. Addressing geographic gaps, harmonizing dataset integrations, and developing practical, user-oriented visualization tools will be pivotal for advancing theoretical and applied air pollution studies. Further research is needed to create standardized platforms that can accommodate diverse data types and improve accessibility for stakeholders ranging from researchers to policymakers and beyond.",
+          "system_message": null,
+          "timestamp": null
+        },
+        "final_report": "### Core Hypothesis\nEffective visualization of air pollution requires integrating region-specific methods, high-resolution datasets, and advanced visualization tools to comprehensively represent spatial and temporal trends. However, current limitations in geographic scope, dataset harmonization, and practical visualization frameworks undermine global applicability and user accessibility.\n\n### Evidence Analysis\nAir pollution visualization benefits from tools and datasets that focus on both regional and global scales. Region-specific tools such as the EPA and Environment Canada grid maps in North America [chunk_002669], TNO and EMEP models in Europe [chunk_002671], and the MIX emission inventory in Asia [chunk_004609] provide detailed spatial grids and temporal profiles tailored to specific socio-environmental conditions. Global frameworks, such as the HTAP_v2.2 emission inventory, successfully integrate high-resolution regional data into a broader hemispheric context, aiding in the analysis of pollution transport and cross-border impacts [chunk_002642; chunk_002652]. Additionally, the use of satellite datasets, including NASA’s OMI/Aura and MOPITT CO, has proven critical in tracking temporal and spatial pollution trends at various scales [chunk_000955; chunk_001085].\n\nMapping tools, for instance, ArcGIS and GeoDa, further enhance the ability to study urban and regional air quality trends, employing spatial autocorrelation analyses to reveal pollutant distribution patterns over time [chunk_000516; chunk_004486; chunk_004487]. These approaches effectively support region-specific research and policymaking, underscoring the pivotal role of harmonizing spatial and temporal resolutions in visualization efforts [chunk_002649; chunk_002662].\n\nHowever, significant biases and gaps persist. Regional foci in emissions databases, including those from the EPA, TNO, and MIX inventories, limit the diversity of geographic representation [chunk_002669; chunk_002671; chunk_004609]. Although datasets like HTAP_v2.2 aim at global integration, rescaling regionally aggregated models often reduces temporal consistency and spatial accuracy [chunk_002652; chunk_002746]. The absence of standardized visualization frameworks also constrains usability. For example, tools like grid maps and visualized spatial profiles assist in understanding patterns but vary in their adaptability to heterogeneous datasets, often complicating interpretation for non-technical audiences [chunk_004609; chunk_004487].\n\n### Critical Gaps\n1. **Lack of Geographic Diversity and Standardization**: Current air pollution inventories emphasize regional foci, such as those in North America, Europe, and Asia, but fail to provide comprehensive global coverage. Even integrated datasets like HTAP_v2.2 have temporal and spatial inconsistencies that limit their effective use in global pollution modeling [chunk_002642; chunk_004609; chunk_002652].\n2. **Practical Visualization Limitations**: Existing tools and frameworks do not offer unified platforms for managing and visualizing diverse datasets. For instance, while ArcGIS and GeoDa facilitate specific spatial analyses, they lack adaptability for broader applications [chunk_000516]. There is no widely available, user-friendly system for comprehensively visualizing air pollution trends that spans heterogeneous datasets and multiple geographic levels [chunk_002796].\n3. **Challenges in Harmonizing Datasets**: Despite advancements in integrating regional and global data, efforts to reconcile differences in temporal resolution, emission sources, and sectoral classifications remain inadequate. This lack of consistency hinders the effective visualization of air pollution patterns across scales [chunk_002746; chunk_002649].\n\n### Conclusion\nVisualizing air pollution demands robust methodologies that amalgamate region-specific strengths, global frameworks, and high-resolution datasets into a unified platform. Tools such as grid maps and satellite data offer rich insights, but fragmentation in database foci and visualization frameworks complicates their widespread applicability. Addressing geographic gaps, harmonizing dataset integrations, and developing practical, user-oriented visualization tools will be pivotal for advancing theoretical and applied air pollution studies. Further research is needed to create standardized platforms that can accommodate diverse data types and improve accessibility for stakeholders ranging from researchers to policymakers and beyond."
+      }
     }
   ],
   "batch_id": "2c425df7-0d2c-4e6e-9e1d-c20d3eba2134"

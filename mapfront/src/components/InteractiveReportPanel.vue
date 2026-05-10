@@ -2,10 +2,14 @@
   <div class="ir-panel">
     <div class="ir-panel-head">
       <span class="ir-panel-title">Interactive Report</span>
-      <span class="ir-panel-hint">先点「新版块」添加版块，再从左侧策略小地图把彩色点拖进该版块的空白区域</span>
-      <button type="button" class="ir-btn-clear" @click="clearAll" :disabled="sections.length === 0">
-        清空版块
-      </button>
+      <div style="display: flex; gap: 8px;">
+        <button type="button" class="ir-btn-action" @click="generateReport" :disabled="isGenerating">
+          {{ isGenerating ? 'generating...' : 'generate report (LLM)' }}
+        </button>
+        <button type="button" class="ir-btn-clear" @click="clearAll" :disabled="sections.length === 0">
+          clear
+        </button>
+      </div>
     </div>
 
     <div class="ir-sections">
@@ -16,7 +20,12 @@
       >
         <div class="ir-section-bar">
           <span class="ir-section-title">{{ section.title }}</span>
-          <button type="button" class="ir-btn-icon" title="删除版块" @click="removeSection(section.id)">×</button>
+          <div class="ir-section-actions">
+            <button v-if="section.text" type="button" class="ir-btn-toggle" @click="toggleText(section.id)">
+              {{ section.showText ? '显示点' : '展示文本' }}
+            </button>
+            <button type="button" class="ir-btn-icon" title="删除版块" @click="removeSection(section.id)">×</button>
+          </div>
         </div>
         <div
           class="interactive-report-drop-zone ir-drop-body"
@@ -24,7 +33,10 @@
           @dragover.prevent="onDragOver"
           @drop.prevent="onDrop($event, section.id)"
         >
-          <div v-if="section.items.length === 0" class="ir-empty">拖入证据点（与地图中颜色、形状一致）</div>
+          <div v-if="section.showText" class="ir-section-text">
+            {{ section.text }}
+          </div>
+          <div v-else-if="section.items.length === 0" class="ir-empty">Drag Evidence Point</div>
           <div v-else class="ir-dots">
             <div
               v-for="item in section.items"
@@ -32,7 +44,7 @@
               class="ir-dot-wrap"
               role="button"
               tabindex="0"
-              :title="(item.title || item.id) + ' — 点击查看详情'"
+              :title="(item.title || item.id) + ' — click to view details'"
               @click="openPointDetail(item)"
               @keydown.enter.prevent="openPointDetail(item)"
               @keydown.space.prevent="openPointDetail(item)"
@@ -50,9 +62,9 @@
         </div>
       </div>
 
-      <button type="button" class="ir-add-placeholder" @click="promptAddSection" title="添加版块">
+      <button type="button" class="ir-add-placeholder" @click="promptAddSection" title="add section">
         <span class="ir-add-plus">+</span>
-        <span class="ir-add-text">新版块</span>
+        <span class="ir-add-text">new section</span>
       </button>
     </div>
 
@@ -81,6 +93,35 @@ const store = useStore();
 
 const showPointDetailModal = ref(false);
 const selectedPointDetail = ref(null);
+const isGenerating = ref(false);
+
+const generateReport = async () => {
+  const sourcePath = store.state.experimentSourceFile;
+  const sessionId = store.state.experimentResult?.session_id || '';
+  if (!sourcePath) {
+    window.alert('请先在左侧选择一个实验文件后再生成报告。');
+    return;
+  }
+  isGenerating.value = true;
+  try {
+    const res = await fetch('/api/generate-interactive-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source_path: sourcePath, session_id: sessionId })
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    // The backend processes this asynchronously and broadcasts the result via WebSocket.
+    // It will be reflected in the UI when the WS message arrives.
+    window.alert('报告生成已在后台启动，完成后将自动刷新面板，请稍候...');
+  } catch (error) {
+    console.error('Failed to trigger report generation:', error);
+    window.alert('生成报告请求失败，请检查网络或后端日志。');
+  } finally {
+    isGenerating.value = false;
+  }
+};
 
 const openPointDetail = (item) => {
   selectedPointDetail.value = item;
@@ -112,6 +153,10 @@ const removeSection = (sectionId) => {
 
 const removePoint = (sectionId, itemId) => {
   store.commit('removePointFromInteractiveReportSection', { sectionId, itemId });
+};
+
+const toggleText = (sectionId) => {
+  store.commit('toggleInteractiveReportSectionText', sectionId);
 };
 
 const clearAll = () => {
@@ -188,7 +233,7 @@ const displayLabel = (item) => {
   min-width: 140px;
 }
 
-.ir-btn-clear {
+.ir-btn-clear, .ir-btn-action {
   padding: 6px 12px;
   font-size: 12px;
   border-radius: 6px;
@@ -198,11 +243,22 @@ const displayLabel = (item) => {
   cursor: pointer;
 }
 
+.ir-btn-action {
+  background: #e0f2fe;
+  border-color: #bae6fd;
+  color: #0284c7;
+  font-weight: 600;
+}
+
 .ir-btn-clear:hover:not(:disabled) {
   background: #f1f5f9;
 }
 
-.ir-btn-clear:disabled {
+.ir-btn-action:hover:not(:disabled) {
+  background: #bae6fd;
+}
+
+.ir-btn-clear:disabled, .ir-btn-action:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
@@ -234,6 +290,35 @@ const displayLabel = (item) => {
   font-size: 13px;
   font-weight: 600;
   color: #334155;
+}
+
+.ir-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ir-btn-toggle {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  border: 1px solid #bae6fd;
+  background: #e0f2fe;
+  color: #0284c7;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ir-btn-toggle:hover {
+  background: #bae6fd;
+}
+
+.ir-section-text {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.6;
+  padding: 8px 4px;
+  white-space: pre-wrap;
 }
 
 .ir-btn-icon {

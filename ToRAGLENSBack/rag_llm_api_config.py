@@ -12,9 +12,9 @@ from typing import Final, Optional
 # =============================================================================
 # 主配置 —— 直接改这里（未设置环境变量时使用）
 # =============================================================================
-GATEWAY_BASE_URL: Final[str] = "http://38.147.105.35:3030/v1"
+GATEWAY_BASE_URL: Final[str] = "https://ssvip.dmxapi.com/v1"
 GATEWAY_API_KEY: Final[str] = (
-    "sk-xuKetsCRvjQRkRVhnFu4SSlqNvG7j0Cie0Cj8n7Y7SikUUM5"
+    "sk-8S92KJLEQcfF9TbjsLfSPrP3LRz6tsuzbRRpHXVH12Gp4SZc"
 )
 # 与主编排 / single_strategy 使用的 chat 模型对齐；可用环境变量 RAG_REPORT_MODEL 覆盖
 REPORT_MODEL: Final[str] = "gpt-4o"

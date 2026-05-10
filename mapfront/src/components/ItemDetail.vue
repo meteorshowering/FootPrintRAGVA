@@ -499,7 +499,7 @@ const getBranchActionClass = () => {
 }
 
 .image-section {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .detail-image {
@@ -511,29 +511,29 @@ const getBranchActionClass = () => {
 }
 
 .figure-caption {
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 12px;
   color: #666;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .text-section {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .markdown-content {
-  line-height: 1.6;
+  line-height: 1.5;
   color: #333;
   margin: 0;
   font-size: 13px;
   background: #f8f9fa;
-  padding: 12px;
+  padding: 10px;
   border-radius: 6px;
   border-left: 3px solid #6c757d;
 }
 
 .markdown-content :deep(p) {
-  margin: 0.5em 0;
+  margin: 0.35em 0;
 }
 
 .markdown-content :deep(p:first-child) {
@@ -550,8 +550,8 @@ const getBranchActionClass = () => {
 .markdown-content :deep(h4),
 .markdown-content :deep(h5),
 .markdown-content :deep(h6) {
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+  margin-top: 0.6em;
+  margin-bottom: 0.35em;
   font-weight: 600;
   color: #495057;
 }
@@ -562,12 +562,12 @@ const getBranchActionClass = () => {
 
 .markdown-content :deep(ul),
 .markdown-content :deep(ol) {
-  margin: 0.5em 0;
+  margin: 0.35em 0;
   padding-left: 1.5em;
 }
 
 .markdown-content :deep(li) {
-  margin: 0.25em 0;
+  margin: 0.2em 0;
 }
 
 .markdown-content :deep(code) {
@@ -581,10 +581,10 @@ const getBranchActionClass = () => {
 .markdown-content :deep(pre) {
   background: #2d2d2d;
   color: #f8f8f2;
-  padding: 12px;
+  padding: 10px;
   border-radius: 6px;
   overflow-x: auto;
-  margin: 0.5em 0;
+  margin: 0.35em 0;
 }
 
 .markdown-content :deep(pre code) {
@@ -596,7 +596,7 @@ const getBranchActionClass = () => {
 .markdown-content :deep(blockquote) {
   border-left: 4px solid #6c757d;
   padding-left: 1em;
-  margin: 0.5em 0;
+  margin: 0.35em 0;
   color: #666;
   font-style: italic;
 }
@@ -613,13 +613,13 @@ const getBranchActionClass = () => {
 .markdown-content :deep(table) {
   border-collapse: collapse;
   width: 100%;
-  margin: 0.5em 0;
+  margin: 0.35em 0;
 }
 
 .markdown-content :deep(th),
 .markdown-content :deep(td) {
   border: 1px solid #dee2e6;
-  padding: 6px 12px;
+  padding: 5px 10px;
   text-align: left;
 }
 
@@ -630,7 +630,7 @@ const getBranchActionClass = () => {
 
 /* 数学公式样式 */
 .markdown-content :deep(.math-block) {
-  margin: 1em 0;
+  margin: 0.6em 0;
   text-align: center;
   overflow-x: auto;
 }
@@ -640,25 +640,25 @@ const getBranchActionClass = () => {
 }
 
 .markdown-content :deep(.katex-display) {
-  margin: 1em 0;
+  margin: 0.6em 0;
 }
 
 .info-section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .info-item {
   background: #f8f9fa;
-  padding: 12px;
+  padding: 10px;
   border-radius: 6px;
 }
 
 .info-item h4 {
   font-size: 13px;
   color: #495057;
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
   font-weight: 600;
 }
 
@@ -668,11 +668,11 @@ const getBranchActionClass = () => {
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
 }
 
 .entities-list li {
-  padding: 4px 10px;
+  padding: 3px 9px;
   background: white;
   border-radius: 12px;
   border-left: 2px solid #4A90E2;
@@ -681,14 +681,14 @@ const getBranchActionClass = () => {
 
 .summary-text,
 .insight-text {
-  line-height: 1.6;
+  line-height: 1.5;
   color: #555;
   margin: 0;
   font-size: 12px;
 }
 
 .paper-info {
-  line-height: 1.6;
+  line-height: 1.5;
   color: #555;
   margin: 0;
   font-size: 12px;
@@ -697,7 +697,7 @@ const getBranchActionClass = () => {
 
 .branch-action {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
@@ -727,14 +727,14 @@ const getBranchActionClass = () => {
 .visual-types {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
   align-items: center;
 }
 
 .role-tag,
 .type-tag {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 12px;
   font-size: 11px;
   font-weight: 500;
@@ -760,11 +760,11 @@ const getBranchActionClass = () => {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .reference-item {
-  padding: 8px 12px;
+  padding: 7px 10px;
   background: #f8f9fa;
   border-radius: 6px;
   border-left: 3px solid #6c757d;
@@ -779,7 +779,7 @@ const getBranchActionClass = () => {
 }
 
 .evaluation-field {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .evaluation-field:last-child {
@@ -791,30 +791,30 @@ const getBranchActionClass = () => {
   color: #495057;
   font-size: 12px;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .evaluation-text {
   margin: 0;
-  padding: 8px 12px;
+  padding: 7px 10px;
   background: white;
   border-radius: 6px;
   font-size: 12px;
-  line-height: 1.6;
+  line-height: 1.5;
   color: #555;
 }
 
 .scores-container {
   display: flex;
-  gap: 16px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .score-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 5px;
+  padding: 5px 10px;
   background: white;
   border-radius: 6px;
   font-size: 12px;
@@ -834,13 +834,13 @@ const getBranchActionClass = () => {
 .keywords-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
+  gap: 5px;
+  margin-top: 3px;
 }
 
 .keyword-tag {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 3px 9px;
   background: white;
   border: 1px solid #dee2e6;
   border-radius: 12px;

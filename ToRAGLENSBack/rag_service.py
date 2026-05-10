@@ -386,6 +386,26 @@ class RAGService:
         print(f"   可用的向量库: {self.available_collections}")
         self.initialized = True
     
+    async def _get_chroma_collection(self, collection_name: Optional[str] = None):
+        """
+        解析 Chroma Collection：当前服务主集合用 self.raw_collection；
+        其它名称通过 collection_manager 按需打开（exact / local-filter 补全等）。
+        """
+        if not self.initialized:
+            await self.initialize()
+        name = (collection_name or self.collection_name or "").strip()
+        if not name:
+            return None
+        if name == self.collection_name and self.raw_collection is not None:
+            return self.raw_collection
+        if not getattr(self, "collection_manager", None):
+            self.collection_manager = await get_rag_collection_manager()
+        ok = await self.collection_manager.check_collection_exists(name)
+        if not ok:
+            print(f"⚠️ Chroma 集合不存在: {name}")
+            return None
+        return await self.collection_manager.get_collection(name)
+    
     # ... _sanitize_metadata_value 保持不变 ...
     def _sanitize_metadata_value(self, value: Any) -> Union[str, int, float, bool]:
         if value is None: return ""
@@ -683,7 +703,7 @@ class RAGService:
         allowed_chunk_ids: Optional[List[str]] = None,
     ) -> List[Dict[str, Any]]:
         """
-        在本地数据缓存中进行精确的子串匹配检索（非向量相似度）。
+        在Chroma数据中进行精确的子串匹配检索（非向量相似度）。
         适合需要包含特定关键词的硬性召回。
         """
         if not self.initialized: await self.initialize()
@@ -691,62 +711,88 @@ class RAGService:
         if not query_text or not query_text.strip():
             return []
             
-        search_term = query_text.strip().lower()
-        results = []
+        search_term = query_text.strip()
+        needle_lower = search_term.lower()
 
-        print(f"⚡ [Exact Search] 在本地数据中进行文本匹配: '{search_term}'")
-        allow_set = None
-        if allowed_chunk_ids is not None and len(allowed_chunk_ids) > 0:
-            allow_set = {str(x) for x in allowed_chunk_ids}
+        c_name = collection_name or self.collection_name
+        target_collection = await self._get_chroma_collection(c_name)
+        if not target_collection:
+            return []
 
-        for item in self.local_data_cache:
-            if allow_set is not None and str(item.get("id", "")) not in allow_set:
-                continue
-            # 提取包含整个 chunk 的 content
-            content_text = str(item.get("content", "")).lower()
-            
-            # 判断是否命中，采用纯文本子串包含匹配（只匹配 content）
-            if search_term in content_text:
-                
-                # 解析真实元数据以构造良好的内容结构
-                real_item = item
-                meta = item.get("metadata", {})
-                if "full_json" in meta:
+        print(f"⚡ [Exact Search] 在Chroma库中进行文本匹配: '{search_term}'")
+        str_ids = (
+            [str(x) for x in allowed_chunk_ids]
+            if allowed_chunk_ids is not None and len(allowed_chunk_ids) > 0
+            else None
+        )
+
+        def _sync_exact():
+            try:
+                # 小追问 / 框选：同时带 where_document + metadata where 在部分 Chroma 版本上会 0 命中；
+                # 改为按 id 批量拉取正文后在内存做不区分大小写子串匹配（与旧版 local JSON 行为一致）。
+                if str_ids:
+                    res = target_collection.get(
+                        ids=str_ids,
+                        include=["metadatas", "documents"],
+                    )
+                    ids = res.get("ids") or []
+                    docs = res.get("documents") or []
+                    metas = res.get("metadatas") or []
+                    f_ids, f_docs, f_metas = [], [], []
+                    for i, doc in enumerate(docs):
+                        text = "" if doc is None else str(doc)
+                        if needle_lower in text.lower():
+                            f_ids.append(ids[i])
+                            f_docs.append(doc)
+                            f_metas.append(metas[i] if i < len(metas) else {})
+                    return {"ids": f_ids, "documents": f_docs, "metadatas": f_metas}
+
+                # 全库：先 FTS $contains（区分大小写），再小写短语、再不区分大小写正则
+                res = target_collection.get(
+                    where_document={"$contains": search_term},
+                    include=["metadatas", "documents"],
+                )
+                if not (res and res.get("ids")) and search_term != needle_lower:
+                    res = target_collection.get(
+                        where_document={"$contains": needle_lower},
+                        include=["metadatas", "documents"],
+                    )
+                if not (res and res.get("ids")):
                     try:
-                        real_item = json.loads(meta["full_json"])
-                    except:
-                        pass
-                
-                # 构造返回格式，与 query_by_semantic 一致
-                # 如果是图片(有full_json)，提取title, summary, insight
-                if "full_json" in meta:
-                    content = {
-                        "title": real_item.get("title", item.get("title", "No Title")),
-                        "summary": real_item.get("concise_summary", item.get("summary", "")),
-                        "insight": real_item.get("inferred_insight", item.get("insight", ""))
-                    }
-                else:
-                    # 文本块
-                    raw_content = item.get("content", "")
-                    content = {
-                        "title": meta.get("paper_name", meta.get("file_name", "Text Chunk")),
-                        "text": raw_content,
-                        "summary": raw_content[:150] + "..." if len(raw_content) > 150 else raw_content
-                    }
-                
-                results.append({
-                    "id": str(item.get("id", "")),
-                    "content": content,
-                    "score": 1.0,  # 纯文本精确匹配，得分定为 1.0
-                    "metadata": item
-                })
-                
-        # 按需截断
-        if n_results and n_results > 0:
-            results = results[:n_results]
+                        rx = "(?i)" + re.escape(search_term)
+                        res = target_collection.get(
+                            where_document={"$regex": rx},
+                            include=["metadatas", "documents"],
+                        )
+                    except Exception as _rx_e:
+                        print(f"⚠️ Exact Search $regex 回退未使用: {_rx_e}")
+                        res = {"ids": [], "documents": [], "metadatas": []}
+                return res
+            except Exception as e:
+                print(f"❌ Exact Search Query Error: {e}")
+                return None
 
-        print(f"   ✅ 精确匹配到 {len(results)} 条数据")
-        return results
+        raw_results = await asyncio.to_thread(_sync_exact)
+        if not raw_results or not raw_results.get("ids"):
+            print(f"   ✅ 精确匹配到 0 条数据")
+            return []
+            
+        # 包装成 query 返回的格式以便复用 _format_results
+        wrapped_results = {
+            "ids": [raw_results["ids"]],
+            "metadatas": [raw_results["metadatas"]],
+            "documents": [raw_results["documents"]],
+            "distances": [[None] * len(raw_results["ids"])]
+        }
+        
+        formatted = self._format_results(wrapped_results, is_semantic=False)
+        
+        # 按需截断返回数量
+        if n_results and n_results > 0:
+            formatted = formatted[:n_results]
+
+        print(f"   ✅ 精确匹配到 {len(formatted)} 条数据")
+        return formatted
 
     # =========================================================================
     #  ✨ 接口 B: 本地内存检索 (不查库，只查 List)
@@ -862,6 +908,31 @@ class RAGService:
                     results = results[:n]
             except Exception:
                 pass
+
+        # 🚀 改进：因为 local_data_cache 的 content 字段可能是截断的（200字符），
+        # 我们用匹配到的 id 去 Chroma 取完整的 documents，以便下游能够获得不被截断的完整数据。
+        matched_ids = [str(r["id"]) for r in results]
+        if matched_ids:
+            try:
+                target_collection = await self._get_chroma_collection(self.collection_name)
+                if target_collection:
+                    def _sync_get():
+                        return target_collection.get(
+                            ids=matched_ids,
+                            include=["metadatas", "documents"]
+                        )
+                    raw_results = await asyncio.to_thread(_sync_get)
+                    if raw_results and raw_results.get("ids"):
+                        wrapped_results = {
+                            "ids": [raw_results["ids"]],
+                            "metadatas": [raw_results["metadatas"]],
+                            "documents": [raw_results["documents"]],
+                            "distances": [[None] * len(raw_results["ids"])]
+                        }
+                        formatted = self._format_results(wrapped_results, is_semantic=False)
+                        return formatted
+            except Exception as e:
+                print(f"❌ Local Filter fallback to Chroma Error: {e}")
 
         return results
     

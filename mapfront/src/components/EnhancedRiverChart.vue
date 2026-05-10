@@ -7,7 +7,7 @@
       @wheel.prevent="handleGridWheel"
       @mousedown="startViewportPan"
     >
-      <div v-if="!hasGridContent" class="river-empty-state">没有可用的实验数据</div>
+      <div v-if="!hasGridContent" class="river-empty-state">Lack of Data</div>
 
       <div
         v-else
@@ -56,47 +56,7 @@
             大追问
           </button>
 
-          <button
-            v-for="b in miniFollowUpTriggerButtons"
-            :key="b.key"
-            type="button"
-            class="mini-followup-trigger"
-            :style="b.style"
-            :disabled="isSubmitting"
-            title="小追问：在本会话追加一次自选策略检索"
-            @click.stop="openMiniFollowUp(b.sessionId)"
-          >
-            小追问
-          </button>
-
-          <div
-            v-if="miniFollowUpDraft && miniFollowUpPanelLayout"
-            class="mini-followup-panel"
-            :style="miniFollowUpPanelLayout.style"
-            @click.stop
-          >
-            <div class="mini-followup-panel-title">小追问</div>
-            <label class="mini-followup-label">策略类型</label>
-            <select v-model="miniFollowUpDraft.strategy" class="mini-followup-select">
-              <option value="semantic">语义检索</option>
-              <option value="exact">精确检索</option>
-              <option value="metadata">元数据检索</option>
-            </select>
-            <label class="mini-followup-label">
-              {{ miniFollowUpDraft.strategy === 'metadata' ? 'paper_id 或关键词（逗号分隔）' : '检索内容' }}
-            </label>
-            <input
-              v-model="miniFollowUpDraft.paramText"
-              type="text"
-              class="mini-followup-input"
-              :placeholder="miniFollowUpParamPlaceholder"
-              @keyup.enter="submitMiniFollowUp"
-            />
-            <div class="mini-followup-actions">
-              <button type="button" class="btn btn-submit mini-followup-run" @click="submitMiniFollowUp">检索</button>
-              <button type="button" class="btn" @click="closeMiniFollowUp">取消</button>
-            </div>
-          </div>
+          <!-- NOTE: 按需求隐藏中间网格的「小追问」入口与面板 -->
 
           <div
             v-for="header in headerCells"
@@ -137,28 +97,52 @@
               class="strategy-card-header"
               @mousedown.stop.prevent="startCardDrag($event, card)"
             >
-              <div class="strategy-card-title-wrap">
-                <div class="strategy-card-title">{{ card.title }}</div>
-                <div
-                  v-for="(line, i) in card.searchLines"
-                  :key="`${card.key}-sq-${i}`"
-                  class="strategy-card-subtitle"
-                >{{ line }}</div>
-                <div class="strategy-card-subtitle">{{ card.subtitle }}</div>
+              <div class="strategy-card-header-top">
+                <div class="strategy-card-header-left">
+                  <span
+                    class="strategy-type-badge"
+                    :class="'is-' + strategyCardSearchBadge(card).kind"
+                    :title="strategyCardSearchBadge(card).tooltip"
+                  >{{ strategyCardSearchBadge(card).letter }}</span>
+                  <!-- 此处只显示 title；勿改回 subtitle||title -->
+                  <div class="strategy-card-subtitle-main">{{ card.title }}</div>
+                </div>
+                <div class="strategy-card-header-actions">
+                  <button
+                    type="button"
+                    class="card-circle-btn card-circle-btn-danger"
+                    title="Delete（待接入）"
+                    @mousedown.stop
+                    @click.stop="handleStrategyHeaderAction('D', card)"
+                  >D</button>
+                  <button
+                    type="button"
+                    class="card-circle-btn"
+                    title="Continue"
+                    @mousedown.stop
+                    @click.stop="handleStrategyHeaderAction('C', card)"
+                  >C</button>
+                  <button
+                    type="button"
+                    class="card-circle-btn card-circle-btn-primary"
+                    title="Rewrite：用编辑后的问题重新检索"
+                    @mousedown.stop
+                    @click.stop="handleStrategyHeaderAction('R', card)"
+                  >R</button>
+                </div>
               </div>
-              <div class="strategy-card-tools">
-                <button
-                  v-if="orchestratorPlanHasPlanSummary(card.query?.orchestrator_plan)"
-                  class="card-icon-btn"
-                  title="查看策略总结（answer / suggestion）"
-                  @click.stop="showPlanSummary(card.planSummaryPayload)"
-                >Σ</button>
-                <button
-                  v-if="mergeSourceCount(card.query) > 0"
-                  class="card-icon-btn"
-                  title="拆分合并结果"
-                  @click.stop="splitMergedStrategies(card.roundNumber, card.queryIndex, card.sessionId)"
-                >↺</button>
+
+              <div class="strategy-card-header-line">
+                <textarea
+                  :value="getStrategyCardDraftQuery(card)"
+                  class="strategy-card-query-input"
+                  spellcheck="false"
+                  rows="2"
+                  @input="setStrategyCardDraftQuery(card, $event.target.value)"
+                  @mousedown.stop
+                  @click.stop
+                  @keyup.enter.stop="handleStrategyHeaderAction('R', card)"
+                ></textarea>
               </div>
             </div>
 
@@ -167,11 +151,41 @@
                 :ref="miniMapRefName(card.gridColKey, card.queryIndex)"
                 class="strategy-mini-svg"
               ></svg>
+              <button
+                v-if="card.query && card.query._continue_auto_pending"
+                type="button"
+                class="strategy-auto-btn"
+                title="Auto continue"
+                @click.stop="runContinueAuto(card)"
+              >auto</button>
             </div>
 
-            <div class="strategy-card-footer">
-              <span>新增: {{ card.query?.newCount || 0 }}</span>
-              <span>减少: {{ card.query?.removeCount || 0 }}</span>
+            <div class="strategy-card-footer strategy-card-footer--eval">
+              <div class="strategy-card-footer-eval-left">
+                <span
+                  v-for="seg in strategyCardEvalStatSegments(card)"
+                  :key="seg.action"
+                  class="strategy-eval-stat strategy-eval-stat--filterable"
+                  :class="{
+                    'is-mini-map-filter-selected': strategyMiniMapEvalFilterIsActive(card, seg.action),
+                  }"
+                  role="button"
+                  tabindex="0"
+                  title="点击查看小地图中该评估结果的点；再点一次取消筛选"
+                  @click.stop="toggleStrategyMiniMapEvalFilter(card, seg.action)"
+                  @mousedown.stop
+                  @keyup.enter.prevent.stop="toggleStrategyMiniMapEvalFilter(card, seg.action)"
+                >
+                  <span
+                    class="strategy-eval-dot"
+                    :style="{ background: seg.color }"
+                  ></span>
+                  <span>{{ seg.count }}</span>
+                </span>
+              </div>
+              <span class="strategy-card-footer-media-right">{{
+                strategyCardMediaStatsLine(card)
+              }}</span>
             </div>
           </div>
 
@@ -198,7 +212,7 @@
         class="drag-drop-hint"
         :style="dragHintStyle"
       >
-        {{ dragState.hoverTarget.mode === 'merge' ? '松开以合并' : '松开以交换位置' }}
+        {{ dragState.hoverTarget.mode === 'merge' ? 'release to merge' : 'release to swap positions' }}
       </div>
     </div>
 
@@ -227,9 +241,18 @@
     <!-- PlanSummary 弹窗 -->
     <div v-if="showPlanSummaryModal" class="modal" @click.self="closePlanSummaryModal">
       <div class="modal-content plan-summary-modal">
-        <div class="modal-header">
+        <div class="modal-header plan-summary-modal-header">
           <h2>策略总结 - 轮次 {{ selectedPlanSummary?.roundNumber }} 查询 {{ selectedPlanSummary?.queryIndex + 1 }}</h2>
-          <button @click="closePlanSummaryModal" class="close-btn">×</button>
+          <div class="plan-summary-header-actions">
+            <button
+              type="button"
+              class="plan-summary-delete-btn"
+              title="从当前行移除该策略（JSON 同步删除，后方策略前移）"
+              :disabled="deletingStrategy"
+              @click="deleteSelectedStrategy"
+            >删除策略</button>
+            <button type="button" @click="closePlanSummaryModal" class="close-btn">×</button>
+          </div>
         </div>
         <div class="modal-body">
           <div class="plan-summary-meta">
@@ -250,7 +273,7 @@
             v-if="(selectedPlanSummary?.hydeText || '').trim()"
             class="plan-summary-hyde"
           >
-            <div class="plan-summary-hyde-title">HyDE 假想段落</div>
+            <div class="plan-summary-hyde-title">HyDE</div>
             <pre class="plan-summary-hyde-body">{{ selectedPlanSummary.hydeText }}</pre>
           </div>
           <div class="summary-content" v-html="formatSummary(selectedPlanSummary?.summary)"></div>
@@ -267,10 +290,25 @@
         </div>
         <div class="modal-body">
           <ItemDetail v-if="selectedPointDetail" :item="selectedPointDetail" />
-          <div v-if="selectedPointContext" class="point-detail-actions">
-            <button type="button" class="btn danger point-delete-btn" @click="deleteSelectedRagPoint">
-              Remove point
-            </button>
+          <div v-if="selectedPointContext" class="point-detail-actions-group">
+            <button 
+              type="button" 
+              class="btn-eval btn-grow" 
+              :class="{ active: currentPointEvalAction === 'GROW' }"
+              @click="changePointEvalAction('GROW')"
+            >GROW</button>
+            <button 
+              type="button" 
+              class="btn-eval btn-keep" 
+              :class="{ active: currentPointEvalAction === 'KEEP' }"
+              @click="changePointEvalAction('KEEP')"
+            >KEEP</button>
+            <button 
+              type="button" 
+              class="btn-eval btn-prune" 
+              :class="{ active: currentPointEvalAction === 'PRUNE' }"
+              @click="changePointEvalAction('PRUNE')"
+            >PRUNE</button>
           </div>
         </div>
       </div>
@@ -400,6 +438,10 @@ export default {
       addQuestionDraft: '',
       /** 小追问：在对应会话首行末列旁打开的面板 { sessionId, strategy, paramText } */
       miniFollowUpDraft: null,
+      /** 策略卡片可编辑检索问题：{ [cardKey]: string } */
+      strategyCardDraftQueries: {},
+      /** 底栏评估色点 → 小地图仅显示该类：{ [cardKey]: 'KEEP'|'GROW'|'PRUNE'|'UNKNOWN' } */
+      strategyMiniMapEvalFilter: {},
       roundsData: [],
       svgWidth: 0,
       svgHeight: 0,
@@ -432,11 +474,13 @@ export default {
       // 弹窗相关
       showPlanSummaryModal: false,
       selectedPlanSummary: null,
+      deletingStrategy: false,
       showRoundSummaryModal: false,
       selectedRoundSummary: null,
       showPointDetailModal: false,
       selectedPointDetail: null,
       selectedPointContext: null,
+      pendingPointOperations: [],
       // 用户输入相关
       userQuestion: '',
       isSubmitting: false,
@@ -521,6 +565,16 @@ export default {
     ItemDetail
   },
   computed: {
+    currentPointEvalAction() {
+      const ctx = this.selectedPointContext;
+      const resultId = this.selectedPointDetail?.id || ctx?.rag?.retrieval_result?.id;
+      if (!ctx || !resultId) return 'UNKNOWN';
+
+      const pending = this.pendingPointOperations.find(p => p.target_evidence_id === resultId);
+      if (pending) return pending.after;
+
+      return ctx.rag?.evaluation?.branch_action || 'UNKNOWN';
+    },
     totalWidth() {
       const maxRound = Math.max(...this.roundsData.map(r => r.round_number), 0);
       return (maxRound + 1) * (this.strategyWidth + this.roundMargin) + this.roundMargin;
@@ -867,11 +921,12 @@ export default {
             queryIndex,
             query,
             rect,
-            title: `R${round.round_number}.${queryIndex + 1} ${query?.orchestrator_plan?.tool_name || 'strategy'}`,
+            title: `R${queryIndex + 1}.${round.round_number}`,
             searchLines: collectSearchLines(query),
             subtitle: this.strategyCardSubtitleText(query, round.round_number),
             edges: this.getCardHighlightEdges(round, queryIndex),
             planSummaryPayload: {
+              sessionId: round._sessionId,
               roundNumber: round.round_number,
               queryIndex,
               parentNode: query?.orchestrator_plan?.ParentNode ?? query?.orchestrator_plan?.parentNode ?? null,
@@ -947,26 +1002,90 @@ export default {
   },
   methods: {
     emitUserOperationsChange() {
-      const rows = [];
+      const rowsMap = new Map(); // key -> row
+      const layoutPoints = this.getCanonicalLayoutPoints() || [];
+      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      layoutPoints.forEach(pt => {
+        if (pt.x < minX) minX = pt.x;
+        if (pt.x > maxX) maxX = pt.x;
+        if (pt.y < minY) minY = pt.y;
+        if (pt.y > maxY) maxY = pt.y;
+      });
+
+      const getOrCreateRow = (sessionId, roundNumber, queryIndex, toolName) => {
+        const key = `${sessionId || 'default'}-${roundNumber}-${queryIndex}`;
+        if (!rowsMap.has(key)) {
+          rowsMap.set(key, {
+            key,
+            sessionId: sessionId || '',
+            roundNumber: Number(roundNumber),
+            queryIndex,
+            label: `R ${roundNumber}.${queryIndex + 1}`,
+            toolName: toolName || '',
+            operationsMap: new Map(), // resultId -> op
+            hasPending: false,
+            thumbnailPointsMap: new Map(), // resultId -> {x, y, action}
+          });
+        }
+        return rowsMap.get(key);
+      };
+
       const pushFromRounds = (rounds, sessionId = '') => {
         (rounds || []).forEach((round) => {
           if (!round || round.round_number === undefined) return;
           (round.query_results || []).forEach((query, queryIndex) => {
-            const deletes = query?.orchestrator_plan?.userdo?.delete;
-            if (!Array.isArray(deletes) || deletes.length === 0) return;
-            rows.push({
-              key: `${sessionId || 'default'}-${round.round_number}-${queryIndex}`,
-              sessionId: sessionId || '',
-              roundNumber: Number(round.round_number),
-              queryIndex,
-              label: `R ${round.round_number}.${queryIndex + 1}`,
-              toolName: query?.orchestrator_plan?.tool_name || '',
-              operations: deletes.map((op, opIndex) => ({
-                key: `${sessionId || 'default'}-${round.round_number}-${queryIndex}-delete-${opIndex}`,
-                type: 'delete',
-                targetEvidenceId: op?.target_evidence_id || '',
-                timestamp: op?.timestamp || '',
-              })),
+            const toolName = query?.orchestrator_plan?.tool_name || '';
+            const userdo = query?.orchestrator_plan?.userdo || {};
+            const deletes = userdo.delete || [];
+            const points = userdo.point || [];
+            
+            const row = getOrCreateRow(sessionId, round.round_number, queryIndex, toolName);
+
+            if (query && Array.isArray(query.rag_results)) {
+              query.rag_results.forEach(rag => {
+                const pt = this.findLayoutPointForRetrieval(layoutPoints, rag.retrieval_result);
+                if (pt) {
+                  const resultId = rag.retrieval_result.id;
+                  const action = rag.evaluation?.branch_action || 'UNKNOWN';
+                  const px = (maxX > minX) ? ((pt.x - minX) / (maxX - minX)) * 100 : 50;
+                  const py = (maxY > minY) ? (100 - ((pt.y - minY) / (maxY - minY)) * 100) : 50;
+                  const ctx = {
+                    sessionId,
+                    roundNumber: round.round_number,
+                    queryIndex,
+                    query,
+                    rag
+                  };
+                  row.thumbnailPointsMap.set(resultId, {
+                    x: px,
+                    y: py,
+                    action: action,
+                    ctx: ctx
+                  });
+                }
+              });
+            }
+
+            deletes.forEach(op => {
+              if (op?.target_evidence_id) {
+                row.operationsMap.set(op.target_evidence_id, {
+                  type: 'delete',
+                  action: 'PRUNE',
+                  targetEvidenceId: op.target_evidence_id,
+                  timestamp: op.timestamp || '',
+                });
+              }
+            });
+
+            points.forEach(op => {
+              if (op?.target_evidence_id) {
+                row.operationsMap.set(op.target_evidence_id, {
+                  type: 'point',
+                  action: op.after || 'UNKNOWN',
+                  targetEvidenceId: op.target_evidence_id,
+                  timestamp: op.timestamp || '',
+                });
+              }
             });
           });
         });
@@ -977,43 +1096,57 @@ export default {
       });
       pushFromRounds(this.roundsData || [], this.activeSessionId || 'default');
 
-      // 兜底：如果当前展示数据尚未同步，但 experimentResult 里已经有 userdo，也直接扫描。
       const er = this.experimentResult;
       if (er && Array.isArray(er.iterations)) {
-        const seen = new Set(rows.map((x) => x.key));
-        (er.iterations || []).forEach((round) => {
-          if (!round || round.round_number === undefined) return;
-        (round.query_results || []).forEach((query, queryIndex) => {
-          const deletes = query?.orchestrator_plan?.userdo?.delete;
-          if (!Array.isArray(deletes) || deletes.length === 0) return;
-            const key = `${er.session_id || this.activeSessionId || 'experiment'}-${round.round_number}-${queryIndex}`;
-            if (seen.has(key)) return;
-            seen.add(key);
-          rows.push({
-              key,
-              sessionId: er.session_id || this.activeSessionId || '',
-            roundNumber: Number(round.round_number),
-            queryIndex,
-            label: `R ${round.round_number}.${queryIndex + 1}`,
-            toolName: query?.orchestrator_plan?.tool_name || '',
-            operations: deletes.map((op, opIndex) => ({
-                key: `${key}-delete-${opIndex}`,
-              type: 'delete',
-              targetEvidenceId: op?.target_evidence_id || '',
-              timestamp: op?.timestamp || '',
-            })),
-          });
-        });
-      });
+        pushFromRounds(er.iterations || [], er.session_id || this.activeSessionId || 'experiment');
       }
-      rows.sort((a, b) => {
+
+      this.pendingPointOperations.forEach(pending => {
+        const row = getOrCreateRow(pending.sessionId, pending.roundNumber, pending.ctx?.queryIndex || 0, pending.planTool);
+        row.hasPending = true;
+        
+        row.operationsMap.set(pending.target_evidence_id, {
+          type: 'point',
+          action: pending.after,
+          targetEvidenceId: pending.target_evidence_id,
+          timestamp: pending.timestamp,
+        });
+
+        if (row.thumbnailPointsMap.has(pending.target_evidence_id)) {
+           row.thumbnailPointsMap.get(pending.target_evidence_id).action = pending.after;
+        }
+      });
+
+      const finalRows = [];
+      for (const row of rowsMap.values()) {
+        if (row.operationsMap.size === 0 && !row.hasPending) continue;
+        
+        const operations = Array.from(row.operationsMap.values()).map((op, idx) => ({
+          key: `${row.key}-op-${idx}`,
+          type: op.type,
+          action: op.action,
+          targetEvidenceId: op.targetEvidenceId,
+          timestamp: op.timestamp,
+        }));
+        
+        const thumbnailPoints = Array.from(row.thumbnailPointsMap.values());
+
+        finalRows.push({
+          ...row,
+          operations,
+          thumbnailPoints
+        });
+      }
+
+      finalRows.sort((a, b) => {
         if (String(a.sessionId) !== String(b.sessionId)) {
           return String(a.sessionId).localeCompare(String(b.sessionId));
         }
         if (a.roundNumber !== b.roundNumber) return a.roundNumber - b.roundNumber;
         return a.queryIndex - b.queryIndex;
       });
-      this.$emit('user-operations-change', rows);
+
+      this.$emit('user-operations-change', finalRows);
     },
 
     /**
@@ -1165,6 +1298,7 @@ export default {
               }
               console.log('[WS] 收到 experiment_result，包含 plansummary');
               this.syncPlanSummariesFromExperimentResult();
+              this.syncInteractiveReportFromHypothesis(this.experimentResult);
               if (this.roundsData.length > 0 || this.completedQuestionColumns.length > 0) {
                 this.$nextTick(() => this.drawRiverChart());
               }
@@ -1188,6 +1322,7 @@ export default {
                 col.roundsData = merged;
                 this.syncPlanStatesWithGraph(data);
                 this.syncPlanSummariesFromExperimentResult();
+                this.syncInteractiveReportFromHypothesis(this.experimentResult);
                 this.incrementalRoundsData = JSON.parse(
                   JSON.stringify(this.getActiveSessionBaseRounds())
                 );
@@ -1215,6 +1350,7 @@ export default {
                 this.setActiveSessionRounds(nextRounds);
               }
               this.syncPlanSummariesFromExperimentResult();
+              this.syncInteractiveReportFromHypothesis(this.experimentResult);
               this.incrementalRoundsData = JSON.parse(JSON.stringify(nextRounds));
               this.$nextTick(() => this.drawRiverChart());
             }
@@ -1236,6 +1372,11 @@ export default {
     },
     _ingestPlanCreatedIntoRoundsArray(roundsArray, planData) {
       const { round_number, plan_id, orchestrator_plan } = planData;
+      const rewriteMode = !!planData.rewrite_mode;
+      const rewriteIndex =
+        planData.rewrite_target_query_index != null
+          ? Number(planData.rewrite_target_query_index)
+          : null;
       this.planStates[plan_id] = {
         round_number,
         orchestrator_plan,
@@ -1247,6 +1388,16 @@ export default {
         round = { round_number, query_results: [] };
         roundsArray.push(round);
         roundsArray.sort((a, b) => a.round_number - b.round_number);
+      }
+      if (rewriteMode && rewriteIndex != null && rewriteIndex >= 0) {
+        while (round.query_results.length <= rewriteIndex) {
+          round.query_results.push({ orchestrator_plan: null, rag_results: [] });
+        }
+        round.query_results.splice(rewriteIndex, 1, {
+          orchestrator_plan,
+          rag_results: []
+        });
+        return;
       }
       round.query_results.push({
         orchestrator_plan,
@@ -1438,7 +1589,23 @@ export default {
           }))
           };
         });
-        rounds.push({ round_number: roundNum, query_results: queryResults });
+        // 使用 orchestrator_plan.grid_pos[0] 将策略固定到对应“行”（并行轨）
+        const positioned = [];
+        queryResults.forEach((qr) => {
+          const gp = qr?.orchestrator_plan?.grid_pos;
+          if (Array.isArray(gp) && gp.length >= 1) {
+            const row = Number(gp[0]);
+            if (Number.isFinite(row) && row >= 1) {
+              const idx = row - 1;
+              while (positioned.length <= idx) positioned.push(null);
+              positioned[idx] = qr;
+              return;
+            }
+          }
+          positioned.push(qr);
+        });
+        while (positioned.length > 1 && positioned[positioned.length - 1] == null) positioned.pop();
+        rounds.push({ round_number: roundNum, query_results: positioned.filter((x) => x != null) });
       });
       rounds.sort((a, b) => a.round_number - b.round_number);
       return rounds;
@@ -1455,6 +1622,9 @@ export default {
      * 若有 rerank 前候选 id 列表，附加 HyDE/向量池规模（与 rag 日志「候选池 top-K」一致）。
      */
     strategyCardSubtitleText(query, roundNumber) {
+      if (query && query._continue_auto_pending) {
+        return 'new strategy';
+      }
       const graphN = (query?.rag_results || []).length;
       let expN = 0;
       const er = this.experimentResult;
@@ -1656,6 +1826,9 @@ export default {
       out.iterations.sort((a, b) => a.round_number - b.round_number);
       if (incoming.root_goal && !out.root_goal) {
         out.root_goal = incoming.root_goal;
+      }
+      if (incoming.hypothesis) {
+        out.hypothesis = JSON.parse(JSON.stringify(incoming.hypothesis));
       }
       return out;
     },
@@ -2023,10 +2196,14 @@ export default {
         }
         
         console.log('加载的实验数据:', this.roundsData);
-        console.log('Hypothesis 数据:', experimentData.hypothesis);
+        console.log('Hypothesis 数据:', this.experimentResult?.hypothesis);
+        
+        this.syncInteractiveReportFromHypothesis(this.experimentResult);
+        
         this.forkExperimentSource = String(this.selectedDataFile || '')
           .trim()
           .replace(/\\/g, '/');
+        this.$store.commit('setExperimentSourceFile', this.forkExperimentSource);
         this.syncPlanSummariesFromExperimentResult();
         this.drawRiverChart();
       } catch (error) {
@@ -2035,7 +2212,82 @@ export default {
       }
     },
 
-    // FootprintRAG风格：确保箭头标记存在
+    syncInteractiveReportFromHypothesis(experimentData) {
+      console.log('[syncInteractiveReport] start, hypothesis:', experimentData?.hypothesis);
+      if (!experimentData || !experimentData.hypothesis || !experimentData.hypothesis.sections) {
+        console.log('[syncInteractiveReport] skipping, invalid data');
+        return;
+      }
+      
+      console.log('[syncInteractiveReport] clearing old and processing sections...', experimentData.hypothesis.sections.length);
+      this.$store.commit('clearInteractiveReport');
+      experimentData.hypothesis.sections.forEach(sec => {
+        this.$store.commit('addInteractiveReportSection', { 
+          title: sec.step_name, 
+          text: sec.response 
+        });
+        // Try to extract chunk IDs using regex \[([^\]]+)\]
+        const chunkIdRegex = /\[([^\]]+)\]/g;
+        let match;
+        const chunkIds = [];
+        while ((match = chunkIdRegex.exec(sec.response)) !== null) {
+          chunkIds.push(match[1]);
+        }
+        // If we have chunk IDs, we need to map them to real item objects
+        if (chunkIds.length > 0) {
+          // We'll search across all query results for matching chunk_ids
+          const allResults = [];
+          
+          const pushResultsFromRounds = (rounds) => {
+            (rounds || []).forEach(r => {
+              (r.query_results || []).forEach(qr => {
+                (qr.rag_results || []).forEach(rag => {
+                   allResults.push(rag);
+                });
+              });
+            });
+          };
+
+          (this.completedQuestionColumns || []).forEach(col => {
+            pushResultsFromRounds(col.roundsData);
+          });
+          
+          if (experimentData && experimentData.iterations) {
+            pushResultsFromRounds(experimentData.iterations);
+          } else {
+            pushResultsFromRounds(this.roundsData);
+          }
+          
+          const sectionsList = this.$store.state.interactiveReportSections;
+          if (sectionsList.length > 0) {
+            const sectionId = sectionsList[sectionsList.length - 1].id;
+            
+            chunkIds.forEach(cid => {
+               const matchedRag = allResults.find(rag => {
+                  const ret = rag.retrieval_result || {};
+                  return ret.id === cid || ret.chunk_id === cid || rag.chunk_id === cid || (ret.metadata && ret.metadata.chunk_id === cid);
+               });
+               if (matchedRag) {
+                 const rr = matchedRag.retrieval_result || {};
+                 const ragForBuild = { ...rr, evaluation: matchedRag.evaluation || null };
+                 const item = buildInteractiveReportItemFromRag(this.$store.getters, ragForBuild, {
+                   mapPointForId: (id) => this.findPointById(id)
+                 });
+                 if (item) {
+                   this.$store.commit('addPointToInteractiveReportSection', { sectionId, item });
+                 }
+               } else {
+                 // Fallback: Add a mock point just to show it was cited
+                 this.$store.commit('addPointToInteractiveReportSection', { 
+                   sectionId, 
+                   item: { id: cid, title: `Cited: ${cid}`, type: 'text', branch_action: 'UNKNOWN' } 
+                 });
+               }
+            });
+          }
+        }
+      });
+    },
     _ensureArrowhead(svg) {
       const defs = svg.select('defs').empty() ? svg.append('defs') : svg.select('defs');
       if (defs.select('#river-arrowhead').empty()) {
@@ -2471,7 +2723,19 @@ export default {
         svg.attr('width', mapWidth).attr('height', mapHeight);
         const rootG = svg.append('g');
         if (card.query?.rag_results?.length) {
-          this.drawStrategyMap(rootG, card.query, 0, 0, mapWidth, mapHeight, card.roundNumber, card.queryIndex, card.sessionId);
+          const miniMapEvalFilter = this.strategyMiniMapEvalFilter[card.key] || null;
+          this.drawStrategyMap(
+            rootG,
+            card.query,
+            0,
+            0,
+            mapWidth,
+            mapHeight,
+            card.roundNumber,
+            card.queryIndex,
+            card.sessionId,
+            miniMapEvalFilter
+          );
         } else {
           svg.append('text')
             .attr('x', mapWidth / 2)
@@ -2500,13 +2764,29 @@ export default {
       };
     },
 
-drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, roundNumber, queryIndex, sessionId = '') {
+    drawStrategyMap(
+      strategyGroup,
+      query,
+      rectX,
+      rectY,
+      rectWidth,
+      rectHeight,
+      roundNumber,
+      queryIndex,
+      sessionId = '',
+      miniMapEvalFilter = null
+    ) {
       const layoutPoints = this.getCanonicalLayoutPoints();
       // const isEmptyQuery = !query.rag_results || query.rag_results.length === 0;
       const ragPoints = [];
       const missingIds = [];
       
       query.rag_results.forEach(rag => {
+        const normEval = miniMapEvalFilter ? this.strategyCardNormalizeBranchAction(rag) : null;
+        if (miniMapEvalFilter && normEval !== miniMapEvalFilter) {
+          return;
+        }
+
         // 如果启用了隐藏PRUNE，跳过PRUNE节点
         if (this.hidePrunePoints) {
           const branchAction = rag.evaluation?.branch_action || 'UNKNOWN';
@@ -3442,6 +3722,74 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
     closePlanSummaryModal() {
       this.showPlanSummaryModal = false;
       this.selectedPlanSummary = null;
+      this.deletingStrategy = false;
+    },
+
+    async deleteSelectedStrategy() {
+      const p = this.selectedPlanSummary;
+      if (!p) return;
+      const sourcePath = this.forkExperimentSource || this.selectedDataFile;
+      if (!sourcePath) {
+        window.alert('请先加载实验 JSON（或设置 fork 源路径），才能同步删除落盘。');
+        return;
+      }
+      if (!window.confirm(`确定删除轮次 ${p.roundNumber} 的第 ${p.queryIndex + 1} 个策略？同行后续策略会前移。`)) {
+        return;
+      }
+      const sessionIdRaw =
+        p.sessionId != null && String(p.sessionId).trim() !== ''
+          ? String(p.sessionId).trim()
+          : String(this.activeSessionId || '').trim();
+      this.deletingStrategy = true;
+      try {
+        const resp = await fetch('/api/experiment-remove-strategy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            source_path: sourcePath,
+            session_id: sessionIdRaw,
+            round_number: p.roundNumber,
+            query_index: p.queryIndex,
+          }),
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok || !data.ok) {
+          throw new Error(data.detail || `HTTP ${resp.status}`);
+        }
+        if (data.path) {
+          this.forkExperimentSource = data.path;
+          this.selectedDataFile = data.path;
+        }
+
+        const sid = sessionIdRaw || this.activeSessionId || 'default';
+        const round = this.getRoundRef(p.roundNumber, sid);
+        if (round && Array.isArray(round.query_results)) {
+          const qi = p.queryIndex;
+          if (qi >= 0 && qi < round.query_results.length) {
+            round.query_results.splice(qi, 1);
+          }
+        }
+        const activeSid = this.activeSessionId || 'default';
+        if (sid !== activeSid) {
+          const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
+          if (col && col.roundsData) {
+            col.roundsData = [...col.roundsData];
+          }
+        } else {
+          this.roundsData = [...(this.roundsData || [])];
+        }
+
+        this.closePlanSummaryModal();
+        this.$nextTick(() => {
+          this.drawRiverChart();
+          if (typeof this.emitUserOperationsChange === 'function') {
+            this.emitUserOperationsChange();
+          }
+        });
+      } catch (e) {
+        window.alert(`删除策略失败: ${e.message || e}`);
+        this.deletingStrategy = false;
+      }
     },
 
     formatArgs(args) {
@@ -3949,6 +4297,196 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       if (rag) this.markRagResultPruned(rag, resultId);
     },
 
+    /** 与底栏 / 筛选一致：evaluation.branch_action → KEEP | GROW | PRUNE | UNKNOWN */
+    strategyCardNormalizeBranchAction(rag) {
+      const raw = rag?.evaluation?.branch_action;
+      const a =
+        raw == null || String(raw).trim() === ''
+          ? 'UNKNOWN'
+          : String(raw).trim().toUpperCase();
+      if (a === 'KEEP' || a === 'GROW' || a === 'PRUNE') return a;
+      return 'UNKNOWN';
+    },
+
+    strategyMiniMapEvalFilterIsActive(card, action) {
+      return !!(card && card.key && this.strategyMiniMapEvalFilter[card.key] === action);
+    },
+
+    toggleStrategyMiniMapEvalFilter(card, action) {
+      if (!card || !card.key) return;
+      const k = card.key;
+      const next = { ...this.strategyMiniMapEvalFilter };
+      if (next[k] === action) delete next[k];
+      else next[k] = action;
+      this.strategyMiniMapEvalFilter = next;
+      this.$nextTick(() => this.renderAllMiniMaps());
+    },
+
+    /** 策略卡底栏：按 evaluation.branch_action 聚合（与小地图筛选一致） */
+    strategyCardEvalCounts(card) {
+      const q = card?.query;
+      const list = q?.rag_results;
+      const out = { KEEP: 0, GROW: 0, PRUNE: 0, UNKNOWN: 0 };
+      if (!Array.isArray(list)) return out;
+      for (const rag of list) {
+        const a = this.strategyCardNormalizeBranchAction(rag);
+        if (a === 'KEEP') out.KEEP += 1;
+        else if (a === 'GROW') out.GROW += 1;
+        else if (a === 'PRUNE') out.PRUNE += 1;
+        else out.UNKNOWN += 1;
+      }
+      return out;
+    },
+
+    strategyCardEvalStatSegments(card) {
+      const c = this.strategyCardEvalCounts(card);
+      return [
+        { action: 'KEEP', label: 'KEEP', count: c.KEEP, color: '#eec316' },
+        { action: 'GROW', label: 'GROW', count: c.GROW, color: '#379b61' },
+        { action: 'PRUNE', label: 'PRUNE', count: c.PRUNE, color: '#dc3545' },
+        { action: 'UNKNOWN', label: 'UNKNOWN', count: c.UNKNOWN, color: '#9AA3AD' },
+      ];
+    },
+
+    /** 与 drawStrategyMap 中单个 RAG 点的类型推断一致（picture ⇔ pic，其余⇔text） */
+    strategyCardResolveRagIsPicture(rr) {
+      if (!rr || typeof rr !== 'object') return false;
+      let rawType = rr?.metadata?.type || null;
+      try {
+        if (!rawType && rr?.metadata?.metadata) {
+          const nested = rr.metadata.metadata;
+          if (typeof nested === 'string') {
+            const parsed = JSON.parse(nested);
+            rawType = parsed?.type || null;
+          } else if (typeof nested === 'object') {
+            rawType = nested?.type || null;
+          }
+        }
+        if (!rawType && (rr?.metadata?.full_json || rr?.metadata?.savepath || rr?.metadata?.save_path)) {
+          rawType = 'picture';
+        }
+        if (!rawType && rr?.metadata?.metadata && typeof rr.metadata.metadata === 'string') {
+          const parsed = JSON.parse(rr.metadata.metadata);
+          if (parsed.full_json || parsed.savepath || parsed.save_path) {
+            rawType = 'picture';
+          }
+        }
+      } catch (e) {
+        /* ignore */
+      }
+      if (rawType === 'text') rawType = 'texture';
+      if (rawType === 'figure' || rawType === 'image') rawType = 'picture';
+      if (!rawType) {
+        try {
+          if (rr.metadata && typeof rr.metadata === 'string') {
+            const meta = JSON.parse(rr.metadata);
+            if (meta.type === 'texture' || meta.type === 'text') rawType = 'texture';
+            else if (meta.type === 'picture' || meta.type === 'figure' || meta.type === 'image') {
+              rawType = 'picture';
+            }
+          }
+          if (!rawType && rr.id && String(rr.id).includes('Figure')) rawType = 'picture';
+        } catch (e) {
+          /* ignore */
+        }
+      }
+      if (!rawType) {
+        try {
+          if (rr.metadata && typeof rr.metadata === 'object') {
+            if (rr.metadata.type === 'texture' || rr.metadata.type === 'text') rawType = 'texture';
+            else if (rr.metadata.type === 'picture' || rr.metadata.type === 'figure' || rr.metadata.type === 'image') {
+              rawType = 'picture';
+            }
+          }
+        } catch (e) {
+          /* ignore */
+        }
+      }
+      return rawType === 'picture';
+    },
+
+    strategyCardMediaCounts(card) {
+      const list = card?.query?.rag_results;
+      let pic = 0;
+      let text = 0;
+      if (!Array.isArray(list)) return { pic: 0, text: 0 };
+      for (const rag of list) {
+        const rr = rag?.retrieval_result || {};
+        if (this.strategyCardResolveRagIsPicture(rr)) pic += 1;
+        else text += 1;
+      }
+      return { pic, text };
+    },
+
+    strategyCardMediaStatsLine(card) {
+      const { pic, text } = this.strategyCardMediaCounts(card);
+      return `pic:${pic} text:${text}`;
+    },
+
+    /** 策略卡 userdo：在 orchestrator_plan.userdo 下追加 continue / regenerate 记录并落盘 fork JSON */
+    appendPlanUserdoContinueLocal(roundNumber, sessionId, queryIndex, newIntent) {
+      const sid = String(sessionId || '').trim();
+      const rr = this.getRoundRef(Number(roundNumber), sid);
+      const q = rr?.query_results?.[Number(queryIndex)];
+      const op = q?.orchestrator_plan;
+      if (!op || typeof op !== 'object') return;
+      if (!op.userdo || typeof op.userdo !== 'object') {
+        op.userdo = {};
+      }
+      if (!Array.isArray(op.userdo.continue)) {
+        op.userdo.continue = [];
+      }
+      const ts = new Date().toISOString().split('.')[0];
+      op.userdo.continue.push({
+        action: 'continue',
+        new: String(newIntent || '').trim(),
+        timestamp: ts,
+      });
+    },
+
+    appendPlanUserdoRegenerateLocal(roundNumber, sessionId, queryIndex, beforeIntent) {
+      const sid = String(sessionId || '').trim();
+      const rr = this.getRoundRef(Number(roundNumber), sid);
+      const q = rr?.query_results?.[Number(queryIndex)];
+      const op = q?.orchestrator_plan;
+      if (!op || typeof op !== 'object') return;
+      if (!op.userdo || typeof op.userdo !== 'object') {
+        op.userdo = {};
+      }
+      if (!Array.isArray(op.userdo.regenerate)) {
+        op.userdo.regenerate = [];
+      }
+      const ts = new Date().toISOString().split('.')[0];
+      op.userdo.regenerate.push({
+        action: 'regenerate',
+        before: String(beforeIntent || '').trim(),
+        timestamp: ts,
+      });
+    },
+
+    async persistPlanUserdoBatch(operations) {
+      const sourcePath = (this.forkExperimentSource || this.selectedDataFile || '').trim();
+      if (!sourcePath || !Array.isArray(operations) || operations.length === 0) return;
+      const sid0 = String(operations[0]?.session_id || this.activeSessionId || '').trim();
+      const resp = await fetch('/api/experiment-rag-actions-batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source_path: sourcePath,
+          session_id: sid0,
+          operations,
+        }),
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok || data.ok === false) {
+        throw new Error(data.detail || data.error || `HTTP ${resp.status}`);
+      }
+      if (data.path) {
+        this.forkExperimentSource = data.path;
+        this.selectedDataFile = data.path;
+      }
+    },
+
     async persistRagDelete(ctx, resultId) {
       const sourcePath = (this.forkExperimentSource || this.selectedDataFile || '').trim();
       if (!sourcePath) {
@@ -3994,6 +4532,110 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       } catch (error) {
         console.error('Failed to delete evidence point:', error);
         alert(`Failed to delete evidence point: ${error.message || 'unknown error'}`);
+      }
+    },
+
+    changePointEvalAction(newAction) {
+      const ctx = this.selectedPointContext;
+      const resultId = this.selectedPointDetail?.id || ctx?.rag?.retrieval_result?.id;
+      if (!ctx || !resultId) return;
+
+      const originalAction = ctx.rag?.evaluation?.branch_action || 'UNKNOWN';
+
+      const existingIdx = this.pendingPointOperations.findIndex(p => p.target_evidence_id === resultId);
+
+      if (newAction === originalAction) {
+        if (existingIdx >= 0) this.pendingPointOperations.splice(existingIdx, 1);
+      } else {
+        const ts = new Date().toISOString().split('.')[0];
+        const plan = ctx.query?.orchestrator_plan || {};
+        if (existingIdx >= 0) {
+          this.pendingPointOperations[existingIdx].after = newAction;
+          this.pendingPointOperations[existingIdx].timestamp = ts;
+        } else {
+          this.pendingPointOperations.push({
+            action: 'point',
+            target_evidence_id: resultId,
+            timestamp: ts,
+            before: originalAction,
+            after: newAction,
+            ctx: ctx,
+            sessionId: ctx.sessionId || this.activeSessionId || '',
+            roundNumber: ctx.roundNumber,
+            planTool: plan.tool_name || '',
+            planArgs: plan.args || {}
+          });
+        }
+      }
+      this.emitUserOperationsChange();
+    },
+
+    async applyPendingOperations(row) {
+      const opsToApply = this.pendingPointOperations.filter(
+        p => p.sessionId === row.sessionId && p.roundNumber === row.roundNumber && p.planTool === row.toolName
+      );
+      if (opsToApply.length === 0) return;
+
+      const sourcePath = this.forkExperimentSource || this.selectedDataFile;
+      if (!sourcePath) return;
+
+      try {
+        const resp = await fetch('/api/experiment-rag-actions-batch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            source_path: sourcePath,
+            session_id: row.sessionId,
+            operations: opsToApply
+          }),
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok || !data.ok) {
+          throw new Error(data.detail || `HTTP ${resp.status}`);
+        }
+        if (data.path) {
+          this.forkExperimentSource = data.path;
+          this.selectedDataFile = data.path;
+        }
+
+        // Apply locally
+        opsToApply.forEach(op => {
+          if (!op.ctx || !op.ctx.rag) return;
+          const ev = op.ctx.rag.evaluation;
+          if (ev) {
+             ev.branch_action = op.after;
+          }
+          
+          if (!op.ctx.query || !op.ctx.query.orchestrator_plan) return;
+          const planUserDo = op.ctx.query.orchestrator_plan.userdo || {};
+          const points = planUserDo.point || [];
+          const existing = points.find(p => p.target_evidence_id === op.target_evidence_id);
+          if (existing) {
+             existing.after = op.after;
+             existing.timestamp = op.timestamp;
+          } else {
+             points.push({
+               action: 'point',
+               target_evidence_id: op.target_evidence_id,
+               timestamp: op.timestamp,
+               before: op.before,
+               after: op.after
+             });
+          }
+          planUserDo.point = points;
+          op.ctx.query.orchestrator_plan.userdo = planUserDo;
+        });
+
+        this.pendingPointOperations = this.pendingPointOperations.filter(p => !opsToApply.includes(p));
+        
+        this.closePointDetailModal();
+        this.$nextTick(() => {
+          this.drawRiverChart();
+          this.emitUserOperationsChange();
+        });
+      } catch (error) {
+        console.error('Failed to apply pending operations:', error);
+        alert(`Failed to apply: ${error.message}`);
       }
     },
     
@@ -4442,6 +5084,387 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
       this.miniFollowUpDraft = null;
     },
 
+    getStrategyCardDraftQuery(card) {
+      const key = card?.key != null ? String(card.key) : '';
+      const existing = key ? this.strategyCardDraftQueries[key] : null;
+      if (existing != null && String(existing).trim() !== '') return String(existing);
+      const firstLine = Array.isArray(card?.searchLines) && card.searchLines.length > 0 ? card.searchLines[0] : '';
+      if (firstLine != null && String(firstLine).trim() !== '') return String(firstLine);
+      const a = card?.query?.orchestrator_plan?.args || {};
+      const fallback =
+        a.query_intent ?? a.query ?? a.user_question ?? a.userQuery ?? a.search_query ?? '';
+      return String(fallback || '');
+    },
+
+    /** 小矩形标题行：检索类型方框字母（与 orchestrator_plan.tool_name 对齐） */
+    strategyCardSearchBadge(card) {
+      const t = String(card?.query?.orchestrator_plan?.tool_name || '').trim();
+      if (t.includes('metadata')) {
+        return { letter: 'M', kind: 'metadata', tooltip: 'Metadata search' };
+      }
+      if (t.includes('exact')) {
+        return { letter: 'E', kind: 'exact', tooltip: 'Exact search' };
+      }
+      if (t.includes('semantic')) {
+        return { letter: 'S', kind: 'semantic', tooltip: 'Semantic search' };
+      }
+      if (t === 'auto_continue_pending') {
+        return { letter: 'A', kind: 'auto', tooltip: 'Auto continue (pending)' };
+      }
+      const short = t ? t.slice(0, 18) : '';
+      return {
+        letter: '?',
+        kind: 'unknown',
+        tooltip: short ? `Tool: ${short}` : 'Unknown strategy',
+      };
+    },
+
+    setStrategyCardDraftQuery(card, value) {
+      const key = card?.key != null ? String(card.key) : '';
+      if (!key) return;
+      if (!this.strategyCardDraftQueries || typeof this.strategyCardDraftQueries !== 'object') {
+        this.strategyCardDraftQueries = {};
+      }
+      this.strategyCardDraftQueries[key] = String(value ?? '');
+    },
+
+    resolveFollowUpToolForCard(card) {
+      const tool = String(card?.query?.orchestrator_plan?.tool_name || '').trim();
+      if (tool === 'strategy_exact_search') return 'strategy_exact_search';
+      if (tool === 'strategy_metadata_search') return 'strategy_metadata_search';
+      return 'strategy_semantic_search';
+    },
+
+    handleStrategyHeaderAction(action, card) {
+      const a = String(action || '').toUpperCase();
+      try {
+        console.log('[UI] header action', a, {
+          key: card?.key,
+          sessionId: card?.sessionId,
+          roundNumber: card?.roundNumber,
+          queryIndex: card?.queryIndex,
+          gridPos: card?.query?.orchestrator_plan?.grid_pos,
+        });
+      } catch (e) {
+        /* ignore */
+      }
+      if (a === 'R') {
+        this.rewriteStrategyCard(card);
+        return;
+      }
+      if (a === 'D') {
+        window.alert('Delete（D）功能稍后接入：将支持删除策略/删除结果。');
+        return;
+      }
+      if (a === 'C') {
+        this.insertContinuePlaceholder(card);
+        return;
+      }
+    },
+
+    getCardGridRow(card) {
+      const gp = card?.query?.orchestrator_plan?.grid_pos;
+      if (Array.isArray(gp) && gp.length >= 1) {
+        const r = Number(gp[0]);
+        if (Number.isFinite(r) && r >= 1) return Math.floor(r);
+      }
+      const qi = Number(card?.queryIndex ?? -1);
+      if (Number.isFinite(qi) && qi >= 0) return qi + 1;
+      return 1;
+    },
+
+    getSessionRoundsMutable(sid) {
+      const sessionId = String(sid || '').trim();
+      const activeSid = String(this.activeSessionId || '').trim();
+      if (sessionId && sessionId !== 'empty' && sessionId !== activeSid) {
+        const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sessionId);
+        if (col) return col.roundsData;
+      }
+      return this.roundsData;
+    },
+
+    insertContinuePlaceholder(baseCard) {
+      try {
+        console.log('[UI] insertContinuePlaceholder baseCard', {
+          key: baseCard?.key,
+          sessionId: baseCard?.sessionId,
+          roundNumber: baseCard?.roundNumber,
+          queryIndex: baseCard?.queryIndex,
+          gridPos: baseCard?.query?.orchestrator_plan?.grid_pos,
+        });
+      } catch (e) {
+        /* ignore */
+      }
+      if (this.isSubmitting) {
+        alert('请等待当前任务完成后再使用 Continue');
+        return;
+      }
+      const sid = String(baseCard?.sessionId || '').trim();
+      if (!sid || sid === 'empty') {
+        alert(`Continue 无法执行：缺少 sessionId（sid=${sid || '(empty)'}）`);
+        return;
+      }
+      const row = this.getCardGridRow(baseCard);
+      const roundsArr = this.getSessionRoundsMutable(sid);
+      if (!Array.isArray(roundsArr)) {
+        alert('Continue 无法执行：roundsData 不可用（请看控制台日志）');
+        return;
+      }
+      const existingRounds = (roundsArr || []).filter((r) => r && r._sessionId === sid);
+      // 关键：nextRound 必须基于“该行(row)的最大 round”，而不是全局最大 round
+      const roundsForScan = existingRounds.length > 0 ? existingRounds : (roundsArr || []);
+      const rowMaxRoundFromLoaded = (() => {
+        let m = 0;
+        for (const r of roundsForScan) {
+          if (!r || r.round_number == null) continue;
+          const rn = Number(r.round_number);
+          if (!Number.isFinite(rn) || rn <= 0) continue;
+          const qrs = Array.isArray(r.query_results) ? r.query_results : [];
+          // 优先用 grid_pos[0]（更稳），其次才用数组槽位 idx
+          const hasRow =
+            qrs.some((q) => {
+              const gp = q?.orchestrator_plan?.grid_pos;
+              return Array.isArray(gp) && Number(gp?.[0]) === Number(row);
+            }) ||
+            (qrs[row - 1] && qrs[row - 1].orchestrator_plan != null);
+          if (hasRow) m = Math.max(m, rn);
+        }
+        return m;
+      })();
+
+      // 注意：roundsArr 可能只包含“已加载到前端内存”的轮次（例如用户未点击“加载所有轮次”）。
+      // baseCard 本身带有 roundNumber / grid_pos[1]，应兜底保证 nextRound >= baseRound + 1。
+      const baseRoundFromCard = Number(baseCard?.roundNumber ?? 0);
+      const baseRoundFromGridPos = Number(baseCard?.query?.orchestrator_plan?.grid_pos?.[1] ?? 0);
+      const lastRoundResolved = Math.max(
+        Number.isFinite(rowMaxRoundFromLoaded) ? rowMaxRoundFromLoaded : 0,
+        Number.isFinite(baseRoundFromCard) ? baseRoundFromCard : 0,
+        Number.isFinite(baseRoundFromGridPos) ? baseRoundFromGridPos : 0,
+      );
+      const nextRound = lastRoundResolved + 1;
+
+      let roundObj = (roundsArr || []).find((r) => Number(r?.round_number) === Number(nextRound));
+      if (!roundObj) {
+        roundObj = { round_number: nextRound, query_results: [] };
+        // 保持 _sessionId 一致（用于 gridColumnKey 与 strip 分组）
+        roundObj._sessionId = sid;
+        roundsArr.push(roundObj);
+        roundsArr.sort((a, b) => Number(a.round_number ?? 0) - Number(b.round_number ?? 0));
+      }
+      if (!Array.isArray(roundObj.query_results)) roundObj.query_results = [];
+      const idx = Math.max(0, row - 1);
+      while (roundObj.query_results.length <= idx) {
+        roundObj.query_results.push({ orchestrator_plan: null, rag_results: [] });
+      }
+
+      const baseText = String(this.getStrategyCardDraftQuery(baseCard) || '').trim();
+      const basePlan = baseCard?.query?.orchestrator_plan || null;
+
+      const baseRn = Number(baseCard?.roundNumber ?? 0);
+      const baseQi = Number(baseCard?.queryIndex ?? -1);
+      if (Number.isFinite(baseRn) && baseRn > 0 && Number.isFinite(baseQi) && baseQi >= 0) {
+        try {
+          this.appendPlanUserdoContinueLocal(baseRn, sid, baseQi, baseText);
+          void this.persistPlanUserdoBatch([
+            {
+              action: 'plan_continue',
+              session_id: sid,
+              round_number: baseRn,
+              query_index: baseQi,
+              new: baseText,
+              timestamp: new Date().toISOString().split('.')[0],
+            },
+          ]).catch((e) => console.warn('persist plan_continue userdo failed', e));
+        } catch (e) {
+          console.warn('append plan_continue userdo failed', e);
+        }
+      }
+
+      roundObj.query_results.splice(idx, 1, {
+        orchestrator_plan: {
+          action: 'call_tool',
+          tool_name: 'auto_continue_pending',
+          ParentNode: '0',
+          args: { note: 'pending auto', query_intent: baseText },
+          reason: 'Continue: pending auto execution',
+          grid_pos: [row, nextRound],
+        },
+        rag_results: [],
+        _continue_auto_pending: true,
+        _continue_base: {
+          session_id: sid,
+          row,
+          base_round_number: Number(baseCard?.roundNumber ?? 0),
+          base_query_index: Number(baseCard?.queryIndex ?? 0),
+          base_query_text: baseText,
+          base_plan: basePlan,
+        }
+      });
+      try {
+        window.alert(`已创建 new strategy：session=${sid} 行=${row} 列(round)=${nextRound}（在最右侧）`);
+      } catch (e) {
+        /* ignore */
+      }
+
+      if (sid && sid !== this.activeSessionId) {
+        const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
+        if (col) col.roundsData = [...(col.roundsData || [])];
+        this.completedQuestionColumns = [...(this.completedQuestionColumns || [])];
+      } else {
+        this.roundsData = [...(this.roundsData || [])];
+      }
+      this.$nextTick(() => this.drawRiverChart());
+    },
+
+    runContinueAuto(card) {
+      if (this.isSubmitting) {
+        alert('请等待当前任务完成后再使用 auto');
+        return;
+      }
+      if (!this.wsConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        alert('WebSocket 未连接，无法发送 continue');
+        return;
+      }
+      const q = card?.query;
+      const base = q?._continue_base || null;
+      const sid = String(card?.sessionId || base?.session_id || '').trim();
+      if (!sid) return;
+      const row = Number(base?.row ?? this.getCardGridRow(card));
+      const nextRound = Number(card?.roundNumber ?? 0);
+      const rewriteTargetIndex = Math.max(0, Math.floor(row - 1));
+
+      const root_goal = this.getSessionRootGoal(sid) || String(base?.base_query_text || '').trim();
+      const continue_context = {
+        base_round_number: base?.base_round_number,
+        base_query_index: base?.base_query_index,
+        base_query_text: base?.base_query_text,
+        base_plan: base?.base_plan,
+      };
+
+      const followPayload = {
+        action: 'follow_up',
+        query: String(base?.base_query_text || root_goal || 'continue').trim() || 'continue',
+        follow_up_tool: 'auto_continue',
+        collection_name: this.ragCollection,
+        parent_node_id: '0',
+        round_number: nextRound,
+        rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
+        skip_evaluation: !!this.skipEvaluation,
+        session_id: sid,
+        batch_id: this.sessionBatchId || '',
+        root_goal,
+        rewrite_mode: true,
+        rewrite_target_query_index: rewriteTargetIndex,
+        grid_row: Math.max(1, Math.floor(row)),
+        continue_context,
+        ...this.wsForkPayload()
+      };
+      if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
+        followPayload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
+      }
+      if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
+        followPayload.map_box_rect_2d = this.mapRagRect2d;
+      }
+      this.ws.send(JSON.stringify(followPayload));
+    },
+
+    rewriteStrategyCard(card) {
+      if (this.isSubmitting) {
+        alert('请等待当前任务完成后再重写策略');
+        return;
+      }
+      const text = String(this.getStrategyCardDraftQuery(card) || '').trim();
+      if (!text) {
+        alert('请输入策略问题');
+        return;
+      }
+      if (!this.wsConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        alert('WebSocket 未连接，无法重写策略');
+        return;
+      }
+      const sid = String(card?.sessionId || '').trim();
+      if (!sid || sid === 'empty') {
+        alert('未找到 session_id，无法重写策略');
+        return;
+      }
+      const follow_up_tool = this.resolveFollowUpToolForCard(card);
+      const nextRound = Number(card?.roundNumber ?? 0);
+      const rewriteTargetIndex = Number(card?.queryIndex ?? -1);
+      if (!Number.isFinite(nextRound) || nextRound <= 0 || !Number.isFinite(rewriteTargetIndex) || rewriteTargetIndex < 0) {
+        alert('未找到目标策略位置（round/queryIndex），无法重写');
+        return;
+      }
+      const root_goal = this.getSessionRootGoal(sid) || text;
+
+      // 就地清空：立刻移除旧 rag_results，等待后端回推覆盖
+      try {
+        const roundRef = this.getRoundRef(nextRound, sid);
+        const q = roundRef?.query_results?.[rewriteTargetIndex];
+        let beforeIntent = '';
+        if (q?.orchestrator_plan?.args && typeof q.orchestrator_plan.args === 'object') {
+          const a = q.orchestrator_plan.args;
+          beforeIntent = String(
+            a.query_intent ?? a.query ?? a.user_question ?? a.userQuery ?? a.search_query ?? ''
+          ).trim();
+        }
+        if (q && beforeIntent) {
+          try {
+            this.appendPlanUserdoRegenerateLocal(nextRound, sid, rewriteTargetIndex, beforeIntent);
+            void this.persistPlanUserdoBatch([
+              {
+                action: 'plan_regenerate',
+                session_id: sid,
+                round_number: nextRound,
+                query_index: rewriteTargetIndex,
+                before: beforeIntent,
+                timestamp: new Date().toISOString().split('.')[0],
+              },
+            ]).catch((e) => console.warn('persist plan_regenerate userdo failed', e));
+          } catch (e) {
+            console.warn('append plan_regenerate userdo failed', e);
+          }
+        }
+        if (q) {
+          q.rag_results = [];
+          if (q.orchestrator_plan && q.orchestrator_plan.args && typeof q.orchestrator_plan.args === 'object') {
+            const args = { ...(q.orchestrator_plan.args || {}) };
+            if (args.query_intent != null || args.query != null || args.user_question != null) {
+              args.query_intent = text;
+            }
+            q.orchestrator_plan.args = args;
+          }
+          this.roundsData = [...this.roundsData];
+          this.$nextTick(() => this.drawRiverChart());
+        }
+      } catch (e) {
+        // ignore
+      }
+
+      const followPayload = {
+        action: 'follow_up',
+        query: text,
+        follow_up_tool,
+        collection_name: this.ragCollection,
+        parent_node_id: '0',
+        round_number: nextRound,
+        rewrite_mode: true,
+        rewrite_target_query_index: rewriteTargetIndex,
+        rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
+        skip_evaluation: !!this.skipEvaluation,
+        session_id: sid,
+        batch_id: this.sessionBatchId || '',
+        root_goal,
+        ...this.wsForkPayload()
+      };
+      if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
+        followPayload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
+      }
+      if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
+        followPayload.map_box_rect_2d = this.mapRagRect2d;
+      }
+      this.ws.send(JSON.stringify(followPayload));
+    },
+
     async submitUserQuery(options = {}) {
       if (!this.userQuestion.trim() || this.isSubmitting) {
         return;
@@ -4864,7 +5887,7 @@ drawStrategyMap(strategyGroup, query, rectX, rectY, rectWidth, rectHeight, round
             return '#999999';
           }
           if (clusterSelId != null && d._clusterId === clusterSelId) {
-            return '#1e6bb8'; // 聚类选中高亮
+            return '#1e6bb8'; // 聚类选中高亮       TODOLIST
           }
           return '#999999'; // 普通点灰色
         })
@@ -5317,10 +6340,9 @@ svg {
   padding: 8px;
   font-size: 11px;
   font-weight: 800;
-  color: #0f172a;
-  /* 与「+ Add question」占位格一致：渐变底 + 靛色边；高度由内联 style 决定，正文可多行 */
-  background: linear-gradient(135deg, rgb(248, 250, 252), rgb(224, 231, 255));
-  border: 1px solid rgba(99, 102, 241, 0.45);
+  color: #0e1629;
+  background:#bae5fd37;
+  border: 1px solid #bae5fd;
   border-radius: 10px;
   box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.25);
   pointer-events: none;
@@ -5626,12 +6648,13 @@ svg {
 .strategy-edge.left { left: 0; top: 0; width: 3px; height: 100%; }
 
 .strategy-card-header {
-  flex: 0 0 52px;
+  flex: 0 0 auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 8px 12px;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 4px;
   background: #f4f6f8;
   border-bottom: 1px solid rgba(226,232,240,0.95);
   cursor: grab;
@@ -5642,42 +6665,165 @@ svg {
   cursor: grabbing;
 }
 
-.strategy-card-title-wrap {
+.strategy-card-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
   min-width: 0;
-  flex: 1;
 }
 
-.strategy-card-title {
-  font-size: 13px;
-  line-height: 1.2;
+.strategy-card-header-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.strategy-type-badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid rgba(148, 163, 184, 0.9);
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  color: #475569;
+  box-sizing: border-box;
+}
+
+.strategy-type-badge.is-semantic {
+  border-color: rgba(99, 102, 241, 0.45);
+  color: rgba(67, 56, 202, 0.95);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.strategy-type-badge.is-metadata {
+  border-color: rgba(14, 165, 233, 0.5);
+  color: rgba(3, 105, 161, 0.95);
+  background: rgba(14, 165, 233, 0.1);
+}
+
+.strategy-type-badge.is-exact {
+  border-color: rgba(234, 179, 8, 0.55);
+  color: rgba(161, 98, 7, 0.95);
+  background: rgba(250, 204, 21, 0.12);
+}
+
+.strategy-type-badge.is-auto {
+  border-color: rgba(15, 23, 42, 0.35);
+  color: rgba(15, 23, 42, 0.85);
+}
+
+.strategy-type-badge.is-unknown {
+  opacity: 0.85;
+}
+
+.strategy-card-subtitle-main {
+  font-size: 11px;
+  line-height: 1.15;
   font-weight: 700;
   color: #334155;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1 1 auto;
+  text-align: left;
 }
 
-.strategy-card-subtitle {
-  margin-top: 2px;
-  font-size: 11px;
-  color: rgba(100,116,139,0.95);
-}
-
-.strategy-card-tools {
+.strategy-card-header-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: flex-end;
+  gap: 8px;
+  flex: 0 0 auto;
+  margin-left: auto;
 }
 
-.card-icon-btn {
-  width: 24px;
-  height: 24px;
+.card-circle-btn {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
   border: none;
-  border-radius: 8px;
   background: rgba(255,255,255,0.92);
   color: #475569;
   cursor: pointer;
+  font-size: 10px;
+  font-weight: 800;
   box-shadow: inset 0 0 0 1px rgba(203,213,225,0.95);
+}
+
+.card-circle-btn:hover {
+  box-shadow: inset 0 0 0 1px rgba(148,163,184,0.95);
+}
+
+.card-circle-btn-primary {
+  background: rgba(99,102,241,0.12);
+  color: rgba(67,56,202,0.95);
+  box-shadow: inset 0 0 0 1px rgba(99,102,241,0.25);
+}
+
+.card-circle-btn-danger {
+  background: rgba(239,68,68,0.10);
+  color: rgba(185,28,28,0.95);
+  box-shadow: inset 0 0 0 1px rgba(239,68,68,0.22);
+}
+
+.strategy-card-header-line {
+  display: flex;
+  align-items: center;
+  margin: 0 -10px;
+  width: 100%;
+}
+
+.strategy-card-query-input {
+  width: 100%;
+  flex: 1;
+  min-height: 38px;
+  max-height: 120px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(203,213,225,0.95);
+  background: rgba(255,255,255,0.95);
+  font-size: 12px;
+  line-height: 1.25;
+  color: #334155;
+  outline: none;
+  resize: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.strategy-card-query-input::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.strategy-card-query-input:focus {
+  border-color: rgba(99,102,241,0.55);
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.14);
+}
+
+.strategy-card-title-wrap,
+.strategy-card-title,
+.strategy-card-subtitle,
+.strategy-card-tools,
+.card-icon-btn {
+  display: none;
 }
 
 .strategy-card-map-wrap {
@@ -5685,6 +6831,27 @@ svg {
   flex: 1;
   min-height: 120px;
   overflow: hidden;
+}
+
+.strategy-auto-btn {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 4;
+  height: 22px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.72);
+  color: rgba(226,232,240,0.98);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(15,23,42,0.20);
+}
+
+.strategy-auto-btn:hover {
+  background: rgba(15,23,42,0.82);
 }
 
 .strategy-mini-svg {
@@ -5703,6 +6870,61 @@ svg {
   background: #e2e8f0;
   font-size: 10px;
   color: #475569;
+}
+
+.strategy-card-footer--eval {
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.strategy-card-footer-eval-left {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.strategy-card-footer-media-right {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #64748b;
+}
+
+.strategy-eval-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.strategy-eval-stat--filterable {
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  padding: 1px 4px;
+  margin: -1px -4px;
+  outline: none;
+}
+
+.strategy-eval-stat--filterable:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.strategy-eval-stat--filterable.is-mini-map-filter-selected {
+  background: rgba(59, 130, 246, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.38);
+}
+
+.strategy-eval-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .grid-resize-handle {
@@ -5849,6 +7071,46 @@ svg {
   width: 850px;
 }
 
+.plan-summary-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.plan-summary-modal-header h2 {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.plan-summary-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.plan-summary-delete-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: #c62828;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.plan-summary-delete-btn:hover:not(:disabled) {
+  background: #b71c1c;
+}
+
+.plan-summary-delete-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .plan-summary-hyde {
   margin: 0 0 12px 0;
   padding: 10px 12px;
@@ -5961,6 +7223,29 @@ svg {
   padding: 2px 8px;
   border-radius: 4px;
 }
+
+.point-detail-actions-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.btn-eval {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  transition: all 0.2s;
+  color: #64748b;
+}
+
+.btn-eval.btn-grow.active { background: #22c55e; color: #fff; border-color: #22c55e; }
+.btn-eval.btn-keep.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+.btn-eval.btn-prune.active { background: #ef4444; color: #fff; border-color: #ef4444; }
 
 .point-detail-actions {
   display: flex;
@@ -6567,8 +7852,8 @@ svg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 0;
+  padding: 4px 12px;
   background: #f4f6f8;
   border-bottom: 1px solid rgba(226,232,240,0.95);
   cursor: grab;
@@ -6640,6 +7925,61 @@ svg {
   background: #e2e8f0;
   font-size: 10px;
   color: #475569;
+}
+
+.strategy-card-footer--eval {
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.strategy-card-footer-eval-left {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.strategy-card-footer-media-right {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #64748b;
+}
+
+.strategy-eval-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.strategy-eval-stat--filterable {
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  padding: 1px 4px;
+  margin: -1px -4px;
+  outline: none;
+}
+
+.strategy-eval-stat--filterable:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.strategy-eval-stat--filterable.is-mini-map-filter-selected {
+  background: rgba(59, 130, 246, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.38);
+}
+
+.strategy-eval-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .grid-resize-handle {

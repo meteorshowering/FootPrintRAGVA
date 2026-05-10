@@ -163,6 +163,13 @@ class FollowUpRequest(BaseModel):
     batch_id: str = Field(default="")
     # 主问题原文（与首轮 UserRequest 一致），追问单独 runtime 仍写入同一语义根目标
     root_goal: str = Field(default="")
+    # ✨ 新增：策略重写（就地覆盖某个小矩形，而非新增一行）
+    rewrite_mode: bool = Field(default=False)
+    rewrite_target_query_index: Optional[int] = Field(default=None, ge=0, le=9999)
+    # ✨ 新增：前端指定目标“行”（并行轨），用于 Continue/覆盖定位
+    grid_row: Optional[int] = Field(default=None, ge=1, le=9999)
+    # ✨ 新增：Continue 自动规划上下文（供 planner LLM 产出下一步 query/tool）
+    continue_context: Optional[Dict[str, Any]] = Field(default=None)
 
 
 class OrchestratorPlan(BaseModel):
@@ -184,6 +191,11 @@ class OrchestratorPlan(BaseModel):
     hyde_hypothetical_paragraph_full_text: Optional[str] = None
     rerank_before_ids: Optional[List[str]] = None
     rerank_after_ids: Optional[List[str]] = None
+
+    # ✨ 新增：二维网格位置标记 [row, round]
+    # - row：并行轨/行编号（建议从 1 开始）
+    # - round：轮次编号（IterationResult.round_number）
+    grid_pos: Optional[List[int]] = None
 
     # ✨ 新增：计划批次 (Orchestrator -> ToolExecutor)
 class OrchestratorPlanBatch(BaseModel):
@@ -243,6 +255,9 @@ class IterationResult(BaseModel):
     round_number: int
     query_results: List[QueryResult] = Field(default_factory=list)
     iteration_summary: Optional[IterationSummary] = None  # 本轮对应的总结
+    # ✨ 新增：前端触发的“重写覆盖”元数据（用于合并/渲染时按索引替换）
+    rewrite_mode: bool = Field(default=False)
+    rewrite_target_query_index: Optional[int] = Field(default=None, ge=0, le=9999)
 
 
 class ExperimentRoundParameters(BaseModel):
