@@ -26,14 +26,14 @@
           v-if="(mapToolbar.mapRagPendingIds || []).length"
           type="button"
           class="map-box-confirm"
-          title="将当前框选设为检索范围"
+          title="Set the current selected box as the search range"
           @click="$emit('map-box-confirm')"
         >Confirm({{ (mapToolbar.mapRagPendingIds || []).length }})</button>
         <button
           v-if="(mapToolbar.mapRagFilterIds || []).length"
           type="button"
           class="map-box-clear-filter"
-          title="取消限定，恢复全库检索"
+          title="Cancel the limit, restore full library search"
           @click="$emit('map-box-clear-filter')"
         >Selected({{ (mapToolbar.mapRagFilterIds || []).length }})</button>
         </div>
@@ -102,26 +102,26 @@
             <div class="llm-chat-msg-text">{{ m.content }}</div>
           </div>
           <div v-if="llmChatSending" class="llm-chat-msg is-assistant is-pending">
-            <div class="llm-chat-msg-role">模型</div>
-            <div class="llm-chat-msg-text">正在生成…</div>
+            <div class="llm-chat-msg-role">Model</div>
+            <div class="llm-chat-msg-text">Generating…</div>
           </div>
         </div>
         <div class="llm-chat-input-row">
           <textarea
             v-model="llmChatDraft"
             class="llm-chat-input"
-            rows="3"
-            placeholder="输入一段话，回车发送（Shift+Enter 换行）"
+            rows="2"
+            placeholder="Enter a message, send with Enter (Shift+Enter to newline)"
             :disabled="llmChatSending"
             @keydown.enter.exact.prevent="sendLlmChat"
             @keydown.enter.shift.exact.stop
           ></textarea>
           <div class="llm-chat-actions">
             <button type="button" class="btn btn-submit" :disabled="llmChatSending || !llmChatDraft.trim()" @click="sendLlmChat">
-              发送
+              Send
             </button>
             <button type="button" class="btn" :disabled="llmChatSending || llmChatMessages.length === 0" @click="clearLlmChat">
-              清空
+              Clear
             </button>
           </div>
         </div>

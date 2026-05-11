@@ -31,6 +31,38 @@ function _queryResultPlanKey(qr) {
   return `${p.tool_name || ''}|${JSON.stringify(p.args || {})}`;
 }
 
+/** grid_pos [0,0] 表示策略已删除占位，不计入行数、不绘制卡片 */
+export function isStrategySlotTombstone(qr) {
+  const gp = qr && qr.orchestrator_plan && qr.orchestrator_plan.grid_pos;
+  if (!Array.isArray(gp) || gp.length < 2) return false;
+  try {
+    return Number(gp[0]) === 0 && Number(gp[1]) === 0;
+  } catch (e) {
+    return false;
+  }
+}
+
+/** 与 strip.rowYs 对齐的 0-based 行槽；非墓碑；无有效 grid_pos[0] 时用数组下标 */
+export function strategyVisualRowSlot0(qr, arrayIndexFallback) {
+  if (!qr || isStrategySlotTombstone(qr)) return -1;
+  const gp = qr.orchestrator_plan && qr.orchestrator_plan.grid_pos;
+  if (Array.isArray(gp) && gp.length >= 1) {
+    const r = Number(gp[0]);
+    if (Number.isFinite(r) && r >= 1) return Math.floor(r) - 1;
+  }
+  return Number.isFinite(arrayIndexFallback) && arrayIndexFallback >= 0 ? arrayIndexFallback : 0;
+}
+
+function _maxStrategyRowCountFromQueries(qrs) {
+  let maxRow = 0;
+  (qrs || []).forEach((qr, idx) => {
+    if (!qr || isStrategySlotTombstone(qr)) return;
+    const slot0 = strategyVisualRowSlot0(qr, idx);
+    if (slot0 >= 0) maxRow = Math.max(maxRow, slot0 + 1);
+  });
+  return Math.max(1, maxRow || 1);
+}
+
 function _mergeQueryResultsInRound(existing, incoming) {
   const map = new Map();
   (existing || []).forEach((qr) => map.set(_queryResultPlanKey(qr), qr));
@@ -121,17 +153,7 @@ export function ensureGridSizing(vm, allRounds, maxQueryOverride) {
   const colKeys = allRounds.map((r) => gridColumnKey(r));
   const roundRowCount = (r) => {
     const qrs = r && Array.isArray(r.query_results) ? r.query_results : [];
-    let maxRow = 0;
-    qrs.forEach((qr, idx) => {
-      if (!qr) return;
-      const gp = qr.orchestrator_plan && qr.orchestrator_plan.grid_pos;
-      if (Array.isArray(gp) && gp.length >= 1 && Number.isFinite(Number(gp[0]))) {
-        maxRow = Math.max(maxRow, Number(gp[0]));
-      } else if (qr.orchestrator_plan) {
-        maxRow = Math.max(maxRow, idx + 1);
-      }
-    });
-    return Math.max(1, maxRow || qrs.length || 1);
+    return _maxStrategyRowCountFromQueries(qrs);
   };
   const fromData = Math.max(
     1,
@@ -160,17 +182,7 @@ export function ensureGridSizing(vm, allRounds, maxQueryOverride) {
 export function buildGridMetrics(vm, allRounds) {
   const roundRowCount = (r) => {
     const qrs = r && Array.isArray(r.query_results) ? r.query_results : [];
-    let maxRow = 0;
-    qrs.forEach((qr, idx) => {
-      if (!qr) return;
-      const gp = qr.orchestrator_plan && qr.orchestrator_plan.grid_pos;
-      if (Array.isArray(gp) && gp.length >= 1 && Number.isFinite(Number(gp[0]))) {
-        maxRow = Math.max(maxRow, Number(gp[0]));
-      } else if (qr.orchestrator_plan) {
-        maxRow = Math.max(maxRow, idx + 1);
-      }
-    });
-    return Math.max(1, maxRow || qrs.length || 1);
+    return _maxStrategyRowCountFromQueries(qrs);
   };
   let maxQueryCount = Math.max(
     1,

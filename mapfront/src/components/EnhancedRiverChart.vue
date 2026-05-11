@@ -111,7 +111,7 @@
                   <button
                     type="button"
                     class="card-circle-btn card-circle-btn-danger"
-                    title="Delete（待接入）"
+                    title="删除本策略：写入 userdo.strategy_delete、grid_pos=[0,0]，同行后续列坐标左移"
                     @mousedown.stop
                     @click.stop="handleStrategyHeaderAction('D', card)"
                   >D</button>
@@ -910,7 +910,10 @@ export default {
       allRounds.forEach((round) => {
         const gck = round.__gridColKey || riverGrid.gridColumnKey(round);
         (round.query_results || []).forEach((query, queryIndex) => {
-          const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, round.round_number, queryIndex, gck);
+          if (riverGrid.isStrategySlotTombstone(query)) return;
+          const rowSlot0 = riverGrid.strategyVisualRowSlot0(query, queryIndex);
+          if (rowSlot0 < 0) return;
+          const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, round.round_number, rowSlot0, gck);
           if (!rect) return;
           const key = this.getStrategyKey(round, queryIndex);
           cards.push({
@@ -965,7 +968,10 @@ export default {
         for (let queryIndex = 0; queryIndex < nRows; queryIndex += 1) {
           const rect = riverGrid.getStrategyCellRect(this, this.gridMetrics, round.round_number, queryIndex, gck);
           if (!rect) continue;
-          const occupied = !!round?.query_results?.[queryIndex];
+          const occupied = (round.query_results || []).some((q, idx) => {
+            if (!q || riverGrid.isStrategySlotTombstone(q)) return false;
+            return riverGrid.strategyVisualRowSlot0(q, idx) === queryIndex;
+          });
           cells.push({
             slotKey: `slot-${roundKey}-${queryIndex}`,
             roundNumber: round.round_number,
@@ -1592,6 +1598,7 @@ export default {
         // 使用 orchestrator_plan.grid_pos[0] 将策略固定到对应“行”（并行轨）
         const positioned = [];
         queryResults.forEach((qr) => {
+          if (riverGrid.isStrategySlotTombstone(qr)) return;
           const gp = qr?.orchestrator_plan?.grid_pos;
           if (Array.isArray(gp) && gp.length >= 1) {
             const row = Number(gp[0]);
@@ -1837,12 +1844,14 @@ export default {
      * 当前「活跃会话」的轮次数据：在线跑在 roundsData；从本地多会话 JSON 读入时在 completedQuestionColumns 中。
      */
     getActiveSessionBaseRounds() {
-      const sid = this.activeSessionId;
+      const sid = String(this.activeSessionId || '').trim();
       if (!sid) return this.roundsData || [];
       if (this.roundsData && this.roundsData.length > 0) {
         return this.roundsData;
       }
-      const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
+      const col = (this.completedQuestionColumns || []).find(
+        (c) => String(c.sessionId || '').trim() === sid,
+      );
       return col && Array.isArray(col.roundsData) ? col.roundsData : [];
     },
     /** 将合并后的轮次写回活跃会话（与 getActiveSessionBaseRounds 对称） */
@@ -2683,7 +2692,10 @@ export default {
       allRounds.forEach((round) => {
         const gck = round.__gridColKey || riverGrid.gridColumnKey(round);
         (round.query_results || []).forEach((query, queryIndex) => {
-          const rect = riverGrid.getStrategyCellRect(this, metrics, round.round_number, queryIndex, gck);
+          if (riverGrid.isStrategySlotTombstone(query)) return;
+          const rowSlot0 = riverGrid.strategyVisualRowSlot0(query, queryIndex);
+          if (rowSlot0 < 0) return;
+          const rect = riverGrid.getStrategyCellRect(this, metrics, round.round_number, rowSlot0, gck);
           if (!rect) return;
           const canvas = new StrategyCanvas(round.round_number, queryIndex, rect.x, rect.y, rect.width, rect.height);
           canvas.parentNode = query?.orchestrator_plan?.ParentNode ?? query?.orchestrator_plan?.parentNode ?? null;
@@ -3579,16 +3591,20 @@ export default {
       return Math.max(n, legacy);
     },
 
-    /** 按 session 定位 round（归档列与当前 session 的 roundsData 分开） */
+    /** 按 session 定位 round（与 getActiveSessionBaseRounds 对齐：sessions[] 载入时节轮次在 completedQuestionColumns） */
     getRoundRef(roundNumber, sessionId) {
-      const sid = sessionId || this.activeSessionId || 'default';
-      const activeSid = this.activeSessionId || 'default';
-      if (sid !== activeSid) {
-        const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
-        const r = col && (col.roundsData || []).find((x) => x.round_number === roundNumber);
-        if (r) return r;
+      const rn = Number(roundNumber);
+      const sid = String(sessionId || '').trim();
+      const activeSid = String(this.activeSessionId || '').trim();
+      const matchRound = (x) => x != null && Number(x.round_number) === rn;
+      if (sid && activeSid && sid !== activeSid) {
+        const col = (this.completedQuestionColumns || []).find((c) => String(c.sessionId || '').trim() === sid);
+        return (col && (col.roundsData || []).find(matchRound)) || null;
       }
-      return this.roundsData.find((r) => r.round_number === roundNumber) || this.newRounds?.[roundNumber] || null;
+      const pool = this.getActiveSessionBaseRounds() || [];
+      const hit = pool.find(matchRound);
+      if (hit) return hit;
+      return this.newRounds?.[rn] ?? this.newRounds?.[roundNumber] ?? null;
     },
 
     cloneQueryData(query) {
@@ -4423,6 +4439,211 @@ export default {
       return `pic:${pic} text:${text}`;
     },
 
+    resolvePlanGridRowCol(query, iterationRoundNumber, queryArrIndex) {
+      const rn = Number(iterationRoundNumber);
+      let row = Number(queryArrIndex) + 1;
+      let col = Number.isFinite(rn) ? rn : 0;
+      const gp = query?.orchestrator_plan?.grid_pos;
+      if (Array.isArray(gp) && gp.length >= 1) {
+        const r0 = Number(gp[0]);
+        if (Number.isFinite(r0) && r0 >= 1) row = Math.floor(r0);
+      }
+      if (Array.isArray(gp) && gp.length >= 2) {
+        const c0 = Number(gp[1]);
+        if (Number.isFinite(c0) && c0 >= 1) col = Math.floor(c0);
+      }
+      return [row, col];
+    },
+
+    iterRoundsMutableForSession(sessionId) {
+      const sid = String(sessionId || '').trim();
+      const activeSid = String(this.activeSessionId || '').trim();
+      if (sid && activeSid && sid !== activeSid) {
+        const col = (this.completedQuestionColumns || []).find((c) => String(c.sessionId || '').trim() === sid);
+        return col ? col.roundsData : null;
+      }
+      if (sid && activeSid && sid === activeSid) {
+        return this.getActiveSessionBaseRounds() || [];
+      }
+      return this.roundsData || [];
+    },
+
+    shiftSessionStrategyColsAfterPlanDelete(sessionId, targetQr, iterationRn, queryArrIndex) {
+      const [delRow, delCol] = this.resolvePlanGridRowCol(targetQr, iterationRn, queryArrIndex);
+      const rounds = this.iterRoundsMutableForSession(sessionId);
+      if (!Array.isArray(rounds)) return;
+      rounds.forEach((round) => {
+        if (!round?.query_results) return;
+        const rn = Number(round.round_number);
+        round.query_results.forEach((qr, j) => {
+          if (!qr || qr === targetQr || riverGrid.isStrategySlotTombstone(qr)) return;
+          const [r2, c2] = this.resolvePlanGridRowCol(qr, rn, j);
+          if (r2 === delRow && c2 > delCol) {
+            qr.orchestrator_plan = { ...(qr.orchestrator_plan || {}) };
+            qr.orchestrator_plan.grid_pos = [r2, c2 - 1];
+          }
+        });
+      });
+    },
+
+    /** 将策略挪到 round_number === grid_pos[1] 的列（否则仅改 grid_pos 不会触发小矩形水平左移） */
+    repackRoundQueryResultsByGridRow(round) {
+      if (!round?.query_results) return;
+      const raw = [...round.query_results].filter((x) => x != null);
+      raw.sort((a, b) => {
+        const ta = riverGrid.isStrategySlotTombstone(a);
+        const tb = riverGrid.isStrategySlotTombstone(b);
+        if (ta && !tb) return 1;
+        if (!ta && tb) return -1;
+        const ra = (() => {
+          const gp = a?.orchestrator_plan?.grid_pos;
+          if (Array.isArray(gp) && gp.length >= 1) {
+            const r0 = Number(gp[0]);
+            if (Number.isFinite(r0) && r0 >= 1) return r0;
+          }
+          return 1e6;
+        })();
+        const rb = (() => {
+          const gp = b?.orchestrator_plan?.grid_pos;
+          if (Array.isArray(gp) && gp.length >= 1) {
+            const r0 = Number(gp[0]);
+            if (Number.isFinite(r0) && r0 >= 1) return r0;
+          }
+          return 1e6;
+        })();
+        return ra - rb;
+      });
+      round.query_results = raw;
+    },
+
+    migrateOrchestratorPlansToGridColumnRounds(sessionId) {
+      const rounds = this.iterRoundsMutableForSession(sessionId);
+      if (!Array.isArray(rounds) || !rounds.length) return;
+      const byCol = new Map();
+      rounds.forEach((r) => {
+        if (r && r.round_number != null) byCol.set(Number(r.round_number), r);
+      });
+      const pending = [];
+      rounds.forEach((round) => {
+        const hrs = Number(round.round_number);
+        (round.query_results || []).forEach((qr) => {
+          if (!qr || riverGrid.isStrategySlotTombstone(qr)) return;
+          const gp = qr?.orchestrator_plan?.grid_pos;
+          let desired = hrs;
+          if (Array.isArray(gp) && gp.length >= 2) {
+            const c = Number(gp[1]);
+            if (Number.isFinite(c) && c >= 1) desired = Math.floor(c);
+          }
+          if (desired !== hrs) pending.push({ qr, fromRound: round, toCol: desired });
+        });
+      });
+      pending.forEach(({ qr, fromRound, toCol }) => {
+        const dest = byCol.get(toCol);
+        if (!dest || dest === fromRound) return;
+        fromRound.query_results = (fromRound.query_results || []).filter((x) => x !== qr);
+        dest.query_results = dest.query_results || [];
+        dest.query_results.push(qr);
+      });
+      rounds.forEach((r) => this.repackRoundQueryResultsByGridRow(r));
+    },
+
+    applyPlanStrategyDeleteLocal(card, ts) {
+      const sid = String(card?.sessionId || '').trim();
+      const round = this.getRoundRef(card.roundNumber, sid);
+      if (!round || !Array.isArray(round.query_results)) return false;
+      let qi = Number(card.queryIndex);
+      let targetQr = null;
+      if (card.query) {
+        const i0 = round.query_results.indexOf(card.query);
+        if (i0 >= 0) {
+          qi = i0;
+          targetQr = card.query;
+        }
+      }
+      if (!targetQr) {
+        if (!Number.isFinite(qi) || qi < 0 || qi >= round.query_results.length) return false;
+        targetQr = round.query_results[qi];
+      }
+      if (!targetQr || riverGrid.isStrategySlotTombstone(targetQr)) return false;
+      this.shiftSessionStrategyColsAfterPlanDelete(sid, targetQr, Number(card.roundNumber), qi);
+      const op = { ...(targetQr.orchestrator_plan || {}) };
+      const userdo = { ...(op.userdo || {}) };
+      const stratDel = Array.isArray(userdo.strategy_delete) ? [...userdo.strategy_delete] : [];
+      stratDel.push({ action: 'delete', timestamp: String(ts || '').trim() });
+      userdo.strategy_delete = stratDel;
+      op.userdo = userdo;
+      op.grid_pos = [0, 0];
+      targetQr.orchestrator_plan = op;
+      this.migrateOrchestratorPlansToGridColumnRounds(sid);
+      const k = card.key != null ? String(card.key) : '';
+      if (k && this.strategyMiniMapEvalFilter && typeof this.strategyMiniMapEvalFilter === 'object') {
+        const nextF = { ...this.strategyMiniMapEvalFilter };
+        delete nextF[k];
+        this.strategyMiniMapEvalFilter = nextF;
+      }
+      if (k && this.strategyCardDraftQueries && typeof this.strategyCardDraftQueries === 'object') {
+        const nextD = { ...this.strategyCardDraftQueries };
+        delete nextD[k];
+        this.strategyCardDraftQueries = nextD;
+      }
+      return true;
+    },
+
+    async deleteStrategyCard(card) {
+      const sid = String(card?.sessionId || '').trim();
+      if (!sid || sid === 'empty') {
+        window.alert('无法删除：缺少会话信息。');
+        return;
+      }
+      const sourcePath = (this.forkExperimentSource || this.selectedDataFile || '').trim();
+      if (!sourcePath) {
+        window.alert('请先加载实验 JSON（fork 源路径），以便落盘删除记录。');
+        return;
+      }
+      if (
+        !window.confirm(
+          '确定删除该策略卡片？将写入 userdo.strategy_delete，并把 grid_pos 置为 [0,0]；同行列坐标更大的策略会整体左移（grid_pos 第二维 -1）。',
+        )
+      ) {
+        return;
+      }
+      const ts = new Date().toISOString().split('.')[0];
+      if (!this.applyPlanStrategyDeleteLocal(card, ts)) {
+        window.alert('删除未能应用（可能已为删除占位或索引无效）。');
+        return;
+      }
+      try {
+        await this.persistPlanUserdoBatch([
+          {
+            action: 'plan_strategy_delete',
+            session_id: sid,
+            round_number: card.roundNumber,
+            query_index: card.queryIndex,
+            timestamp: ts,
+          },
+        ]);
+        const activeSid = String(this.activeSessionId || '').trim();
+        if (sid && activeSid && sid !== activeSid) {
+          const col = (this.completedQuestionColumns || []).find((c) => String(c.sessionId || '').trim() === sid);
+          if (col && col.roundsData) col.roundsData = [...col.roundsData];
+        } else if (this.roundsData && this.roundsData.length > 0) {
+          this.roundsData = [...(this.roundsData || [])];
+        } else {
+          const col = (this.completedQuestionColumns || []).find((c) => String(c.sessionId || '').trim() === sid);
+          if (col && col.roundsData) col.roundsData = [...col.roundsData];
+          else this.completedQuestionColumns = [...(this.completedQuestionColumns || [])];
+        }
+        this.$nextTick(() => {
+          this.drawRiverChart();
+          if (typeof this.emitUserOperationsChange === 'function') {
+            this.emitUserOperationsChange();
+          }
+        });
+      } catch (e) {
+        window.alert(`删除已在前端生效，但落盘失败（请重启后端并重试）：${e.message || e}`);
+      }
+    },
+
     /** 策略卡 userdo：在 orchestrator_plan.userdo 下追加 continue / regenerate 记录并落盘 fork JSON */
     appendPlanUserdoContinueLocal(roundNumber, sessionId, queryIndex, newIntent) {
       const sid = String(sessionId || '').trim();
@@ -5153,7 +5374,7 @@ export default {
         return;
       }
       if (a === 'D') {
-        window.alert('Delete（D）功能稍后接入：将支持删除策略/删除结果。');
+        this.deleteStrategyCard(card);
         return;
       }
       if (a === 'C') {

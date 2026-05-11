@@ -19,7 +19,7 @@ import re
 import shutil
 import datetime
 import json
-from typing import Optional, Dict, List, Any
+from typing import Optional, Dict, List, Any, Tuple
 from pydantic import BaseModel, Field
 
 app = FastAPI()
@@ -322,6 +322,7 @@ async def update_experiment_rag_actions_batch(payload: Dict[str, Any]):
     批量保存前端用户操作：
     - delete / point：针对 rag_result（与既有逻辑一致）
     - plan_continue / plan_regenerate：写入对应 query_results[query_index].orchestrator_plan.userdo（策略卡 C/R）
+    - plan_strategy_delete：标记策略删除 grid_pos=[0,0]、写入 userdo.strategy_delete，压低同行后续 grid_pos[1]，并将后续策略挪至 round_number=grid_pos[1] 对应列后与前端一致的顺序落盘（repack）
     """
     source_rel = str(payload.get("source_path") or payload.get("fork_experiment_source") or "").strip()
     if not source_rel:
@@ -342,10 +343,123 @@ async def update_experiment_rag_actions_batch(payload: Dict[str, Any]):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"read failed: {e}")
 
+    def _is_strategy_plan_tombstone(qr: Dict[str, Any]) -> bool:
+        op = qr.get("orchestrator_plan") if isinstance(qr.get("orchestrator_plan"), dict) else {}
+        gp = op.get("grid_pos")
+        if not isinstance(gp, list) or len(gp) < 2:
+            return False
+        try:
+            return int(gp[0]) == 0 and int(gp[1]) == 0
+        except Exception:
+            return False
+
+    def _resolve_plan_grid_row_col(qr: Dict[str, Any], it_rn: int, j: int) -> Tuple[int, int]:
+        row = int(j) + 1
+        col = int(it_rn)
+        op = qr.get("orchestrator_plan") if isinstance(qr.get("orchestrator_plan"), dict) else {}
+        gp = op.get("grid_pos")
+        if isinstance(gp, list) and len(gp) >= 1:
+            try:
+                r0 = int(gp[0])
+                if r0 >= 1:
+                    row = r0
+            except Exception:
+                pass
+        if isinstance(gp, list) and len(gp) >= 2:
+            try:
+                c0 = int(gp[1])
+                if c0 >= 1:
+                    col = c0
+            except Exception:
+                pass
+        return row, col
+
     def _iter_session_docs(doc: Any) -> List[Dict[str, Any]]:
         if isinstance(doc, dict) and isinstance(doc.get("sessions"), list):
             return [s for s in doc.get("sessions") if isinstance(s, dict)]
         return [doc] if isinstance(doc, dict) else []
+
+    def _repack_iteration_query_results_by_grid_row(it: Dict[str, Any]) -> None:
+        qrs = it.get("query_results")
+        if not isinstance(qrs, list):
+            return
+
+        def _row_sort_key(qr: Any) -> Tuple[int, float]:
+            if not isinstance(qr, dict):
+                return (1, 1e6)
+            tomb = _is_strategy_plan_tombstone(qr)
+            op = qr.get("orchestrator_plan") or {}
+            gp = op.get("grid_pos")
+            rr = 1e6
+            if isinstance(gp, list) and len(gp) >= 1:
+                try:
+                    r0 = int(gp[0])
+                    if r0 >= 1:
+                        rr = float(r0)
+                except Exception:
+                    pass
+            return (1 if tomb else 0, rr)
+
+        it["query_results"] = sorted(qrs, key=_row_sort_key)
+
+    def _migrate_qr_to_grid_column_rounds(sess: Dict[str, Any]) -> None:
+        iterations = sess.get("iterations")
+        if not isinstance(iterations, list):
+            return
+        by_rn: Dict[int, Dict[str, Any]] = {}
+        for it in iterations:
+            if not isinstance(it, dict):
+                continue
+            try:
+                rnk = int(it.get("round_number"))
+            except Exception:
+                continue
+            by_rn[rnk] = it
+
+        pending: List[Tuple[Any, Dict[str, Any], int]] = []
+        for it in iterations:
+            if not isinstance(it, dict):
+                continue
+            try:
+                hrs = int(it.get("round_number"))
+            except Exception:
+                continue
+            qrs = it.get("query_results")
+            if not isinstance(qrs, list):
+                continue
+            for qr in qrs:
+                if not isinstance(qr, dict) or _is_strategy_plan_tombstone(qr):
+                    continue
+                op = qr.get("orchestrator_plan") or {}
+                gp = op.get("grid_pos")
+                desired = hrs
+                if isinstance(gp, list) and len(gp) >= 2:
+                    try:
+                        c0 = int(gp[1])
+                        if c0 >= 1:
+                            desired = c0
+                    except Exception:
+                        pass
+                if desired != hrs:
+                    pending.append((qr, it, desired))
+
+        for qr, from_it, to_col in pending:
+            dest_it = by_rn.get(int(to_col))
+            if dest_it is None or dest_it is from_it:
+                continue
+            from_qrs = from_it.get("query_results")
+            if not isinstance(from_qrs, list):
+                continue
+            from_it["query_results"] = [x for x in from_qrs if x is not qr]
+            dest_qrs = dest_it.get("query_results")
+            if not isinstance(dest_qrs, list):
+                dest_qrs = []
+            dest_qrs.append(qr)
+            dest_it["query_results"] = dest_qrs
+
+        for it in iterations:
+            if isinstance(it, dict):
+                _repack_iteration_query_results_by_grid_row(it)
 
     matched_any = False
     for op_item in operations:
@@ -416,6 +530,79 @@ async def update_experiment_rag_actions_batch(payload: Dict[str, Any]):
                     op_plan["userdo"] = userdo
                     qr["orchestrator_plan"] = op_plan
                     matched_any = True
+            continue
+
+        if action == "plan_strategy_delete":
+            try:
+                rn = int(op_item.get("round_number"))
+                qi = int(op_item.get("query_index"))
+            except Exception:
+                continue
+            sid_op = str(op_item.get("session_id") or session_id or "").strip()
+            now_ts = op_item.get("timestamp") or datetime.datetime.now().isoformat(timespec="seconds")
+
+            for sess in _iter_session_docs(doc):
+                if sid_op and str(sess.get("session_id") or "").strip() != sid_op:
+                    continue
+
+                target_qr: Any = None
+                for it in sess.get("iterations") or []:
+                    try:
+                        it_rn = int(it.get("round_number"))
+                    except Exception:
+                        continue
+                    if it_rn != rn:
+                        continue
+                    qrs = it.get("query_results") or []
+                    if not isinstance(qrs, list) or qi < 0 or qi >= len(qrs):
+                        continue
+                    cand = qrs[qi]
+                    if isinstance(cand, dict):
+                        target_qr = cand
+                    break
+
+                if not isinstance(target_qr, dict) or _is_strategy_plan_tombstone(target_qr):
+                    continue
+
+                del_row, del_col = _resolve_plan_grid_row_col(target_qr, rn, qi)
+
+                for it2 in sess.get("iterations") or []:
+                    try:
+                        it2_rn = int(it2.get("round_number"))
+                    except Exception:
+                        continue
+                    qrs2 = it2.get("query_results") or []
+                    if not isinstance(qrs2, list):
+                        continue
+                    for j, qr2 in enumerate(qrs2):
+                        if qr2 is target_qr or not isinstance(qr2, dict):
+                            continue
+                        if _is_strategy_plan_tombstone(qr2):
+                            continue
+                        r2, c2 = _resolve_plan_grid_row_col(qr2, it2_rn, j)
+                        if r2 == del_row and c2 > del_col:
+                            op2 = qr2.get("orchestrator_plan")
+                            if not isinstance(op2, dict):
+                                op2 = {}
+                            op2["grid_pos"] = [r2, c2 - 1]
+                            qr2["orchestrator_plan"] = op2
+
+                op_t = target_qr.get("orchestrator_plan")
+                if not isinstance(op_t, dict):
+                    op_t = {}
+                userdo_t = op_t.get("userdo")
+                if not isinstance(userdo_t, dict):
+                    userdo_t = {}
+                strat_del = userdo_t.get("strategy_delete")
+                if not isinstance(strat_del, list):
+                    strat_del = []
+                strat_del.append({"action": "delete", "timestamp": now_ts})
+                userdo_t["strategy_delete"] = strat_del
+                op_t["userdo"] = userdo_t
+                op_t["grid_pos"] = [0, 0]
+                target_qr["orchestrator_plan"] = op_t
+                _migrate_qr_to_grid_column_rounds(sess)
+                matched_any = True
             continue
 
         if action not in ("delete", "point"):
