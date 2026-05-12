@@ -1,0 +1,77 @@
+{
+  "generated_at_utc": "2026-05-12T08:22:27.274681+00:00",
+  "chromadb_persistence": "C:\\liuxingyu\\multisubspace-data\\backandfront\\ToRAGLENSBack\\.chromadb_autogen",
+  "collections": {
+    "multimodal2text": {
+      "collection_name": "multimodal2text",
+      "exists": true,
+      "chroma_collection_metadata": {
+        "created_by": "rag_collection_manager"
+      },
+      "approximate_count": 4702,
+      "count_error": null,
+      "sample_one_record": {
+        "id": "chunk_000001",
+        "document_text": "# A long-term estimation of biogenic volatile organic compound (BVOC) emission in China from 2001-2016: the roles of land cover change and climate variability",
+        "metadata": {
+          "chunkid": "chunk_000001",
+          "metadata": "{\"paper_title\": \"A long-term estimation of biogenic volatile organic compound (BVOC) emission in China from 2001-2016: the roles of land cover change and climate variability\", \"md_filename\": \"A long-term estimation of biogenic volatile organi.md\", \"paragraph_index\": 0, \"content_length\": 158, \"chunk_type\": \"text\"}",
+          "paperid": "paper_004",
+          "type": "texture"
+        },
+        "embedding": {
+          "present": true,
+          "dimension": 384,
+          "first_8_values": [
+            0.04166526719927788,
+            -0.018975025042891502,
+            0.12332449108362198,
+            0.01029566116631031,
+            0.09089011698961258,
+            0.05115068703889847,
+            -0.056048184633255005,
+            0.005326088983565569
+          ]
+        }
+      },
+      "note": "与 rag_service._format_results 消费的是同一套 Chroma get/query 字段；前端 experiment JSON 的 retrieval_result 由该格式化逻辑再映射。"
+    },
+    "LLMvisDataset": {
+      "collection_name": "LLMvisDataset",
+      "exists": true,
+      "chroma_collection_metadata": {
+        "created_by": "rag_collection_manager"
+      },
+      "approximate_count": 743,
+      "count_error": null,
+      "sample_one_record": {
+        "id": "3379b42b-02fa-4cc9-9259-5754bcb23beb",
+        "document_text": "# AdversaFlow: Visual Red Teaming for Large Language Models with Multi-Level Adversarial Flow\n\nDazhen Deng, Chuhan Zhang, Huawei Zheng, Yuwen Pu, Shouling Ji, and Yingcai Wu \n\nAbstract—Large Language Models (LLMs) are powerful but also raise significant security concerns, particularly regarding the harm they can cause, such as generating fake news that manipulates public opinion on social media and providing responses to unethical activities. Traditional red teaming approaches for identifying AI vulnerabilities rely on manual prompt construction and expertise. This paper introduces AdversaFlow, a novel visual analytics system designed to enhance LLM security against adversarial attacks through human-AI collaboration. AdversaFlow involves adversarial training between a target model and a red model, featuring unique multi-level adversarial flow and fluctuation path visualizations. These features provide insights into adversarial dynamics and LLM robustness, enabling experts to identify and mitigate vulnerabilities effectively. We present quantitative evaluations and case studies validating our system’s utility and offering insights for future AI security solutions. Our method can enhance LLM security, supporting downstream scenarios like social media regulation by enabling more effective detection, monitoring, and mitigation of harmful content and behaviors. \n\nIndex Terms—Visual Analytics for Machine Learning, Artificial Intelligence Security, Large Language Models, Text Visualization \n\n# 1 INTRODUCTION",
+        "metadata": {
+          "mime_type": "MemoryMimeType.TEXT",
+          "type": "texture",
+          "total_chunks": 57,
+          "chunk_index": 0,
+          "paper_name": "MinerU_markdown_AdversaFlow_Visual_Red_Teaming_for_Large_Language_Models_with_Multi-Level_Adversarial_Flow_2041432865996263424",
+          "chunk_size": 1526,
+          "file_name": "MinerU_markdown_AdversaFlow_Visual_Red_Teaming_for_Large_Language_Models_with_Multi-Level_Adversarial_Flow_2041432865996263424.md"
+        },
+        "embedding": {
+          "present": true,
+          "dimension": 384,
+          "first_8_values": [
+            -0.06883777678012848,
+            -0.04370105266571045,
+            -0.04385841265320778,
+            0.07088713347911835,
+            0.08561044186353683,
+            0.05692409723997116,
+            -0.007086705882102251,
+            -0.07141784578561783
+          ]
+        }
+      },
+      "note": "与 rag_service._format_results 消费的是同一套 Chroma get/query 字段；前端 experiment JSON 的 retrieval_result 由该格式化逻辑再映射。"
+    }
+  }
+}

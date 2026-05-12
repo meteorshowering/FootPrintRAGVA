@@ -21,6 +21,7 @@ import datetime
 import json
 from typing import Optional, Dict, List, Any, Tuple
 from pydantic import BaseModel, Field
+from rag_service import get_rag_service
 
 app = FastAPI()
 
@@ -314,6 +315,120 @@ async def api_llm_chat(payload: LlmChatRequest):
         return {"ok": True, "reply": reply}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"llm call failed: {e}")
+
+
+def _user_ops_centroid_item_to_rag_result_row(
+    item: Dict[str, Any], *, source_tool: str, source_args: Dict[str, Any]
+) -> Dict[str, Any]:
+    """将 rag_service._format_results 单条转为与 experiment JSON 中 rag_results[] 同构。"""
+    md = item.get("metadata")
+    if not isinstance(md, dict):
+        md = {}
+    content = item.get("content")
+    if not isinstance(content, dict):
+        content = {"text": str(content or "")}
+    return {
+        "retrieval_result": {
+            "id": str(item.get("id", "")),
+            "source_tool": source_tool,
+            "content": content,
+            "metadata": md,
+            "score": float(item.get("score") or 0.0),
+            "source_args": source_args if isinstance(source_args, dict) else {},
+        },
+        "evaluation": None,
+    }
+
+
+@app.post("/api/rag-neighbors-from-centroid")
+async def rag_neighbors_from_centroid(payload: Dict[str, Any]):
+    """
+    User Operations：由若干 chunk 的嵌入质心在向量库中检索近邻（排除已出现的 chunk_id），
+    返回与 experiment JSON 中 rag_results 项同构的列表（retrieval_result + evaluation:null）。
+
+    请求体：points[{chunk_id, action}]（必填）；collection_name（可选，可与实验 JSON 交叉校验）；
+    experiment_source_path + round_number（可选）：若提供且能解析到 JSON，则优先使用该文件中
+    parameters 里与 round_number 对齐的 collection_name，与落盘实验一致。
+    另有 centroid_actions（默认 [\"GROW\"]）, target_count（默认 10）。
+    """
+    collection_name = str(payload.get("collection_name") or "").strip()
+    exp_path = str(
+        payload.get("experiment_source_path")
+        or payload.get("experiment_file")
+        or payload.get("source_path")
+        or ""
+    ).strip()
+    exp_rn = payload.get("round_number")
+    if exp_path and exp_rn is not None:
+        resolved_cn = _collection_name_from_experiment_json_round(exp_path, exp_rn)
+        if resolved_cn:
+            collection_name = resolved_cn
+    if not collection_name:
+        raise HTTPException(
+            status_code=400,
+            detail="missing collection_name (provide collection_name or experiment_source_path+round_number)",
+        )
+    points = payload.get("points")
+    if not isinstance(points, list) or len(points) == 0:
+        raise HTTPException(status_code=400, detail="points must be a non-empty list")
+
+    raw_actions = payload.get("centroid_actions")
+    if not isinstance(raw_actions, list) or not raw_actions:
+        raw_actions = ["GROW"]
+    centroid_actions = {str(x).strip().upper() for x in raw_actions if str(x).strip()}
+    if not centroid_actions:
+        centroid_actions = {"GROW"}
+
+    try:
+        target_n = int(payload.get("target_count") or 10)
+    except Exception:
+        target_n = 10
+    target_n = max(1, min(50, target_n))
+
+    norm_points: List[Dict[str, str]] = []
+    for p in points:
+        if not isinstance(p, dict):
+            continue
+        cid = p.get("chunk_id")
+        if cid is None:
+            cid = p.get("id")
+        if cid is None or str(cid).strip() == "":
+            continue
+        act = str(p.get("action") or "UNKNOWN").strip().upper()
+        norm_points.append({"chunk_id": str(cid).strip(), "action": act})
+    if not norm_points:
+        raise HTTPException(status_code=400, detail="no valid chunk_id in points")
+
+    seed_ids = [p["chunk_id"] for p in norm_points if p["action"] in centroid_actions]
+    if not seed_ids:
+        raise HTTPException(
+            status_code=400,
+            detail=f"no points with action in {sorted(centroid_actions)}",
+        )
+
+    all_ids = [p["chunk_id"] for p in norm_points]
+
+    try:
+        service = await get_rag_service(collection_name=collection_name, multimodal_collection_name=None)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"rag service: {e}") from e
+
+    if service.raw_collection is None:
+        raise HTTPException(status_code=503, detail=f"collection not available: {collection_name}")
+
+    items = await service.neighbors_from_centroid_excluding(seed_ids, all_ids, out_n=target_n)
+    source_tool = "UserOps(CentroidNeighbors)"
+    source_args: Dict[str, Any] = {
+        "centroid_seed_chunk_ids": seed_ids,
+        "centroid_actions": sorted(centroid_actions),
+        "exclude_chunk_ids": all_ids,
+        "collection_name": collection_name,
+    }
+    rows = [
+        _user_ops_centroid_item_to_rag_result_row(it, source_tool=source_tool, source_args=source_args)
+        for it in items
+    ]
+    return {"ok": True, "rag_results": rows, "found": len(rows), "collection_name_used": collection_name}
 
 
 @app.post("/api/experiment-rag-actions-batch")
@@ -610,73 +725,150 @@ async def update_experiment_rag_actions_batch(payload: Dict[str, Any]):
         result_id = str(op_item.get("target_evidence_id") or op_item.get("result_id") or "").strip()
         if not result_id:
             continue
-            
+
         for sess in _iter_session_docs(doc):
             if session_id and str(sess.get("session_id") or "").strip() != session_id:
                 continue
+
+            target: Any = None
+            qr: Any = None
             for it in sess.get("iterations") or []:
-                for qr in it.get("query_results") or []:
-                    target = None
-                    for rag in qr.get("rag_results") or []:
+                if not isinstance(it, dict):
+                    continue
+                for q in it.get("query_results") or []:
+                    if not isinstance(q, dict):
+                        continue
+                    for rag in q.get("rag_results") or []:
+                        if not isinstance(rag, dict):
+                            continue
                         rr = rag.get("retrieval_result") or {}
                         if str(rr.get("id") or "").strip() == result_id:
                             target = rag
+                            qr = q
                             break
-                    if target is None:
+                    if target is not None:
+                        break
+                if target is not None:
+                    break
+
+            if target is None and action == "point":
+                rr_snap = op_item.get("retrieval_result")
+                if not isinstance(rr_snap, dict) or str(rr_snap.get("id") or "").strip() != result_id:
+                    continue
+                try:
+                    qi_op = int(op_item.get("query_index"))
+                    rn_op = int(op_item.get("round_number"))
+                except Exception:
+                    continue
+                for it in sess.get("iterations") or []:
+                    if not isinstance(it, dict):
                         continue
+                    try:
+                        if int(it.get("round_number")) != rn_op:
+                            continue
+                    except Exception:
+                        continue
+                    qrs = it.get("query_results") or []
+                    if not isinstance(qrs, list) or qi_op < 0 or qi_op >= len(qrs):
+                        continue
+                    qx = qrs[qi_op]
+                    if not isinstance(qx, dict):
+                        continue
+                    qr = qx
+                    rags = qr.get("rag_results")
+                    if not isinstance(rags, list):
+                        rags = []
+                        qr["rag_results"] = rags
+                    # 质心近邻首次并入策略：evaluation 仅保留 branch_action
+                    ev_new: Dict[str, Any] = {"branch_action": op_item.get("after")}
+                    try:
+                        rr_copy = json.loads(json.dumps(rr_snap, ensure_ascii=False))
+                    except Exception:
+                        rr_copy = dict(rr_snap)
+                    new_rag = {"retrieval_result": rr_copy, "evaluation": ev_new}
+                    rags.append(new_rag)
+                    target = new_rag
+                    break
 
-                    # Found it
-                    op_plan = qr.get("orchestrator_plan") or {}
-                    userdo = op_plan.get("userdo")
-                    if not isinstance(userdo, dict):
-                        userdo = {}
-                    
-                    if action == "delete":
-                        deletes = userdo.get("delete", [])
-                        if not isinstance(deletes, list): deletes = []
-                        if not any(str(x.get("target_evidence_id") or "") == result_id for x in deletes if isinstance(x, dict)):
-                            deletes.append({
-                                "action": "delete",
-                                "target_evidence_id": result_id,
-                                "timestamp": op_item.get("timestamp") or datetime.datetime.now().isoformat(timespec="seconds")
-                            })
-                        userdo["delete"] = deletes
-                        
-                        ev = target.get("evaluation")
-                        if not isinstance(ev, dict):
-                            ev = {"target_evidence_id": result_id, "scores": {}, "suggested_keywords": []}
-                        ev["branch_action"] = "PRUNE"
-                        ev["reason"] = "User deleted this evidence item."
-                        ev["user_action"] = "delete"
-                        target["evaluation"] = ev
-                        
-                    elif action == "point":
-                        points = userdo.get("point", [])
-                        if not isinstance(points, list): points = []
-                        existing = next((x for x in points if isinstance(x, dict) and str(x.get("target_evidence_id") or "") == result_id), None)
-                        if existing:
-                            existing["after"] = op_item.get("after")
-                            existing["timestamp"] = op_item.get("timestamp") or datetime.datetime.now().isoformat(timespec="seconds")
-                        else:
-                            points.append({
-                                "action": "point",
-                                "target_evidence_id": result_id,
-                                "timestamp": op_item.get("timestamp") or datetime.datetime.now().isoformat(timespec="seconds"),
-                                "before": op_item.get("before"),
-                                "after": op_item.get("after")
-                            })
-                        userdo["point"] = points
-                        
-                        ev = target.get("evaluation")
-                        if not isinstance(ev, dict):
-                            ev = {"target_evidence_id": result_id, "scores": {}, "suggested_keywords": []}
-                        ev["branch_action"] = op_item.get("after")
-                        ev["user_action"] = "point"
-                        target["evaluation"] = ev
+            if target is None or qr is None or not isinstance(qr, dict):
+                continue
 
-                    op_plan["userdo"] = userdo
-                    qr["orchestrator_plan"] = op_plan
-                    matched_any = True
+            op_plan = qr.get("orchestrator_plan") or {}
+            if not isinstance(op_plan, dict):
+                op_plan = {}
+            userdo = op_plan.get("userdo")
+            if not isinstance(userdo, dict):
+                userdo = {}
+
+            if action == "delete":
+                deletes = userdo.get("delete", [])
+                if not isinstance(deletes, list):
+                    deletes = []
+                if not any(str(x.get("target_evidence_id") or "") == result_id for x in deletes if isinstance(x, dict)):
+                    deletes.append(
+                        {
+                            "action": "delete",
+                            "target_evidence_id": result_id,
+                            "timestamp": op_item.get("timestamp")
+                            or datetime.datetime.now().isoformat(timespec="seconds"),
+                        }
+                    )
+                userdo["delete"] = deletes
+
+                ev = target.get("evaluation")
+                if not isinstance(ev, dict):
+                    ev = {"target_evidence_id": result_id, "scores": {}, "suggested_keywords": []}
+                ev["branch_action"] = "PRUNE"
+                ev["reason"] = "User deleted this evidence item."
+                ev["user_action"] = "delete"
+                target["evaluation"] = ev
+
+            elif action == "point":
+                points = userdo.get("point", [])
+                if not isinstance(points, list):
+                    points = []
+                existing = next(
+                    (
+                        x
+                        for x in points
+                        if isinstance(x, dict) and str(x.get("target_evidence_id") or "") == result_id
+                    ),
+                    None,
+                )
+                if existing:
+                    existing["after"] = op_item.get("after")
+                    existing.pop("timestamp", None)
+                else:
+                    points.append(
+                        {
+                            "action": "point",
+                            "target_evidence_id": result_id,
+                            "before": op_item.get("before"),
+                            "after": op_item.get("after"),
+                        }
+                    )
+                userdo["point"] = points
+
+                ev = target.get("evaluation")
+                if not isinstance(ev, dict):
+                    ev = {"target_evidence_id": result_id, "scores": {}, "suggested_keywords": []}
+                ev["branch_action"] = op_item.get("after")
+                ev["user_action"] = "point"
+                target["evaluation"] = ev
+
+                # 仅质心近邻首次纳入评分类别：原检索结果已在 rerank_after_ids，不必改
+                if str(op_item.get("before") or "").strip().lower() == "neighbor":
+                    ra = op_plan.get("rerank_after_ids")
+                    if not isinstance(ra, list):
+                        ra = []
+                    ra_ids = [str(x).strip() for x in ra if x is not None and str(x).strip()]
+                    if result_id not in ra_ids:
+                        ra_ids.append(result_id)
+                    op_plan["rerank_after_ids"] = ra_ids
+
+            op_plan["userdo"] = userdo
+            qr["orchestrator_plan"] = op_plan
+            matched_any = True
 
     try:
         with open(dest_path, "w", encoding="utf-8") as f:
@@ -999,6 +1191,51 @@ def _resolve_fork_source_abs(source_rel: str) -> Optional[str]:
         seen.add(ap)
         if os.path.isfile(ap):
             return ap
+    return None
+
+
+def _collection_name_from_experiment_json_round(source_rel: str, round_number: Any) -> Optional[str]:
+    """从实验 JSON 的 parameters 中读取与 round_number 对齐的 collection_name（与落盘结构一致）。"""
+    abs_path = _resolve_fork_source_abs(str(source_rel or "").strip().replace("\\", "/"))
+    if not abs_path:
+        return None
+    roots = _experiment_read_allowed_roots()
+    if not _path_is_under_allowed_roots(abs_path, roots):
+        return None
+    try:
+        rn = int(round_number)
+    except Exception:
+        return None
+    try:
+        with open(abs_path, "r", encoding="utf-8") as f:
+            doc = json.load(f)
+    except Exception:
+        return None
+
+    def _from_parameters(params: Any) -> Optional[str]:
+        if not isinstance(params, list):
+            return None
+        for row in params:
+            if not isinstance(row, dict):
+                continue
+            try:
+                if int(row.get("round_number")) == rn:
+                    cn = row.get("collection_name")
+                    if cn is not None and str(cn).strip():
+                        return str(cn).strip()
+            except Exception:
+                continue
+        return None
+
+    sess_docs: List[Dict[str, Any]] = []
+    if isinstance(doc, dict) and isinstance(doc.get("sessions"), list):
+        sess_docs = [s for s in doc.get("sessions") if isinstance(s, dict)]
+    elif isinstance(doc, dict):
+        sess_docs = [doc]
+    for sess in sess_docs:
+        hit = _from_parameters(sess.get("parameters"))
+        if hit:
+            return hit
     return None
 
 

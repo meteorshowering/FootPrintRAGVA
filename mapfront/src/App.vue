@@ -44,63 +44,14 @@
 
         <!-- 右侧栏：详情视图 -->
         <aside class="right-panel">
-          <section class="user-operation-panel">
-            <div class="user-operation-title">用户操作记录</div>
-            <div v-if="userOperationRows.length === 0" class="user-operation-empty">
-              暂无用户操作
-            </div>
-            <div v-else class="user-operation-list">
-              <div
-                v-for="row in userOperationRows"
-                :key="row.key"
-                class="user-operation-row"
-              >
-                <div class="strategy-square" :title="row.toolName || ''">
-                  <svg v-if="row.thumbnailPoints && row.thumbnailPoints.length" width="100%" height="100%" viewBox="-5 -5 110 110">
-                    <circle
-                      v-for="(pt, i) in row.thumbnailPoints"
-                      :key="i"
-                      :cx="pt.x"
-                      :cy="pt.y"
-                      :r="pt.action === 'UNKNOWN' ? 2.5 : 5"
-                      :fill="getPointColor(pt.action)"
-                      :opacity="pt.action === 'UNKNOWN' ? 0.45 : 0.9"
-                      stroke="rgba(40,50,60,0.35)"
-                      stroke-width="1"
-                    />
-                  </svg>
-                  <span v-else>{{ row.label }}</span>
-                </div>
-                <div class="row-content-right">
-                  <div class="thumbnail-dots-area">
-                    <div 
-                      v-for="(pt, i) in row.thumbnailPoints"
-                      :key="'dot-'+i"
-                      class="interactive-dot"
-                      :style="{ backgroundColor: getPointColor(pt.action), opacity: pt.action === 'UNKNOWN' ? 0.45 : 0.9 }"
-                      @click="openPointDetailFromApp(pt.ctx)"
-                      :title="pt.id"
-                    ></div>
-                  </div>
-                  <div class="operation-bars">
-                    <div
-                      v-for="op in row.operations"
-                      :key="op.key"
-                      class="operation-bar"
-                      :style="{ background: getPointColor(op.after || op.action) }"
-                      :title="`${op.after || op.action} ${op.targetEvidenceId || ''}`"
-                    ></div>
-                    <button 
-                      v-if="row.hasPending"
-                      class="operation-apply-btn"
-                      @click="applyRowOperations(row)"
-                      title="Apply pending changes"
-                    >Apply</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <UserOperationsPanel
+            :rows="userOperationRows"
+            :rag-collection="ragCollection"
+            @open-point-detail="openPointDetailFromApp"
+            @apply-operations="applyRowOperations"
+            @centroid-neighbors-grow="onCentroidNeighborsGrow"
+            @queue-point-eval-from-ctx="onQueuePointEvalFromCtx"
+          />
           <DetailView />
         </aside>
       </div>
@@ -112,6 +63,7 @@
 import DetailView from './components/DetailView';
 import EnhancedRiverChart from './components/EnhancedRiverChart';
 import LeftPanel from './components/LeftPanel.vue';
+import UserOperationsPanel from './components/UserOperationsPanel.vue';
 
 export default {
   name: 'App',
@@ -119,6 +71,7 @@ export default {
     EnhancedRiverChart,
     DetailView,
     LeftPanel,
+    UserOperationsPanel,
   },
   data() {
     return {
@@ -137,6 +90,8 @@ export default {
       },
       userOperationRows: [],
       backendConnected: false,
+      /** row.key -> GROW 行质心近邻 rag_results[]（与 experiment JSON 同构） */
+      userOpsCentroidGrowByRow: {},
     };
   },
   methods: {
@@ -150,11 +105,14 @@ export default {
         this.$refs.riverChart.applyPendingOperations(row);
       }
     },
-    getPointColor(action) {
-      if (action === 'GROW') return '#22c55e';
-      if (action === 'KEEP') return '#0ea5e9';
-      if (action === 'PRUNE') return '#ef4444';
-      return '#cbd5e1';
+    onQueuePointEvalFromCtx(payload) {
+      const ctx = payload && payload.ctx;
+      const newAction = payload && payload.newAction;
+      if (!ctx || !newAction) return;
+      const rc = this.$refs.riverChart;
+      if (rc && typeof rc.queuePointEvalFromContext === 'function') {
+        rc.queuePointEvalFromContext(ctx, newAction);
+      }
     },
     handleSystemPromptChange(prompt) {
       // 处理全局系统提示变化
@@ -199,7 +157,23 @@ export default {
       };
     },
     handleUserOperationsChange(rows) {
-      this.userOperationRows = Array.isArray(rows) ? rows : [];
+      const base = Array.isArray(rows) ? rows : [];
+      this.userOperationRows = base.map((r) => ({
+        ...r,
+        centroidNeighborsGrow: this.userOpsCentroidGrowByRow[r.key] || [],
+      }));
+    },
+    onCentroidNeighborsGrow({ rowKey, neighbors }) {
+      if (!rowKey) return;
+      this.userOpsCentroidGrowByRow = {
+        ...this.userOpsCentroidGrowByRow,
+        [rowKey]: Array.isArray(neighbors) ? neighbors : [],
+      };
+      this.userOperationRows = this.userOperationRows.map((r) =>
+        r.key === rowKey
+          ? { ...r, centroidNeighborsGrow: this.userOpsCentroidGrowByRow[rowKey] }
+          : r
+      );
     },
     handleBackendStatusChange(payload) {
       this.backendConnected = !!(payload && payload.connected);
@@ -293,139 +267,5 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-.user-operation-panel {
-  flex: 0 0 30%;
-  min-height: 0;
-  margin: 12px 14px 0 14px;
-  padding: 12px;
-  background: #ffffff;
-  border: 1px solid #bae6fd;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-.user-operation-title {
-  flex: 0 0 auto;
-  font-size: 13px;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 10px;
-}
-
-.user-operation-empty {
-  font-size: 12px;
-  color: #94a3b8;
-}
-
-.user-operation-list {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-auto-rows: calc((100% - 24px) / 4);
-  gap: 8px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.user-operation-row {
-  display: flex;
-  align-items: stretch;
-  gap: 12px;
-  box-sizing: border-box;
-  padding: 2px 0;
-}
-
-.strategy-square {
-  height: 100%;
-  aspect-ratio: 1;
-  flex-shrink: 0;
-  border: 1px solid rgba(148, 163, 184, 0.8);
-  border-radius: 4px;
-  background: #ffffff;
-  color: #0f172a;
-  font-size: 11px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
-}
-
-.row-content-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  gap: 4px;
-}
-
-.thumbnail-dots-area {
-  flex: 0 0 calc(75% - 2px);
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  align-items: flex-start;
-  gap: 4px;
-  overflow-y: auto;
-  padding-right: 2px;
-}
-
-.interactive-dot {
-  height: calc(50% - 2px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.15);
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: filter 0.2s;
-}
-
-.interactive-dot:hover {
-  filter: brightness(1.15) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-}
-
-.operation-bars {
-  flex: 0 0 calc(25% - 2px);
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  align-items: flex-start;
-  gap: 4px;
-  overflow: hidden;
-}
-
-.operation-bar {
-  height: 100%;
-  aspect-ratio: 1;
-  border-radius: 3px;
-  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.12);
-  flex-shrink: 0;
-}
-
-.operation-apply-btn {
-  height: 100%;
-  padding: 0 16px;
-  border-radius: 3px;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  font-size: 11px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.3);
-}
-.operation-apply-btn:hover {
-  background: #2563eb;
-}
-
-.operation-bar-delete {
-  background: #dc2626;
 }
 </style>

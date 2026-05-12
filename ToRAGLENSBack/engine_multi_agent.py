@@ -540,6 +540,23 @@ def _save_experiment_merged(
     print(f"\n💾 [MultiAgent] 实验结果已保存: {path}")
 
 
+def _interactive_report_rag_branch_action(rag: Any) -> str:
+    """从 RagResult（Pydantic 或 dict）读取 evaluation.branch_action，归一为大写。"""
+    ev = rag.get("evaluation") if isinstance(rag, dict) else getattr(rag, "evaluation", None)
+    if not ev:
+        return ""
+    if isinstance(ev, dict):
+        raw = ev.get("branch_action")
+    else:
+        raw = getattr(ev, "branch_action", None)
+    return str(raw or "").strip().upper()
+
+
+def _interactive_report_rag_allowed_for_section_llm(rag: Any) -> bool:
+    """Interactive Report 小节撰写：仅使用 GROW / KEEP，排除 PRUNE、UNKNOWN、无评估等。"""
+    return _interactive_report_rag_branch_action(rag) in ("GROW", "KEEP")
+
+
 async def generate_interactive_report_for_experiment(experiment: ExperimentResult) -> ExperimentResult:
     """给定一个完整的实验记录，重新跑一遍大纲和内容生成。"""
     client = _make_model_client()
@@ -582,6 +599,8 @@ async def generate_interactive_report_for_experiment(experiment: ExperimentResul
             rag_results = []
             for pid in pids:
                 for rag in plan_id_to_rag.get(pid, []):
+                    if not _interactive_report_rag_allowed_for_section_llm(rag):
+                        continue
                     ret = getattr(rag, "retrieval_result", {})
                     if isinstance(ret, dict):
                         chunk_id = ret.get("id", "")
@@ -593,11 +612,17 @@ async def generate_interactive_report_for_experiment(experiment: ExperimentResul
             
             if rag_results:
                 text = await _llm_interactive_report_section(client, title, rag_results)
+                plan_ids_meta = (
+                    [str(x).strip() for x in pids if str(x).strip()]
+                    if isinstance(pids, list)
+                    else []
+                )
                 sections.append(HypothesisStep(
                     step_name=title,
                     prompt="Interactive Report Subsection",
                     response=text,
-                    agent_name="MultiAgentReportSection"
+                    agent_name="MultiAgentReportSection",
+                    assigned_plan_ids=plan_ids_meta if plan_ids_meta else None,
                 ))
     
     # 4. 生成综合报告 synthesis

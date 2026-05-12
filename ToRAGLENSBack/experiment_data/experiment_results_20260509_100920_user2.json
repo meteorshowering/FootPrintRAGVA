@@ -3,8 +3,8 @@
     {
       "root_goal": "What are the primary goals of visualization assistance in the LLM era, and what pain points is it solving?",
       "session_id": "5904f9ce-b402-449f-8bf2-f3a7aa114ead",
-      "use_multi_agent_rewrite_streams": true,
-      "rewrite_variant_count": 4,
+      "use_multi_agent_rewrite_streams": false,
+      "rewrite_variant_count": null,
       "parameters": [
         {
           "round_number": 1,
@@ -1063,7 +1063,18 @@
                 "grid_pos": [
                   2,
                   1
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "170c7661-eb7b-4af4-b016-2d71b7870652",
+                      "timestamp": "2026-05-12T02:04:50",
+                      "before": "GROW",
+                      "after": "PRUNE"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -1665,7 +1676,13 @@
                       "query_intent": "How visualization assists in interpreting outputs of large language models and solves specific challenges"
                     }
                   },
-                  "evaluation": null
+                  "evaluation": {
+                    "target_evidence_id": "170c7661-eb7b-4af4-b016-2d71b7870652",
+                    "scores": {},
+                    "suggested_keywords": [],
+                    "branch_action": "PRUNE",
+                    "user_action": "point"
+                  }
                 },
                 {
                   "retrieval_result": {
@@ -1887,7 +1904,18 @@
                 "grid_pos": [
                   3,
                   1
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "ff94e2ec-95b1-48cd-b245-361149f79542",
+                      "timestamp": "2026-05-12T01:54:42",
+                      "before": "UNKNOWN",
+                      "after": "KEEP"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -2439,7 +2467,8 @@
                       "human-centered AI",
                       "LLM design feedback",
                       "ACGT method"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -2794,7 +2823,18 @@
                 "grid_pos": [
                   4,
                   1
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "ff94e2ec-95b1-48cd-b245-361149f79542",
+                      "timestamp": "2026-05-12T01:54:42",
+                      "before": "UNKNOWN",
+                      "after": "KEEP"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -3581,7 +3621,8 @@
                       "Visualizationary",
                       "feedback systems",
                       "context adaptation"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -4605,7 +4646,35 @@
                 "grid_pos": [
                   2,
                   2
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "ff94e2ec-95b1-48cd-b245-361149f79542",
+                      "timestamp": "2026-05-12T01:54:42",
+                      "before": "UNKNOWN",
+                      "after": "KEEP"
+                    }
+                  ],
+                  "continue": [
+                    {
+                      "action": "continue",
+                      "new": "How LLMs integrate evaluation metrics and feedback loops to refine visualization designs, including roles of prompt engineering and model fine-tuning",
+                      "timestamp": "2026-05-12T02:05:58"
+                    },
+                    {
+                      "action": "continue",
+                      "new": "How LLMs integrate evaluation metrics and feedback loops to refine visualization designs, including roles of prompt engineering and model fine-tuning",
+                      "timestamp": "2026-05-12T03:03:30"
+                    },
+                    {
+                      "action": "continue",
+                      "new": "How LLMs integrate evaluation metrics and feedback loops to refine visualization designs, including roles of prompt engineering and model fine-tuning",
+                      "timestamp": "2026-05-12T08:29:51"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -5025,14 +5094,15 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "ff94e2ec-95b1-48cd-b245-361149f79542",
-                    "branch_action": "PRUNE",
+                    "branch_action": "KEEP",
                     "extracted_insight": "Feedback from Visualizationary provides human-like assistance, but text volume is often too high for participants to process.",
                     "scores": {
                       "relevance": 5,
                       "credibility": 6
                     },
                     "reason": "Repeats high-level information already covered in other Visualizationary entries.",
-                    "suggested_keywords": []
+                    "suggested_keywords": [],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -5507,7 +5577,18 @@
                 "grid_pos": [
                   3,
                   2
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "ff94e2ec-95b1-48cd-b245-361149f79542",
+                      "timestamp": "2026-05-12T01:54:42",
+                      "before": "UNKNOWN",
+                      "after": "KEEP"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -6230,7 +6311,8 @@
                     "suggested_keywords": [
                       "LLM visualization feedback",
                       "user studies in design feedback"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 }
               ]
@@ -7137,7 +7219,32 @@
                 "grid_pos": [
                   1,
                   3
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "cd088b53-9a7a-473b-80b6-eddadccb215d",
+                      "timestamp": "2026-05-12T01:54:28",
+                      "before": "UNKNOWN",
+                      "after": "KEEP"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "ff94e2ec-95b1-48cd-b245-361149f79542",
+                      "timestamp": "2026-05-12T01:54:42",
+                      "before": "UNKNOWN",
+                      "after": "KEEP"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "170c7661-eb7b-4af4-b016-2d71b7870652",
+                      "timestamp": "2026-05-12T02:04:50",
+                      "before": "GROW",
+                      "after": "PRUNE"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -7358,7 +7465,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "170c7661-eb7b-4af4-b016-2d71b7870652",
-                    "branch_action": "GROW",
+                    "branch_action": "PRUNE",
                     "extracted_insight": "VisEval evaluation criteria include validity, legality, and readability using GPT-4V's multimodal capabilities.",
                     "scores": {
                       "relevance": 9,
@@ -7369,7 +7476,8 @@
                       "VisEval",
                       "multimodal GPT-4V",
                       "visualization evaluation"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -7748,7 +7856,13 @@
                       "query_intent": "limitations of readability scoring methods in VisEval for multi-channel complex visualizations"
                     }
                   },
-                  "evaluation": null
+                  "evaluation": {
+                    "target_evidence_id": "ff94e2ec-95b1-48cd-b245-361149f79542",
+                    "scores": {},
+                    "suggested_keywords": [],
+                    "branch_action": "KEEP",
+                    "user_action": "point"
+                  }
                 },
                 {
                   "retrieval_result": {
@@ -7863,7 +7977,13 @@
                       "query_intent": "limitations of readability scoring methods in VisEval for multi-channel complex visualizations"
                     }
                   },
-                  "evaluation": null
+                  "evaluation": {
+                    "target_evidence_id": "cd088b53-9a7a-473b-80b6-eddadccb215d",
+                    "scores": {},
+                    "suggested_keywords": [],
+                    "branch_action": "KEEP",
+                    "user_action": "point"
+                  }
                 },
                 {
                   "retrieval_result": {
@@ -7904,117 +8024,19 @@
             {
               "orchestrator_plan": {
                 "action": "call_tool",
-                "tool_name": "strategy_semantic_search",
+                "tool_name": "strategy_exact_search",
                 "ParentNode": "0",
                 "args": {
-                  "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?",
-                  "n_results": 16
+                  "query_intent": "Tailor-Mind",
+                  "n_results": 10
                 },
-                "reason": "To deepen exploration of benchmarks like VisEval and subjective metrics integration into evaluating LLM-driven visualization quality, a broader semantic approach ensures coverage of current methods and gaps.",
-                "total_results": 16,
+                "reason": "Follow-up (strategy_exact_search): user-specified retrieval and evaluation.",
+                "total_results": 10,
                 "duplicate_results": 0,
-                "plansummary": "In the context of understanding the primary goals of visualization assistance in the era of large language models (LLMs) and the key pain points it addresses, a semantic search strategy was employed to explore benchmarks, frameworks, and subjective metrics for evaluating visualization quality. The strategy sought to answer a targeted query: “What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?” Sixteen search results were retrieved by the system, reflecting a diverse set of scholarly and technical contributions on related topics.\n\n### Strategy Execution and Outcomes\n\nThe chosen approach, “strategy_semantic_search,” aimed to ensure broad coverage of relevant benchmarks such as VisEval and metrics addressing subjective design aspects for visualization systems. The search struck a balance between exploring technical execution details and addressing subjective concerns like aesthetics and emotional resonance. Of the sixteen hits, specific results were assessed and categorized based on relevance and credibility.\n\nThree standout results among the retrieved documents discussed key themes:\n\n1. **Result 1**: A study introducing the *Visualizationary* system, which seeks to automate design feedback for visualization designers, examined the challenges of balancing universal visualization guidelines with personalized feedback. This source was assessed as significant for its relevance (8/10) and credibility (8/10) and offered meaningful insights into opportunities for improving subjective evaluation frameworks in visualization systems.\n   \n2. **Result 2**: A paper that explored LLMs' potential to detect misleading visualizations through iterative prompt-based evaluations of visualizations, achieving high relevance (9/10) and credibility (9/10). This study highlights how LLMs can be used both to assess and improve visualization designs by addressing the risk of misinformation or misinterpretation embedded in visual representations.\n\n3. **Result 3**: A framework designed to balance text-based and non-textual data in visualization systems using LLMs. While slightly less relevant than the previous findings (relevance score of 7/10), this work underscored critical trade-offs in multi-modal visual analytics (VA) systems where human interpretation and machine guidance intersect.\n\n### Key Insights and Implications\n\nFrom the accumulated insights, several significant themes emerged:\n\n1. **Automation of Design Feedback**: The *Visualizationary* system exemplifies the potential to address core pain points in visualization assistance by leveraging adaptive feedback loops to improve salience, color perception, and other design metrics over iterative cycles. The system shows promise for designers who need to refine their visualizations while preserving contextual relevance and addressing stylistic preferences. This illustrates LLM-driven visualization tools' capacity to bridge the gap between general principles and situationally specific aesthetic qualities.\n\n2. **Addressing Misinformation in Visualization**: The second study underscores the utility of LLMs in detecting misleading or biased visual representations. This aligns with one of the major goals of visualization assistance in the LLM era: providing users with tools to critically assess the integrity and (un)intended interpretations of data presented visually. This work also indirectly highlights the importance of building robust benchmarks and evaluation systems to test LLMs’ performance in identifying misleading attributes.\n\n3. **Frameworks for Multi-modal Data in LLM Systems**: The third insight points to a structural trade-off in handling different types of data within visualization systems powered by LLMs. While textual and numerical data integration into visual designs is a core driver of such systems, challenges remain in facilitating subjective evaluation metrics like usability and emotional resonance.\n\n4. **Benchmarking and Extensibility with VisEval**: The modular functionality of *VisEval*, another highlight among the retrieved insights, emphasizes extensibility to diverse visualization toolkits and supports benchmarking in the natural language to visualization (NL2VIS) process. However, gaps in existing benchmarks suggest opportunities for future research to introduce more comprehensive subjective evaluation metrics that explicitly measure emotional and aesthetic aspects in visualization designs.\n\n### Retrieval Quality Commentary\n\nThe semantic search yielded highly relevant and credible results overall, with key retrieval hits aligning well with the query intent. Results showed an appropriate balance between technical depth and explorative discussions of subjective metrics and benchmarking systems. Most retrieved documents contributed directly to the central topic, although some overlap in details (e.g., interaction design reports) led to minor redundancy in insights. The retrieval quality scored positively across relevance, accuracy, and authority dimensions, with slight limitations in completeness, as none of the results offered deep dives into frameworks exclusively targeting emotional resonance in visualization designs.\n\n### Conclusion\n\nThis retrieval process highlights the increasing role of LLMs in enabling effective visualization assistance, with goals that encompass improving interpretability, aesthetics, and personalized feedback within design systems. The results collectively point to a shift toward frameworks like *Visualizationary* and *VisEval*, which aim for iterative, adaptive improvements and extensibility while identifying system-level gaps in accommodating subjective metrics. Pain points like addressing misinformation, balancing multi-modal data types, and developing subjective evaluation benchmarks remain critical areas for future innovation. Overall, while the selected sources provided meaningful insights, further exploration of recent advancements in aesthetic-oriented visualization frameworks would enrich understanding of this evolving field.",
-                "hyde_hypothetical_paragraph_full_text": "Evaluating subjective aspects such as aesthetics and emotional resonance in LLM-driven visualization designs requires multidimensional frameworks that integrate both quantitative and qualitative metrics. Benchmarks like the Visualization Aesthetics Score (VAS) and the Emotional Valence Assessment (EVA) employ crowd-sourced user studies to capture subjective perceptions, while frameworks such as the Design Aesthetic Evaluation Protocol (DAEP) combine computational heuristics with psychometric surveys. Additionally, methods like the Semantic Differential Technique (SDT) and the Geneva Emotion Wheel (GEW) enable fine-grained analysis of emotional responses elicited by visualizations. These approaches are often complemented by task-specific metrics, including engagement duration and user preference rankings, to provide a holistic assessment of design effectiveness.",
-                "rerank_before_ids": [
-                  "ff94e2ec-95b1-48cd-b245-361149f79542",
-                  "c338697d-bcab-472d-bbd8-1b699da2672f",
-                  "4df4d237-ac57-4f09-9c87-1b6171a621dd",
-                  "91a7361d-8ab7-4a7e-a09d-0ea40a1427e1",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_148",
-                  "5e6e5a76-0778-42dd-800e-c58b4fe54d3b",
-                  "bbab6ef8-05d7-4612-9b9a-971d46527a56",
-                  "c32538ac-ae75-438c-8428-0356c64f4c40",
-                  "ba7aa3d8-94e0-4c2d-b0b1-5eefa438d0d0",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_161",
-                  "a78bb97b-acf8-44ca-a2ac-69baf1939f27",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_163",
-                  "f08a7a63-815e-436d-8042-412eb5f9742a",
-                  "e04ea426-a4a4-4d69-a6e7-f26692951ccb",
-                  "dcd44c9d-ab5e-49b6-8322-3544e8d5e2a0",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_137",
-                  "cecf3dac-51d9-4e51-8bd1-d1942cf70739",
-                  "02ee1c92-d88a-460c-a690-9f6ba5bccb5a",
-                  "ec5d882a-9c4a-433b-b37e-60e538c561f1",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_141",
-                  "cd088b53-9a7a-473b-80b6-eddadccb215d",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_159",
-                  "6ec751a7-5128-4303-865e-7dd2ad7eb521",
-                  "llmvis_SNIL_Generating_Sports_News_From_Insights_With_Large_Language_Models_2041432658726350848_84",
-                  "9662a94f-8939-4871-92dd-6fa6589f2b37",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_160",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_142",
-                  "612fb86e-29cf-4389-9c02-f63d821b9c1a",
-                  "llmvis_How_Good_-Or_Bad-_Are_LLMs_at_Detecting_Misleading_Visualizations-_2041426000889503744_18",
-                  "543b72a0-80fd-4c2d-a430-3462474696e9",
-                  "80d25331-d7df-4ae6-823d-f564cacecfe7",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_132",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_133",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_134",
-                  "9a5e93e1-71b7-44a3-b7fd-17821ccfbec2",
-                  "bd8052cb-7c28-455c-bd12-26a3243da401",
-                  "09d34e77-1f4d-40a0-92c2-ac96ed7388b7",
-                  "769a611c-2cd1-4faf-b082-43777cdd5789",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_162",
-                  "4b1c5900-8d0b-4cf6-8169-8fe56c4e8e08",
-                  "982f2b0c-f471-4999-9483-f9add1f2c368",
-                  "llmvis_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328_120",
-                  "14e45eb7-aebd-49f6-980c-9e09e69df1c7",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_140",
-                  "1e1da3b3-d2a5-48b0-9a94-6f9dc4cd3be4",
-                  "0b3da26e-34e2-410d-bcd6-5b9842a5db7f",
-                  "d6b5571f-cf34-4f4a-b568-b1abbe398f48",
-                  "3761ad83-3056-4fa4-8cae-9293404e12fd",
-                  "87a4f62b-6716-4e7e-9dbf-52d2e64ccc5a",
-                  "a04bf634-94dc-4836-bc2d-48484b5da177",
-                  "llmvis_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144_11",
-                  "e3a54a49-3b74-42cd-91b6-10ca513f0cc0",
-                  "0e667f53-2108-4f0f-b7a4-6129d752d6be",
-                  "llmvis_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328_118",
-                  "bffed949-11b2-47bd-8d68-37d6099beeb6",
-                  "9f9631c0-8a31-4614-968f-0ec3ff53e591",
-                  "llmvis_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328_114",
-                  "e8a51aab-d0a5-4174-9e91-3b0f9fa5561c",
-                  "80bca6f2-5a3a-4478-9ba4-1a2aac16ecb4",
-                  "1440e625-98f2-4126-8aeb-940c448ebdc3",
-                  "llmvis_LLMER_Crafting_Interactive_Extended_Reality_Worlds_with_JSON_Data_Generated_by_Large_Language_Models_2041432322292834304_39",
-                  "ca386ac9-8b25-4929-b7f8-07a22a0750ad",
-                  "965a3a45-5c75-4c0c-8334-80ad13e2588e",
-                  "775a9666-4e79-4bc7-a9fa-e6cedf31cba3",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_136",
-                  "44d5e740-5721-4493-89ef-93b9e6c3891e",
-                  "0462f177-fef7-4fb8-bbdb-8699b553d2c2",
-                  "72d39829-8690-4391-87be-ebdf93c3ed04",
-                  "f3ec9e23-3cf6-4c4d-b933-b2c4bddeac7d",
-                  "9527fe9c-2103-4218-9d50-cb9a448e52a7",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_131",
-                  "a99c9a20-e10f-43dc-8a52-fa288023127a",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_164",
-                  "8be13f0c-eaac-4c23-beab-0724a06c8605",
-                  "e39c3666-3f78-47ea-9ed8-649bbdca35bf",
-                  "5ca3ec89-0384-49de-9fc1-9a3524b94ec3",
-                  "c9915fd9-630c-4bb4-ae34-e9925299fcc7",
-                  "8c993333-2f04-4982-b589-308806312bc4",
-                  "1399ec88-21fd-403a-9f37-98a513053c30",
-                  "5a329cd4-a4a7-4911-8b21-719cd05a20af"
-                ],
-                "rerank_after_ids": [
-                  "a78bb97b-acf8-44ca-a2ac-69baf1939f27",
-                  "02ee1c92-d88a-460c-a690-9f6ba5bccb5a",
-                  "612fb86e-29cf-4389-9c02-f63d821b9c1a",
-                  "5ca3ec89-0384-49de-9fc1-9a3524b94ec3",
-                  "87a4f62b-6716-4e7e-9dbf-52d2e64ccc5a",
-                  "ff94e2ec-95b1-48cd-b245-361149f79542",
-                  "c338697d-bcab-472d-bbd8-1b699da2672f",
-                  "4df4d237-ac57-4f09-9c87-1b6171a621dd",
-                  "91a7361d-8ab7-4a7e-a09d-0ea40a1427e1",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_148",
-                  "5e6e5a76-0778-42dd-800e-c58b4fe54d3b",
-                  "bbab6ef8-05d7-4612-9b9a-971d46527a56",
-                  "c32538ac-ae75-438c-8428-0356c64f4c40",
-                  "ba7aa3d8-94e0-4c2d-b0b1-5eefa438d0d0",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_161",
-                  "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_163"
-                ],
+                "plansummary": null,
+                "hyde_hypothetical_paragraph_full_text": null,
+                "rerank_before_ids": null,
+                "rerank_after_ids": null,
                 "grid_pos": [
                   2,
                   3
@@ -8023,114 +8045,19 @@
               "rag_results": [
                 {
                   "retrieval_result": {
-                    "id": "a78bb97b-acf8-44ca-a2ac-69baf1939f27",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "text": "it did not align with their specialized needs (see Section VI-C). This underscores that relying solely on general “best practices” can overlook the nuances of personal or domainspecific objectives. \n\nBalancing clear, communicative design with each user’s specialized goals remains a significant challenge. On one hand, emphasizing universal guidelines can neglect individual contexts; on the other, tailoring feedback for every nuanced purpose requires more extensive modeling of the designer’s intent. We see this as an important avenue for future work, where feedback systems can be refined to address both communicative effectiveness and the broader range of a designer’s motivations. \n\nHuman-like visualization feedback: AI models can help designers assess whether a visualization is “good enough” by applying best practices and accessibility guidelines. Systems like Visualizationary use automated checklists to approximate human perception, for instance by evaluating color vision deficiency and visual saliency. One way to enhance this guidance is to add more filters tailored to designers’ needs. To further validate a design or create domain-specific conditions, designers can set benchmarks (e.g., speed of comprehension) to measure success. \n\nNevertheless, visualization design is context-dependent and subjective, as it involves aesthetic considerations and domainspecific requirements. Can we develop a subjective design evaluator that declares a design “complete” and provides feedback in a style akin to a human visualization designer? This would not only guide users to general feedback, but also provide design feedback that would be tailored to their owners’ styles. Achieving this would require extensive knowledge of best practices, accessibility standards, and real user feedback. As a possible future direction, we plan to explore how effectively LLM-driven agents could contribute to building such models.",
-                      "summary": "it did not align with their specialized needs (see Section VI-C). This underscores that relying solely on general “best practices” can overlook the nu..."
-                    },
-                    "metadata": {
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "type": "paper",
-                      "file_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "chunk_size": 1928,
-                      "paper_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "chunk_index": 55,
-                      "total_chunks": 70,
-                      "source": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_id": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560",
-                      "keywords": [],
-                      "content_type": "text",
-                      "coordinates_2d": [
-                        -4.796499729156494,
-                        5.628360271453857
-                      ],
-                      "paperid": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560"
-                    },
-                    "score": 0.9403572082519531,
-                    "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "a78bb97b-acf8-44ca-a2ac-69baf1939f27",
-                    "branch_action": "KEEP",
-                    "extracted_insight": "The paper discusses the challenges of balancing universal guidelines and personalized visualization design feedback, suggesting future exploration of subjective design evaluators for tailored improvements.",
-                    "scores": {
-                      "relevance": 8,
-                      "credibility": 8
-                    },
-                    "reason": "The content outlines theoretical insights on visualization design feedback but lacks immediate expansion clues or actionable data.",
-                    "suggested_keywords": [
-                      "subjective design evaluators",
-                      "visualization personalization",
-                      "LLM-assisted feedback"
-                    ]
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "02ee1c92-d88a-460c-a690-9f6ba5bccb5a",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "MinerU_markdown_How_Good_-Or_Bad-_Are_LLMs_at_Detecting_Misleading_Visualizations-_2041426000889503744",
-                      "text": "This investigation seeks to determine if such capacities exist and, if so, how crafting prompts alongside the chart images can effectively direct LLMs to produce the intended analytical outcomes. \n\nWe began the investigation with an exploratory experiment, collecting various visualizations, including misleading and valid charts. The objective of the exploration phase is to establish a baseline for evaluating LLMs’ ability to distinguish between these two types of charts. Building upon the insights gained in the exploratory experiment, the second phase of the experiments sharpens the focus on enhancing and broadening the prompts to capture a wider range of chart issues. However, this expansion poses scalability challenges, particularly in managing the length of the prompts and also the length of the outputs from the LLMs, leading to degraded performance. To address these issues, the third phase investigates strategies to overcome these limitations, facilitating a more exhaustive examination of the 21 most common issues in charts. Each stage progressively deepens our understanding of multimodal LLMs’ analytical capabilities in detecting visual deceptions.",
-                      "summary": "This investigation seeks to determine if such capacities exist and, if so, how crafting prompts alongside the chart images can effectively direct LLMs..."
-                    },
-                    "metadata": {
-                      "type": "paper",
-                      "file_name": "MinerU_markdown_How_Good_-Or_Bad-_Are_LLMs_at_Detecting_Misleading_Visualizations-_2041426000889503744.md",
-                      "chunk_size": 1171,
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "total_chunks": 68,
-                      "paper_name": "MinerU_markdown_How_Good_-Or_Bad-_Are_LLMs_at_Detecting_Misleading_Visualizations-_2041426000889503744",
-                      "chunk_index": 13,
-                      "source": "MinerU_markdown_How_Good_-Or_Bad-_Are_LLMs_at_Detecting_Misleading_Visualizations-_2041426000889503744.md",
-                      "paper_id": "mineru_markdown_how_good_-or_bad-_are_llms_at_detecting_misleading_visualizations-_2041426000889503744",
-                      "keywords": [],
-                      "content_type": "text",
-                      "coordinates_2d": [
-                        12.410207748413086,
-                        0.8657009601593018
-                      ]
-                    },
-                    "score": 0.9348986744880676,
-                    "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "02ee1c92-d88a-460c-a690-9f6ba5bccb5a",
-                    "branch_action": "GROW",
-                    "extracted_insight": "The study explores LLMs' capability to detect misleading visualizations through iterative prompt and chart evaluations, identifying 21 specific chart issues.",
-                    "scores": {
-                      "relevance": 9,
-                      "credibility": 9
-                    },
-                    "reason": "This evidence introduces specific and actionable details about LLM analysis of misleading visualizations, with potential for further exploration.",
-                    "suggested_keywords": [
-                      "LLM multimodal analysis",
-                      "misleading visualizations",
-                      "prompt engineering"
-                    ]
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "612fb86e-29cf-4389-9c02-f63d821b9c1a",
-                    "source_tool": "Left_Path(Semantic)",
+                    "id": "482e1fd2-635f-4f44-98fc-55f0f4c747bc",
+                    "source_tool": "Left_Path(ExactSearch)",
                     "content": {
                       "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
-                      "text": "The single-person SRL process can be further extended to community learning to obtain a wider range of learning experiences and effects. \n\n# 7.2 Discussion on General Framework\n\nGeneralizability of the framework. Our frameworks involves specific domain, visualization system, user interactions, and LLMs. (1) Specific domain: Our framework is well-suited for domains that are highly specialized, information-dense, and characterized by broad and deep knowledge. These domains are also highly structured, with well-defined rules and standards, and their tasks are problem-solving or decisionmaking oriented, requiring a user-centered approach. Therefore, the limitations of our framework lie in handling tasks that are highly subjective, lack clear norms, and have strong emotional dependencies, such as artistic creativity and open-ended experimental research. (2) Visualization systems: The well-defined functions of views in visualization \n\nsystems ensure compatibility with our framework. In this work, we designed the visualization system to prioritize user interaction. We believe that visual analytic (VA) systems focused on data analysis can also benefit from our framework. VA systems designed for text data can easily standardize requirements and domain knowledge into text-based fine-tuning tasks. For VA systems dealing with non-textual data, our framework could adapt as tuning methods evolve to teach models to analyze data, such as invoking numerical analysis APIs. (3) LLMs: Although we verified the process on a relatively small open-source model, the entire process is also applicable to stronger closed-source models, such as GPT-4, since it can be fine-tuned. In specific applications of the framework, it is crucial to consider the trade-offs between model performance and access costs, ensuring the selection of the most suitable model for the given task.",
-                      "summary": "The single-person SRL process can be further extended to community learning to obtain a wider range of learning experiences and effects. \n\n# 7.2 Discu..."
+                      "text": "# Fine-Tuned Large Language Model for Visualization System: A Study on Self-Regulated Learning in Education\n\nLin Gao , Jing Lu, Zekai Shao $\\textcircled{1}$ , Ziyue Lin, Shengbin Yue $\\textcircled{1}$ , Chiokit Ieong, Yi Sun, Rory James Zauner, Zhongyu Wei $\\textcircled{1}$ and Siming Chen $\\textcircled{1}$ \n\n![image](images/MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144/figure_1.jpg)\n\n\n\nFig. 1: The overview of Tailor-Mind. The Chat View (A) enables users to engage in conversations and receive recommended questions (A1), enhancing their knowledge exploration. Intelligent responses provide in-depth explanations (A2) and guide users to discover new knowledge connections (A3). The File Preview (B) displays learning materials (B1), knowledge structures in a tree widget (B2), and knowledge cards (B3). The Knowledge MindMap (C) visualizes the network of knowledge based on the learning levels (C1), allowing users to select different layouts (C2). Knowledge nodes display users’ notes (C3), support recommended questions, and allow for the modification of learning goals (C4). Users are also encouraged to take notes in a rich text editor (D). The Question Recommendation (E) offers questions about extracted knowledge points on various learning levels. The Learning Path (F) helps users understand their learning plans and delve into each detailed learning objective.",
+                      "summary": "# Fine-Tuned Large Language Model for Visualization System: A Study on Self-Regulated Learning in Education\n\nLin Gao , Jing Lu, Zekai Shao $\\textcircl..."
                     },
                     "metadata": {
-                      "chunk_index": 44,
-                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "chunk_index": 0,
+                      "chunk_size": 1468,
                       "type": "paper",
                       "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
-                      "chunk_size": 1876,
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
                       "mime_type": "MemoryMimeType.TEXT",
                       "total_chunks": 60,
                       "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
@@ -8138,770 +8065,460 @@
                       "keywords": [],
                       "content_type": "text",
                       "coordinates_2d": [
-                        -7.862208366394043,
-                        -5.659475326538086
-                      ]
+                        -3.3583710193634033,
+                        -7.424291133880615
+                      ],
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
                     },
-                    "score": 0.9342741966247559,
+                    "score": 1.0,
                     "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
+                      "query_intent": "Tailor-Mind"
                     }
                   },
                   "evaluation": {
-                    "target_evidence_id": "612fb86e-29cf-4389-9c02-f63d821b9c1a",
+                    "target_evidence_id": "482e1fd2-635f-4f44-98fc-55f0f4c747bc",
                     "branch_action": "KEEP",
-                    "extracted_insight": "The framework highlights trade-offs between handling textual and non-textual data in visual analytics (VA) systems using LLMs.",
+                    "extracted_insight": "The visualization system Tailor-Mind enables users to explore self-regulated learning tasks through intelligent responses, question recommendations, and advanced knowledge mapping.",
                     "scores": {
                       "relevance": 7,
                       "credibility": 8
                     },
-                    "reason": "The content includes a broad discussion of framework limitations rather than empirical evidence or specific findings.",
+                    "reason": "The evidence provides a detailed description of the system's features but lacks critical performance comparisons or validation details.",
                     "suggested_keywords": [
-                      "visual analytics systems",
-                      "LLM fine-tuning",
-                      "domain-specific frameworks"
+                      "knowledge mapping",
+                      "self-regulated learning",
+                      "intelligent visualization systems"
                     ]
                   }
                 },
                 {
                   "retrieval_result": {
-                    "id": "5ca3ec89-0384-49de-9fc1-9a3524b94ec3",
-                    "source_tool": "Left_Path(Semantic)",
+                    "id": "95804f63-f39d-46fc-8a12-05cf91ef943e",
+                    "source_tool": "Left_Path(ExactSearch)",
                     "content": {
-                      "title": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328",
-                      "text": "2 Limitations and Future work\n\nWe summarize several limitations and propose future work direction. \n\nSupport for integrating additional grammar or methods. In this work, we evaluate visualizations generated using Python libraries. However, our framework’s modular design makes it easy to extend and evaluate other visualization generation tools, such as JavaScript-based toolkits. To evaluate Vega-Lite-based methods, for instance, we need to configure the code execution and construction module. Specifically, we simulate a browser environment to convert Vega-Lite code into SVG format and adapt our deconstruction rules to accurately extract data from the rendered charts. As a result, our framework is capable of adaptively and robustly evaluating a broad spectrum of automatic visualization tools. This level of flexibility ensures that our framework remains useful and adaptable to emerging visualization technologies. \n\nExpand the scope of benchmark. Currently, our dataset focuses on common chart types. While it provides a solid foundation for benchmarking, it does not encompass the full range of natural language queries and visualizations. In the future, we aim to create a more comprehensive and challenging benchmark that can drive further advancements in the field of NL2VIS. We plan to collaborate with BI-tools teams and the broader community to expand our benchmark, including real-world queries and more complex visualizations. By leveraging our proposed construction process, which integrates the capabilities of state-of-the-art LLMs with insights from human experts, we anticipate enhancing the efficiency and quality of future dataset expansions.",
-                      "summary": "2 Limitations and Future work\n\nWe summarize several limitations and propose future work direction. \n\nSupport for integrating additional grammar or met..."
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "n (E) offers questions about extracted knowledge points on various learning levels. The Learning Path (F) helps users understand their learning plans and delve into each detailed learning objective.\n\n\nAbstract—Large Language Models (LLMs) have shown great potential in intelligent visualization systems, especially for domainspecific applications. Integrating LLMs into visualization systems presents challenges, and we categorize these challenges into three alignments: domain problems with LLMs, visualization with LLMs, and interaction with LLMs. To achieve these alignments, we propose a framework and outline a workflow to guide the application of fine-tuned LLMs to enhance visual interactions for domain-specific tasks. These alignment challenges are critical in education because of the need for an intelligent visualization system to support beginners’ self-regulated learning. Therefore, we apply the framework to education and introduce Tailor-Mind, an interactive visualization system designed to facilitate self-regulated learning for artificial intelligence beginners. Drawing on insights from a preliminary study, we identify self-regulated learning tasks and fine-tuning objectives to guide visualization design and tuning data construction. Our focus on aligning visualization with fine-tuned LLM makes Tailor-Mind more like a personalized tutor. Tailor-Mind also supports interactive recommendations to help beginners better achieve their learning goals. Model performance evaluations and user studies confirm that Tailor-Mind improves the self-regulated learning experience, effectively validating the proposed framework. \n\nIndex Terms—Fine-tuned large language model, visualization system, self-regulated learning, intelligent tutorial system \n\n# 1 INTRODUCTION\n\nThe rapid advancement of large language models (LLMs) has captured significant attention [32, 47, 65] and opened new avenues for tack-",
+                      "summary": "n (E) offers questions about extracted knowledge points on various learning levels. The Learning Path (F) helps users understand their learning plans ..."
                     },
                     "metadata": {
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "file_name": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328.md",
-                      "chunk_size": 1668,
+                      "total_chunks": 60,
+                      "chunk_size": 1917,
+                      "chunk_index": 1,
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
                       "type": "paper",
-                      "total_chunks": 52,
-                      "chunk_index": 40,
-                      "paper_name": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328",
-                      "source": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328.md",
-                      "paper_id": "mineru_markdown_viseval_a_benchmark_for_data_visualization_in_the_era_of_large_language_models_2041432755698659328",
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "mime_type": "MemoryMimeType.TEXT",
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
                       "keywords": [],
                       "content_type": "text",
                       "coordinates_2d": [
-                        4.259070873260498,
-                        1.3875333070755005
+                        -6.880088806152344,
+                        -8.02431583404541
                       ],
-                      "paperid": "mineru_markdown_viseval_a_benchmark_for_data_visualization_in_the_era_of_large_language_models_2041432755698659328"
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
                     },
-                    "score": 0.9276018142700195,
+                    "score": 1.0,
                     "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
+                      "query_intent": "Tailor-Mind"
                     }
                   },
                   "evaluation": {
-                    "target_evidence_id": "5ca3ec89-0384-49de-9fc1-9a3524b94ec3",
+                    "target_evidence_id": "95804f63-f39d-46fc-8a12-05cf91ef943e",
                     "branch_action": "GROW",
-                    "extracted_insight": "The modular framework in VisEval supports extensibility to various visualization toolkits and highlights gaps in benchmarking natural language to visualization (NL2VIS).",
+                    "extracted_insight": "Tailor-Mind incorporates fine-tuned LLMs to enhance self-regulated learning for beginners, addressing domain-specific challenges in education through interactive recommendations.",
+                    "scores": {
+                      "relevance": 9,
+                      "credibility": 9
+                    },
+                    "reason": "Highly relevant evidence with a clear framework for integrating LLMs into domain-specific visualization systems and preliminary validated results.",
+                    "suggested_keywords": [
+                      "fine-tuned LLM",
+                      "interactive recommendations",
+                      "self-regulated learning framework"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "3ba03115-7cdb-46f7-86fa-d2adeecdcc3c",
+                    "source_tool": "Left_Path(ExactSearch)",
+                    "content": {
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "Therefore, there is a lack of work that integrates domain knowledge, visualization, and interaction to leverage LLMs for domain-specific problems. \n\nIn this paper, we analyze the relationships and patterns among LLMs, domain knowledge, visualization, and interaction, identifying three alignment objectives: domain problems with LLMs, visualizations with LLMs, and interactions with LLMs. Based on these alignments, we propose a conceptual framework to guide the tuning of LLMs for domain-specific tasks in visualization systems. We apply our proposed framework to the educational domain, introducing Tailor-Mind for artificial intelligence (AI) beginners. A preliminary study with students and teachers reveals a need for intelligent interactive systems in Self-Regulated Learning (SRL), which our approach aims to address. By integrating expert insights with user needs, learning tasks are defined, leading to the establishment of design requirements and fine-tuning objectives for the domain model. This optimization ensures the model fits the learning tasks and maintains interactive functionality between visualization and students’ learning process. To our knowledge, this work presents the first conceptual framework that combines fine-tuned models and visualization systems to tackle domain-specific problems. The contributions are as follows: \n\n• A conceptual framework that integrates fine-tuned LLMs into interactive visualization systems, alongside a workflow of applying the framework to different domains. \n\n• Applying the framework to the education domain, we introduce Tailor-Mind, an interactive visualization system for artificial intelligence beginners supported by a fine-tuned LLM. The system supports intelligent exploration of knowledge and personalized \n\nrecommendations during the self-regulated learning process.",
+                      "summary": "Therefore, there is a lack of work that integrates domain knowledge, visualization, and interaction to leverage LLMs for domain-specific problems. \n\nI..."
+                    },
+                    "metadata": {
+                      "total_chunks": 60,
+                      "chunk_index": 5,
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "type": "paper",
+                      "mime_type": "MemoryMimeType.TEXT",
+                      "chunk_size": 1838,
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
+                      "keywords": [],
+                      "content_type": "text",
+                      "coordinates_2d": [
+                        -7.132301330566406,
+                        -7.743849754333496
+                      ],
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
+                    },
+                    "score": 1.0,
+                    "source_args": {
+                      "query_intent": "Tailor-Mind"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "3ba03115-7cdb-46f7-86fa-d2adeecdcc3c",
+                    "branch_action": "GROW",
+                    "extracted_insight": "The conceptual framework for integrating fine-tuned LLMs into visualization systems demonstrates tailored applications for artificial intelligence education, emphasizing personalized interaction strategies.",
                     "scores": {
                       "relevance": 9,
                       "credibility": 8
                     },
-                    "reason": "The modular design and future roadmap are valuable for expanding NL2VIS benchmarks and methodologies.",
+                    "reason": "The evidence provides foundational insights into combining domain knowledge and LLMs for solving targeted problems in education, presenting unique contributions.",
                     "suggested_keywords": [
-                      "NL2VIS benchmarking",
-                      "modular visualization frameworks",
-                      "Vega-Lite methods"
+                      "conceptual framework",
+                      "domain-specific visualization",
+                      "personalized interaction strategies"
                     ]
                   }
                 },
                 {
                   "retrieval_result": {
-                    "id": "87a4f62b-6716-4e7e-9dbf-52d2e64ccc5a",
-                    "source_tool": "Left_Path(Semantic)",
+                    "id": "246e593d-5a36-4843-b01d-1bc2e7c0aa70",
+                    "source_tool": "Left_Path(ExactSearch)",
                     "content": {
-                      "title": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "text": "The design report component $\\textcircled{6}$ summarizes the feedback and the revision history for the iterative design improvement process.\n\n\nexplore various visual feedback, while the back-end supports these processes using off-the-shelf language models. Here we describe its architecture and core components in detail. \n\n# A. System Overview\n\nVisualizationary is a web-based client-server system (R4) that tracks a visualization artifact throughout its design process. Our system can support multiple users at once, so we placed no time constraints on image uploads (R4). However, no instances occurred where multiple users accessed it simultaneously. The workflow (Fig. 1) is based on the user—a visualization designer—iteratively uploading a screenshot of the current state of their visualization artifact and receiving automated feedback from the system. The feedback then presumably helps the designer make improvements to the artifact in the next design iteration. However, unlike existing visualization design feedback systems such as Perceptual Pat [61], which merely report metrics, Visualizationary implements the ACGT workflow from Section III: beyond analyzing the image, it also explains (“clarify”) the feedback using natural language (R3), suggests ways for addressing shortcomings (“guide”), and tracks the changes to the design over multiple iterations. \n\nThis workflow is realized through three components: (1) a web-based visualization design interface (R1, R4, R5) (Section IV-B), (2) interactive design reports providing feedback \n\nat user-controlled levels of detail (Section IV-C), and (3) an automated feedback system for extracting visualization data and transforming into textual feedback (R5) (Section IV-D). The former two belong to Visualizationary’s frontend, whereas the third is a part of the backend. Afterwards, we detail our prompting methodologies for providing visualization feedback (Section IV-E), and our implementation notes (Section IV-F).",
-                      "summary": "The design report component $\\textcircled{6}$ summarizes the feedback and the revision history for the iterative design improvement process.\n\n\nexplore..."
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "ificial intelligence beginners supported by a fine-tuned LLM. The system supports intelligent exploration of knowledge and personalized \n\nrecommendations during the self-regulated learning process. \n\n• The evaluation of model performance, alongside findings from usage scenarios and user study, validates Tailor-Mind’s effectiveness in facilitating SRL experiences. This substantiates the framework’s rationality and feasibility and offers the educational domain valuable insights for promoting active, iterative learning. \n\n# 2 RELATED WORK\n\nThis section reviews related work on fine-tuned LLMs for domainspecific applications and LLM-empowered visualization systems, especially in the education domain. \n\n# 2.1 LLM-based Visualization System for Domain Tasks\n\nThe exceptional performance of LLMs has facilitated their integration into visual interactions. Currently, their power can be leveraged in several ways: external knowledge bases, prompt engineering, agent settings, and data fine-tuning. \n\nExternal knowledge bases. External knowledge bases enhance LLMs by providing vast repositories of structured information [23]. DocFlow [38] intelligently classifies documents by incorporating document information retrieval techniques based on user questions. Peng et al. [36] proposed an LLM-AUGMENTER system that augments LLM with plug-and-play modules based on external knowledge. \n\nPrompt engineering. Through prompt engineering, LEVA [64] enables LLMs to generate the declarative syntax of a visual analytics system, understand view relationships, and interpret diagram information to provide analysis tasks and interaction recommendations. Works tailored to specific scenarios, such as interior design [12] and virtual museum tours [52], enhance user experiences by interpreting inputs and adapting outputs, thereby facilitating intelligent and personalized solutions. Simultaneously, there is work [44] that focuses on visualizing prompt performance and methods for iterative optimization.",
+                      "summary": "ificial intelligence beginners supported by a fine-tuned LLM. The system supports intelligent exploration of knowledge and personalized \n\nrecommendati..."
                     },
                     "metadata": {
-                      "chunk_size": 1983,
-                      "file_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
                       "type": "paper",
-                      "paper_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "chunk_index": 12,
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "chunk_size": 1996,
                       "mime_type": "MemoryMimeType.TEXT",
-                      "total_chunks": 70,
-                      "source": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_id": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560",
+                      "chunk_index": 6,
+                      "total_chunks": 60,
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
                       "keywords": [],
                       "content_type": "text",
                       "coordinates_2d": [
-                        -6.921462059020996,
-                        10.134860038757324
+                        -5.893396377563477,
+                        -7.198522567749023
                       ],
-                      "paperid": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560"
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
                     },
-                    "score": 0.9252123832702637,
+                    "score": 1.0,
                     "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
+                      "query_intent": "Tailor-Mind"
                     }
                   },
                   "evaluation": {
-                    "target_evidence_id": "87a4f62b-6716-4e7e-9dbf-52d2e64ccc5a",
-                    "branch_action": "PRUNE",
-                    "extracted_insight": "Details repeat earlier discussions about interaction design reports and system workings without unique contributions.",
+                    "target_evidence_id": "246e593d-5a36-4843-b01d-1bc2e7c0aa70",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "Evaluations confirm Tailor-Mind's effectiveness in fostering active, iterative learning, providing valuable insights on LLM-based visualization systems for educational contexts.",
                     "scores": {
-                      "relevance": 5,
+                      "relevance": 8,
                       "credibility": 7
                     },
-                    "reason": "The item overlaps significantly with other studies on Visualizationary, adding no distinct new scientific insights.",
-                    "suggested_keywords": []
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "ff94e2ec-95b1-48cd-b245-361149f79542",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "text": "General assessment: Participants considered the system an assistant providing expert feedback. Many people originally thought that it would be difficult to provide useful insights, but were surprised at its capability to help the design. Furthermore, the use of an LLM created a sense of a “human” response, which made some participants feel less isolated during the design process. \n\nHowever, some areas could be enhanced. One key observation was that, despite the hierarchical structure, participants still found the text volume overwhelming. \n\n# VII. DISCUSSION\n\nThe results from this study showed three things: that (1) a “vanilla” LLM, when provided with appropriate symbolic metrics and a “cheat sheet” of visualization design knowledge, can provide meaningful and actionable feedback on flaws in a visualization and how to improve them; that (2) even experienced visualization designers can benefit from this feedback; and that (3) our ACGT framework is effective for providing feedback for communicative visualizations. Below we discuss issues on visualization design feedback, as well as the limitations of our work. \n\n# A. Visualization Design Feedback\n\nBridging design contexts: Although we designed our feedback primarily to enhance clarity in visualizations, it is equally important to consider each designer’s unique goals and intentions. Some participants diverged from the system’s advice because it did not align with their specialized needs (see Section VI-C). This underscores that relying solely on general “best practices” can overlook the nuances of personal or domainspecific objectives.",
-                      "summary": "General assessment: Participants considered the system an assistant providing expert feedback. Many people originally thought that it would be difficu..."
-                    },
-                    "metadata": {
-                      "type": "paper",
-                      "file_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "total_chunks": 70,
-                      "chunk_size": 1610,
-                      "chunk_index": 54,
-                      "source": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_id": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560",
-                      "keywords": [],
-                      "content_type": "text",
-                      "coordinates_2d": [
-                        -5.868134498596191,
-                        4.902162075042725
-                      ]
-                    },
-                    "score": 0.5900155891245811,
-                    "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "ff94e2ec-95b1-48cd-b245-361149f79542",
-                    "branch_action": "KEEP",
-                    "extracted_insight": "Participants noted LLM feedback improves design clarity but highlighted challenges of overwhelming text outputs.",
-                    "scores": {
-                      "relevance": 8,
-                      "credibility": 8
-                    },
-                    "reason": "Findings add depth to user-level perceptions of automated feedback systems without necessitating follow-up.",
+                    "reason": "The performance validation section adds credibility but lacks detailed comparisons or broader implementation insights for widespread adoption.",
                     "suggested_keywords": [
-                      "design critique automation",
-                      "user-centered feedback"
+                      "LLM-based visualization systems",
+                      "iterative learning",
+                      "education domain insights"
                     ]
                   }
                 },
                 {
                   "retrieval_result": {
-                    "id": "c338697d-bcab-472d-bbd8-1b699da2672f",
-                    "source_tool": "Left_Path(Semantic)",
+                    "id": "e0107670-4c99-4243-a251-047ccfb78bea",
+                    "source_tool": "Left_Path(ExactSearch)",
                     "content": {
-                      "title": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328",
-                      "text": "eed for systematic evaluation to understand the capability of LLMs and the performance of LLMs-based methods and gain insights for future advancements. \n\n# 2.2 Evaluation for Generated Visualization\n\nAs LLMs demonstrate tremendous potential, researchers are increasingly engaged in assessing the quality of visualizations generated by LLMs [8, 9, 29, 50, 64]. A series of human evaluations were conducted from different aspects, including visualization code generation [9, 64], visualization design [8, 29], and visual data exploration [8]. Given the labor-intensive nature of human evaluation, automated evaluation methods [11,18,34,41,50] show their importance in facilitating the iteration and improvement of methods, along with providing an objective assessment. EvaLLM [50] automates the evaluation of generated Vega-Lite visualizations in JSON format. It verifies the JSON structure, assesses code and JSON structure similarity, and compares data mapping, marks, and axes with the ground truth. However, only charts written in highlevel representation languages (e.g., Vega-Lite) are applicable to this method, and doubts remain about whether code similarity is a good measure. Rule-based methods [34, 41] focus on the presented chart and automatically check whether the data along the $\\mathbf { X }$ -axis and y-axis matches the ground truth data. However, they often overlook errors in channels other than the axes, such as using the same color to represent distinct categories, and they are sometimes too strict as the appropriate visual mapping can vary. Other automated methods [11, 18] employ self-evaluation strategies, wherein LLMs are utilized to assess the quality of code generated by themselves. However, it remains unexplored whether LLMs possess the capability to determine the quality of generated visualizations solely based on code.",
-                      "summary": "eed for systematic evaluation to understand the capability of LLMs and the performance of LLMs-based methods and gain insights for future advancements..."
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "By analyzing interaction records, we identify user characteristics and interaction patterns, enabling targeted and personalized improvements to the model’s output. \n\n• (Fine-tuned $\\mathbf { L L M } \\Rightarrow$ Visualization System) Integrating the finetuned model into each system module provides more intelligent interaction methods to support the initial domain problem. \n\nIn education, we combined the fine-tuned model with the visualization system to form the final system, Tailor-Mind, for prototype user experience collection. Based on user feedback, we encoded user group (students) characteristics into the model to optimize its capabilities. For instance, considering beginners’ traits, we provided question recommendations to simplify the questioning process and encourage divergent thinking. By treating model answers as reference material, we further tuned the model to intelligently extract key information and structured data, helping students grasp essential points. \n\n# 4 REQUIREMENT ANALYSIS OF TAILOR-MIND\n\nRecognizing the need for effective tools to support SRL, we conducted a preliminary study to identify the design requirements of the visualization system and specific fine-tuning tasks for intelligent SRL. \n\n# 4.1 Interviews and Surveys\n\nWe interviewed two domain experts and investigated how students adopt SRL in their studies.",
+                      "summary": "By analyzing interaction records, we identify user characteristics and interaction patterns, enabling targeted and personalized improvements to the mo..."
                     },
                     "metadata": {
-                      "paper_name": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328",
-                      "file_name": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328.md",
-                      "chunk_size": 1856,
-                      "mime_type": "MemoryMimeType.TEXT",
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "total_chunks": 60,
                       "type": "paper",
-                      "chunk_index": 7,
-                      "total_chunks": 52,
-                      "source": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328.md",
-                      "paper_id": "mineru_markdown_viseval_a_benchmark_for_data_visualization_in_the_era_of_large_language_models_2041432755698659328",
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "mime_type": "MemoryMimeType.TEXT",
+                      "chunk_index": 16,
+                      "chunk_size": 1356,
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
                       "keywords": [],
                       "content_type": "text",
                       "coordinates_2d": [
-                        3.030627727508545,
-                        2.0195374488830566
+                        -8.963682174682617,
+                        -7.737819671630859
                       ],
-                      "paperid": "mineru_markdown_viseval_a_benchmark_for_data_visualization_in_the_era_of_large_language_models_2041432755698659328"
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
                     },
-                    "score": 0.5787767169786899,
+                    "score": 1.0,
                     "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
+                      "query_intent": "Tailor-Mind"
                     }
                   },
                   "evaluation": {
-                    "target_evidence_id": "c338697d-bcab-472d-bbd8-1b699da2672f",
-                    "branch_action": "KEEP",
-                    "extracted_insight": "The evaluation outlines automated and rule-based methods for assessing visualization quality, emphasizing limitations in metrics like aesthetics and expressiveness.",
-                    "scores": {
-                      "relevance": 7,
-                      "credibility": 8
-                    },
-                    "reason": "Provides context for gaps in current evaluation metrics but lacks immediate avenues for growth.",
-                    "suggested_keywords": [
-                      "visualization aesthetics",
-                      "automated visual assessments",
-                      "evaluation frameworks"
-                    ]
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "4df4d237-ac57-4f09-9c87-1b6171a621dd",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328",
-                      "text": "d construction process, which integrates the capabilities of state-of-the-art LLMs with insights from human experts, we anticipate enhancing the efficiency and quality of future dataset expansions. \n\nExtend the coverage of metrics. The evaluation dimensions covered in VisEval primarily focus on fundamental errors that hinder comprehension. At this point, we have not included metrics related to aesthetics or expressiveness. This is partly because these aspects represent higher-level requirements that are not the primary challenges currently faced. Additionally, they involve more subjective considerations that are influenced by the visualization’s intended use and audience, necessitating more complex evaluations. In the future, we plan to expand the assessments to include aesthetic, expressiveness, and stylistic aspects by leveraging more advanced models, enhancing the performance and capability of VisEval. \n\n# 7 CONCLUSION\n\nWe present VisEval, a novel NL2VIS benchmark aimed at comprehensive and reliable evaluation of generated visualizations. Our work includes the construction of a large-scale and high-quality dataset, the development of an automated evaluation framework covering dimensions of validity, legality, and readability, and the evaluation of state-of-the-art LLMs. Our evaluations reveal common challenges of LLMs, offering valuable insights for future advancements. Overall, our framework represents a significant step forward in improving the quality of NL2VIS systems in the era of LLMs. \n\n# REFERENCES\n\n\n\n[1] Y. Abe, T. Daikoku, and Y. Kuniyoshi. Assessing the Aesthetic Evaluation Capabilities of GPT-4 with Vision: Insights from Group and Individual Assessments. arXiv preprint arXiv:2403.03594, 2024. 5 \n\n\n\n\n\n[2] J. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat, et al. GPT-4 Technical Report. arXiv preprint arXiv:2303.08774, 2023. 1, 2, 6",
-                      "summary": "d construction process, which integrates the capabilities of state-of-the-art LLMs with insights from human experts, we anticipate enhancing the effic..."
-                    },
-                    "metadata": {
-                      "total_chunks": 52,
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "paper_name": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328",
-                      "chunk_size": 1946,
-                      "chunk_index": 41,
-                      "type": "paper",
-                      "file_name": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328.md",
-                      "source": "MinerU_markdown_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328.md",
-                      "paper_id": "mineru_markdown_viseval_a_benchmark_for_data_visualization_in_the_era_of_large_language_models_2041432755698659328",
-                      "keywords": [],
-                      "content_type": "text",
-                      "coordinates_2d": [
-                        4.4933085441589355,
-                        -0.6476671695709229
-                      ]
-                    },
-                    "score": 0.5781341102245683,
-                    "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "4df4d237-ac57-4f09-9c87-1b6171a621dd",
-                    "branch_action": "KEEP",
-                    "extracted_insight": "VisEval identifies and addresses fundamental errors but plans to expand its coverage to evaluate stylistic aspects in visualization.",
-                    "scores": {
-                      "relevance": 7,
-                      "credibility": 8
-                    },
-                    "reason": "Discusses future plans for detailed assessments but provides limited new actionable evidence.",
-                    "suggested_keywords": [
-                      "VisEval dataset",
-                      "stylistic visualization metrics"
-                    ]
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "91a7361d-8ab7-4a7e-a09d-0ea40a1427e1",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "text": "# Visualizationary: Automating Design Feedback for Visualization Designers Using Large Language Models\n\nSungbok Shin , Sanghyun Hong , and Niklas Elmqvist , Fellow, IEEE \n\nAbstract—Interactive visualization editors empower users to author visualizations without writing code, but do not provide guidance on the art and craft of effective visual communication. In this article, we explore the potential of using an off-the-shelf large language models (LLMs) to provide actionable and customized feedback to visualization designers. Our implementation, VISU-ALIZATIONARY, demonstrates how ChatGPT can be used for this purpose through two key components: a preamble of visualization design guidelines and a suite of perceptual filters that extract salient metrics from a visualization image. We present findings from a longitudinal user study involving 13 visualization designers—6 novices, 4 intermediates, and 3 experts—who authored a new visualization from scratch over several days. Our results indicate that providing guidance in natural language via an LLM can aid even seasoned designers in refining their visualizations. \n\nIndex Terms—Visualization design, design critique, feedback, human-centered AI, large language models. \n\n# I. INTRODUCTION\n\nO DEMOCRATIZE the transformative power of data in T today’s information society, it is not sufficient that people get access to visualizations created by others; they must also be empowered to author their own visualizations. In response, recent years have seen an influx of interactive tools that enable users to create visualizations without writing code, such as iVis-Designer [51], Data Illustrator [38], and Lyra [56]. However, no matter how advanced these tools become, a fundamental barrier remains: authoring effective visualizations is a complex task",
-                      "summary": "# Visualizationary: Automating Design Feedback for Visualization Designers Using Large Language Models\n\nSungbok Shin , Sanghyun Hong , and Niklas Elmq..."
-                    },
-                    "metadata": {
-                      "type": "paper",
-                      "paper_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "chunk_index": 0,
-                      "total_chunks": 70,
-                      "chunk_size": 1811,
-                      "file_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "source": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_id": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560",
-                      "keywords": [],
-                      "content_type": "text",
-                      "coordinates_2d": [
-                        -5.101921081542969,
-                        3.6202425956726074
-                      ]
-                    },
-                    "score": 0.5728614993952201,
-                    "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "91a7361d-8ab7-4a7e-a09d-0ea40a1427e1",
-                    "branch_action": "KEEP",
-                    "extracted_insight": "Reports that novice designers significantly benefit from LLM-generated guidance, yielding iterative visualization improvements.",
-                    "scores": {
-                      "relevance": 8,
-                      "credibility": 8
-                    },
-                    "reason": "Useful for understanding how LLMs aid designer learning curves but redundant for further study.",
-                    "suggested_keywords": [
-                      "novice designer tools",
-                      "LLM iterative guidance"
-                    ]
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_148",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "Figure: Quantitative results from user studies showcasing survey metrics, salience metrics, and design iterations for visualization artifacts.",
-                      "summary": "The figure showcases quantitative results comparing survey metrics, salience metrics, and design iterations across different visualization artifacts using bar and line charts.",
-                      "insight": "The figure highlights the effectiveness of the Visualizationary system in improving visualization designs through iterative feedback and salience analysis, as evidenced by the comparative metrics."
-                    },
-                    "metadata": {
-                      "source_md": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "save_path": "C:\\liuxingyu\\multisubspace-data\\backandfront\\ToRAGLENSBack\\md-llmvis\\images\\MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560\\figure_18.jpg",
-                      "title": "Figure: Quantitative results from user studies showcasing survey metrics, salience metrics, and design iterations for visualization artifacts.",
-                      "references": [
-                        "Abstract—Interactive visualization editors empower users to author visualizations without writing code, but do not provide guidance on the art and craft of effective visual communication. In this article, we explore the potential of using an off-the-shelf large language models (LLMs) to provide actionable and customized feedback to visualization designers. Our implementation, VISU-ALIZATIONARY, demonstrates how ChatGPT can be used for this purpose through two key components: a preamble of visualization design guidelines and a suite of perceptual filters that extract salient metrics from a visualization image. We present findings from a longitudinal user study involving 13 visualization designers—6 novices, 4 intermediates, and 3 experts—who authored a new visualization from scratch over several days. Our results indicate that providing guidance in natural language via an LLM can aid even seasoned designers in refining their visualizations.",
-                        "designs as an image file, leaving them free to use a tool of their own choice. The system presents the guidance in an interactive report organized hierarchically, enabling designer to drill into the findings at their desired level of detail.",
-                        "",
-                        "Visualizationary is a web-based client-server system (R4) that tracks a visualization artifact throughout its design process. Our system can support multiple users at once, so we placed no time constraints on image uploads (R4). However, no instances occurred where multiple users accessed it simultaneously. The workflow (Fig. 1) is based on the user—a visualization designer—iteratively uploading a screenshot of the current state of their visualization artifact and receiving automated feedback from the system. The feedback then presumably helps the designer make improvements to the artifact in the next design iteration. However, unlike existing visualization design feedback systems such as Perceptual Pat [61], which merely report metrics, Visualizationary implements the ACGT workflow from Section III: beyond analyzing the image, it also explains (“clarify”) the feedback using natural language (R3), suggests ways for addressing shortcomings (“guide”), and tracks the changes to the design over multiple iterations.",
-                        "Fig. 2. Visualizationary interface. Example of an interactive report on a visualization artifact generated using our novel analyze-clarify-guide-track (ACGT) framework. The image is a depiction of our system, Visualizationary where a new chart image (Fig. 1(B)) is being updated while the current report is about the past visualization image. The report is generated by automatically analyzing (“analyze”) the artifact using an expandable collection of image filters grouped into categories: salience, text, visual representation, color, and accessibility. After reporting results from each image filter (center column), the report then interprets (“clarify”) the findings using natural language understandable to a novice visualization designer. This is followed by natural language suggestions (“guide”) on how to address weaknesses in the design. Finally, the right side of the report shows changes over time (“track”) as the designer iteratively refines the artifact.",
-                        "Virtual Eyetracker: Virtual eyetracker refers to the extent to which areas within a scene capture the attention of an observer [55]. We utilize a virtual eyetracker [60] that predicts gaze on an overview task of a visualization image, and provide quantitative guidance. From the eyetracker, users can find where the audience would look at a visualization image as an overview. We have two reasons for providing metrics as guidance. First, we notify designers if heavy focus of salience at an area is indeed what they intended. As a case in point, if salience is primarily directed toward text, the metrics can prompt designers to reflect on whether they should shift more attention to graphical elements. Second, we alert users to potential biases by providing metrics that indicate when salience is heavily concentrated in a particular area. Because the eyetracker’s performance is not perfect, it is important to inform users about possible biases, particularly when salience rates are unusually high or low. For example, the center of an image may show unusually high salience even if the area contains no graphical elements.",
-                        "– A virtual eyetracker. Role: Predicts visual salience in a visualization to estimate what readers will notice during an overview task. Analysis process: A Scanner Deeply [60] generates an expected salience map about the inputted chart image on an overview task. Clarification: The salience map is overlaid as a heatmap on the chart image. The most salient areas appear in red or yellow, while less salient areas are shown in darker tones. Guidance to users: The salience map indicates whether the highlighted areas match the designer’s intended focus [10]. It also suggests methods to improve salience in specific zones. In order to help designers focus on their areas of interests, we introduce the concept of minimizing the data-ink ratio [65], methods to highlight zones of interest (e.g., using colors, making bold, etc.), and impact of grids in charts [69].",
-                        "– Focus on center. Role: Warns designers when the salience focuses overly on the center of the chart image. Analysis process: We measure the concentration of salience in the center. The center is defined as a rectangle in the middle of the image, with its height and width as $1 / 3 \\times$ of the chart. Clarification: A visualization is flagged as overly salient in the center if saliency in this region is above 10th percentile. Guidance to users: We warn designers that the salience on the central zone [9] is higher than other visualizations. We also inform the possibility that the model’s salience measurements may be biased or inaccurate.",
-                        "– Title. Role: Detects a title and provides recommendations. Analysis process: Title is detected via DePlot [35]. DePlot is a VLM that translates visualizations into tables and textual components. Gathering all the information, Chat-GPT provides title suggestions for the chart. Clarification: DePlot reads the chart image, and decides if there is a title in the image. Guidance to users: If a title is not detected, then recommend adding a one and provide suggestions.",
-                        "– Textual content. Role: Detects text in visualization image. Analysis process: The OCR filter scans the chart image, and detects textual information. We use the PyTesseract-OCR as our OCR filter [64]. PyTesseract-OCR is a Python library that detects textual information from the visualization image. Clarification: If the OCR filter detects at least one letter in the text, then it contains the text. Guidance to users: When text is detected the system explains the benefits of texts in charts. If no text is detected, it explains in detail the benefits of having textual explanations in visualizations [62].",
-                        "– Optimal chart type: Role: Suggests the designer an optimal chart, based on the data table translated from the chart. Analysis process: The data table is extracted from DePlot. The suggestion is generated based on a preamble of design knowledge and ChatGPT, which is described below. Clarification: The suggestions are determined based on two types of information: (1) the guideline as a preamble of design knowledge (perceptual rankings of visual cues, described in Mackinlay’s APT [40]) and (2) the data table provided by DePlot. Using these two information, Chat-GPT makes the final suggestion. We recognize that this is a relatively simple model with limitations, such as the inability to recommend treemaps and a restricted knowledge base for certain visualization choices. No suggestion is provided if data table, or data is not extractable from the chart image. Guidance to users: A chart is suggested, and ChatGPT provides both the data table and the reasoning behind its choice. This helps the designer decide whether to follow the advice.",
-                        "– Visual embellishment (“chart junk”):Role: Detects any chartjunk [6] in the visualization, and if present, warns about its potential benefits and drawbacks. Analysis process: A computer vision model, such as YoloR [66] detects objects. Clarification: If the object detection model detects objects within the chart image, then we say that the model has chartjunk. Guidance to users: If chartjunk is detected, then warn of its benefits as well as dangers [6], [7].",
-                        "Color perception: Color perception is a basic building block of data visualization [48], [54]. Visualization practice stipulates using a limited number of distinguishable and easily named colors [28], potentially as a function of the mark [63]. We detect the number of different and similar colors in a chart image. We then remind users about appropriate color usage. For instance, similar hues should represent continuous values, while distinct colors should signify categories [25], [48].",
-                        "– Variability of colors: Role: Detects different colors and reminds the designer to check if different colors are used effectively (representing categorical values). Analysis process: A custom function processes the chart image to identify distinct colors. Colors are grouped as similar if their maximum Euclidean distance in RGB space is less than 10, with each group represented by its centroid. Each group is treated as a single distinct color. Clarification: If the function identifies more than 2 distinct colors from the chart image, then the image is identified as having multiple colors. Guidance to users: After showing all distinct colors used, the filter recommends that different colors represent categories. However, it is not capable of detecting mismatch of colors.",
-                        "– Similarity of colors: Role: Detects similar colors and suggests the designer to identify if they are used effectively (representing continuous values). Analysis process: A customized function created in Python detects groups of similar colors (the definition is identical to similar colors described in variability of colors). A group of similar colors are determined using differences in RGB values between detected colors. Clarification: If the function identifies more than 2 similar groups of colors then the image is identified as having similar colors. Guidance to users: The filter recommends that similar colors represent continuous, related values. This filter too, is not capable of detecting color mismatch.",
-                        "– CVD:Role: Helps detect visualizations that are significantly affected for people with color vision deficiency (deuteranopia, protanopia, tritanopia). Analysis process: We evaluate the chart image from two perspectives. First, we quantitatively measure the information loss in the simulated visualizations using the entropy difference from the original image. Second, we simulate the chart image as if it were viewed with color vision deficiency. Clarification: If the entropy loss in the simulated visualization image exceeds a certain threshold, then the chart image is marked as significantly affected.Guidance to users: We caution that individuals with color vision deficiency may miss information. To observe the exact differences, one",
-                        "should view the simulated chart image. We then provide recommended CVD-safe palettes. However, it is up to the designer to select the palette.",
-                        "ACG-template: We call the analyze-clarify-guide (ACG) prompt template $T _ { a c g }$ . [Q] is the question we define to create acginterpretations and suggestions. For instance, we use “Analyze the visual salience on text. Provide interpretations in 2 sentences.” or “Provide suggestions about the result of the previous question in 2 sentences.” We define 9–12 questions for each visualization metric. We replace the metric name in different questions, e.g., from visualization salience to color blindness. We call the prompt conditions [cond]: “Please interpret exactly in the following way, as if you are an assistant to a visualization designer, explaining to novice visualization designers. If no visual salience is detected, then just interpret it as No salience is detected in the chart image. If (the rate of salience in the textual zone over the rate of the textual zone in chart image) from the measured result is less than 0.6, then interpret it as a lack of salience in textual elements.” At the end of each prompt, we append [filter-suggestions], a compact representation of visualization design knowledge in natural language; see the supplementary material.",
-                        "- Image size between $1 0 0 \\times 1 0 0$ and $2 0 0 0 \\times 2 0 0 0 ~ \\mathrm { p x }$",
-                        "The interview and the experiment were conducted using the participants’ own computers. Although we did not enforce strict hardware constraints, we recommended participants use a resolution of at least $1 9 2 0 \\times 1 0 8 0$ and Google Chrome, as the Visualizationary interface is optimized for that setting. When designing visualizations, the participants had the freedom to choose their favorite authoring tools, as long as they could upload a screenshot of their visualization image in .jpeg or .png format.",
-                        "Here, we describe how the participants’ designs evolved. First, we provide an overview of their experimental setup. Table II details the tools used, dataset themes, chart types, and the time spent iterating each design. We found that a variety of tools (6 in total) are employed regardless of expertise level, and the datasets covered diverse topics. This justifies our decision to upload visualizations as image files, since this approach keeps the feedback independent of the tool. Bar charts were the most common chart type, adopted by eight participants, though nine",
-                        "- Version $\\mathbf { 1 }  \\mathbf { 2 } \\mathrm { : }$ : Feedback: From the protanopia-simulated image in the tool, several circle cues were hard to detect. Revision: The colors in each circle were made darker.",
-                        "Role of the feedback: Visualizationary not only detects issues but also provides expert-level knowledge that many participants had not initially considered. In some cases, the system highlighted overlooked concerns, such as color deficiency filters. N4 noted, “[the system] is capable of showing problems that I was not aware of, although I should have been,” while E2 remarked, “even experts may not be aware of those specific details about visualization principles.” However, the system occasionally misdiagnosed the chart image, leading to feedback that was out of context.",
-                        "[37] V. Liu and L. B. Chilton, “Design guidelines for prompt engineering text-to-image generative models,” in Proc. ACM Conf. Hum. Factors Comput. Syst., New York, NY, USA, 2022, pp. 1–23, doi: 10.1145/3491102.3501825."
-                      ],
-                      "functional_roles": {
-                        "main_role": "Results & Findings",
-                        "sub_roles": [
-                          "Present Quantitative Results",
-                          "Compare Experimental Performance"
-                        ]
-                      },
-                      "visual_type": {
-                        "main_type": "Composite & Multi-view",
-                        "sub_types": [
-                          "Bar Chart",
-                          "Line Chart"
-                        ]
-                      },
-                      "key_entities": [
-                        "Visualizationary",
-                        "interactive report",
-                        "visualization artifact",
-                        "salience metrics",
-                        "natural language feedback",
-                        "design iterations",
-                        "chart types",
-                        "color perception",
-                        "virtual eyetracker"
-                      ],
-                      "concise_summary": "The figure showcases quantitative results comparing survey metrics, salience metrics, and design iterations across different visualization artifacts using bar and line charts.",
-                      "inferred_insight": "The figure highlights the effectiveness of the Visualizationary system in improving visualization designs through iterative feedback and salience analysis, as evidenced by the comparative metrics.",
-                      "caption": "Figure: Quantitative results from user studies showcasing survey metrics, salience metrics, and design iterations for visualization artifacts.",
-                      "llm_processed": true,
-                      "coordinates_2d": [
-                        -0.576300859451294,
-                        14.86950397491455
-                      ]
-                    },
-                    "score": 0.5688616332503329,
-                    "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_148",
-                    "branch_action": "GROW",
-                    "extracted_insight": "The figure quantifies the role of salience metrics and design iteration patterns in improving visualization artifacts.",
-                    "scores": {
-                      "relevance": 9,
-                      "credibility": 9
-                    },
-                    "reason": "The figure provides specific quantitative insights useful for deeper analysis of design evolution.",
-                    "suggested_keywords": [
-                      "quantitative design improvement",
-                      "salience metrics"
-                    ]
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "5e6e5a76-0778-42dd-800e-c58b4fe54d3b",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "text": "The system presents the guidance in an interactive report organized hierarchically, enabling designer to drill into the findings at their desired level of detail. \n\nIn evaluation, we present findings from a longitudinal study conducted with 6 novice, 4 intermediate, and 3 expert visualization designers over a period spanning a few days. During the study, each designer worked with Visualizationary to create visualizations and improve their designs. We report on four successive revisions of their visualization as well as their quantitative and qualitative feedback from 13 visualization designers of varying expertise, from a novice with only 1 a of experience in the field to an expert with 11 years of experience. The designs created by these designers are then assessed by 3 senior visualization researchers. Our findings show the effectiveness as well as shortcomings of our concept from various perspectives, including level of expertise, type of feedback, and design optimization. These insights contribute to a deeper understanding of what constitutes effective design feedback for visualizations. \n\n# II. BACKGROUND\n\nHere we provide a brief overview of three key areas, required for understanding our work: design feedback, automating visualization design feedback, and large-language models (LLMs). \n\n# A. Design Feedback\n\nFeedback is essential in all design disciplines, and it typically comes from two sources: user and usage feedback versus peer and supervisor feedback. In academic contexts, the former, which emphasizes validation through empirical evaluation, is more prevalent [34], [47], [50], [74], [75]. Munzner’s nested model for visual design and validation [47] primarily incorporates this type of feedback. Conversely, peer feedback holds greater prevalence in practice, particularly for designs aimed at widespread use [1], [49], [59]. Nevertheless, this methodology has also permeated academic circles, notably within interaction design [4], [5], [14].",
-                      "summary": "The system presents the guidance in an interactive report organized hierarchically, enabling designer to drill into the findings at their desired leve..."
-                    },
-                    "metadata": {
-                      "total_chunks": 70,
-                      "type": "paper",
-                      "paper_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "chunk_index": 4,
-                      "file_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "chunk_size": 1981,
-                      "source": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_id": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560",
-                      "keywords": [],
-                      "content_type": "text",
-                      "coordinates_2d": [
-                        -6.304535388946533,
-                        4.735293865203857
-                      ]
-                    },
-                    "score": 0.5656988531469135,
-                    "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "5e6e5a76-0778-42dd-800e-c58b4fe54d3b",
+                    "target_evidence_id": "e0107670-4c99-4243-a251-047ccfb78bea",
                     "branch_action": "PRUNE",
-                    "extracted_insight": "Broadly discusses longitudinal study results without adding specific unique value to existing evidence.",
+                    "extracted_insight": "User interaction analysis provides minimal novel information regarding Tailor-Mind, mostly reiterating earlier concepts without adding significant scientific value.",
                     "scores": {
-                      "relevance": 6,
+                      "relevance": 5,
                       "credibility": 6
                     },
-                    "reason": "Contains redundant generalizations already covered in other evidence items.",
-                    "suggested_keywords": []
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "bbab6ef8-05d7-4612-9b9a-971d46527a56",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "text": "nt that each expert gave 1 Likert scale rating and 1-2 assessment sentences per designer participant’s each iteration (that is, 5 ratings and 5 assessment sentences in total). \n\n# D. Data Collection\n\nInterviews were video and audio recorded. We transcribed audio for further analysis. We collected demographics using online forms before the study. All uploaded chart images and design reports were collected automatically by Visualizationary. \n\n# E. Apparatus\n\nThe interview and the experiment were conducted using the participants’ own computers. Although we did not enforce strict hardware constraints, we recommended participants use a resolution of at least $1 9 2 0 \\times 1 0 8 0$ and Google Chrome, as the Visualizationary interface is optimized for that setting. When designing visualizations, the participants had the freedom to choose their favorite authoring tools, as long as they could upload a screenshot of their visualization image in .jpeg or .png format. \n\n# VI. RESULTS\n\nWe now present the results from our longitudinal study, including design iterations, subjective comments, and observations. \n\n# A. Design Evolution\n\nHere, we describe how the participants’ designs evolved. First, we provide an overview of their experimental setup. Table II details the tools used, dataset themes, chart types, and the time spent iterating each design. We found that a variety of tools (6 in total) are employed regardless of expertise level, and the datasets covered diverse topics. This justifies our decision to upload visualizations as image files, since this approach keeps the feedback independent of the tool. Bar charts were the most common chart type, adopted by eight participants, though nine \n\n\nTABLE II\n\n\n\nPARTICIPANTS’ STUDY SETUP",
-                      "summary": "nt that each expert gave 1 Likert scale rating and 1-2 assessment sentences per designer participant’s each iteration (that is, 5 ratings and 5 assess..."
-                    },
-                    "metadata": {
-                      "type": "paper",
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "chunk_size": 1750,
-                      "total_chunks": 70,
-                      "file_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "chunk_index": 34,
-                      "source": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_id": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560",
-                      "keywords": [],
-                      "content_type": "text",
-                      "coordinates_2d": [
-                        -8.030623435974121,
-                        4.374835014343262
-                      ],
-                      "paperid": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560"
-                    },
-                    "score": 0.5635312603496354,
-                    "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "bbab6ef8-05d7-4612-9b9a-971d46527a56",
-                    "branch_action": "KEEP",
-                    "extracted_insight": "Highlights experimental setup and variation in participant design tools and methodologies in a Visualizationary study.",
-                    "scores": {
-                      "relevance": 7,
-                      "credibility": 8
-                    },
-                    "reason": "Adds procedural context for the studies but lacks new observational value.",
+                    "reason": "The evidence overlaps with existing descriptions and contributes limited unique insights, making it less beneficial for follow-up investigation.",
                     "suggested_keywords": [
-                      "visualization study setup",
-                      "design tool diversity"
+                      "user characteristics analysis",
+                      "interaction patterns",
+                      "model optimization"
                     ]
                   }
                 },
                 {
                   "retrieval_result": {
-                    "id": "c32538ac-ae75-438c-8428-0356c64f4c40",
-                    "source_tool": "Left_Path(Semantic)",
+                    "id": "08d4c12c-1540-4be7-8810-2a755b66b2ed",
+                    "source_tool": "Left_Path(ExactSearch)",
                     "content": {
-                      "title": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "text": "Second, we do not fine-tune the models we use on user data, ensuring that user data cannot be memorized by our LLMs or leaked by malicious actors with access to the models. \n\n# VIII. CONCLUSION\n\nWe have presented Visualizationary, a system that leverages LLMs and visualization guidelines to provide design feedback for visualization designers. Visualizationary supports an automated visualization design workflow called ACGT (analyze-clarify-guide-track). We created a web-based interface to evaluate the effectiveness of Visualizationary and engaged 13 visualization designers of different seniority in a longitudinal design task. During this study, we conducted pre- and post-study interviews to further understand the designer’s experience using the system. Finally, we asked three expert evaluators to assess their resulting designs. Overall, our results show that an offthe-shelf LLM can indeed provide high-quality and actionable feedback for novice, intermediate, and expert users alike on how to design a visualization. \n\n# ACKNOWLEDGMENT\n\nThe authors would like to thank anonymous reviewers for their feedback. Any opinions, findings, and conclusions or recommendations expressed here are those of the authors and do not necessarily reflect the views of the funding agencies. \n\n# REFERENCES\n\n\n\n[1] L. Alabood, Z. Aminolroaya, D. Yim, O. Addam, and F. Maurer, “A systematic literature review of the design critique method,” Inf. Softw. Technol., vol. 153, 2023, Art. no. 107081. \n\n\n\n\n\n[2] K. Angerbauer et al., “Accessibility for color vision deficiencies: Challenges and findings of a large scale study on paper figures,” in Proc. ACM Conf. Hum. Factors Comput. Syst., New York, NY, USA, 2022, pp. 134:1–134:23. doi: 10.1145/3491102.3502133. \n\n\n\n\n\n[3] S. Arora et al., “Ask me anything: A simple strategy for prompting language models,” 2022, arXiv:2210.02441, doi: 10.48550/arXiv. 2210.02441.",
-                      "summary": "Second, we do not fine-tune the models we use on user data, ensuring that user data cannot be memorized by our LLMs or leaked by malicious actors with..."
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "She emphasized that appropriate goal-setting and guidance are crucial for sustaining students’ self-motivation and self-discipline throughout the typical SRL process. \n\nC3 Complex and esoteric knowledge. E2 highlighted that a major barrier for many students is the complex organization of knowledge. It is a great challenge to understand, apply, and interconnect different concepts independently. This complexity often overwhelms students, hindering their ability to achieve satisfactory learning outcomes through SRL. \n\nC4 Lack of immediate feedback. The cost and accessibility of personalized tutoring present significant barriers. Existing methods fall short of providing personalized feedback as well. As shown in Fig. 4, assessing their learning progress is challenging. \n\n# 4.3 Requirements for Tailor-Mind\n\nIn response to the challenges outlined in Sec. 4.2, we present the following requirements for the intelligent assistance of SRL. \n\nR1 Comprehensive SRL guidance and awareness building. Tailor-Mind should facilitate users in adhering to the SRL process (C1) to foster active learning. Leveraging insights from educational models and theories, it’s critical to specify and encode detailed sub-tasks within the foundational SRL framework. We should also educate users about the significance of setting goals, implementing effective learning strategies, and reflecting (C2). \n\nR2 Optimization of learning depth and efficiency. We must align our teaching goals to provide clear and well-organized explanations. To support beginners in applying and transferring knowledge while reducing cognitive load, presenting knowledge in a structured and simplified way is crucial (C3). Visual representations are important in breaking down complex information and illustrating the relationships between knowledge points.",
+                      "summary": "She emphasized that appropriate goal-setting and guidance are crucial for sustaining students’ self-motivation and self-discipline throughout the typi..."
                     },
                     "metadata": {
-                      "chunk_index": 59,
-                      "chunk_size": 1903,
-                      "total_chunks": 70,
-                      "paper_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "file_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "mime_type": "MemoryMimeType.TEXT",
                       "type": "paper",
-                      "source": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_id": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560",
+                      "mime_type": "MemoryMimeType.TEXT",
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "total_chunks": 60,
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "chunk_index": 19,
+                      "chunk_size": 1818,
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
                       "keywords": [],
                       "content_type": "text",
                       "coordinates_2d": [
-                        -6.404261112213135,
-                        4.105271339416504
-                      ]
+                        -10.392370223999023,
+                        -9.08741283416748
+                      ],
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
                     },
-                    "score": 0.5619012857617581,
+                    "score": 1.0,
                     "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
+                      "query_intent": "Tailor-Mind"
                     }
                   },
                   "evaluation": {
-                    "target_evidence_id": "c32538ac-ae75-438c-8428-0356c64f4c40",
+                    "target_evidence_id": "08d4c12c-1540-4be7-8810-2a755b66b2ed",
                     "branch_action": "KEEP",
-                    "extracted_insight": "Suggests that LLM-based system can provide effective design feedback without requiring security compromises such as data fine-tuning.",
+                    "extracted_insight": "The study emphasizes structured SRL guidance and visual representations to address challenges in goal-setting, cognitive overload, and lack of immediate feedback.",
                     "scores": {
                       "relevance": 7,
-                      "credibility": 8
+                      "credibility": 7
                     },
-                    "reason": "Broad conclusion with some novel points about data security but lacks depth for growth.",
+                    "reason": "The content introduces relevant SRL challenges and potential solutions but lacks unique scientific novelty or directly actionable leads.",
                     "suggested_keywords": [
-                      "LLM security",
-                      "design feedback systems"
+                      "self-regulated learning",
+                      "visual learning tools",
+                      "goal-setting strategies"
                     ]
                   }
                 },
                 {
                   "retrieval_result": {
-                    "id": "ba7aa3d8-94e0-4c2d-b0b1-5eefa438d0d0",
-                    "source_tool": "Left_Path(Semantic)",
+                    "id": "43f56881-1bf9-4091-8d44-041bcf9b1704",
+                    "source_tool": "Left_Path(ExactSearch)",
                     "content": {
-                      "title": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "text": "The automated system then provides natural language feedback to facilitate improvement. \n\n# A. Target Audience\n\nOur work in this paper primarily targets novice or intermediate designers who do not have the required experience or expertise to critique their own work with an objective eye, or the ability to make the required changes to address problems. In other words, our automated design feedback mechanism is not intended to be a replacement for a trained designer’s critical eye. Because design critique is critical during any design process, we even find that automated design feedback is useful even for experts (see Section VI-B). \n\n# B. Design Rationale\n\nBased on Munzner’s visualization design and nested evaluation frameworks [47], [48], interaction design critique [4], and guidelines for visualization design [25], [45], [52], we identify several benefits for automating visualization design feedback. We explain our rationale by comparing our system’s conceptual approach with the type of feedback a human designer would provide: \n\nR1 Ubiquitous: An automated system can provide immediate feedback, enabling rapid design iterations anytime [20], [22] the designer needs support. By contrast, human feedback may not always be readily-available. Furthermore, \n\nthe system should not depend on the authoring tool in use. \n\nR2 Real-time: Hence, an automated visualization feedback system can provide data in a real-time, enabling designers to make immediate improvements during the design process. \n\nR3 Consistency: Automated feedback systems apply consistent evaluation criteria, reducing subjectivity and bias as well as human error in assessments. Human feedback may be less consistent and sometimes even conflicting. \n\nR4 Scalability: Compared to a human evaluator, an automated design feedback mechanism can handle a large volume of evaluations for multiple users simultaneously.",
-                      "summary": "The automated system then provides natural language feedback to facilitate improvement. \n\n# A. Target Audience\n\nOur work in this paper primarily targe..."
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "knowledge in a structured and simplified way is crucial (C3). Visual representations are important in breaking down complex information and illustrating the relationships between knowledge points. \n\nR3 Personalized learning and adaptive assessments. Tailoring the learning journey to individual needs is crucial. Offering users intelligent recommendations for learning objectives, paths, and content can significantly enhance personalized learning experiences. By analyzing learning performance across various objectives, Tailor-Mind must deliver targeted and suitable feedback to facilitate dynamic and iterative learning, empowering students to progress effectively and adaptively (C4). \n\nR4 Engaging and interactive learning environments. To keep students’ enthusiasm and focus during SRL (C2), Tailor-Mind should provide visual guidance throughout the learning process via interactions. Simultaneously, the explanation of intricate knowledge points should be captivating and engaging (C3). \n\n# 5 TAILOR-MIND\n\nIn this section, we follow the workflow (Fig. 3) of the proposed conceptual framework in Sec. 3.2 to facilitate the SRL process, as shown in Fig. 5. Specifically, Sec. 5.1 details the learning process and identifies sub-tasks under each stage. In Sec. 5.2, we introduce the fine-tuning tasks and corresponding tuning datasets to align the domain requirements with LLMs (A1). We purposely analyze some forms of data construction that consider visualization (A2) and user interaction alignment (A3). The user interface of Tailor-Mind is illustrated in Sec. 5.3. \n\n# 5.1 Workflow and Self-Regulated Learning Process",
+                      "summary": "knowledge in a structured and simplified way is crucial (C3). Visual representations are important in breaking down complex information and illustrati..."
                     },
                     "metadata": {
-                      "total_chunks": 70,
-                      "chunk_index": 9,
-                      "chunk_size": 1894,
-                      "file_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "mime_type": "MemoryMimeType.TEXT",
+                      "total_chunks": 60,
+                      "chunk_size": 1625,
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "chunk_index": 20,
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
                       "type": "paper",
-                      "paper_name": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560",
-                      "source": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "paper_id": "mineru_markdown_visualizationary_automating_design_feedback_for_visualization_designers_using_large_language_models_2041432812976066560",
+                      "mime_type": "MemoryMimeType.TEXT",
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
                       "keywords": [],
                       "content_type": "text",
                       "coordinates_2d": [
-                        -5.503897190093994,
-                        4.974027156829834
-                      ]
+                        -10.196199417114258,
+                        -9.166385650634766
+                      ],
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
                     },
-                    "score": 0.5498709162113965,
+                    "score": 1.0,
                     "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
+                      "query_intent": "Tailor-Mind"
                     }
                   },
                   "evaluation": {
-                    "target_evidence_id": "ba7aa3d8-94e0-4c2d-b0b1-5eefa438d0d0",
+                    "target_evidence_id": "43f56881-1bf9-4091-8d44-041bcf9b1704",
                     "branch_action": "KEEP",
-                    "extracted_insight": "Automated feedback systems provide consistent, scalable evaluations, even aiding trained designers.",
+                    "extracted_insight": "The material highlights personalized learning paths and iterative feedback as essential components for effective SRL, leveraging adaptive systems.",
                     "scores": {
-                      "relevance": 7,
-                      "credibility": 8
+                      "relevance": 8,
+                      "credibility": 7
                     },
-                    "reason": "Conceptual discussion of automated feedback benefits but lacks specifics for actionable growth.",
+                    "reason": "While addressing adaptive learning systems and personalization, the evidence contributes moderately to advancing SRL methods.",
                     "suggested_keywords": [
-                      "real-time feedback systems",
-                      "automated visualization critique"
+                      "adaptive learning systems",
+                      "personalized education",
+                      "self-reflection"
                     ]
                   }
                 },
                 {
                   "retrieval_result": {
-                    "id": "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_161",
-                    "source_tool": "Left_Path(Semantic)",
+                    "id": "e968ffa4-2edc-451f-9df3-a25b43ff71ed",
+                    "source_tool": "Left_Path(ExactSearch)",
                     "content": {
-                      "title": "Figure 2: Bar chart illustrating the results of the Visualizationary system's feedback on visualization design iterations.",
-                      "summary": "The figure depicts a bar chart showcasing quantitative results from the Visualizationary system, highlighting metrics such as salience, color perception, and iterative design improvements.",
-                      "insight": "The chart demonstrates the effectiveness of the Visualizationary system in providing actionable feedback, enabling iterative improvements in visualization design through metrics like salience and color perception."
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "construction that consider visualization (A2) and user interaction alignment (A3). The user interface of Tailor-Mind is illustrated in Sec. 5.3. \n\n# 5.1 Workflow and Self-Regulated Learning Process\n\nGuided by the conceptual framework proposed in Fig. 2, we have integrated the fine-tuned LLMs into a visualization system that supports intelligent SRL for beginners. The specific implementation workflow is shown in Fig. 5. Starting with the domain tasks (Fig. 5A1), we conducted a detailed requirement analysis (Fig. 5B). To help AI beginners with a comprehensive SRL process (R1), we propose a detailed SRL pipeline (Fig. 5C1) based on Zimmerman’s model [72]. The sub-tasks in the pipeline serve as the main objectives for visualization design and fine-tuning work. Finely segmenting the domain space aids in better aligning the model with domain problems. The pipeline consists of three stages: forethought, performance, and self-reflection. \n\nForethought involves planning and goal-setting. Analyzing useruploaded learning materials, we recommend personalized learning paths (R3), helping beginners organize resources and set achievable goals, thereby enhancing motivation (R4). During the performance stage, beginners employ strategies from the forethought stage. Besides acquiring knowledge from the LLM, we facilitate the application of this knowledge, for instance, through notepads and knowledge mind-maps, enabling learners to track their progress. Self-reflection, identified as the most challenging stage for beginners, involves synthesizing learning into structured notes. Based on evaluations from tests aligned with set goals, we provide feedback and help students dynamically adjust learning paths for continuous learning experiences (R3). \n\n# 5.2 Fine-tuned LLM for Self-Regulated Learning",
+                      "summary": "construction that consider visualization (A2) and user interaction alignment (A3). The user interface of Tailor-Mind is illustrated in Sec. 5.3. \n\n# 5..."
                     },
                     "metadata": {
-                      "source_md": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "save_path": "C:\\liuxingyu\\multisubspace-data\\backandfront\\ToRAGLENSBack\\md-llmvis\\images\\MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560\\figure_31.jpg",
-                      "title": "Figure 2: Bar chart illustrating the results of the Visualizationary system's feedback on visualization design iterations.",
-                      "references": [
-                        "Abstract—Interactive visualization editors empower users to author visualizations without writing code, but do not provide guidance on the art and craft of effective visual communication. In this article, we explore the potential of using an off-the-shelf large language models (LLMs) to provide actionable and customized feedback to visualization designers. Our implementation, VISU-ALIZATIONARY, demonstrates how ChatGPT can be used for this purpose through two key components: a preamble of visualization design guidelines and a suite of perceptual filters that extract salient metrics from a visualization image. We present findings from a longitudinal user study involving 13 visualization designers—6 novices, 4 intermediates, and 3 experts—who authored a new visualization from scratch over several days. Our results indicate that providing guidance in natural language via an LLM can aid even seasoned designers in refining their visualizations.",
-                        "designs as an image file, leaving them free to use a tool of their own choice. The system presents the guidance in an interactive report organized hierarchically, enabling designer to drill into the findings at their desired level of detail.",
-                        "",
-                        "Visualizationary is a web-based client-server system (R4) that tracks a visualization artifact throughout its design process. Our system can support multiple users at once, so we placed no time constraints on image uploads (R4). However, no instances occurred where multiple users accessed it simultaneously. The workflow (Fig. 1) is based on the user—a visualization designer—iteratively uploading a screenshot of the current state of their visualization artifact and receiving automated feedback from the system. The feedback then presumably helps the designer make improvements to the artifact in the next design iteration. However, unlike existing visualization design feedback systems such as Perceptual Pat [61], which merely report metrics, Visualizationary implements the ACGT workflow from Section III: beyond analyzing the image, it also explains (“clarify”) the feedback using natural language (R3), suggests ways for addressing shortcomings (“guide”), and tracks the changes to the design over multiple iterations.",
-                        "Fig. 2. Visualizationary interface. Example of an interactive report on a visualization artifact generated using our novel analyze-clarify-guide-track (ACGT) framework. The image is a depiction of our system, Visualizationary where a new chart image (Fig. 1(B)) is being updated while the current report is about the past visualization image. The report is generated by automatically analyzing (“analyze”) the artifact using an expandable collection of image filters grouped into categories: salience, text, visual representation, color, and accessibility. After reporting results from each image filter (center column), the report then interprets (“clarify”) the findings using natural language understandable to a novice visualization designer. This is followed by natural language suggestions (“guide”) on how to address weaknesses in the design. Finally, the right side of the report shows changes over time (“track”) as the designer iteratively refines the artifact.",
-                        "Virtual Eyetracker: Virtual eyetracker refers to the extent to which areas within a scene capture the attention of an observer [55]. We utilize a virtual eyetracker [60] that predicts gaze on an overview task of a visualization image, and provide quantitative guidance. From the eyetracker, users can find where the audience would look at a visualization image as an overview. We have two reasons for providing metrics as guidance. First, we notify designers if heavy focus of salience at an area is indeed what they intended. As a case in point, if salience is primarily directed toward text, the metrics can prompt designers to reflect on whether they should shift more attention to graphical elements. Second, we alert users to potential biases by providing metrics that indicate when salience is heavily concentrated in a particular area. Because the eyetracker’s performance is not perfect, it is important to inform users about possible biases, particularly when salience rates are unusually high or low. For example, the center of an image may show unusually high salience even if the area contains no graphical elements.",
-                        "– A virtual eyetracker. Role: Predicts visual salience in a visualization to estimate what readers will notice during an overview task. Analysis process: A Scanner Deeply [60] generates an expected salience map about the inputted chart image on an overview task. Clarification: The salience map is overlaid as a heatmap on the chart image. The most salient areas appear in red or yellow, while less salient areas are shown in darker tones. Guidance to users: The salience map indicates whether the highlighted areas match the designer’s intended focus [10]. It also suggests methods to improve salience in specific zones. In order to help designers focus on their areas of interests, we introduce the concept of minimizing the data-ink ratio [65], methods to highlight zones of interest (e.g., using colors, making bold, etc.), and impact of grids in charts [69].",
-                        "– Focus on center. Role: Warns designers when the salience focuses overly on the center of the chart image. Analysis process: We measure the concentration of salience in the center. The center is defined as a rectangle in the middle of the image, with its height and width as $1 / 3 \\times$ of the chart. Clarification: A visualization is flagged as overly salient in the center if saliency in this region is above 10th percentile. Guidance to users: We warn designers that the salience on the central zone [9] is higher than other visualizations. We also inform the possibility that the model’s salience measurements may be biased or inaccurate.",
-                        "– Title. Role: Detects a title and provides recommendations. Analysis process: Title is detected via DePlot [35]. DePlot is a VLM that translates visualizations into tables and textual components. Gathering all the information, Chat-GPT provides title suggestions for the chart. Clarification: DePlot reads the chart image, and decides if there is a title in the image. Guidance to users: If a title is not detected, then recommend adding a one and provide suggestions.",
-                        "– Textual content. Role: Detects text in visualization image. Analysis process: The OCR filter scans the chart image, and detects textual information. We use the PyTesseract-OCR as our OCR filter [64]. PyTesseract-OCR is a Python library that detects textual information from the visualization image. Clarification: If the OCR filter detects at least one letter in the text, then it contains the text. Guidance to users: When text is detected the system explains the benefits of texts in charts. If no text is detected, it explains in detail the benefits of having textual explanations in visualizations [62].",
-                        "– Optimal chart type: Role: Suggests the designer an optimal chart, based on the data table translated from the chart. Analysis process: The data table is extracted from DePlot. The suggestion is generated based on a preamble of design knowledge and ChatGPT, which is described below. Clarification: The suggestions are determined based on two types of information: (1) the guideline as a preamble of design knowledge (perceptual rankings of visual cues, described in Mackinlay’s APT [40]) and (2) the data table provided by DePlot. Using these two information, Chat-GPT makes the final suggestion. We recognize that this is a relatively simple model with limitations, such as the inability to recommend treemaps and a restricted knowledge base for certain visualization choices. No suggestion is provided if data table, or data is not extractable from the chart image. Guidance to users: A chart is suggested, and ChatGPT provides both the data table and the reasoning behind its choice. This helps the designer decide whether to follow the advice.",
-                        "– Visual embellishment (“chart junk”):Role: Detects any chartjunk [6] in the visualization, and if present, warns about its potential benefits and drawbacks. Analysis process: A computer vision model, such as YoloR [66] detects objects. Clarification: If the object detection model detects objects within the chart image, then we say that the model has chartjunk. Guidance to users: If chartjunk is detected, then warn of its benefits as well as dangers [6], [7].",
-                        "Color perception: Color perception is a basic building block of data visualization [48], [54]. Visualization practice stipulates using a limited number of distinguishable and easily named colors [28], potentially as a function of the mark [63]. We detect the number of different and similar colors in a chart image. We then remind users about appropriate color usage. For instance, similar hues should represent continuous values, while distinct colors should signify categories [25], [48].",
-                        "– Variability of colors: Role: Detects different colors and reminds the designer to check if different colors are used effectively (representing categorical values). Analysis process: A custom function processes the chart image to identify distinct colors. Colors are grouped as similar if their maximum Euclidean distance in RGB space is less than 10, with each group represented by its centroid. Each group is treated as a single distinct color. Clarification: If the function identifies more than 2 distinct colors from the chart image, then the image is identified as having multiple colors. Guidance to users: After showing all distinct colors used, the filter recommends that different colors represent categories. However, it is not capable of detecting mismatch of colors.",
-                        "– Similarity of colors: Role: Detects similar colors and suggests the designer to identify if they are used effectively (representing continuous values). Analysis process: A customized function created in Python detects groups of similar colors (the definition is identical to similar colors described in variability of colors). A group of similar colors are determined using differences in RGB values between detected colors. Clarification: If the function identifies more than 2 similar groups of colors then the image is identified as having similar colors. Guidance to users: The filter recommends that similar colors represent continuous, related values. This filter too, is not capable of detecting color mismatch.",
-                        "– CVD:Role: Helps detect visualizations that are significantly affected for people with color vision deficiency (deuteranopia, protanopia, tritanopia). Analysis process: We evaluate the chart image from two perspectives. First, we quantitatively measure the information loss in the simulated visualizations using the entropy difference from the original image. Second, we simulate the chart image as if it were viewed with color vision deficiency. Clarification: If the entropy loss in the simulated visualization image exceeds a certain threshold, then the chart image is marked as significantly affected.Guidance to users: We caution that individuals with color vision deficiency may miss information. To observe the exact differences, one",
-                        "should view the simulated chart image. We then provide recommended CVD-safe palettes. However, it is up to the designer to select the palette.",
-                        "ACG-template: We call the analyze-clarify-guide (ACG) prompt template $T _ { a c g }$ . [Q] is the question we define to create acginterpretations and suggestions. For instance, we use “Analyze the visual salience on text. Provide interpretations in 2 sentences.” or “Provide suggestions about the result of the previous question in 2 sentences.” We define 9–12 questions for each visualization metric. We replace the metric name in different questions, e.g., from visualization salience to color blindness. We call the prompt conditions [cond]: “Please interpret exactly in the following way, as if you are an assistant to a visualization designer, explaining to novice visualization designers. If no visual salience is detected, then just interpret it as No salience is detected in the chart image. If (the rate of salience in the textual zone over the rate of the textual zone in chart image) from the measured result is less than 0.6, then interpret it as a lack of salience in textual elements.” At the end of each prompt, we append [filter-suggestions], a compact representation of visualization design knowledge in natural language; see the supplementary material.",
-                        "- Image size between $1 0 0 \\times 1 0 0$ and $2 0 0 0 \\times 2 0 0 0 ~ \\mathrm { p x }$",
-                        "The interview and the experiment were conducted using the participants’ own computers. Although we did not enforce strict hardware constraints, we recommended participants use a resolution of at least $1 9 2 0 \\times 1 0 8 0$ and Google Chrome, as the Visualizationary interface is optimized for that setting. When designing visualizations, the participants had the freedom to choose their favorite authoring tools, as long as they could upload a screenshot of their visualization image in .jpeg or .png format.",
-                        "Here, we describe how the participants’ designs evolved. First, we provide an overview of their experimental setup. Table II details the tools used, dataset themes, chart types, and the time spent iterating each design. We found that a variety of tools (6 in total) are employed regardless of expertise level, and the datasets covered diverse topics. This justifies our decision to upload visualizations as image files, since this approach keeps the feedback independent of the tool. Bar charts were the most common chart type, adopted by eight participants, though nine",
-                        "- Version $\\mathbf { 1 }  \\mathbf { 2 } \\mathrm { : }$ : Feedback: From the protanopia-simulated image in the tool, several circle cues were hard to detect. Revision: The colors in each circle were made darker.",
-                        "Role of the feedback: Visualizationary not only detects issues but also provides expert-level knowledge that many participants had not initially considered. In some cases, the system highlighted overlooked concerns, such as color deficiency filters. N4 noted, “[the system] is capable of showing problems that I was not aware of, although I should have been,” while E2 remarked, “even experts may not be aware of those specific details about visualization principles.” However, the system occasionally misdiagnosed the chart image, leading to feedback that was out of context.",
-                        "[37] V. Liu and L. B. Chilton, “Design guidelines for prompt engineering text-to-image generative models,” in Proc. ACM Conf. Hum. Factors Comput. Syst., New York, NY, USA, 2022, pp. 1–23, doi: 10.1145/3491102.3501825."
-                      ],
-                      "functional_roles": {
-                        "main_role": "Results & Findings",
-                        "sub_roles": [
-                          "Present Quantitative Results",
-                          "Compare Experimental Performance"
-                        ]
-                      },
-                      "visual_type": {
-                        "main_type": "Quantitative Charts",
-                        "sub_types": [
-                          "Bar Chart"
-                        ]
-                      },
-                      "key_entities": [
-                        "Visualizationary",
-                        "bar chart",
-                        "visual salience",
-                        "color perception",
-                        "chart image",
-                        "feedback system",
-                        "design iteration"
-                      ],
-                      "concise_summary": "The figure depicts a bar chart showcasing quantitative results from the Visualizationary system, highlighting metrics such as salience, color perception, and iterative design improvements.",
-                      "inferred_insight": "The chart demonstrates the effectiveness of the Visualizationary system in providing actionable feedback, enabling iterative improvements in visualization design through metrics like salience and color perception.",
-                      "caption": "Figure 2: Bar chart illustrating the results of the Visualizationary system's feedback on visualization design iterations.",
-                      "llm_processed": true,
+                      "total_chunks": 60,
+                      "type": "paper",
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "chunk_index": 21,
+                      "mime_type": "MemoryMimeType.TEXT",
+                      "chunk_size": 1805,
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
+                      "keywords": [],
+                      "content_type": "text",
                       "coordinates_2d": [
-                        -0.2944444715976715,
-                        14.130831718444824
-                      ]
+                        -8.20826530456543,
+                        -8.155104637145996
+                      ],
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
                     },
-                    "score": 0.5488132103922955,
+                    "score": 1.0,
                     "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
+                      "query_intent": "Tailor-Mind"
                     }
                   },
                   "evaluation": {
-                    "target_evidence_id": "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_161",
+                    "target_evidence_id": "e968ffa4-2edc-451f-9df3-a25b43ff71ed",
                     "branch_action": "GROW",
-                    "extracted_insight": "The bar chart demonstrates how Visualizationary enhances design quality metrics such as salience and color perception across iterations.",
+                    "extracted_insight": "The study presents a structured SRL pipeline aligned with Zimmerman’s model, breaking it into forethought, performance, and self-reflection stages supported by LLMs.",
                     "scores": {
                       "relevance": 9,
-                      "credibility": 9
+                      "credibility": 8
                     },
-                    "reason": "The visual presentation aligns with key research questions and has potential for further metric-driven studies.",
+                    "reason": "High-value evidence with detailed process workflow for SRL implementation and application via fine-tuned LLMs.",
                     "suggested_keywords": [
-                      "color perception in design",
-                      "feedback systems"
+                      "Zimmerman's SRL model",
+                      "self-reflection stage",
+                      "learning pipelines"
                     ]
                   }
                 },
                 {
                   "retrieval_result": {
-                    "id": "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_163",
-                    "source_tool": "Left_Path(Semantic)",
+                    "id": "9e89d027-3b72-4117-9c3c-cff62284f1ab",
+                    "source_tool": "Left_Path(ExactSearch)",
                     "content": {
-                      "title": "Figure: Iterative visualization designs across five versions, illustrating the impact of the Visualizationary system's feedback on design refinement.",
-                      "summary": "The figure showcases iterative visualization designs across five versions, highlighting user feedback and refinement using the Visualizationary system. It includes diverse chart types and metrics to evaluate design improvements over time.",
-                      "insight": "The figure demonstrates how iterative feedback and analysis using the Visualizationary system improve visualization design, emphasizing the system's ability to guide designers in refining their artifacts effectively."
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "In addition to taking notes on a particular knowledge point node, users can also record any discoveries in Fig. 1D. \n\n# 6 EVALUATION\n\nIn this section, we evaluate the fine-tuned LLM (SFT-2.0) by comparing the performances of the other four models on the test datasets through both human and OpenAI GPT-4 [32] (Sec. 6.1). Two usage scenarios are narrated to illustrate how Tailor-Mind can help the SRL process in Sec. 6.2. We further conduct an in-person study and interviews with participants and analyze the results in Sec. 6.3. \n\n# 6.1 Model Performance\n\nThere is a lack of authoritative benchmark datasets for evaluation in AI education. The generic benchmark dataset, such as AGIEval [71] and C-Eval [16], is intended to general models and is not suitable to test a specific model’s output with a standardized structure. Therefore, we consider constructing a dedicated test dataset, setting subjective evaluation criteria, and comparing the performances among several models. The evaluation results are shown in Table. 1. Detailed evaluation results and analyses are available in the Supplementary Materials. \n\nSettings. We generated a dataset comprising 280 test data entries for seven fine-tuning tasks across eight AI subdomains using GPT-4,",
+                      "summary": "In addition to taking notes on a particular knowledge point node, users can also record any discoveries in Fig. 1D. \n\n# 6 EVALUATION\n\nIn this section,..."
                     },
                     "metadata": {
-                      "source_md": "MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560.md",
-                      "save_path": "C:\\liuxingyu\\multisubspace-data\\backandfront\\ToRAGLENSBack\\md-llmvis\\images\\MinerU_markdown_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560\\figure_33.jpg",
-                      "title": "Figure: Iterative visualization designs across five versions, illustrating the impact of the Visualizationary system's feedback on design refinement.",
-                      "references": [
-                        "Abstract—Interactive visualization editors empower users to author visualizations without writing code, but do not provide guidance on the art and craft of effective visual communication. In this article, we explore the potential of using an off-the-shelf large language models (LLMs) to provide actionable and customized feedback to visualization designers. Our implementation, VISU-ALIZATIONARY, demonstrates how ChatGPT can be used for this purpose through two key components: a preamble of visualization design guidelines and a suite of perceptual filters that extract salient metrics from a visualization image. We present findings from a longitudinal user study involving 13 visualization designers—6 novices, 4 intermediates, and 3 experts—who authored a new visualization from scratch over several days. Our results indicate that providing guidance in natural language via an LLM can aid even seasoned designers in refining their visualizations.",
-                        "designs as an image file, leaving them free to use a tool of their own choice. The system presents the guidance in an interactive report organized hierarchically, enabling designer to drill into the findings at their desired level of detail.",
-                        "",
-                        "Visualizationary is a web-based client-server system (R4) that tracks a visualization artifact throughout its design process. Our system can support multiple users at once, so we placed no time constraints on image uploads (R4). However, no instances occurred where multiple users accessed it simultaneously. The workflow (Fig. 1) is based on the user—a visualization designer—iteratively uploading a screenshot of the current state of their visualization artifact and receiving automated feedback from the system. The feedback then presumably helps the designer make improvements to the artifact in the next design iteration. However, unlike existing visualization design feedback systems such as Perceptual Pat [61], which merely report metrics, Visualizationary implements the ACGT workflow from Section III: beyond analyzing the image, it also explains (“clarify”) the feedback using natural language (R3), suggests ways for addressing shortcomings (“guide”), and tracks the changes to the design over multiple iterations.",
-                        "Fig. 2. Visualizationary interface. Example of an interactive report on a visualization artifact generated using our novel analyze-clarify-guide-track (ACGT) framework. The image is a depiction of our system, Visualizationary where a new chart image (Fig. 1(B)) is being updated while the current report is about the past visualization image. The report is generated by automatically analyzing (“analyze”) the artifact using an expandable collection of image filters grouped into categories: salience, text, visual representation, color, and accessibility. After reporting results from each image filter (center column), the report then interprets (“clarify”) the findings using natural language understandable to a novice visualization designer. This is followed by natural language suggestions (“guide”) on how to address weaknesses in the design. Finally, the right side of the report shows changes over time (“track”) as the designer iteratively refines the artifact.",
-                        "Virtual Eyetracker: Virtual eyetracker refers to the extent to which areas within a scene capture the attention of an observer [55]. We utilize a virtual eyetracker [60] that predicts gaze on an overview task of a visualization image, and provide quantitative guidance. From the eyetracker, users can find where the audience would look at a visualization image as an overview. We have two reasons for providing metrics as guidance. First, we notify designers if heavy focus of salience at an area is indeed what they intended. As a case in point, if salience is primarily directed toward text, the metrics can prompt designers to reflect on whether they should shift more attention to graphical elements. Second, we alert users to potential biases by providing metrics that indicate when salience is heavily concentrated in a particular area. Because the eyetracker’s performance is not perfect, it is important to inform users about possible biases, particularly when salience rates are unusually high or low. For example, the center of an image may show unusually high salience even if the area contains no graphical elements.",
-                        "– A virtual eyetracker. Role: Predicts visual salience in a visualization to estimate what readers will notice during an overview task. Analysis process: A Scanner Deeply [60] generates an expected salience map about the inputted chart image on an overview task. Clarification: The salience map is overlaid as a heatmap on the chart image. The most salient areas appear in red or yellow, while less salient areas are shown in darker tones. Guidance to users: The salience map indicates whether the highlighted areas match the designer’s intended focus [10]. It also suggests methods to improve salience in specific zones. In order to help designers focus on their areas of interests, we introduce the concept of minimizing the data-ink ratio [65], methods to highlight zones of interest (e.g., using colors, making bold, etc.), and impact of grids in charts [69].",
-                        "– Focus on center. Role: Warns designers when the salience focuses overly on the center of the chart image. Analysis process: We measure the concentration of salience in the center. The center is defined as a rectangle in the middle of the image, with its height and width as $1 / 3 \\times$ of the chart. Clarification: A visualization is flagged as overly salient in the center if saliency in this region is above 10th percentile. Guidance to users: We warn designers that the salience on the central zone [9] is higher than other visualizations. We also inform the possibility that the model’s salience measurements may be biased or inaccurate.",
-                        "– Title. Role: Detects a title and provides recommendations. Analysis process: Title is detected via DePlot [35]. DePlot is a VLM that translates visualizations into tables and textual components. Gathering all the information, Chat-GPT provides title suggestions for the chart. Clarification: DePlot reads the chart image, and decides if there is a title in the image. Guidance to users: If a title is not detected, then recommend adding a one and provide suggestions.",
-                        "– Textual content. Role: Detects text in visualization image. Analysis process: The OCR filter scans the chart image, and detects textual information. We use the PyTesseract-OCR as our OCR filter [64]. PyTesseract-OCR is a Python library that detects textual information from the visualization image. Clarification: If the OCR filter detects at least one letter in the text, then it contains the text. Guidance to users: When text is detected the system explains the benefits of texts in charts. If no text is detected, it explains in detail the benefits of having textual explanations in visualizations [62].",
-                        "– Optimal chart type: Role: Suggests the designer an optimal chart, based on the data table translated from the chart. Analysis process: The data table is extracted from DePlot. The suggestion is generated based on a preamble of design knowledge and ChatGPT, which is described below. Clarification: The suggestions are determined based on two types of information: (1) the guideline as a preamble of design knowledge (perceptual rankings of visual cues, described in Mackinlay’s APT [40]) and (2) the data table provided by DePlot. Using these two information, Chat-GPT makes the final suggestion. We recognize that this is a relatively simple model with limitations, such as the inability to recommend treemaps and a restricted knowledge base for certain visualization choices. No suggestion is provided if data table, or data is not extractable from the chart image. Guidance to users: A chart is suggested, and ChatGPT provides both the data table and the reasoning behind its choice. This helps the designer decide whether to follow the advice.",
-                        "– Visual embellishment (“chart junk”):Role: Detects any chartjunk [6] in the visualization, and if present, warns about its potential benefits and drawbacks. Analysis process: A computer vision model, such as YoloR [66] detects objects. Clarification: If the object detection model detects objects within the chart image, then we say that the model has chartjunk. Guidance to users: If chartjunk is detected, then warn of its benefits as well as dangers [6], [7].",
-                        "Color perception: Color perception is a basic building block of data visualization [48], [54]. Visualization practice stipulates using a limited number of distinguishable and easily named colors [28], potentially as a function of the mark [63]. We detect the number of different and similar colors in a chart image. We then remind users about appropriate color usage. For instance, similar hues should represent continuous values, while distinct colors should signify categories [25], [48].",
-                        "– Variability of colors: Role: Detects different colors and reminds the designer to check if different colors are used effectively (representing categorical values). Analysis process: A custom function processes the chart image to identify distinct colors. Colors are grouped as similar if their maximum Euclidean distance in RGB space is less than 10, with each group represented by its centroid. Each group is treated as a single distinct color. Clarification: If the function identifies more than 2 distinct colors from the chart image, then the image is identified as having multiple colors. Guidance to users: After showing all distinct colors used, the filter recommends that different colors represent categories. However, it is not capable of detecting mismatch of colors.",
-                        "– Similarity of colors: Role: Detects similar colors and suggests the designer to identify if they are used effectively (representing continuous values). Analysis process: A customized function created in Python detects groups of similar colors (the definition is identical to similar colors described in variability of colors). A group of similar colors are determined using differences in RGB values between detected colors. Clarification: If the function identifies more than 2 similar groups of colors then the image is identified as having similar colors. Guidance to users: The filter recommends that similar colors represent continuous, related values. This filter too, is not capable of detecting color mismatch.",
-                        "– CVD:Role: Helps detect visualizations that are significantly affected for people with color vision deficiency (deuteranopia, protanopia, tritanopia). Analysis process: We evaluate the chart image from two perspectives. First, we quantitatively measure the information loss in the simulated visualizations using the entropy difference from the original image. Second, we simulate the chart image as if it were viewed with color vision deficiency. Clarification: If the entropy loss in the simulated visualization image exceeds a certain threshold, then the chart image is marked as significantly affected.Guidance to users: We caution that individuals with color vision deficiency may miss information. To observe the exact differences, one",
-                        "should view the simulated chart image. We then provide recommended CVD-safe palettes. However, it is up to the designer to select the palette.",
-                        "ACG-template: We call the analyze-clarify-guide (ACG) prompt template $T _ { a c g }$ . [Q] is the question we define to create acginterpretations and suggestions. For instance, we use “Analyze the visual salience on text. Provide interpretations in 2 sentences.” or “Provide suggestions about the result of the previous question in 2 sentences.” We define 9–12 questions for each visualization metric. We replace the metric name in different questions, e.g., from visualization salience to color blindness. We call the prompt conditions [cond]: “Please interpret exactly in the following way, as if you are an assistant to a visualization designer, explaining to novice visualization designers. If no visual salience is detected, then just interpret it as No salience is detected in the chart image. If (the rate of salience in the textual zone over the rate of the textual zone in chart image) from the measured result is less than 0.6, then interpret it as a lack of salience in textual elements.” At the end of each prompt, we append [filter-suggestions], a compact representation of visualization design knowledge in natural language; see the supplementary material.",
-                        "- Image size between $1 0 0 \\times 1 0 0$ and $2 0 0 0 \\times 2 0 0 0 ~ \\mathrm { p x }$",
-                        "The interview and the experiment were conducted using the participants’ own computers. Although we did not enforce strict hardware constraints, we recommended participants use a resolution of at least $1 9 2 0 \\times 1 0 8 0$ and Google Chrome, as the Visualizationary interface is optimized for that setting. When designing visualizations, the participants had the freedom to choose their favorite authoring tools, as long as they could upload a screenshot of their visualization image in .jpeg or .png format.",
-                        "Here, we describe how the participants’ designs evolved. First, we provide an overview of their experimental setup. Table II details the tools used, dataset themes, chart types, and the time spent iterating each design. We found that a variety of tools (6 in total) are employed regardless of expertise level, and the datasets covered diverse topics. This justifies our decision to upload visualizations as image files, since this approach keeps the feedback independent of the tool. Bar charts were the most common chart type, adopted by eight participants, though nine",
-                        "- Version $\\mathbf { 1 }  \\mathbf { 2 } \\mathrm { : }$ : Feedback: From the protanopia-simulated image in the tool, several circle cues were hard to detect. Revision: The colors in each circle were made darker.",
-                        "Role of the feedback: Visualizationary not only detects issues but also provides expert-level knowledge that many participants had not initially considered. In some cases, the system highlighted overlooked concerns, such as color deficiency filters. N4 noted, “[the system] is capable of showing problems that I was not aware of, although I should have been,” while E2 remarked, “even experts may not be aware of those specific details about visualization principles.” However, the system occasionally misdiagnosed the chart image, leading to feedback that was out of context.",
-                        "[37] V. Liu and L. B. Chilton, “Design guidelines for prompt engineering text-to-image generative models,” in Proc. ACM Conf. Hum. Factors Comput. Syst., New York, NY, USA, 2022, pp. 1–23, doi: 10.1145/3491102.3501825."
-                      ],
-                      "functional_roles": {
-                        "main_role": "Results & Findings",
-                        "sub_roles": [
-                          "Present Core Findings",
-                          "Compare Experimental Performance",
-                          "Showcase Prediction Results"
-                        ]
-                      },
-                      "visual_type": {
-                        "main_type": "Composite & Multi-view",
-                        "sub_types": [
-                          "Line Chart",
-                          "Bar Chart",
-                          "Box Plot",
-                          "Heatmap",
-                          "Map"
-                        ]
-                      },
-                      "key_entities": [
-                        "Visualizationary",
-                        "interactive report",
-                        "visualization artifact",
-                        "design iterations",
-                        "user study",
-                        "salience metrics",
-                        "color perception",
-                        "virtual eyetracker",
-                        "chart types",
-                        "feedback system",
-                        "ACGT framework"
-                      ],
-                      "concise_summary": "The figure showcases iterative visualization designs across five versions, highlighting user feedback and refinement using the Visualizationary system. It includes diverse chart types and metrics to evaluate design improvements over time.",
-                      "inferred_insight": "The figure demonstrates how iterative feedback and analysis using the Visualizationary system improve visualization design, emphasizing the system's ability to guide designers in refining their artifacts effectively.",
-                      "caption": "Figure: Iterative visualization designs across five versions, illustrating the impact of the Visualizationary system's feedback on design refinement.",
-                      "llm_processed": true,
+                      "chunk_index": 28,
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "chunk_size": 1248,
+                      "mime_type": "MemoryMimeType.TEXT",
+                      "total_chunks": 60,
+                      "type": "paper",
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
+                      "keywords": [],
+                      "content_type": "text",
                       "coordinates_2d": [
-                        -3.4839396476745605,
-                        12.918750762939453
-                      ]
+                        -3.0266172885894775,
+                        -15.747776985168457
+                      ],
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
                     },
-                    "score": 0.5436710274287689,
+                    "score": 1.0,
                     "source_args": {
-                      "query_intent": "What benchmarks or evaluation frameworks assess subjective aspects like aesthetics and emotional resonance in LLM-driven visualization designs?"
+                      "query_intent": "Tailor-Mind"
                     }
                   },
                   "evaluation": {
-                    "target_evidence_id": "llmvis_Visualizationary_Automating_Design_Feedback_for_Visualization_Designers_Using_Large_Language_Models_2041432812976066560_163",
-                    "branch_action": "GROW",
-                    "extracted_insight": "The figure visualizes multiple design iterations and improvements driven by the Visualizationary system, showcasing adaptive feedback.",
+                    "target_evidence_id": "9e89d027-3b72-4117-9c3c-cff62284f1ab",
+                    "branch_action": "PRUNE",
+                    "extracted_insight": "The evidence provides broad evaluation details but lacks actionable insights on advancing SRL frameworks.",
                     "scores": {
-                      "relevance": 9,
-                      "credibility": 9
+                      "relevance": 5,
+                      "credibility": 6
                     },
-                    "reason": "Will support nuanced exploration of iteration strategies driven by automated feedback.",
+                    "reason": "The focus on evaluation lacks specific contributions to core SRL research or new insights for the investigation theme.",
                     "suggested_keywords": [
-                      "iterative design refinement",
-                      "user-centric visualization metrics"
+                      "evaluation criteria",
+                      "benchmark datasets"
+                    ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "fbd2f082-7b97-4324-868d-598ee086b597",
+                    "source_tool": "Left_Path(ExactSearch)",
+                    "content": {
+                      "title": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "text": "imulate user interactions, addressing uncertainties and the exploratory nature of model feedback (A3). Additionally, seven AI experts manually rated these criteria to enrich the evaluation process. \n\nResults. From Table. 1, the SFT-2.0 model outperforms the other models in all aspects of the evaluation by humans. The following findings are drawn from the results: (1) The SFT-2.0 model’s responses are accurate and follow the logic of knowledge presentation. Experts generally indicated that the model output was highly structured and could be aligned with the subsequent visualization design. However, other models, even when given a detailed prompt, still did not fulfill all the requirements. (2) The SFT-2.0 model exhibits the most stable performance with the smallest variance across the three criteria, primarily due to the benefits and effects of fine-tuning. The stability of model outputs is particularly important for user interaction and presentation in the visualization system. (3) The SFT-2.0 model is more in line with user preferences. Although we emphasized that the referee model should not be influenced by response length when scoring completeness, it still tended to judge longer responses as better. This issue particularly existed in the Question Recommendation task, leading to the result in Table. 1 that considered GPT-3.5’s answers more complete. Experts corrected this by pointing out that \"GPT-3.5’s answers are redundant and not conducive to direct understanding, and the results from the SFT-2.0 model are more suitable for beginners\". \n\n# 6.2 Usage Scenario\n\nWe illustrate usage scenarios with Tailor-Mind from two perspectives: a beginner’s enhanced understanding of the Transformer model and a beginner’s preparatory journey in Reinforcement Learning (RL). \n\n# 6.2.1 Integrating Knowledge and Deepening Understanding",
+                      "summary": "imulate user interactions, addressing uncertainties and the exploratory nature of model feedback (A3). Additionally, seven AI experts manually rated t..."
+                    },
+                    "metadata": {
+                      "mime_type": "MemoryMimeType.TEXT",
+                      "paper_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144",
+                      "file_name": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "type": "paper",
+                      "total_chunks": 60,
+                      "chunk_size": 1852,
+                      "chunk_index": 31,
+                      "source": "MinerU_markdown_Fine-Tuned_Large_Language_Model_for_Visualization_System_A_Study_on_Self-Regulated_Learning_in_Education_2041432911424774144.md",
+                      "paper_id": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144",
+                      "keywords": [],
+                      "content_type": "text",
+                      "coordinates_2d": [
+                        -3.943932056427002,
+                        -17.050939559936523
+                      ],
+                      "paperid": "mineru_markdown_fine-tuned_large_language_model_for_visualization_system_a_study_on_self-regulated_learning_in_education_2041432911424774144"
+                    },
+                    "score": 1.0,
+                    "source_args": {
+                      "query_intent": "Tailor-Mind"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "fbd2f082-7b97-4324-868d-598ee086b597",
+                    "branch_action": "KEEP",
+                    "extracted_insight": "The fine-tuned SFT-2.0 model shows high alignment with visualization goals and structured education needs, surpassing older models in stability and relevance.",
+                    "scores": {
+                      "relevance": 8,
+                      "credibility": 7
+                    },
+                    "reason": "The evidence provides moderate value in demonstrating the importance of stable and structured outputs in SRL visualization contexts.",
+                    "suggested_keywords": [
+                      "SFT-2.0",
+                      "stability of LLM outputs",
+                      "visualization design"
                     ]
                   }
                 }
@@ -10659,8 +10276,8 @@
             }
           ],
           "iteration_summary": null,
-          "rewrite_mode": false,
-          "rewrite_target_query_index": null
+          "rewrite_mode": true,
+          "rewrite_target_query_index": 1
         }
       ],
       "summary": null,

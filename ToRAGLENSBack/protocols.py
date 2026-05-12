@@ -277,12 +277,14 @@ class ExperimentRoundParameters(BaseModel):
 
 class HypothesisStep(BaseModel):
     """Hypothesis 生成过程中的一个步骤"""
-    step_name: str  # 步骤名称，如 "outline", "section_1", "synthesis"
+    step_name: str  # 该步骤名称，如 "outline", "section_1", "synthesis" 或 Interactive Report 的 level2 小标题
     agent_name: str = ""  # 生成该步骤的 agent，如 "HypothesisCoordinator", "HypothesisSection", "HypothesisSynthesizer"
     prompt: str  # 该步骤的 prompt
     response: str  # LLM 的响应
     system_message: Optional[str] = None  # 系统消息（如果有）
     timestamp: Optional[str] = None  # 时间戳
+    # Interactive Report（MultiAgentReportSection）：大纲 JSON 里为该小节分配的 plan_id 列表，如 round_1_track_0
+    assigned_plan_ids: Optional[List[str]] = Field(default=None)
 
 class HypothesisData(BaseModel):
     """Hypothesis 生成过程的完整数据"""

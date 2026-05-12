@@ -9,6 +9,8 @@ const store = createStore({
     experimentSourceFile: '', // 当前加载的实验数据文件路径
     // Interactive Report：版块标题 + 从策略地图拖入的点（与 ItemDetail 同结构，供后续 prompt 总结）
     interactiveReportSections: [],
+    /** Text view 点击 [chunk] 引用时：{ id, ts }，由 EnhancedRiverChart watch 后平移画布并红框高亮 */
+    interactiveReportCitationFocus: null,
   },
   getters: {
     // 从完整路径中提取相对路径
@@ -66,6 +68,15 @@ const store = createStore({
         sec.showText = !sec.showText;
       }
     },
+    updateInteractiveReportSectionTitle(state, { sectionId, title }) {
+      const sec = state.interactiveReportSections.find((s) => s.id === sectionId);
+      if (sec) sec.title = typeof title === 'string' ? title : '';
+    },
+    updateInteractiveReportSectionText(state, { sectionId, text }) {
+      const sec = state.interactiveReportSections.find((s) => s.id === sectionId);
+      if (!sec) return;
+      sec.text = typeof text === 'string' ? text : '';
+    },
     addPointToInteractiveReportSection(state, { sectionId, item }) {
       if (!item || !item.id) return;
       const sec = state.interactiveReportSections.find(s => s.id === sectionId);
@@ -83,6 +94,12 @@ const store = createStore({
     },
     clearInteractiveReport(state) {
       state.interactiveReportSections = [];
+    },
+    setInteractiveReportCitationFocus(state, evidenceId) {
+      const id = String(evidenceId || '').trim();
+      state.interactiveReportCitationFocus = id
+        ? { id, ts: Date.now() }
+        : null;
     },
   },
   actions: {

@@ -187,7 +187,17 @@
                 "grid_pos": [
                   1,
                   1
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_004665",
+                      "before": "UNKNOWN",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -713,7 +723,8 @@
                       "inversion experiments",
                       "NMVOC emissions",
                       "satellite observations"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -5419,12 +5430,35 @@
                   "chunk_004341",
                   "chunk_000330",
                   "chunk_002983",
-                  "chunk_001303"
+                  "chunk_001303",
+                  "chunk_003895"
                 ],
                 "grid_pos": [
                   1,
                   2
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_001303",
+                      "before": "GROW",
+                      "after": "KEEP"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_003895",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_002802",
+                      "before": "KEEP",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -5831,7 +5865,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_002802",
-                    "branch_action": "KEEP",
+                    "branch_action": "GROW",
                     "extracted_insight": "Comparison of different gridded NOx emission methods underlines the importance of accurate spatial proxies like updated road networks and nighttime lights for emission distribution.",
                     "scores": {
                       "relevance": 8,
@@ -5842,7 +5876,8 @@
                       "NOx emissions",
                       "gridded inventories",
                       "GEOS-Chem"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -6168,7 +6203,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_001303",
-                    "branch_action": "GROW",
+                    "branch_action": "KEEP",
                     "extracted_insight": "This study's joint inversion model for NOx and NMVOC emissions significantly reduces uncertainties and quantifies their impacts on ozone formation.",
                     "scores": {
                       "relevance": 9,
@@ -6180,7 +6215,68 @@
                       "NMVOC emissions",
                       "TROPOMI",
                       "ozone simulation"
-                    ]
+                    ],
+                    "user_action": "point"
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003895",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "Although inverse studies that evaluate emission inventories using observations and CTMs have indicated that Chinese  $\\mathrm{NO}_{\\mathrm{x}}$  emissions may be underestimated by around  $50\\%$  (Wang et al., 2004; Ma et al., 2006), the uncertainty estimated in this study is relatively small, ranging only  $-13\\% \\sim 37\\%$ . The difference may result in part from omission in bottom-up inventories of anthropogenic  $\\mathrm{NO}_{\\mathrm{x}}$  sources of entirely different character, such as microbial decomposition of organic wastes associated with the human-animal food chain and applications of chemical fertilizer (Wang et al., 2004). Moreover, emissions vary considerably across regions of China (Wang et al., 2007; Zhao and Wang, 2009) and seasons (Zhang et al., 2007a), and emission uncertainties differentiated accordingly may be larger than national estimates. In order to compare better emission estimates derived from satellite, aircraft, or surface observations, therefore, further investigation of the uncertainties of bottom-up inventories by regions and seasons is needed. These would require region-specific uncertainty assumptions for emission factors and activity levels, and seasonal distribution parameters."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Quantifying the uncertainties of a bottom-up emission inventory of anthropogenic atmospheric pollutants in China\", \"md_filename\": \"Quantifying the uncertainties of a bottom-up emiss.md\", \"paragraph_index\": 132, \"content_length\": 1232, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_003895",
+                      "type": "texture",
+                      "paperid": "paper_019",
+                      "coordinates_2d": [
+                        33.468605041503906,
+                        35.696285247802734
+                      ]
+                    },
+                    "score": 0.7210749547485841,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_003088",
+                        "chunk_003908",
+                        "chunk_004276",
+                        "chunk_001916",
+                        "chunk_004342",
+                        "chunk_001303"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_001907",
+                        "chunk_004160",
+                        "chunk_003775",
+                        "chunk_002796",
+                        "chunk_003088",
+                        "chunk_002820",
+                        "chunk_003908",
+                        "chunk_004005",
+                        "chunk_004276",
+                        "chunk_004284",
+                        "chunk_002802",
+                        "chunk_002888",
+                        "chunk_001916",
+                        "chunk_004342",
+                        "chunk_003783",
+                        "chunk_000684",
+                        "chunk_004341",
+                        "chunk_000330",
+                        "chunk_002983",
+                        "chunk_001303"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "branch_action": "GROW",
+                    "user_action": "point"
                   }
                 }
               ]
@@ -8027,7 +8123,29 @@
                 "grid_pos": [
                   4,
                   2
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_003907",
+                      "before": "neighbor",
+                      "after": "KEEP"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_002989",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_002680",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -8291,7 +8409,8 @@
                       "energy statistics",
                       "REAS",
                       "MEIC"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -8430,7 +8549,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_002989",
-                    "branch_action": "KEEP",
+                    "branch_action": "GROW",
                     "extracted_insight": "The MIX inventory combines regional data for Asia to provide a consistent and model-ready dataset of anthropogenic emissions. It balances data harmonization and local specificity.",
                     "scores": {
                       "relevance": 7,
@@ -8441,7 +8560,8 @@
                       "MIX mosaic inventory",
                       "Asian emission inventory",
                       "MICS-Asia"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -8690,7 +8810,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_002680",
-                    "branch_action": "KEEP",
+                    "branch_action": "GROW",
                     "extracted_insight": "The MIX inventory integrates multiple regional datasets, addressing data gaps with REAS2.1 and other inventories, making it a comprehensive source for Asian emissions.",
                     "scores": {
                       "relevance": 8,
@@ -8701,7 +8821,8 @@
                       "MICS-Asia",
                       "REAS2.1",
                       "Asian emissions"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -8903,7 +9024,17 @@
                 "grid_pos": [
                   5,
                   2
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_002586",
+                      "before": "neighbor",
+                      "after": "KEEP"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -8968,7 +9099,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_002586",
-                    "branch_action": "GROW",
+                    "branch_action": "KEEP",
                     "extracted_insight": "Between 2014-2020, China's Air Clean Plan led to a 33.65% decrease in PM2.5 concentrations, with specific reductions in regions like BTH, YRD, and central China.",
                     "scores": {
                       "relevance": 9,
@@ -8980,7 +9111,8 @@
                       "PM2.5 reduction",
                       "air quality management",
                       "spatial pollution distribution"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -9807,12 +9939,44 @@
                   "chunk_002802",
                   "chunk_004276",
                   "chunk_004160",
-                  "chunk_002983"
+                  "chunk_002983",
+                  "chunk_004666"
                 ],
                 "grid_pos": [
                   1,
                   3
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_000012",
+                      "timestamp": "2026-05-11T02:16:30",
+                      "before": "KEEP",
+                      "after": "PRUNE"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_004675",
+                      "timestamp": "2026-05-12T13:37:45",
+                      "before": "UNKNOWN",
+                      "after": "GROW"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_000425",
+                      "timestamp": "2026-05-12T13:37:56",
+                      "before": "UNKNOWN",
+                      "after": "KEEP"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_004666",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -10318,7 +10482,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_000012",
-                    "branch_action": "KEEP",
+                    "branch_action": "PRUNE",
                     "extracted_insight": "MODIS vegetation data and MEGAN model were used to assess interannual variability of BVOC emissions from 2001–2016 in China, correlating emissions with the greening trend.",
                     "scores": {
                       "relevance": 8,
@@ -10330,7 +10494,8 @@
                       "MEGAN",
                       "BVOC emissions",
                       "interannual variability"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -10557,6 +10722,201 @@
                       "Asian emission inventory",
                       "atmospheric modeling"
                     ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004675",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "Figure 11 compares estimates of annual Chinese NMVOC emissions from anthropogenic, biogenic, biomass burning, and total sources, showing both a priori and a posteriori estimates from four inversion experiments. The figure highlights discrepancies between a priori and a posteriori estimates of NMVOC emissions, emphasizing the impact of different sources and constraints applied in inversion experiments."
+                    },
+                    "metadata": {
+                      "paperid": "paper_008",
+                      "chunkid": "chunk_004675",
+                      "type": "picture",
+                      "metadata": "{\"paper_title\": \"Adjoint inversion of Chinese non-methane volatile \", \"figure_id\": \"img_239\", \"figure_title\": \"Figure 11. Comparison of estimates of annual Chinese NMVOC emissions from (a) anthropogenic, (b) biogenic, (c) biomass burning, and (d) total sources. For each panel, the bars from left to right are the a priori estimates and the a posteriori estimates from IE-1, IE-2, IE-3, and IE-4. Annual total NMVOC emissions are shown in black numbers on top of each bar. The red dashed boxes and red numbers in (a) indicate annual emissions of anthropogenic glyoxal precursors. The green dashed boxes and green numbers in (a) indicate annual emissions of anthropogenic aromatics. The grey dashed boxes and grey numbers in (b) indicate annual biogenic isoprene emissions. The orange dashed boxes and orange numbers in (b) indicate annual biogenic methanol emissions. Color keys to NMVOC species are shown at the bottom, with suffixes of “an”, “bg”, and “bb” indicating anthropogenic source, biogenic source, and biomass burning source, respectively.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Adjoint inversion of Chinese non-methane volatile\\\\figure_11.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Compare Experimental Performance\", \"Present Quantitative Results\"]}, \"visual_type\": {\"main_type\": \"Quantitative Charts\", \"sub_types\": [\"Bar Chart\"]}, \"key_entities\": [\"Chinese NMVOC emissions\", \"anthropogenic sources\", \"biogenic sources\", \"biomass burning\", \"glyoxal precursors\", \"aromatics\", \"formaldehyde observations\", \"inversion experiments\", \"GOME-2A formaldehyde VCD\", \"OMI\"], \"concise_summary\": \"Figure 11 compares estimates of annual Chinese NMVOC emissions from anthropogenic, biogenic, biomass burning, and total sources, showing both a priori and a posteriori estimates from four inversion experiments.\", \"inferred_insight\": \"The figure highlights discrepancies between a priori and a posteriori estimates of NMVOC emissions, emphasizing the impact of different sources and constraints applied in inversion experiments.\", \"references\": [\"Table 1 and Fig. 11 show the top-down estimates for Chinese annual NMVOC emissions from the four inversion experiments and compare them against the a priori. Our annual total top-down estimates for Chinese NMVOCs ranged from 30.7 to  $49.5\\\\mathrm{Tgyr}^{-1}$ , compared to the  $38.3\\\\mathrm{Tgyr}^{-1}$  of the a priori. The highest top-down estimate was from IE-3, constrained by 1.7 times the GOME-2A formaldehyde VCD observations. The lowest top-down estimate was from IE-2, mainly driven by the relatively low formaldehyde observations from OMI.\", \"Anthropogenic sources constituted  $44\\\\% - 53\\\\%$  of the total top-down NMVOC emissions. The lowest total top-down anthropogenic emission estimate was from IE-2  $(16.4\\\\mathrm{Tgyr}^{-1})$ . All four inversion experiments consistently showed larger annual emissions of anthropogenic glyoxal precursors than the a priori (Fig. 11). In particular, our top-down estimates for anthropogenic aromatics ranged from 5.5 to  $7.9\\\\mathrm{Tgyr}^{-1}$ , consistently larger than the a priori of  $5.4\\\\mathrm{Tgyr}^{-1}$  (Li et al., 2017). The highest top-down anthropogenic glyoxal precursors (including aromatics, ethyne, ethane, and glyoxal) emission estimate was from IE-4  $(12.3\\\\mathrm{Tgyr}^{-1})$ , which reflected\"], \"chunk_type\": \"figure\"}",
+                      "coordinates_2d": [
+                        -10.02526569366455,
+                        42.4025993347168
+                      ]
+                    },
+                    "score": 0.7037854123526613,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_002820",
+                        "chunk_000452",
+                        "chunk_002551",
+                        "chunk_004284",
+                        "chunk_004342",
+                        "chunk_001303",
+                        "chunk_004676",
+                        "chunk_004276"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_003775",
+                        "chunk_001805",
+                        "chunk_000939",
+                        "chunk_001069",
+                        "chunk_000003",
+                        "chunk_000330",
+                        "chunk_002820",
+                        "chunk_000452",
+                        "chunk_002551",
+                        "chunk_004284",
+                        "chunk_004342",
+                        "chunk_003908",
+                        "chunk_004005",
+                        "chunk_000012",
+                        "chunk_001303",
+                        "chunk_004676",
+                        "chunk_002802",
+                        "chunk_004276",
+                        "chunk_004160",
+                        "chunk_002983"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_004675",
+                    "scores": {},
+                    "suggested_keywords": [],
+                    "branch_action": "GROW",
+                    "user_action": "point"
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000425",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "Figure 12 shows the spatial distribution of the scale factors for the Chinese annual NMVOC emissions from each of the four inversion experiments relative to the a priori emission estimates. The use of GOME-2A formaldehyde and glyoxal observations as constraints in IE-1 led to a domain-wide increase in biogenic NMVOC emissions, except in the northeast. IE-1 also found an increase in biomass burning emissions over the NCP in June. In contrast, anthropogenic NMVOC emissions were slightly reduced over northeast, north, and southwest China. In IE-3, the annual NMVOC emissions over eastern China increased for all three sources, due to constraints exerted by the scaled-up GOME-2A formaldehyde VCDs. The optimized emission scale fac"
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Adjoint inversion of Chinese non-methane volatile organic compound emissions using space-based observations of formaldehyde and glyoxal\", \"md_filename\": \"Adjoint inversion of Chinese non-methane volatile .md\", \"paragraph_index\": 116, \"content_length\": 733, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_000425",
+                      "type": "texture",
+                      "paperid": "paper_008",
+                      "coordinates_2d": [
+                        -14.093521118164062,
+                        47.576656341552734
+                      ]
+                    },
+                    "score": 0.7103825560033021,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_002820",
+                        "chunk_000452",
+                        "chunk_002551",
+                        "chunk_004284",
+                        "chunk_004342",
+                        "chunk_001303",
+                        "chunk_004676",
+                        "chunk_004276"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_003775",
+                        "chunk_001805",
+                        "chunk_000939",
+                        "chunk_001069",
+                        "chunk_000003",
+                        "chunk_000330",
+                        "chunk_002820",
+                        "chunk_000452",
+                        "chunk_002551",
+                        "chunk_004284",
+                        "chunk_004342",
+                        "chunk_003908",
+                        "chunk_004005",
+                        "chunk_000012",
+                        "chunk_001303",
+                        "chunk_004676",
+                        "chunk_002802",
+                        "chunk_004276",
+                        "chunk_004160",
+                        "chunk_002983"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "target_evidence_id": "chunk_000425",
+                    "scores": {},
+                    "suggested_keywords": [],
+                    "branch_action": "KEEP",
+                    "user_action": "point"
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004666",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "Figure 2 depicts monthly estimates of Chinese NMVOC emissions, showing a priori and a posteriori estimates from four inversion experiments. Color keys indicate emissions from various sources such as biomass burning, anthropogenic, and biogenic activities. The figure reveals seasonal variations and contrasts in NMVOC emissions, highlighting reductions in colder months and increases in warmer months, illustrating the effectiveness of inversion experiments in refining emission estimates."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Adjoint inversion of Chinese non-methane volatile \", \"figure_id\": \"img_230\", \"figure_title\": \"Figure 2. Estimates of monthly Chinese NMVOC emissions. For each month, the bars from left to right represent the a priori emission estimates and the a posteriori emission estimates from IE-1, IE-2, IE-3, and IE-4. Color keys for NMVOC species are shown in the inset, with the suffixes of \\\"bb\\\", \\\"an\\\", and \\\"bg\\\" indicating emissions from biomass burning, anthropogenic, and biogenic activities, respectively.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Adjoint inversion of Chinese non-methane volatile\\\\figure_2.jpg\", \"functional_roles\": {\"main_role\": \"Results & Findings\", \"sub_roles\": [\"Present Core Findings\", \"Compare Experimental Performance\"]}, \"visual_type\": {\"main_type\": \"Quantitative Charts\", \"sub_types\": [\"Bar Chart\"]}, \"key_entities\": [\"NMVOC emissions\", \"a priori estimates\", \"a posteriori estimates\", \"biomass burning\", \"anthropogenic activities\", \"biogenic activities\", \"IE-1\", \"IE-2\", \"IE-3\", \"IE-4\"], \"concise_summary\": \"Figure 2 depicts monthly estimates of Chinese NMVOC emissions, showing a priori and a posteriori estimates from four inversion experiments. Color keys indicate emissions from various sources such as biomass burning, anthropogenic, and biogenic activities.\", \"inferred_insight\": \"The figure reveals seasonal variations and contrasts in NMVOC emissions, highlighting reductions in colder months and increases in warmer months, illustrating the effectiveness of inversion experiments in refining emission estimates.\", \"references\": [\"Figure 2 shows the seasonal variation in the a priori Chinese NMVOC emissions. The a priori anthropogenic NMVOC fluxes were larger during the cold months and lower during the warm months, driven by the seasonal strengths of industrial and residential activities (Li et al., 2017). The a priori biogenic NMVOC fluxes showed the opposite seasonal pattern, with  $65\\\\%$  of the total annual flux\", \"that case, the initial cost function value was small; i.e., the a priori formaldehyde VCDs were already in good agreement with 1.7 times the GOME-2A formaldehyde VCDs (Fig. 3 and Table S5). Figure 2 shows the top-down monthly Chinese NMVOC emission estimates from the four inversion experiments and compares them against the a priori emission estimates. Figure S6 compares the a priori and a posteriori emission estimates for anthropogenic glyoxal precursors.\", \"less effective in bringing agreement with the OMI glyoxal observations (Table S8). Figure 2 shows that the a posteriori NMVOC emission estimates from IE-2 were lower than the a priori estimates for all months. This was due to a combination of factors at work in the inversion. The low formaldehyde observations from OMI in all months drove a large reduction in the emissions of NMVOCs that produced only formaldehyde  $(\\\\geq C_4$  alkanes and  $\\\\geq C_3$  alkenes from anthropogenic activities, as well as primary formaldehyde from biomass burning). At the same time, the relatively high glyoxal observations from OMI drove an increase in the emissions of NMVOCs that produced mainly glyoxal (ethene, ethyne, and aromatics from anthropogenic activities, as well as primary glyoxal from biomass burning). For precursors that produced large amounts of both formaldehyde and glyoxal (most importantly biogenic isoprene), the inversion reduced the top-down emissions as the formaldehyde observations had more weight in the cost function than the glyoxal observations due to the lower observational errors in the formaldehyde VCDs. These findings showed the importance of well-characterized retrievals with reliable error estimates in inversion studies.\", \"Figures 3 and 4 showed the a posteriori formaldehyde VCDs from the inversion experiment IE-3, which was constrained by the GOME-2A-observed formaldehyde VCDs scaled by a factor of 1.7. The a posteriori formaldehyde VCDs in IE-3 increased further over eastern China during the warmer months relative to IE-1, especially over the NCP and central China in summer. In December and January, the scaled-up GOME-2A observations over eastern China were still lower than the simulated formaldehyde VCDs using the a priori emissions, leading to a reduction in the a posteriori formaldehyde VCDs over eastern China (Table S5). Figure 2 shows that the top-down monthly emission estimates for all NMVOC species were lower than the a priori in November, December, January, and February and higher than the a priori for the warmer months. Consequently, although no observations of glyoxal were used as constraints in IE-3, the a posteriori glyoxal VCDs also decreased in winter and increased in summer, which was in better agreement with the GOME-2A observations (Figs. 5 and 6). This is consistent with our analyses in Sect. 3: the constraints exerted by the GOME-2A formaldehyde and glyoxal observations were consistent in winter and in summer, when the NMVOC emissions were dominated by anthropogenic and biogenic sources, respectively. However, IE-3 had almost no effects on the a posteriori glyoxal VCDs and the top-down emission estimates of anthropogenic glyoxal precursors in April and October. This demonstrated the necessity of glyoxal observations in constraining the emissions of NMVOC species that preferentially produced glyoxal, including most importantly the aromatics.\", \"The top-down estimates for biogenic NMVOC emissions from IE-1, IE-3, and IE-4 ranged between 20.0 and  $22.8\\\\mathrm{Tgyr}^{-1}$  (top-down biogenic isoprene emission estimates between 9.8 and  $11.7\\\\mathrm{Tgyr}^{-1}$ ), which were significantly larger than the a priori. As a result, the contrast between the NMVOC emissions in summer and those in winter was greatly enhanced in the top-down estimates in these three inversion experiments, relative to the a priori (Fig. 2). The exception was IE-2, which estimated the biogenic NMVOC emissions to be  $12.2\\\\mathrm{Tgyr}^{-1}$  (including  $5.4\\\\mathrm{Tgyr}^{-1}$  of isoprene). The top-down estimate for biomass burning NMVOC emissions from the four inversion experiments was between 2.08 and  $3.13\\\\mathrm{Tgyr}^{-1}$ , with the largest top-down estimate\", \"${}^{a}$  These emission estimates included some NMVOC species that were not precursors to formaldehyde or glyoxal and therefore not included in this work. See color keys in Fig. 2 for NMVOC species whose emissions were included in this work.  ${}^{\\\\mathrm{b}}$  Used SCIAMACHY-observed glyoxal VCDs as constraints.  ${}^{\\\\mathrm{c}}$  Used GOME-2A-observed and OMI-observed formaldehyde VCDs as constraints.  ${}^{\\\\mathrm{d}}$  Consisted of emissions from open burning of crop residues and from biofuel burning.  ${}^{\\\\mathrm{e}}$  Calculated by the GEOS-Chem model using GEOS-5 meteorological data.  ${}^{\\\\mathrm{f}}$  Average of top-down estimates from four inversion experiments.  ${}^{\\\\mathrm{g}}$  Only anthropogenic emissions of reactive alkenes,formaldehyde,and xylenes from northeastern, northern, central, and southern China were included.\", \"As discussed above, three out of our four inversion experiments showed a stronger summer-versus-winter contrast in the NMVOC emissions, compared to the a priori emissions (Fig. 2). We evaluated the impacts of this stronger seasonal amplitude in NMVOC emissions on surface ozone and secondary organic carbon (SOC) aerosol concentrations by driving the GEOS-Chem model with the a priori NMVOC emission estimates and with the average top-down emission estimates from our four inversion experiments, respectively.\", \"Figure 11. Comparison of estimates of annual Chinese NMVOC emissions from (a) anthropogenic, (b) biogenic, (c) biomass burning, and (d) total sources. For each panel, the bars from left to right are the a priori estimates and the a posteriori estimates from IE-1, IE-2, IE-3, and IE-4. Annual total NMVOC emissions are shown in black numbers on top of each bar. The red dashed boxes and red numbers in (a) indicate annual emissions of anthropogenic glyoxal precursors. The green dashed boxes and green numbers in (a) indicate annual emissions of anthropogenic aromatics. The grey dashed boxes and grey numbers in (b) indicate annual biogenic isoprene emissions. The orange dashed boxes and orange numbers in (b) indicate annual biogenic methanol emissions. Color keys to NMVOC species are shown at the bottom, with suffixes of “an”, “bg”, and “bb” indicating anthropogenic source, biogenic source, and biomass burning source, respectively.  \\n![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/705dc97e-57d6-4bd3-b0c3-8144f08544a1/4b8755db90b792c51f9b4a13a33da7204476f55b87525d3b62e728d0c1f01c49.jpg)  \\nMethanol an  \\nGlyoxal an  \\nEthyne an  \\nEthene an  \\nXylene_an  \\nToluene.an  \\nBenzene an  \\nEthane an  \\nFormaldehyde—an  \\nPropane—an  \\n$\\\\geq$  C3 Alkenes_an  \\nAcetaldehyde.an  \\nMethyl ethyl ketone—an  \\nAcetone_an  \\n$\\\\geq$  C4 Alkanes_an\"], \"chunk_type\": \"figure\"}",
+                      "type": "picture",
+                      "paperid": "paper_008",
+                      "chunkid": "chunk_004666",
+                      "coordinates_2d": [
+                        -9.701330184936523,
+                        42.368953704833984
+                      ]
+                    },
+                    "score": 0.7343209108263276,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_002820",
+                        "chunk_000452",
+                        "chunk_002551",
+                        "chunk_004284",
+                        "chunk_004342",
+                        "chunk_001303",
+                        "chunk_004676",
+                        "chunk_004276",
+                        "chunk_004675"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_003775",
+                        "chunk_001805",
+                        "chunk_000939",
+                        "chunk_001069",
+                        "chunk_000003",
+                        "chunk_000330",
+                        "chunk_002820",
+                        "chunk_000452",
+                        "chunk_002551",
+                        "chunk_004284",
+                        "chunk_004342",
+                        "chunk_003908",
+                        "chunk_004005",
+                        "chunk_000012",
+                        "chunk_001303",
+                        "chunk_004676",
+                        "chunk_002802",
+                        "chunk_004276",
+                        "chunk_004160",
+                        "chunk_002983",
+                        "chunk_004675",
+                        "chunk_000425"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "branch_action": "GROW",
+                    "user_action": "point"
                   }
                 }
               ]
@@ -11444,11 +11804,23 @@
                 "plansummary": "### Summary of Retrieval Process and Key Insights\n\nThe retrieval process aimed to address the root question: “How to accurately assess the sources, mitigation effectiveness, and environmental health impacts of air pollution in China?” by focusing specifically on the MIX emission inventory due to its established relevance in assessing regional emissions in China and neighboring countries. The MIX inventory is a vital dataset for understanding anthropogenic emissions across Asia, covering diverse sources and methodologies critical for evaluating pollution control measures and impacts on environmental health.\n\n#### Strategy Execution\n\nThe retrieval strategy employed was **strategy_exact_search**, targeting a query intent related to \"MIX emission inventory\" with a goal of retrieving 20 results. This deliberate focus on the MIX database reflects its significance as a comprehensive and integral tool for analyzing emission sources and providing data for air pollution mitigation efforts. Results were prioritized for their relevance, credibility, and alignment with the question’s focus on assessing emissions, mitigation strategies, and environmental health.\n\nThe search yielded **7 high-quality hits**, with detailed evaluations of relevance (scores ranged from 7 to 9) and credibility (scores at 8). The top insights from the retrieved material clarified the scope, methodology, and implications of the MIX emission inventory, underscoring its role in supporting air pollution studies in China and Asia.\n\n#### Key Retrieval Outcomes\n\n1. **Scope and Components of the MIX Inventory**:\n   - Figure 1 highlights the domain and structure of the MIX emission inventory. It spans multiple countries in Asia, focusing on anthropogenic emissions such as those originating from power generation, industry, and transport. This broad geographic and sectoral scope makes it particularly relevant for understanding transboundary pollution and rural-urban discrepancies in air quality.\n\n2. **Methodology and Data Integration**:\n   - Figure 2 provides a detailed overview of the methodology behind the MIX inventory. It emphasizes the integration of regional datasets from individual countries, calibrated into gridded formats, using a mosaic approach. This method ensures the inventory accounts for regional variations in emission sources, improving its applicability to diverse geographic and socioeconomic contexts.\n\n3. **Anthropogenic Emission Quantification**:\n   - The MIX inventory for the year 2010 offers detailed quantification of emissions for 10 anthropogenic species, including CO₂, SO₂, NOx, NH₃, and PM₂. Industrial and power generation sectors emerge as primary contributors, reflecting China’s heavy reliance on fossil fuels at the time. These insights provide a foundation for analyzing sectoral mitigation strategies aimed at reducing emissions effectively.\n\n4. **National-Level Emission Aggregation**:\n   - Information in Table 3 aggregates national-level emissions based on regional data for key species. This detailed view of emissions allows policymakers and researchers to identify hotspots and prioritize intervention areas. For example, emissions from major cities and industrial hubs could be contrasted with those from rural or economically underdeveloped regions.\n\n5. **Uncertainty Analysis**:\n   - The inventory addresses uncertainties inherent in emissions estimates, revealing greater reliability for combustion-related emissions from large facilities and power plants but higher variability for smaller-scale sources like domestic heating and road transport. Understanding this variability is essential for accurately assessing pollution control measures and projecting future impacts on environmental health.\n\n#### Evaluation and Retrieval Quality\n\n- **Relevance**: The retrieved results scored highly for pertinence to the question, as they addressed core aspects of emission sources, quantification methodologies, and implications for mitigation effectiveness.\n- **Accuracy**: The insights derived from the MIX emission inventory were precise and based on authoritative datasets and methodologies.\n- **Credibility**: The source material demonstrated strong authority, drawing from established inventory datasets widely used in regional and global air quality studies.\n- **Completeness**: Despite the small result set (7 hits), the information covered key thematic areas pertinent to the question, offering enough depth to understand the MIX inventory’s role in air pollution studies.\n\n#### Overall Implications for the Root Goal\n\nThe retrieval process successfully uncovered crucial elements of the MIX emission inventory pertinent to evaluating air pollution in China. By detailing the scope, methodologies, emission quantifications, and uncertainties, the search highlights how the inventory can be leveraged to assess air pollution mitigation strategies and environmental health impacts. Specifically:\n- Policymakers in China can use MIX data to identify high-emission sectors and design tailored interventions.\n- Researchers can explore rural-urban emission dynamics and regional trends across Asian countries using the gridded datasets.\n- Insights about uncertainty in emission estimates underscore the value of consistent monitoring and calibration efforts to improve inventory accuracy, especially for smaller-scale sources.\n\n#### Limitations and Opportunities for Further Exploration\n\nWhile the retrieval was focused and produced high-quality insights, the limited number of hits (7) suggests room for expanding the search to uncover additional context. Future iterations could explore complementary datasets or research articles analyzing the health impacts of emissions quantified by MIX, as well as mitigation outcomes based on regional government actions.\n\nIn conclusion, the MIX emission inventory offers a robust framework for assessing key contributors to air pollution in China and Asia. Its geographic breadth, sectoral integration, and methodological rigor provide essential insights into addressing environmental health challenges in rapidly developing regions.",
                 "hyde_hypothetical_paragraph_full_text": null,
                 "rerank_before_ids": null,
-                "rerank_after_ids": null,
+                "rerank_after_ids": [
+                  "chunk_003000"
+                ],
                 "grid_pos": [
                   4,
                   3
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_003000",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -11719,6 +12091,51 @@
                       "MIX emission domain",
                       "collaborative approaches"
                     ]
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003000",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "Table 1. Summary of the MIX Asian anthropogenic emission inventory."
+                    },
+                    "metadata": {
+                      "paperid": "paper_013",
+                      "metadata": "{\"paper_title\": \"MIX: a mosaic Asian anthropogenic emission inventory under the international collaboration framework of the MICS-Asia and HTAP\", \"md_filename\": \"MIX_ a mosaic Asian anthropogenic emission invento.md\", \"paragraph_index\": 28, \"content_length\": 67, \"chunk_type\": \"text\"}",
+                      "chunkid": "chunk_003000",
+                      "type": "texture",
+                      "coordinates_2d": [
+                        20.33036994934082,
+                        30.383132934570312
+                      ]
+                    },
+                    "score": 0.7139818112953813,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_003036",
+                        "chunk_003110",
+                        "chunk_003164",
+                        "chunk_004598"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_002991",
+                        "chunk_003005",
+                        "chunk_003036",
+                        "chunk_003041",
+                        "chunk_003110",
+                        "chunk_003164",
+                        "chunk_004598"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "branch_action": "GROW",
+                    "user_action": "point"
                   }
                 }
               ]
@@ -13379,11 +13796,30 @@
                 "plansummary": null,
                 "hyde_hypothetical_paragraph_full_text": null,
                 "rerank_before_ids": null,
-                "rerank_after_ids": null,
+                "rerank_after_ids": [
+                  "chunk_000320"
+                ],
                 "grid_pos": [
                   1,
                   4
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_002578",
+                      "timestamp": "2026-05-11T02:17:02",
+                      "before": "KEEP",
+                      "after": "GROW"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_000320",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -13760,7 +14196,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_002578",
-                    "branch_action": "KEEP",
+                    "branch_action": "GROW",
                     "extracted_insight": "Data from MEIC and Carbon Monitor provides insights into annual PM2.5 and CO2 emissions in China, but lacks specific focus on NMVOC constraints.",
                     "scores": {
                       "relevance": 6,
@@ -13772,7 +14208,56 @@
                       "Carbon Monitor",
                       "MEIC inventory",
                       "CO2 emissions"
-                    ]
+                    ],
+                    "user_action": "point"
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_000320",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "version experiments consistently showed that the Chinese anthropogenic emissions of NMVOC precursors of glyoxal were larger than the a priori estimates. Our top-down estimates for Chinese annual emission of anthropogenic aromatics (benzene, toluene, and xylene) ranged from 5.5 to  $7.9\\mathrm{Tgyr}^{-1}$ ,  $2\\%$  to  $46\\%$  larger than the estimate of the a priori emission inventory  $(5.4\\mathrm{Tgyr}^{-1})$ . Three out of our four inversion experiments indicated that the seasonal variation in Chinese NMVOC emissions was significantly stronger than indicated in the a priori inventory. Model simulations driven by the average of our top-down NMVOC emission estimates (which had a stronger seasonal variation than the a priori) showed that surface afternoon ozone concentrations over eastern China increased by  $1 - 8\\mathrm{ppb}$  in June and decreased by  $1 - 10\\mathrm{ppb}$  in December relative to the simulations using the a priori emissions and were in better agreement with measurements. We concluded that the satellite observations of formaldehyde and glyoxal together provided quantitative constraints on the emissions and source types of NMVOCs over China and improved our understanding on regional chemistry."
+                    },
+                    "metadata": {
+                      "metadata": "{\"paper_title\": \"Adjoint inversion of Chinese non-methane volatile organic compound emissions using space-based observations of formaldehyde and glyoxal\", \"md_filename\": \"Adjoint inversion of Chinese non-methane volatile .md\", \"paragraph_index\": 7, \"content_length\": 1230, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_008",
+                      "type": "texture",
+                      "chunkid": "chunk_000320",
+                      "coordinates_2d": [
+                        -13.72050952911377,
+                        45.759918212890625
+                      ]
+                    },
+                    "score": 0.739535489356195,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_000347",
+                        "chunk_001332",
+                        "chunk_001394",
+                        "chunk_002578"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_000343",
+                        "chunk_000347",
+                        "chunk_000348",
+                        "chunk_000456",
+                        "chunk_001320",
+                        "chunk_001326",
+                        "chunk_001332",
+                        "chunk_001394",
+                        "chunk_001822",
+                        "chunk_002578"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "branch_action": "GROW",
+                    "user_action": "point"
                   }
                 }
               ]
@@ -13898,7 +14383,17 @@
                 "grid_pos": [
                   4,
                   4
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_004599",
+                      "before": "neighbor",
+                      "after": "KEEP"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -14303,7 +14798,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_004599",
-                    "branch_action": "GROW",
+                    "branch_action": "KEEP",
                     "extracted_insight": "The schematic highlights the integration of localized emission datasets into the MIX inventory, fostering harmonized regional data sets for modeling applications.",
                     "scores": {
                       "relevance": 9,
@@ -14314,7 +14809,8 @@
                       "MIX inventory",
                       "data integration",
                       "regional emission datasets"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -16520,12 +17016,43 @@
                   "chunk_003535",
                   "chunk_003658",
                   "chunk_002835",
-                  "chunk_004630"
+                  "chunk_004630",
+                  "chunk_004625",
+                  "chunk_003664",
+                  "chunk_003567"
                 ],
                 "grid_pos": [
                   1,
                   5
-                ]
+                ],
+                "userdo": {
+                  "point": [
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_004625",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_003664",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_003567",
+                      "before": "neighbor",
+                      "after": "GROW"
+                    },
+                    {
+                      "action": "point",
+                      "target_evidence_id": "chunk_003535",
+                      "before": "KEEP",
+                      "after": "GROW"
+                    }
+                  ]
+                }
               },
               "rag_results": [
                 {
@@ -17158,7 +17685,7 @@
                   },
                   "evaluation": {
                     "target_evidence_id": "chunk_003535",
-                    "branch_action": "KEEP",
+                    "branch_action": "GROW",
                     "extracted_insight": "LDGVs generate a heavy-tailed distribution of emissions, with the top 10% of emitters responsible for more than 60% of total emissions.",
                     "scores": {
                       "relevance": 9,
@@ -17169,7 +17696,8 @@
                       "light-duty gasoline vehicles",
                       "heavy-tailed emissions",
                       "top emitters"
-                    ]
+                    ],
+                    "user_action": "point"
                   }
                 },
                 {
@@ -17285,6 +17813,175 @@
                       "vehicle speeds"
                     ]
                   }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_004625",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "The figure illustrates the comprehensive traffic monitoring network in Xiaoshan District, highlighting road classes and monitoring facilities on a map. The traffic monitoring network in Xiaoshan enables detailed tracking of vehicle dynamics, crucial for analyzing the impact of traffic on air quality and public health."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_004625",
+                      "paperid": "paper_002",
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traff\", \"figure_id\": \"img_181\", \"figure_title\": \"Fig. 1. Comprehensive traffic monitoring network in Xiaoshan District. (a) Xiaoshan District (the red area) is located in the hinterland of the YRD in China. (b) Comprehensive traffic monitoring achieves full coverage over Xiaoshan District. Each dot represents a set of comprehensive traffic monitoring facilities that can recognize license plates, traffic fluxes, vehicle-specific speed, and vehicle categories. The entire road network over Xiaoshan District is divided into 4585 road segments. Such road segments are divided into three road classes: highways (blue lines), arterial roads (pink lines), and residential streets (green lines). Map data © 2022, Gaode Map.\", \"save_path\": \"C:\\\\liuxingyu\\\\multisubspace-data\\\\predataprocess\\\\paper_md\\\\Quantifying on-road vehicle emissions during traff\\\\figure_1.jpg\", \"functional_roles\": {\"main_role\": \"Data & Experimental Setup\", \"sub_roles\": [\"Introduce Experimental Setup\", \"Showcase Dataset Samples\"]}, \"visual_type\": {\"main_type\": \"Geospatial Visualizations\", \"sub_types\": [\"Map\"]}, \"key_entities\": [\"Xiaoshan District\", \"Yangtze River Delta\", \"traffic monitoring facilities\", \"road segments\", \"highways\", \"arterial roads\", \"residential streets\", \"Gaode Map\"], \"concise_summary\": \"The figure illustrates the comprehensive traffic monitoring network in Xiaoshan District, highlighting road classes and monitoring facilities on a map.\", \"inferred_insight\": \"The traffic monitoring network in Xiaoshan enables detailed tracking of vehicle dynamics, crucial for analyzing the impact of traffic on air quality and public health.\", \"references\": [\"Xiaoshan District is located in eastern Hangzhou, in the Yangtze River Delta in China (Fig. 1) with a population of over 2.01 million. In 2021, its annual GDP was 201.16 billion Yuan, ranking fourth among districts in Hangzhou. Equipped with an international airport, Xiaoshan District has become an important transportation center of Zhejiang province with densely distributed road networks (i.e.,  $1953.7\\\\mathrm{km}$  within  $1417.8\\\\mathrm{km}^2$ ). This implies that the on-road vehicle emissions play a crucial role in affecting local fine-scale air quality and public health.\"], \"chunk_type\": \"figure\"}",
+                      "type": "picture",
+                      "coordinates_2d": [
+                        68.80342102050781,
+                        9.315414428710938
+                      ]
+                    },
+                    "score": 0.6283532779341889,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_004630"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_003546",
+                        "chunk_003669",
+                        "chunk_001777",
+                        "chunk_003013",
+                        "chunk_003853",
+                        "chunk_003014",
+                        "chunk_003542",
+                        "chunk_003665",
+                        "chunk_003571",
+                        "chunk_003694",
+                        "chunk_001992",
+                        "chunk_003638",
+                        "chunk_003761",
+                        "chunk_002828",
+                        "chunk_003646",
+                        "chunk_003769",
+                        "chunk_003535",
+                        "chunk_003658",
+                        "chunk_002835",
+                        "chunk_004630"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "branch_action": "GROW",
+                    "user_action": "point"
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003664",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "studies (Lu et al., 2021). Previous studies have reported the traffic congestion emissions from a limited number of vehicles and certain roads (i.e., one signalized intersection) (Alobaidi et al., 2020; Choudhary and Gokhale, 2019), but the real-world traffic congestion emissions for the typical urban road networks have rarely been reported. Ko et al. (2019) tested real-world driving emissions of a Euro-6 diesel vehicle and reported that  $\\mathrm{NO}_{\\mathrm{x}}$  emissions under the heavy traffic conditions were  $29\\%$  higher than those under smooth traffic conditions. Alobaidi et al. (2020) revealed a significant impact of the congestion on air pollution at intersections with  $8 - 25\\%$  reductions achieved by optimizing cycle and phase times, and preventing vehicles from stopping near the signalized intersection. The main obstacle towards accurately quantifying traffic congestion emissions is mainly associated with the lack of high temporal and spatial resolution observations of on-road traffic monitoring data and real-time online vehicle emission calculation platforms."
+                    },
+                    "metadata": {
+                      "chunkid": "chunk_003664",
+                      "paperid": "paper_002",
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traffic congestion using updated emission factors of light-duty gasoline vehicles and real-world traffic monitoring big data\", \"md_filename\": \"Quantifying on-road vehicle emissions during traff_1.md\", \"paragraph_index\": 25, \"content_length\": 1094, \"chunk_type\": \"text\"}",
+                      "type": "texture",
+                      "coordinates_2d": [
+                        65.69635009765625,
+                        4.5705060958862305
+                      ]
+                    },
+                    "score": 0.5873641144996932,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_004630",
+                        "chunk_004625"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_003546",
+                        "chunk_003669",
+                        "chunk_001777",
+                        "chunk_003013",
+                        "chunk_003853",
+                        "chunk_003014",
+                        "chunk_003542",
+                        "chunk_003665",
+                        "chunk_003571",
+                        "chunk_003694",
+                        "chunk_001992",
+                        "chunk_003638",
+                        "chunk_003761",
+                        "chunk_002828",
+                        "chunk_003646",
+                        "chunk_003769",
+                        "chunk_003535",
+                        "chunk_003658",
+                        "chunk_002835",
+                        "chunk_004630",
+                        "chunk_004625"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "branch_action": "GROW",
+                    "user_action": "point"
+                  }
+                },
+                {
+                  "retrieval_result": {
+                    "id": "chunk_003567",
+                    "source_tool": "UserOps(CentroidNeighbors)",
+                    "content": {
+                      "text": "![](https://cdn-mineru.openxlab.org.cn/result/2025-12-03/9f92dccd-7045-4b38-83b7-43b51761fb13/6bf08bdec95a268cd54dfb7f568571062f149d0bd4518fce6f5d825bda52f48a.jpg)  \nFig. 1. Comprehensive traffic monitoring network in Xiaoshan District. (a) Xiaoshan District (the red area) is located in the hinterland of the YRD in China. (b) Comprehensive traffic monitoring achieves full coverage over Xiaoshan District. Each dot represents a set of comprehensive traffic monitoring facilities that can recognize license plates, traffic fluxes, vehicle-specific speed, and vehicle categories. The entire road network over Xiaoshan District is divided into 4585 road segments. Such road segments are divided into three road classes: highways (blue lines), arterial roads (pink lines), and residential streets (green lines). Map data © 2022, Gaode Map."
+                    },
+                    "metadata": {
+                      "type": "texture",
+                      "metadata": "{\"paper_title\": \"Quantifying on-road vehicle emissions during traffic congestion using updated emission factors of light-duty gasoline vehicles and real-world traffic monitoring big data\", \"md_filename\": \"Quantifying on-road vehicle emissions during traff.md\", \"paragraph_index\": 55, \"content_length\": 837, \"chunk_type\": \"text\"}",
+                      "paperid": "paper_002",
+                      "chunkid": "chunk_003567",
+                      "coordinates_2d": [
+                        69.16240692138672,
+                        9.823750495910645
+                      ]
+                    },
+                    "score": 0.6634332046396781,
+                    "source_args": {
+                      "centroid_seed_chunk_ids": [
+                        "chunk_004630",
+                        "chunk_004625"
+                      ],
+                      "centroid_actions": [
+                        "GROW"
+                      ],
+                      "exclude_chunk_ids": [
+                        "chunk_003546",
+                        "chunk_003669",
+                        "chunk_001777",
+                        "chunk_003013",
+                        "chunk_003853",
+                        "chunk_003014",
+                        "chunk_003542",
+                        "chunk_003665",
+                        "chunk_003571",
+                        "chunk_003694",
+                        "chunk_001992",
+                        "chunk_003638",
+                        "chunk_003761",
+                        "chunk_002828",
+                        "chunk_003646",
+                        "chunk_003769",
+                        "chunk_003535",
+                        "chunk_003658",
+                        "chunk_002835",
+                        "chunk_004630",
+                        "chunk_004625"
+                      ],
+                      "collection_name": "multimodal2text"
+                    }
+                  },
+                  "evaluation": {
+                    "branch_action": "GROW",
+                    "user_action": "point"
+                  }
                 }
               ]
             },
@@ -17305,9 +18002,17 @@
                 "rerank_before_ids": null,
                 "rerank_after_ids": null,
                 "grid_pos": [
-                  5,
-                  5
-                ]
+                  0,
+                  0
+                ],
+                "userdo": {
+                  "strategy_delete": [
+                    {
+                      "action": "delete",
+                      "timestamp": "2026-05-11T02:21:02"
+                    }
+                  ]
+                }
               },
               "rag_results": []
             }

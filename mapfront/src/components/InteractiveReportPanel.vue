@@ -19,12 +19,51 @@
         class="ir-section"
       >
         <div class="ir-section-bar">
-          <span class="ir-section-title">{{ section.title }}</span>
-          <div class="ir-section-actions">
-            <button v-if="section.text" type="button" class="ir-btn-toggle" @click="toggleText(section.id)">
-              {{ section.showText ? '显示点' : '展示文本' }}
+          <input
+            type="text"
+            class="ir-section-title-input"
+            :value="section.title"
+            aria-label="版块标题"
+            placeholder="版块标题"
+            @input="updateSectionTitle(section.id, $event.target.value)"
+          />
+          <div class="ir-view-toolbar" @mousedown.stop>
+            <button
+              type="button"
+              class="ir-circle-btn ir-circle-btn--pt"
+              :title="section.showText ? '当前：文本视图，点击查看要点视图' : '当前：要点视图，点击查看文本视图'"
+              @click.stop="toggleText(section.id)"
+            >
+              {{ section.showText ? 'T' : 'P' }}
             </button>
-            <button type="button" class="ir-btn-icon" title="删除版块" @click="removeSection(section.id)">×</button>
+            <button
+              type="button"
+              class="ir-circle-btn ir-circle-btn--ghost"
+              title="重置（即将推出）"
+              aria-label="重置"
+              @click.prevent.stop
+            >
+              <svg class="ir-circle-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+                />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="ir-circle-btn ir-circle-btn--ghost ir-circle-btn--danger-hover"
+              title="删除版块"
+              aria-label="删除版块"
+              @click.stop="removeSection(section.id)"
+            >
+              <svg class="ir-circle-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                />
+              </svg>
+            </button>
           </div>
         </div>
         <div
@@ -33,8 +72,50 @@
           @dragover.prevent="onDragOver"
           @drop.prevent="onDrop($event, section.id)"
         >
-          <div v-if="section.showText" class="ir-section-text">
-            {{ section.text }}
+          <div v-if="section.showText" class="ir-text-edit-stack">
+            <textarea
+              v-show="textEditingSectionId === section.id"
+              class="ir-section-textarea"
+              :data-section-text="section.id"
+              rows="6"
+              :value="section.text"
+              aria-label="版块正文"
+              placeholder="正文…（支持 [chunk_id] 引用）"
+              @input="updateSectionText(section.id, $event.target.value)"
+              @blur="endSectionTextEdit"
+            />
+            <div
+              v-show="textEditingSectionId !== section.id"
+              class="ir-section-text ir-section-text--preview"
+              tabindex="0"
+              role="button"
+              title="单击编辑正文"
+              @click="startSectionTextEdit(section.id)"
+              @keydown.enter.prevent="startSectionTextEdit(section.id)"
+            >
+              <template v-if="(section.text || '').trim().length">
+                <template v-for="(seg, si) in parseSectionCitations(section)" :key="'s-' + section.id + '-' + si">
+                  <span v-if="seg.type === 'text'" class="ir-text-run">{{ seg.text }}</span>
+                  <span v-else class="ir-cite-wrap" :title="citeGroupTitle(seg)">
+                    <span class="ir-cite-bracket">[</span>
+                    <template v-for="(t, ti) in seg.tokens" :key="'t-' + section.id + '-' + si + '-' + ti">
+                      <span v-if="ti > 0" class="ir-cite-sep">; </span>
+                      <button
+                        v-if="t.canonicalId"
+                        type="button"
+                        class="ir-cite-link"
+                        @click.stop="onCitationJump(t.canonicalId)"
+                      >
+                        {{ t.token }}
+                      </button>
+                      <span v-else class="ir-cite-miss">{{ t.token }}</span>
+                    </template>
+                    <span class="ir-cite-bracket">]</span>
+                  </span>
+                </template>
+              </template>
+              <span v-else class="ir-text-placeholder">单击输入正文…</span>
+            </div>
           </div>
           <div v-else-if="section.items.length === 0" class="ir-empty">Drag Evidence Point</div>
           <div v-else class="ir-dots">
@@ -85,11 +166,104 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import { useStore } from 'vuex';
 import ItemDetail from './ItemDetail.vue';
 
 const store = useStore();
+
+/** Text view：预览（可点引用）与单击后的 textarea 编辑互斥 */
+const textEditingSectionId = ref(null);
+
+function updateSectionTitle(sectionId, title) {
+  store.commit('updateInteractiveReportSectionTitle', { sectionId, title });
+}
+
+function updateSectionText(sectionId, text) {
+  store.commit('updateInteractiveReportSectionText', { sectionId, text });
+}
+
+async function startSectionTextEdit(sectionId) {
+  textEditingSectionId.value = sectionId;
+  await nextTick();
+  const ta =
+    typeof document !== 'undefined'
+      ? document.querySelector(`textarea.ir-section-textarea[data-section-text="${sectionId}"]`)
+      : null;
+  ta?.focus();
+}
+
+function endSectionTextEdit() {
+  textEditingSectionId.value = null;
+}
+
+/** 与地图 / 报告中 id 对齐（去 img_ 等） */
+function normalizeEvidenceId(raw) {
+  let s = String(raw ?? '').trim();
+  if (!s) return '';
+  if (s.startsWith('img_')) s = s.slice(4);
+  return s;
+}
+
+/** 括号内引用串：按英文/中文分号切段（与后端 [chunk_a; chunk_b] 一致） */
+function splitCitationInnerTokens(inner) {
+  return String(inner ?? '')
+    .split(/[;\uff1b]/)
+    .map((t) => t.trim())
+    .filter(Boolean);
+}
+
+/** section.items 建立 normId -> 规范 id（items[].id） */
+function buildEvidenceIdResolver(section) {
+  const map = new Map();
+  (section.items || []).forEach((item) => {
+    if (!item || !item.id) return;
+    const n = normalizeEvidenceId(item.id);
+    if (n && !map.has(n)) map.set(n, item.id);
+  });
+  return map;
+}
+
+/**
+ * 按 [ ... ] 切段；括号内按 ; 分割为多个引用 token。
+ * 仅当 token 能对应 section.items 中某条时为可点击链接。
+ */
+function parseSectionCitations(section) {
+  const text = section.text || '';
+  const resolver = buildEvidenceIdResolver(section);
+  const re = /\[([^\]]+)\]/g;
+  const segments = [];
+  let last = 0;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) {
+      segments.push({ type: 'text', text: text.slice(last, m.index) });
+    }
+    const inner = m[1];
+    const tokens = splitCitationInnerTokens(inner).map((token) => {
+      const norm = normalizeEvidenceId(token);
+      const canonicalId = norm && resolver.has(norm) ? resolver.get(norm) : null;
+      return { token, canonicalId };
+    });
+    segments.push({ type: 'cite', tokens });
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) {
+    segments.push({ type: 'text', text: text.slice(last) });
+  }
+  return segments.length ? segments : [{ type: 'text', text }];
+}
+
+function citeGroupTitle(seg) {
+  if (!seg.tokens || seg.type !== 'cite') return '';
+  const linked = seg.tokens.filter((t) => t.canonicalId).length;
+  return linked ? 'Jump to evidence on river chart' : '';
+}
+
+function onCitationJump(canonicalId) {
+  if (!canonicalId) return;
+  store.commit('setInteractiveReportCitationFocus', canonicalId);
+}
 
 const showPointDetailModal = ref(false);
 const selectedPointDetail = ref(null);
@@ -156,6 +330,7 @@ const removePoint = (sectionId, itemId) => {
 };
 
 const toggleText = (sectionId) => {
+  textEditingSectionId.value = null;
   store.commit('toggleInteractiveReportSectionText', sectionId);
 };
 
@@ -281,36 +456,155 @@ const displayLabel = (item) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   padding: 8px 12px;
   background: #f8fafc;
   border-bottom: 1px solid #e2e8f0;
 }
 
-.ir-section-title {
+.ir-section-title-input {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 6px 10px;
   font-size: 13px;
   font-weight: 600;
   color: #334155;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    background 0.15s;
 }
 
-.ir-section-actions {
+.ir-section-title-input:hover {
+  border-color: #e2e8f0;
+  background: #fff;
+}
+
+.ir-section-title-input:focus {
+  outline: none;
+  border-color: #7dd3fc;
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.22);
+  background: #fff;
+}
+
+.ir-section-title-input::placeholder {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.ir-view-toolbar {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
-.ir-btn-toggle {
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 4px;
-  border: 1px solid #bae6fd;
-  background: #e0f2fe;
-  color: #0284c7;
+.ir-circle-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: all 0.2s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
+  flex-shrink: 0;
 }
 
-.ir-btn-toggle:hover {
+.ir-circle-btn--pt {
+  border: 1px solid #7dd3fc;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.ir-circle-btn--pt:hover {
   background: #bae6fd;
+  border-color: #38bdf8;
+  box-shadow: 0 1px 4px rgba(14, 165, 233, 0.35);
+}
+
+.ir-circle-btn--ghost {
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #64748b;
+}
+
+.ir-circle-btn--ghost:hover {
+  border-color: #cbd5e1;
+  color: #475569;
+  background: #f8fafc;
+}
+
+.ir-circle-btn--danger-hover:hover {
+  border-color: #fecaca;
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.ir-circle-icon {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+
+.ir-text-edit-stack {
+  position: relative;
+  min-height: 120px;
+}
+
+.ir-section-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 140px;
+  resize: vertical;
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  font-family: inherit;
+}
+
+.ir-section-textarea:focus {
+  outline: none;
+  border-color: #7dd3fc;
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.18);
+}
+
+.ir-section-text--preview {
+  min-height: 120px;
+  cursor: text;
+  padding: 8px 6px;
+  border-radius: 8px;
+  border: 1px dashed transparent;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+
+.ir-section-text--preview:hover {
+  border-color: #bae6fd;
+  background: #fafdff;
+}
+
+.ir-text-placeholder {
+  font-size: 13px;
+  color: #94a3b8;
 }
 
 .ir-section-text {
@@ -319,6 +613,46 @@ const displayLabel = (item) => {
   line-height: 1.6;
   padding: 8px 4px;
   white-space: pre-wrap;
+}
+
+.ir-text-run {
+  white-space: pre-wrap;
+}
+
+.ir-cite-wrap {
+  white-space: pre-wrap;
+  font-weight: 500;
+}
+
+.ir-cite-bracket {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.ir-cite-sep {
+  color: #64748b;
+}
+
+.ir-cite-link {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+.ir-cite-link:hover {
+  color: #1d4ed8;
+}
+
+.ir-cite-miss {
+  color: #64748b;
 }
 
 .ir-btn-icon {

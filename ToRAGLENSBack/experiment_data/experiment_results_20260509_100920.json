@@ -92,7 +92,6 @@
                   "4df4d237-ac57-4f09-9c87-1b6171a621dd",
                   "76268f03-08e5-421d-bcb9-35685b799f7e",
                   "14e45eb7-aebd-49f6-980c-9e09e69df1c7",
-                  "0a4a6fa1-3454-4278-a670-318270dece05",
                   "6daca836-e4a5-49f0-9ba4-7c985514ab6f",
                   "119ac3c0-c668-48f6-978f-aa5538a43c03",
                   "llmvis_VisEval_A_Benchmark_for_Data_Visualization_in_the_Era_of_Large_Language_Models_2041432755698659328_128",
@@ -975,7 +974,6 @@
                   "982f2b0c-f471-4999-9483-f9add1f2c368",
                   "5b2ff926-31cd-4fbc-9c18-2418d3942874",
                   "76268f03-08e5-421d-bcb9-35685b799f7e",
-                  "0a4a6fa1-3454-4278-a670-318270dece05",
                   "llmvis_How_Good_-Or_Bad-_Are_LLMs_at_Detecting_Misleading_Visualizations-_2041426000889503744_18",
                   "f0e6f4fd-e45c-4298-99a8-f9ee671a1349",
                   "13a5f77f-bce9-4a5f-9a73-2a87a557e584",
@@ -6277,7 +6275,6 @@
                   "f0dc0a52-4c36-48f9-99ab-2d1c77ef1d44",
                   "58677c29-912a-43d4-ace6-534a48e995fd",
                   "aeab6e3a-c76a-4c4a-9d17-4d8be301fd29",
-                  "0a4a6fa1-3454-4278-a670-318270dece05",
                   "llmvis_PromptAid_Visual_Prompt_Exploration-_Perturbation-_Testing_and_Iteration_for_Large_Language_Models_2041432602401034240_47",
                   "489e1295-4a0b-4d6c-b907-d14a0c38063c",
                   "870cd660-17b5-418c-acaa-3fb443c7466d",
@@ -6336,7 +6333,6 @@
                   "7b3040b5-d825-480e-9f3e-85b768d92a93",
                   "119ac3c0-c668-48f6-978f-aa5538a43c03",
                   "llmvis_How_Good_-Or_Bad-_Are_LLMs_at_Detecting_Misleading_Visualizations-_2041426000889503744_19",
-                  "0a4a6fa1-3454-4278-a670-318270dece05",
                   "d6206923-e5d4-4cac-b6f8-b40f2cba7bf3",
                   "3123be43-42dd-45d2-ae08-0f61ec6b7ee4",
                   "1bba0450-f128-47a5-a5b9-b22e38a1187f",
@@ -6583,54 +6579,6 @@
                       "chart analysis",
                       "accuracy metrics",
                       "normalization"
-                    ]
-                  }
-                },
-                {
-                  "retrieval_result": {
-                    "id": "0a4a6fa1-3454-4278-a670-318270dece05",
-                    "source_tool": "Left_Path(Semantic)",
-                    "content": {
-                      "title": "MinerU_markdown_AdversaFlow_Visual_Red_Teaming_for_Large_Language_Models_with_Multi-Level_Adversarial_Flow_2041432865996263424",
-                      "text": "It is challenging to provide an intuitive overall trend while supporting the identification of concrete prompts where models fail. \n\nSupport of Fluctuation Analysis. Evaluating models with welldefined metrics, such as attack success rate, might be limited and fail to reflect their robustness. For instance, the same attack prompts might elicit appropriate responses at some checkpoints but not at others, indicating that with some intervention, the attack could succeed. Existing visual analytics approaches for natural language processing typically visualize token distributions to understand model outputs [35,50]. However, since LLMs are sequence models whose outputs heavily rely on context, fluctuations in the first few words can significantly impact subsequent outputs. Current methods do not account for these fluctuations in security scenarios. Visualizing the uncertainty and analyzing probability transitions in language models remains a challenge.",
-                      "summary": "It is challenging to provide an intuitive overall trend while supporting the identification of concrete prompts where models fail. \n\nSupport of Fluctu..."
-                    },
-                    "metadata": {
-                      "file_name": "MinerU_markdown_AdversaFlow_Visual_Red_Teaming_for_Large_Language_Models_with_Multi-Level_Adversarial_Flow_2041432865996263424.md",
-                      "total_chunks": 57,
-                      "paper_name": "MinerU_markdown_AdversaFlow_Visual_Red_Teaming_for_Large_Language_Models_with_Multi-Level_Adversarial_Flow_2041432865996263424",
-                      "chunk_index": 4,
-                      "mime_type": "MemoryMimeType.TEXT",
-                      "chunk_size": 960,
-                      "type": "paper",
-                      "source": "MinerU_markdown_AdversaFlow_Visual_Red_Teaming_for_Large_Language_Models_with_Multi-Level_Adversarial_Flow_2041432865996263424.md",
-                      "paper_id": "mineru_markdown_adversaflow_visual_red_teaming_for_large_language_models_with_multi-level_adversarial_flow_2041432865996263424",
-                      "keywords": [],
-                      "content_type": "text",
-                      "coordinates_2d": [
-                        -0.16505739092826843,
-                        -27.95538330078125
-                      ],
-                      "paperid": "mineru_markdown_adversaflow_visual_red_teaming_for_large_language_models_with_multi-level_adversarial_flow_2041432865996263424"
-                    },
-                    "score": 0.9364171028137207,
-                    "source_args": {
-                      "query_intent": "How can visualization tools support refining prompt engineering and tracking LLM task-domain performance?"
-                    }
-                  },
-                  "evaluation": {
-                    "target_evidence_id": "0a4a6fa1-3454-4278-a670-318270dece05",
-                    "branch_action": "KEEP",
-                    "extracted_insight": "Visualizing uncertainty and analyzing probability transitions in LLM-generated outputs remains an important challenge for robustness evaluation.",
-                    "scores": {
-                      "relevance": 7,
-                      "credibility": 7
-                    },
-                    "reason": "Relevant to robustness analysis in LLMs but lacks direct expansion value related to prompt engineering.",
-                    "suggested_keywords": [
-                      "probability transitions",
-                      "stochastic LLMs",
-                      "robustness evaluation"
                     ]
                   }
                 },

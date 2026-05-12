@@ -4,7 +4,7 @@
 """
 import re
 import contextvars
-from typing import List, Dict, Any, Optional, Union, Tuple
+from typing import List, Dict, Any, Optional, Union, Tuple, Set
 import asyncio
 import os
 import json
@@ -1031,7 +1031,128 @@ class RAGService:
         
         results = await asyncio.to_thread(_sync_query)
         return self._format_results(results, is_semantic=True)
-    
+
+    @staticmethod
+    def _coerce_embedding_to_float_list(emb: Any) -> Optional[List[float]]:
+        """
+        将 Chroma / numpy 返回的单条嵌入统一为 List[float]。
+        兼容：一维向量、多余的 batch 包装 [[...]]、(1,D) 二维行向量。
+        """
+        if emb is None:
+            return None
+        if hasattr(emb, "tolist"):
+            try:
+                emb = emb.tolist()
+            except Exception:
+                return None
+        if not isinstance(emb, list):
+            return None
+        while len(emb) == 1 and isinstance(emb[0], list):
+            emb = emb[0]
+        if not emb:
+            return None
+        if isinstance(emb[0], list):
+            return None
+        try:
+            return [float(x) for x in emb]
+        except (TypeError, ValueError):
+            return None
+
+    @staticmethod
+    def _mean_embedding_vectors(vectors: List[Any]) -> Optional[List[float]]:
+        rows: List[List[float]] = []
+        for v in vectors or []:
+            row = RAGService._coerce_embedding_to_float_list(v)
+            if row:
+                rows.append(row)
+        if not rows:
+            return None
+        dim = len(rows[0])
+        for r in rows[1:]:
+            if len(r) != dim:
+                return None
+        acc = [0.0] * dim
+        for r in rows:
+            for i, x in enumerate(r):
+                acc[i] += float(x)
+        n = float(len(rows))
+        return [x / n for x in acc]
+
+    async def neighbors_from_centroid_excluding(
+        self,
+        seed_ids_for_centroid: List[str],
+        exclude_chunk_ids: List[str],
+        out_n: int = 10,
+    ) -> List[Dict[str, Any]]:
+        """
+        对 seed_ids 在 Chroma 中的嵌入取算术平均作为查询向量，在库中按距离检索；
+        排除 exclude_chunk_ids 与已选中的近邻 id，直到凑满 out_n 条或检索窗口耗尽。
+        """
+        if not self.initialized:
+            await self.initialize()
+        if not self.raw_collection:
+            return []
+        seeds = [str(x).strip() for x in (seed_ids_for_centroid or []) if str(x).strip()]
+        if not seeds:
+            return []
+        exclude: Set[str] = {str(x).strip() for x in (exclude_chunk_ids or []) if str(x) is not None and str(x).strip() != ""}
+        exclude.update(seeds)
+
+        def _sync_centroid_and_query():
+            coll = self.raw_collection
+            got = coll.get(ids=seeds, include=["embeddings"])
+            ret_ids = got.get("ids") or []
+            embs_raw = got.get("embeddings")
+            if embs_raw is None:
+                ret_embs = []
+            elif hasattr(embs_raw, "shape") and len(getattr(embs_raw, "shape", ())) == 2:
+                er = embs_raw
+                try:
+                    n0 = int(er.shape[0])
+                    ret_embs = [er[i] for i in range(n0)]
+                except Exception:
+                    ret_embs = [embs_raw]
+            elif isinstance(embs_raw, list):
+                ret_embs = embs_raw
+            else:
+                ret_embs = [embs_raw]
+            valid: List[Any] = []
+            for i in range(min(len(ret_ids), len(ret_embs))):
+                emb = ret_embs[i]
+                if emb is None:
+                    continue
+                valid.append(emb)
+            centroid = RAGService._mean_embedding_vectors(valid)
+            if not centroid:
+                return []
+            found: List[Dict[str, Any]] = []
+            n_q = max(40, out_n * 6)
+            cap = 12000
+            rounds = 0
+            while len(found) < out_n and rounds < 14 and n_q <= cap:
+                rounds += 1
+                raw = coll.query(
+                    query_embeddings=[centroid],
+                    n_results=int(n_q),
+                    include=["metadatas", "documents", "distances"],
+                )
+                batch = self._format_results(raw, is_semantic=True)
+                if not batch:
+                    n_q = min(n_q * 2, cap)
+                    continue
+                for it in batch:
+                    iid = str(it.get("id", "")).strip()
+                    if not iid or iid in exclude:
+                        continue
+                    exclude.add(iid)
+                    found.append(it)
+                    if len(found) >= out_n:
+                        return found[:out_n]
+                n_q = min(n_q * 2, cap)
+            return found[:out_n]
+
+        return await asyncio.to_thread(_sync_centroid_and_query)
+
     # =========================================================================
     #  ✨ 接口 C: 多模态检索 (查多模态库)
     # =========================================================================
@@ -1102,6 +1223,52 @@ class RAGService:
             # 没有提供有效的图片路径
             print("[Warning] 未提供有效的图片路径，无法进行多模态检索")
             return []
+
+    def _normalize_llmvis_to_multimodal_texture_metadata(
+        self,
+        meta_dict: Dict[str, Any],
+        chroma_doc_id: str,
+        doc: str,
+    ) -> Dict[str, Any]:
+        """
+        将 LLMvisDataset 的 Chroma 元数据归一为与 multimodal2text 样例一致：
+        chunkid、paperid、type=texture、metadata 为 JSON 字符串（paper_title / md_filename /
+        paragraph_index / content_length / chunk_type）。Chroma 文档正文仍由 content.text 承载（嵌入相似度主体）。
+        """
+        chunk_id = str(chroma_doc_id or "").strip()
+        file_name = str(meta_dict.get("file_name") or "").strip()
+        paper_name = str(meta_dict.get("paper_name") or "").strip()
+        try:
+            pidx = int(meta_dict.get("chunk_index", 0))
+        except (TypeError, ValueError):
+            pidx = 0
+        doc_s = doc if isinstance(doc, str) else (str(doc) if doc is not None else "")
+        first_line = doc_s.split("\n")[0].strip() if doc_s else ""
+        paper_title = first_line or paper_name
+        inner = {
+            "paper_title": paper_title[:800],
+            "md_filename": file_name,
+            "paragraph_index": pidx,
+            "content_length": len(doc_s),
+            "chunk_type": "text",
+        }
+        pid = str(meta_dict.get("paper_id") or "").strip()
+        if not pid and paper_name:
+            pid = paper_name.lower().replace(" ", "_").replace(",", "")[:240]
+        paperid = pid if pid else "unknown"
+        out = dict(meta_dict)
+        out.pop("mime_type", None)
+        out.update(
+            {
+                "chunkid": chunk_id,
+                "paperid": paperid,
+                "type": "texture",
+                "metadata": json.dumps(inner, ensure_ascii=False),
+            }
+        )
+        if not str(out.get("paper_id") or "").strip():
+            out["paper_id"] = paperid
+        return out
 
     def _format_results(self, raw_results, is_semantic: bool) -> List[Dict[str, Any]]:
         """
@@ -1182,21 +1349,26 @@ class RAGService:
                     content_obj = {"text": doc if doc else ""}
             # 处理论文文本数据（适用于paper_rag_collection）
             elif meta_dict.get("paper_name") or meta_dict.get("file_name"):
-                # 为论文文本创建结构化的content对象
+                doc_s = doc if isinstance(doc, str) else (str(doc) if doc is not None else "")
                 content_obj = {
                     "title": meta_dict.get("paper_name", ""),
-                    "text": doc if doc else "",
-                    "summary": doc[:150] + "..." if len(doc) > 150 else doc  # 生成简单摘要
+                    "text": doc_s,
+                    "summary": doc_s[:150] + "..." if len(doc_s) > 150 else doc_s,
                 }
-                # 丰富full_obj，确保包含所有必要的字段
-                full_obj = {
-                    **meta_dict,
-                    "type": "paper",
-                    "source": meta_dict.get("file_name", ""),
-                    "paper_id": meta_dict.get("paper_name", "").lower().replace(" ", "_"),
-                    "keywords": meta_dict.get("keywords", []),
-                    "content_type": "text"
-                }
+                coll = str(self.collection_name or "")
+                if coll == "LLMvisDataset" and not (meta_dict.get("chunkid") or meta_dict.get("paperid")):
+                    full_obj = self._normalize_llmvis_to_multimodal_texture_metadata(
+                        meta_dict, str(id), doc_s
+                    )
+                else:
+                    full_obj = {
+                        **meta_dict,
+                        "type": "paper",
+                        "source": meta_dict.get("file_name", ""),
+                        "paper_id": meta_dict.get("paper_name", "").lower().replace(" ", "_"),
+                        "keywords": meta_dict.get("keywords", []),
+                        "content_type": "text",
+                    }
             else:
                 # 其他情况，使用文档文本
                 content_obj = {"text": doc if doc else ""}

@@ -53,7 +53,7 @@
             title="在当前问题下方新开一行（大追问：新会话列）"
             @click.stop="openAddQuestionPrompt"
           >
-            大追问
+            New Question
           </button>
 
           <!-- NOTE: 按需求隐藏中间网格的「小追问」入口与面板 -->
@@ -143,6 +143,45 @@
                   @click.stop
                   @keyup.enter.stop="handleStrategyHeaderAction('R', card)"
                 ></textarea>
+              </div>
+              <div
+                v-if="card.query && card.query._continue_auto_pending"
+                class="strategy-card-continue-toolbar"
+                @mousedown.stop
+                @click.stop
+              >
+                <div class="strategy-continue-tool-row">
+                  <span class="strategy-continue-tool-label">检索方式</span>
+                  <div class="strategy-continue-tool-btns">
+                    <button
+                      type="button"
+                      class="strategy-continue-tool-btn"
+                      :class="{ 'is-active': getStrategyCardContinueTool(card) === 'semantic' }"
+                      title="语义检索"
+                      @click="setStrategyCardContinueTool(card, 'semantic')"
+                    >Semantic</button>
+                    <button
+                      type="button"
+                      class="strategy-continue-tool-btn"
+                      :class="{ 'is-active': getStrategyCardContinueTool(card) === 'exact' }"
+                      title="精确匹配"
+                      @click="setStrategyCardContinueTool(card, 'exact')"
+                    >Exact</button>
+                    <button
+                      type="button"
+                      class="strategy-continue-tool-btn"
+                      :class="{ 'is-active': getStrategyCardContinueTool(card) === 'metadata' }"
+                      title="元数据筛选"
+                      @click="setStrategyCardContinueTool(card, 'metadata')"
+                    >Metadata</button>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="strategy-continue-send-btn"
+                  title="按当前输入与检索方式执行检索"
+                  @click="sendContinuePlaceholderSearch(card)"
+                >Send</button>
               </div>
             </div>
 
@@ -440,6 +479,8 @@ export default {
       miniFollowUpDraft: null,
       /** 策略卡片可编辑检索问题：{ [cardKey]: string } */
       strategyCardDraftQueries: {},
+      /** C 占位卡：用户选择的追问检索方式 semantic | exact | metadata */
+      strategyCardContinueTool: {},
       /** 底栏评估色点 → 小地图仅显示该类：{ [cardKey]: 'KEEP'|'GROW'|'PRUNE'|'UNKNOWN' } */
       strategyMiniMapEvalFilter: {},
       roundsData: [],
@@ -471,6 +512,13 @@ export default {
       draggingStrategy: null,     // 当前正在拖拽的策略卡片 { roundNumber, queryIndex }，用于防止点击事件
       /** 指针拖入 Interactive Report 后抑制紧随其后的 click，避免重复打开详情 */
       suppressNextRagDotClick: false,
+      /** Interactive Report 文本引用点击后的规范 evidence id（小地图红点描边） */
+      interactiveReportCitationFocusId: null,
+      /** 策略小地图共享底图（密度+灰点）一次性栅格化，减轻多卡重复 contourDensity */
+      sharedMiniMapBaseDataUrl: '',
+      sharedMiniMapBaseGeomKey: '',
+      /** 与栅格底图像素一致 reference 尺寸，供 xRef/yRef 与底图对齐 */
+      sharedMiniMapBaseRefDims: null,
       // 弹窗相关
       showPlanSummaryModal: false,
       selectedPlanSummary: null,
@@ -559,6 +607,15 @@ export default {
       if (this.roundsData.length > 0 || this.completedQuestionColumns.length > 0) {
         this.$nextTick(() => this.drawRiverChart());
       }
+    },
+    '$store.state.interactiveReportCitationFocus'(val) {
+      const id = val && val.id ? String(val.id).trim() : '';
+      this.interactiveReportCitationFocusId = id || null;
+      if (!id) {
+        this.$nextTick(() => this.drawRiverChart());
+        return;
+      }
+      this.navigateToChunk(id);
     }
   },
   components: {
@@ -1007,152 +1064,184 @@ export default {
     }
   },
   methods: {
+    /**
+     * 右侧 User Operations：仅展示「当前点击选中的」策略卡（与 focusedStrategyKey 高亮边框同源）。
+     * 无 userdo 的删除/改评记录时仍输出缩略地图与可点击数据点；有待应用改评时显示 Apply。
+     */
     emitUserOperationsChange() {
-      const rowsMap = new Map(); // key -> row
+      const fk = this.focusedStrategyKey;
+      if (!fk) {
+        this.$emit('user-operations-change', []);
+        return;
+      }
+      const hash = fk.lastIndexOf('#');
+      if (hash <= 0) {
+        this.$emit('user-operations-change', []);
+        return;
+      }
+      const gck = fk.slice(0, hash);
+      const queryIndex = Number(fk.slice(hash + 1));
+      if (!Number.isFinite(queryIndex) || queryIndex < 0) {
+        this.$emit('user-operations-change', []);
+        return;
+      }
+      const round = this.getAllRounds().find(
+        (r) => (r && (r.__gridColKey || riverGrid.gridColumnKey(r)) === gck)
+      );
+      const query = round?.query_results?.[queryIndex];
+      if (!query || riverGrid.isStrategySlotTombstone(query)) {
+        this.$emit('user-operations-change', []);
+        return;
+      }
+
+      const sessionId = String(round._sessionId || '');
+      const roundNumber = Number(round.round_number);
+      const toolName = String(query?.orchestrator_plan?.tool_name || '');
+      const rowKey = `${sessionId || 'default'}-${roundNumber}-${queryIndex}`;
+
       const layoutPoints = this.getCanonicalLayoutPoints() || [];
-      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-      layoutPoints.forEach(pt => {
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minY = Infinity;
+      let maxY = -Infinity;
+      layoutPoints.forEach((pt) => {
         if (pt.x < minX) minX = pt.x;
         if (pt.x > maxX) maxX = pt.x;
         if (pt.y < minY) minY = pt.y;
         if (pt.y > maxY) maxY = pt.y;
       });
 
-      const getOrCreateRow = (sessionId, roundNumber, queryIndex, toolName) => {
-        const key = `${sessionId || 'default'}-${roundNumber}-${queryIndex}`;
-        if (!rowsMap.has(key)) {
-          rowsMap.set(key, {
-            key,
-            sessionId: sessionId || '',
-            roundNumber: Number(roundNumber),
+      /** 缩略地图内：能在全局 embedding 上找到坐标的点（右侧第一排圆点与左侧 SVG 同源） */
+      const thumbnailPointsMap = new Map();
+      if (Array.isArray(query.rag_results)) {
+        query.rag_results.forEach((rag) => {
+          const pt = this.findLayoutPointForRetrieval(layoutPoints, rag.retrieval_result);
+          if (!pt) return;
+          const resultId = rag?.retrieval_result?.id;
+          if (resultId == null || String(resultId).trim() === '') return;
+          const rid = String(resultId);
+          const action = rag.evaluation?.branch_action || 'UNKNOWN';
+          const px = maxX > minX ? ((pt.x - minX) / (maxX - minX)) * 100 : 50;
+          const py = maxY > minY ? 100 - ((pt.y - minY) / (maxY - minY)) * 100 : 50;
+          const ctx = {
+            sessionId,
+            roundNumber,
             queryIndex,
-            label: `R ${roundNumber}.${queryIndex + 1}`,
-            toolName: toolName || '',
-            operationsMap: new Map(), // resultId -> op
-            hasPending: false,
-            thumbnailPointsMap: new Map(), // resultId -> {x, y, action}
-          });
-        }
-        return rowsMap.get(key);
-      };
-
-      const pushFromRounds = (rounds, sessionId = '') => {
-        (rounds || []).forEach((round) => {
-          if (!round || round.round_number === undefined) return;
-          (round.query_results || []).forEach((query, queryIndex) => {
-            const toolName = query?.orchestrator_plan?.tool_name || '';
-            const userdo = query?.orchestrator_plan?.userdo || {};
-            const deletes = userdo.delete || [];
-            const points = userdo.point || [];
-            
-            const row = getOrCreateRow(sessionId, round.round_number, queryIndex, toolName);
-
-            if (query && Array.isArray(query.rag_results)) {
-              query.rag_results.forEach(rag => {
-                const pt = this.findLayoutPointForRetrieval(layoutPoints, rag.retrieval_result);
-                if (pt) {
-                  const resultId = rag.retrieval_result.id;
-                  const action = rag.evaluation?.branch_action || 'UNKNOWN';
-                  const px = (maxX > minX) ? ((pt.x - minX) / (maxX - minX)) * 100 : 50;
-                  const py = (maxY > minY) ? (100 - ((pt.y - minY) / (maxY - minY)) * 100) : 50;
-                  const ctx = {
-                    sessionId,
-                    roundNumber: round.round_number,
-                    queryIndex,
-                    query,
-                    rag
-                  };
-                  row.thumbnailPointsMap.set(resultId, {
-                    x: px,
-                    y: py,
-                    action: action,
-                    ctx: ctx
-                  });
-                }
-              });
-            }
-
-            deletes.forEach(op => {
-              if (op?.target_evidence_id) {
-                row.operationsMap.set(op.target_evidence_id, {
-                  type: 'delete',
-                  action: 'PRUNE',
-                  targetEvidenceId: op.target_evidence_id,
-                  timestamp: op.timestamp || '',
-                });
-              }
-            });
-
-            points.forEach(op => {
-              if (op?.target_evidence_id) {
-                row.operationsMap.set(op.target_evidence_id, {
-                  type: 'point',
-                  action: op.after || 'UNKNOWN',
-                  targetEvidenceId: op.target_evidence_id,
-                  timestamp: op.timestamp || '',
-                });
-              }
-            });
+            query,
+            rag,
+          };
+          const rr = rag?.retrieval_result || {};
+          const isPicture = this.strategyCardResolveRagIsPicture(rr);
+          thumbnailPointsMap.set(rid, {
+            x: px,
+            y: py,
+            action,
+            id: rid,
+            ctx,
+            isPicture,
           });
         });
-      };
-
-      (this.completedQuestionColumns || []).forEach((col) => {
-        pushFromRounds(col.roundsData || [], col.sessionId || '');
-      });
-      pushFromRounds(this.roundsData || [], this.activeSessionId || 'default');
-
-      const er = this.experimentResult;
-      if (er && Array.isArray(er.iterations)) {
-        pushFromRounds(er.iterations || [], er.session_id || this.activeSessionId || 'experiment');
       }
 
-      this.pendingPointOperations.forEach(pending => {
-        const row = getOrCreateRow(pending.sessionId, pending.roundNumber, pending.ctx?.queryIndex || 0, pending.planTool);
-        row.hasPending = true;
-        
-        row.operationsMap.set(pending.target_evidence_id, {
+      const operationsMap = new Map();
+      const userdo = query?.orchestrator_plan?.userdo || {};
+      const deletes = userdo.delete || [];
+      const points = userdo.point || [];
+
+      deletes.forEach((op) => {
+        if (op?.target_evidence_id) {
+          operationsMap.set(String(op.target_evidence_id), {
+            type: 'delete',
+            action: 'PRUNE',
+            targetEvidenceId: op.target_evidence_id,
+            timestamp: op.timestamp || '',
+          });
+        }
+      });
+      points.forEach((op) => {
+        if (op?.target_evidence_id) {
+          operationsMap.set(String(op.target_evidence_id), {
+            type: 'point',
+            action: op.after || 'UNKNOWN',
+            targetEvidenceId: op.target_evidence_id,
+            timestamp: '',
+          });
+        }
+      });
+
+      let hasPending = false;
+      const pendingByEvidenceId = {};
+      this.pendingPointOperations.forEach((pending) => {
+        if (String(pending.sessionId || '') !== String(sessionId)) return;
+        if (Number(pending.roundNumber) !== roundNumber) return;
+        const pqi = pending.ctx?.queryIndex;
+        if (pqi !== undefined && pqi !== null && Number(pqi) !== queryIndex) return;
+
+        hasPending = true;
+        operationsMap.set(String(pending.target_evidence_id), {
           type: 'point',
           action: pending.after,
           targetEvidenceId: pending.target_evidence_id,
-          timestamp: pending.timestamp,
+          timestamp: '',
         });
-
-        if (row.thumbnailPointsMap.has(pending.target_evidence_id)) {
-           row.thumbnailPointsMap.get(pending.target_evidence_id).action = pending.after;
+        const peid = String(pending.target_evidence_id);
+        pendingByEvidenceId[peid] = {
+          after: String(pending.after || ''),
+          before: String(pending.before || ''),
+        };
+        if (thumbnailPointsMap.has(peid)) {
+          thumbnailPointsMap.get(peid).action = pending.after;
+        } else if (pending.ctx?.rag?.retrieval_result) {
+          const rr0 = pending.ctx.rag.retrieval_result;
+          const h = (peid.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 70) + 15;
+          const isPicture = this.strategyCardResolveRagIsPicture(rr0);
+          thumbnailPointsMap.set(peid, {
+            x: h,
+            y: 50,
+            action: pending.after,
+            id: peid,
+            ctx: pending.ctx,
+            isPicture,
+            isSyntheticUserOps: true,
+          });
         }
       });
 
-      const finalRows = [];
-      for (const row of rowsMap.values()) {
-        if (row.operationsMap.size === 0 && !row.hasPending) continue;
-        
-        const operations = Array.from(row.operationsMap.values()).map((op, idx) => ({
-          key: `${row.key}-op-${idx}`,
-          type: op.type,
-          action: op.action,
-          targetEvidenceId: op.targetEvidenceId,
-          timestamp: op.timestamp,
-        }));
-        
-        const thumbnailPoints = Array.from(row.thumbnailPointsMap.values());
+      const operations = Array.from(operationsMap.values()).map((op, idx) => ({
+        key: `${rowKey}-op-${idx}`,
+        type: op.type,
+        action: op.action,
+        after: op.action,
+        targetEvidenceId: op.targetEvidenceId,
+        timestamp: op.timestamp,
+      }));
 
-        finalRows.push({
-          ...row,
+      const userdoPointEvidenceIds = points
+        .filter((op) => op?.target_evidence_id)
+        .map((op) => String(op.target_evidence_id));
+
+      const thumbnailPoints = Array.from(thumbnailPointsMap.values());
+      const collectionName = this.getCollectionNameForRound(roundNumber);
+
+      this.$emit('user-operations-change', [
+        {
+          key: rowKey,
+          sessionId,
+          roundNumber,
+          queryIndex,
+          query,
+          collectionName,
+          experimentSourcePath: String(this.forkExperimentSource || this.selectedDataFile || '').trim(),
+          label: `R${queryIndex + 1}.${roundNumber}`,
+          toolName,
+          operationsMap,
+          hasPending,
           operations,
-          thumbnailPoints
-        });
-      }
-
-      finalRows.sort((a, b) => {
-        if (String(a.sessionId) !== String(b.sessionId)) {
-          return String(a.sessionId).localeCompare(String(b.sessionId));
-        }
-        if (a.roundNumber !== b.roundNumber) return a.roundNumber - b.roundNumber;
-        return a.queryIndex - b.queryIndex;
-      });
-
-      this.$emit('user-operations-change', finalRows);
+          thumbnailPoints,
+          pendingByEvidenceId,
+          userdoPointEvidenceIds,
+        },
+      ]);
     },
 
     /**
@@ -1674,6 +1763,23 @@ export default {
         }
       }
       return !!this.skipEvaluation;
+    },
+
+    /**
+     * 该轮向量库名：优先读 experiment_result.parameters 中与 round_number 对齐的 collection_name（与落盘 JSON 一致），
+     * 否则回退左栏传入的 ragCollection。
+     */
+    getCollectionNameForRound(roundNumber) {
+      const er = this.experimentResult;
+      const rn = Number(roundNumber);
+      if (er && Array.isArray(er.parameters) && er.parameters.length) {
+        const row = er.parameters.find((x) => Number(x.round_number) === rn);
+        const cn = row != null ? row.collection_name : null;
+        if (cn != null && String(cn).trim() !== '') {
+          return String(cn).trim();
+        }
+      }
+      return String(this.ragCollection || '').trim() || 'multimodal2text';
     },
 
     /** 小矩形 Σ 按钮：支持 plansummary 为 JSON 字符串或已解析对象 */
@@ -2240,7 +2346,12 @@ export default {
         let match;
         const chunkIds = [];
         while ((match = chunkIdRegex.exec(sec.response)) !== null) {
-          chunkIds.push(match[1]);
+          const inner = match[1] || '';
+          inner
+            .split(/[;\uff1b]/)
+            .map((t) => t.trim())
+            .filter(Boolean)
+            .forEach((id) => chunkIds.push(id));
         }
         // If we have chunk IDs, we need to map them to real item objects
         if (chunkIds.length > 0) {
@@ -2721,6 +2832,17 @@ export default {
     },
 
     renderAllMiniMaps() {
+      const geomKey = this.computeSharedMiniMapGeomKey();
+      const hasLayoutPoints = !geomKey.startsWith('0|');
+      const keyChanged = geomKey !== this.sharedMiniMapBaseGeomKey;
+      if (hasLayoutPoints && (keyChanged || !this.sharedMiniMapBaseDataUrl)) {
+        this.rebuildSharedMiniMapBaseLayer();
+      } else if (!hasLayoutPoints && keyChanged) {
+        this.sharedMiniMapBaseDataUrl = '';
+        this.sharedMiniMapBaseRefDims = null;
+      }
+      if (keyChanged) this.sharedMiniMapBaseGeomKey = geomKey;
+
       this.strategyCards.forEach((card) => {
         const svgEl = this.getMiniMapEl(card.gridColKey, card.queryIndex);
         if (!svgEl) return;
@@ -2774,6 +2896,126 @@ export default {
         cw: Math.max(1, el.clientWidth - margin * 2),
         ch: Math.max(1, el.clientHeight - margin * 2),
       };
+    },
+
+    /** 与共享栅格底图一致的整数 reference 宽高（像素） */
+    getStrategyMiniMapRoundedRefSize() {
+      const raw = this.readGlobalMapContentSizeForMiniMap();
+      return {
+        cw: Math.max(1, Math.round(raw.cw)),
+        ch: Math.max(1, Math.round(raw.ch)),
+      };
+    },
+
+    /**
+     * 小地图数据域四周留白比例（每轴两端各扩展 span * ratio），整块略缩小显示，减轻边缘被 clip 的视觉裁切。
+     * 共享栅格与各卡 SVG 叠加须共用同一 extent。
+     */
+    getStrategyMiniMapDomainPadRatio() {
+      return 0.12;
+    },
+
+    getStrategyMiniMapPaddedXYExtents(allPoints) {
+      const rawX = d3.extent(allPoints, (d) => d.x);
+      const rawY = d3.extent(allPoints, (d) => d.y);
+      const padRatio = this.getStrategyMiniMapDomainPadRatio();
+      const padSpan = ([min, max]) => {
+        if (!Number.isFinite(min) || !Number.isFinite(max)) return [min, max];
+        let span = max - min;
+        if (!(span > 1e-12)) {
+          const base = Math.max(Math.abs(min), Math.abs(max), 1e-6);
+          span = base * 0.08;
+          if (!(span > 1e-12)) span = 1e-6;
+        }
+        const p = span * padRatio;
+        return [min - p, max + p];
+      };
+      return {
+        xExtent: padSpan(rawX),
+        yExtent: padSpan(rawY),
+      };
+    },
+
+    computeSharedMiniMapGeomKey() {
+      const padTag = Math.round(this.getStrategyMiniMapDomainPadRatio() * 1000);
+      const { cw, ch } = this.getStrategyMiniMapRoundedRefSize();
+      const pts = this.getCanonicalLayoutPoints() || [];
+      if (!pts.length) return `0|${cw}|${ch}|p${padTag}`;
+      const { xExtent: xE, yExtent: yE } = this.getStrategyMiniMapPaddedXYExtents(pts);
+      const fp = pts[0];
+      const lp = pts[pts.length - 1];
+      const tag = `${fp?.id ?? ''}:${String(fp?.x ?? '')}:${lp?.id ?? ''}:${String(lp?.x ?? '')}`;
+      const xf = (v) => (Number.isFinite(v) ? ((v * 1e6) >> 0) : 'x');
+      const ext = `${xf(xE[0])}|${xf(xE[1])}|${xf(yE[0])}|${xf(yE[1])}`;
+      return `${pts.length}|${cw}|${ch}|${ext}|${tag}|p${padTag}`;
+    },
+
+    /** 将密度等高线 + 背景灰点栅格化到一张 canvas，供各策略卡小地图 <image> 复用 */
+    rebuildSharedMiniMapBaseLayer() {
+      const { cw: gCW, ch: gCH } = this.getStrategyMiniMapRoundedRefSize();
+      this.sharedMiniMapBaseRefDims = { cw: gCW, ch: gCH };
+      const allPoints = this.getCanonicalLayoutPoints() || [];
+      if (!allPoints.length || typeof document === 'undefined') {
+        this.sharedMiniMapBaseDataUrl = '';
+        return;
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = gCW;
+      canvas.height = gCH;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        this.sharedMiniMapBaseDataUrl = '';
+        return;
+      }
+      ctx.clearRect(0, 0, gCW, gCH);
+      const { xExtent, yExtent } = this.getStrategyMiniMapPaddedXYExtents(allPoints);
+      const xRef = d3.scaleLinear().domain(xExtent).range([0, gCW]);
+      const yRef = d3.scaleLinear().domain(yExtent).range([gCH, 0]);
+      const dotSamplePx = allPoints
+        .map((p) => ({ x: xRef(p.x), y: yRef(p.y) }))
+        .filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y));
+      const densityPts = dotSamplePx;
+      let contours = [];
+      if (densityPts.length >= 10) {
+        contours = d3
+          .contourDensity()
+          .x((d) => d.x)
+          .y((d) => d.y)
+          .size([gCW, gCH])
+          .bandwidth(15)
+          .thresholds(35)(densityPts);
+      }
+      const geoPath = d3.geoPath();
+      if (contours && contours.length > 0) {
+        const cs = [...contours].sort((a, b) => (a?.value ?? 0) - (b?.value ?? 0));
+        const maxV = d3.max(cs, (d) => d.value) || 1;
+        const color = d3
+          .scaleSequential((t) => d3.interpolateBlues(0.05 + 0.55 * t))
+          .domain([0, maxV]);
+        cs.forEach((feat) => {
+          const dStr = geoPath(feat);
+          if (!dStr) return;
+          ctx.fillStyle = color(feat.value);
+          ctx.globalAlpha = 0.2;
+          try {
+            ctx.fill(new Path2D(dStr));
+          } catch (e) {
+            /* 个别环境 Path2D 无法解析 geo 路径时跳过该层 */
+          }
+        });
+        ctx.globalAlpha = 1;
+      }
+      ctx.fillStyle = 'rgba(148,163,184,0.32)';
+      dotSamplePx.forEach((pt) => {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 1, 0, 2 * Math.PI);
+        ctx.fill();
+      });
+      try {
+        this.sharedMiniMapBaseDataUrl = canvas.toDataURL('image/png');
+      } catch (e) {
+        this.sharedMiniMapBaseDataUrl = '';
+      }
     },
 
     drawStrategyMap(
@@ -2932,13 +3174,14 @@ export default {
       // 应用缩放行为到 contentG，并关闭双击放大（以防止覆盖卡片的双击展示 summary 功能）
       contentG.call(zoom).on('dblclick.zoom', null);
 
-      // 与左栏全局图相同的「数据→像素」比例（readGlobalMapContentSizeForMiniMap 对齐 drawGlobalMap 的 content 宽高），
-      // 再整体 scale+居中塞进小地图，避免策略卡偏横时把小地图拉得比全局更「扁」。
-      // 底图点集与全局一致：与上方 rag 点解析同源（layoutPoints === getCanonicalLayoutPoints()）
+      // 与左栏全局图相同的「数据→像素」比例；底板（密度 + 灰点）多卡共用一张栅格图，见 rebuildSharedMiniMapBaseLayer。
       const allPoints = layoutPoints && layoutPoints.length > 0 ? layoutPoints : this.getCanonicalLayoutPoints();
-      const xExtent = d3.extent(allPoints, (d) => d.x);
-      const yExtent = d3.extent(allPoints, (d) => d.y);
-      const { cw: gCW, ch: gCH } = this.readGlobalMapContentSizeForMiniMap();
+      const { xExtent, yExtent } = this.getStrategyMiniMapPaddedXYExtents(allPoints);
+      const refSize =
+        this.sharedMiniMapBaseDataUrl && this.sharedMiniMapBaseRefDims
+          ? this.sharedMiniMapBaseRefDims
+          : this.getStrategyMiniMapRoundedRefSize();
+      const { cw: gCW, ch: gCH } = refSize;
       const xRef = d3.scaleLinear().domain(xExtent).range([0, gCW]);
       const yRef = d3.scaleLinear().domain(yExtent).range([gCH, 0]);
       const k = Math.min(mapW / gCW, mapH / gCH);
@@ -2949,56 +3192,63 @@ export default {
         .attr('class', 'strategy-plot-fit')
         .attr('transform', `translate(${tx},${ty}) scale(${k})`);
 
-      const dotSamplePx = allPoints
-        .map((p) => ({ x: xRef(p.x), y: yRef(p.y) }))
-        .filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y));
-
-      const densityPts = allPoints
-        .map((p) => ({ x: xRef(p.x), y: yRef(p.y) }))
-        .filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y));
-
-      let contours = [];
-      if (densityPts.length >= 10) {
-        contours = d3
-          .contourDensity()
-          .x((d) => d.x)
-          .y((d) => d.y)
-          .size([gCW, gCH])
-          .bandwidth(15)
-          .thresholds(35)(densityPts);
-      }
-
-      if (contours && contours.length > 0) {
-        const path = d3.geoPath();
-        const cs = [...contours].sort((a, b) => (a?.value ?? 0) - (b?.value ?? 0));
-        const color = d3
-        .scaleSequential((t) => d3.interpolateBlues(0.05 + 0.55 * t))
-        .domain([0, d3.max(cs, (d) => d.value) || 1]);
-
-        const contourGroup = plotG.append('g').attr('class', 'density-contours');
-        contourGroup
-          .selectAll('path')
-          .data(cs)
-          .enter()
-          .append('path')
-          .attr('d', path)
-          .attr('fill', (d) => color(d.value))
-          .attr('opacity', 0.2)
-          .attr('stroke', 'none');
-      }
-
-      if (dotSamplePx.length > 0) {
+      const useSharedRasterBase = !!this.sharedMiniMapBaseDataUrl;
+      if (useSharedRasterBase) {
         plotG
-          .append('g')
-          .attr('class', 'global-dots')
-          .selectAll('circle')
-          .data(dotSamplePx)
-          .enter()
-          .append('circle')
-          .attr('cx', (d) => d.x)
-          .attr('cy', (d) => d.y)
-          .attr('r', 1)
-          .attr('fill', 'rgb(148,163,184,0.32)');
+          .append('image')
+          .attr('class', 'strategy-map-shared-base')
+          .attr('href', this.sharedMiniMapBaseDataUrl)
+          .attr('xlink:href', this.sharedMiniMapBaseDataUrl)
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('width', gCW)
+          .attr('height', gCH)
+          .attr('preserveAspectRatio', 'none');
+      } else {
+        const dotSamplePx = allPoints
+          .map((p) => ({ x: xRef(p.x), y: yRef(p.y) }))
+          .filter((p) => Number.isFinite(p.x) && Number.isFinite(p.y));
+        const densityPts = dotSamplePx;
+        let contours = [];
+        if (densityPts.length >= 10) {
+          contours = d3
+            .contourDensity()
+            .x((d) => d.x)
+            .y((d) => d.y)
+            .size([gCW, gCH])
+            .bandwidth(15)
+            .thresholds(35)(densityPts);
+        }
+        if (contours && contours.length > 0) {
+          const path = d3.geoPath();
+          const cs = [...contours].sort((a, b) => (a?.value ?? 0) - (b?.value ?? 0));
+          const color = d3
+            .scaleSequential((t) => d3.interpolateBlues(0.05 + 0.55 * t))
+            .domain([0, d3.max(cs, (d) => d.value) || 1]);
+          const contourGroup = plotG.append('g').attr('class', 'density-contours');
+          contourGroup
+            .selectAll('path')
+            .data(cs)
+            .enter()
+            .append('path')
+            .attr('d', path)
+            .attr('fill', (d) => color(d.value))
+            .attr('opacity', 0.2)
+            .attr('stroke', 'none');
+        }
+        if (dotSamplePx.length > 0) {
+          plotG
+            .append('g')
+            .attr('class', 'global-dots')
+            .selectAll('circle')
+            .data(dotSamplePx)
+            .enter()
+            .append('circle')
+            .attr('cx', (d) => d.x)
+            .attr('cy', (d) => d.y)
+            .attr('r', 1)
+            .attr('fill', 'rgb(148,163,184,0.32)');
+        }
       }
 
       const op = query?.orchestrator_plan || {};
@@ -3061,6 +3311,9 @@ export default {
         if (action === 'KEEP') return '#eec316';
         return '#9AA3AD'; // UNKNOWN
       };
+
+      const citationStroke = '#dc2626';
+      const defaultRagStroke = 'rgba(40,50,60,0.35)';
 
       const resolveCoreFill = (action, evidenceId) => {
         if (useRerankLayer && beforeSet && afterIdSet) {
@@ -3158,6 +3411,7 @@ export default {
         
         const px = xRef(p.x);
         const py = yRef(p.y);
+        const citationFocus = this.retrievalIdMatchesCitationFocus(rr.id);
         return {
           x: tx + k * px,
           y: ty + k * py,
@@ -3167,6 +3421,7 @@ export default {
           isPicture,
           rag: p.rag,
           coreFill: resolveCoreFill(action, rr.id),
+          citationFocus,
         };
       });
 
@@ -3179,54 +3434,90 @@ export default {
         .attr('class', 'rag-dot-group')
         .style('cursor', 'pointer');
       
-      // FootprintRAG风格：点的样式
-      dotGroups.append('circle')
-        .attr('class', 'rag-dot-core')
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y)
-        .attr('r', d => d.radius)
-        .attr('fill', d => d.coreFill)
-        .attr('stroke', 'rgba(40,50,60,0.35)') // FootprintRAG风格
-        .attr('stroke-width', 0.8)
-        .attr('opacity', d => (d.action === 'UNKNOWN' ? 0.45 : 0.92));
-
-      // 图片点：额外加蓝色外圈（不改变原有填充色编码）
+      // FootprintRAG风格：点的样式（非图片为圆点；图片为实心正方形）
       dotGroups
-        .filter(d => d.isPicture)
+        .filter((d) => !d.isPicture)
         .append('circle')
-        .attr('class', 'rag-dot-ring')
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y)
-        .attr('r', d => d.radius + 2.0)
-        .attr('fill', 'none')
-        .attr('stroke', 'rgba(40, 140, 255, 0.95)')
-        .attr('stroke-width', 1.2)
-        .attr('opacity', 0.95)
-        .attr('vector-effect', 'non-scaling-stroke');
-      
+        .attr('class', 'rag-dot-core')
+        .attr('cx', (d) => d.x)
+        .attr('cy', (d) => d.y)
+        .attr('r', (d) => d.radius)
+        .attr('fill', (d) => d.coreFill)
+        .attr('stroke', (d) => (d.citationFocus ? citationStroke : defaultRagStroke))
+        .attr('stroke-width', (d) => (d.citationFocus ? 2.2 : 0.8))
+        .attr('opacity', (d) => (d.action === 'UNKNOWN' ? 0.45 : 0.92));
+
+      dotGroups
+        .filter((d) => d.isPicture)
+        .append('rect')
+        .attr('class', 'rag-dot-core')
+        .attr('x', (d) => d.x - d.radius)
+        .attr('y', (d) => d.y - d.radius)
+        .attr('width', (d) => 2 * d.radius)
+        .attr('height', (d) => 2 * d.radius)
+        .attr('fill', (d) => d.coreFill)
+        .attr('stroke', (d) => (d.citationFocus ? citationStroke : defaultRagStroke))
+        .attr('stroke-width', (d) => (d.citationFocus ? 2.2 : 0.8))
+        .attr('opacity', (d) => (d.action === 'UNKNOWN' ? 0.45 : 0.92));
+
       // FootprintRAG风格：事件处理
       dotGroups
         .on('mouseover', function(event, d) {
-          d3.select(this).select('.rag-dot-core')
-            .attr('r', d.radius + 2)
-            .attr('stroke-width', 1.2)
-            .attr('opacity', 1);
-
-          d3.select(this).select('.rag-dot-ring')
-            .attr('r', d.radius + 4.0)
-            .attr('stroke-width', 1.6)
-            .attr('opacity', 1);
+          const g = d3.select(this);
+          const core = g.select('.rag-dot-core');
+          const ring = g.select('.rag-dot-ring');
+          const cite = d.citationFocus;
+          const hStroke = cite ? citationStroke : defaultRagStroke;
+          const hSw = cite ? 2.8 : 1.2;
+          if (d.isPicture) {
+            const hr = d.radius + 2;
+            core
+              .attr('x', d.x - hr)
+              .attr('y', d.y - hr)
+              .attr('width', 2 * hr)
+              .attr('height', 2 * hr)
+              .attr('stroke', hStroke)
+              .attr('stroke-width', hSw)
+              .attr('opacity', 1);
+          } else {
+            core
+              .attr('r', d.radius + 2)
+              .attr('stroke', hStroke)
+              .attr('stroke-width', hSw)
+              .attr('opacity', 1);
+            ring
+              .attr('r', d.radius + 4.0)
+              .attr('stroke-width', 1.6)
+              .attr('opacity', 1);
+          }
         })
         .on('mouseout', function(event, d) {
-          d3.select(this).select('.rag-dot-core')
-            .attr('r', d.radius)
-            .attr('stroke-width', 0.8)
-            .attr('opacity', (d.action === 'UNKNOWN' ? 0.45 : 0.92));
-
-          d3.select(this).select('.rag-dot-ring')
-            .attr('r', d.radius + 2.0)
-            .attr('stroke-width', 1.2)
-            .attr('opacity', 0.95);
+          const g = d3.select(this);
+          const core = g.select('.rag-dot-core');
+          const ring = g.select('.rag-dot-ring');
+          const cite = d.citationFocus;
+          const baseStroke = cite ? citationStroke : defaultRagStroke;
+          const baseSw = cite ? 2.2 : 0.8;
+          if (d.isPicture) {
+            core
+              .attr('x', d.x - d.radius)
+              .attr('y', d.y - d.radius)
+              .attr('width', 2 * d.radius)
+              .attr('height', 2 * d.radius)
+              .attr('stroke', baseStroke)
+              .attr('stroke-width', baseSw)
+              .attr('opacity', d.action === 'UNKNOWN' ? 0.45 : 0.92);
+          } else {
+            core
+              .attr('r', d.radius)
+              .attr('stroke', baseStroke)
+              .attr('stroke-width', baseSw)
+              .attr('opacity', d.action === 'UNKNOWN' ? 0.45 : 0.92);
+            ring
+              .attr('r', d.radius + 2.0)
+              .attr('stroke-width', 1.2)
+              .attr('opacity', 0.95);
+          }
         })
         .on('click', (event, d) => {
           if (this.suppressNextRagDotClick) {
@@ -3846,39 +4137,68 @@ export default {
       this.selectedRoundSummary = null;
     },
 
+    /** 与 InteractiveReportPanel.normalizeEvidenceId 一致，用于 citation 与小地图 rag id 对齐 */
+    normalizeEvidenceIdForCitation(raw) {
+      let s = String(raw ?? '').trim();
+      if (!s) return '';
+      if (s.startsWith('img_')) s = s.slice(4);
+      return s;
+    },
+
+    retrievalIdMatchesCitationFocus(retrievalId) {
+      return this.evidenceIdsMatch(retrievalId, this.interactiveReportCitationFocusId);
+    },
+
+    /** 引用 id / retrieval_result.id / 画布点 id 对齐（含 img_ 前缀与 normalize） */
+    evidenceIdsMatch(retrievalId, citationOrChunkId) {
+      if (
+        citationOrChunkId == null ||
+        citationOrChunkId === '' ||
+        retrievalId == null ||
+        retrievalId === ''
+      ) {
+        return false;
+      }
+      const c = String(citationOrChunkId).trim();
+      const r = String(retrievalId).trim();
+      if (r === c) return true;
+      return this.normalizeEvidenceIdForCitation(r) === this.normalizeEvidenceIdForCitation(c);
+    },
+
     // 导航到指定的chunk并高亮显示
     navigateToChunk(chunkId) {
       console.log('导航到chunk:', chunkId);
       
-      // 1. 在roundsData中查找包含该chunk的query
+      // 1. 与 drawRiverChart 一致：在所有会话列合并后的轮次里找（仅用 roundsData 会漏掉 completedQuestionColumns）
       let targetCanvas = null;
-      let targetRound = null;
+      let targetGridColKey = null;
       let targetQueryIndex = null;
+      let targetRoundNumber = null;
       
-      for (const round of this.roundsData) {
+      const allRounds = this.getAllRounds();
+
+      for (const round of allRounds) {
         if (!round.query_results) continue;
-        
+        const gck = round.__gridColKey || riverGrid.gridColumnKey(round);
+
         for (let queryIndex = 0; queryIndex < round.query_results.length; queryIndex++) {
           const query = round.query_results[queryIndex];
           if (!query.rag_results) continue;
-          
-          // 检查是否包含该chunk
-          const hasChunk = query.rag_results.some(rag => {
-            const ragId = rag.retrieval_result?.id;
-            return ragId === chunkId || 
-                   ragId === `img_${chunkId}` ||
-                   ragId === chunkId.replace('img_', '') ||
-                   ragId?.toString() === chunkId.toString();
+
+          const hasChunk = query.rag_results.some((rag) => {
+            const ragId = rag?.retrieval_result?.id;
+            return this.evidenceIdsMatch(ragId, chunkId);
           });
-          
+
           if (hasChunk) {
-            targetRound = round.round_number;
+            targetGridColKey = gck;
+            targetRoundNumber = round.round_number;
             targetQueryIndex = queryIndex;
-            targetCanvas = this.strategyCanvases[targetRound]?.[targetQueryIndex];
+            targetCanvas = this.strategyCanvases[gck]?.[queryIndex];
             break;
           }
         }
-        
+
         if (targetCanvas) break;
       }
       
@@ -3940,7 +4260,7 @@ export default {
 
       // 4. 重新缩放定位到目标策略画布中心
       this.$nextTick(() => {
-        const refreshedTargetCanvas = this.strategyCanvases?.[targetRound]?.[targetQueryIndex];
+        const refreshedTargetCanvas = this.strategyCanvases?.[targetGridColKey]?.[targetQueryIndex];
         if (!refreshedTargetCanvas) return;
         const scale = 2.0;
         this.persistZoomTransform = {
@@ -3950,7 +4270,7 @@ export default {
         };
       });
 
-      console.log(`已导航到chunk ${chunkId}，位置: 轮次${targetRound}，查询${targetQueryIndex}`);
+      console.log(`已导航到chunk ${chunkId}，位置: 轮次${targetRoundNumber}，查询${targetQueryIndex}`);
     },
 
     drawWordFreqChart(round) {
@@ -4357,8 +4677,8 @@ export default {
     strategyCardEvalStatSegments(card) {
       const c = this.strategyCardEvalCounts(card);
       return [
-        { action: 'KEEP', label: 'KEEP', count: c.KEEP, color: '#eec316' },
         { action: 'GROW', label: 'GROW', count: c.GROW, color: '#379b61' },
+        { action: 'KEEP', label: 'KEEP', count: c.KEEP, color: '#eec316' },
         { action: 'PRUNE', label: 'PRUNE', count: c.PRUNE, color: '#dc3545' },
         { action: 'UNKNOWN', label: 'UNKNOWN', count: c.UNKNOWN, color: '#9AA3AD' },
       ];
@@ -4586,6 +4906,11 @@ export default {
         delete nextD[k];
         this.strategyCardDraftQueries = nextD;
       }
+      if (k && this.strategyCardContinueTool && typeof this.strategyCardContinueTool === 'object') {
+        const nextT = { ...this.strategyCardContinueTool };
+        delete nextT[k];
+        this.strategyCardContinueTool = nextT;
+      }
       return true;
     },
 
@@ -4756,58 +5081,114 @@ export default {
       }
     },
 
-    changePointEvalAction(newAction) {
-      const ctx = this.selectedPointContext;
-      const resultId = this.selectedPointDetail?.id || ctx?.rag?.retrieval_result?.id;
+    /**
+     * 将某证据点的 branch_action 记入待应用队列（与弹窗底部改评一致；供拖拽等到此路径）。
+     * @param {string} [evidenceIdOverride] 弹窗选中 detail 与 ctx.rag id 不一致时传入
+     */
+    queuePointEvalFromContext(ctx, newAction, evidenceIdOverride) {
+      const resultId = evidenceIdOverride || ctx?.rag?.retrieval_result?.id;
       if (!ctx || !resultId) return;
 
-      const originalAction = ctx.rag?.evaluation?.branch_action || 'UNKNOWN';
+      const rid = String(resultId).trim();
+      const qrags = Array.isArray(ctx.query?.rag_results) ? ctx.query.rag_results : [];
+      const wasInStrategyRag = qrags.some(
+        (r) => String(r?.retrieval_result?.id || '').trim() === rid
+      );
+      const beforeVal = wasInStrategyRag
+        ? ctx.rag?.evaluation?.branch_action || 'UNKNOWN'
+        : 'neighbor';
 
-      const existingIdx = this.pendingPointOperations.findIndex(p => p.target_evidence_id === resultId);
+      const existingIdx = this.pendingPointOperations.findIndex(
+        (p) => p.target_evidence_id === resultId
+      );
 
-      if (newAction === originalAction) {
+      if (newAction === beforeVal) {
         if (existingIdx >= 0) this.pendingPointOperations.splice(existingIdx, 1);
       } else {
-        const ts = new Date().toISOString().split('.')[0];
         const plan = ctx.query?.orchestrator_plan || {};
+        let rrCopy = null;
+        try {
+          if (ctx.rag?.retrieval_result) {
+            rrCopy = JSON.parse(JSON.stringify(ctx.rag.retrieval_result));
+          }
+        } catch (e) {
+          rrCopy = ctx.rag?.retrieval_result || null;
+        }
+        const base = {
+          action: 'point',
+          target_evidence_id: resultId,
+          before: beforeVal,
+          after: newAction,
+          ctx: ctx,
+          sessionId: ctx.sessionId || this.activeSessionId || '',
+          roundNumber: ctx.roundNumber,
+          planTool: plan.tool_name || '',
+          planArgs: plan.args || {},
+          query_index: ctx.queryIndex,
+          round_number: ctx.roundNumber,
+          retrieval_result: rrCopy,
+        };
         if (existingIdx >= 0) {
           this.pendingPointOperations[existingIdx].after = newAction;
-          this.pendingPointOperations[existingIdx].timestamp = ts;
+          this.pendingPointOperations[existingIdx].before = beforeVal;
+          delete this.pendingPointOperations[existingIdx].timestamp;
+          this.pendingPointOperations[existingIdx].retrieval_result = rrCopy;
+          this.pendingPointOperations[existingIdx].query_index = ctx.queryIndex;
+          this.pendingPointOperations[existingIdx].round_number = ctx.roundNumber;
         } else {
-          this.pendingPointOperations.push({
-            action: 'point',
-            target_evidence_id: resultId,
-            timestamp: ts,
-            before: originalAction,
-            after: newAction,
-            ctx: ctx,
-            sessionId: ctx.sessionId || this.activeSessionId || '',
-            roundNumber: ctx.roundNumber,
-            planTool: plan.tool_name || '',
-            planArgs: plan.args || {}
-          });
+          this.pendingPointOperations.push(base);
         }
       }
       this.emitUserOperationsChange();
     },
 
-    async applyPendingOperations(row) {
-      const opsToApply = this.pendingPointOperations.filter(
-        p => p.sessionId === row.sessionId && p.roundNumber === row.roundNumber && p.planTool === row.toolName
+    changePointEvalAction(newAction) {
+      this.queuePointEvalFromContext(
+        this.selectedPointContext,
+        newAction,
+        this.selectedPointDetail?.id
       );
+    },
+
+    async applyPendingOperations(row) {
+      const qi = row?.queryIndex;
+      const opsToApply = this.pendingPointOperations.filter((p) => {
+        if (p.sessionId !== row.sessionId || p.roundNumber !== row.roundNumber) return false;
+        if (p.planTool !== row.toolName) return false;
+        if (qi != null && Number.isFinite(Number(qi)) && p.ctx && p.ctx.queryIndex != null) {
+          return Number(p.ctx.queryIndex) === Number(qi);
+        }
+        return true;
+      });
       if (opsToApply.length === 0) return;
 
       const sourcePath = this.forkExperimentSource || this.selectedDataFile;
       if (!sourcePath) return;
 
       try {
+        const serializedOps = opsToApply.map((op) => ({
+          action: op.action || 'point',
+          target_evidence_id: op.target_evidence_id,
+          before: op.before,
+          after: op.after,
+          query_index:
+            op.query_index != null && op.query_index !== undefined
+              ? op.query_index
+              : op.ctx?.queryIndex,
+          round_number:
+            op.round_number != null && op.round_number !== undefined
+              ? op.round_number
+              : op.ctx?.roundNumber,
+          retrieval_result: op.retrieval_result || op.ctx?.rag?.retrieval_result || null,
+        }));
+
         const resp = await fetch('/api/experiment-rag-actions-batch', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             source_path: sourcePath,
             session_id: row.sessionId,
-            operations: opsToApply
+            operations: serializedOps,
           }),
         });
         const data = await resp.json().catch(() => ({}));
@@ -4819,32 +5200,88 @@ export default {
           this.selectedDataFile = data.path;
         }
 
-        // Apply locally
-        opsToApply.forEach(op => {
-          if (!op.ctx || !op.ctx.rag) return;
-          const ev = op.ctx.rag.evaluation;
-          if (ev) {
-             ev.branch_action = op.after;
+        // Apply locally（与 server orphan 追加一致：近邻等若原先不在 rag_results 则插入一条）
+        opsToApply.forEach((op) => {
+          if (!op.ctx || !op.ctx.query) return;
+          const q = op.ctx.query;
+          const rid = String(op.target_evidence_id || '');
+          if (!rid) return;
+
+          const rags = Array.isArray(q.rag_results) ? q.rag_results : [];
+          let idx = rags.findIndex((r) => String(r?.retrieval_result?.id || '') === rid);
+          if (idx < 0) {
+            let rr = op.retrieval_result;
+            try {
+              if (rr) rr = JSON.parse(JSON.stringify(rr));
+            } catch (e) {
+              /* keep */
+            }
+            if (!rr && op.ctx?.rag?.retrieval_result) {
+              try {
+                rr = JSON.parse(JSON.stringify(op.ctx.rag.retrieval_result));
+              } catch (e2) {
+                rr = op.ctx.rag.retrieval_result;
+              }
+            }
+            if (!rr) return;
+            const isNeighborFirst =
+              String(op.before || '')
+                .trim()
+                .toLowerCase() === 'neighbor';
+            const evNew = isNeighborFirst
+              ? { branch_action: op.after }
+              : {
+                  target_evidence_id: rid,
+                  scores: {},
+                  suggested_keywords: [],
+                  branch_action: op.after,
+                  user_action: 'point',
+                };
+            const newRag = { retrieval_result: rr, evaluation: evNew };
+            rags.push(newRag);
+            q.rag_results = rags;
+            op.ctx.rag = newRag;
+          } else {
+            const targ = rags[idx];
+            if (!targ.evaluation || typeof targ.evaluation !== 'object') {
+              targ.evaluation = {
+                target_evidence_id: rid,
+                scores: {},
+                suggested_keywords: [],
+              };
+            }
+            targ.evaluation.branch_action = op.after;
+            targ.evaluation.user_action = 'point';
           }
-          
-          if (!op.ctx.query || !op.ctx.query.orchestrator_plan) return;
+
+          if (!op.ctx.query.orchestrator_plan) op.ctx.query.orchestrator_plan = {};
           const planUserDo = op.ctx.query.orchestrator_plan.userdo || {};
           const points = planUserDo.point || [];
-          const existing = points.find(p => p.target_evidence_id === op.target_evidence_id);
+          const existing = points.find((p) => p.target_evidence_id === op.target_evidence_id);
           if (existing) {
-             existing.after = op.after;
-             existing.timestamp = op.timestamp;
+            existing.after = op.after;
+            delete existing.timestamp;
           } else {
-             points.push({
-               action: 'point',
-               target_evidence_id: op.target_evidence_id,
-               timestamp: op.timestamp,
-               before: op.before,
-               after: op.after
-             });
+            points.push({
+              action: 'point',
+              target_evidence_id: op.target_evidence_id,
+              before: op.before,
+              after: op.after,
+            });
           }
           planUserDo.point = points;
           op.ctx.query.orchestrator_plan.userdo = planUserDo;
+
+          if (String(op.before || '').trim().toLowerCase() === 'neighbor') {
+            const opPlan = op.ctx.query.orchestrator_plan;
+            const ra0 = opPlan.rerank_after_ids;
+            const ra = Array.isArray(ra0) ? [...ra0] : [];
+            const rs = ra.map((x) => String(x));
+            if (!rs.includes(rid)) {
+              ra.push(rid);
+              opPlan.rerank_after_ids = ra;
+            }
+          }
         });
 
         this.pendingPointOperations = this.pendingPointOperations.filter(p => !opsToApply.includes(p));
@@ -5055,6 +5492,34 @@ export default {
         [this.globalMapXScale.invert(xa), Math.min(yA, yB)],
         [this.globalMapXScale.invert(xb), Math.max(yA, yB)]
       ];
+    },
+
+    /** `plotRectToDataRect2d` 的逆：数据域矩形 → 当前缩放下的绘图局部坐标（用于确认后仍显示框） */
+    dataRect2dToPlotRect(rect2d) {
+      if (!rect2d || !Array.isArray(rect2d) || rect2d.length !== 2) return null;
+      if (!this.globalMapXScale || !this.globalMapYScale) return null;
+      const a = rect2d[0];
+      const b = rect2d[1];
+      if (!Array.isArray(a) || !Array.isArray(b) || a.length < 2 || b.length < 2) return null;
+      const xd0 = Number(a[0]);
+      const yd0 = Number(a[1]);
+      const xd1 = Number(b[0]);
+      const yd1 = Number(b[1]);
+      if (![xd0, yd0, xd1, yd1].every((n) => Number.isFinite(n))) return null;
+      const xMin = Math.min(xd0, xd1);
+      const xMax = Math.max(xd0, xd1);
+      const yMin = Math.min(yd0, yd1);
+      const yMax = Math.max(yd0, yd1);
+      const px0 = this.globalMapXScale(xMin);
+      const px1 = this.globalMapXScale(xMax);
+      const py0 = this.globalMapYScale(yMin);
+      const py1 = this.globalMapYScale(yMax);
+      const rx = Math.min(px0, px1);
+      const ry = Math.min(py0, py1);
+      const rw = Math.abs(px1 - px0);
+      const rh = Math.abs(py1 - py0);
+      if (rw <= 0 || rh <= 0) return null;
+      return { rx, ry, rw, rh };
     },
 
     _mapBoxDragStartLocalPlot(event) {
@@ -5349,6 +5814,30 @@ export default {
       this.strategyCardDraftQueries[key] = String(value ?? '');
     },
 
+    getStrategyCardContinueTool(card) {
+      const key = card?.key != null ? String(card.key) : '';
+      const v = key && this.strategyCardContinueTool ? this.strategyCardContinueTool[key] : null;
+      if (v === 'exact' || v === 'metadata' || v === 'semantic') return v;
+      return 'semantic';
+    },
+
+    setStrategyCardContinueTool(card, mode) {
+      const key = card?.key != null ? String(card.key) : '';
+      if (!key) return;
+      const m = String(mode || '').toLowerCase();
+      if (m !== 'exact' && m !== 'metadata' && m !== 'semantic') return;
+      this.strategyCardContinueTool = { ...this.strategyCardContinueTool, [key]: m };
+    },
+
+    followUpToolFromContinueShort(short) {
+      const map = {
+        semantic: 'strategy_semantic_search',
+        exact: 'strategy_exact_search',
+        metadata: 'strategy_metadata_search',
+      };
+      return map[short] || 'strategy_semantic_search';
+    },
+
     resolveFollowUpToolForCard(card) {
       const tool = String(card?.query?.orchestrator_plan?.tool_name || '').trim();
       if (tool === 'strategy_exact_search') return 'strategy_exact_search';
@@ -5521,11 +6010,11 @@ export default {
           base_plan: basePlan,
         }
       });
-      try {
-        window.alert(`已创建 new strategy：session=${sid} 行=${row} 列(round)=${nextRound}（在最右侧）`);
-      } catch (e) {
-        /* ignore */
-      }
+      const placeholderKey = this.getStrategyKey(roundObj, idx);
+      this.strategyCardContinueTool = {
+        ...this.strategyCardContinueTool,
+        [placeholderKey]: 'semantic',
+      };
 
       if (sid && sid !== this.activeSessionId) {
         const col = (this.completedQuestionColumns || []).find((c) => c.sessionId === sid);
@@ -5579,6 +6068,59 @@ export default {
         grid_row: Math.max(1, Math.floor(row)),
         continue_context,
         ...this.wsForkPayload()
+      };
+      if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
+        followPayload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
+      }
+      if (this.mapRagRect2d && Array.isArray(this.mapRagRect2d) && this.mapRagRect2d.length === 2) {
+        followPayload.map_box_rect_2d = this.mapRagRect2d;
+      }
+      this.ws.send(JSON.stringify(followPayload));
+    },
+
+    /** C 占位卡：用户编辑问题 + 选择检索方式后，直接 follow_up（不走 auto_continue 规划器） */
+    sendContinuePlaceholderSearch(card) {
+      if (!card?.query?._continue_auto_pending) return;
+      if (this.isSubmitting) {
+        alert('请等待当前任务完成后再发送');
+        return;
+      }
+      const text = String(this.getStrategyCardDraftQuery(card) || '').trim();
+      if (!text) {
+        alert('请输入策略检索内容');
+        return;
+      }
+      if (!this.wsConnected || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        alert('WebSocket 未连接，无法发送');
+        return;
+      }
+      const q = card.query;
+      const base = q?._continue_base || null;
+      const sid = String(card?.sessionId || base?.session_id || '').trim();
+      if (!sid) return;
+      const row = Number(base?.row ?? this.getCardGridRow(card));
+      const nextRound = Number(card?.roundNumber ?? 0);
+      const rewriteTargetIndex = Math.max(0, Math.floor(row - 1));
+      const shortTool = this.getStrategyCardContinueTool(card);
+      const follow_up_tool = this.followUpToolFromContinueShort(shortTool);
+      const root_goal = this.getSessionRootGoal(sid) || String(base?.base_query_text || text).trim();
+
+      const followPayload = {
+        action: 'follow_up',
+        query: text,
+        follow_up_tool,
+        collection_name: this.ragCollection,
+        parent_node_id: '0',
+        round_number: nextRound,
+        rag_result_per_plan: Math.max(1, Math.floor(Number(this.ragResultsPerPlan) || 10)),
+        skip_evaluation: !!this.skipEvaluation,
+        session_id: sid,
+        batch_id: this.sessionBatchId || '',
+        root_goal,
+        rewrite_mode: true,
+        rewrite_target_query_index: rewriteTargetIndex,
+        grid_row: Math.max(1, Math.floor(row)),
+        ...this.wsForkPayload(),
       };
       if (this.mapRagFilterIds && this.mapRagFilterIds.length > 0) {
         followPayload.rag_allowed_chunk_ids = this.mapRagFilterIds.map((x) => String(x));
@@ -6249,12 +6791,7 @@ export default {
       // 必须在设置 transform 之后再挂节点，保证 pointer 与圆点坐标一致
       this.globalMapContentGroupNode = contentGroup.node();
 
-      if (this.mapBoxDragRect) {
-        const r = this.mapBoxDragRect;
-        const rx = Math.min(r.x1, r.x2);
-        const ry = Math.min(r.y1, r.y2);
-        const rw = Math.abs(r.x2 - r.x1);
-        const rh = Math.abs(r.y2 - r.y1);
+      const appendMapBoxOverlayRect = (rx, ry, rw, rh) => {
         contentGroup
           .append('rect')
           .attr('class', 'map-box-drag-rect')
@@ -6267,6 +6804,18 @@ export default {
           .attr('stroke-width', 2)
           .attr('stroke-dasharray', '6 4')
           .attr('pointer-events', 'none');
+      };
+
+      if (this.mapBoxDragRect) {
+        const r = this.mapBoxDragRect;
+        const rx = Math.min(r.x1, r.x2);
+        const ry = Math.min(r.y1, r.y2);
+        const rw = Math.abs(r.x2 - r.x1);
+        const rh = Math.abs(r.y2 - r.y1);
+        appendMapBoxOverlayRect(rx, ry, rw, rh);
+      } else if (this.mapRagRect2d) {
+        const box = this.dataRect2dToPlotRect(this.mapRagRect2d);
+        if (box) appendMapBoxOverlayRect(box.rx, box.ry, box.rw, box.rh);
       }
 
       if (this.mapBoxSelectMode) {
@@ -7073,6 +7622,78 @@ svg {
 
 .strategy-auto-btn:hover {
   background: rgba(15,23,42,0.82);
+}
+
+.strategy-card-continue-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 8px 10px 10px;
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(248, 250, 252, 0.95);
+}
+
+.strategy-continue-tool-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.strategy-continue-tool-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  flex: 0 0 auto;
+}
+
+.strategy-continue-tool-btns {
+  display: flex;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.strategy-continue-tool-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 4px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid rgba(148, 163, 184, 0.85);
+  border-radius: 6px;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.strategy-continue-tool-btn.is-active {
+  border-color: rgba(99, 102, 241, 0.75);
+  background: rgba(99, 102, 241, 0.12);
+  color: #312e81;
+}
+
+.strategy-continue-tool-btn:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+}
+
+.strategy-continue-send-btn {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+}
+
+.strategy-continue-send-btn:hover {
+  filter: brightness(1.05);
 }
 
 .strategy-mini-svg {
